@@ -1,0 +1,16 @@
+---
+description: 更新日志写入纪律；changelog/ 为唯一可主动更新的 markdown 目录
+alwaysApply: true
+---
+
+# Changelog Write Discipline
+
+当轮收尾前读 `src/design-system/changelog/README.md`（模板、触发阈值、责任方、DoD）。
+
+**触发**：已落地且已验，或做出/推翻决策（含小 token/尺寸修正）→ 须补当日 `changelog/YYYY-MM-DD.md`。
+
+**责任**：Cursor 落盘 + 与当轮改动**同一 commit**；决策/why 由用户收口提供后写入。token 写名不写 hex；验收用 ✅已验「验法」/ 🔶待验 / ⏳待做。
+
+**预览**：新建 md 后 `/changelog` 自动出现该日期（glob 扫 `20*.md`），无需改 `ChangelogPage.tsx`。
+
+**Markdown 例外**：用户规则「勿编辑未要求的 markdown」——**仅** `src/design-system/changelog/` 目录例外；满足触发阈值时**主动更新**，无需用户点名。其余 markdown 照旧须用户要求或 `review-checklist.md` 同步规则。
