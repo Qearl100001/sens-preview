@@ -1,0 +1,75 @@
+/* 预览板：R3 触发框矩阵静态态 */
+
+.sens-select-trigger-matrix {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sens-select-matrix-space-2x, 8px);
+}
+
+.sens-select-trigger-matrix-group + .sens-select-trigger-matrix-group {
+  margin-top: var(--sens-select-matrix-space-2x, 8px);
+}
+
+.sens-select-trigger-matrix-size-pair + .sens-select-trigger-matrix-size-pair {
+  margin-top: var(--sens-select-matrix-space-2x, 8px);
+}
+
+.sens-select-trigger-matrix-row + .sens-select-trigger-matrix-row {
+  margin-top: var(--sens-select-matrix-space-2x, 8px);
+}
+
+.sens-select-trigger-matrix-title {
+  display: block;
+  margin-bottom: var(--sens-select-matrix-space-2x, 8px);
+  font-size: 12px;
+  line-height: 18px;
+  color: var(--ant-color-text-secondary);
+  font-weight: 500;
+}
+
+.sens-select-trigger-matrix-states {
+  display: flex;
+  gap: var(--sens-select-matrix-space-6x, 24px);
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  padding-bottom: var(--sens-select-matrix-space-2x, 8px);
+}
+
+.sens-select-trigger-matrix-cell {
+  width: var(--sens-select-trigger-matrix-cell-width, 200px);
+  flex: 0 0 auto;
+}
+
+.sens-select-trigger-matrix-label {
+  display: block;
+  margin-bottom: var(--sens-select-matrix-space-2x, 8px);
+  font-size: 12px;
+  line-height: 18px;
+  color: var(--ant-color-text-secondary);
+}
+
+.sens-select-trigger-matrix-preview--hover
+  .sens-select-trigger.ant-select:not(.ant-select-disabled)
+  .ant-select-selector {
+  border-color: var(--sens-select-trigger-preview-hover-border) !important;
+}
+
+.sens-select-trigger-matrix-preview--focus
+  .sens-select-trigger.ant-select:not(.ant-select-disabled)
+  .ant-select-selector {
+  border-color: var(--sens-select-trigger-preview-focus-border) !important;
+  box-shadow: var(--sens-select-trigger-preview-focus-shadow) !important;
+}
+
+.sens-select-trigger-matrix-preview--disabled-hover
+  .sens-select-trigger.ant-select-disabled
+  .ant-select-selector {
+  border-color: var(--sens-select-trigger-preview-disabled-hover-border) !important;
+  background-color: var(--sens-select-trigger-preview-disabled-hover-bg) !important;
+}
+
+.sens-select-trigger-matrix-preview--disabled-hover
+  .sens-select-trigger.ant-select-disabled
+  .ant-select-selection-placeholder {
+  color: var(--sens-select-trigger-preview-placeholder-disabled-hover) !important;
+}

@@ -1,0 +1,180 @@
+.sens-badge-count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: var(--sens-badge-count-min-width);
+  height: var(--sens-badge-count-height);
+  padding-inline: var(--sens-badge-count-padding-inline-compact);
+  border-radius: var(--sens-badge-count-radius-compact);
+  background: var(--sens-badge-count-bg);
+  color: var(--sens-badge-count-text);
+  font-size: var(--sens-badge-count-font-size);
+  line-height: var(--sens-badge-count-line-height);
+  white-space: nowrap;
+}
+
+.sens-badge-count--overflow {
+  padding-inline: var(--sens-badge-count-padding-inline-overflow);
+  border-radius: var(--sens-badge-count-radius-overflow);
+}
+
+.sens-badge-weak-count {
+  --sens-badge-weak-bg: var(--sens-badge-weak-bg-default);
+  --sens-badge-weak-text: var(--sens-badge-weak-text-default);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: var(--sens-badge-weak-min-width);
+  height: var(--sens-badge-weak-height);
+  padding-inline: var(--sens-badge-weak-padding-inline-compact);
+  border: 0;
+  border-radius: var(--sens-badge-weak-radius-compact);
+  background: var(--sens-badge-weak-bg);
+  color: var(--sens-badge-weak-text);
+  font-size: var(--sens-badge-weak-font-size);
+  line-height: var(--sens-badge-weak-line-height);
+  box-shadow: none;
+  white-space: nowrap;
+}
+
+.sens-badge-preview-panel {
+  width: min(100%, var(--sens-badge-preview-panel-width));
+  min-height: auto;
+  padding: var(--sens-badge-preview-panel-padding);
+  border-radius: var(--sens-badge-preview-panel-radius);
+  background: var(--sens-badge-preview-panel-bg);
+  display: grid;
+  gap: 20px;
+}
+
+.sens-badge-section {
+  display: grid;
+  gap: 12px;
+}
+
+.sens-badge-section-title {
+  display: inline-flex;
+  width: fit-content;
+  padding: 8px 16px;
+  border: 1px solid var(--sens-badge-title-border);
+  border-radius: 6px;
+  font-size: 14px;
+  line-height: 22px;
+  font-weight: 600;
+  color: var(--sens-badge-text-default);
+}
+
+.sens-badge-section-body {
+  border: 1px dashed var(--sens-badge-panel-border);
+  border-radius: 8px;
+  padding: 12px 14px;
+  display: grid;
+  gap: 12px;
+}
+
+.sens-badge-section-body--basic {
+  max-width: 160px;
+}
+
+.sens-badge-row {
+  display: grid;
+  grid-template-columns: 56px 1fr;
+  align-items: center;
+}
+
+.sens-badge-row-label {
+  color: var(--sens-badge-text-default);
+}
+
+.sens-badge-row > :not(.sens-badge-row-label) {
+  justify-self: start;
+}
+
+.sens-badge-weak--overflow {
+  padding-inline: var(--sens-badge-weak-padding-inline-overflow);
+  border-radius: var(--sens-badge-weak-radius-overflow);
+}
+
+.sens-badge-weak--active {
+  --sens-badge-weak-bg: var(--sens-badge-weak-bg-active);
+  --sens-badge-weak-text: var(--sens-badge-weak-text-active);
+}
+
+.sens-badge-weak--disabled {
+  --sens-badge-weak-bg: var(--sens-badge-weak-bg-disabled);
+  --sens-badge-weak-text: var(--sens-badge-weak-text-disabled);
+}
+
+.sens-badge-independent-matrix {
+  display: grid;
+  gap: 12px;
+}
+
+.sens-badge-independent-head,
+.sens-badge-independent-row {
+  display: grid;
+  grid-template-columns: 72px 1fr 1fr 1fr;
+  align-items: center;
+}
+
+.sens-badge-independent-row > :not(.sens-badge-independent-label) {
+  justify-self: start;
+}
+
+.sens-badge-independent-label,
+.sens-badge-independent-head {
+  color: var(--sens-badge-weak-text-default);
+}
+
+.sens-badge-independent-head-spacer {
+  display: block;
+}
+
+.sens-badge-state-label--default {
+  color: var(--sens-badge-text-default);
+}
+
+.sens-badge-state-label--active {
+  color: var(--sens-badge-text-active);
+}
+
+.sens-badge-state-label--disabled {
+  color: var(--sens-badge-text-disabled);
+}
+
+.sens-badge-dot-head,
+.sens-badge-dot-row {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  align-items: center;
+}
+
+.sens-badge-dot-head {
+  color: var(--sens-badge-text-default);
+}
+
+.sens-badge-dot-row > * {
+  justify-self: start;
+}
+
+/* 点徽标 · 子夜黑（徽标独有：中性色 icon-color-transparent，非 antd status） */
+.sens-badge-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  line-height: 0;
+}
+
+.sens-badge-status-dot {
+  width: var(--sens-badge-dot-size, 8px);
+  height: var(--sens-badge-dot-size, 8px);
+  border-radius: 50%;
+  background: var(--sens-badge-dot-color);
+  flex-shrink: 0;
+}
+
+.sens-badge-status-text {
+  font-size: 14px;
+  line-height: 22px;
+  color: var(--ant-color-text, rgba(0, 0, 0, 0.88));
+}

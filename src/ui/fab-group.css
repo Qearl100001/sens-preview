@@ -1,0 +1,131 @@
+/* 横向组合 FAB：容器 D4 + 分段几何/配色（独立于单项 sens-btn-fab） */
+
+.sens-fab-group {
+  display: inline-flex;
+  align-items: stretch;
+  width: fit-content;
+  vertical-align: middle;
+}
+
+.sens-fab-group-segment-wrap {
+  display: inline-flex;
+}
+
+.sens-fab-group--horizontal .sens-fab-group-segment.ant-btn {
+  box-shadow: none !important;
+  min-width: 0;
+  height: var(--sens-fab-height, var(--ant-control-height, 32px));
+  min-height: var(--sens-fab-height, var(--ant-control-height, 32px));
+  flex-shrink: 0;
+}
+
+/* 竖向组合：列排、交叉轴宽 = --sens-fab-height */
+.sens-fab-group--vertical {
+  flex-direction: column;
+  align-items: stretch;
+  width: var(--sens-fab-height);
+  gap: 0;
+}
+
+.sens-fab-group--vertical .sens-fab-group-segment.ant-btn {
+  box-shadow: none !important;
+  width: 100%;
+  height: auto;
+  min-height: 0;
+  flex-shrink: 0;
+  padding-inline: 0 !important;
+}
+
+.sens-fab-group--vertical .sens-fab-group-segment-wrap {
+  display: flex;
+  width: 100%;
+}
+
+.sens-fab-group--vertical .sens-fab-group-segment-wrap + .sens-fab-group-segment-wrap {
+  margin-block-start: 0;
+}
+
+.sens-fab-group-segment--vertical.ant-btn-variant-text,
+.sens-fab-group-segment--vertical.ant-btn-variant-text:not(:disabled):hover,
+.sens-fab-group-segment--vertical.ant-btn-variant-text:not(:disabled):active {
+  background-color: var(--sens-fab-group-vertical-bg, var(--ant-color-bg-container)) !important;
+  border-color: transparent;
+}
+
+.sens-fab-group-segment--vertical.ant-btn-variant-text > .ant-btn-icon {
+  color: currentColor;
+  line-height: 0;
+}
+
+.sens-fab-group-segment--vertical.ant-btn-variant-text > .ant-btn-icon svg {
+  width: var(--sens-fab-icon-size);
+  height: var(--sens-fab-icon-size);
+}
+
+/* 一级：内缝消双线（横向） */
+.sens-fab-group--horizontal .sens-fab-group-segment--primary + .sens-fab-group-segment--primary,
+.sens-fab-group--horizontal .sens-fab-group-segment-wrap + .sens-fab-group-segment--primary,
+.sens-fab-group--horizontal .sens-fab-group-segment--primary + .sens-fab-group-segment-wrap {
+  margin-inline-start: 0;
+}
+
+/* 二级：无描边白底全态 */
+.sens-fab-group-segment--secondary.ant-btn-variant-text,
+.sens-fab-group-segment--secondary.ant-btn-variant-text:not(:disabled):hover,
+.sens-fab-group-segment--secondary.ant-btn-variant-text:not(:disabled):active,
+.sens-fab-group-segment--secondary.ant-btn-variant-text:disabled {
+  background-color: var(--sens-fab-group-secondary-bg, var(--ant-color-bg-container)) !important;
+  border-color: transparent;
+}
+
+.sens-fab-group-segment--secondary.ant-btn-variant-text > .ant-btn-icon {
+  color: currentColor;
+}
+
+/* 预览区布局 */
+.sens-fab-group-section {
+  margin-top: var(--sens-fab-group-space-5x, var(--sens-btn-space-5x, 20px));
+  padding-top: var(--sens-fab-group-space-5x, var(--sens-btn-space-5x, 20px));
+  border-top: 1px solid var(--ant-color-border-secondary);
+}
+
+.sens-fab-group-section-title {
+  display: block;
+  margin-bottom: var(--sens-fab-group-space-2x, 8px);
+  font-size: 12px;
+  line-height: 18px;
+  color: var(--ant-color-text-secondary);
+  font-weight: 500;
+}
+
+.sens-fab-group-preview-row + .sens-fab-group-preview-row {
+  margin-top: var(--sens-fab-group-space-5x, 20px);
+}
+
+.sens-fab-group-preview-row-title {
+  display: block;
+  margin-bottom: var(--sens-fab-group-space-2x, 8px);
+  font-size: 12px;
+  line-height: 18px;
+  color: var(--ant-color-text-secondary);
+  font-weight: 500;
+}
+
+.sens-fab-group-preview-cells {
+  display: flex;
+  gap: var(--sens-fab-group-space-6x, 24px);
+  flex-wrap: wrap;
+  align-items: flex-start;
+}
+
+.sens-fab-group-preview-cell-label {
+  display: block;
+  margin-bottom: 4px;
+  font-size: 12px;
+  line-height: 18px;
+  color: var(--ant-color-text-tertiary);
+}
+
+.sens-fab-group-preview-cell + .sens-fab-group-preview-cell {
+  flex: 0 0 auto;
+}

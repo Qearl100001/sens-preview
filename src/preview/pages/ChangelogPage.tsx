@@ -5,6 +5,7 @@ import { DesignSystemDoc } from "../DesignSystemDoc";
 const { Content } = Layout;
 const { Text, Title } = Typography;
 
+// eager glob 在 dev 启动时固定文件列表；新建 md 后需刷新页面（vite changelog-glob-reload 插件会整页 reload）
 const changelogModules = import.meta.glob("../../design-system/changelog/20*.md", {
   eager: true,
   query: "?raw",

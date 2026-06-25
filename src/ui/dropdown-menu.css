@@ -1,0 +1,134 @@
+/* 动作下拉菜单：仅 .sens-dropdown-menu / .sens-dropdown-menu-overlay 作用域；不碰 .ant-select-dropdown */
+
+.sens-dropdown-menu {
+  box-sizing: border-box;
+  min-width: 120px;
+  background: var(--sens-dropdown-menu-bg, var(--ant-color-bg-container, #fff));
+  border-radius: var(--sens-dropdown-menu-radius, 4px);
+  box-shadow: var(--sens-dropdown-menu-shadow) !important;
+  padding-block-start: var(--sens-dropdown-menu-padding-block-start, 6px);
+  padding-block-end: var(--sens-dropdown-menu-padding-block-end, 10px);
+  padding-inline: var(--sens-dropdown-menu-padding-inline, 0);
+}
+
+.sens-dropdown-menu .sens-dropdown-menu-item {
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+  width: 100%;
+  min-height: var(--sens-dropdown-menu-item-height, 34px);
+  padding-block: var(--sens-dropdown-menu-item-padding-block, 6px);
+  padding-inline: var(--sens-dropdown-menu-item-padding-inline, 12px);
+  border-radius: 0;
+  background-color: var(--sens-dropdown-menu-item-bg, var(--ant-color-bg-container, #fff));
+  transition: background-color 0.2s, color 0.2s;
+}
+
+/* 可用行：行 + 文案区均 pointer（portaled 浮层与静态面板同一套后代选择器） */
+.sens-dropdown-menu .sens-dropdown-menu-item:not(.sens-dropdown-menu-item--disabled):not(.sens-dropdown-menu-item--loading),
+.sens-dropdown-menu .sens-dropdown-menu-item:not(.sens-dropdown-menu-item--disabled):not(.sens-dropdown-menu-item--loading) .sens-dropdown-menu-item-label {
+  cursor: pointer;
+}
+
+.sens-dropdown-menu .sens-dropdown-menu-item-label {
+  flex: 1 1 auto;
+  min-width: 0;
+  font-size: 14px;
+  line-height: 22px;
+  cursor: inherit;
+}
+
+/* default · 中性黑 */
+.sens-dropdown-menu .sens-dropdown-menu-item--default {
+  color: var(--sens-dropdown-menu-item-color-default);
+}
+
+.sens-dropdown-menu .sens-dropdown-menu-item--default:not(.sens-dropdown-menu-item--disabled):hover {
+  background-color: var(--sens-dropdown-menu-item-hover-bg);
+  color: var(--sens-dropdown-menu-item-color-default);
+}
+
+.sens-dropdown-menu .sens-dropdown-menu-item--default:not(.sens-dropdown-menu-item--disabled):active {
+  background-color: var(--sens-dropdown-menu-item-active-bg);
+  color: var(--sens-dropdown-menu-item-color-default);
+}
+
+/* link · 链接蓝 */
+.sens-dropdown-menu .sens-dropdown-menu-item--link {
+  color: var(--sens-dropdown-menu-item-color-link);
+}
+
+.sens-dropdown-menu .sens-dropdown-menu-item--link:not(.sens-dropdown-menu-item--disabled):hover {
+  background-color: var(--sens-dropdown-menu-item-hover-bg);
+  color: var(--sens-dropdown-menu-item-color-link-hover);
+}
+
+.sens-dropdown-menu .sens-dropdown-menu-item--link:not(.sens-dropdown-menu-item--disabled):active {
+  background-color: var(--sens-dropdown-menu-item-active-bg);
+  color: var(--sens-dropdown-menu-item-color-link-active);
+}
+
+/* danger · 警告红字 + 中性灰行底 */
+.sens-dropdown-menu .sens-dropdown-menu-item--danger {
+  color: var(--sens-dropdown-menu-item-color-danger);
+}
+
+.sens-dropdown-menu .sens-dropdown-menu-item--danger:not(.sens-dropdown-menu-item--disabled):hover {
+  background-color: var(--sens-dropdown-menu-item-hover-bg);
+  color: var(--sens-dropdown-menu-item-color-danger-hover);
+}
+
+.sens-dropdown-menu .sens-dropdown-menu-item--danger:not(.sens-dropdown-menu-item--disabled):active {
+  background-color: var(--sens-dropdown-menu-item-active-bg);
+  color: var(--sens-dropdown-menu-item-color-danger-active);
+}
+
+/* 禁用：灰字 + not-allowed；hover 仍灰底（显反馈但不可点） */
+.sens-dropdown-menu .sens-dropdown-menu-item--disabled,
+.sens-dropdown-menu .sens-dropdown-menu-item--disabled .sens-dropdown-menu-item-label {
+  color: var(--sens-dropdown-menu-item-color-disabled) !important;
+  cursor: not-allowed;
+}
+
+.sens-dropdown-menu .sens-dropdown-menu-item--disabled:hover {
+  background-color: var(--sens-dropdown-menu-item-hover-bg) !important;
+  color: var(--sens-dropdown-menu-item-color-disabled) !important;
+  cursor: not-allowed;
+}
+
+/* 加载：跨 variant 一致置灰 + 转圈，不可点 */
+.sens-dropdown-menu .sens-dropdown-menu-item--loading,
+.sens-dropdown-menu .sens-dropdown-menu-item--loading.sens-dropdown-menu-item--default,
+.sens-dropdown-menu .sens-dropdown-menu-item--loading.sens-dropdown-menu-item--link,
+.sens-dropdown-menu .sens-dropdown-menu-item--loading.sens-dropdown-menu-item--danger,
+.sens-dropdown-menu .sens-dropdown-menu-item--loading .sens-dropdown-menu-item-loading,
+.sens-dropdown-menu .sens-dropdown-menu-item--loading .sens-dropdown-menu-item-loading-icon {
+  color: var(--sens-dropdown-menu-item-color-loading) !important;
+  cursor: not-allowed;
+}
+
+.sens-dropdown-menu .sens-dropdown-menu-item--loading .sens-dropdown-menu-item-loading {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sens-dropdown-menu-item-loading-gap, 8px);
+  flex: 1 1 auto;
+  min-width: 0;
+  font-size: 14px;
+  line-height: 22px;
+  color: inherit;
+}
+
+.sens-dropdown-menu .sens-dropdown-menu-item--loading .sens-dropdown-menu-item-loading-icon {
+  flex: none;
+  font-size: 14px;
+  color: inherit;
+}
+
+.sens-dropdown-menu .sens-dropdown-menu-item--loading:hover,
+.sens-dropdown-menu .sens-dropdown-menu-item--loading.sens-dropdown-menu-item--default:hover,
+.sens-dropdown-menu .sens-dropdown-menu-item--loading.sens-dropdown-menu-item--link:hover,
+.sens-dropdown-menu .sens-dropdown-menu-item--loading.sens-dropdown-menu-item--danger:hover {
+  background-color: var(--sens-dropdown-menu-item-hover-bg);
+  color: var(--sens-dropdown-menu-item-color-loading) !important;
+  cursor: not-allowed;
+}

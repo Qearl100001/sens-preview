@@ -1,0 +1,113 @@
+/* 预览板：10 格静态态；不污染 portaled 全局 .ant-select-dropdown */
+
+.sens-select-dropdown-matrix {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sens-select-matrix-space-2x, 8px);
+}
+
+.sens-select-dropdown-matrix-row + .sens-select-dropdown-matrix-row {
+  margin-top: var(--sens-select-matrix-space-2x, 8px);
+}
+
+.sens-select-dropdown-matrix-title {
+  display: block;
+  margin-bottom: var(--sens-select-matrix-space-2x, 8px);
+  font-size: 12px;
+  line-height: 18px;
+  color: var(--ant-color-text-secondary);
+  font-weight: 500;
+}
+
+.sens-select-dropdown-matrix-states {
+  display: flex;
+  gap: var(--sens-select-matrix-space-6x, 24px);
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  padding-bottom: var(--sens-select-matrix-space-2x, 8px);
+}
+
+.sens-select-dropdown-matrix-cell {
+  width: var(--sens-select-matrix-cell-width, 160px);
+  flex: 0 0 auto;
+}
+
+.sens-select-dropdown-matrix-label {
+  display: block;
+  margin-bottom: var(--sens-select-matrix-space-2x, 8px);
+  font-size: 12px;
+  line-height: 18px;
+  color: var(--ant-color-text-secondary);
+}
+
+/* 矩阵内浮层壳：非 portaled，继承单元格 CSS 变量 */
+.sens-select-dropdown-matrix-shell.ant-select-dropdown {
+  position: relative;
+  top: auto;
+  left: auto;
+  width: 100%;
+  box-shadow: var(--sens-select-popup-shadow) !important;
+  border-radius: var(--sens-select-popup-radius, 4px) !important;
+}
+
+.sens-select-dropdown-matrix-preview--hover
+  .sens-select-dropdown-matrix-shell
+  .ant-select-item-option:not(.ant-select-item-option-disabled):not(.ant-select-item-option-selected) {
+  background-color: var(--sens-select-option-hover-bg) !important;
+}
+
+.sens-select-dropdown-matrix-preview--hover
+  .sens-select-dropdown-matrix-shell
+  .ant-select-item-option-selected:not(.ant-select-item-option-disabled) {
+  background-color: var(--sens-select-option-selected-hover-bg) !important;
+}
+
+.sens-select-dropdown-matrix-preview--click
+  .sens-select-dropdown-matrix-shell
+  .ant-select-item-option:not(.ant-select-item-option-disabled):not(.ant-select-item-option-selected) {
+  background-color: var(--sens-select-option-click-bg) !important;
+}
+
+.sens-select-dropdown-matrix-preview--click
+  .sens-select-dropdown-matrix-shell
+  .ant-select-item-option-selected:not(.ant-select-item-option-disabled) {
+  background-color: var(--sens-select-option-selected-active-bg) !important;
+}
+
+.sens-select-dropdown-matrix-preview--disabled-hover
+  .sens-select-dropdown-matrix-shell
+  .ant-select-item-option-disabled {
+  background-color: var(--sens-select-option-hover-bg) !important;
+  color: var(--sens-select-option-disabled-hover-color) !important;
+}
+
+.sens-select-dropdown-matrix-preview--disabled-hover
+  .sens-select-dropdown-matrix-shell
+  .ant-select-item-option-disabled.ant-select-item-option-selected
+  .ant-select-item-option-state,
+.sens-select-dropdown-matrix-preview--disabled-hover
+  .sens-select-dropdown-matrix-shell
+  .ant-select-item-option-disabled.ant-select-item-option-selected
+  .sens-select-option-check {
+  color: var(--sens-select-option-check-color-disabled-hover) !important;
+}
+
+/* R2 · 内容区六面矩阵 */
+.sens-select-dropdown-content-matrix {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sens-select-matrix-space-2x, 8px);
+}
+
+.sens-select-dropdown-content-matrix-states {
+  display: flex;
+  gap: var(--sens-select-matrix-space-6x, 24px);
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  padding-bottom: var(--sens-select-matrix-space-2x, 8px);
+}
+
+.sens-select-dropdown-content-matrix-cell {
+  width: var(--sens-select-content-matrix-cell-width, 200px);
+  flex: 0 0 auto;
+}

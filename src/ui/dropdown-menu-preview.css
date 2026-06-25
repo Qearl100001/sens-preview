@@ -1,0 +1,121 @@
+/* 预览板：21 格静态态；不污染 portaled 浮层与 .ant-select-dropdown */
+
+.sens-dropdown-menu-matrix {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sens-dropdown-menu-matrix-space-2x, 8px);
+}
+
+.sens-dropdown-menu-matrix-row + .sens-dropdown-menu-matrix-row {
+  margin-top: var(--sens-dropdown-menu-matrix-space-2x, 8px);
+}
+
+.sens-dropdown-menu-matrix-title {
+  display: block;
+  margin-bottom: var(--sens-dropdown-menu-matrix-space-2x, 8px);
+  font-size: 12px;
+  line-height: 18px;
+  color: var(--ant-color-text-secondary);
+  font-weight: 500;
+}
+
+.sens-dropdown-menu-matrix-variant-label {
+  display: block;
+  margin-bottom: var(--sens-dropdown-menu-matrix-space-2x, 8px);
+  font-size: 12px;
+  line-height: 18px;
+  color: var(--ant-color-text-secondary);
+  font-weight: 500;
+}
+
+.sens-dropdown-menu-matrix-states {
+  display: flex;
+  gap: var(--sens-dropdown-menu-matrix-space-6x, 24px);
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  padding-bottom: var(--sens-dropdown-menu-matrix-space-2x, 8px);
+}
+
+.sens-dropdown-menu-matrix-cell {
+  width: var(--sens-dropdown-menu-matrix-cell-width, 160px);
+  flex: 0 0 auto;
+}
+
+.sens-dropdown-menu-matrix-label {
+  display: block;
+  margin-bottom: var(--sens-dropdown-menu-matrix-space-2x, 8px);
+  font-size: 12px;
+  line-height: 18px;
+  color: var(--ant-color-text-secondary);
+}
+
+.sens-dropdown-menu-matrix-shell.sens-dropdown-menu {
+  position: relative;
+  width: 100%;
+  box-shadow: var(--sens-dropdown-menu-shadow) !important;
+  border-radius: var(--sens-dropdown-menu-radius, 4px) !important;
+}
+
+.sens-dropdown-menu-matrix-preview--hover
+  .sens-dropdown-menu-matrix-shell
+  .sens-dropdown-menu-item:not(.sens-dropdown-menu-item--disabled) {
+  background-color: var(--sens-dropdown-menu-item-hover-bg) !important;
+}
+
+.sens-dropdown-menu-matrix-preview--hover
+  .sens-dropdown-menu-matrix-shell
+  .sens-dropdown-menu-item--default:not(.sens-dropdown-menu-item--disabled) {
+  color: var(--sens-dropdown-menu-item-color-default) !important;
+}
+
+.sens-dropdown-menu-matrix-preview--hover
+  .sens-dropdown-menu-matrix-shell
+  .sens-dropdown-menu-item--link:not(.sens-dropdown-menu-item--disabled) {
+  color: var(--sens-dropdown-menu-item-color-link-hover) !important;
+}
+
+.sens-dropdown-menu-matrix-preview--hover
+  .sens-dropdown-menu-matrix-shell
+  .sens-dropdown-menu-item--danger:not(.sens-dropdown-menu-item--disabled) {
+  color: var(--sens-dropdown-menu-item-color-danger-hover) !important;
+}
+
+.sens-dropdown-menu-matrix-preview--active
+  .sens-dropdown-menu-matrix-shell
+  .sens-dropdown-menu-item:not(.sens-dropdown-menu-item--disabled) {
+  background-color: var(--sens-dropdown-menu-item-active-bg) !important;
+}
+
+.sens-dropdown-menu-matrix-preview--active
+  .sens-dropdown-menu-matrix-shell
+  .sens-dropdown-menu-item--default:not(.sens-dropdown-menu-item--disabled) {
+  color: var(--sens-dropdown-menu-item-color-default) !important;
+}
+
+.sens-dropdown-menu-matrix-preview--active
+  .sens-dropdown-menu-matrix-shell
+  .sens-dropdown-menu-item--link:not(.sens-dropdown-menu-item--disabled) {
+  color: var(--sens-dropdown-menu-item-color-link-active) !important;
+}
+
+.sens-dropdown-menu-matrix-preview--active
+  .sens-dropdown-menu-matrix-shell
+  .sens-dropdown-menu-item--danger:not(.sens-dropdown-menu-item--disabled) {
+  color: var(--sens-dropdown-menu-item-color-danger-active) !important;
+}
+
+.sens-dropdown-menu-matrix-preview--disabled-hover
+  .sens-dropdown-menu-matrix-shell
+  .sens-dropdown-menu-item--disabled {
+  background-color: var(--sens-dropdown-menu-item-hover-bg) !important;
+  color: var(--sens-dropdown-menu-item-color-disabled) !important;
+  cursor: not-allowed;
+}
+
+.sens-dropdown-menu-matrix-preview--loading-hover
+  .sens-dropdown-menu-matrix-shell
+  .sens-dropdown-menu-item--loading {
+  background-color: var(--sens-dropdown-menu-item-hover-bg) !important;
+  color: var(--sens-dropdown-menu-item-color-loading) !important;
+  cursor: not-allowed;
+}

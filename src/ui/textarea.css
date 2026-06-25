@@ -1,0 +1,183 @@
+/* SensTextArea：4.5 行 minHeight、垂直 padding 5px、框内警告右上锚定；禁单行锁高 */
+
+.sens-textarea.ant-input {
+  box-sizing: border-box;
+  min-height: var(--sens-textarea-min-height);
+  padding-block: var(--sens-textarea-padding-block);
+  padding-inline: var(--sens-textarea-padding-inline);
+  line-height: var(--sens-textarea-line-height);
+  resize: vertical;
+}
+
+.sens-textarea.ant-input-textarea-affix-wrapper {
+  min-height: var(--sens-textarea-min-height);
+}
+
+.sens-textarea.ant-input-textarea-affix-wrapper > textarea.ant-input {
+  padding-block: var(--sens-textarea-padding-block);
+  padding-inline: var(--sens-textarea-padding-inline);
+  line-height: var(--sens-textarea-line-height);
+  min-height: calc(
+    var(--sens-textarea-min-height) - var(--sens-textarea-border-size) * 2
+  );
+}
+
+.sens-textarea.ant-input-sm,
+.sens-textarea.ant-input-textarea-affix-wrapper.ant-input-affix-wrapper-sm > textarea.ant-input {
+  line-height: var(--sens-textarea-line-height-sm);
+}
+
+.sens-textarea.ant-input-textarea-affix-wrapper.ant-input-affix-wrapper-sm {
+  min-height: var(--sens-textarea-min-height-sm);
+}
+
+.sens-textarea.ant-input-textarea-affix-wrapper.ant-input-affix-wrapper-sm > textarea.ant-input {
+  min-height: calc(
+    var(--sens-textarea-min-height-sm) - var(--sens-textarea-border-size) * 2
+  );
+}
+
+.sens-textarea-field {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--sens-input-help-gap, 4px);
+  width: 100%;
+}
+
+/* 框内警告：右上锚定，与首行垂直居中 */
+.sens-textarea-inside-warning-wrap {
+  position: relative;
+  width: 100%;
+}
+
+.sens-textarea-inside-warning-wrap.sens-textarea-has-inside-warning .sens-textarea,
+.sens-textarea-inside-warning-wrap.sens-textarea-has-inside-warning
+  .sens-textarea.ant-input-textarea-affix-wrapper
+  > textarea.ant-input {
+  padding-inline-end: var(--sens-textarea-inside-warning-reserve);
+}
+
+.sens-textarea-inside-warning-icon {
+  position: absolute;
+  z-index: 1;
+  top: calc(
+    var(--sens-textarea-padding-block) +
+      (var(--sens-textarea-line-height) - var(--sens-textarea-inside-warning-icon-size)) / 2
+  );
+  inset-inline-end: var(--sens-textarea-padding-inline);
+  display: inline-flex;
+  align-items: center;
+  line-height: 0;
+  pointer-events: auto;
+  color: var(--sens-input-error-color);
+}
+
+.sens-textarea-inside-warning-wrap.sens-textarea-sm .sens-textarea-inside-warning-icon {
+  top: calc(
+    var(--sens-textarea-padding-block) +
+      (var(--sens-textarea-line-height-sm) - var(--sens-textarea-inside-warning-icon-size)) / 2
+  );
+}
+
+/* 常规 / 警告聚焦外环 */
+.sens-textarea.ant-input-outlined:focus,
+.sens-textarea.ant-input-textarea-affix-wrapper:focus-within,
+.sens-textarea.ant-input-textarea-affix-wrapper-focused {
+  box-shadow: var(--sens-textarea-active-shadow) !important;
+}
+
+.sens-textarea.ant-input-outlined.ant-input-status-error:focus,
+.sens-textarea.ant-input-textarea-affix-wrapper.ant-input-status-error:focus-within,
+.sens-textarea.ant-input-textarea-affix-wrapper-focused.ant-input-status-error {
+  box-shadow: var(--sens-input-error-active-shadow) !important;
+}
+
+/* 只读有背景 */
+.sens-textarea-readonly-filled.ant-input-outlined,
+.sens-textarea-readonly-filled.ant-input-textarea-affix-wrapper {
+  border: none !important;
+  box-shadow: none !important;
+  background-color: var(--sens-input-readonly-bg) !important;
+  color: var(--sens-input-readonly-text);
+  cursor: default;
+  resize: none;
+}
+
+.sens-textarea-readonly-filled.ant-input-outlined:hover,
+.sens-textarea-readonly-filled.ant-input-outlined:focus,
+.sens-textarea-readonly-filled.ant-input-textarea-affix-wrapper:hover,
+.sens-textarea-readonly-filled.ant-input-textarea-affix-wrapper:focus-within {
+  border: none !important;
+  box-shadow: none !important;
+  background-color: var(--sens-input-readonly-bg) !important;
+}
+
+.sens-textarea-readonly-filled.ant-input-textarea-affix-wrapper > textarea.ant-input {
+  color: var(--sens-input-readonly-text);
+  background: transparent;
+  resize: none;
+}
+
+/* 只读无背景 */
+.sens-textarea-readonly-plain.ant-input-borderless,
+.sens-textarea-readonly-plain.ant-input-textarea-affix-wrapper {
+  min-height: 0 !important;
+  padding: 0 !important;
+  border: none !important;
+  box-shadow: none !important;
+  background: transparent !important;
+  color: var(--sens-input-readonly-text);
+  cursor: default;
+  resize: none;
+}
+
+.sens-textarea-readonly-plain.ant-input-textarea-affix-wrapper > textarea.ant-input {
+  padding: 0 !important;
+  min-height: 0 !important;
+  color: var(--sens-input-readonly-text);
+  background: transparent;
+  resize: none;
+}
+
+.sens-textarea-readonly-filled.sens-textarea-readonly-warning.ant-input-outlined,
+.sens-textarea-readonly-filled.sens-textarea-readonly-warning.ant-input-textarea-affix-wrapper {
+  background-color: var(--sens-input-readonly-warning-bg) !important;
+}
+
+.sens-textarea-readonly-filled.sens-textarea-readonly-warning.ant-input-outlined:hover,
+.sens-textarea-readonly-filled.sens-textarea-readonly-warning.ant-input-outlined:focus,
+.sens-textarea-readonly-filled.sens-textarea-readonly-warning.ant-input-textarea-affix-wrapper:hover,
+.sens-textarea-readonly-filled.sens-textarea-readonly-warning.ant-input-textarea-affix-wrapper:focus-within {
+  background-color: var(--sens-input-readonly-warning-bg) !important;
+}
+
+/* 只读无背景 + 框内警告 */
+.sens-textarea-readonly-plain-block {
+  position: relative;
+  width: 100%;
+  color: var(--sens-input-readonly-text);
+}
+
+.sens-textarea-readonly-plain-text {
+  display: block;
+  white-space: pre-wrap;
+  word-break: break-word;
+  font-size: 14px;
+  line-height: 22px;
+  color: var(--sens-input-readonly-text);
+  padding-inline-end: var(--sens-textarea-inside-warning-reserve, 0);
+}
+
+.sens-textarea-readonly-plain-text-sm {
+  font-size: 12px;
+  line-height: 18px;
+}
+
+.sens-textarea-readonly-plain-block .sens-textarea-inside-warning-icon {
+  top: calc((var(--sens-textarea-line-height) - var(--sens-textarea-inside-warning-icon-size)) / 2);
+}
+
+.sens-textarea-readonly-plain-block.sens-textarea-sm .sens-textarea-inside-warning-icon {
+  top: calc((var(--sens-textarea-line-height-sm) - var(--sens-textarea-inside-warning-icon-size)) / 2);
+}

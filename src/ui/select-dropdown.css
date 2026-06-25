@@ -1,0 +1,254 @@
+/* SensSelectDropdown：浮层容器 + 选项行 5 态；仅 .sens-select-dropdown 作用域 */
+
+/* Figma 17767:72632 · 通栏：左右无内边距，行 hover 底到边；上 6 / 下 10 */
+.sens-select-dropdown.ant-select-dropdown {
+  box-shadow: var(--sens-select-popup-shadow) !important;
+  border-radius: var(--sens-select-popup-radius, 4px) !important;
+  background: var(--ant-color-bg-elevated, #fff);
+  padding-block-start: var(--sens-select-popup-padding-block-start, 6px) !important;
+  padding-block-end: var(--sens-select-popup-padding-block-end, 10px) !important;
+  padding-inline: 0 !important;
+}
+
+/* R2 可搜索浮层：搜索贴顶，无上内边距（稿面 0px；非搜索仍 6px） */
+.sens-select-dropdown--searchable.ant-select-dropdown {
+  padding-block-start: 0 !important;
+}
+
+.sens-select-dropdown .ant-select-item-option {
+  display: flex;
+  align-items: center;
+  min-height: var(--sens-select-option-height, 34px);
+  padding-block: var(--sens-select-option-padding-block, 6px) !important;
+  padding-inline: var(--sens-select-option-padding-inline, 12px) !important;
+  border-radius: 0;
+}
+
+.sens-select-dropdown .ant-select-item-option-content {
+  flex: auto;
+  min-width: 0;
+}
+
+/* 对勾永远在最右；行 padding-inline 12px 即距浮层右缘 12px */
+.sens-select-dropdown .ant-select-item-option-state {
+  flex: none;
+  margin-inline-start: auto;
+  display: inline-flex;
+  align-items: center;
+}
+
+/* 未选中：悬停 / 点击（:active，非 option-active） */
+.sens-select-dropdown
+  .ant-select-item-option:not(.ant-select-item-option-selected):not(.ant-select-item-option-disabled):hover {
+  background-color: var(--sens-select-option-hover-bg) !important;
+}
+
+.sens-select-dropdown
+  .ant-select-item-option:not(.ant-select-item-option-selected):not(.ant-select-item-option-disabled):active {
+  background-color: var(--sens-select-option-click-bg) !important;
+}
+
+/* 键盘聚焦：与未选中悬停同色 */
+.sens-select-dropdown
+  .ant-select-item-option-active:not(.ant-select-item-option-selected):not(.ant-select-item-option-disabled) {
+  background-color: var(--sens-select-option-hover-bg) !important;
+}
+
+/* 已选中：默认 / 悬停 / 点击 */
+.sens-select-dropdown .ant-select-item-option-selected:not(.ant-select-item-option-disabled) {
+  background-color: var(--sens-select-option-selected-bg) !important;
+  font-weight: 600;
+}
+
+.sens-select-dropdown .ant-select-item-option-selected:not(.ant-select-item-option-disabled):hover {
+  background-color: var(--sens-select-option-selected-hover-bg) !important;
+}
+
+.sens-select-dropdown .ant-select-item-option-selected:not(.ant-select-item-option-disabled):active {
+  background-color: var(--sens-select-option-selected-active-bg) !important;
+}
+
+/* 勾选：中性图标 01_主要；覆盖 antd option-state 钉死的 colorPrimary */
+.sens-select-dropdown
+  .ant-select-item-option-selected:not(.ant-select-item-option-disabled)
+  .ant-select-item-option-state {
+  color: var(--sens-select-option-check-color) !important;
+}
+
+.sens-select-dropdown .sens-select-option-check {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 0;
+  color: var(--sens-select-option-check-color) !important;
+}
+
+.sens-select-dropdown
+  .ant-select-item-option-disabled.ant-select-item-option-selected
+  .ant-select-item-option-state,
+.sens-select-dropdown
+  .ant-select-item-option-disabled.ant-select-item-option-selected
+  .sens-select-option-check {
+  color: var(--sens-select-option-check-color-disabled) !important;
+}
+
+.sens-select-dropdown
+  .ant-select-item-option-disabled.ant-select-item-option-selected:hover
+  .ant-select-item-option-state,
+.sens-select-dropdown
+  .ant-select-item-option-disabled.ant-select-item-option-selected:hover
+  .sens-select-option-check {
+  color: var(--sens-select-option-check-color-disabled-hover) !important;
+}
+
+/* 禁用：默认白底 + disable 字；悬停灰底 + disable-hover 字；无 click/active */
+.sens-select-dropdown .ant-select-item-option-disabled {
+  background-color: var(--ant-color-bg-container, #fff) !important;
+  color: var(--sens-select-option-disabled-color) !important;
+  cursor: not-allowed;
+}
+
+.sens-select-dropdown .ant-select-item-option-disabled:hover {
+  background-color: var(--sens-select-option-hover-bg) !important;
+  color: var(--sens-select-option-disabled-hover-color) !important;
+  cursor: not-allowed;
+}
+
+.sens-select-dropdown .ant-select-item-option-disabled:active,
+.sens-select-dropdown .ant-select-item-option-disabled.ant-select-item-option-active {
+  background-color: var(--ant-color-bg-container, #fff) !important;
+  color: var(--sens-select-option-disabled-color) !important;
+}
+
+.sens-select-dropdown .ant-select-item-option-disabled:hover:active,
+.sens-select-dropdown .ant-select-item-option-disabled.ant-select-item-option-active:hover {
+  background-color: var(--sens-select-option-hover-bg) !important;
+  color: var(--sens-select-option-disabled-hover-color) !important;
+}
+
+.sens-select-dropdown .ant-select-item-option-disabled.ant-select-item-option-selected {
+  background-color: var(--ant-color-bg-container, #fff) !important;
+  font-weight: 400;
+  color: var(--sens-select-option-disabled-color) !important;
+}
+
+.sens-select-dropdown .ant-select-item-option-disabled.ant-select-item-option-selected:hover {
+  background-color: var(--sens-select-option-hover-bg) !important;
+  color: var(--sens-select-option-disabled-hover-color) !important;
+}
+
+.sens-select-dropdown .ant-select-item-option-disabled.ant-select-item-option-selected:active,
+.sens-select-dropdown
+  .ant-select-item-option-disabled.ant-select-item-option-selected.ant-select-item-option-active {
+  background-color: var(--ant-color-bg-container, #fff) !important;
+  color: var(--sens-select-option-disabled-color) !important;
+}
+
+.sens-select-dropdown .ant-select-item-option-disabled.ant-select-item-option-selected:hover:active,
+.sens-select-dropdown
+  .ant-select-item-option-disabled.ant-select-item-option-selected.ant-select-item-option-active:hover {
+  background-color: var(--sens-select-option-hover-bg) !important;
+  color: var(--sens-select-option-disabled-hover-color) !important;
+}
+
+.sens-select-dropdown .sens-select-option-check svg path {
+  stroke: currentColor;
+}
+
+/* R2 · 浮层内搜索：通栏（分割线铺满）；文案/图标内缩由 search.css minimal affix padding 承担 */
+.sens-select-dropdown-search {
+  box-sizing: border-box;
+}
+
+.sens-select-dropdown-search .sens-search-minimal-field {
+  width: 100% !important;
+}
+
+.sens-select-dropdown-body {
+  box-sizing: border-box;
+}
+
+.sens-select-dropdown-stats {
+  padding-inline: var(--sens-select-option-padding-inline, 12px);
+  /* 搜索底部分割线 → 统计：6px（spacing/1x + spacing/0.5x） */
+  padding-block-start: var(--sens-select-dropdown-stats-padding-block-start, 6px);
+  /* 统计 → 首条选项：0px */
+  padding-block-end: 0;
+  font-size: 12px;
+  line-height: 18px;
+  color: var(--sens-select-dropdown-stats-color);
+}
+
+.sens-select-dropdown-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sens-select-matrix-space-2x, 8px);
+  padding-block: var(--sens-select-matrix-space-6x, 24px);
+  color: var(--ant-color-text-secondary);
+}
+
+.sens-select-dropdown-loading-text {
+  font-size: 12px;
+  line-height: 18px;
+}
+
+/* R2 · 空态（Figma 非页面级 · 特殊尺寸） */
+.sens-select-dropdown-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.sens-select-dropdown-empty-illustration {
+  width: 50px;
+  height: 50px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.sens-select-dropdown-empty-text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  width: 140px;
+  text-align: center;
+}
+
+.sens-select-dropdown-empty-title {
+  margin: 0;
+  font-size: 14px;
+  line-height: 22px;
+  color: var(--ant-color-text);
+  word-break: break-word;
+}
+
+.sens-select-dropdown-empty-desc {
+  margin: 0;
+  font-size: 12px;
+  line-height: 18px;
+  color: var(--sens-select-dropdown-empty-desc-color, var(--sens-select-dropdown-stats-color));
+  word-break: break-word;
+}
+
+.sens-select-dropdown-empty-desc--action {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0;
+}
+
+.sens-select-dropdown-empty-action.ant-btn {
+  font-size: 12px;
+  line-height: 18px;
+}
+
+.sens-select-dropdown--searchable .ant-select-item-empty {
+  display: none;
+}

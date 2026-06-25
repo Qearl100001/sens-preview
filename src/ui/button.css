@@ -1,0 +1,171 @@
+/* 预览板专用：按钮变体矩阵布局与 min-width，不作用于 SensButton 真实组件。 */
+.sens-btn-matrix-row + .sens-btn-matrix-row {
+  margin-top: var(--sens-btn-space-5x);
+}
+
+.sens-btn-matrix-title {
+  display: block;
+  margin-bottom: var(--sens-btn-space-2x);
+  font-size: 12px;
+  line-height: 18px;
+  color: var(--ant-color-text-secondary);
+  font-weight: 500;
+}
+
+.sens-btn-matrix-states {
+  display: flex;
+  gap: var(--sens-btn-space-6x);
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  padding-bottom: var(--sens-btn-space-2x);
+}
+
+.sens-btn-matrix-cell {
+  width: 112px;
+}
+
+.sens-btn-matrix-label {
+  display: block;
+  margin-bottom: var(--sens-btn-space-2x);
+  font-size: 12px;
+  line-height: 18px;
+  color: var(--ant-color-text-secondary);
+}
+
+.sens-btn-preview .ant-btn {
+  min-width: var(--sens-btn-width-trigger);
+}
+
+/* 弱化链接：默认辅色，hover/点击走链接状态色（button.md · linkWeak） */
+.sens-btn-link-weak.ant-btn-variant-link:not(:disabled) {
+  color: var(--ant-color-text-secondary);
+}
+
+.sens-btn-link-weak.ant-btn-variant-link:not(:disabled):hover {
+  color: var(--ant-color-link);
+}
+
+.sens-btn-link-weak.ant-btn-variant-link:not(:disabled):active {
+  color: var(--ant-color-link-active);
+}
+
+.sens-btn-link-weak.ant-btn-variant-link > .ant-btn-icon {
+  color: currentColor;
+}
+
+/* 弱化警告链接：默认中性字/图标分色，hover 用 warning-color（button.md · dangerLinkWeak） */
+.sens-btn-danger-link-weak.ant-btn-variant-link:not(:disabled) {
+  color: var(--sens-btn-danger-link-weak-text);
+}
+
+.sens-btn-danger-link-weak.ant-btn-variant-link:not(:disabled) > .ant-btn-icon {
+  color: var(--sens-btn-danger-link-weak-icon);
+}
+
+.sens-btn-danger-link-weak.ant-btn-variant-link:not(:disabled):hover {
+  color: var(--sens-btn-danger-link-weak-warning);
+}
+
+.sens-btn-danger-link-weak.ant-btn-variant-link:not(:disabled):hover > .ant-btn-icon {
+  color: var(--sens-btn-danger-link-weak-warning);
+}
+
+.sens-btn-danger-link-weak.ant-btn-variant-link:not(:disabled):active {
+  color: var(--sens-btn-danger-link-weak-warning-active);
+}
+
+.sens-btn-danger-link-weak.ant-btn-variant-link:not(:disabled):active > .ant-btn-icon {
+  color: var(--sens-btn-danger-link-weak-warning-active);
+}
+
+/* 下拉链接按钮：Figma spacing/1x 图文间距，图标继承链接色 */
+.sens-dropdown-btn.ant-btn {
+  min-width: 0;
+  height: 22px;
+  padding-inline: 0;
+}
+
+.sens-dropdown-btn.ant-btn > .ant-btn-icon {
+  color: currentColor;
+}
+
+.sens-btn-dropdown-row {
+  margin-top: var(--sens-btn-space-5x);
+}
+
+.sens-btn-extra-row {
+  display: flex;
+  gap: var(--sens-btn-space-6x);
+  overflow-x: auto;
+  padding-bottom: var(--sens-btn-space-2x);
+}
+
+.sens-btn-fab-section {
+  margin-top: var(--sens-btn-space-5x);
+}
+
+.sens-btn-fab-section > .sens-btn-matrix-row + .sens-btn-matrix-row {
+  margin-top: var(--sens-btn-space-5x);
+}
+
+/* 单项 FAB 交叉轴：size/component-height/l（scoped，不碰常规 Button controlHeight） */
+.ant-btn.sens-btn-fab:not(.ant-btn-circle) {
+  height: var(--sens-fab-height);
+  min-height: var(--sens-fab-height);
+}
+
+.ant-btn.sens-btn-fab.ant-btn-circle {
+  width: var(--sens-fab-height);
+  height: var(--sens-fab-height);
+  min-width: var(--sens-fab-height);
+  min-height: var(--sens-fab-height);
+  padding: 0 !important;
+}
+
+/* FAB 二级：无描边白底全态；hover/点击仅字色转绿（对抗 antd text variant textHoverBg） */
+.ant-btn.sens-btn-fab.sens-btn-fab-secondary.ant-btn-variant-text,
+.ant-btn.sens-btn-fab.sens-btn-fab-secondary.ant-btn-variant-text:not(:disabled):hover,
+.ant-btn.sens-btn-fab.sens-btn-fab-secondary.ant-btn-variant-text:not(:disabled):active,
+.ant-btn.sens-btn-fab.sens-btn-fab-secondary.ant-btn-variant-text:disabled {
+  background-color: var(--sens-btn-fab-secondary-bg, var(--ant-color-bg-container)) !important;
+  border-color: transparent;
+}
+
+.ant-btn.sens-btn-fab.sens-btn-fab-secondary.ant-btn-variant-text:not(:disabled)[data-fab-hover] {
+  color: var(--sens-btn-fab-secondary-text-hover) !important;
+}
+
+.ant-btn.sens-btn-fab.sens-btn-fab-secondary.ant-btn-variant-text:not(:disabled)[data-fab-active] {
+  color: var(--sens-btn-fab-secondary-text-active) !important;
+}
+
+.ant-btn.sens-btn-fab.sens-btn-fab-secondary.ant-btn-variant-text:not(:disabled):not([data-fab-hover]):not([data-fab-active]):not([class*="sens-btn-fab-preview-"]) {
+  color: var(--sens-btn-fab-secondary-text, var(--ant-color-text)) !important;
+}
+
+/* 预览矩阵：静态态字色（对抗 antd css-in-js，不依赖 inline color） */
+.ant-btn.sens-btn-fab.sens-btn-fab-secondary.sens-btn-fab-preview-default {
+  color: var(--sens-btn-fab-secondary-text, var(--ant-color-text)) !important;
+}
+
+.ant-btn.sens-btn-fab.sens-btn-fab-secondary.sens-btn-fab-preview-hover {
+  color: var(--sens-btn-fab-secondary-text-hover) !important;
+}
+
+.ant-btn.sens-btn-fab.sens-btn-fab-secondary.sens-btn-fab-preview-active {
+  color: var(--sens-btn-fab-secondary-text-active) !important;
+}
+
+.ant-btn.sens-btn-fab.sens-btn-fab-secondary.sens-btn-fab-preview-disabled,
+.ant-btn.sens-btn-fab.sens-btn-fab-secondary.sens-btn-fab-preview-loading {
+  color: var(--sens-btn-fab-secondary-text-disabled) !important;
+}
+
+.ant-btn.sens-btn-fab.sens-btn-fab-secondary.sens-btn-fab-preview-disabledHover,
+.ant-btn.sens-btn-fab.sens-btn-fab-secondary.sens-btn-fab-preview-loadingHover {
+  color: var(--sens-btn-fab-secondary-text-disabled-hover) !important;
+}
+
+.ant-btn.sens-btn-fab.sens-btn-fab-secondary.ant-btn-variant-text > .ant-btn-icon {
+  color: currentColor;
+}

@@ -1,0 +1,196 @@
+.sens-tabs-matrix-head {
+  margin-bottom: var(--sens-tabs-space-2x);
+  font-size: 12px;
+  line-height: 18px;
+  color: var(--ant-color-text-secondary);
+}
+
+.sens-tabs-matrix-row + .sens-tabs-matrix-row {
+  margin-top: var(--sens-tabs-space-5x);
+}
+
+.sens-tabs-matrix-title {
+  display: block;
+  margin-bottom: var(--sens-tabs-space-2x);
+  font-size: 12px;
+  line-height: 18px;
+  color: var(--ant-color-text-secondary);
+  font-weight: 500;
+}
+
+.sens-tabs-matrix-states {
+  display: flex;
+  gap: var(--sens-tabs-space-6x);
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  padding-bottom: var(--sens-tabs-space-2x);
+}
+
+.sens-tabs-matrix-cell {
+  width: 132px;
+  flex: 0 0 auto;
+}
+
+.sens-tabs-matrix-label {
+  display: block;
+  margin-bottom: var(--sens-tabs-space-2x);
+  font-size: 12px;
+  line-height: 18px;
+  color: var(--ant-color-text-secondary);
+}
+
+.sens-tabs-pill-label {
+  max-width: var(--sens-tabs-pill-max-width);
+  display: inline-block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  vertical-align: middle;
+}
+
+/* 真实组件：仅保留布局/滚动/必要尺寸结构 */
+.sens-pill-tabs.ant-segmented {
+  padding: var(--sens-pill-track-padding, 4px);
+}
+
+.sens-pill-tabs-strip.ant-segmented {
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+.sens-pill-tabs .ant-segmented-group {
+  gap: var(--sens-pill-item-gap, 4px);
+}
+
+.sens-pill-tabs .ant-segmented-item {
+  border-radius: var(--sens-pill-item-radius, 4px);
+  min-height: var(--sens-pill-item-min-height, 28px);
+}
+
+.sens-pill-tabs .ant-segmented-item-label {
+  padding: 3px var(--sens-pill-item-padding-inline, 12px);
+  font-size: var(--sens-pill-item-font-size, 14px);
+  line-height: var(--sens-pill-item-line-height, 22px);
+}
+
+.sens-pill-tabs-small .ant-segmented-item {
+  min-height: 24px;
+}
+
+.sens-basic-tabs .ant-tabs-nav {
+  margin-bottom: 0;
+}
+
+.sens-basic-tabs .ant-tabs-tab + .ant-tabs-tab {
+  margin-left: 24px;
+}
+
+.sens-basic-tabs-small .ant-tabs-tab {
+  margin: 0;
+  padding: 0 0 4px;
+}
+
+.sens-basic-tabs-small .ant-tabs-tab .ant-tabs-tab-btn {
+  font-size: 14px;
+  line-height: 22px;
+  font-weight: 400;
+}
+
+.sens-basic-tabs-small .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
+  font-weight: 500;
+}
+
+.sens-basic-tabs-small .ant-tabs-ink-bar {
+  height: 2px;
+}
+
+.sens-tabs-label-with-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.sens-tabs-counter-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 16px;
+  height: 16px;
+  padding: 0 2px;
+  border-radius: 10px;
+  font-size: 12px;
+  line-height: 18px;
+  font-weight: 400;
+  background: var(--sens-tabs-badge-bg, rgba(0, 21, 64, 0.08));
+  color: var(--sens-tabs-badge-text, rgba(8, 18, 38, 0.58));
+}
+
+.ant-tabs-tab-active .sens-tabs-counter-badge,
+.ant-segmented-item-selected .sens-tabs-counter-badge {
+  background: var(--sens-tabs-badge-active-bg, #e1faf3);
+  color: var(--sens-tabs-badge-active-text, #00b280);
+}
+
+.sens-tabs-preview-pill {
+  min-height: 40px;
+  display: flex;
+  align-items: center;
+}
+
+.sens-pill-tab-snapshot {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  max-width: 112px;
+}
+
+.sens-pill-tab-snapshot-large {
+  padding: 3px 12px;
+  border-radius: 4px;
+  min-height: 28px;
+}
+
+.sens-pill-tab-snapshot-small {
+  padding: 3px 10px;
+  border-radius: 3px;
+  min-height: 24px;
+}
+
+.sens-tabs-strip-section {
+  margin-top: var(--sens-tabs-space-6x);
+}
+
+.sens-tabs-strip-panel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sens-tabs-space-5x);
+  border: 1px dashed;
+  border-radius: 8px;
+  padding: var(--sens-tabs-space-5x);
+}
+
+.sens-tabs-strip-row {
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  gap: var(--sens-tabs-space-5x);
+  align-items: start;
+}
+
+.sens-tabs-strip-control-label {
+  font-size: 12px;
+  line-height: 18px;
+  color: var(--ant-color-text-secondary);
+}
+
+.sens-tabs-strip-track {
+  display: flex;
+  gap: var(--sens-pill-item-gap, 4px);
+  overflow-x: auto;
+  padding-bottom: var(--sens-tabs-space-2x);
+}
+
+/* 预览板专用：页签关闭钮悬停色（token 经单元格 CSS 变量注入，不进真实组件） */
+.sens-tabs-preview-card-hover-delete .ant-tabs-tab-remove {
+  color: var(--sens-tabs-preview-remove-hover);
+}

@@ -1,0 +1,117 @@
+/* 预览板专用：变体矩阵布局 + 静态模拟 hover/focus（不进真实组件层） */
+
+.sens-search-preview--hover .ant-input-affix-wrapper:not(.ant-input-affix-wrapper-disabled),
+.sens-search-preview--hover .ant-input-search .ant-input-affix-wrapper:not(.ant-input-affix-wrapper-disabled) {
+  border-color: var(--sens-search-hover-border) !important;
+}
+
+.sens-search-preview--focus .ant-input-affix-wrapper:not(.ant-input-affix-wrapper-disabled),
+.sens-search-preview--focus .ant-input-search .ant-input-affix-wrapper:not(.ant-input-affix-wrapper-disabled) {
+  border-color: var(--sens-search-focus-border) !important;
+  box-shadow: var(--sens-search-focus-shadow) !important;
+}
+
+/* 触发型：矩阵模拟输入区 hover/focus 时同步按钮左侧接缝描边 */
+.sens-search-preview--hover .sens-search-trigger.ant-input-search-with-button .ant-input-affix-wrapper:not(.ant-input-affix-wrapper-disabled) {
+  z-index: 1;
+  border-inline-end-color: var(--sens-search-hover-border) !important;
+}
+
+.sens-search-preview--focus .sens-search-trigger.ant-input-search-with-button .ant-input-affix-wrapper:not(.ant-input-affix-wrapper-disabled) {
+  z-index: 1;
+  border-inline-end-color: var(--sens-search-focus-border) !important;
+}
+
+.sens-search-preview--hover .sens-search-trigger .ant-input-search-button:not(:disabled) {
+  border-inline-start-color: var(--sens-search-hover-border) !important;
+}
+
+.sens-search-preview--focus .sens-search-trigger .ant-input-search-button:not(:disabled) {
+  border-inline-start-color: var(--sens-search-focus-border) !important;
+}
+
+/* 简约搜索底线静态样张（Figma 1601:10979 · component-primary / component-active） */
+.sens-search-preview--minimal-hover-search .sens-search-minimal-field {
+  border-bottom-color: var(--sens-search-primary) !important;
+}
+
+.sens-search-preview--minimal-click-search .sens-search-minimal-field,
+.sens-search-preview--minimal-active-search .sens-search-minimal-field {
+  border-bottom-color: var(--sens-search-primary-active) !important;
+}
+
+/* 分类区：仅文案/箭头变色，底线始终灰（Figma 3876:13525） */
+.sens-search-preview--minimal-hover-selector .sens-search-category-select-zone .ant-select-selection-item,
+.sens-search-preview--minimal-hover-selector .sens-search-category-select-zone .sens-select-suffix-icons {
+  color: var(--sens-search-primary) !important;
+}
+
+.sens-search-preview--minimal-click-selector .sens-search-category-select-zone .ant-select-selection-item,
+.sens-search-preview--minimal-click-selector .sens-search-category-select-zone .sens-select-suffix-icons,
+.sens-search-preview--minimal-active-selector .sens-search-category-select-zone .ant-select-selection-item,
+.sens-search-preview--minimal-active-selector .sens-search-category-select-zone .sens-select-suffix-icons {
+  color: var(--sens-search-primary-active) !important;
+}
+
+/* 激活选择器：静态模拟展开箭头（矩阵不开真实 dropdown） */
+.sens-search-preview--minimal-active-selector .sens-select-suffix-down {
+  display: none !important;
+}
+
+.sens-search-preview--minimal-active-selector .sens-select-suffix-up {
+  display: block !important;
+}
+
+/* 触发型按钮悬停态静态样张（Figma 1574:12934 / 1576:6778） */
+.sens-search-preview--hover-btn .ant-input-search-button:not(:disabled) {
+  border-color: var(--sens-search-primary) !important;
+  box-shadow: var(--sens-search-trigger-btn-hover-shadow) !important;
+}
+
+.sens-search-preview--active-btn .ant-input-search-button:not(:disabled) {
+  border-color: var(--sens-search-primary-active) !important;
+  box-shadow: var(--sens-search-focus-shadow) !important;
+}
+
+.sens-search-preview-label {
+  display: block;
+  margin-bottom: var(--sens-search-space-2x);
+  font-size: 12px;
+  line-height: 18px;
+  color: var(--sens-search-label-color);
+}
+
+.sens-search-preview-section-title {
+  display: block;
+  margin: 0 0 var(--sens-search-space-3x);
+  font-size: 12px;
+  line-height: 18px;
+  color: var(--sens-search-label-color);
+  font-weight: 500;
+}
+
+.sens-search-preview-section + .sens-search-preview-section {
+  margin-top: var(--sens-search-space-6x);
+  padding-top: var(--sens-search-space-6x);
+  border-top: 1px solid var(--sens-search-section-divider);
+}
+
+.sens-search-matrix-row + .sens-search-matrix-row {
+  margin-top: var(--sens-search-space-6x);
+}
+
+.sens-search-matrix-variant-title {
+  display: block;
+  margin-bottom: var(--sens-search-space-2x);
+  font-size: 12px;
+  line-height: 18px;
+  font-weight: 500;
+  color: var(--sens-search-label-color);
+}
+
+.sens-search-matrix-states {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: var(--sens-search-space-6x);
+  overflow-x: auto;
+}

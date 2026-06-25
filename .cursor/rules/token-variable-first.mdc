@@ -1,0 +1,11 @@
+---
+description: 变量优先：有 token/变量就禁止硬编码
+alwaysApply: true
+---
+
+# Token Variable First
+
+样式与颜色/间距约定见 `src/design-system/conventions.md` §1，生成或修改组件前先读。
+
+发现组件未变量化时：先列清单（文件 + 字段/样式），再替换，并说明哪些尚无 token。
+

@@ -1,0 +1,65 @@
+/* 预览板专用：输入框变体矩阵布局 + 静态模拟 hover / focus / 禁用悬停 */
+
+.sens-input-matrix-group + .sens-input-matrix-group {
+  margin-top: var(--sens-input-matrix-space-5x);
+}
+
+.sens-input-matrix-size-pair + .sens-input-matrix-size-pair {
+  margin-top: var(--sens-input-matrix-space-5x);
+}
+
+.sens-input-matrix-row + .sens-input-matrix-row {
+  margin-top: var(--sens-input-matrix-space-2x);
+}
+
+.sens-input-matrix-title {
+  display: block;
+  margin-bottom: var(--sens-input-matrix-space-2x);
+  font-size: 12px;
+  line-height: 18px;
+  color: var(--ant-color-text-secondary);
+  font-weight: 500;
+}
+
+.sens-input-matrix-states {
+  display: flex;
+  gap: var(--sens-input-matrix-space-6x);
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  padding-bottom: var(--sens-input-matrix-space-2x);
+}
+
+.sens-input-matrix-cell {
+  width: var(--sens-input-matrix-cell-width);
+  flex: 0 0 auto;
+}
+
+.sens-input-matrix-label {
+  display: block;
+  margin-bottom: var(--sens-input-matrix-space-2x);
+  font-size: 12px;
+  line-height: 18px;
+  color: var(--ant-color-text-secondary);
+}
+
+.sens-input-matrix-preview--hover .sens-input.ant-input-outlined:not(.ant-input-disabled),
+.sens-input-matrix-preview--hover .sens-input.ant-input-affix-wrapper:not(.ant-input-affix-wrapper-disabled) {
+  border-color: var(--sens-input-preview-hover-border) !important;
+}
+
+.sens-input-matrix-preview--focus .sens-input.ant-input-outlined:not(.ant-input-disabled),
+.sens-input-matrix-preview--focus .sens-input.ant-input-affix-wrapper:not(.ant-input-affix-wrapper-disabled) {
+  border-color: var(--sens-input-preview-focus-border) !important;
+  box-shadow: var(--sens-input-preview-focus-shadow) !important;
+}
+
+.sens-input-matrix-preview--disabled-hover .sens-input.ant-input-outlined.ant-input-disabled,
+.sens-input-matrix-preview--disabled-hover .sens-input.ant-input-affix-wrapper.ant-input-affix-wrapper-disabled {
+  border-color: var(--sens-input-preview-disabled-hover-border) !important;
+  background-color: var(--sens-input-preview-disabled-hover-bg) !important;
+}
+
+.sens-input-matrix-preview--disabled-hover .sens-input.ant-input-outlined.ant-input-disabled::placeholder,
+.sens-input-matrix-preview--disabled-hover .sens-input.ant-input-affix-wrapper.ant-input-affix-wrapper-disabled input::placeholder {
+  color: var(--sens-input-preview-placeholder-disabled-hover) !important;
+}

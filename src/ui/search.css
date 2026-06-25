@@ -1,0 +1,525 @@
+/* 搜索真实组件：仅保留 antd 主题/props 无法表达的窄作用域规则（见各段注释） */
+
+/* ========== 简约搜索字段（MinimalSearchField） ========== */
+
+.sens-search-minimal-field {
+  display: flex;
+  align-items: stretch;
+  box-sizing: border-box;
+  min-height: var(--sens-search-control-height, 32px);
+  border-bottom: 1px solid var(--sens-search-minimal-line);
+}
+
+.sens-search-minimal-field[data-line-tone="primary"] {
+  border-bottom-color: var(--sens-search-primary);
+}
+
+.sens-search-minimal-field[data-line-tone="active"] {
+  border-bottom-color: var(--sens-search-primary-active);
+}
+
+.sens-search-minimal-field-search {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  min-width: 0;
+}
+
+.sens-search-minimal-field:not([data-filled="true"]) .sens-search-minimal-field-search {
+  padding-inline-start: var(--sens-search-space-3x);
+}
+
+.sens-search-minimal-field[data-filled="true"] .sens-search-minimal-field-search {
+  padding-inline-start: var(--sens-search-space-2x);
+}
+
+.sens-search-minimal-field:not(.sens-search-minimal-field--with-create) .sens-search-minimal-input-wrap {
+  padding-inline-end: var(--sens-search-space-3x);
+}
+
+.sens-search-minimal-field--with-create .sens-search-minimal-input-wrap {
+  padding-inline-end: var(--sens-search-space-3x);
+}
+
+.sens-search-minimal-back-group {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sens-search-space-2x);
+  margin-inline-end: var(--sens-search-space-3x);
+  flex-shrink: 0;
+}
+
+.sens-search-minimal-back {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--sens-search-icon-size);
+  height: var(--sens-search-icon-size);
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+  /* Figma 8116:29008 · 链接按钮 + left 804:81 默认 icon-color */
+  color: var(--sens-search-icon-muted);
+  flex-shrink: 0;
+}
+
+.sens-search-minimal-back:hover:not(:disabled) {
+  color: var(--sens-search-link-color);
+}
+
+.sens-search-minimal-back:active:not(:disabled) {
+  color: var(--sens-search-link-active-color);
+}
+
+.sens-search-minimal-back-icon {
+  display: block;
+}
+
+.sens-search-minimal-vdivider {
+  width: 1px;
+  height: var(--sens-search-icon-size);
+  background: var(--sens-search-divider-color);
+  flex-shrink: 0;
+}
+
+.sens-search-minimal-input-wrap {
+  flex: 1;
+  min-width: 0;
+}
+
+.sens-search-minimal-field .sens-search-minimal-input.ant-input-affix-wrapper,
+.sens-search-minimal-field .ant-input-affix-wrapper {
+  border: none !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  background: transparent !important;
+  min-height: var(--sens-search-control-height, 32px);
+  padding-block: 0;
+  padding-inline: 0;
+  align-items: center;
+}
+
+.sens-search-minimal-field .ant-input-affix-wrapper-focused {
+  box-shadow: none !important;
+}
+
+.sens-search-minimal-field-create {
+  display: flex;
+  align-items: center;
+  gap: var(--sens-search-space-3x);
+  padding: var(--sens-search-space-1x) var(--sens-search-space-3x) var(--sens-search-space-1x) 0;
+  flex-shrink: 0;
+}
+
+/* 创建：复用 SensButton tone=linkWeak；此处仅锁简约行内排版 */
+.sens-search-minimal-field-create .sens-search-minimal-create-action.ant-btn {
+  height: auto;
+  min-height: 0;
+  padding: 0;
+  font-size: 14px;
+  line-height: var(--sens-search-line-height, 22px);
+  white-space: nowrap;
+}
+
+/* 浮层通栏：外容器 100% */
+.sens-select-dropdown-search .sens-search-minimal-field {
+  width: 100% !important;
+}
+
+/* 兼容旧 class：分类简约内嵌 */
+.sens-search-minimal {
+  border-bottom: 1px solid var(--sens-search-minimal-line);
+  box-sizing: border-box;
+  min-height: var(--sens-search-control-height, 32px);
+}
+
+/* 带分类简约：搜索区保留 MinimalSearchField 自有底线（与分类区双线并存 · Figma 3876:13525） */
+
+/* ========== 常规搜索（描边框体 · Figma 813:276） ========== */
+
+/* antd 主题无法在 affix-wrapper 上单独锁 controlHeight + 行高，与 SensInput 同档 */
+.sens-search-field.ant-input-affix-wrapper {
+  box-sizing: border-box;
+  height: var(--sens-search-control-height, 32px);
+  min-height: var(--sens-search-control-height, 32px);
+}
+
+.sens-search-field.ant-input-affix-wrapper > input.ant-input {
+  line-height: var(--sens-search-line-height, 22px);
+}
+
+.sens-search-trigger.ant-input-search .ant-input-affix-wrapper {
+  box-sizing: border-box;
+  height: var(--sens-search-control-height, 32px);
+  min-height: var(--sens-search-control-height, 32px);
+}
+
+.sens-search-trigger.ant-input-search .ant-input-affix-wrapper > input.ant-input {
+  line-height: var(--sens-search-line-height, 22px);
+}
+
+
+/* ========== 自定义图标（走 token，不依赖 antd 内建图标色） ========== */
+
+.sens-search-prefix-icon {
+  color: var(--sens-search-icon-muted);
+}
+
+.sens-search-field .ant-input-prefix,
+.sens-search-minimal-field .ant-input-prefix {
+  margin-inline-end: var(--sens-search-gap) !important;
+}
+
+/* 清空：颜色走自定义图标；间距仅触达 antd 容器 */
+.sens-search-field .ant-input-clear-icon,
+.sens-search-trigger .ant-input-clear-icon,
+.sens-search-minimal-field .ant-input-clear-icon {
+  margin-inline-start: var(--sens-search-gap);
+  color: var(--sens-search-icon-muted);
+}
+
+.sens-search-field .ant-input-clear-icon:hover,
+.sens-search-trigger .ant-input-clear-icon:hover,
+.sens-search-minimal-field .ant-input-clear-icon:hover {
+  color: var(--sens-search-icon-hover);
+}
+
+/* 触发型：白底描边按钮 + 功能色态（Figma 1574:12626–1574:12852；antd 无对应主题项） */
+.sens-search-trigger .ant-input-affix-wrapper-focused:not(.ant-input-affix-wrapper-disabled) {
+  border-color: var(--sens-search-primary-active) !important;
+  box-shadow: var(--sens-search-focus-shadow) !important;
+}
+
+/*
+ * 输入区 hover/聚焦时同步接缝描边。
+ * antd 仅对 .ant-input:hover 同步按钮左边框；allowClear 场景实际是 affix-wrapper，需补规则。
+ * search-with-button 下 affix hover z-index 为 0，右侧描边会被按钮盖住，故抬升 z-index。
+ */
+.sens-search-trigger.ant-input-search-with-button
+  .ant-input-affix-wrapper:not(.ant-input-affix-wrapper-disabled):hover,
+.sens-search-trigger.ant-input-search-with-button
+  .ant-input-affix-wrapper-focused:not(.ant-input-affix-wrapper-disabled) {
+  z-index: 1;
+  border-inline-end-color: var(--sens-search-primary) !important;
+}
+
+.sens-search-trigger.ant-input-search-with-button
+  .ant-input-affix-wrapper-focused:not(.ant-input-affix-wrapper-disabled) {
+  border-inline-end-color: var(--sens-search-primary-active) !important;
+}
+
+.sens-search-trigger
+  .ant-input-affix-wrapper:not(.ant-input-affix-wrapper-disabled):hover
+  + .ant-input-group-addon
+  .ant-input-search-button:not(:disabled),
+.sens-search-trigger
+  .ant-input-affix-wrapper-focused:not(.ant-input-affix-wrapper-disabled)
+  + .ant-input-group-addon
+  .ant-input-search-button:not(:disabled) {
+  border-inline-start-color: var(--sens-search-primary) !important;
+}
+
+.sens-search-trigger
+  .ant-input-affix-wrapper-focused:not(.ant-input-affix-wrapper-disabled)
+  + .ant-input-group-addon
+  .ant-input-search-button:not(:disabled) {
+  border-inline-start-color: var(--sens-search-primary-active) !important;
+}
+
+.sens-search-trigger .ant-input-search-button {
+  background: var(--sens-search-trigger-btn-bg) !important;
+  border-color: var(--sens-search-trigger-btn-border) !important;
+  width: var(--sens-search-control-height);
+  padding: 0 !important;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: none !important;
+}
+
+.sens-search-trigger .ant-input-search-button:not(:disabled):hover {
+  background: var(--sens-search-trigger-btn-bg) !important;
+  border-color: var(--sens-search-primary) !important;
+  box-shadow: var(--sens-search-trigger-btn-hover-shadow) !important;
+}
+
+.sens-search-trigger .ant-input-search-button:not(:disabled):active {
+  background: var(--sens-search-trigger-btn-bg) !important;
+  border-color: var(--sens-search-primary-active) !important;
+  box-shadow: var(--sens-search-focus-shadow) !important;
+}
+
+.sens-search-trigger-btn-icon {
+  color: var(--sens-search-icon-muted) !important;
+}
+
+/* ========== 分类 Select：左自适应 + 与 Input 拼接（search.md 专属布局） ========== */
+
+.sens-search-category-select .ant-select-selector {
+  display: inline-flex !important;
+  align-items: center !important;
+  width: auto !important;
+  /* Figma 实测规格：72px / 128px；tokens.resolved.json 无对应项，不硬造 token */
+  min-width: 72px;
+  max-width: 128px;
+  overflow: hidden;
+}
+
+.sens-search-category-select .ant-select-selection-wrap {
+  width: auto !important;
+  flex: 1 1 auto !important;
+  min-width: 0;
+  max-width: 100%;
+  overflow: hidden;
+}
+
+.sens-search-category-select.ant-select-show-arrow .ant-select-selection-item,
+.sens-search-category-select.ant-select-show-arrow .ant-select-selection-search,
+.sens-search-category-select.ant-select-show-arrow .ant-select-selection-placeholder {
+  padding-inline-end: calc(var(--sens-search-icon-size) + var(--sens-search-gap)) !important;
+}
+
+.sens-search-category-select .ant-select-selection-item {
+  flex: 0 1 auto;
+  max-width: 100%;
+  color: var(--sens-search-category-text);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Figma 实测规格：分类区 clamp(内容, 72px, 128px)；tokens.resolved.json 无对应项，不硬造 token */
+.sens-search-category-select.ant-select {
+  width: auto !important;
+  flex: 0 0 auto;
+  min-width: 72px;
+  max-width: 128px;
+}
+
+.sens-search-category-select .ant-select-arrow {
+  flex-shrink: 0;
+  pointer-events: none;
+}
+
+.sens-search-category--default .sens-search-category-select .ant-select-selector {
+  width: auto !important;
+  border-radius: var(--sens-search-radius) 0 0 var(--sens-search-radius) !important;
+  height: var(--sens-search-control-height) !important;
+  padding-inline: var(--sens-search-space-3x) !important;
+  padding-block: 0 !important;
+  color: var(--sens-search-category-text);
+}
+
+.sens-search-category--default.ant-space-compact {
+  display: inline-flex;
+  width: auto;
+}
+
+.sens-search-category--default .sens-search-category-select.ant-select {
+  width: auto !important;
+  flex: 0 0 auto;
+}
+
+.sens-search-category--default .sens-search-category-input.ant-input-affix-wrapper {
+  border-radius: 0 var(--sens-search-radius) var(--sens-search-radius) 0 !important;
+  margin-inline-start: -1px;
+  width: var(--sens-search-input-width, 200px);
+  min-width: var(--sens-search-input-width, 200px);
+  flex: 0 0 var(--sens-search-input-width, 200px);
+}
+
+/* 分类 hover/展开：描边同步主色；文案/箭头恒中性见变体作用域 */
+.sens-search-category--default
+  .sens-search-category-select:not(.ant-select-disabled):not(.ant-select-open):hover
+  .ant-select-selector {
+  border-color: var(--sens-search-primary) !important;
+}
+
+.sens-search-category--default .sens-search-category-select .ant-select-selection-item,
+.sens-search-category--default
+  .sens-search-category-select:not(.ant-select-disabled):hover
+  .ant-select-selection-item,
+.sens-search-category--default .sens-search-category-select.ant-select-open .ant-select-selection-item {
+  color: var(--sens-search-category-text);
+}
+
+.sens-search-category--default .sens-search-category-select.ant-select-open .ant-select-selector {
+  border-color: var(--sens-search-primary) !important;
+}
+
+.sens-search-category--minimal {
+  display: inline-flex;
+  align-items: stretch;
+  width: auto;
+  box-sizing: border-box;
+}
+
+.sens-search-category-select-zone {
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+}
+
+.sens-search-category-zone-line {
+  display: block;
+  height: 1px;
+  background: var(--sens-search-minimal-line);
+}
+
+.sens-search-category--minimal .sens-search-category-select.ant-select {
+  width: auto !important;
+  flex: 0 0 auto;
+}
+
+.sens-search-category--minimal .sens-search-category-select .ant-select-selector {
+  width: auto !important;
+  border: none !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  background: transparent !important;
+  padding: var(--sens-search-space-1x) var(--sens-search-space-3x) var(--sens-search-space-vertical-half)
+    var(--sens-search-space-3x) !important;
+  height: var(--sens-search-control-height) !important;
+  color: var(--sens-search-category-text);
+}
+
+.sens-search-category--minimal .sens-search-category-select-zone[data-line-tone="primary"] .ant-select-selection-item {
+  color: var(--sens-search-primary) !important;
+}
+
+.sens-search-category--minimal .sens-search-category-select-zone[data-line-tone="primary"] .sens-select-suffix-icons {
+  color: var(--sens-search-primary);
+}
+
+.sens-search-category--minimal .sens-search-category-select-zone[data-line-tone="active"] .ant-select-selection-item,
+.sens-search-category--minimal .sens-search-category-select.ant-select-open .ant-select-selection-item {
+  color: var(--sens-search-primary-active) !important;
+}
+
+.sens-search-category--minimal .sens-search-category-select-zone[data-line-tone="active"] .sens-select-suffix-icons,
+.sens-search-category--minimal .sens-search-category-select.ant-select-open .sens-select-suffix-icons {
+  color: var(--sens-search-primary-active);
+}
+
+.sens-search-category--minimal .sens-search-category-divider {
+  width: 1px;
+  align-self: center;
+  height: var(--sens-search-icon-size);
+  background: var(--sens-search-divider-color);
+  flex-shrink: 0;
+}
+
+.sens-search-category--minimal .sens-search-category-input-wrap {
+  width: var(--sens-search-input-width, 200px);
+  min-width: var(--sens-search-input-width, 200px);
+  flex: 0 0 var(--sens-search-input-width, 200px);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.sens-search-category--minimal .sens-search-category-input-wrap .sens-search-minimal-field {
+  width: 100%;
+}
+
+.sens-search-category--minimal .sens-search-category-input.ant-input-affix-wrapper {
+  border: none !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  background: transparent !important;
+  padding-inline: var(--sens-search-space-3x);
+}
+
+.sens-search-trigger-category.ant-space-compact {
+  display: inline-flex;
+  width: auto;
+}
+
+.sens-search-trigger-category .sens-search-category-select.ant-select {
+  width: auto !important;
+  flex: 0 0 auto;
+}
+
+.sens-search-trigger-category .sens-search-category-select .ant-select-selector {
+  width: auto !important;
+  border-radius: var(--sens-search-radius) 0 0 var(--sens-search-radius) !important;
+  height: var(--sens-search-control-height) !important;
+  padding-inline: var(--sens-search-space-3x) !important;
+  padding-block: 0 !important;
+}
+
+.sens-search-trigger-category .ant-input-search {
+  flex: 0 0 auto;
+  /* Figma：输入区 + 按钮整体定宽 */
+  width: var(--sens-search-trigger-block-width, 200px);
+}
+
+.sens-search-trigger-category .ant-input-search .ant-input-affix-wrapper {
+  border-radius: 0 !important;
+}
+
+.sens-search-trigger-category .ant-input-search .ant-input-group-addon .ant-btn {
+  border-radius: 0 var(--sens-search-radius) var(--sens-search-radius) 0 !important;
+}
+
+.sens-search-trigger-category .sens-search-category-select .ant-select-selection-item,
+.sens-search-trigger-category
+  .sens-search-category-select:not(.ant-select-disabled):hover
+  .ant-select-selection-item,
+.sens-search-trigger-category .sens-search-category-select.ant-select-open .ant-select-selection-item {
+  color: var(--sens-search-category-text);
+}
+
+.sens-search-trigger-category .sens-search-category-select:not(.ant-select-disabled):hover .ant-select-selector {
+  border-color: var(--sens-search-primary) !important;
+}
+
+.sens-search-trigger-category .sens-search-category-select.ant-select-open .ant-select-selector {
+  border-color: var(--sens-search-primary-active) !important;
+  box-shadow: 0 0 0 2px var(--sens-search-active-outline) !important;
+}
+
+/* 旧 minimal-create 布局已并入 .sens-search-minimal-field */
+
+/* Select 自定义箭头：antd5 suffix 挂在 .ant-select-arrow */
+.sens-select-with-icons:not(.sens-search-category-select) .ant-select-arrow {
+  transform: none !important;
+}
+
+.sens-search-category-select.ant-select .ant-select-arrow {
+  transform: none !important;
+}
+
+.sens-select-suffix-icons {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--sens-search-icon-size);
+  height: var(--sens-search-icon-size);
+  flex-shrink: 0;
+  color: var(--sens-search-icon-chevron);
+  pointer-events: none;
+}
+
+.sens-select-suffix-icons svg {
+  position: absolute;
+  inset: 0;
+}
+
+.sens-select-with-icons .sens-select-suffix-up {
+  display: none !important;
+}
+
+.sens-select-with-icons .sens-select-suffix-down {
+  display: block !important;
+}
+
+.ant-select-open.sens-select-with-icons .sens-select-suffix-down {
+  display: none !important;
+}
+
+.ant-select-open.sens-select-with-icons .sens-select-suffix-up {
+  display: block !important;
+}

@@ -1,0 +1,29 @@
+/* Sens.Design 表格复合组件布局（见 composite/table.md） */
+
+.sens-table .ant-table-thead > tr > th,
+.sens-table .ant-table-tbody > tr > td {
+  height: 56px;
+  box-sizing: border-box;
+  padding-block: 6px;
+  padding-inline: 16px;
+}
+
+/* 去掉表头列间弱分割线 */
+.sens-table .ant-table-thead > tr > th::before {
+  display: none !important;
+}
+
+/* 表头标题与排序图标间距 4px */
+.sens-table .ant-table-column-sorters {
+  gap: 4px;
+  justify-content: flex-start;
+}
+
+.sens-table .ant-table-column-sorter {
+  margin-inline-start: 0;
+}
+
+/* 超长文案：最多 2 行 + 省略号 */
+.sens-table .ant-table-cell-ellipsis {
+  line-height: 22px;
+}

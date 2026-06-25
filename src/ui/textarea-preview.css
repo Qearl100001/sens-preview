@@ -1,0 +1,28 @@
+/* 预览板专用：文本域变体矩阵静态 hover / focus / 禁用悬停 */
+
+.sens-textarea-matrix-preview--hover .sens-textarea.ant-input-outlined:not(.ant-input-disabled),
+.sens-textarea-matrix-preview--hover
+  .sens-textarea.ant-input-textarea-affix-wrapper:not(.ant-input-affix-wrapper-disabled) {
+  border-color: var(--sens-input-preview-hover-border) !important;
+}
+
+.sens-textarea-matrix-preview--focus .sens-textarea.ant-input-outlined:not(.ant-input-disabled),
+.sens-textarea-matrix-preview--focus
+  .sens-textarea.ant-input-textarea-affix-wrapper:not(.ant-input-affix-wrapper-disabled) {
+  border-color: var(--sens-input-preview-focus-border) !important;
+  box-shadow: var(--sens-input-preview-focus-shadow) !important;
+}
+
+.sens-textarea-matrix-preview--disabled-hover .sens-textarea.ant-input-outlined.ant-input-disabled,
+.sens-textarea-matrix-preview--disabled-hover
+  .sens-textarea.ant-input-textarea-affix-wrapper.ant-input-affix-wrapper-disabled {
+  border-color: var(--sens-input-preview-disabled-hover-border) !important;
+  background-color: var(--sens-input-preview-disabled-hover-bg) !important;
+}
+
+.sens-textarea-matrix-preview--disabled-hover .sens-textarea.ant-input-outlined.ant-input-disabled::placeholder,
+.sens-textarea-matrix-preview--disabled-hover
+  .sens-textarea.ant-input-textarea-affix-wrapper.ant-input-affix-wrapper-disabled
+  textarea::placeholder {
+  color: var(--sens-input-preview-placeholder-disabled-hover) !important;
+}

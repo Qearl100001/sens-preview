@@ -1,0 +1,95 @@
+/* 预览板：强制露出步进器 + 静态 hover/focus/步进器色 */
+
+.sens-inputnumber-matrix-preview--show-handlers
+  .sens-inputnumber.ant-input-number:not(.sens-inputnumber-readonly-plain)
+  .ant-input-number-handler-wrap,
+.sens-inputnumber-matrix-preview--show-handlers
+  .sens-inputnumber.ant-input-number.ant-input-number-readonly:not(.sens-inputnumber-readonly-plain)
+  .ant-input-number-handler-wrap {
+  display: flex !important;
+  width: var(--sens-inputnumber-handle-width) !important;
+  opacity: 1 !important;
+}
+
+/* 预览板：步进器常显列同步框内警告 hover 位（与 17471:64485 一致） */
+.sens-inputnumber-matrix-preview--show-handlers .sens-inputnumber-inside-warning-icon {
+  inset-inline-end: var(--sens-inputnumber-inside-warning-edge-hover) !important;
+}
+
+.sens-inputnumber-matrix-preview--show-handlers
+  .sens-inputnumber-inside-warning-wrap.sens-inputnumber-has-inside-warning
+  .sens-inputnumber
+  .ant-input-number-input {
+  padding-inline-end: var(--sens-inputnumber-inside-warning-reserve-hover) !important;
+}
+
+.sens-inputnumber-matrix-preview--show-handlers
+  .sens-inputnumber.ant-input-number-disabled
+  .ant-input-number-handler-wrap {
+  display: flex !important;
+}
+
+.sens-inputnumber-matrix-preview--hover .sens-inputnumber.ant-input-number-outlined:not(.ant-input-number-disabled) {
+  border-color: var(--sens-input-preview-hover-border) !important;
+}
+
+.sens-inputnumber-matrix-preview--click .sens-inputnumber.ant-input-number-outlined:not(.ant-input-number-disabled),
+.sens-inputnumber-matrix-preview--active .sens-inputnumber.ant-input-number-outlined:not(.ant-input-number-disabled) {
+  border-color: var(--sens-input-preview-focus-border) !important;
+  box-shadow: var(--sens-input-preview-focus-shadow) !important;
+}
+
+.sens-inputnumber-matrix-preview--disabled-hover .sens-inputnumber.ant-input-number-disabled {
+  border-color: var(--sens-input-preview-disabled-hover-border) !important;
+  background-color: var(--sens-input-preview-disabled-hover-bg) !important;
+}
+
+.sens-inputnumber-matrix-preview--disabled-hover .sens-inputnumber.ant-input-number-disabled input::placeholder {
+  color: var(--sens-input-preview-placeholder-disabled-hover) !important;
+}
+
+.sens-inputnumber-matrix-preview--handler-up-hover
+  .sens-inputnumber
+  .ant-input-number-handler-up
+  .ant-input-number-handler-up-inner {
+  color: var(--sens-inputnumber-handler-hover-color) !important;
+}
+
+.sens-inputnumber-matrix-preview--handler-down-hover
+  .sens-inputnumber
+  .ant-input-number-handler-down
+  .ant-input-number-handler-down-inner {
+  color: var(--sens-inputnumber-handler-hover-color) !important;
+}
+
+.sens-inputnumber-matrix-preview--handler-up-active
+  .sens-inputnumber
+  .ant-input-number-handler-up
+  .ant-input-number-handler-up-inner {
+  color: var(--sens-inputnumber-handler-active-color) !important;
+}
+
+.sens-inputnumber-matrix-preview--handler-down-active
+  .sens-inputnumber
+  .ant-input-number-handler-down
+  .ant-input-number-handler-down-inner {
+  color: var(--sens-inputnumber-handler-active-color) !important;
+}
+
+.sens-inputnumber-matrix-preview--handler-disabled
+  .sens-inputnumber
+  .ant-input-number-handler-up-inner,
+.sens-inputnumber-matrix-preview--handler-disabled
+  .sens-inputnumber
+  .ant-input-number-handler-down-inner {
+  color: var(--sens-inputnumber-handler-disabled-color) !important;
+}
+
+.sens-inputnumber-matrix-preview--handler-disabled-hover
+  .sens-inputnumber
+  .ant-input-number-handler-up-inner,
+.sens-inputnumber-matrix-preview--handler-disabled-hover
+  .sens-inputnumber
+  .ant-input-number-handler-down-inner {
+  color: var(--sens-inputnumber-handler-disabled-hover-color) !important;
+}
