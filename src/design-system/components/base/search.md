@@ -120,11 +120,11 @@ src/ui/search.css
 src/ui/search-preview.css         # 预览板（Showcase 引入，不进业务包路径亦可）
 ```
 
-## 嵌入浮层（select-dropdown R2）
+## 嵌入浮层（dropdown-menu §二 2.1）
 
 - **变体**：实时·简约 · 交互行高 **32px** · **有输入显示返回**（`onBack` → `resetSearch`）
 - **封装**：`SelectDropdownSearch` 薄包 `MinimalSearchField`（`showCreate={false}`）；**通栏** 100%
-- **职责**：仅输入/清空/聚焦；过滤、六面切换、高亮在 `select-dropdown.md` R2
+- **职责**：仅输入/清空/聚焦；过滤、六面切换、高亮在 `dropdown-menu.md` §三 3.1
 - **过滤**：默认原文 + 全拼 + 首字母（`pinyin-pro` 词组模式）；`option.searchText` 可选兜底多音字/专有名词
 - **高亮**：浮层选项文案用 `SearchHighlight`（`colorPrimary` 链）；**不在** SearchInput 内实现；**拼音命中不高亮**，仅字面子串高亮
 - **统计 / 空态**：浮层专有 `SelectDropdownBody` + `SelectDropdownEmpty`；统计色 `text-sub-color-transparent` @58%；搜索→统计 **6px**、统计→首条 **0px**；可搜索浮层顶 **0px**

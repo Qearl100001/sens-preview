@@ -49,7 +49,8 @@
 | `components/base/input.md` | 输入框（单行） | Input 大/小；只读/警告；与 search / textarea 分工 |
 | `components/base/textarea.md` | 文本域 | Input.TextArea；4.5 行、showCount；颜色规则引用 input.md |
 | `components/base/inputnumber.md` | 数字输入框 | InputNumber + 步进器；188px 默认宽；components.InputNumber |
-| `components/base/select-dropdown.md` | 下拉浮层 + 选择器触发框 | R1 浮层容器/行 + R2 搜索/六面 + **R3 触发框**（与 Input 同源字段色）；optionHeight 34；components.Select |
+| `components/base/dropdown-menu.md` | 下拉菜单（浮层面板） | 选项行 34px + 搜索六面 + 动作菜单；`SELECT_OPTION_ROW_TOKENS`；components.Select popup |
+| `components/base/select.md` | 选择器（触发框） | 32px 触发框 + clearable + 与 Input 同源字段色；串联 `dropdown-menu.md` |
 | `components/composite/table.md` | 表格（复合） | 黑盒 antd Table；列→单元格类型；操作列=链接 |
 
 ## 维护原则
