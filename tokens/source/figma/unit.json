@@ -1,0 +1,649 @@
+{
+  "spacing": {
+    "none": {
+      "$type": "number",
+      "$value": 0,
+      "$description": "0px，无间距",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:20020:5106",
+        "com.figma.hiddenFromPublishing": true,
+        "com.figma.scopes": [
+          "GAP"
+        ]
+      }
+    },
+    "0․5x": {
+      "$type": "number",
+      "$value": 2,
+      "$description": "2px",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:20020:5107",
+        "com.figma.hiddenFromPublishing": true,
+        "com.figma.scopes": [
+          "GAP"
+        ]
+      }
+    },
+    "1x": {
+      "$type": "number",
+      "$value": 4,
+      "$description": "4px；\n横向间距：图标与文字",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:20020:5108",
+        "com.figma.hiddenFromPublishing": true,
+        "com.figma.scopes": [
+          "GAP"
+        ]
+      }
+    },
+    "2x": {
+      "$type": "number",
+      "$value": 8,
+      "$description": "8px；\n纵向间距：组件标题与组件，相互关联的组件；\n横向间距：图标与文字，复选、单选与文字",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:20020:5109",
+        "com.figma.hiddenFromPublishing": true,
+        "com.figma.scopes": [
+          "GAP"
+        ]
+      }
+    },
+    "2․5x": {
+      "$type": "number",
+      "$value": 10,
+      "$description": "8px；\n纵向间距：组件标题与组件，相互关联的组件；\n横向间距：图标与文字，复选、单选与文字",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:20060:44912",
+        "com.figma.hiddenFromPublishing": true,
+        "com.figma.scopes": [
+          "GAP"
+        ]
+      }
+    },
+    "3x": {
+      "$type": "number",
+      "$value": 12,
+      "$extensions": {
+        "com.figma.variableId": "VariableID:20020:5110",
+        "com.figma.hiddenFromPublishing": true,
+        "com.figma.scopes": [
+          "GAP"
+        ]
+      }
+    },
+    "4x": {
+      "$type": "number",
+      "$value": 16,
+      "$description": "16px；\n纵向间距：卡片与卡片；\n横向间距：组件标题与组件，卡片与卡片",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:20020:5111",
+        "com.figma.hiddenFromPublishing": true,
+        "com.figma.scopes": [
+          "GAP"
+        ]
+      }
+    },
+    "5x": {
+      "$type": "number",
+      "$value": 20,
+      "$description": "20px；\n纵向间距：组件与组件",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:20020:5112",
+        "com.figma.hiddenFromPublishing": true,
+        "com.figma.scopes": [
+          "GAP"
+        ]
+      }
+    },
+    "6x": {
+      "$type": "number",
+      "$value": 24,
+      "$description": "24px；\n横向间距：组件与组件",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:20020:5113",
+        "com.figma.hiddenFromPublishing": true,
+        "com.figma.scopes": [
+          "GAP"
+        ]
+      }
+    },
+    "7x": {
+      "$type": "number",
+      "$value": 28,
+      "$description": "28px；\n纵向间距：一级分组里面不同组",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:20020:5115",
+        "com.figma.hiddenFromPublishing": true,
+        "com.figma.scopes": [
+          "GAP"
+        ]
+      }
+    },
+    "10x": {
+      "$type": "number",
+      "$value": 40,
+      "$description": "40px；\n纵向间距：一级分组与一级分组",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:20020:5114",
+        "com.figma.hiddenFromPublishing": true,
+        "com.figma.scopes": [
+          "GAP"
+        ]
+      }
+    },
+    "horizontal": {
+      "none": {
+        "$type": "number",
+        "$value": "{spacing.none}",
+        "$description": "0px，无间距",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:20073:2287",
+          "com.figma.scopes": [
+            "GAP"
+          ]
+        }
+      },
+      "1x": {
+        "$type": "number",
+        "$value": "{spacing.1x}",
+        "$description": "4px；\n横向间距：图标与文字",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:20073:2289",
+          "com.figma.scopes": [
+            "GAP"
+          ]
+        }
+      },
+      "2x": {
+        "$type": "number",
+        "$value": "{spacing.2x}",
+        "$description": "8px；\n纵向间距：组件标题与组件，相互关联的组件；\n横向间距：图标与文字，复选、单选与文字",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:20073:2290",
+          "com.figma.scopes": [
+            "GAP"
+          ]
+        }
+      },
+      "2․5x": {
+        "$type": "number",
+        "$value": "{spacing.2․5x}",
+        "$description": "8px；\n纵向间距：组件标题与组件，相互关联的组件；\n横向间距：图标与文字，复选、单选与文字",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:20073:2291",
+          "com.figma.scopes": [
+            "GAP"
+          ]
+        }
+      },
+      "3x": {
+        "$type": "number",
+        "$value": "{spacing.3x}",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:20073:2292",
+          "com.figma.scopes": [
+            "GAP"
+          ]
+        }
+      },
+      "4x": {
+        "$type": "number",
+        "$value": "{spacing.4x}",
+        "$description": "16px；\n纵向间距：卡片与卡片；\n横向间距：组件标题与组件，卡片与卡片",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:20073:2293",
+          "com.figma.scopes": [
+            "GAP"
+          ]
+        }
+      },
+      "5x": {
+        "$type": "number",
+        "$value": "{spacing.5x}",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:20077:14319",
+          "com.figma.hiddenFromPublishing": true,
+          "com.figma.scopes": [
+            "GAP"
+          ]
+        }
+      },
+      "6x": {
+        "$type": "number",
+        "$value": "{spacing.6x}",
+        "$description": "24px；\n横向间距：组件与组件",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:20073:2295",
+          "com.figma.scopes": [
+            "GAP"
+          ]
+        }
+      }
+    },
+    "vertical": {
+      "none": {
+        "$type": "number",
+        "$value": "{spacing.none}",
+        "$description": "0px，无间距",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:20073:2298",
+          "com.figma.scopes": [
+            "GAP"
+          ]
+        }
+      },
+      "0․5x": {
+        "$type": "number",
+        "$value": "{spacing.0․5x}",
+        "$description": "2px",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:20073:2299",
+          "com.figma.scopes": [
+            "GAP"
+          ]
+        }
+      },
+      "1x": {
+        "$type": "number",
+        "$value": "{spacing.1x}",
+        "$description": "4px；\n横向间距：图标与文字",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:20073:2300",
+          "com.figma.scopes": [
+            "GAP"
+          ]
+        }
+      },
+      "2x": {
+        "$type": "number",
+        "$value": "{spacing.2x}",
+        "$description": "8px；\n纵向间距：组件标题与组件，相互关联的组件；\n横向间距：图标与文字，复选、单选与文字",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:20073:2301",
+          "com.figma.scopes": [
+            "GAP"
+          ]
+        }
+      },
+      "2․5x": {
+        "$type": "number",
+        "$value": "{spacing.2․5x}",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:20076:10295",
+          "com.figma.hiddenFromPublishing": true,
+          "com.figma.scopes": [
+            "GAP"
+          ]
+        }
+      },
+      "3x": {
+        "$type": "number",
+        "$value": "{spacing.3x}",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:20073:2303",
+          "com.figma.scopes": [
+            "GAP"
+          ]
+        }
+      },
+      "4x": {
+        "$type": "number",
+        "$value": "{spacing.4x}",
+        "$description": "16px；\n纵向间距：卡片与卡片；\n横向间距：组件标题与组件，卡片与卡片",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:20073:2304",
+          "com.figma.scopes": [
+            "GAP"
+          ]
+        }
+      },
+      "5x": {
+        "$type": "number",
+        "$value": "{spacing.5x}",
+        "$description": "20px；\n纵向间距：组件与组件",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:20073:2305",
+          "com.figma.scopes": [
+            "GAP"
+          ]
+        }
+      },
+      "6x": {
+        "$type": "number",
+        "$value": "{spacing.6x}",
+        "$description": "24px；\n横向间距：组件与组件",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:20073:2306",
+          "com.figma.scopes": [
+            "GAP"
+          ]
+        }
+      },
+      "7x": {
+        "$type": "number",
+        "$value": "{spacing.7x}",
+        "$description": "28px；\n纵向间距：一级分组里面不同组",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:20073:2307",
+          "com.figma.scopes": [
+            "GAP"
+          ]
+        }
+      },
+      "10x": {
+        "$type": "number",
+        "$value": "{spacing.10x}",
+        "$description": "40px；\n纵向间距：一级分组与一级分组",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:20073:2308",
+          "com.figma.scopes": [
+            "GAP"
+          ]
+        }
+      }
+    }
+  },
+  "size": {
+    "mini": {
+      "$type": "number",
+      "$value": 8,
+      "$extensions": {
+        "com.figma.variableId": "VariableID:20064:11631",
+        "com.figma.hiddenFromPublishing": true,
+        "com.figma.scopes": [
+          "WIDTH_HEIGHT"
+        ]
+      }
+    },
+    "xxxs": {
+      "$type": "number",
+      "$value": 14,
+      "$extensions": {
+        "com.figma.variableId": "VariableID:20064:11632",
+        "com.figma.hiddenFromPublishing": true,
+        "com.figma.scopes": [
+          "WIDTH_HEIGHT"
+        ]
+      }
+    },
+    "xxs": {
+      "$type": "number",
+      "$value": 16,
+      "$extensions": {
+        "com.figma.variableId": "VariableID:20064:11633",
+        "com.figma.hiddenFromPublishing": true,
+        "com.figma.scopes": [
+          "WIDTH_HEIGHT"
+        ]
+      }
+    },
+    "xs": {
+      "$type": "number",
+      "$value": 20,
+      "$extensions": {
+        "com.figma.variableId": "VariableID:20064:11634",
+        "com.figma.hiddenFromPublishing": true,
+        "com.figma.scopes": [
+          "WIDTH_HEIGHT"
+        ]
+      }
+    },
+    "s": {
+      "$type": "number",
+      "$value": 24,
+      "$extensions": {
+        "com.figma.variableId": "VariableID:20064:11635",
+        "com.figma.hiddenFromPublishing": true,
+        "com.figma.scopes": [
+          "WIDTH_HEIGHT"
+        ]
+      }
+    },
+    "m": {
+      "$type": "number",
+      "$value": 32,
+      "$extensions": {
+        "com.figma.variableId": "VariableID:20064:11636",
+        "com.figma.hiddenFromPublishing": true,
+        "com.figma.scopes": [
+          "WIDTH_HEIGHT"
+        ]
+      }
+    },
+    "l": {
+      "$type": "number",
+      "$value": 36,
+      "$extensions": {
+        "com.figma.variableId": "VariableID:20064:11637",
+        "com.figma.hiddenFromPublishing": true,
+        "com.figma.scopes": [
+          "WIDTH_HEIGHT"
+        ]
+      }
+    },
+    "xl": {
+      "$type": "number",
+      "$value": 40,
+      "$extensions": {
+        "com.figma.variableId": "VariableID:20064:11638",
+        "com.figma.hiddenFromPublishing": true,
+        "com.figma.scopes": [
+          "WIDTH_HEIGHT"
+        ]
+      }
+    },
+    "xxl": {
+      "$type": "number",
+      "$value": 48,
+      "$extensions": {
+        "com.figma.variableId": "VariableID:20064:11639",
+        "com.figma.hiddenFromPublishing": true,
+        "com.figma.scopes": [
+          "WIDTH_HEIGHT"
+        ]
+      }
+    },
+    "xxxl": {
+      "$type": "number",
+      "$value": 56,
+      "$extensions": {
+        "com.figma.variableId": "VariableID:20064:11640",
+        "com.figma.hiddenFromPublishing": true,
+        "com.figma.scopes": [
+          "WIDTH_HEIGHT"
+        ]
+      }
+    },
+    "icon": {
+      "mini": {
+        "$type": "number",
+        "$value": 8,
+        "$extensions": {
+          "com.figma.variableId": "VariableID:20058:8524",
+          "com.figma.hiddenFromPublishing": true,
+          "com.figma.scopes": [
+            "WIDTH_HEIGHT"
+          ],
+          "com.figma.aliasData": {
+            "targetVariableId": "VariableID:5a3b3c97c0b50ad6bc36d542f90bceb68d956a78/20083:0",
+            "targetVariableName": "size/icon/mini",
+            "targetVariableSetId": "VariableCollectionId:202979efeebe784fce1069f77639e91119713ea7/20019:1",
+            "targetVariableSetName": "单位"
+          }
+        }
+      },
+      "s": {
+        "$type": "number",
+        "$value": "{size.xxxs}",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:20058:8523",
+          "com.figma.scopes": [
+            "WIDTH_HEIGHT"
+          ]
+        }
+      },
+      "m": {
+        "$type": "number",
+        "$value": "{size.xxs}",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:20058:8522",
+          "com.figma.scopes": [
+            "WIDTH_HEIGHT"
+          ]
+        }
+      },
+      "l": {
+        "$type": "number",
+        "$value": 22,
+        "$extensions": {
+          "sens": {
+            "source": "Sens.Design 标题栏 面包屑 v2.1 · 一级标题搭配图标"
+          }
+        }
+      }
+    },
+    "component-height": {
+      "xs": {
+        "$type": "number",
+        "$value": "{size.xs}",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:20058:10374",
+          "com.figma.scopes": [
+            "WIDTH_HEIGHT"
+          ]
+        }
+      },
+      "s": {
+        "$type": "number",
+        "$value": "{size.s}",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:20058:8521",
+          "com.figma.scopes": [
+            "WIDTH_HEIGHT"
+          ]
+        }
+      },
+      "m": {
+        "$type": "number",
+        "$value": "{size.m}",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:20029:6715",
+          "com.figma.scopes": [
+            "WIDTH_HEIGHT"
+          ]
+        }
+      },
+      "l": {
+        "$type": "number",
+        "$value": "{size.l}",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:20029:6716",
+          "com.figma.scopes": [
+            "WIDTH_HEIGHT"
+          ]
+        }
+      },
+      "xl": {
+        "$type": "number",
+        "$value": "{size.xl}",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:20061:13734",
+          "com.figma.scopes": [
+            "WIDTH_HEIGHT"
+          ]
+        }
+      },
+      "xxl": {
+        "$type": "number",
+        "$value": "{size.xxl}",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:20058:42999",
+          "com.figma.scopes": [
+            "WIDTH_HEIGHT"
+          ]
+        }
+      },
+      "xxxl": {
+        "$type": "number",
+        "$value": "{size.xxxl}",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:20058:13089",
+          "com.figma.scopes": [
+            "WIDTH_HEIGHT"
+          ]
+        }
+      }
+    }
+  },
+  "radius": {
+    "none": {
+      "$type": "number",
+      "$value": 0,
+      "$description": "直角",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:20020:5105",
+        "com.figma.scopes": [
+          "CORNER_RADIUS"
+        ]
+      }
+    },
+    "s": {
+      "$type": "number",
+      "$value": 3,
+      "$description": "单选，复选，小尺寸的输入框、按钮",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:20019:5097",
+        "com.figma.scopes": [
+          "CORNER_RADIUS"
+        ]
+      }
+    },
+    "m": {
+      "$type": "number",
+      "$value": 4,
+      "$description": "大尺寸的输入框、按钮、选择器、搜索框",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:20020:5098",
+        "com.figma.scopes": [
+          "CORNER_RADIUS"
+        ]
+      }
+    },
+    "l": {
+      "$type": "number",
+      "$value": 6,
+      "$description": "卡片，气泡卡片，对话框",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:20020:5100",
+        "com.figma.scopes": [
+          "CORNER_RADIUS"
+        ]
+      }
+    },
+    "xl": {
+      "$type": "number",
+      "$value": 10,
+      "$description": "页面级卡片",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:20020:5101",
+        "com.figma.scopes": [
+          "CORNER_RADIUS"
+        ]
+      }
+    },
+    "circular": {
+      "$type": "number",
+      "$value": 999,
+      "$description": "全圆角",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:20020:5104",
+        "com.figma.scopes": [
+          "CORNER_RADIUS"
+        ]
+      }
+    }
+  },
+  "$extensions": {
+    "com.figma.modeName": "Mode 1"
+  }
+}

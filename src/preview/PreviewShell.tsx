@@ -12,6 +12,19 @@ const { useToken } = theme;
 
 const u = tokens.unit as Record<string, number>;
 
+export const BASIC_STYLE_NAV = [
+  { key: "/basic-styles/color", label: "颜色" },
+  { key: "/basic-styles/navigation-color", label: "导航颜色" },
+  { key: "/basic-styles/typography", label: "字体" },
+  { key: "/basic-styles/spacing", label: "间距" },
+  { key: "/basic-styles/size", label: "尺寸" },
+  { key: "/basic-styles/icon", label: "图标" },
+  { key: "/basic-styles/radius", label: "圆角" },
+  { key: "/basic-styles/shadow", label: "投影" },
+  { key: "/basic-styles/divider", label: "分割线" },
+  { key: "/basic-styles/card", label: "卡片" },
+] as const;
+
 export const COMPONENT_NAV = [
   { key: "/components/button", label: "按钮" },
   { key: "/components/input", label: "输入框" },
@@ -22,7 +35,14 @@ export const COMPONENT_NAV = [
   { key: "/components/search", label: "搜索" },
   { key: "/components/tabs", label: "标签页" },
   { key: "/components/badge", label: "徽标" },
+  { key: "/components/title-bar", label: "标题栏" },
+  { key: "/components/drawer", label: "抽屉" },
   { key: "/components/table", label: "表格" },
+] as const;
+
+const SCENE_NAV = [
+  { key: "/pages/data-source-demo", label: "数据源接入 Demo" },
+  { key: "/pages/tiktok-ads-connections", label: "TikTok Ads 连接列表" },
 ] as const;
 
 const EXTRA_NAV = [{ key: "/changelog", label: "更新日志" }] as const;
@@ -54,9 +74,13 @@ export function PreviewShell({ skin, onSkinChange, headerExtra }: PreviewShellPr
   const functional = getFunctionalColors(skin);
 
   const isComponentPage = location.pathname.startsWith("/components/");
+  const isBasicStylePage = location.pathname.startsWith("/basic-styles/");
+  const isScenePage = location.pathname.startsWith("/pages/");
 
   const selectedKey =
+    BASIC_STYLE_NAV.some((item) => item.key === location.pathname) ||
     COMPONENT_NAV.some((item) => item.key === location.pathname) ||
+    SCENE_NAV.some((item) => item.key === location.pathname) ||
     EXTRA_NAV.some((item) => item.key === location.pathname)
       ? location.pathname
       : location.pathname.startsWith("/legacy")
@@ -86,11 +110,27 @@ export function PreviewShell({ skin, onSkinChange, headerExtra }: PreviewShellPr
           mode="inline"
           selectedKeys={[selectedKey]}
           items={[
-            ...COMPONENT_NAV.map((item) => ({
-              key: item.key,
-              label: item.label,
-              disabled: Boolean((item as { disabled?: boolean }).disabled),
-            })),
+            {
+              type: "group" as const,
+              label: "基础样式",
+              children: BASIC_STYLE_NAV.map((item) => ({ key: item.key, label: item.label })),
+            },
+            { type: "divider" as const },
+            {
+              type: "group" as const,
+              label: "组件",
+              children: COMPONENT_NAV.map((item) => ({
+                key: item.key,
+                label: item.label,
+                disabled: Boolean((item as { disabled?: boolean }).disabled),
+              })),
+            },
+            { type: "divider" as const },
+            {
+              type: "group" as const,
+              label: "场景页面",
+              children: SCENE_NAV.map((item) => ({ key: item.key, label: item.label })),
+            },
             { type: "divider" as const },
             { key: "/legacy", label: "旧版全量预览" },
             ...EXTRA_NAV,
@@ -161,11 +201,13 @@ export function PreviewShell({ skin, onSkinChange, headerExtra }: PreviewShellPr
           style={{
             flex: 1,
             minHeight: 0,
-            overflow: isComponentPage ? "hidden" : "auto",
-            padding: isComponentPage ? 0 : token.paddingLG,
+            overflow: isComponentPage || isBasicStylePage ? "hidden" : "auto",
+            padding: isComponentPage || isBasicStylePage || isScenePage ? 0 : token.paddingLG,
           }}
         >
-          {isComponentPage ? (
+          {isComponentPage || isBasicStylePage ? (
+            <Outlet context={{ skin }} />
+          ) : isScenePage ? (
             <Outlet context={{ skin }} />
           ) : (
             <div style={{ maxWidth: 1440, width: "100%", margin: "0 auto" }}>

@@ -1,0 +1,4021 @@
+{
+  "导航": {
+    "可视化": {
+      "$type": "string",
+      "$value": "BI",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5555",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "报表": {
+      "$type": "string",
+      "$value": "Reports",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5556",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "概览": {
+      "$type": "string",
+      "$value": "Dashboards",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5557",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "业务集市": {
+      "$type": "string",
+      "$value": "Dataset",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5558",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "管理中心": {
+      "$type": "string",
+      "$value": "Settings",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5559",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "分析": {
+      "$type": "string",
+      "$value": "Analyze",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5560",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "行为分析": {
+      "$type": "string",
+      "$value": "Behavior Analysis",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5561",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "用户分析": {
+      "$type": "string",
+      "$value": "Users Analysis",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5562",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "经营分析": {
+      "$type": "string",
+      "$value": "General Analysis",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5563",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "其他": {
+      "$type": "string",
+      "$value": "Others",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5564",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "事件分析": {
+      "$type": "string",
+      "$value": "Events",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5565",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "漏斗分析": {
+      "$type": "string",
+      "$value": "Funnels",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5566",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "留存分析": {
+      "$type": "string",
+      "$value": "Retention",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5567",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "分布分析": {
+      "$type": "string",
+      "$value": "Distribution",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5568",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "LTV分析": {
+      "$type": "string",
+      "$value": "LTV",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5569",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "Session 分析": {
+      "$type": "string",
+      "$value": "Sessions",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5570",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "用户路径分析": {
+      "$type": "string",
+      "$value": "Flows",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5571",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "间隔分析": {
+      "$type": "string",
+      "$value": "Intervals",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5572",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "归因分析": {
+      "$type": "string",
+      "$value": "Attribution",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5573",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "网页热力分析": {
+      "$type": "string",
+      "$value": "Heat Map",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5574",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "App点击分析": {
+      "$type": "string",
+      "$value": "App Click",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5575",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "RFM分析": {
+      "$type": "string",
+      "$value": "RFM",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5576",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "用户群画像分析": {
+      "$type": "string",
+      "$value": "Portrait",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5577",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "用户群画像报告": {
+      "$type": "string",
+      "$value": "Users Portrait Reports",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5578",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "属性分析": {
+      "$type": "string",
+      "$value": "Properties",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5579",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "用户细查": {
+      "$type": "string",
+      "$value": "Users Look-Up",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5580",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "指标分析": {
+      "$type": "string",
+      "$value": "Metric Analysis",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5581",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "自定义查询": {
+      "$type": "string",
+      "$value": "SensorsData SQL",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5582",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "书签": {
+      "$type": "string",
+      "$value": "Bookmarks",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5583",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "智能预警分析": {
+      "$type": "string",
+      "$value": "Intelligence",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5584",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "指标平台": {
+      "$type": "string",
+      "$value": "Metric Platform",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5585",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "渠道追踪": {
+      "$type": "string",
+      "$value": "Campaign Track",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5586",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "多时区": {
+      "$type": "string",
+      "$value": "Timezone",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5587",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "多主体切换分析": {
+      "$type": "string",
+      "$value": "Multi-Entity",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5588",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "交易日": {
+      "$type": "string",
+      "$value": "Trading Day",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5589",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "企业内部消息通知": {
+      "$type": "string",
+      "$value": "Notifications",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5590",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "应用管理": {
+      "$type": "string",
+      "$value": "Application Management",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5591",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "三方数据集成": {
+      "$type": "string",
+      "$value": "Third-Party Data Integration",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5592",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "渠道链接": {
+      "$type": "string",
+      "$value": "Channel Links",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5593",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "渠道管理": {
+      "$type": "string",
+      "$value": "Channel Management",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5594",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "渠道工具": {
+      "$type": "string",
+      "$value": "Channel Tools",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5595",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "活动管理": {
+      "$type": "string",
+      "$value": "Campaign Management",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5596",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "Deeplink 管理": {
+      "$type": "string",
+      "$value": "Deeplink Management",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5597",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "分析模型设置": {
+      "$type": "string",
+      "$value": "Analyze Settings",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5598",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "场景商店": {
+      "$type": "string",
+      "$value": "Scenario Store",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5599",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "用户分群": {
+      "$type": "string",
+      "$value": "Segments",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5600",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "下载资源报告": {
+      "$type": "string",
+      "$value": "Download Resource Report",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5601",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "推送管理": {
+      "$type": "string",
+      "$value": "Push Management",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5602",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "企业内部触达通道配置": {
+      "$type": "string",
+      "$value": "Webhook Settings",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5603",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "平台管理": {
+      "$type": "string",
+      "$value": "Platform Management",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5604",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "神策数界平台": {
+      "$type": "string",
+      "$value": "Sensors Data Horizon",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5605",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "数据资产视图": {
+      "$type": "string",
+      "$value": "Assets",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5606",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "信息目录管理": {
+      "$type": "string",
+      "$value": "Catalog",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5607",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "标签": {
+      "$type": "string",
+      "$value": "Traits",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5608",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "分群": {
+      "$type": "string",
+      "$value": "Segments",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5609",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "数据接入": {
+      "$type": "string",
+      "$value": "Data Management",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5610",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "埋点数据接入": {
+      "$type": "string",
+      "$value": "Tracking Data",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5611",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "数据接入引导": {
+      "$type": "string",
+      "$value": "Guide",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5612",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "入库校验规则设置": {
+      "$type": "string",
+      "$value": "Validation Rules",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5613",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "IP 及域名黑名单设置": {
+      "$type": "string",
+      "$value": "Block Rules",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5614",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "实时导入数据查询": {
+      "$type": "string",
+      "$value": "Live Data",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5615",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "Debug 实时数据查询": {
+      "$type": "string",
+      "$value": "Debug View",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5616",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "通用数据接入": {
+      "$type": "string",
+      "$value": "Data Import",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5617",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "数据源管理": {
+      "$type": "string",
+      "$value": "Sources",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5618",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "数据表管理": {
+      "$type": "string",
+      "$value": "Tables",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5619",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "任务管理": {
+      "$type": "string",
+      "$value": "Syncs",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5620",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "元数据管理": {
+      "$type": "string",
+      "$value": "Tracking Plan",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5621",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "用户表": {
+      "$type": "string",
+      "$value": "Users",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5622",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "普通属性": {
+      "$type": "string",
+      "$value": "Properties",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5623",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "虚拟属性": {
+      "$type": "string",
+      "$value": "Custom Properties",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5624",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "维度表": {
+      "$type": "string",
+      "$value": "Lookup Tables",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5625",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "配置用户关联": {
+      "$type": "string",
+      "$value": "Identities",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5626",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "事件表": {
+      "$type": "string",
+      "$value": "Events",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5627",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "元事件": {
+      "$type": "string",
+      "$value": "Events",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5628",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "虚拟事件": {
+      "$type": "string",
+      "$value": "Custom Events",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5629",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "可视化全埋点事件": {
+      "$type": "string",
+      "$value": "Visual Labeling",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5630",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "明细表": {
+      "$type": "string",
+      "$value": "Details",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5631",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "实体配置": {
+      "$type": "string",
+      "$value": "Entities",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5632",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "实体定义": {
+      "$type": "string",
+      "$value": "Entities",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5633",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "实体间关系": {
+      "$type": "string",
+      "$value": "Relationships",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5634",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "数据质量": {
+      "$type": "string",
+      "$value": "Data Quality",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5635",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "埋点数据查询": {
+      "$type": "string",
+      "$value": "Statistics",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5636",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "数据校验": {
+      "$type": "string",
+      "$value": "Data Validation",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5637",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "用户关联校验": {
+      "$type": "string",
+      "$value": "Identity Validation",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5638",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "SDK 数据接入": {
+      "$type": "string",
+      "$value": "SDK Data Import",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5639",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "SDK 基础安全支持": {
+      "$type": "string",
+      "$value": "SDK Basic Security Support",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5640",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "数据源管理 - MySQL": {
+      "$type": "string",
+      "$value": "Source-MySQL",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5641",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "数据源管理 - Hive": {
+      "$type": "string",
+      "$value": "Source-Hive",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5642",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "数据源管理 - FTP": {
+      "$type": "string",
+      "$value": "Source-FTP",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5643",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "数据源管理 - 微信公众号": {
+      "$type": "string",
+      "$value": "Source-WeChat",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5644",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "数据源管理 - 企业微信": {
+      "$type": "string",
+      "$value": "Source-WeCom",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5645",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "用户关联": {
+      "$type": "string",
+      "$value": "Identities",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5646",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "可视化全埋点": {
+      "$type": "string",
+      "$value": "Visual Labeling",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5647",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "标签管理": {
+      "$type": "string",
+      "$value": "Traits",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5648",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "分群管理": {
+      "$type": "string",
+      "$value": "Segments",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5649",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "用户数据查询": {
+      "$type": "string",
+      "$value": "User Data Query",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5650",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "规则标签创建": {
+      "$type": "string",
+      "$value": "Rules Traits",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5651",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "RFM 标签创建": {
+      "$type": "string",
+      "$value": "RFM Traits",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5652",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "SQL 标签创建": {
+      "$type": "string",
+      "$value": "SQL Traits",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5653",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "特征分群创建": {
+      "$type": "string",
+      "$value": "Feature Segments",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5654",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "多实体": {
+      "$type": "string",
+      "$value": "Multi-Entities",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5655",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "实体明细表": {
+      "$type": "string",
+      "$value": "Entity Details",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5656",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "EQL 标签创建": {
+      "$type": "string",
+      "$value": "EQL Traits",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5657",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "EQL 分群创建": {
+      "$type": "string",
+      "$value": "EQL Segments",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5658",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "自定义标签规则插槽": {
+      "$type": "string",
+      "$value": "Custom Trait Rule Plugin",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5659",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "自定义分群规则插槽": {
+      "$type": "string",
+      "$value": "Custom Segment Rule Plugin",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5660",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "自定义分群推送插槽": {
+      "$type": "string",
+      "$value": "Custom Segment Push Plugin",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5661",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "补充文案": {
+      "正式项目": {
+        "$type": "string",
+        "$value": "Production Project",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:22237:5781",
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ],
+          "com.figma.type": "string"
+        }
+      },
+      "平台管理员": {
+        "$type": "string",
+        "$value": "Platform Admin",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:22237:5782",
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ],
+          "com.figma.type": "string"
+        }
+      },
+      "管理员": {
+        "$type": "string",
+        "$value": "Admin",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:22237:5783",
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ],
+          "com.figma.type": "string"
+        }
+      }
+    }
+  },
+  "组件库": {
+    "sensd-pagination-itemsPerPage": {
+      "$type": "string",
+      "$value": "Items / Page",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5231",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-pagination-jumpTo": {
+      "$type": "string",
+      "$value": "Go to",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5232",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-pagination-jumpToConfirm": {
+      "$type": "string",
+      "$value": "Confirm",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5233",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-pagination-page": {
+      "$type": "string",
+      "$value": "Page",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5234",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-pagination-prevPage": {
+      "$type": "string",
+      "$value": "Previous",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5235",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-pagination-nextPage": {
+      "$type": "string",
+      "$value": "Next",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5236",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-pagination-prev5": {
+      "$type": "string",
+      "$value": "Previous 5 Pages",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5237",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-pagination-next5": {
+      "$type": "string",
+      "$value": "Next 5 Pages",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5238",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-pagination-prev3": {
+      "$type": "string",
+      "$value": "Previous 3 Pages",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5239",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-pagination-next3": {
+      "$type": "string",
+      "$value": "Next 3 Pages",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5240",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-pagination-pageSize": {
+      "$type": "string",
+      "$value": "Page Size",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5241",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-pagination-prevDisable": {
+      "$type": "string",
+      "$value": "Currently on the First Page",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5242",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-pagination-nextDisable": {
+      "$type": "string",
+      "$value": "Currently on the Last Page",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5243",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-pagination-pageShow": {
+      "$type": "string",
+      "$value": "${num}/${total}",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5244",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-pagination-pageSelect": {
+      "$type": "string",
+      "$value": "Change the Number of Items per Page",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5245",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-backTop-backtop": {
+      "$type": "string",
+      "$value": "Back to Top",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5246",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-datePicker-lang-placeholder": {
+      "$type": "string",
+      "$value": "Select Date",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5247",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-datePicker-lang-yearPlaceholder": {
+      "$type": "string",
+      "$value": "Select Year",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5248",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-datePicker-lang-quarterPlaceholder": {
+      "$type": "string",
+      "$value": "Select Quarter",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5249",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-datePicker-lang-monthPlaceholder": {
+      "$type": "string",
+      "$value": "Select Month",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5250",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-datePicker-lang-weekPlaceholder": {
+      "$type": "string",
+      "$value": "Select Week",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5251",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-datePicker-lang-rangePlaceholder0": {
+      "$type": "string",
+      "$value": "Start Date",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5252",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-datePicker-lang-rangePlaceholder1": {
+      "$type": "string",
+      "$value": "End Date",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5253",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-datePicker-lang-rangeYearPlaceholder0": {
+      "$type": "string",
+      "$value": "Start Year",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5254",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-datePicker-lang-rangeYearPlaceholder1": {
+      "$type": "string",
+      "$value": "End Year",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5255",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-datePicker-lang-rangeMonthPlaceholder0": {
+      "$type": "string",
+      "$value": "Start Month",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5256",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-datePicker-lang-rangeMonthPlaceholder1": {
+      "$type": "string",
+      "$value": "End Month",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5257",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-datePicker-lang-rangeWeekPlaceholder0": {
+      "$type": "string",
+      "$value": "Start Week",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5258",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-datePicker-lang-rangeWeekPlaceholder1": {
+      "$type": "string",
+      "$value": "End Week",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5259",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-datePicker-lang-locale": {
+      "$type": "string",
+      "$value": "en_US",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5260",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-datePicker-lang-today": {
+      "$type": "string",
+      "$value": "Today",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5261",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-datePicker-lang-now": {
+      "$type": "string",
+      "$value": "Now",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5262",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-datePicker-lang-backToToday": {
+      "$type": "string",
+      "$value": "Back to Today",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5263",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-datePicker-lang-ok": {
+      "$type": "string",
+      "$value": "Apply",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5264",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-datePicker-lang-timeSelect": {
+      "$type": "string",
+      "$value": "Select Time",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5265",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-datePicker-lang-dateSelect": {
+      "$type": "string",
+      "$value": "Select Date",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5266",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-datePicker-lang-weekSelect": {
+      "$type": "string",
+      "$value": "Select Week",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5267",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-datePicker-lang-clear": {
+      "$type": "string",
+      "$value": "Clear",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5268",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-datePicker-lang-month": {
+      "$type": "string",
+      "$value": "Month",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5269",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-datePicker-lang-year": {
+      "$type": "string",
+      "$value": "Year",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5270",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-datePicker-lang-previousMonth": {
+      "$type": "string",
+      "$value": "Previous (PageUp)",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5271",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-datePicker-lang-nextMonth": {
+      "$type": "string",
+      "$value": "Next (PageDown)",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5272",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-datePicker-lang-monthSelect": {
+      "$type": "string",
+      "$value": "Select Month",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5273",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-datePicker-lang-yearSelect": {
+      "$type": "string",
+      "$value": "Select Year",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5274",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-datePicker-lang-decadeSelect": {
+      "$type": "string",
+      "$value": "Select Decade",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5275",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-datePicker-lang-yearFormat": {
+      "$type": "string",
+      "$value": "YYYY",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5276",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-datePicker-lang-dayFormat": {
+      "$type": "string",
+      "$value": "DD",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5277",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-datePicker-lang-dateFormat": {
+      "$type": "string",
+      "$value": "MM/DD/YYYY",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5278",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-datePicker-lang-dateTimeFormat": {
+      "$type": "string",
+      "$value": "MM/DD/YYYY HH:mm:ss",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5279",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-datePicker-lang-previousYear": {
+      "$type": "string",
+      "$value": "Last Year (Control + Left)",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5280",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-datePicker-lang-nextYear": {
+      "$type": "string",
+      "$value": "Next Year (Control + Right)",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5281",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-datePicker-lang-previousDecade": {
+      "$type": "string",
+      "$value": "Last Decade",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5282",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-datePicker-lang-nextDecade": {
+      "$type": "string",
+      "$value": "Next Decade",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5283",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-datePicker-lang-previousCentury": {
+      "$type": "string",
+      "$value": "Last Century",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5284",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-datePicker-lang-nextCentury": {
+      "$type": "string",
+      "$value": "Next Century",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5285",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-datePicker-timePickerLocale-placeholder": {
+      "$type": "string",
+      "$value": "Select Time",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5286",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-datePicker-timePickerLocale-rangePlaceholder0": {
+      "$type": "string",
+      "$value": "Start Time",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5287",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-datePicker-timePickerLocale-rangePlaceholder1": {
+      "$type": "string",
+      "$value": "End Time",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5288",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-timePicker-placeholder": {
+      "$type": "string",
+      "$value": "Select Time",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5289",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-timePicker-rangePlaceholder0": {
+      "$type": "string",
+      "$value": "Start Time",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5290",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-timePicker-rangePlaceholder1": {
+      "$type": "string",
+      "$value": "End Time",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5291",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-calendar-lang-placeholder": {
+      "$type": "string",
+      "$value": "Select Date",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5292",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-calendar-lang-yearPlaceholder": {
+      "$type": "string",
+      "$value": "Select Year",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5293",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-calendar-lang-quarterPlaceholder": {
+      "$type": "string",
+      "$value": "Select Quarter",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5294",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-calendar-lang-monthPlaceholder": {
+      "$type": "string",
+      "$value": "Select Month",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5295",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-calendar-lang-weekPlaceholder": {
+      "$type": "string",
+      "$value": "Select Week",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5296",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-calendar-lang-rangePlaceholder0": {
+      "$type": "string",
+      "$value": "Start Date",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5297",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-calendar-lang-rangePlaceholder1": {
+      "$type": "string",
+      "$value": "End Date",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5298",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-calendar-lang-rangeYearPlaceholder0": {
+      "$type": "string",
+      "$value": "Start Year",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5299",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-calendar-lang-rangeYearPlaceholder1": {
+      "$type": "string",
+      "$value": "End Year",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5300",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-calendar-lang-rangeMonthPlaceholder0": {
+      "$type": "string",
+      "$value": "Start Month",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5301",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-calendar-lang-rangeMonthPlaceholder1": {
+      "$type": "string",
+      "$value": "End Month",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5302",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-calendar-lang-rangeWeekPlaceholder0": {
+      "$type": "string",
+      "$value": "Start Week",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5303",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-calendar-lang-rangeWeekPlaceholder1": {
+      "$type": "string",
+      "$value": "End Week",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5304",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-calendar-lang-locale": {
+      "$type": "string",
+      "$value": "en_US",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5305",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-calendar-lang-today": {
+      "$type": "string",
+      "$value": "Today",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5306",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-calendar-lang-now": {
+      "$type": "string",
+      "$value": "Now",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5307",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-calendar-lang-backToToday": {
+      "$type": "string",
+      "$value": "Back to Today",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5308",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-calendar-lang-ok": {
+      "$type": "string",
+      "$value": "Apply",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5309",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-calendar-lang-timeSelect": {
+      "$type": "string",
+      "$value": "Select Time",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5310",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-calendar-lang-dateSelect": {
+      "$type": "string",
+      "$value": "Select Date",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5311",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-calendar-lang-weekSelect": {
+      "$type": "string",
+      "$value": "Select Week",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5312",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-calendar-lang-clear": {
+      "$type": "string",
+      "$value": "Clear",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5313",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-calendar-lang-month": {
+      "$type": "string",
+      "$value": "Month",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5314",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-calendar-lang-year": {
+      "$type": "string",
+      "$value": "Year",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5315",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-calendar-lang-previousMonth": {
+      "$type": "string",
+      "$value": "Previous (PageUp)",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5316",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-calendar-lang-nextMonth": {
+      "$type": "string",
+      "$value": "Next (PageDown)",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5317",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-calendar-lang-monthSelect": {
+      "$type": "string",
+      "$value": "Select Month",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5318",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-calendar-lang-yearSelect": {
+      "$type": "string",
+      "$value": "Select Year",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5319",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-calendar-lang-decadeSelect": {
+      "$type": "string",
+      "$value": "Select Decade",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5320",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-calendar-lang-yearFormat": {
+      "$type": "string",
+      "$value": "YYYY",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5321",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-calendar-lang-dayFormat": {
+      "$type": "string",
+      "$value": "DD",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5322",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-calendar-lang-dateFormat": {
+      "$type": "string",
+      "$value": "MM/DD/YYYY",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5323",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-calendar-lang-dateTimeFormat": {
+      "$type": "string",
+      "$value": "MM/DD/YYYY HH:mm:ss",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5324",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-calendar-lang-previousYear": {
+      "$type": "string",
+      "$value": "Last Year (Control + Left)",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5325",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-calendar-lang-nextYear": {
+      "$type": "string",
+      "$value": "Next Year (Control + Right)",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5326",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-calendar-lang-previousDecade": {
+      "$type": "string",
+      "$value": "Last Decade",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5327",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-calendar-lang-nextDecade": {
+      "$type": "string",
+      "$value": "Next Decade",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5328",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-calendar-lang-previousCentury": {
+      "$type": "string",
+      "$value": "Last Century",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5329",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-calendar-lang-nextCentury": {
+      "$type": "string",
+      "$value": "Next Century",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5330",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-calendar-timePickerLocale-placeholder": {
+      "$type": "string",
+      "$value": "Select Time",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5331",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-calendar-timePickerLocale-rangePlaceholder0": {
+      "$type": "string",
+      "$value": "Start Time",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5332",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-calendar-timePickerLocale-rangePlaceholder1": {
+      "$type": "string",
+      "$value": "End Time",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5333",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-global-placeholder": {
+      "$type": "string",
+      "$value": "Select",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5334",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-select-cancelText": {
+      "$type": "string",
+      "$value": "Cancel",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5335",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-select-okText": {
+      "$type": "string",
+      "$value": "Confirm",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5336",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-select-selectedCount": {
+      "$type": "string",
+      "$value": "${count} Selected",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5337",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-select-disabledReason": {
+      "$type": "string",
+      "$value": "Disabled Reason",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5338",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-select-labelName": {
+      "$type": "string",
+      "$value": "Label Name",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5339",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-selectPanel-okText": {
+      "$type": "string",
+      "$value": "Confirm",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5340",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-selectPanel-cancelText": {
+      "$type": "string",
+      "$value": "Cancel",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5341",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-selectPanel-selectAll": {
+      "$type": "string",
+      "$value": "All",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5342",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-selectPanel-placeholder": {
+      "$type": "string",
+      "$value": "Select",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5343",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-selectPanel-searchPlaceholder": {
+      "$type": "string",
+      "$value": "Search",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5344",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-selectPanel-searchCount": {
+      "$type": "string",
+      "$value": "${count} Result(s)",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5345",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-selectPanel-totalCount": {
+      "$type": "string",
+      "$value": "${count} Item(s)",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5346",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-selectPanel-back": {
+      "$type": "string",
+      "$value": "Back",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5347",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-selectPanel-noData": {
+      "$type": "string",
+      "$value": "No Data",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5348",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-selectPanel-noResult": {
+      "$type": "string",
+      "$value": "No Results",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5349",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-selectPanel-noResultDesc": {
+      "$type": "string",
+      "$value": "No results found, please re-enter.",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5350",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-selectPanel-selectAllTip": {
+      "$type": "string",
+      "$value": "The status of some options cannot be changed.",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5351",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-selectPanel-loadingText": {
+      "$type": "string",
+      "$value": "Loading",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5352",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-selectTransfer-noData": {
+      "$type": "string",
+      "$value": "No Data",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5353",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-selectTransfer-emptyText": {
+      "$type": "string",
+      "$value": "Select From the Left List",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5354",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-selectTransfer-clearAll": {
+      "$type": "string",
+      "$value": "Clear",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5355",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-selectTransfer-selectedCount": {
+      "$type": "string",
+      "$value": "${count} Selected",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5356",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-selectTransfer-maxCount": {
+      "$type": "string",
+      "$value": ", maximum ${max} items can be selected.",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5357",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-table-filterTitle": {
+      "$type": "string",
+      "$value": "Filter",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5358",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-table-filterConfirm": {
+      "$type": "string",
+      "$value": "Apply",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5359",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-table-filterReset": {
+      "$type": "string",
+      "$value": "Reset",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5360",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-table-filterEmptyText": {
+      "$type": "string",
+      "$value": "No Filters",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5361",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-table-filterCheckall": {
+      "$type": "string",
+      "$value": "All",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5362",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-table-filterSearchPlaceholder": {
+      "$type": "string",
+      "$value": "Search",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5363",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-table-selectAll": {
+      "$type": "string",
+      "$value": "Select All on the Current Page",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5364",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-table-selectInvert": {
+      "$type": "string",
+      "$value": "Invert All on the Current Page",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5365",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-table-selectNone": {
+      "$type": "string",
+      "$value": "Clear All",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5366",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-table-selectionAll": {
+      "$type": "string",
+      "$value": "Select All on the Current Page",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5367",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-table-sortTitle": {
+      "$type": "string",
+      "$value": "Sort",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5368",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-table-expand": {
+      "$type": "string",
+      "$value": "Expand",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5369",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-table-collapse": {
+      "$type": "string",
+      "$value": "Collapse",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5370",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-table-triggerDesc": {
+      "$type": "string",
+      "$value": "Sort Descending",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5371",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-table-triggerAsc": {
+      "$type": "string",
+      "$value": "Sort Ascending",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5372",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-table-cancelSort": {
+      "$type": "string",
+      "$value": "Clear Sort",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5373",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-table-emptyText": {
+      "$type": "string",
+      "$value": "No Data",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5374",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-table-noResult": {
+      "$type": "string",
+      "$value": "No Results",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5375",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-table-noResultSubTitle": {
+      "$type": "string",
+      "$value": "No results found, please re-enter.",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5376",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-modal-okText": {
+      "$type": "string",
+      "$value": "Confirm",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5377",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-modal-cancelText": {
+      "$type": "string",
+      "$value": "Cancel",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5378",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-modal-justOkText": {
+      "$type": "string",
+      "$value": "Got It",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5379",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-popconfirm-cancelText": {
+      "$type": "string",
+      "$value": "Cancel",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5380",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-popconfirm-okText": {
+      "$type": "string",
+      "$value": "Confirm",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5381",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-transfer-searchPlaceholder": {
+      "$type": "string",
+      "$value": "Search",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5382",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-transfer-itemUnit": {
+      "$type": "string",
+      "$value": "Item",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5383",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-transfer-itemsUnit": {
+      "$type": "string",
+      "$value": "Items",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5384",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-transfer-remove": {
+      "$type": "string",
+      "$value": "Remove",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5385",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-transfer-selectCurrent": {
+      "$type": "string",
+      "$value": "Select All on the Current Page",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5386",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-transfer-removeCurrent": {
+      "$type": "string",
+      "$value": "Remove All on the Current Page",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5387",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-transfer-selectAll": {
+      "$type": "string",
+      "$value": "Select All",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5388",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-transfer-removeAll": {
+      "$type": "string",
+      "$value": "Remove All",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5389",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-transfer-selectInvert": {
+      "$type": "string",
+      "$value": "Invert All on the Current Page",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5390",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-upload-uploading": {
+      "$type": "string",
+      "$value": "Uploading",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5391",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-upload-removeFile": {
+      "$type": "string",
+      "$value": "Delete",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5392",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-upload-uploadError": {
+      "$type": "string",
+      "$value": "Upload Failed",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5393",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-upload-previewFile": {
+      "$type": "string",
+      "$value": "Preview",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5394",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-upload-downloadFile": {
+      "$type": "string",
+      "$value": "Download",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5395",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-upload-triggerBtnTitle": {
+      "$type": "string",
+      "$value": "Upload",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5396",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-upload-triggerPictureTitle": {
+      "$type": "string",
+      "$value": "Upload",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5397",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-upload-triggerDragTitle": {
+      "$type": "string",
+      "$value": "Click or Drag Files Here to Upload",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5398",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-upload-remove": {
+      "$type": "string",
+      "$value": "Delete",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5399",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-upload-cancel": {
+      "$type": "string",
+      "$value": "Cancel",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5400",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-upload-cancelUpload": {
+      "$type": "string",
+      "$value": "Cancel Upload",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5401",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-upload-download": {
+      "$type": "string",
+      "$value": "Download",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5402",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-upload-maxCountTip": {
+      "$type": "string",
+      "$value": "Maximum ${num} files.",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5403",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-upload-fileOverSize": {
+      "$type": "string",
+      "$value": "The file exceeds size limit.",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5404",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-upload-pictureOverSize": {
+      "$type": "string",
+      "$value": "The image exceeds size limit.",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5405",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-upload-preview": {
+      "$type": "string",
+      "$value": "Preview",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5406",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-upload-resume": {
+      "$type": "string",
+      "$value": "Resume",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5407",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-upload-retry": {
+      "$type": "string",
+      "$value": "Retry",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5408",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-upload-cancelDownloadFile": {
+      "$type": "string",
+      "$value": "Cancel Upload",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5409",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-empty-description": {
+      "$type": "string",
+      "$value": "No Data",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5410",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-icon-icon": {
+      "$type": "string",
+      "$value": "Icon",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5411",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-text-edit": {
+      "$type": "string",
+      "$value": "Edit",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5412",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-text-copy": {
+      "$type": "string",
+      "$value": "Copy",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5413",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-text-copied": {
+      "$type": "string",
+      "$value": "Copied",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5414",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-text-expand": {
+      "$type": "string",
+      "$value": "Expand",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5415",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-pageHeader-back": {
+      "$type": "string",
+      "$value": "Back",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5416",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-form-optional": {
+      "$type": "string",
+      "$value": "(Optional)",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5417",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-form-defaultValidateMessages-default": {
+      "$type": "string",
+      "$value": "${label} invalid.",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5418",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-form-defaultValidateMessages-required": {
+      "$type": "string",
+      "$value": "Enter ${label}.",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5419",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-form-defaultValidateMessages-enum": {
+      "$type": "string",
+      "$value": "${label} must be one of [${enum}].",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5420",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-form-defaultValidateMessages-whitespace": {
+      "$type": "string",
+      "$value": "Enter ${label}.",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5421",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-form-defaultValidateMessages-date-format": {
+      "$type": "string",
+      "$value": "${label} date format invalid.",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5422",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-form-defaultValidateMessages-date-parse": {
+      "$type": "string",
+      "$value": "${label} cannot be converted to a date.",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5423",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-form-defaultValidateMessages-date-invalid": {
+      "$type": "string",
+      "$value": "${label} is an invalid date.",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5424",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-form-defaultValidateMessages-types-string": {
+      "$type": "string",
+      "$value": "${label} is an invalid ${type}.",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5425",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-form-defaultValidateMessages-types-method": {
+      "$type": "string",
+      "$value": "${label} is an invalid ${type}.",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5426",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-form-defaultValidateMessages-types-array": {
+      "$type": "string",
+      "$value": "${label} is an invalid ${type}.",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5427",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-form-defaultValidateMessages-types-object": {
+      "$type": "string",
+      "$value": "${label} is an invalid ${type}.",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5428",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-form-defaultValidateMessages-types-number": {
+      "$type": "string",
+      "$value": "${label} is an invalid ${type}.",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5429",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-form-defaultValidateMessages-types-date": {
+      "$type": "string",
+      "$value": "${label} is an invalid ${type}.",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5430",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-form-defaultValidateMessages-types-boolean": {
+      "$type": "string",
+      "$value": "${label} is an invalid ${type}.",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5431",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-form-defaultValidateMessages-types-integer": {
+      "$type": "string",
+      "$value": "${label} is an invalid ${type}.",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5432",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-form-defaultValidateMessages-types-float": {
+      "$type": "string",
+      "$value": "${label} is an invalid ${type}.",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5433",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-form-defaultValidateMessages-types-regexp": {
+      "$type": "string",
+      "$value": "${label} is an invalid ${type}.",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5434",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-form-defaultValidateMessages-types-email": {
+      "$type": "string",
+      "$value": "${label} is an invalid ${type}.",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5435",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-form-defaultValidateMessages-types-url": {
+      "$type": "string",
+      "$value": "${label} is an invalid ${type}.",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5436",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-form-defaultValidateMessages-types-hex": {
+      "$type": "string",
+      "$value": "${label} is an invalid ${type}.",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5437",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-form-defaultValidateMessages-string-len": {
+      "$type": "string",
+      "$value": "Must be ${len} characters.",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5438",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-form-defaultValidateMessages-string-min": {
+      "$type": "string",
+      "$value": "At least ${min} characters.",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5439",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-form-defaultValidateMessages-string-max": {
+      "$type": "string",
+      "$value": "At maximum ${max} characters.",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5440",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-form-defaultValidateMessages-string-range": {
+      "$type": "string",
+      "$value": "Must be between ${min} to ${max} characters.",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5441",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-form-defaultValidateMessages-number-len": {
+      "$type": "string",
+      "$value": "Must be equal to ${len}.",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5442",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-form-defaultValidateMessages-number-min": {
+      "$type": "string",
+      "$value": "Minimum is ${min}.",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5443",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-form-defaultValidateMessages-number-max": {
+      "$type": "string",
+      "$value": "Maximum is ${max}.",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5444",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-form-defaultValidateMessages-number-range": {
+      "$type": "string",
+      "$value": "Must be between ${min} to ${max}.",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5445",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-form-defaultValidateMessages-array-len": {
+      "$type": "string",
+      "$value": "Must be ${len}.",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5446",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-form-defaultValidateMessages-array-min": {
+      "$type": "string",
+      "$value": "At least ${min}.",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5447",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-form-defaultValidateMessages-array-max": {
+      "$type": "string",
+      "$value": "Maximum ${max}.",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5448",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-form-defaultValidateMessages-array-range": {
+      "$type": "string",
+      "$value": "Must be between ${min} to ${max}.",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5449",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-form-defaultValidateMessages-pattern-mismatch": {
+      "$type": "string",
+      "$value": "${label} does not match the pattern ${pattern}.",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5450",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-image-preview": {
+      "$type": "string",
+      "$value": "Preview",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5451",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-tag-successText": {
+      "$type": "string",
+      "$value": "Succeeded",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5452",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-tag-processingText": {
+      "$type": "string",
+      "$value": "In Progress",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5453",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-tag-failedText": {
+      "$type": "string",
+      "$value": "Failed",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5454",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-tag-abnormalText": {
+      "$type": "string",
+      "$value": "Error",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5455",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-tag-invalidText": {
+      "$type": "string",
+      "$value": "Invalid",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5456",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-tag-restTagText": {
+      "$type": "string",
+      "$value": "...${count} Item(s)",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5457",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-tree-expandText": {
+      "$type": "string",
+      "$value": "Expand",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5458",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-tree-foldText": {
+      "$type": "string",
+      "$value": "Collapse",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5459",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-tree-selectAllTip": {
+      "$type": "string",
+      "$value": "The status of some options cannot be changed.",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5460",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-tree-select": {
+      "$type": "string",
+      "$value": "Select",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5461",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-tree-unselect": {
+      "$type": "string",
+      "$value": "Deselect",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5462",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-tree-loadFieldText": {
+      "$type": "string",
+      "$value": "Load failed, please",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5463",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-tree-retryText": {
+      "$type": "string",
+      "$value": "Retry",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5464",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-tree-loadingText": {
+      "$type": "string",
+      "$value": "Loading",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5465",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-anchor-collapse": {
+      "$type": "string",
+      "$value": "Collapse",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5466",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-anchor-expand": {
+      "$type": "string",
+      "$value": "Expand",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5467",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-anchor-all": {
+      "$type": "string",
+      "$value": "All",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5468",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-card-more": {
+      "$type": "string",
+      "$value": "More",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5469",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-tabs-all": {
+      "$type": "string",
+      "$value": "All",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5470",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-tabs-addTab": {
+      "$type": "string",
+      "$value": "Add Tab",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5471",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-tabs-deleteTab": {
+      "$type": "string",
+      "$value": "Delete Tab",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5472",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-tabs-expandAll": {
+      "$type": "string",
+      "$value": "Expand All",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5473",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-tabs-collapseAll": {
+      "$type": "string",
+      "$value": "Collapse All",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5474",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-cascader-selectedCount": {
+      "$type": "string",
+      "$value": "...${count} Item(s)",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5482",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-cascader-disabledReason": {
+      "$type": "string",
+      "$value": "Disabled Reason",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5486",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-cascader-labelName": {
+      "$type": "string",
+      "$value": "Label Name",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5488",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-switch-checked": {
+      "$type": "string",
+      "$value": "On",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5490",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-switch-unchecked": {
+      "$type": "string",
+      "$value": "Off",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5492",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-input-placeholder": {
+      "$type": "string",
+      "$value": "Enter",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5493",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-input-searchPlaceholder": {
+      "$type": "string",
+      "$value": "Search",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5496",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "补充文案": {
+      "分页器": {
+        "10 条每页": {
+          "$type": "string",
+          "$value": "10 Items / Page",
+          "$extensions": {
+            "com.figma.variableId": "VariableID:22237:5502",
+            "com.figma.scopes": [
+              "ALL_SCOPES"
+            ],
+            "com.figma.type": "string"
+          }
+        },
+        "本页显示第 1-10 条": {
+          "$type": "string",
+          "$value": "1 / 10",
+          "$extensions": {
+            "com.figma.variableId": "VariableID:22237:5503",
+            "com.figma.scopes": [
+              "ALL_SCOPES"
+            ],
+            "com.figma.type": "string"
+          }
+        }
+      },
+      "下拉菜单": {
+        "共-20-条数据": {
+          "$type": "string",
+          "$value": "20 Items",
+          "$extensions": {
+            "com.figma.variableId": "VariableID:22237:5515",
+            "com.figma.scopes": [
+              "ALL_SCOPES"
+            ],
+            "com.figma.type": "string"
+          }
+        }
+      }
+    }
+  },
+  "$extensions": {
+    "com.figma.modeName": "en"
+  }
+}

@@ -1,0 +1,4021 @@
+{
+  "导航": {
+    "可视化": {
+      "$type": "string",
+      "$value": "可视化",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5555",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "报表": {
+      "$type": "string",
+      "$value": "报表",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5556",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "概览": {
+      "$type": "string",
+      "$value": "概览",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5557",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "业务集市": {
+      "$type": "string",
+      "$value": "业务集市",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5558",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "管理中心": {
+      "$type": "string",
+      "$value": "管理中心",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5559",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "分析": {
+      "$type": "string",
+      "$value": "分析",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5560",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "行为分析": {
+      "$type": "string",
+      "$value": "行为分析",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5561",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "用户分析": {
+      "$type": "string",
+      "$value": "用户分析",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5562",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "经营分析": {
+      "$type": "string",
+      "$value": "经营分析",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5563",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "其他": {
+      "$type": "string",
+      "$value": "其他",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5564",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "事件分析": {
+      "$type": "string",
+      "$value": "事件分析",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5565",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "漏斗分析": {
+      "$type": "string",
+      "$value": "漏斗分析",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5566",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "留存分析": {
+      "$type": "string",
+      "$value": "留存分析",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5567",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "分布分析": {
+      "$type": "string",
+      "$value": "分布分析",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5568",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "LTV分析": {
+      "$type": "string",
+      "$value": "LTV 分析",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5569",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "Session 分析": {
+      "$type": "string",
+      "$value": "Session 分析",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5570",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "用户路径分析": {
+      "$type": "string",
+      "$value": "用户路径分析",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5571",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "间隔分析": {
+      "$type": "string",
+      "$value": "间隔分析",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5572",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "归因分析": {
+      "$type": "string",
+      "$value": "归因分析",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5573",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "网页热力分析": {
+      "$type": "string",
+      "$value": "网页热力分析",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5574",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "App点击分析": {
+      "$type": "string",
+      "$value": "App 点击分析",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5575",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "RFM分析": {
+      "$type": "string",
+      "$value": "RFM 分析",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5576",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "用户群画像分析": {
+      "$type": "string",
+      "$value": "用户群画像分析",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5577",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "用户群画像报告": {
+      "$type": "string",
+      "$value": "用户群画像报告",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5578",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "属性分析": {
+      "$type": "string",
+      "$value": "属性分析",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5579",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "用户细查": {
+      "$type": "string",
+      "$value": "用户细查",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5580",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "指标分析": {
+      "$type": "string",
+      "$value": "指标分析",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5581",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "自定义查询": {
+      "$type": "string",
+      "$value": "自定义查询",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5582",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "书签": {
+      "$type": "string",
+      "$value": "书签",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5583",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "智能预警分析": {
+      "$type": "string",
+      "$value": "智能预警分析",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5584",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "指标平台": {
+      "$type": "string",
+      "$value": "指标平台",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5585",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "渠道追踪": {
+      "$type": "string",
+      "$value": "渠道追踪",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5586",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "多时区": {
+      "$type": "string",
+      "$value": "多时区",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5587",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "多主体切换分析": {
+      "$type": "string",
+      "$value": "多主体切换分析",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5588",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "交易日": {
+      "$type": "string",
+      "$value": "交易日",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5589",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "企业内部消息通知": {
+      "$type": "string",
+      "$value": "企业内部消息通知",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5590",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "应用管理": {
+      "$type": "string",
+      "$value": "应用管理",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5591",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "三方数据集成": {
+      "$type": "string",
+      "$value": "三方数据集成",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5592",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "渠道链接": {
+      "$type": "string",
+      "$value": "渠道链接",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5593",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "渠道管理": {
+      "$type": "string",
+      "$value": "渠道管理",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5594",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "渠道工具": {
+      "$type": "string",
+      "$value": "渠道工具",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5595",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "活动管理": {
+      "$type": "string",
+      "$value": "活动管理",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5596",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "Deeplink 管理": {
+      "$type": "string",
+      "$value": "Deeplink 管理",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5597",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "分析模型设置": {
+      "$type": "string",
+      "$value": "分析模型设置",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5598",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "场景商店": {
+      "$type": "string",
+      "$value": "场景商店",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5599",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "用户分群": {
+      "$type": "string",
+      "$value": "用户分群",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5600",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "下载资源报告": {
+      "$type": "string",
+      "$value": "下载资源报告",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5601",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "推送管理": {
+      "$type": "string",
+      "$value": "推送管理",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5602",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "企业内部触达通道配置": {
+      "$type": "string",
+      "$value": "企业内部触达通道配置",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5603",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "平台管理": {
+      "$type": "string",
+      "$value": "平台管理",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5604",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "神策数界平台": {
+      "$type": "string",
+      "$value": "神策数界平台",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5605",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "数据资产视图": {
+      "$type": "string",
+      "$value": "数据资产视图",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5606",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "信息目录管理": {
+      "$type": "string",
+      "$value": "信息目录管理",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5607",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "标签": {
+      "$type": "string",
+      "$value": "标签",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5608",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "分群": {
+      "$type": "string",
+      "$value": "分群",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5609",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "数据接入": {
+      "$type": "string",
+      "$value": "数据接入",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5610",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "埋点数据接入": {
+      "$type": "string",
+      "$value": "埋点数据接入",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5611",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "数据接入引导": {
+      "$type": "string",
+      "$value": "数据接入引导",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5612",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "入库校验规则设置": {
+      "$type": "string",
+      "$value": "入库校验规则设置",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5613",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "IP 及域名黑名单设置": {
+      "$type": "string",
+      "$value": "IP 及域名黑名单设置",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5614",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "实时导入数据查询": {
+      "$type": "string",
+      "$value": "实时导入数据查询",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5615",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "Debug 实时数据查询": {
+      "$type": "string",
+      "$value": "Debug 实时数据查询",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5616",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "通用数据接入": {
+      "$type": "string",
+      "$value": "通用数据接入",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5617",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "数据源管理": {
+      "$type": "string",
+      "$value": "数据源管理",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5618",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "数据表管理": {
+      "$type": "string",
+      "$value": "数据表管理",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5619",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "任务管理": {
+      "$type": "string",
+      "$value": "任务管理",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5620",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "元数据管理": {
+      "$type": "string",
+      "$value": "元数据管理",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5621",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "用户表": {
+      "$type": "string",
+      "$value": "用户表",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5622",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "普通属性": {
+      "$type": "string",
+      "$value": "普通属性",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5623",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "虚拟属性": {
+      "$type": "string",
+      "$value": "虚拟属性",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5624",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "维度表": {
+      "$type": "string",
+      "$value": "维度表",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5625",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "配置用户关联": {
+      "$type": "string",
+      "$value": "配置用户关联",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5626",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "事件表": {
+      "$type": "string",
+      "$value": "事件表",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5627",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "元事件": {
+      "$type": "string",
+      "$value": "元事件",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5628",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "虚拟事件": {
+      "$type": "string",
+      "$value": "虚拟事件",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5629",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "可视化全埋点事件": {
+      "$type": "string",
+      "$value": "可视化全埋点事件",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5630",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "明细表": {
+      "$type": "string",
+      "$value": "明细表",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5631",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "实体配置": {
+      "$type": "string",
+      "$value": "实体配置",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5632",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "实体定义": {
+      "$type": "string",
+      "$value": "实体定义",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5633",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "实体间关系": {
+      "$type": "string",
+      "$value": "实体间关系",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5634",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "数据质量": {
+      "$type": "string",
+      "$value": "数据质量",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5635",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "埋点数据查询": {
+      "$type": "string",
+      "$value": "埋点数据查询",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5636",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "数据校验": {
+      "$type": "string",
+      "$value": "数据校验",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5637",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "用户关联校验": {
+      "$type": "string",
+      "$value": "用户关联校验",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5638",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "SDK 数据接入": {
+      "$type": "string",
+      "$value": "SDK 数据接入",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5639",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "SDK 基础安全支持": {
+      "$type": "string",
+      "$value": "SDK 基础安全支持",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5640",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "数据源管理 - MySQL": {
+      "$type": "string",
+      "$value": "数据源管理 - MySQL",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5641",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "数据源管理 - Hive": {
+      "$type": "string",
+      "$value": "数据源管理 - Hive",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5642",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "数据源管理 - FTP": {
+      "$type": "string",
+      "$value": "数据源管理 - FTP",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5643",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "数据源管理 - 微信公众号": {
+      "$type": "string",
+      "$value": "数据源管理 - 微信公众号",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5644",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "数据源管理 - 企业微信": {
+      "$type": "string",
+      "$value": "数据源管理 - 企业微信",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5645",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "用户关联": {
+      "$type": "string",
+      "$value": "用户关联",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5646",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "可视化全埋点": {
+      "$type": "string",
+      "$value": "可视化全埋点",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5647",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "标签管理": {
+      "$type": "string",
+      "$value": "标签管理",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5648",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "分群管理": {
+      "$type": "string",
+      "$value": "分群管理",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5649",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "用户数据查询": {
+      "$type": "string",
+      "$value": "用户数据查询",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5650",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "规则标签创建": {
+      "$type": "string",
+      "$value": "规则标签创建",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5651",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "RFM 标签创建": {
+      "$type": "string",
+      "$value": "RFM 标签创建",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5652",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "SQL 标签创建": {
+      "$type": "string",
+      "$value": "SQL 标签创建",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5653",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "特征分群创建": {
+      "$type": "string",
+      "$value": "特征分群创建",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5654",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "多实体": {
+      "$type": "string",
+      "$value": "多实体",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5655",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "实体明细表": {
+      "$type": "string",
+      "$value": "实体明细表",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5656",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "EQL 标签创建": {
+      "$type": "string",
+      "$value": "EQL 标签创建",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5657",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "EQL 分群创建": {
+      "$type": "string",
+      "$value": "EQL 分群创建",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5658",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "自定义标签规则插槽": {
+      "$type": "string",
+      "$value": "自定义标签规则插槽",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5659",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "自定义分群规则插槽": {
+      "$type": "string",
+      "$value": "自定义分群规则插槽",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5660",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "自定义分群推送插槽": {
+      "$type": "string",
+      "$value": "自定义分群推送插槽",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5661",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "补充文案": {
+      "正式项目": {
+        "$type": "string",
+        "$value": "正式项目",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:22237:5781",
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ],
+          "com.figma.type": "string"
+        }
+      },
+      "平台管理员": {
+        "$type": "string",
+        "$value": "平台管理员",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:22237:5782",
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ],
+          "com.figma.type": "string"
+        }
+      },
+      "管理员": {
+        "$type": "string",
+        "$value": "管理员",
+        "$extensions": {
+          "com.figma.variableId": "VariableID:22237:5783",
+          "com.figma.scopes": [
+            "ALL_SCOPES"
+          ],
+          "com.figma.type": "string"
+        }
+      }
+    }
+  },
+  "组件库": {
+    "sensd-pagination-itemsPerPage": {
+      "$type": "string",
+      "$value": "条 / 页",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5231",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-pagination-jumpTo": {
+      "$type": "string",
+      "$value": "跳至",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5232",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-pagination-jumpToConfirm": {
+      "$type": "string",
+      "$value": "确定",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5233",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-pagination-page": {
+      "$type": "string",
+      "$value": "页",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5234",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-pagination-prevPage": {
+      "$type": "string",
+      "$value": "上一页",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5235",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-pagination-nextPage": {
+      "$type": "string",
+      "$value": "下一页",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5236",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-pagination-prev5": {
+      "$type": "string",
+      "$value": "向前 5 页",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5237",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-pagination-next5": {
+      "$type": "string",
+      "$value": "向后 5 页",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5238",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-pagination-prev3": {
+      "$type": "string",
+      "$value": "向前 3 页",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5239",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-pagination-next3": {
+      "$type": "string",
+      "$value": "向后 3 页",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5240",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-pagination-pageSize": {
+      "$type": "string",
+      "$value": "页码",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5241",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-pagination-prevDisable": {
+      "$type": "string",
+      "$value": "当前已在首页",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5242",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-pagination-nextDisable": {
+      "$type": "string",
+      "$value": "当前已在尾页",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5243",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-pagination-pageShow": {
+      "$type": "string",
+      "$value": "本页显示第 ${num} 条",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5244",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-pagination-pageSelect": {
+      "$type": "string",
+      "$value": "切换每页条数",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5245",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-backTop-backtop": {
+      "$type": "string",
+      "$value": "回到顶部",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5246",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-datePicker-lang-placeholder": {
+      "$type": "string",
+      "$value": "请选择日期",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5247",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-datePicker-lang-yearPlaceholder": {
+      "$type": "string",
+      "$value": "请选择年份",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5248",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-datePicker-lang-quarterPlaceholder": {
+      "$type": "string",
+      "$value": "请选择季度",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5249",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-datePicker-lang-monthPlaceholder": {
+      "$type": "string",
+      "$value": "请选择月份",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5250",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-datePicker-lang-weekPlaceholder": {
+      "$type": "string",
+      "$value": "请选择周",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5251",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-datePicker-lang-rangePlaceholder0": {
+      "$type": "string",
+      "$value": "开始日期",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5252",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-datePicker-lang-rangePlaceholder1": {
+      "$type": "string",
+      "$value": "结束日期",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5253",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-datePicker-lang-rangeYearPlaceholder0": {
+      "$type": "string",
+      "$value": "开始年份",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5254",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-datePicker-lang-rangeYearPlaceholder1": {
+      "$type": "string",
+      "$value": "结束年份",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5255",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-datePicker-lang-rangeMonthPlaceholder0": {
+      "$type": "string",
+      "$value": "开始月份",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5256",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-datePicker-lang-rangeMonthPlaceholder1": {
+      "$type": "string",
+      "$value": "结束月份",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5257",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-datePicker-lang-rangeWeekPlaceholder0": {
+      "$type": "string",
+      "$value": "开始周",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5258",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-datePicker-lang-rangeWeekPlaceholder1": {
+      "$type": "string",
+      "$value": "结束周",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5259",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-datePicker-lang-locale": {
+      "$type": "string",
+      "$value": "zh_CN",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5260",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-datePicker-lang-today": {
+      "$type": "string",
+      "$value": "今天",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5261",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-datePicker-lang-now": {
+      "$type": "string",
+      "$value": "此刻",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5262",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-datePicker-lang-backToToday": {
+      "$type": "string",
+      "$value": "返回今天",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5263",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-datePicker-lang-ok": {
+      "$type": "string",
+      "$value": "确定",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5264",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-datePicker-lang-timeSelect": {
+      "$type": "string",
+      "$value": "选择时间",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5265",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-datePicker-lang-dateSelect": {
+      "$type": "string",
+      "$value": "选择日期",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5266",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-datePicker-lang-weekSelect": {
+      "$type": "string",
+      "$value": "选择周",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5267",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-datePicker-lang-clear": {
+      "$type": "string",
+      "$value": "清除",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5268",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-datePicker-lang-month": {
+      "$type": "string",
+      "$value": "月",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5269",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-datePicker-lang-year": {
+      "$type": "string",
+      "$value": "年",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5270",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-datePicker-lang-previousMonth": {
+      "$type": "string",
+      "$value": "上个月 (翻页上键)",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5271",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-datePicker-lang-nextMonth": {
+      "$type": "string",
+      "$value": "下个月 (翻页下键)",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5272",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-datePicker-lang-monthSelect": {
+      "$type": "string",
+      "$value": "选择月份",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5273",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-datePicker-lang-yearSelect": {
+      "$type": "string",
+      "$value": "选择年份",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5274",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-datePicker-lang-decadeSelect": {
+      "$type": "string",
+      "$value": "选择年代",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5275",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-datePicker-lang-yearFormat": {
+      "$type": "string",
+      "$value": "YYYY 年",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5276",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-datePicker-lang-dayFormat": {
+      "$type": "string",
+      "$value": "D 日",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5277",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-datePicker-lang-dateFormat": {
+      "$type": "string",
+      "$value": "YYYY 年 M 月 D 日",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5278",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-datePicker-lang-dateTimeFormat": {
+      "$type": "string",
+      "$value": "YYYY 年 M 月 D 日 HH 时 mm 分 ss 秒",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5279",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-datePicker-lang-previousYear": {
+      "$type": "string",
+      "$value": "上一年 (Control 键加左方向键)",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5280",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-datePicker-lang-nextYear": {
+      "$type": "string",
+      "$value": "下一年 (Control 键加右方向键)",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5281",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-datePicker-lang-previousDecade": {
+      "$type": "string",
+      "$value": "上一年代",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5282",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-datePicker-lang-nextDecade": {
+      "$type": "string",
+      "$value": "下一年代",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5283",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-datePicker-lang-previousCentury": {
+      "$type": "string",
+      "$value": "上一世纪",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5284",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-datePicker-lang-nextCentury": {
+      "$type": "string",
+      "$value": "下一世纪",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5285",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-datePicker-timePickerLocale-placeholder": {
+      "$type": "string",
+      "$value": "请选择时间",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5286",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-datePicker-timePickerLocale-rangePlaceholder0": {
+      "$type": "string",
+      "$value": "开始时间",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5287",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-datePicker-timePickerLocale-rangePlaceholder1": {
+      "$type": "string",
+      "$value": "结束时间",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5288",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-timePicker-placeholder": {
+      "$type": "string",
+      "$value": "请选择时间",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5289",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-timePicker-rangePlaceholder0": {
+      "$type": "string",
+      "$value": "开始时间",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5290",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-timePicker-rangePlaceholder1": {
+      "$type": "string",
+      "$value": "结束时间",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5291",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-calendar-lang-placeholder": {
+      "$type": "string",
+      "$value": "请选择日期",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5292",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-calendar-lang-yearPlaceholder": {
+      "$type": "string",
+      "$value": "请选择年份",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5293",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-calendar-lang-quarterPlaceholder": {
+      "$type": "string",
+      "$value": "请选择季度",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5294",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-calendar-lang-monthPlaceholder": {
+      "$type": "string",
+      "$value": "请选择月份",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5295",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-calendar-lang-weekPlaceholder": {
+      "$type": "string",
+      "$value": "请选择周",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5296",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-calendar-lang-rangePlaceholder0": {
+      "$type": "string",
+      "$value": "开始日期",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5297",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-calendar-lang-rangePlaceholder1": {
+      "$type": "string",
+      "$value": "结束日期",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5298",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-calendar-lang-rangeYearPlaceholder0": {
+      "$type": "string",
+      "$value": "开始年份",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5299",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-calendar-lang-rangeYearPlaceholder1": {
+      "$type": "string",
+      "$value": "结束年份",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5300",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-calendar-lang-rangeMonthPlaceholder0": {
+      "$type": "string",
+      "$value": "开始月份",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5301",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-calendar-lang-rangeMonthPlaceholder1": {
+      "$type": "string",
+      "$value": "结束月份",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5302",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-calendar-lang-rangeWeekPlaceholder0": {
+      "$type": "string",
+      "$value": "开始周",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5303",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-calendar-lang-rangeWeekPlaceholder1": {
+      "$type": "string",
+      "$value": "结束周",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5304",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-calendar-lang-locale": {
+      "$type": "string",
+      "$value": "zh_CN",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5305",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-calendar-lang-today": {
+      "$type": "string",
+      "$value": "今天",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5306",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-calendar-lang-now": {
+      "$type": "string",
+      "$value": "此刻",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5307",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-calendar-lang-backToToday": {
+      "$type": "string",
+      "$value": "返回今天",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5308",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-calendar-lang-ok": {
+      "$type": "string",
+      "$value": "确定",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5309",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-calendar-lang-timeSelect": {
+      "$type": "string",
+      "$value": "选择时间",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5310",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-calendar-lang-dateSelect": {
+      "$type": "string",
+      "$value": "选择日期",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5311",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-calendar-lang-weekSelect": {
+      "$type": "string",
+      "$value": "选择周",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5312",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-calendar-lang-clear": {
+      "$type": "string",
+      "$value": "清除",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5313",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-calendar-lang-month": {
+      "$type": "string",
+      "$value": "月",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5314",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-calendar-lang-year": {
+      "$type": "string",
+      "$value": "年",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5315",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-calendar-lang-previousMonth": {
+      "$type": "string",
+      "$value": "上个月 (翻页上键)",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5316",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-calendar-lang-nextMonth": {
+      "$type": "string",
+      "$value": "下个月 (翻页下键)",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5317",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-calendar-lang-monthSelect": {
+      "$type": "string",
+      "$value": "选择月份",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5318",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-calendar-lang-yearSelect": {
+      "$type": "string",
+      "$value": "选择年份",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5319",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-calendar-lang-decadeSelect": {
+      "$type": "string",
+      "$value": "选择年代",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5320",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-calendar-lang-yearFormat": {
+      "$type": "string",
+      "$value": "YYYY 年",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5321",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-calendar-lang-dayFormat": {
+      "$type": "string",
+      "$value": "D 日",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5322",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-calendar-lang-dateFormat": {
+      "$type": "string",
+      "$value": "YYYY 年 M 月 D 日",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5323",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-calendar-lang-dateTimeFormat": {
+      "$type": "string",
+      "$value": "YYYY 年 M 月 D 日 HH 时 mm 分 ss 秒",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5324",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-calendar-lang-previousYear": {
+      "$type": "string",
+      "$value": "上一年 (Control 键加左方向键)",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5325",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-calendar-lang-nextYear": {
+      "$type": "string",
+      "$value": "下一年 (Control 键加右方向键)",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5326",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-calendar-lang-previousDecade": {
+      "$type": "string",
+      "$value": "上一年代",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5327",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-calendar-lang-nextDecade": {
+      "$type": "string",
+      "$value": "下一年代",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5328",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-calendar-lang-previousCentury": {
+      "$type": "string",
+      "$value": "上一世纪",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5329",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-calendar-lang-nextCentury": {
+      "$type": "string",
+      "$value": "下一世纪",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5330",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-calendar-timePickerLocale-placeholder": {
+      "$type": "string",
+      "$value": "请选择时间",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5331",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-calendar-timePickerLocale-rangePlaceholder0": {
+      "$type": "string",
+      "$value": "开始时间",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5332",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-calendar-timePickerLocale-rangePlaceholder1": {
+      "$type": "string",
+      "$value": "结束时间",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5333",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-global-placeholder": {
+      "$type": "string",
+      "$value": "请选择",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5334",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-select-cancelText": {
+      "$type": "string",
+      "$value": "放弃",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5335",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-select-okText": {
+      "$type": "string",
+      "$value": "完成",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5336",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-select-selectedCount": {
+      "$type": "string",
+      "$value": "已选择 ${count} 项",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5337",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-select-disabledReason": {
+      "$type": "string",
+      "$value": "禁用原因",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5338",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-select-labelName": {
+      "$type": "string",
+      "$value": "标签名称",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5339",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-selectPanel-okText": {
+      "$type": "string",
+      "$value": "确定",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5340",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-selectPanel-cancelText": {
+      "$type": "string",
+      "$value": "取消",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5341",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-selectPanel-selectAll": {
+      "$type": "string",
+      "$value": "全选",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5342",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-selectPanel-placeholder": {
+      "$type": "string",
+      "$value": "请选择",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5343",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-selectPanel-searchPlaceholder": {
+      "$type": "string",
+      "$value": "请输入搜索内容",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5344",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-selectPanel-searchCount": {
+      "$type": "string",
+      "$value": "共找到 ${count} 条",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5345",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-selectPanel-totalCount": {
+      "$type": "string",
+      "$value": "共 ${count} 条数据",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5346",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-selectPanel-back": {
+      "$type": "string",
+      "$value": "返回",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5347",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-selectPanel-noData": {
+      "$type": "string",
+      "$value": "暂无数据",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5348",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-selectPanel-noResult": {
+      "$type": "string",
+      "$value": "搜索无结果",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5349",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-selectPanel-noResultDesc": {
+      "$type": "string",
+      "$value": "未找到结果，请重新输入",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5350",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-selectPanel-selectAllTip": {
+      "$type": "string",
+      "$value": "部分选项状态不可更改",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5351",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-selectPanel-loadingText": {
+      "$type": "string",
+      "$value": "加载中",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5352",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-selectTransfer-noData": {
+      "$type": "string",
+      "$value": "暂无数据",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5353",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-selectTransfer-emptyText": {
+      "$type": "string",
+      "$value": "请从左侧列表内选择",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5354",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-selectTransfer-clearAll": {
+      "$type": "string",
+      "$value": "清空",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5355",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-selectTransfer-selectedCount": {
+      "$type": "string",
+      "$value": "已选 ${count} 条",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5356",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-selectTransfer-maxCount": {
+      "$type": "string",
+      "$value": ", 最多可选 ${max} 条",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5357",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-table-filterTitle": {
+      "$type": "string",
+      "$value": "筛选",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5358",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-table-filterConfirm": {
+      "$type": "string",
+      "$value": "确定",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5359",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-table-filterReset": {
+      "$type": "string",
+      "$value": "重置",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5360",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-table-filterEmptyText": {
+      "$type": "string",
+      "$value": "无筛选项",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5361",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-table-filterCheckall": {
+      "$type": "string",
+      "$value": "全选",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5362",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-table-filterSearchPlaceholder": {
+      "$type": "string",
+      "$value": "在筛选项中搜索",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5363",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-table-selectAll": {
+      "$type": "string",
+      "$value": "全选当页",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5364",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-table-selectInvert": {
+      "$type": "string",
+      "$value": "反选当页",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5365",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-table-selectNone": {
+      "$type": "string",
+      "$value": "清空所有",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5366",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-table-selectionAll": {
+      "$type": "string",
+      "$value": "全选所有",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5367",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-table-sortTitle": {
+      "$type": "string",
+      "$value": "排序",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5368",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-table-expand": {
+      "$type": "string",
+      "$value": "展开行",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5369",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-table-collapse": {
+      "$type": "string",
+      "$value": "关闭行",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5370",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-table-triggerDesc": {
+      "$type": "string",
+      "$value": "点击降序",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5371",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-table-triggerAsc": {
+      "$type": "string",
+      "$value": "点击升序",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5372",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-table-cancelSort": {
+      "$type": "string",
+      "$value": "取消排序",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5373",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-table-emptyText": {
+      "$type": "string",
+      "$value": "暂无数据",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5374",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-table-noResult": {
+      "$type": "string",
+      "$value": "暂无结果",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5375",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-table-noResultSubTitle": {
+      "$type": "string",
+      "$value": "未找到结果，请重新输入",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5376",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-modal-okText": {
+      "$type": "string",
+      "$value": "确定",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5377",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-modal-cancelText": {
+      "$type": "string",
+      "$value": "取消",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5378",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-modal-justOkText": {
+      "$type": "string",
+      "$value": "知道了",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5379",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-popconfirm-cancelText": {
+      "$type": "string",
+      "$value": "取消",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5380",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-popconfirm-okText": {
+      "$type": "string",
+      "$value": "确定",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5381",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-transfer-searchPlaceholder": {
+      "$type": "string",
+      "$value": "请输入搜索内容",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5382",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-transfer-itemUnit": {
+      "$type": "string",
+      "$value": "项",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5383",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-transfer-itemsUnit": {
+      "$type": "string",
+      "$value": "项",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5384",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-transfer-remove": {
+      "$type": "string",
+      "$value": "删除",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5385",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-transfer-selectCurrent": {
+      "$type": "string",
+      "$value": "全选当页",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5386",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-transfer-removeCurrent": {
+      "$type": "string",
+      "$value": "删除当页",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5387",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-transfer-selectAll": {
+      "$type": "string",
+      "$value": "全选所有",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5388",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-transfer-removeAll": {
+      "$type": "string",
+      "$value": "删除全部",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5389",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-transfer-selectInvert": {
+      "$type": "string",
+      "$value": "反选当页",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5390",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-upload-uploading": {
+      "$type": "string",
+      "$value": "上传中",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5391",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-upload-removeFile": {
+      "$type": "string",
+      "$value": "删除文件",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5392",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-upload-uploadError": {
+      "$type": "string",
+      "$value": "上传失败",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5393",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-upload-previewFile": {
+      "$type": "string",
+      "$value": "预览文件",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5394",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-upload-downloadFile": {
+      "$type": "string",
+      "$value": "下载文件",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5395",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-upload-triggerBtnTitle": {
+      "$type": "string",
+      "$value": "上传文件",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5396",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-upload-triggerPictureTitle": {
+      "$type": "string",
+      "$value": "上传图片",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5397",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-upload-triggerDragTitle": {
+      "$type": "string",
+      "$value": "点击或拖拽文件到此处上传",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5398",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-upload-remove": {
+      "$type": "string",
+      "$value": "删除",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5399",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-upload-cancel": {
+      "$type": "string",
+      "$value": "取消",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5400",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-upload-cancelUpload": {
+      "$type": "string",
+      "$value": "取消上传",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5401",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-upload-download": {
+      "$type": "string",
+      "$value": "下载",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5402",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-upload-maxCountTip": {
+      "$type": "string",
+      "$value": "最多可上传 ${num} 个文件",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5403",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-upload-fileOverSize": {
+      "$type": "string",
+      "$value": "文件大小超过限制",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5404",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-upload-pictureOverSize": {
+      "$type": "string",
+      "$value": "图片过大",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5405",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-upload-preview": {
+      "$type": "string",
+      "$value": "预览",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5406",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-upload-resume": {
+      "$type": "string",
+      "$value": "续传",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5407",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-upload-retry": {
+      "$type": "string",
+      "$value": "重试",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5408",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-upload-cancelDownloadFile": {
+      "$type": "string",
+      "$value": "取消上传文件",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5409",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-empty-description": {
+      "$type": "string",
+      "$value": "暂无数据",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5410",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-icon-icon": {
+      "$type": "string",
+      "$value": "图标",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5411",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-text-edit": {
+      "$type": "string",
+      "$value": "编辑",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5412",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-text-copy": {
+      "$type": "string",
+      "$value": "复制",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5413",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-text-copied": {
+      "$type": "string",
+      "$value": "复制成功",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5414",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-text-expand": {
+      "$type": "string",
+      "$value": "展开",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5415",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-pageHeader-back": {
+      "$type": "string",
+      "$value": "返回",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5416",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-form-optional": {
+      "$type": "string",
+      "$value": "(选填)",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5417",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-form-defaultValidateMessages-default": {
+      "$type": "string",
+      "$value": "字段验证错误 ${label}",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5418",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-form-defaultValidateMessages-required": {
+      "$type": "string",
+      "$value": "请输入 ${label}",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5419",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-form-defaultValidateMessages-enum": {
+      "$type": "string",
+      "$value": "${label} 必须是其中一个 [${enum}]",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5420",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-form-defaultValidateMessages-whitespace": {
+      "$type": "string",
+      "$value": "${label} 不能为空字符",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5421",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-form-defaultValidateMessages-date-format": {
+      "$type": "string",
+      "$value": "${label} 日期格式无效",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5422",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-form-defaultValidateMessages-date-parse": {
+      "$type": "string",
+      "$value": "${label} 不能转换为日期",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5423",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-form-defaultValidateMessages-date-invalid": {
+      "$type": "string",
+      "$value": "${label} 是一个无效日期",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5424",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-form-defaultValidateMessages-types-string": {
+      "$type": "string",
+      "$value": "${label} 不是一个有效的 ${type}",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5425",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-form-defaultValidateMessages-types-method": {
+      "$type": "string",
+      "$value": "${label} 不是一个有效的 ${type}",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5426",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-form-defaultValidateMessages-types-array": {
+      "$type": "string",
+      "$value": "${label} 不是一个有效的 ${type}",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5427",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-form-defaultValidateMessages-types-object": {
+      "$type": "string",
+      "$value": "${label} 不是一个有效的 ${type}",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5428",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-form-defaultValidateMessages-types-number": {
+      "$type": "string",
+      "$value": "${label} 不是一个有效的 ${type}",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5429",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-form-defaultValidateMessages-types-date": {
+      "$type": "string",
+      "$value": "${label} 不是一个有效的 ${type}",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5430",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-form-defaultValidateMessages-types-boolean": {
+      "$type": "string",
+      "$value": "${label} 不是一个有效的 ${type}",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5431",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-form-defaultValidateMessages-types-integer": {
+      "$type": "string",
+      "$value": "${label} 不是一个有效的 ${type}",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5432",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-form-defaultValidateMessages-types-float": {
+      "$type": "string",
+      "$value": "${label} 不是一个有效的 ${type}",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5433",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-form-defaultValidateMessages-types-regexp": {
+      "$type": "string",
+      "$value": "${label} 不是一个有效的 ${type}",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5434",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-form-defaultValidateMessages-types-email": {
+      "$type": "string",
+      "$value": "${label} 不是一个有效的 ${type}",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5435",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-form-defaultValidateMessages-types-url": {
+      "$type": "string",
+      "$value": "${label} 不是一个有效的 ${type}",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5436",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-form-defaultValidateMessages-types-hex": {
+      "$type": "string",
+      "$value": "${label} 不是一个有效的 ${type}",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5437",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-form-defaultValidateMessages-string-len": {
+      "$type": "string",
+      "$value": "${label} 须为 ${len} 个字符",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5438",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-form-defaultValidateMessages-string-min": {
+      "$type": "string",
+      "$value": "${label} 最少 ${min} 个字符",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5439",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-form-defaultValidateMessages-string-max": {
+      "$type": "string",
+      "$value": "${label} 最多 ${max} 个字符",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5440",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-form-defaultValidateMessages-string-range": {
+      "$type": "string",
+      "$value": "${label} 须在 ${min}-${max} 字符之间",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5441",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-form-defaultValidateMessages-number-len": {
+      "$type": "string",
+      "$value": "${label} 必须等于 ${len}",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5442",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-form-defaultValidateMessages-number-min": {
+      "$type": "string",
+      "$value": "${label} 最小值为 ${min}",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5443",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-form-defaultValidateMessages-number-max": {
+      "$type": "string",
+      "$value": "${label} 最大值为 ${max}",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5444",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-form-defaultValidateMessages-number-range": {
+      "$type": "string",
+      "$value": "${label} 须在 ${min}-${max} 之间",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5445",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-form-defaultValidateMessages-array-len": {
+      "$type": "string",
+      "$value": "须为 ${len} 个 ${label}",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5446",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-form-defaultValidateMessages-array-min": {
+      "$type": "string",
+      "$value": "最少 ${min} 个 ${label}",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5447",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-form-defaultValidateMessages-array-max": {
+      "$type": "string",
+      "$value": "最多 ${max} 个 ${label}",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5448",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-form-defaultValidateMessages-array-range": {
+      "$type": "string",
+      "$value": "${label} 数量须在 ${min}-${max} 之间",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5449",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-form-defaultValidateMessages-pattern-mismatch": {
+      "$type": "string",
+      "$value": "${label} 与模式不匹配 ${pattern}",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5450",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-image-preview": {
+      "$type": "string",
+      "$value": "预览",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5451",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-tag-successText": {
+      "$type": "string",
+      "$value": "成功",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5452",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-tag-processingText": {
+      "$type": "string",
+      "$value": "进行中",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5453",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-tag-failedText": {
+      "$type": "string",
+      "$value": "失败",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5454",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-tag-abnormalText": {
+      "$type": "string",
+      "$value": "异常",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5455",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-tag-invalidText": {
+      "$type": "string",
+      "$value": "失效",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5456",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-tag-restTagText": {
+      "$type": "string",
+      "$value": "... 共 ${count} 个",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5457",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-tree-expandText": {
+      "$type": "string",
+      "$value": "展开",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5458",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-tree-foldText": {
+      "$type": "string",
+      "$value": "收起",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5459",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-tree-selectAllTip": {
+      "$type": "string",
+      "$value": "部分选项状态不可更改",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5460",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-tree-select": {
+      "$type": "string",
+      "$value": "选中",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5461",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-tree-unselect": {
+      "$type": "string",
+      "$value": "取消选择",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5462",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-tree-loadFieldText": {
+      "$type": "string",
+      "$value": "加载失败，请",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5463",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-tree-retryText": {
+      "$type": "string",
+      "$value": "重试",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5464",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-tree-loadingText": {
+      "$type": "string",
+      "$value": "加载中",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5465",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-anchor-collapse": {
+      "$type": "string",
+      "$value": "收起",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5466",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-anchor-expand": {
+      "$type": "string",
+      "$value": "展开",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5467",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-anchor-all": {
+      "$type": "string",
+      "$value": "全部",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5468",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-card-more": {
+      "$type": "string",
+      "$value": "更多",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5469",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-tabs-all": {
+      "$type": "string",
+      "$value": "全部",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5470",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-tabs-addTab": {
+      "$type": "string",
+      "$value": "添加页签",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5471",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-tabs-deleteTab": {
+      "$type": "string",
+      "$value": "删除页签",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5472",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-tabs-expandAll": {
+      "$type": "string",
+      "$value": "展开全部页签",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5473",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-tabs-collapseAll": {
+      "$type": "string",
+      "$value": "收起全部页签",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5474",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-cascader-selectedCount": {
+      "$type": "string",
+      "$value": "... 共 ${count} 个",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5482",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-cascader-disabledReason": {
+      "$type": "string",
+      "$value": "禁用原因",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5486",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-cascader-labelName": {
+      "$type": "string",
+      "$value": "标签名称",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5488",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-switch-checked": {
+      "$type": "string",
+      "$value": "已开启",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5490",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-switch-unchecked": {
+      "$type": "string",
+      "$value": "已关闭",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5492",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-input-placeholder": {
+      "$type": "string",
+      "$value": "请输入",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5493",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "sensd-input-searchPlaceholder": {
+      "$type": "string",
+      "$value": "搜索",
+      "$extensions": {
+        "com.figma.variableId": "VariableID:22237:5496",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.type": "string"
+      }
+    },
+    "补充文案": {
+      "分页器": {
+        "10 条每页": {
+          "$type": "string",
+          "$value": "10 条/页",
+          "$extensions": {
+            "com.figma.variableId": "VariableID:22237:5502",
+            "com.figma.scopes": [
+              "ALL_SCOPES"
+            ],
+            "com.figma.type": "string"
+          }
+        },
+        "本页显示第 1-10 条": {
+          "$type": "string",
+          "$value": "本页显示第 1-10 条",
+          "$extensions": {
+            "com.figma.variableId": "VariableID:22237:5503",
+            "com.figma.scopes": [
+              "ALL_SCOPES"
+            ],
+            "com.figma.type": "string"
+          }
+        }
+      },
+      "下拉菜单": {
+        "共-20-条数据": {
+          "$type": "string",
+          "$value": "共 20 条数据",
+          "$extensions": {
+            "com.figma.variableId": "VariableID:22237:5515",
+            "com.figma.scopes": [
+              "ALL_SCOPES"
+            ],
+            "com.figma.type": "string"
+          }
+        }
+      }
+    }
+  },
+  "$extensions": {
+    "com.figma.modeName": "zh-cn"
+  }
+}

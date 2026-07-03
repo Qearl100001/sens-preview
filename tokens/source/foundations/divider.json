@@ -1,0 +1,92 @@
+{
+  "$schema": "sens.foundation.divider.v1",
+  "$description": "Sens.Design divider source tokens. Divider colors reference Color.json handles instead of duplicating color values.",
+  "$extensions": {
+    "sens": {
+      "source": "Sens.Design_分割线_v2.1_20230315",
+      "figmaImport": "candidate",
+      "owner": "foundation"
+    }
+  },
+  "width": {
+    "hairline": {
+      "$type": "dimension",
+      "$value": 1,
+      "$description": "基础分割线宽度"
+    }
+  },
+  "color": {
+    "deep": {
+      "transparent": {
+        "$type": "color",
+        "$value": "{divideline-color-transparent-dack}",
+        "$description": "控件默认边框、较强分隔",
+        "$extensions": {
+          "sens": {
+            "alpha": 0.16,
+            "solidToken": "divideline-color-dack"
+          }
+        }
+      },
+      "solid": {
+        "$type": "color",
+        "$value": "{divideline-color-dack}",
+        "$description": "控件默认边框、较强分隔的非透明版本"
+      }
+    },
+    "outline": {
+      "transparent": {
+        "$type": "color",
+        "$value": "{outline-color-transparent}",
+        "$description": "卡片外描边、容器边界",
+        "$extensions": {
+          "sens": {
+            "alpha": 0.12,
+            "solidToken": "outline-color"
+          }
+        }
+      },
+      "solid": {
+        "$type": "color",
+        "$value": "{outline-color}",
+        "$description": "卡片外描边、容器边界的非透明版本"
+      }
+    },
+    "light": {
+      "transparent": {
+        "$type": "color",
+        "$value": "{divideline-color-transparent-light}",
+        "$description": "卡片内部、表格行、区块内分割",
+        "$extensions": {
+          "sens": {
+            "alpha": 0.08,
+            "solidToken": "divideline-color-light"
+          }
+        }
+      },
+      "solid": {
+        "$type": "color",
+        "$value": "{divideline-color-light}",
+        "$description": "卡片内部、表格行、区块内分割的非透明版本"
+      }
+    },
+    "weak": {
+      "transparent": {
+        "$type": "color",
+        "$value": "{line-color-transparent}",
+        "$description": "最弱层级线、背景区弱边界",
+        "$extensions": {
+          "sens": {
+            "alpha": 0.06,
+            "solidToken": "line-color"
+          }
+        }
+      },
+      "solid": {
+        "$type": "color",
+        "$value": "{line-color}",
+        "$description": "最弱层级线、背景区弱边界的非透明版本"
+      }
+    }
+  }
+}

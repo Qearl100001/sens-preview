@@ -1,6 +1,7 @@
 import type { CSSProperties, ReactNode } from "react";
 import { useMemo, useState } from "react";
 import { Input, Segmented, Tabs, Tooltip, theme, type TabsProps } from "antd";
+import { SensBadge } from "./SensBadge";
 import type { SegmentedValue } from "antd/es/segmented";
 import { useTranslation } from "react-i18next";
 import { buildAntdTheme } from "../design-system/theme";
@@ -246,6 +247,78 @@ function useDemoTabLabels(): string[] {
 interface BasicTabsProps {
   size?: SensTabSize;
   withBadge?: boolean;
+}
+
+export interface SensLineTabItem {
+  key: string;
+  label: ReactNode;
+  badgeCount?: number;
+  children?: ReactNode;
+}
+
+export interface SensLineTabsProps {
+  items: SensLineTabItem[];
+  activeKey?: string;
+  defaultActiveKey?: string;
+  onChange?: (key: string) => void;
+  size?: SensTabSize;
+  /** 仅渲染标签栏，不展示 antd Tabs 内容区（页面自管内容时用） */
+  barOnly?: boolean;
+  className?: string;
+}
+
+function renderLineTabLabel(label: ReactNode, badgeCount: number | undefined, active: boolean): ReactNode {
+  if (badgeCount == null) return label;
+  return (
+    <span className="sens-tabs-label-with-badge">
+      <span>{label}</span>
+      <SensBadge variant="weakCount" count={badgeCount} weakState={active ? "active" : "default"} />
+    </span>
+  );
+}
+
+/** 基础标签页（业务可配置）：antd Tabs(line) + 可选弱化数字徽标。 */
+export function SensLineTabs({
+  items,
+  activeKey,
+  defaultActiveKey,
+  onChange,
+  size = "large",
+  barOnly = false,
+  className,
+}: SensLineTabsProps) {
+  const [internalKey, setInternalKey] = useState(defaultActiveKey ?? items[0]?.key ?? "");
+  const currentKey = activeKey ?? internalKey;
+
+  const tabItems: TabsProps["items"] = useMemo(
+    () =>
+      items.map((item) => ({
+        key: item.key,
+        label: renderLineTabLabel(item.label, item.badgeCount, item.key === currentKey),
+        children: item.children ?? null,
+      })),
+    [items, currentKey],
+  );
+
+  return (
+    <Tabs
+      className={[
+        "sens-basic-tabs",
+        size === "small" ? "sens-basic-tabs-small" : "sens-basic-tabs-large",
+        barOnly ? "sens-line-tabs-bar-only" : null,
+        className,
+      ]
+        .filter(Boolean)
+        .join(" ")}
+      items={tabItems}
+      activeKey={currentKey}
+      onChange={(key) => {
+        if (activeKey == null) setInternalKey(key);
+        onChange?.(key);
+      }}
+      size={size === "small" ? "small" : "middle"}
+    />
+  );
 }
 
 export interface SensPillTabsProps {

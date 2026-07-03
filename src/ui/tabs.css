@@ -77,6 +77,10 @@
   min-height: 24px;
 }
 
+.sens-line-tabs-bar-only .ant-tabs-content-holder {
+  display: none;
+}
+
 .sens-basic-tabs .ant-tabs-nav {
   margin-bottom: 0;
 }

@@ -80,12 +80,27 @@ export type {
 export {
   SensBasicTabs,
   SensEditableCardTabs,
+  SensLineTabs,
   SensPillTabs,
   TabsStatesPreview,
 } from "./SensTabs";
-export type { SensTabSize, SensPillTabsProps, TabsStatesPreviewProps } from "./SensTabs";
+export type {
+  SensLineTabItem,
+  SensLineTabsProps,
+  SensTabSize,
+  SensPillTabsProps,
+  TabsStatesPreviewProps,
+} from "./SensTabs";
 export { SensBadge, BadgeStatesPreview } from "./SensBadge";
 export type { SensBadgeProps, SensBadgeVariant, SensWeakBadgeState, SensWeakBadgeSurface, SensStatusTone } from "./SensBadge";
+export { SensTitleBar, SENS_TITLE_BAR_BACK_HIT_SIZE, SENS_TITLE_BAR_HEIGHT } from "./SensTitleBar";
+export type { SensTitleBarProps } from "./SensTitleBar";
+export { SensBreadcrumb } from "./SensBreadcrumb";
+export type { SensBreadcrumbItem, SensBreadcrumbProps } from "./SensBreadcrumb";
+export { SensPageTitleBar, SENS_PAGE_TITLE_BAR_HEIGHT } from "./SensPageTitleBar";
+export type { SensPageTitleBarProps } from "./SensPageTitleBar";
+export { SensDrawer, SENS_DRAWER_WIDTH } from "./SensDrawer";
+export type { SensDrawerProps, SensDrawerSize } from "./SensDrawer";
 export { SensInput, InputStatesPreview, useSensInputHeightStyle, InsideErrorSuffix, InputHelpRow } from "./SensInput";
 export type {
   SensInputProps,

@@ -1,0 +1,132 @@
+{
+  "$schema": "sens.foundation.shadow.v1",
+  "$description": "Sens.Design shadow source tokens. Shadow levels are structural tokens and are resolved into CSS box-shadow strings by build-tokens.mjs.",
+  "$extensions": {
+    "sens": {
+      "source": "Sens.Design_投影_v2.1_20230313",
+      "figmaImport": "candidate",
+      "owner": "foundation"
+    }
+  },
+  "color": {
+    "$type": "color",
+    "$value": "{mask-01-transparent}",
+    "$description": "中性黑投影源色"
+  },
+  "level": {
+    "D1": {
+      "$type": "shadow",
+      "$description": "低层级选中 / 轻微浮起",
+      "$extensions": {
+        "sens": {
+          "layers": [
+            { "alpha": 0.2, "blur": 1, "spread": 0 },
+            { "alpha": 0.1, "blur": 2, "spread": 0 }
+          ]
+        }
+      }
+    },
+    "D2": {
+      "$type": "shadow",
+      "$description": "中低层级容器 / 轻量浮层",
+      "$extensions": {
+        "sens": {
+          "layers": [
+            { "alpha": 0.08, "blur": 4, "spread": 0 },
+            { "alpha": 0.04, "blur": 8, "spread": 0 }
+          ]
+        }
+      }
+    },
+    "D3": {
+      "$type": "shadow",
+      "$description": "Button hover、轻量动作反馈",
+      "$extensions": {
+        "sens": {
+          "layers": [
+            { "alpha": 0.1, "blur": 6, "spread": 0 },
+            { "alpha": 0.04, "blur": 12, "spread": 0 }
+          ]
+        }
+      }
+    },
+    "D4": {
+      "$type": "shadow",
+      "$description": "FAB、Dropdown、Popover 等浮层",
+      "$extensions": {
+        "sens": {
+          "layers": [
+            { "alpha": 0.1, "blur": 12, "spread": 0 },
+            { "alpha": 0.08, "blur": 20, "spread": 0 }
+          ]
+        }
+      }
+    }
+  },
+  "direction": {
+    "D1": {
+      "down": [[0, 0], [0, 1]],
+      "up": [[0, 0], [0, -1]],
+      "left": [[0, 0], [-1, 0]],
+      "right": [[0, 0], [1, 0]]
+    },
+    "D2": {
+      "down": [[0, 1], [0, 2]],
+      "up": [[0, -1], [0, -2]],
+      "left": [[-1, 0], [-2, 0]],
+      "right": [[1, 0], [2, 0]]
+    },
+    "D3": {
+      "down": [[0, 2], [0, 4]],
+      "up": [[0, -2], [0, -4]],
+      "left": [[-2, 0], [-4, 0]],
+      "right": [[2, 0], [4, 0]]
+    },
+    "D4": {
+      "down": [[0, 2], [0, 4]],
+      "up": [[0, -2], [0, -4]],
+      "left": [[-2, 0], [-4, 0]],
+      "right": [[2, 0], [4, 0]]
+    }
+  },
+  "active-ring": {
+    "functional": {
+      "$type": "shadow",
+      "$description": "控件 / 点击 / 功能",
+      "$extensions": {
+        "sens": {
+          "color": "component-active-shadow",
+          "alpha": 0.2,
+          "width": 2
+        }
+      }
+    },
+    "warning": {
+      "$type": "shadow",
+      "$description": "控件 / 点击 / 警告",
+      "$extensions": {
+        "sens": {
+          "color": "warning-color-active-shadow",
+          "alpha": 0.2,
+          "width": 2
+        }
+      }
+    }
+  },
+  "semantic": {
+    "drawer": {
+      "right": {
+        "$type": "shadow",
+        "$description": "右侧 Drawer 外层侧向投影，来源 Figma 抽屉组件 2219:10662",
+        "$extensions": {
+          "sens": {
+            "layers": [
+              { "x": -4, "y": 0, "alpha": 0.08, "blur": 20, "spread": 0 },
+              { "x": -2, "y": 0, "alpha": 0.1, "blur": 12, "spread": 0 }
+            ]
+          }
+        }
+      }
+    }
+  }
+}

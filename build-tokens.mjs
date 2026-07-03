@@ -1,18 +1,40 @@
 // build-tokens.mjs
 // 把 Figma 导出的 DTCG JSON 转成可用产物：
-//   - design-system/theme.ts            (antd 主题：种子 + 中性 + Table 组件 token)
-//   - design-system/tokens.resolved.json(全部 color handle→hex、unit→number)
-//   - design-system/i18n/zh.json / en.json
-// 用法：  node build-tokens.mjs <导出文件目录> [输出目录]
-// 重新从 Figma 导出后原地再跑一次，产物全部覆盖更新。
+//   - src/design-system/theme.ts            (antd 主题：种子 + 中性 + Table 组件 token)
+//   - src/design-system/tokens.resolved.json(全部 color handle→hex、unit→number、foundation tokens)
+//   - src/design-system/i18n/zh.json / en.json
+// 用法：  node build-tokens.mjs [tokens/source目录] [输出目录]
+// 重新从 Figma 导出后替换 tokens/source/figma，再跑一次，产物全部覆盖更新。
 
 import fs from "node:fs";
 import path from "node:path";
 
-const IN  = process.argv[2] || ".";
-const OUT = process.argv[3] || "./design-system";
-const FILES = { color: "Color.json", unit: "unit.json", zh: "zh-cn_tokens.json", en: "en_tokens.json" };
-const load = (f) => JSON.parse(fs.readFileSync(path.join(IN, f), "utf8").replace(/^\uFEFF/, ""));
+const SOURCE = process.argv[2] || "./tokens/source";
+const OUT = process.argv[3] || "./src/design-system";
+const FIGMA_IN = fs.existsSync(path.join(SOURCE, "figma")) ? path.join(SOURCE, "figma") : SOURCE;
+const FOUNDATION_IN = path.join(SOURCE, "foundations");
+const FILES = {
+  color: ["Color.json"],
+  unit: ["unit.json"],
+  zh: ["zh-cn.tokens.json", "zh-cn_tokens.json"],
+  en: ["en.tokens.json", "en_tokens.json"],
+};
+
+function readJson(file) {
+  return JSON.parse(fs.readFileSync(file, "utf8").replace(/^\uFEFF/, ""));
+}
+
+function loadFromDir(dir, candidates) {
+  for (const candidate of candidates) {
+    const file = path.join(dir, candidate);
+    if (fs.existsSync(file)) return readJson(file);
+  }
+  throw new Error(`Missing token source file in ${dir}: ${candidates.join(" | ")}`);
+}
+
+function loadFoundation(name) {
+  return readJson(path.join(FOUNDATION_IN, `${name}.json`));
+}
 
 function resolve(value, root, depth = 0) {
   if (depth > 12) return null;
@@ -32,18 +54,21 @@ function walk(node, root, cb, trail = []) {
   }
 }
 
-const colorDoc = load(FILES.color);
+const colorDoc = loadFromDir(FIGMA_IN, FILES.color);
 const byHandle = {}, colorByPath = {};
 walk(colorDoc, colorDoc, (trail, leaf, root) => {
   const full = trail.join("/"); const hex = resolve(leaf.$value, root);
   colorByPath[full] = hex;
   const m = full.match(/@([\w-]+)\s*$/); if (m) byHandle[m[1]] = hex;
 });
-const unitDoc = load(FILES.unit);
+const unitDoc = loadFromDir(FIGMA_IN, FILES.unit);
 const unitByPath = {};
 walk(unitDoc, unitDoc, (trail, leaf, root) => { unitByPath[trail.join("/")] = resolve(leaf.$value, root); });
 
 const C = byHandle, U = unitByPath;
+const typographyDoc = loadFoundation("typography");
+const dividerDoc = loadFoundation("divider");
+const shadowDoc = loadFoundation("shadow");
 
 // 把不透明 hex + alpha 转成 rgba（透明语义色用）
 function alpha(hex, a) {
@@ -52,22 +77,83 @@ function alpha(hex, a) {
   const r = parseInt(n.slice(0, 2), 16), g = parseInt(n.slice(2, 4), 16), b = parseInt(n.slice(4, 6), 16);
   return `rgba(${r}, ${g}, ${b}, ${a})`;
 }
+function referenceHandle(value) {
+  if (typeof value === "string" && value.startsWith("{") && value.endsWith("}")) {
+    return value.slice(1, -1);
+  }
+  return value;
+}
+function sensExtensions(node) {
+  return node?.$extensions?.sens ?? {};
+}
+function flattenValueTokens(doc) {
+  const out = {};
+  walk(doc, doc, (trail, leaf, root) => {
+    out[trail.join("/")] = resolve(leaf.$value, root);
+  });
+  return out;
+}
 // 这两个 unit key 用的是特殊点号 U+2024（不是普通句点）
 const DOT = "\u2024";
 const SP_0_5    = `spacing/0${DOT}5x`;            // 2
 const SP_H_2_5  = `spacing/horizontal/2${DOT}5x`; // 10
-// 中性黑投影色：mask-01-transparent + 透明度派生（禁止写死 rgba(11,12,13)）
-const SHADOW_NEUTRAL = C["mask-01-transparent"];
+// 中性黑投影色来自 tokens/source/foundations/shadow.json。
+const SHADOW_NEUTRAL = C[referenceHandle(shadowDoc.color.$value)];
+const SHADOW_LEVEL_SPECS = Object.fromEntries(
+  Object.entries(shadowDoc.level).map(([level, spec]) => [
+    level,
+    sensExtensions(spec).layers,
+  ]),
+);
+const SHADOW_DIRECTION_OFFSETS = shadowDoc.direction;
+function buildShadow(level, direction = "down") {
+  const layers = SHADOW_LEVEL_SPECS[level];
+  const offsets = SHADOW_DIRECTION_OFFSETS[level][direction];
+  return layers.map((layer, index) => {
+    const [x, y] = offsets[index];
+    return `${x}px ${y}px ${layer.blur}px ${layer.spread}px ${alpha(SHADOW_NEUTRAL, layer.alpha)}`;
+  }).join(", ");
+}
+function buildSemanticShadow(node) {
+  return sensExtensions(node).layers
+    .map((layer) => `${layer.x}px ${layer.y}px ${layer.blur}px ${layer.spread}px ${alpha(SHADOW_NEUTRAL, layer.alpha)}`)
+    .join(", ");
+}
 function buildShadowD1() {
-  return `0 0 1px 0 ${alpha(SHADOW_NEUTRAL, 0.2)}, 0 1px 2px 0 ${alpha(SHADOW_NEUTRAL, 0.1)}`;
+  return buildShadow("D1");
+}
+function buildShadowD2() {
+  return buildShadow("D2");
 }
 function buildShadowD3() {
-  return `0 2px 6px 0 ${alpha(SHADOW_NEUTRAL, 0.1)}, 0 4px 12px 0 ${alpha(SHADOW_NEUTRAL, 0.04)}`;
+  return buildShadow("D3");
 }
 function buildShadowD4() {
-  return `0 2px 12px 0 ${alpha(SHADOW_NEUTRAL, 0.1)}, 0 4px 20px 0 ${alpha(SHADOW_NEUTRAL, 0.08)}`;
+  return buildShadow("D4");
 }
+function buildShadowTokens() {
+  const out = {};
+  for (const level of Object.keys(SHADOW_LEVEL_SPECS)) {
+    for (const direction of Object.keys(SHADOW_DIRECTION_OFFSETS[level])) {
+      out[`${level}/${direction}`] = buildShadow(level, direction);
+    }
+  }
+  for (const [name, node] of Object.entries(shadowDoc["active-ring"])) {
+    const spec = sensExtensions(node);
+    out[`active-ring/${name}`] = `0 0 0 ${spec.width}px ${alpha(C[spec.color], spec.alpha)}`;
+  }
+  if (shadowDoc.semantic) {
+    for (const [groupName, group] of Object.entries(shadowDoc.semantic)) {
+      for (const [name, node] of Object.entries(group)) {
+        out[`${groupName}/${name}`] = buildSemanticShadow(node);
+      }
+    }
+  }
+  return out;
+}
+const SHADOW_TOKENS = buildShadowTokens();
 const SHADOW_D1 = buildShadowD1();
+const SHADOW_D2 = buildShadowD2();
 const SHADOW_D3 = buildShadowD3();
 const SHADOW_D4 = buildShadowD4();
 // 关掉 antd Button 默认彩色投影（比 "none" 更不易被 prepareComponentToken 默认值盖回）
@@ -81,9 +167,24 @@ const PRESET_BUTTON_SHADOW_TOKENS = Object.fromEntries(
   PRESET_COLORS.map((c) => [`${c}ShadowColor`, ANT_BUTTON_SHADOW_OFF]),
 );
 
-// 字阶（unit 未导出 typography 时与设计稿对齐；导出后改为 U["typography/..."]）
-const TYPO_FONT_SIZE_SM = U["typography/font-size/s"] ?? 12;
-const TYPO_LINE_HEIGHT_SM = U["typography/line-height/s"] ?? 18;
+const TYPOGRAPHY_TOKENS = flattenValueTokens(typographyDoc);
+const TYPO_FONT_SIZE_SM = TYPOGRAPHY_TOKENS["font-size/s"];
+const TYPO_LINE_HEIGHT_SM = TYPOGRAPHY_TOKENS["line-height/s"];
+function buildDividerTokens() {
+  const out = {};
+  for (const [name, node] of Object.entries(dividerDoc.width)) {
+    out[`width/${name}`] = node.$value;
+  }
+  for (const [tone, modes] of Object.entries(dividerDoc.color)) {
+    for (const [mode, node] of Object.entries(modes)) {
+      const handle = referenceHandle(node.$value);
+      const spec = sensExtensions(node);
+      out[`color/${tone}/${mode}`] = typeof spec.alpha === "number" ? alpha(C[handle], spec.alpha) : C[handle];
+    }
+  }
+  return out;
+}
+const DIVIDER_TOKENS = buildDividerTokens();
 // midnight-dark-04：outline-color-transparent @ 0.08（不换肤中性层）
 const MIDNIGHT_DARK_04 = alpha(C["outline-color-transparent"], 0.08);
 // Input 聚焦光晕：从语义 handle 派生 α，禁止写死 rgba 字面量
@@ -357,15 +458,25 @@ fs.writeFileSync(
       color: byHandle,
       colorByPath,
       unit: unitByPath,
-      typography: {
-        "font-size/s": TYPO_FONT_SIZE_SM,
-        "line-height/s": TYPO_LINE_HEIGHT_SM,
-      },
+      typography: TYPOGRAPHY_TOKENS,
+      divider: DIVIDER_TOKENS,
+      shadow: SHADOW_TOKENS,
     },
     null,
     2,
   ),
 );
-fs.writeFileSync(path.join(OUT, "i18n/zh.json"), JSON.stringify(toI18n(load(FILES.zh)), null, 2));
-fs.writeFileSync(path.join(OUT, "i18n/en.json"), JSON.stringify(toI18n(load(FILES.en)), null, 2));
-console.log("token keys:", Object.keys(token).length, "| Table tokens:", Object.keys(components.Table).length);
+fs.writeFileSync(path.join(OUT, "i18n/zh.json"), JSON.stringify(toI18n(loadFromDir(FIGMA_IN, FILES.zh)), null, 2));
+fs.writeFileSync(path.join(OUT, "i18n/en.json"), JSON.stringify(toI18n(loadFromDir(FIGMA_IN, FILES.en)), null, 2));
+console.log(
+  "token keys:",
+  Object.keys(token).length,
+  "| Table tokens:",
+  Object.keys(components.Table).length,
+  "| typography tokens:",
+  Object.keys(TYPOGRAPHY_TOKENS).length,
+  "| divider tokens:",
+  Object.keys(DIVIDER_TOKENS).length,
+  "| shadow tokens:",
+  Object.keys(SHADOW_TOKENS).length,
+);

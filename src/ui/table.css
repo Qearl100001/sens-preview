@@ -19,6 +19,10 @@
   justify-content: flex-start;
 }
 
+.sens-table .ant-table-column-title {
+  flex: 0 0 auto;
+}
+
 .sens-table .ant-table-column-sorter {
   margin-inline-start: 0;
 }

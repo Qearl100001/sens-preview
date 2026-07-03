@@ -1,0 +1,92 @@
+{
+  "$schema": "sens.foundation.typography.v1",
+  "$description": "Sens.Design typography source tokens. This file is the single source for typography tokens that are not exported from Figma unit.json yet.",
+  "$extensions": {
+    "sens": {
+      "source": "Sens.Design_字体_v0.4_220505.pdf",
+      "figmaImport": "candidate",
+      "owner": "foundation"
+    }
+  },
+  "font-size": {
+    "s": {
+      "$type": "dimension",
+      "$value": 12,
+      "$description": "辅助文案、标签文字、弱层级说明"
+    },
+    "m": {
+      "$type": "dimension",
+      "$value": 14,
+      "$description": "正文、表单、表格、卡片标题、操作文字"
+    },
+    "l": {
+      "$type": "dimension",
+      "$value": 16,
+      "$description": "三级标题、通栏卡片内嵌标题"
+    },
+    "xl": {
+      "$type": "dimension",
+      "$value": 18,
+      "$description": "二级标题"
+    },
+    "xxl": {
+      "$type": "dimension",
+      "$value": 20,
+      "$description": "一级标题、页面级标题"
+    },
+    "display": {
+      "$type": "dimension",
+      "$value": 28,
+      "$description": "超大标题、阅读型纯文本标题"
+    }
+  },
+  "line-height": {
+    "s": {
+      "$type": "dimension",
+      "$value": 18,
+      "$description": "辅助文案、标签文字、弱层级说明"
+    },
+    "m": {
+      "$type": "dimension",
+      "$value": 22,
+      "$description": "正文、表单、表格、卡片标题、操作文字"
+    },
+    "l": {
+      "$type": "dimension",
+      "$value": 24,
+      "$description": "三级标题、通栏卡片内嵌标题"
+    },
+    "xl": {
+      "$type": "dimension",
+      "$value": 28,
+      "$description": "二级标题"
+    },
+    "xxl": {
+      "$type": "dimension",
+      "$value": 30,
+      "$description": "一级标题、页面级标题"
+    },
+    "display": {
+      "$type": "dimension",
+      "$value": 42,
+      "$description": "超大标题、阅读型纯文本标题"
+    }
+  },
+  "font-weight": {
+    "regular": {
+      "$type": "number",
+      "$value": 400,
+      "$description": "正文、操作、辅助文案"
+    },
+    "medium": {
+      "$type": "number",
+      "$value": 500,
+      "$description": "四级标题、组件内强调"
+    },
+    "semibold": {
+      "$type": "number",
+      "$value": 600,
+      "$description": "页面标题、区块标题"
+    }
+  }
+}

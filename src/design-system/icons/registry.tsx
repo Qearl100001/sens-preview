@@ -1,0 +1,357 @@
+import type { ComponentType } from "react";
+import {
+  ChevronDownIcon,
+  ChevronLeftIcon,
+  ChevronUpIcon,
+  CheckIcon,
+  CloseCircleIcon,
+  DragVerticalIcon,
+  EditorAddIcon,
+  ErrorDiamondIcon,
+  IconDefaultIcon,
+  MoreIcon,
+  RenameIcon,
+  SelectCheckIcon,
+  StepperDownIcon,
+  StepperUpIcon,
+  WarningFilledIcon,
+} from "../../ui/FieldIcons";
+import { SearchIcon } from "../../ui/SearchIcon";
+import type { IconAssetMeta, IconName, RegistryIconRenderProps } from "./types";
+
+export interface IconRegistryEntry extends IconAssetMeta {
+  Component: ComponentType<RegistryIconRenderProps>;
+}
+
+export const ICON_REGISTRY: Record<IconName, IconRegistryEntry> = {
+  "error-diamond": {
+    name: "error-diamond",
+    sourceComponent: "ErrorDiamondIcon",
+    sourceFile: "src/ui/FieldIcons.tsx",
+    viewBox: "0 0 16 16",
+    category: "status",
+    labelZh: "报错菱形",
+    currentColor: true,
+    dualTone: false,
+    temporary: false,
+    usageScenes: [
+      {
+        scene: "Input / TextArea / InputNumber 表单警告",
+        typicalSizes: [14, 16],
+        typicalColorRoles: ["warning", "inherit"],
+        reusableAtOtherSizes: true,
+      },
+    ],
+    Component: ErrorDiamondIcon,
+  },
+  "icon-default": {
+    name: "icon-default",
+    sourceComponent: "IconDefaultIcon",
+    sourceFile: "src/ui/FieldIcons.tsx",
+    viewBox: "0 0 16 16",
+    category: "operational",
+    labelZh: "默认示例图标",
+    currentColor: true,
+    dualTone: true,
+    temporary: false,
+    usageScenes: [
+      {
+        scene: "Button showcase 示例图标",
+        typicalSizes: [16],
+        typicalColorRoles: ["inherit"],
+        reusableAtOtherSizes: true,
+      },
+    ],
+    Component: IconDefaultIcon,
+  },
+  "select-check": {
+    name: "select-check",
+    sourceComponent: "SelectCheckIcon",
+    sourceFile: "src/ui/FieldIcons.tsx",
+    viewBox: "0 0 16 16",
+    category: "status",
+    labelZh: "下拉已选勾选",
+    currentColor: true,
+    dualTone: false,
+    temporary: false,
+    usageScenes: [
+      {
+        scene: "Select Dropdown 已选中勾选",
+        typicalSizes: [16],
+        typicalColorRoles: ["inherit"],
+        reusableAtOtherSizes: true,
+      },
+    ],
+    Component: SelectCheckIcon,
+  },
+  "stepper-up": {
+    name: "stepper-up",
+    sourceComponent: "StepperUpIcon",
+    sourceFile: "src/ui/FieldIcons.tsx",
+    viewBox: "0 0 10 10",
+    category: "component-internal",
+    labelZh: "数字步进器上箭头",
+    currentColor: true,
+    dualTone: false,
+    temporary: false,
+    usageScenes: [
+      {
+        scene: "InputNumber stepper 上箭头",
+        typicalSizes: [10],
+        typicalColorRoles: ["inherit"],
+        reusableAtOtherSizes: false,
+      },
+    ],
+    Component: StepperUpIcon,
+  },
+  "stepper-down": {
+    name: "stepper-down",
+    sourceComponent: "StepperDownIcon",
+    sourceFile: "src/ui/FieldIcons.tsx",
+    viewBox: "0 0 10 10",
+    category: "component-internal",
+    labelZh: "数字步进器下箭头",
+    currentColor: true,
+    dualTone: false,
+    temporary: false,
+    usageScenes: [
+      {
+        scene: "InputNumber stepper 下箭头",
+        typicalSizes: [10],
+        typicalColorRoles: ["inherit"],
+        reusableAtOtherSizes: false,
+      },
+    ],
+    Component: StepperDownIcon,
+  },
+  "chevron-left": {
+    name: "chevron-left",
+    sourceComponent: "ChevronLeftIcon",
+    sourceFile: "src/ui/FieldIcons.tsx",
+    viewBox: "0 0 16 16",
+    category: "navigation",
+    labelZh: "向左箭头",
+    currentColor: true,
+    dualTone: false,
+    temporary: false,
+    usageScenes: [
+      {
+        scene: "Minimal Search 返回箭头",
+        typicalSizes: [16],
+        typicalColorRoles: ["inherit"],
+        reusableAtOtherSizes: true,
+      },
+    ],
+    Component: ChevronLeftIcon,
+  },
+  "chevron-down": {
+    name: "chevron-down",
+    sourceComponent: "ChevronDownIcon",
+    sourceFile: "src/ui/FieldIcons.tsx",
+    viewBox: "0 0 16 16",
+    category: "navigation",
+    labelZh: "向下箭头",
+    currentColor: true,
+    dualTone: false,
+    temporary: false,
+    usageScenes: [
+      {
+        scene: "Select 触发框 / Dropdown / Button 下箭头",
+        typicalSizes: [16],
+        typicalColorRoles: ["subtle", "inherit"],
+        reusableAtOtherSizes: true,
+      },
+    ],
+    Component: ChevronDownIcon,
+  },
+  "chevron-up": {
+    name: "chevron-up",
+    sourceComponent: "ChevronUpIcon",
+    sourceFile: "src/ui/FieldIcons.tsx",
+    viewBox: "0 0 16 16",
+    category: "navigation",
+    labelZh: "向上箭头",
+    currentColor: true,
+    dualTone: false,
+    temporary: false,
+    usageScenes: [
+      {
+        scene: "Select / Dropdown / Button 上箭头",
+        typicalSizes: [16],
+        typicalColorRoles: ["inherit"],
+        reusableAtOtherSizes: true,
+      },
+    ],
+    Component: ChevronUpIcon,
+  },
+  "close-circle": {
+    name: "close-circle",
+    sourceComponent: "CloseCircleIcon",
+    sourceFile: "src/ui/FieldIcons.tsx",
+    viewBox: "0 0 16 16",
+    category: "operational",
+    labelZh: "圆形清空",
+    currentColor: true,
+    dualTone: true,
+    temporary: false,
+    usageScenes: [
+      {
+        scene: "Input / Select / Search allowClear 清空",
+        typicalSizes: [16],
+        typicalColorRoles: ["subtle", "inherit"],
+        reusableAtOtherSizes: true,
+      },
+    ],
+    Component: CloseCircleIcon,
+  },
+  check: {
+    name: "check",
+    sourceComponent: "CheckIcon",
+    sourceFile: "src/ui/FieldIcons.tsx",
+    viewBox: "0 0 16 16",
+    category: "status",
+    labelZh: "对勾",
+    currentColor: true,
+    dualTone: false,
+    temporary: false,
+    usageScenes: [
+      {
+        scene: "Card / Checkbox 已选中勾选",
+        typicalSizes: [16],
+        typicalColorRoles: ["inverse", "inherit"],
+        reusableAtOtherSizes: true,
+      },
+    ],
+    Component: CheckIcon,
+  },
+  rename: {
+    name: "rename",
+    sourceComponent: "RenameIcon",
+    sourceFile: "src/ui/FieldIcons.tsx",
+    viewBox: "0 0 16 16",
+    category: "operational",
+    labelZh: "重命名铅笔",
+    currentColor: true,
+    dualTone: true,
+    temporary: false,
+    usageScenes: [
+      {
+        scene: "Card 标题区重命名",
+        typicalSizes: [16],
+        typicalColorRoles: ["subtle", "inherit"],
+        reusableAtOtherSizes: true,
+      },
+    ],
+    Component: RenameIcon,
+  },
+  "warning-filled": {
+    name: "warning-filled",
+    sourceComponent: "WarningFilledIcon",
+    sourceFile: "src/ui/FieldIcons.tsx",
+    viewBox: "0 0 16 16",
+    category: "status",
+    labelZh: "警告面性",
+    currentColor: true,
+    dualTone: false,
+    temporary: false,
+    usageScenes: [
+      {
+        scene: "Card 框外警告信息",
+        typicalSizes: [14, 16],
+        typicalColorRoles: ["warning"],
+        reusableAtOtherSizes: true,
+      },
+    ],
+    Component: WarningFilledIcon,
+  },
+  "editor-add": {
+    name: "editor-add",
+    sourceComponent: "EditorAddIcon",
+    sourceFile: "src/ui/FieldIcons.tsx",
+    viewBox: "0 0 16 16",
+    category: "operational",
+    labelZh: "编辑器加号",
+    currentColor: true,
+    dualTone: false,
+    temporary: false,
+    usageScenes: [
+      {
+        scene: "新建 / 添加按钮",
+        typicalSizes: [16],
+        typicalColorRoles: ["inherit"],
+        reusableAtOtherSizes: true,
+      },
+    ],
+    Component: EditorAddIcon,
+  },
+  "drag-vertical": {
+    name: "drag-vertical",
+    sourceComponent: "DragVerticalIcon",
+    sourceFile: "src/ui/FieldIcons.tsx",
+    viewBox: "0 0 16 16",
+    category: "operational",
+    labelZh: "纵向拖拽",
+    currentColor: true,
+    dualTone: false,
+    temporary: false,
+    usageScenes: [
+      {
+        scene: "Card 标题区拖拽把手",
+        typicalSizes: [16],
+        typicalColorRoles: ["subtle", "inherit"],
+        reusableAtOtherSizes: true,
+      },
+    ],
+    Component: DragVerticalIcon,
+  },
+  more: {
+    name: "more",
+    sourceComponent: "MoreIcon",
+    sourceFile: "src/ui/FieldIcons.tsx",
+    viewBox: "0 0 16 16",
+    category: "operational",
+    labelZh: "更多",
+    currentColor: true,
+    dualTone: false,
+    temporary: false,
+    usageScenes: [
+      {
+        scene: "更多按钮",
+        typicalSizes: [16],
+        typicalColorRoles: ["subtle", "inherit"],
+        reusableAtOtherSizes: true,
+      },
+    ],
+    Component: MoreIcon,
+  },
+  search: {
+    name: "search",
+    sourceComponent: "SearchIcon",
+    sourceFile: "src/ui/SearchIcon.tsx",
+    viewBox: "0 0 16 16",
+    category: "input-assist",
+    labelZh: "搜索",
+    currentColor: true,
+    dualTone: false,
+    temporary: false,
+    usageScenes: [
+      {
+        scene: "Search / Input 搜索前缀、搜索按钮",
+        typicalSizes: [16],
+        typicalColorRoles: ["subtle", "inherit"],
+        reusableAtOtherSizes: true,
+      },
+    ],
+    Component: SearchIcon,
+  },
+};
+
+export const ICON_NAMES = Object.keys(ICON_REGISTRY) as IconName[];
+
+export function getIconRegistryEntry(name: IconName): IconRegistryEntry {
+  return ICON_REGISTRY[name];
+}
+
+export function isIconName(value: string): value is IconName {
+  return value in ICON_REGISTRY;
+}
