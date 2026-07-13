@@ -29,4 +29,12 @@ function changelogGlobReload(): Plugin {
 
 export default defineConfig({
   plugins: [react(), changelogGlobReload()],
+  build: {
+    rollupOptions: {
+      input: {
+        main: path.resolve(__dirname, "index.html"),
+        agentEval: path.resolve(__dirname, "agent-eval.html"),
+      },
+    },
+  },
 });

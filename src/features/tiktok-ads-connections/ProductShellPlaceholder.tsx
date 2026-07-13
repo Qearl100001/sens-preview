@@ -1,14 +1,9 @@
 import { tokenRgba } from "../../design-system/color-utils";
+import { getThemeTopBackground } from "../../design-system/navigation-color";
 import { getTypographyToken } from "../../design-system/typography";
 import tokens from "../../design-system/tokens.resolved.json";
 
 const u = tokens.unit as Record<string, number>;
-
-/**
- * SensorsData 产品壳视觉占位（无真实导航交互）。
- * TODO: 顶导渐变接入 theme-top-background token 后替换 PRODUCT_SHELL_GRADIENT。
- */
-const PRODUCT_SHELL_GRADIENT = "linear-gradient(135deg, #0F9670 0%, #0D826D 100%)";
 
 const NAV_ITEMS = [
   "可视化",
@@ -33,7 +28,7 @@ export function ProductShellPlaceholder() {
     <header
       style={{
         height: SHELL_VISIBLE_HEIGHT,
-        background: PRODUCT_SHELL_GRADIENT,
+        background: getThemeTopBackground("green"),
         flexShrink: 0,
         position: "relative",
         overflow: "hidden",

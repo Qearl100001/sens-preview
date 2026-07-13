@@ -6,7 +6,7 @@ import {
   getColorToken,
   tokenRgba,
 } from "../../design-system/color-utils";
-import { getDividerBorder, dividerWidthTokens } from "../../design-system/divider";
+import { getDividerBorder, getDividerHairlineWidth } from "../../design-system/divider";
 import { getTypographyToken } from "../../design-system/typography";
 import tokens from "../../design-system/tokens.resolved.json";
 import { DataSourceLogo } from "./DataSourceLogo";
@@ -129,7 +129,7 @@ export function DataSourceEntryCard({ card, onClick }: DataSourceEntryCardProps)
   let background = isDisabled ? getColorToken("background-grey") : getColorToken("white");
 
   if (!isDisabled && pressed) {
-    border = `${dividerWidthTokens["divider/width/hairline"]}px solid ${getColorToken("component-active")}`;
+    border = `${getDividerHairlineWidth()}px solid ${getColorToken("component-active")}`;
     boxShadow = buildActiveRingShadow("component-active-shadow");
   } else if (hovered) {
     boxShadow = buildShadowD3();

@@ -1,0 +1,1274 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI 辅助设计环节提效探索</title>
+    <style>
+      :root {
+        --bg: #eef2ec;
+        --paper: rgba(255, 255, 255, 0.82);
+        --paper-strong: #ffffff;
+        --paper-green: #edf7f1;
+        --paper-blue: #eef4fb;
+        --paper-amber: #fff7ed;
+        --ink: #1e2a23;
+        --muted: #5e6d63;
+        --line: #d5e0d7;
+        --line-strong: #a9b9ae;
+        --green: #0e8b68;
+        --green-deep: #0b654d;
+        --blue: #275d9f;
+        --amber: #a4671f;
+        --shadow: 0 20px 60px rgba(25, 46, 31, 0.08);
+        --article: 760px;
+        --wide: 1120px;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        color: var(--ink);
+        background:
+          radial-gradient(circle at top left, rgba(14, 139, 104, 0.1), transparent 28rem),
+          linear-gradient(180deg, #f8fbf8 0%, var(--bg) 100%);
+        font-family:
+          "Iowan Old Style", "Palatino Linotype", "Noto Serif SC", "Songti SC",
+          serif;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      img,
+      svg {
+        display: block;
+        max-width: 100%;
+      }
+
+      a {
+        color: inherit;
+      }
+
+      .topbar {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        backdrop-filter: blur(18px);
+        background: rgba(248, 251, 248, 0.76);
+        border-bottom: 1px solid rgba(213, 224, 215, 0.8);
+      }
+
+      .topbar-inner {
+        width: min(var(--wide), calc(100% - 40px));
+        margin: 0 auto;
+        min-height: 66px;
+        display: flex;
+        align-items: center;
+        gap: 24px;
+      }
+
+      .topbar-brand {
+        color: var(--green);
+        font-family:
+          "IBM Plex Mono", "JetBrains Mono", "SFMono-Regular", ui-monospace, monospace;
+        font-size: 13px;
+        font-weight: 700;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        white-space: nowrap;
+      }
+
+      .topbar-switch {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        flex: 1;
+      }
+
+      .switch-btn {
+        appearance: none;
+        border: 1px solid transparent;
+        border-radius: 999px;
+        background: transparent;
+        color: var(--muted);
+        cursor: pointer;
+        font-family:
+          "IBM Plex Mono", "JetBrains Mono", "SFMono-Regular", ui-monospace, monospace;
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 1px;
+        line-height: 1;
+        padding: 12px 16px;
+        text-transform: uppercase;
+        transition:
+          background 160ms ease,
+          border-color 160ms ease,
+          color 160ms ease;
+      }
+
+      .switch-btn.is-active {
+        border-color: rgba(14, 139, 104, 0.16);
+        background: rgba(14, 139, 104, 0.1);
+        color: var(--green-deep);
+      }
+
+      .topbar-nav-wrap {
+        margin-left: auto;
+      }
+
+      .topbar-nav-group {
+        display: none;
+        flex-wrap: wrap;
+        gap: 18px;
+      }
+
+      .topbar-nav-group.is-active {
+        display: flex;
+      }
+
+      .topbar-nav-group a {
+        color: var(--muted);
+        font-family:
+          "IBM Plex Mono", "JetBrains Mono", "SFMono-Regular", ui-monospace, monospace;
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 1px;
+        text-decoration: none;
+        text-transform: uppercase;
+      }
+
+      .page {
+        width: min(var(--wide), calc(100% - 40px));
+        margin: 0 auto;
+        padding: 44px 0 96px;
+      }
+
+      .article-view {
+        display: none;
+      }
+
+      .article-view.is-active {
+        display: block;
+      }
+
+      .hero {
+        padding: 28px 0 40px;
+      }
+
+      .eyebrow {
+        color: var(--green);
+        font-family:
+          "IBM Plex Mono", "JetBrains Mono", "SFMono-Regular", ui-monospace, monospace;
+        font-size: 13px;
+        font-weight: 700;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+      }
+
+      h1,
+      h2,
+      h3,
+      p,
+      ul {
+        margin: 0;
+      }
+
+      .hero h1 {
+        max-width: 820px;
+        margin-top: 14px;
+        font-size: clamp(34px, 4.8vw, 52px);
+        line-height: 1.14;
+        font-weight: 700;
+      }
+
+      .hero-intro {
+        max-width: var(--article);
+        margin-top: 24px;
+        color: var(--muted);
+        font-size: 20px;
+        line-height: 1.9;
+      }
+
+      .hero-intro p + p {
+        margin-top: 16px;
+      }
+
+      .hero-meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 28px;
+      }
+
+      .pill {
+        border: 1px solid rgba(14, 139, 104, 0.2);
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.75);
+        color: var(--green-deep);
+        font-family:
+          "IBM Plex Mono", "JetBrains Mono", "SFMono-Regular", ui-monospace, monospace;
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 1px;
+        padding: 8px 14px;
+        text-transform: uppercase;
+      }
+
+      .section {
+        padding: 42px 0;
+      }
+
+      .section-header {
+        max-width: var(--article);
+        margin-bottom: 28px;
+      }
+
+      .section-header h2 {
+        font-size: clamp(28px, 3.3vw, 38px);
+        line-height: 1.2;
+        font-weight: 700;
+      }
+
+      .section-header p {
+        margin-top: 14px;
+        color: var(--muted);
+        font-size: 18px;
+        line-height: 1.8;
+      }
+
+      .prose {
+        max-width: var(--article);
+        color: var(--muted);
+        font-size: 18px;
+        line-height: 1.9;
+      }
+
+      .prose p + p {
+        margin-top: 16px;
+      }
+
+      .quote {
+        max-width: var(--article);
+        margin-top: 24px;
+        padding: 22px 24px;
+        border-left: 4px solid var(--green);
+        background: rgba(255, 255, 255, 0.66);
+        border-radius: 0 8px 8px 0;
+        color: var(--green-deep);
+        font-size: 22px;
+        line-height: 1.7;
+      }
+
+      .image-frame {
+        margin-top: 26px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.86);
+        box-shadow: var(--shadow);
+        overflow: hidden;
+      }
+
+      .image-frame img {
+        width: 100%;
+        height: auto;
+      }
+
+      .module-grid {
+        display: grid;
+        gap: 18px;
+      }
+
+      .module-grid.two {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .module-grid.three {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .module-grid.four {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+
+      .card {
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--paper);
+        box-shadow: 0 10px 30px rgba(29, 42, 35, 0.04);
+        padding: 22px;
+      }
+
+      .card.green {
+        background: var(--paper-green);
+      }
+
+      .card.blue {
+        background: var(--paper-blue);
+      }
+
+      .card.amber {
+        background: var(--paper-amber);
+      }
+
+      .card h3 {
+        font-size: 20px;
+        line-height: 1.35;
+        font-weight: 700;
+      }
+
+      .card p {
+        margin-top: 12px;
+        color: var(--muted);
+        font-size: 16px;
+        line-height: 1.75;
+      }
+
+      .checklist {
+        display: grid;
+        gap: 12px;
+        margin-top: 16px;
+      }
+
+      .checklist div {
+        position: relative;
+        padding-left: 18px;
+        color: var(--muted);
+        font-size: 16px;
+        line-height: 1.7;
+      }
+
+      .checklist div::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 10px;
+        width: 7px;
+        height: 7px;
+        border-radius: 999px;
+        background: currentColor;
+        opacity: 0.45;
+      }
+
+      .table-card {
+        overflow: hidden;
+        padding: 0;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+
+      th {
+        border-bottom: 1px solid var(--line-strong);
+        color: var(--muted);
+        font-family:
+          "IBM Plex Mono", "JetBrains Mono", "SFMono-Regular", ui-monospace, monospace;
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 1px;
+        padding: 16px 20px;
+        text-align: left;
+        text-transform: uppercase;
+      }
+
+      td {
+        border-bottom: 1px solid var(--line);
+        padding: 18px 20px;
+        vertical-align: top;
+        color: var(--muted);
+        font-size: 16px;
+        line-height: 1.7;
+      }
+
+      td:first-child {
+        color: var(--ink);
+        font-weight: 700;
+      }
+
+      tr:last-child td {
+        border-bottom: 0;
+      }
+
+      .case-grid {
+        display: grid;
+        grid-template-columns: 1.15fr 0.85fr;
+        gap: 20px;
+        align-items: start;
+      }
+
+      .note-block {
+        border-top: 1px solid var(--line);
+        margin-top: 20px;
+        padding-top: 16px;
+        color: var(--muted);
+        font-size: 15px;
+        line-height: 1.7;
+      }
+
+      .asset-grid {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 14px;
+        margin-top: 22px;
+      }
+
+      .asset-item {
+        min-height: 112px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.84);
+        padding: 18px;
+        display: flex;
+        align-items: end;
+        color: var(--ink);
+        font-size: 18px;
+        font-weight: 700;
+        line-height: 1.45;
+      }
+
+      .footer-line {
+        max-width: var(--article);
+        margin-top: 26px;
+        color: var(--green-deep);
+        font-size: 24px;
+        line-height: 1.65;
+      }
+
+      .voice-card p {
+        font-size: 18px;
+        line-height: 1.8;
+      }
+
+      .voice-role {
+        color: var(--green);
+        font-family:
+          "IBM Plex Mono", "JetBrains Mono", "SFMono-Regular", ui-monospace, monospace;
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+      }
+
+      .mini-summary {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 18px;
+      }
+
+      .action-group {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-top: 22px;
+      }
+
+      .action-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        border: 1px solid rgba(14, 139, 104, 0.16);
+        border-radius: 999px;
+        background: rgba(14, 139, 104, 0.1);
+        color: var(--green-deep);
+        font-family:
+          "IBM Plex Mono", "JetBrains Mono", "SFMono-Regular", ui-monospace, monospace;
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 1px;
+        padding: 12px 16px;
+        text-decoration: none;
+        text-transform: uppercase;
+      }
+
+      .code-card {
+        background: #1d222d;
+        border-radius: 8px;
+        color: #eef4fb;
+        font-family:
+          "IBM Plex Mono", "JetBrains Mono", "SFMono-Regular", ui-monospace, monospace;
+        font-size: 14px;
+        line-height: 1.8;
+        margin-top: 18px;
+        overflow-x: auto;
+        padding: 18px 20px;
+        white-space: pre-wrap;
+      }
+
+      .svg-panel {
+        padding: 20px;
+      }
+
+      .svg-panel svg {
+        width: 100%;
+        height: auto;
+      }
+
+      @media (max-width: 960px) {
+        .topbar-inner {
+          width: calc(100% - 28px);
+          align-items: start;
+          flex-direction: column;
+          justify-content: center;
+          padding: 12px 0;
+        }
+
+        .topbar-switch {
+          width: 100%;
+          overflow-x: auto;
+        }
+
+        .topbar-nav-wrap {
+          width: 100%;
+          margin-left: 0;
+        }
+
+        .page {
+          width: calc(100% - 28px);
+        }
+
+        .module-grid.two,
+        .module-grid.three,
+        .module-grid.four,
+        .case-grid,
+        .asset-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="topbar-inner">
+        <div class="topbar-brand">AI Design Article</div>
+
+        <div class="topbar-switch" role="tablist" aria-label="文章切换">
+          <button class="switch-btn is-active" data-view-target="ppt-article" type="button">
+            9页PPT文章版
+          </button>
+          <button class="switch-btn" data-view-target="essay-article" type="button">
+            AI 辅助设计环节提效探索
+          </button>
+        </div>
+
+        <div class="topbar-nav-wrap">
+          <nav class="topbar-nav-group is-active" data-view-nav="ppt-article" aria-label="9页文章目录">
+            <a href="#ppt-scenes">场景</a>
+            <a href="#ppt-problems">整理</a>
+            <a href="#ppt-solution-1">方案一</a>
+            <a href="#ppt-solution-2">方案二</a>
+            <a href="#ppt-assets">资产库</a>
+            <a href="#ppt-value">帮助</a>
+            <a href="#ppt-workflow">流程</a>
+            <a href="#ppt-design">设计侧</a>
+          </nav>
+
+          <nav class="topbar-nav-group" data-view-nav="essay-article" aria-label="文章目录">
+            <a href="#why">背景</a>
+            <a href="#foundation">地基</a>
+            <a href="#fit">适用场景</a>
+            <a href="#case">案例</a>
+            <a href="#collaboration">协作</a>
+            <a href="#assets">资产库</a>
+          </nav>
+        </div>
+      </div>
+    </header>
+
+    <main class="page">
+      <article class="article-view is-active" data-view="ppt-article">
+        <section class="hero" id="ppt-intro">
+          <div class="eyebrow">AI 设计探索</div>
+          <h1>AI 辅助设计阶段与标准化业务组件探索</h1>
+          <div class="hero-intro">
+            <p>
+              这篇内容不是在讲“AI 能不能替代谁”，而是在讲一个更实际的问题:
+              标准场景里，设计、产品、研发能不能更早看到同一个页面草稿，更快进入讨论。
+            </p>
+            <p>
+              这次我选了数据源接入作为验证场景，先做 TikTok 的设计还原，再进一步验证 Google Ads
+              这类同结构换字段的页面，能不能通过结构化描述继续生成。
+            </p>
+          </div>
+          <div class="hero-meta">
+            <span class="pill">TikTok 还原</span>
+            <span class="pill">Google Ads 生成</span>
+            <span class="pill">Design Token</span>
+            <span class="pill">标准页面</span>
+          </div>
+        </section>
+
+        <section class="section" id="ppt-scenes">
+          <div class="section-header">
+            <div class="eyebrow">日常场景</div>
+            <h2>这件事不是凭空来的，它对应的是我们设计环节里反复出现的真实问题。</h2>
+            <p>先把日常协作里的原声摆出来，再去看为什么会选择这个方向做尝试。</p>
+          </div>
+          <div class="module-grid two">
+            <article class="card voice-card">
+              <div class="voice-role">Design</div>
+              <p>“这种类型的需求又来了，但页面结构其实和之前差不多。”</p>
+            </article>
+            <article class="card voice-card green">
+              <div class="voice-role">Product</div>
+              <p>“PRD 已经有了，能不能先给我一个大差不差的页面结构看看？”</p>
+            </article>
+            <article class="card voice-card">
+              <div class="voice-role">Design</div>
+              <p>“表格、筛选、空态、创建抽屉这些模块，每次都要重新搭一次。”</p>
+            </article>
+            <article class="card voice-card blue">
+              <div class="voice-role">Develop</div>
+              <p>“如果只是视觉草稿，对我们价值有限；如果结构、字段、组件边界清楚，就更容易接着评估。”</p>
+            </article>
+            <article class="card voice-card amber">
+              <div class="voice-role">Design</div>
+              <p>“很多时间其实花在对齐间距、宽度、状态、组件细节，而不是页面本身。”</p>
+            </article>
+            <article class="card voice-card">
+              <div class="voice-role">Product</div>
+              <p>“来了一个新的标准数据源接入需求，可不可以先复用已有结构，不从零开始？”</p>
+            </article>
+          </div>
+        </section>
+
+        <section class="section" id="ppt-problems">
+          <div class="section-header">
+            <div class="eyebrow">问题整理</div>
+            <h2>把问题整理清楚之后，会发现有一批场景其实很适合先做 AI 辅助生成。</h2>
+            <p>关键不是“全部自动化”，而是先找到重复性高、结构稳定、输入可描述的部分。</p>
+          </div>
+          <article class="card table-card">
+            <table>
+              <thead>
+                <tr>
+                  <th>问题</th>
+                  <th>AI 可先介入的方式</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>标准页面反复搭建</td>
+                  <td>先复用页面样板间，把表格、筛选、空态、抽屉这些结构快速拼成初稿。</td>
+                </tr>
+                <tr>
+                  <td>设计与研发反复对齐还原细节</td>
+                  <td>把 token、组件规则、状态用法前置到生成阶段，减少后面对齐成本。</td>
+                </tr>
+                <tr>
+                  <td>同类需求结构很像，但每次重新开始</td>
+                  <td>基于已有页面做“同结构换字段”，让 AI 先生成新草稿，再由人继续判断。</td>
+                </tr>
+                <tr>
+                  <td>接一个新的标准数据源接入需求</td>
+                  <td>从 PRD 抽取字段、状态、操作，映射到已沉淀的 DataSourceSpec 描述格式。</td>
+                </tr>
+                <tr>
+                  <td>产品想先快速看方案</td>
+                  <td>先生成一个可讨论的页面结构草稿，提前确认信息层级、流程和字段。</td>
+                </tr>
+              </tbody>
+            </table>
+          </article>
+          <div class="mini-summary">
+            <span class="pill">重复性高</span>
+            <span class="pill">结构稳定</span>
+            <span class="pill">字段差异可描述</span>
+            <span class="pill">适合先出草稿</span>
+          </div>
+        </section>
+
+        <section class="section" id="ppt-solution-1">
+          <div class="section-header">
+            <div class="eyebrow">解决方案一</div>
+            <h2>设计还原: 先基于 TikTok 数据源接入页面，验证 AI 能不能搭出可讨论的还原初稿。</h2>
+            <p>这一步的重点不是“生成一个新页面”，而是先看 AI 能不能理解现有设计资产并按规则还原。</p>
+          </div>
+          <div class="module-grid three">
+            <article class="card">
+              <h3>标准页面反复搭建</h3>
+              <p>表格、筛选、空态、创建抽屉在多个业务里反复出现。</p>
+            </article>
+            <article class="card green">
+              <h3>设计与研发还原对齐</h3>
+              <p>间距、宽度、状态、组件细节经常需要反复确认。</p>
+            </article>
+            <article class="card">
+              <h3>同类结构重复开始</h3>
+              <p>页面结构相似，但每次仍然容易从零搭起。</p>
+            </article>
+          </div>
+          <article class="card blue" style="max-width: var(--article); margin-top: 20px">
+            <h3>TikTok 还原效果</h3>
+            <div class="checklist">
+              <div>拆页面结构: 入口、详情、连接列表、创建抽屉、账号映射。</div>
+              <div>套用 SensD: 组件、token、表格、抽屉、状态规则。</div>
+              <div>再由设计师校正文案、视觉和交互细节。</div>
+            </div>
+            <div class="action-group">
+              <a class="action-link" href="#" data-app-path="/pages/data-source-demo" target="_blank" rel="noreferrer">
+                打开当前 Demo
+              </a>
+              <a class="action-link" href="#" data-app-path="/pages/tiktok-ads-connections" target="_blank" rel="noreferrer">
+                查看 TikTok 路由
+              </a>
+            </div>
+            <div class="note-block">
+              这里验证的是: 已有设计资产经过组织之后，AI 能不能先完成结构拼装和基础还原，再把更细的体验判断交给设计师。
+            </div>
+          </article>
+        </section>
+
+        <section class="section" id="ppt-solution-2">
+          <div class="section-header">
+            <div class="eyebrow">解决方案二</div>
+            <h2>同结构换字段生成: 基于 TikTok 样板，验证 Google Ads 能不能继续生成。</h2>
+            <p>这一步展示的不是完整产品方案，而是“同类需求能不能更快进入讨论”。</p>
+          </div>
+          <div class="module-grid three">
+            <article class="card">
+              <h3>新的标准数据源接入</h3>
+              <p>新接一个数据源，需要快速生成同类页面方案。</p>
+            </article>
+            <article class="card green">
+              <h3>来了一个同类新需求</h3>
+              <p>页面框架一致，变化主要在字段、表格列和表单项。</p>
+            </article>
+            <article class="card">
+              <h3>产品想先快速看方案</h3>
+              <p>PRD 已有，但完整设计稿还没开始，先确认结构。</p>
+            </article>
+          </div>
+          <div class="case-grid" style="margin-top: 20px">
+            <article class="card green">
+              <h3>Google Ads 生成过程</h3>
+              <div class="checklist">
+                <div>保留 TikTok 的页面骨架和交互流程。</div>
+                <div>只替换数据源名称、表格字段、抽屉字段和部分说明文案。</div>
+                <div>先输出 HTML 草稿，用来讨论结构、字段和信息层级。</div>
+              </div>
+              <div class="action-group">
+                <a class="action-link" href="#" data-app-path="/pages/data-source-demo" target="_blank" rel="noreferrer">
+                  打开页面草稿
+                </a>
+              </div>
+              <div class="note-block">
+                录屏时可以直接展示: 给 AI 一段结构化输入，它输出 Google Ads 页面草稿。
+              </div>
+            </article>
+            <article class="card blue">
+              <h3>结构化输入示例</h3>
+              <div class="code-card">数据源名称: Google Ads
+表格列: 连接 ID、连接名称、状态、广告账户数、创建人、创建时间、操作
+创建抽屉字段: 连接名称、Developer Token、Client ID、Client Secret、Refresh Token、账号映射
+操作: 查看、启用 / 停用、删除</div>
+            </article>
+          </div>
+        </section>
+
+        <section class="section" id="ppt-assets">
+          <div class="section-header">
+            <div class="eyebrow">AI 设计资产库</div>
+            <h2>这次尝试真正沉淀下来的，不只是两个页面，而是一批可继续复用的资产。</h2>
+            <p>后面如果要继续扩大覆盖范围，核心不是多做几个 demo，而是把这些资产继续补厚。</p>
+          </div>
+          <div class="image-frame">
+            <img src="assets/v2-ai-design-asset-library.svg" alt="AI 设计资产库构成图" />
+          </div>
+          <div class="asset-grid">
+            <div class="asset-item">通用页面样板间</div>
+            <div class="asset-item">通用业务组件样板间</div>
+            <div class="asset-item">通用交互样板间</div>
+            <div class="asset-item">AI 工作规则</div>
+            <div class="asset-item">Foundation Token</div>
+            <div class="asset-item">SensD 组件规则</div>
+            <div class="asset-item">页面初稿 / 代码草案</div>
+            <div class="asset-item">验收清单 / 可复用规则</div>
+          </div>
+        </section>
+
+        <section class="section" id="ppt-value">
+          <div class="section-header">
+            <div class="eyebrow">对各环节的帮助</div>
+            <h2>这套产出不是只对设计有用，它对产品、设计、研发进入讨论的时机都更靠前。</h2>
+          </div>
+          <div class="module-grid three">
+            <article class="card">
+              <h3>产品</h3>
+              <div class="checklist">
+                <div>更早看到页面结构。</div>
+                <div>更早确认字段、流程和信息层级。</div>
+                <div>标准需求可以更快进入讨论。</div>
+              </div>
+            </article>
+            <article class="card green">
+              <h3>设计</h3>
+              <div class="checklist">
+                <div>减少重复搭建。</div>
+                <div>更快进入判断和打磨。</div>
+                <div>推动 design token、组件规则、样板间沉淀。</div>
+              </div>
+            </article>
+            <article class="card blue">
+              <h3>研发</h3>
+              <div class="checklist">
+                <div>更早看到结构化页面草稿。</div>
+                <div>更清楚 token、组件、字段和状态来源。</div>
+                <div>方便讨论哪些输出有工程价值，哪些只适合作为 demo。</div>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section class="section" id="ppt-workflow">
+          <div class="section-header">
+            <div class="eyebrow">流程展望</div>
+            <h2>如果继续往下做，目标不是一步到位，而是逐步把 PRD 到页面草稿的协作链路走通。</h2>
+          </div>
+          <div class="image-frame">
+            <img src="assets/v2-ai-design-workflow.svg" alt="从 PRD 到工程评估的协作流程图" />
+          </div>
+          <div class="module-grid two" style="margin-top: 20px">
+            <article class="card">
+              <h3>产品需要配合</h3>
+              <div class="checklist">
+                <div>哪些需求适合标准化。</div>
+                <div>PRD 需要补充哪些结构化字段。</div>
+                <div>哪些场景先看草稿就能推进讨论。</div>
+              </div>
+            </article>
+            <article class="card blue">
+              <h3>研发需要配合</h3>
+              <div class="checklist">
+                <div>token 能否接入现有组件库。</div>
+                <div>组件 API 如何补齐常见变体。</div>
+                <div>哪些页面骨架和字段结构有工程复用价值。</div>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section class="section" id="ppt-design">
+          <div class="section-header">
+            <div class="eyebrow">设计侧继续要做的事</div>
+            <h2>接下来设计师真正要补的是规则、样板和验收，不只是再做几个页面。</h2>
+          </div>
+          <article class="card table-card">
+            <table>
+              <thead>
+                <tr>
+                  <th>方向</th>
+                  <th>需要完成的内容</th>
+                  <th>目的</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>基础样式资产</td>
+                  <td>颜色、字体、间距、圆角、投影、分割线、图标。</td>
+                  <td>让 AI 有稳定的视觉规则可引用。</td>
+                </tr>
+                <tr>
+                  <td>组件规则</td>
+                  <td>标题栏、抽屉、表格、表单、输入框、下拉、按钮、状态标签。</td>
+                  <td>让 AI 知道每个组件如何使用，有哪些状态。</td>
+                </tr>
+                <tr>
+                  <td>高频页面样板间</td>
+                  <td>数据源接入、表格 + 筛选、表格 + 创建抽屉、配置页 / 详情页。</td>
+                  <td>让同类需求可以基于已有结构生成。</td>
+                </tr>
+                <tr>
+                  <td>高频业务组件</td>
+                  <td>审批、邮件发送、账号映射、字段映射、任务配置。</td>
+                  <td>减少业务流程类组件重复设计。</td>
+                </tr>
+                <tr>
+                  <td>AI 可读设计规则</td>
+                  <td>如何读 PRD、如何选样板、如何套组件、如何检查 token、如何标注不确定项。</td>
+                  <td>让 AI 的生成过程更可控、可验收。</td>
+                </tr>
+                <tr>
+                  <td>验收标准</td>
+                  <td>视觉还原、组件使用、token 使用、状态完整性、工程边界。</td>
+                  <td>让生成结果可以被设计和研发共同检查。</td>
+                </tr>
+              </tbody>
+            </table>
+          </article>
+        </section>
+      </article>
+
+      <article class="article-view" data-view="essay-article">
+        <section class="hero" id="intro">
+          <div class="eyebrow">AI 与设计环节</div>
+          <h1>AI 辅助设计环节提效探索</h1>
+          <div class="hero-intro">
+            <p>
+              设计环节里有很多高复用内容，例如组件、页面结构、视觉规则和业务流程。理论上，这些内容可以被
+              AI 更高效地组织成页面初稿。
+            </p>
+            <p>
+              但现实里，纯靠和 AI 对话，往往很难生成真正像我们产品的页面。AI
+              可以拼出一个后台界面，却不理解我们的设计系统、组件规则、视觉风格和还原标准。
+            </p>
+            <p>
+              这次探索想解决的，不是让 AI 随便生成页面，而是让 AI 更懂我们的设计资产，让标准页面更快形成可讨论的初稿。
+            </p>
+          </div>
+          <div class="hero-meta">
+            <span class="pill">设计资产</span>
+            <span class="pill">业务样板间</span>
+            <span class="pill">AI 初稿</span>
+            <span class="pill">数据源接入案例</span>
+          </div>
+        </section>
+
+        <section class="section" id="why">
+          <div class="section-header">
+            <div class="eyebrow">为什么现在做</div>
+            <h2>高复用页面已经足够成熟，但相关资产还没有被 AI 稳定调用。</h2>
+            <p>
+              先从真实协作问题出发，而不是直接讲 AI 能做什么。标准页面不缺“创意起点”，更缺统一规则和复用能力。
+            </p>
+          </div>
+          <div class="module-grid two">
+            <article class="card">
+              <h3>现实里的阻力</h3>
+              <div class="checklist">
+                <div>纯聊天很难生成真正像我们产品的页面。</div>
+                <div>Figma 文档里的设计资产很难直接进入生成流程。</div>
+                <div>token、组件规则、样板间和验收标准分散在不同地方。</div>
+                <div>做新产品时，核心设计组件能力没有被充分复用。</div>
+              </div>
+            </article>
+            <article class="card green">
+              <h3>这次探索的目的</h3>
+              <p>
+                不是替代设计判断，也不是替代研发实现，而是把高复用页面里的设计规则、业务结构和组件能力先组织成一个可讨论的页面初稿。
+              </p>
+              <div class="note-block">
+                目标不是生成最终页面，而是让团队更早看到页面形态，更早对齐体验判断。
+              </div>
+            </article>
+          </div>
+          <div class="quote">
+            关键点不在“让 AI 直接出答案”，而在于先把已有设计能力整理成 AI 能理解的输入。
+          </div>
+        </section>
+
+        <section class="section" id="foundation">
+          <div class="section-header">
+            <div class="eyebrow">地基能力</div>
+            <h2>AI 要懂我们的设计，需要一层结构化地基。</h2>
+            <p>
+              这里不会把 Design Token 单独做成一整屏，而是把它放回方法里理解：它和组件规则、页面样板、业务样板一起构成 AI 的输入基础。
+            </p>
+          </div>
+          <div class="module-grid three">
+            <article class="card green">
+              <h3>Design Token</h3>
+              <p>颜色、字体、间距、圆角、投影、状态等基础设计变量，让 AI 知道风格背后的规则来源。</p>
+            </article>
+            <article class="card">
+              <h3>组件规则</h3>
+              <p>按钮、输入框、表格、抽屉、标题栏等如何使用，哪些样式不应该临时手写。</p>
+            </article>
+            <article class="card">
+              <h3>页面样板间</h3>
+              <p>表格筛选、创建抽屉、详情页、配置页等常见页面结构。</p>
+            </article>
+            <article class="card">
+              <h3>业务组件样板</h3>
+              <p>账号映射、字段映射、授权流程、任务配置等业务流程模板。</p>
+            </article>
+            <article class="card blue">
+              <h3>AI 工作规则</h3>
+              <p>如何读 PRD、抽字段、套组件、检查 token，并明确哪些内容仍需人工判断。</p>
+            </article>
+            <article class="card">
+              <h3>还原验收标准</h3>
+              <p>哪些视觉、状态和交互必须符合设计系统，哪些问题需要继续回流到资产库。</p>
+            </article>
+          </div>
+          <div class="image-frame">
+            <img src="assets/asset-layer.png" alt="结构化资产层示意图" />
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="section-header">
+            <div class="eyebrow">工作方式</div>
+            <h2>生成页面时，需要设计侧资产和业务侧信息一起输入。</h2>
+            <p>
+              如果只有一句“帮我做一个页面”，AI 最多只能模仿外形。只有把设计资产和业务描述一起结构化，页面初稿才会更接近真实协作语境。
+            </p>
+          </div>
+          <div class="image-frame">
+            <img src="assets/two-assets.png" alt="设计侧资产与业务侧资产共同输入 AI" />
+          </div>
+        </section>
+
+        <section class="section" id="fit">
+          <div class="section-header">
+            <div class="eyebrow">适用场景</div>
+            <h2>先从标准化场景开始，不直接覆盖复杂决策。</h2>
+            <p>长文章里依然保留结构化对照，这类信息用并排卡片表达会比纯文字更清楚。</p>
+          </div>
+          <div class="module-grid two">
+            <article class="card green">
+              <h3>适合先进入样板间</h3>
+              <div class="checklist">
+                <div>标准化程度高的页面</div>
+                <div>表格、筛选、表单、抽屉类页面</div>
+                <div>字段明确的小需求</div>
+                <div>已有相似页面可以参考的需求</div>
+                <div>通用业务组件和流程</div>
+              </div>
+            </article>
+            <article class="card amber">
+              <h3>暂不直接覆盖</h3>
+              <div class="checklist">
+                <div>强业务创新页面</div>
+                <div>复杂数据分析流程</div>
+                <div>高度定制交互</div>
+                <div>大量后端逻辑判断</div>
+                <div>正式生产里的高性能、安全、权限要求</div>
+              </div>
+            </article>
+          </div>
+          <div class="image-frame">
+            <img src="assets/boundary.png" alt="适用边界示意图" />
+          </div>
+        </section>
+
+        <section class="section" id="case">
+          <div class="section-header">
+            <div class="eyebrow">案例</div>
+            <h2>用数据源接入验证方法，先看一类足够标准、也足够真实的场景。</h2>
+            <p>
+              数据源接入同时包含管理页、空态、连接列表和创建抽屉，既能验证页面结构的复用，也能验证字段差异是否可以被描述驱动。
+            </p>
+          </div>
+          <div class="case-grid">
+            <article class="card table-card">
+              <table>
+                <thead>
+                  <tr>
+                    <th>场景特征</th>
+                    <th>为什么适合做第一批验证</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>页面结构稳定</td>
+                    <td>有管理页、空态、连接列表、创建抽屉，结构复用价值明显。</td>
+                  </tr>
+                  <tr>
+                    <td>字段差异明确</td>
+                    <td>变化主要来自表格列、表单字段、状态和操作，适合结构化描述。</td>
+                  </tr>
+                  <tr>
+                    <td>已有页面参考</td>
+                    <td>可以从现有 TikTok 页面出发，而不是凭空生成。</td>
+                  </tr>
+                  <tr>
+                    <td>接近真实业务</td>
+                    <td>既不是纯示意，也不会一下子碰到最复杂的创新场景。</td>
+                  </tr>
+                </tbody>
+              </table>
+            </article>
+            <article class="card blue">
+              <h3>当这个案例跑通后</h3>
+              <div class="checklist">
+                <div>页面结构可以复用</div>
+                <div>组件组合可以复用</div>
+                <div>状态和操作表达可以复用</div>
+                <div>字段差异可以由 PRD 描述驱动</div>
+                <div>缺失规则可以继续沉淀回资产库</div>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="section-header">
+            <div class="eyebrow">进阶验证</div>
+            <h2>当一个样板间建立后，新的同类页面不需要从零开始。</h2>
+            <p>
+              TikTok Ads 和 Google Ads 的差异主要在字段和业务描述，结构、交互路径、组件组合和视觉规则可以继续复用。
+            </p>
+          </div>
+          <div class="module-grid two" style="margin-top: 18px">
+            <article class="card">
+              <h3>可复用的部分</h3>
+              <div class="checklist">
+                <div>页面结构</div>
+                <div>组件组合</div>
+                <div>交互路径</div>
+                <div>token 与视觉规则</div>
+                <div>状态和操作表达</div>
+              </div>
+            </article>
+            <article class="card green">
+              <h3>变化的部分</h3>
+              <div class="checklist">
+                <div>表格字段</div>
+                <div>抽屉字段</div>
+                <div>数据源名称</div>
+                <div>业务说明文案</div>
+                <div>少量特殊流程差异</div>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section class="section" id="collaboration">
+          <div class="section-header">
+            <div class="eyebrow">协作方式</div>
+            <h2>这不是让 AI 代替谁，而是让团队更早围绕同一个页面初稿讨论。</h2>
+            <p>
+              长文章版保留横向卡片展示，会比纯段落更容易看清每个角色在这件事里的位置。
+            </p>
+          </div>
+          <div class="module-grid three">
+            <article class="card blue">
+              <h3>产品</h3>
+              <p>提供更结构化的需求描述，例如字段、状态、操作和流程差异。</p>
+            </article>
+            <article class="card green">
+              <h3>设计</h3>
+              <p>维护 token、组件规则、样板间、体验判断和还原验收标准。</p>
+            </article>
+            <article class="card amber">
+              <h3>研发</h3>
+              <p>确认组件能力、数据结构、接口边界和工程规范，判断哪些部分可继续进入工程。</p>
+            </article>
+          </div>
+          <div class="quote">
+            AI 的角色更像一个协作加速器，把已有标准化信息先组织成页面初稿，并把不确定点提前暴露出来。
+          </div>
+        </section>
+
+        <section class="section" id="assets">
+          <div class="section-header">
+            <div class="eyebrow">最终沉淀</div>
+            <h2>最终沉淀的不是单个 demo，而是一套可持续复用的设计资产库。</h2>
+            <p>
+              页面、组件、规则和业务结构不再只散落在单个 Figma 文件或单个项目里，而是逐步形成可以被 AI 理解和调用的长期资产。
+            </p>
+          </div>
+          <div class="asset-grid">
+            <div class="asset-item">Design Token</div>
+            <div class="asset-item">SensD 组件规则</div>
+            <div class="asset-item">通用页面样板间</div>
+            <div class="asset-item">通用业务组件样板间</div>
+            <div class="asset-item">通用交互样板间</div>
+            <div class="asset-item">PRD 字段描述模板</div>
+            <div class="asset-item">AI 页面生成规则</div>
+            <div class="asset-item">视觉还原验收清单</div>
+          </div>
+          <p class="footer-line">
+            这次探索的价值，不只是生成一个页面，而是让已有设计能力逐步变成可以被 AI 理解和复用的资产。
+          </p>
+        </section>
+      </article>
+    </main>
+
+    <script>
+      function resolveAppOrigin() {
+        if (window.location.protocol === "http:" || window.location.protocol === "https:") {
+          return window.location.origin;
+        }
+
+        if (document.referrer) {
+          try {
+            const referrerUrl = new URL(document.referrer);
+            if (referrerUrl.protocol === "http:" || referrerUrl.protocol === "https:") {
+              return referrerUrl.origin;
+            }
+          } catch (error) {
+            console.warn("Failed to parse referrer URL", error);
+          }
+        }
+
+        return "http://127.0.0.1:5173";
+      }
+
+      const appOrigin = resolveAppOrigin();
+      const appLinks = Array.from(document.querySelectorAll("[data-app-path]"));
+      const switchButtons = Array.from(document.querySelectorAll(".switch-btn"));
+      const articleViews = Array.from(document.querySelectorAll(".article-view"));
+      const navGroups = Array.from(document.querySelectorAll(".topbar-nav-group"));
+
+      appLinks.forEach((link) => {
+        const path = link.dataset.appPath;
+        if (!path) {
+          return;
+        }
+        link.href = `${appOrigin}${path}`;
+      });
+
+      function findViewForHash(hashValue) {
+        if (!hashValue) {
+          return null;
+        }
+
+        const target = document.getElementById(hashValue);
+        if (!target) {
+          return null;
+        }
+
+        return target.closest(".article-view")?.dataset.view || null;
+      }
+
+      function activateView(viewName, shouldScrollTop) {
+        switchButtons.forEach((button) => {
+          const isActive = button.dataset.viewTarget === viewName;
+          button.classList.toggle("is-active", isActive);
+          button.setAttribute("aria-selected", String(isActive));
+        });
+
+        articleViews.forEach((article) => {
+          article.classList.toggle("is-active", article.dataset.view === viewName);
+        });
+
+        navGroups.forEach((nav) => {
+          nav.classList.toggle("is-active", nav.dataset.viewNav === viewName);
+        });
+
+        if (shouldScrollTop) {
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        }
+      }
+
+      switchButtons.forEach((button) => {
+        button.setAttribute(
+          "aria-selected",
+          String(button.classList.contains("is-active")),
+        );
+        button.addEventListener("click", () => {
+          activateView(button.dataset.viewTarget, true);
+        });
+      });
+
+      const initialView = findViewForHash(window.location.hash.slice(1)) || "ppt-article";
+      activateView(initialView, false);
+
+      window.addEventListener("hashchange", () => {
+        const nextView = findViewForHash(window.location.hash.slice(1));
+        if (nextView) {
+          activateView(nextView, false);
+        }
+      });
+    </script>
+  </body>
+</html>

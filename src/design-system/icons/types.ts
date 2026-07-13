@@ -10,6 +10,7 @@ export type IconName =
   | "chevron-left"
   | "chevron-down"
   | "chevron-up"
+  | "close"
   | "close-circle"
   | "check"
   | "rename"
@@ -17,7 +18,15 @@ export type IconName =
   | "editor-add"
   | "drag-vertical"
   | "more"
-  | "search";
+  | "search"
+  | "nav-helpcenter"
+  | "nav-notice"
+  | "nav-platform"
+  | "nav-workload-manager"
+  | "nav-examine"
+  | "nav-language"
+  | "nav-product-navigation"
+  | "nav-down";
 
 export type IconCategory =
   | "operational"

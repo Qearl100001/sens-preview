@@ -28,13 +28,19 @@
 |---|---|---|---|
 | Sens.Design 价值体验设计原则 v2.1 | `https://www.figma.com/design/7wVu5fVLiRc3LVMoc1M7EV/Sens.Design_%E4%BB%B7%E5%80%BC%E4%BD%93%E9%AA%8C%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99-v2.1_20230301?node-id=0-1&m=dev` | 准确性、高效率、无障碍、生机；页面体验判断标准 | 已抽取文字，沉淀到 `agent-rules/value-experience-principles.md` |
 | Sens.Design 一致性流程规范 v2.1 | `https://www.figma.com/design/IzwAtvAHQ2gGomYlqzF9q3/Sens.Design_%E4%B8%80%E8%87%B4%E6%80%A7%E6%B5%81%E7%A8%8B%E8%A7%84%E8%8C%83-v2.1_20230216?node-id=1605-9592&m=dev` | 创建、添加、查看、更多、编辑、删除、放弃、挽留、移除、二次提示 | 已抽取文字，沉淀到 `agent-rules/consistency-flow-rules.md` |
+| Sens.Design 标签 v2.1 | `https://www.figma.com/design/o4ik4AviECk4q8OcZmPjak/Sens.Design_%E6%A0%87%E7%AD%BE-v2.1_20230324?node-id=2237-27039&m=dev` | 标签定义、原则、六种类型、色彩/尺寸/间距、边界 | P0：`SensTag` + `/components/tag` 已挂；尺寸 4.2/4.3 已写入 `tag.md` |
+| Sens.Design 提示专档 | `https://www.figma.com/design/dsN9p6XMfzPkWzsjZAHaRb/Sens.Design_%E6%8F%90%E7%A4%BA-v0.3_20220324?node-id=1417-2759&m=dev` | 提示族规范（轻提示 / 警告条等） | 已登记；规则进 `message.md` / `alert.md` |
+| 大库 · 轻提示 (Message) | `https://www.figma.com/design/IBBF40Lst6uPPJf70pi0bh/%F0%9F%A6%84-%E8%AE%BE%E8%AE%A1%E7%B3%BB%E7%BB%9F_v2.1%EF%BC%88%E7%A5%9E%E7%AD%96%E7%BB%BF%EF%BC%89?node-id=3476-12401&m=dev` | Message 变体矩阵（含加载） | P0：`SensMessage` + `/components/message`；`message.md` |
+| 大库 · 警告 (Alert) | `https://www.figma.com/design/IBBF40Lst6uPPJf70pi0bh/%F0%9F%A6%84-%E8%AE%BE%E8%AE%A1%E7%B3%BB%E7%BB%9F_v2.1%EF%BC%88%E7%A5%9E%E7%AD%96%E7%BB%BF%EF%BC%89?node-id=3476-12400&m=dev` | Alert 变体矩阵（无加载） | P0：`SensAlert` + `/components/alert`；`alert.md` |
 
 ## 当前资料缺口
 
 - 缺少 Figma 导出的原始 token JSON：当前仓库只有 `tokens.resolved.json` / `theme.ts` 生成物，缺少可重新生成的源文件。
 - 缺少数据源管理页四个关键页面的精确 Figma node 链接：目前主要靠截图和已有实现判断。
 - 缺少真实数据源 logo / icon 资产：TikTok / Google Ads / Meta Ads 等入口卡片需要真实图标才能做到肉眼严谨。
-- 缺少 Drawer / Form / Empty / Tag 的官方组件设计稿或规范文档：目前只能从已有业务抽屉和基础组件推导。
+- 缺少 Drawer / Form / Empty 的官方组件设计稿或规范文档：目前只能从已有业务抽屉和基础组件推导。
+- Tag：P0 已挂；待补 Tips、加载态、业务 beta 替换等。
+- 轻提示 / 警告：P0 已挂 `/components/message`、`/components/alert`；待补关闭细交互、尺寸定稿。
 
 ## 维护规则
 

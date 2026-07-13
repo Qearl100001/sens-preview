@@ -51,6 +51,8 @@
 | `components/base/inputnumber.md` | 数字输入框 | InputNumber + 步进器；188px 默认宽；components.InputNumber |
 | `components/base/dropdown-menu.md` | 下拉菜单（浮层面板） | 选项行 34px + 搜索六面 + 动作菜单；`SELECT_OPTION_ROW_TOKENS`；components.Select popup |
 | `components/base/select.md` | 选择器（触发框） | 32px 触发框 + clearable + 与 Input 同源字段色；串联 `dropdown-menu.md` |
+| `components/base/message.md` | 轻提示 Message | P0：`SensMessage` + `/components/message`；五 type（含加载）；白底+D4 |
+| `components/base/alert.md` | 警告 Alert | P0：`SensAlert` + `/components/alert`；四 type；浅底+浅描边 |
 | `components/composite/table.md` | 表格（复合） | 黑盒 antd Table；列→单元格类型；操作列=链接 |
 
 ## 维护原则

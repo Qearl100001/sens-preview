@@ -35,32 +35,17 @@ font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
 
 ## 4. 当前代码状态
 
-当前 `tokens.resolved.json` 里 typography 只显式包含：
+Typography 已由 `tokens/source/foundations/typography.json` → `build-tokens.mjs` → `tokens.resolved.json` 生成；运行时通过 `getTypographyToken()` 消费。
 
-| token | 值 |
-|---|---:|
-| `font-size/s` | 12 |
-| `line-height/s` | 18 |
+| token | 值 | 状态 |
+|---|---:|---|
+| `font-size/s` ~ `font-size/display` | 12 ~ 28 | ✅ `tokens.resolved.json` |
+| `line-height/s` ~ `line-height/display` | 18 ~ 42 | ✅ `tokens.resolved.json` |
+| `font-weight/regular` / `medium` / `semibold` | 400 / 500 / 600 | ✅ `tokens.resolved.json` |
 
-当前先补充以下 typography token 口径，作为组件和样张收敛散落字体值的目标：
+`theme.ts` 中 antd 组件字号（Input、Tabs、Segmented、Badge 等）由 `build-tokens.mjs` 读取同一套 `TYPOGRAPHY_TOKENS`，不再硬编码 14/12/22/18。
 
-| token | 值 | 来源 / 用途 | 状态 |
-|---|---:|---|---|
-| `font-size/s` | 12 | 辅助文案、标签文字、弱层级说明 | 已在 `tokens.resolved.json` |
-| `line-height/s` | 18 | 辅助文案、标签文字、弱层级说明 | 已在 `tokens.resolved.json` |
-| `font-size/m` | 14 | 正文、表单、表格、卡片标题、操作文字 | 待补 token / helper |
-| `line-height/m` | 22 | 正文、表单、表格、卡片标题、操作文字 | 待补 token / helper |
-| `font-size/l` | 16 | 三级标题、通栏卡片内嵌标题 | 待补 token / helper |
-| `line-height/l` | 24 | 三级标题、通栏卡片内嵌标题 | 待补 token / helper |
-| `font-size/xl` | 18 | 二级标题 | 待补 token / helper |
-| `line-height/xl` | 28 | 二级标题 | 待补 token / helper |
-| `font-size/xxl` | 20 | 一级标题、页面级标题 | 待补 token / helper |
-| `line-height/xxl` | 30 | 一级标题、页面级标题 | 待补 token / helper |
-| `font-size/display` | 28 | 超大标题、阅读型纯文本标题 | 待补 token / helper |
-| `line-height/display` | 42 | 超大标题、阅读型纯文本标题 | 待补 token / helper |
-| `font-weight/regular` | 400 | 正文、操作、辅助文案 | 待补 token / helper |
-| `font-weight/medium` | 500 | 四级标题、组件内强调 | 待补 token / helper |
-| `font-weight/semibold` | 600 | 页面标题、区块标题 | 待补 token / helper |
+`getTypographyToken()` 缺失 key 时仅在开发环境 `console.warn`，并回退到 `font-size/m`（14）。
 
 字体层级与 token 组合关系：
 

@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "vite --host 127.0.0.1 --port 5173 --strictPort",
     "build": "tsc && vite build",
+    "build:agent-eval": "tsc && vite build -c vite.agent-eval.config.ts",
     "preview": "vite preview"
   },
   "dependencies": {

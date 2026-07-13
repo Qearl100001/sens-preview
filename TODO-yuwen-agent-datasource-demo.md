@@ -1,462 +1,322 @@
-# 设计还原产线 · 数据源接入 Case · 两周 TODO
+# 设计系统 DESIGN.md · 两周 TODO
 
 ## 0. 工作规则
 
-每个 TODO 都必须按 5 步推进：
+每个任务都按 5 步推进：
 
-1. 对齐范围  
-   说明这次做什么、不做什么、影响哪些文件、需要哪些资料。
+1. 对齐范围
+   先说明这次做什么、不做什么、影响哪些文件、需要哪些资料。
 
-2. 只出草稿  
-   先在对话里给草稿，不写进项目文件。
+2. 只出草稿
+   先在对话里给草稿，不直接写项目文件。
 
-3. 确认后落库  
-   用户确认后，才写入代码 / md / token / 组件。
+3. 确认后写入
+   用户确认后，才写 md / token / 组件 / 页面。
 
-4. 检查验收  
-   检查文件、构建、页面、token、样式来源。
+4. 检查验收
+   写完后读回文件，并检查内容、来源、缺口是否清楚。
 
-5. 暴露问题  
-   未完成、资料不够、验收失败、视觉不准，都必须明说。
+5. 暴露问题
+   未完成、资料不足、规则未定、验证未过，都必须明确写出来。
 
-## 1. 两周目标
+## 1. 当前目标
 
-在两周内完成一个可以和产品 + 研发严肃对齐的案例：
+短线目标：
 
-```text
-已有数据源 PRD / 描述
-  -> AI 抽取 DataSourceSpec
-  -> 使用 Sens.Design foundation / token / 组件 / agent rules
-  -> 生成可运行的 TikTok Ads 数据源接入前端流程
-```
+- 两周内完成一版可用于产品、设计、研发对齐的 `DESIGN.md`
 
-这个 case 的目标不是粗糙 demo，而是：
+长线目标：
 
-- 视觉严谨
-- 结构可解释
-- token 可追溯
-- 组件可复用
-- 流程规则可说明
-- 问题和边界可透明展示
+- `Yuwen Agent` 继续作为长期工作推进
+- 但这两周主线先让位给 `DESIGN.md`
+- 只保留和 `DESIGN.md` 直接相关的沉淀工作
 
-## 2. DataSourceSpec 是什么
+## 2. 两周交付物
 
-DataSourceSpec 是把 PRD / 数据源描述转成 AI 和前端都能读懂的结构化说明书。
+两周结束时，至少要有以下产出：
 
-它不是页面，也不是后端接口，而是页面生成的中间层。它至少应该描述：
+- 一版结构完整的 `DESIGN.md`
+- 一张 Foundation 状态表
+- 一张 Token 缺口表
+- 一份高优组件 / 基础样式补齐清单
+- 一组页面样板间规则
+- 一组 AI 工作规则摘要
+- 一轮可复用的验证结果
 
-- 数据源名称、分类、说明
-- 创建连接需要哪些字段
-- 连接列表展示哪些列
-- 有哪些状态和操作
-- 空态、帮助信息、注意事项
+## 3. 本轮范围
 
-它的价值是证明：
+两周内要做：
 
-```text
-同一个页面模板
-  + TikTok Ads Spec = TikTok Ads 页面
-  + Google Ads / Facebook Spec = 另一个数据源页面骨架
-```
+- 盘清 foundation 现状
+- 盘清 token 缺口
+- 补齐最影响 `DESIGN.md` 的基础组件和基础样式
+- 补齐 Layout / Grid Foundation
+- 抽象页面样板间
+- 整理 AI 工作规则
+- 完成 `DESIGN.md` 初稿和验证
 
-两周内，TikTok Ads 是唯一严谨主样例；Google Ads 或 Facebook 只准备一个轻量 DataSourceSpec，用来证明流程可迁移，不做完整第二套页面。
+两周内先不做：
 
-## 3. 当前边界
+- 不做完整第二套业务页面
+- 不做后端 / 接口 / OAuth
+- 不做完整 skill 产品化
+- 不做大范围视觉重构
+- 不把 TikTok case 继续当主线扩张
 
-两周内做：
+## 4. `DESIGN.md` 必须回答什么
 
-- TikTok Ads 作为唯一严谨主样例
-- TikTok 四个页面 / 状态：
-  - 数据源管理页
-  - TikTok 空态页
-  - 创建连接抽屉
-  - 连接列表页
-- 一个轻量 Google Ads 或 Facebook DataSourceSpec，用来证明流程可迁移
-- Foundation 校准：
-  - Typography
-  - Color
-  - Spacing
-  - Radius
-  - Shadow
-  - Card
-  - Icon 管理方式
-- TikTok case 必需组件都要具备：
-  - 已有组件可复用则复用
-  - 已有组件不 ready 则补齐
-  - 缺失组件则新增
-- 每天写轻量 changelog
+这份文档至少要回答 6 个问题：
 
-两周内不做：
+- 我们的 foundation 现在有哪些，成熟度分别如何
+- 哪些 token 已经齐了，哪些还没齐
+- 哪些基础组件可以直接复用，哪些还需要补
+- 遇到 TikTok 这类页面时，应该选什么页面样板间
+- AI 收到 PRD 之后，应该怎么抽字段、选结构、套组件、查 token
+- 生成结果要怎么做验证，才能避免“看起来能用但不可复用”
 
-- 不做后端
-- 不接真实接口
-- 不做 OAuth
-- 不做权限系统
-- 不做完整第二套 Google Ads / Facebook 页面
-- 不做完整复合表格体系
-- 不做完整换肤和产品导航
-- 不做正式 skill / agent 产品化
+## 5. 任务拆解
 
-## 4. 已有内容状态
-
-功能已跑通，但不等于视觉验收完成：
-
-- 数据源管理页：功能有，视觉待严谨化
-- TikTok 空态页：功能有，视觉待严谨化
-- 创建连接抽屉：功能有，流程规则和视觉待补
-- 连接列表页：功能有，表格 / 操作 / 状态待验收
-- DataSourceSpec：TikTok 有第一版，Google Ads / Facebook 未准备
-- Foundation 文档：已有草稿，全部标记为未校验
-- Agent Rules 文档：已有草稿，全部标记为未校验
-- 已生成 md 文件：全部按“工作区草稿”处理，未经确认不视为正式文档
-
-## 4.1 当前进度 · 截至 7月1日
-
-### ✅ 已完成
-
-- ✅ 工作规则已落地：每个任务按「对齐范围 -> 草稿 -> 确认 -> 写入 -> 验收 -> 暴露问题」推进。
-- ✅ TikTok Mini Flow 功能已跑通：数据源管理页、TikTok 空态页、创建连接抽屉、连接列表页、本地 mock 提交。
-- ✅ 基础样式入口已搭建：颜色、导航颜色、字体、间距、尺寸、圆角、投影、分割线、卡片。
-- ✅ Shadow 已补 helper：D1 / D2 / D3 / D4、四方向 shadow、active ring。
-- ✅ Divider 已补可消费 token 入口：四个线色、透明 / 非透明版本、1px hairline、页面样张。
-- ✅ Card 已重构为基础容器样张：明确 Card Foundation 和 DataSourceCard / EntryCard 的边界。
-- ✅ 7月1日 changelog 已更新，并已在 `/changelog` 验收。
-
-### 🔶 进行中 / 未完成
-
-- 🔶 Typography token 目前还是 helper fallback，尚未完整进入生成链路。
-- 🔶 Divider token 目前是代码侧可消费入口，尚未进入 `build-tokens.mjs` 输出结构。
-- 🔶 已落地基础样式还没做统一 token 绑定检查。
-- 🔶 Card 还没有 hover / active / focus / selected / disabled 交互状态。
-- 🔶 DataSourceCard / EntryCard 尚未开始。
-- 🔶 Icon 管理方式尚未确定。
-- 🔶 TikTok 四页还没进入严谨视觉还原阶段。
-
-## 5. 阶段一：路线与地基校准
-
-### Task 1：确认 TODO
+### Task 1：Foundation 状态表
 
 范围：
 
-- 只校验本 TODO
-- 不改页面
-- 不改组件
-- 不处理 Figma 大文档
+- 先做盘点，不急着写正式文档
+- 每个 foundation 只判断“已有 / 缺口 / 优先级 / 证据”
+- 先不批量改 token
 
-验收：
+首批清单：
 
-- 两周目标清楚
-- 暂缓项清楚
-- 每天任务可控
-- 用户确认后再写入文件
-
-### Task 2：Foundation 校准
-
-范围：
-
-- 逐个校验 foundation
-- 每次只处理一个 foundation，不批量生成
-- 先出聊天草稿，确认后再写入文件
-
-Foundation 清单：
-
-- Typography
 - Color
+- Navigation Color
+- Typography
 - Spacing
+- Size
 - Radius
 - Shadow
+- Divider
 - Card
-
-每个 foundation 都必须说明：
-
-- 资料来源是什么
-- 当前代码里对应哪里
-- token 是否已有
-- 组件怎么引用
-- TikTok case 会怎么用
-- 缺口是什么
-- 验收怎么判断
-
-验收：
-
-- 每个值说明来源
-- 不新增手写样式
-- 明确哪些可直接进 token，哪些待确认
-- 如果出现硬编码 hex / px / ant-* 覆盖，必须说明原因并暂停确认
-
-### Task 3：Icon 管理方案
-
-范围：
-
-- 只定 icon 管理方式
-- 不一次性补完整 icon 库
-- 但 TikTok case 需要的 icon 必须逐步补齐
-
-建议方向：
-
-- 业务 logo 和系统 icon 分开
-- logo 保留品牌原色
-- 系统 icon 走 token
-- TikTok case 需要什么 icon，就逐个补什么 icon
-
-可能结构：
-
-- `src/assets/icons/raw/`
-- `src/ui/icons/`
-- docs 或组件文档里记录 icon 使用规则
-
-验收：
-
-- 组件不临时手画 icon
-- icon 尺寸、颜色、状态有规则
-- 不为了 demo 到处散落 svg
-
-## 6. 阶段二：TikTok 组件完备
-
-### Task 4：TikTok 必需组件清单
-
-范围：
-
-- 盘点 TikTok 四页会用到的全部组件
-- 判断已有组件是否可复用
-- 判断已有组件是否 token-ready
-- 判断缺失组件是否需要新增
-- 先列清单，不直接实现
-
-组件清单至少包含：
-
-- EntryCard / DataSourceCard
-- Drawer
-- Form / FormItem
-- PageEmpty
-- PageHeader / DrilldownTitleBar
-- Table 基础状态
-- Tag / StatusBadge
-- Button
-- Input
-- Search
-- Select / Dropdown
+- Layout / Grid
 - Icon
 
-关键原则：
+每项至少要有：
 
-- TikTok 用到的组件都必须具备
-- 已有组件能复用就复用
-- 不 ready 的组件要补齐
-- 缺失的组件要进入新增计划
-- 不做 TikTok 用不到的完整组件体系
-
-验收：
-
-- 每个组件说明来源：已有组件 / Figma / PDF / 截图 / 推导
-- 每个组件说明是否需要 token 映射
-- 每个组件说明当前状态：可用 / 需调整 / 缺失
-- 用户确认后再进入单组件方案或实现
-
-### Task 5：单组件方案与实现
-
-范围：
-
-- 每次只处理一个组件
-- 先出组件方案草稿
-- 用户确认后再实现
-
-每个组件方案必须说明：
-
-- 使用场景
-- 结构
-- 状态
-- token 映射
-- 是否依赖 antd
-- 是否需要 CSS
-- 哪些样式来自 token / Figma
-- 哪些还不能确认
+- 当前是否已有规则
+- 当前是否已有 token
+- 当前是否已有样张 / 页面使用
+- 当前是否已进入生成链路
+- 主要来源是什么
+- 还缺什么
+- 优先级是什么
 
 验收：
 
-- 构建通过
-- 组件在预览页可检查
-- 无无理由手写 hex / px
-- 无无理由 ant-* 覆盖
-- 问题清单透明展示
+- 至少能一眼看出“哪些能写进 `DESIGN.md`，哪些还不能”
 
-## 7. 阶段三：TikTok 四页严谨还原
-
-### Task 6：四页视觉拆解
+### Task 2：Token 缺口表
 
 范围：
 
-- 每次只拆一个页面
-- 只出差异分析，不改代码
+- 只列缺口和建议，不一次性全部补齐
+- 先服务 `DESIGN.md`，不是为了把 token 体系一次做完
 
-页面顺序：
+优先看这几类：
 
-1. 数据源管理页
-2. TikTok 空态页
-3. 创建连接抽屉
-4. 连接列表页
-
-每页都要回答：
-
-- 核心任务是什么
-- 页面对象是什么
-- 用到哪些组件
-- 用到哪些 foundation
-- 用到哪些 agent rule
-- 当前实现哪里不像
-- 缺哪些 Figma node / token / icon / 组件
-
-### Task 7：四页逐页实现
-
-范围：
-
-- 每次只实现一个页面或一个页面内明确区域
-- 实现前先给方案
-- 用户确认后再改代码
+- Layout / Grid token
+- Navigation 语义色映射
+- Surface / Border / Divider 层级
+- Hover / Active / Focus / Disabled / Selected 状态 token
+- Drawer / Modal / Overlay / Mask 相关 token
+- Empty / Tag / Status / Table 等组件容易重复出现的状态 token
 
 验收：
 
-- 页面可打开
-- 关键交互可流转
-- 视觉差异清单已处理或标记原因
-- 使用组件和 token 可追溯
-- 构建通过
-- 未完成问题透明展示
+- 每个缺口都能说明“为什么缺”“影响什么”“是否必须两周内补”
 
-## 8. 阶段四：轻量迁移演示
-
-### Task 8：Google Ads 或 Facebook 最小 DataSourceSpec
+### Task 3：高优组件和基础样式补齐清单
 
 范围：
 
-- 只准备一个最小 spec
-- 不做完整第二套页面
+- 先列清单和优先级
+- 不把所有组件一起做掉
+- 优先补最影响 `DESIGN.md` 可信度的部分
 
-用途：
+高优先级候选：
 
-- 证明流程不是 TikTok 写死
-- 演示 PRD / 描述 -> 结构化 spec
-- 支持现场讲“未来可以扩展”
+- Form / FormItem
+- Empty
+- Tag / StatusBadge
+- Drawer 基础容器状态
+- Table 基础状态
+- Icon 使用规则
+
+次优先级候选：
+
+- Modal / Dialog
+- Tooltip / Popover
+- Pagination
+
+同时要区分两类：
+
+- 设计系统公共组件
+- TikTok case 专属页面模块
 
 验收：
 
-- spec 字段清楚
-- 能说明 AI 抽取了什么
-- 不抢 TikTok 主 case 的时间
+- 每个条目都能判断“属于设计系统”还是“属于案例沉淀”
 
-## 9. 阶段五：验收和沟通材料
-
-### Task 9：全流程验收
+### Task 4：Layout / Grid Foundation
 
 范围：
 
-- 验收 TikTok 主流程
-- 不新增功能
+- 基于现有栅格规范补一版可写入 `DESIGN.md` 的摘要
+- 不把 Figma 大文档一次性翻译成很多 md
 
-验收内容：
+至少要说明：
 
-- 数据源管理页 -> TikTok 空态页 -> 创建连接抽屉 -> 连接列表页
-- 组件使用是否完整
-- token 来源是否清楚
-- Foundation 是否可追溯
-- Agent rules 是否能解释流程
-- 未完成问题是否清楚
+- 桌面端主栅格结构
+- 响应式 / 自适应的边界
+- 页面主体区的列数规则
+- Drawer / Modal 的栅格差异
+- 什么时候用整页布局，什么时候用局部容器布局
 
-### Task 10：沟通材料
+验收：
+
+- 后续写页面样板间时，能直接引用这部分规则
+
+### Task 5：页面样板间规则
 
 范围：
 
-- 先准备结构，不急着做完整 PPT
+- 不是做业务页面，而是抽象页面骨架
+- 只整理高频样板间
 
-材料包括：
+建议先沉淀这几类：
 
-- 背景
-- 问题
-- 方案
-- Demo 路径
-- 产品 / 设计 / 研发怎么配合
-- 当前边界
-- 未完成问题
-- 8-9 月下一阶段计划
+- 管理入口页
+- 列表 + 筛选 + 表格页
+- 空态引导页
+- 创建 / 编辑 Drawer
+- 详情侧栏 / 信息面板
+- 映射 / 配置块
 
-## 10. 两周节奏
+每个样板间至少说明：
 
-Day 1（7月1日，已完成）：
+- 适用场景
+- 页面目标
+- 典型结构
+- 常用组件
+- 常用 token / foundation
+- 不确定时怎么选
 
-- ✅ 确认两周目标和受控工作流。
-- ✅ 跑通 TikTok Mini Flow 功能闭环。
-- ✅ 建立基础样式页面入口。
-- ✅ 完成 / 更新 Typography、Color、Navigation Color、Spacing、Size、Radius、Shadow、Card、Divider 的阶段性沉淀。
-- ✅ 新增 Divider 可消费 token 入口和页面样张。
-- ✅ 更新 7月1日 changelog。
+验收：
 
-Day 2（明天，高优）：
+- AI 或设计在拿到需求后，能先选对样板，再开始画页面
 
-- Typography + Divider token 入库方案：
-  - 读取 `build-tokens.mjs` 和现有 token 结构。
-  - 判断哪些 token 应进入生成链路，哪些保留 helper。
-  - 先给草稿，确认后再改。
-- 基础样式 token 绑定检查：
-  - 检查颜色、字体、圆角、间距、尺寸、投影、分割线、卡片。
-  - 列出硬写值、helper fallback、antd 推导、生成链路缺口。
-  - 不直接批量修，先出问题清单和建议顺序。
-- Card 交互状态草稿：
-  - 定义 default / hover / active / focus / selected / disabled。
-  - 明确每个状态使用的 color / divider / shadow / cursor。
-  - 确认后再实现。
+### Task 6：AI 工作规则沉淀
 
-Day 3（后天）：
+范围：
 
-- 实现 Card 交互状态样张。
-- 出 DataSourceCard / EntryCard 组件草稿：
-  - logo
-  - 标题
-  - 状态点
-  - 连接数量
-  - beta
-  - hover / focus / disabled
-  - 点击范围
-- 出 Icon 管理方案：
-  - 业务 logo 和系统 icon 分开。
-  - TikTok case 需要的 icon 先逐个补。
-  - 尺寸、颜色、状态必须走规则。
+- 这部分可以写进 `DESIGN.md`，也可以先作为附录草稿
+- 只保留“会直接影响页面生成质量”的规则
 
-Day 4 起：
+至少包含：
 
-- 进入 TikTok 必需组件清单。
-- 每次只做一个组件方案。
-- 用户确认后再实现。
-- 组件验收后再进入 TikTok 四页严谨还原。
+- 如何读取 PRD
+- 如何抽取字段
+- 如何判断页面目标
+- 如何选择页面样板间
+- 如何套用 Sens.Design 组件
+- 如何检查 token 使用
+- 如何标注不确定项
+- 哪些情况必须停下来确认
 
-组件补齐阶段：
+验收：
 
-- EntryCard / DataSourceCard 方案、实现与验收
-- PageEmpty / PageHeader 方案、实现与验收
-- Drawer / Form / FormItem 方案、实现与验收
-- Table / Status / Action 规则确认与必要补齐
+- 规则能指导一次真实页面生成，不只是口号
 
-页面严谨化阶段：
+### Task 7：`DESIGN.md` 结构稿
 
-- 数据源管理页视觉拆解与实现
-- TikTok 空态页视觉拆解与实现
-- 创建连接抽屉视觉严谨化
-- 连接列表页视觉严谨化
+建议结构：
 
-收口阶段：
+1. 文档目标和适用范围
+2. Foundation 总览
+3. Token 体系和缺口
+4. 基础组件与使用边界
+5. Layout / Grid
+6. 页面样板间
+7. AI 工作规则
+8. 验证方式
+9. 当前缺口和后续计划
 
-- Google Ads 或 Facebook 最小 DataSourceSpec
-- 全流程验收
-- 问题清单
-- 沟通材料结构
+验收：
 
-## 11. 每日 Changelog 规则
+- 结构清楚
+- 每章都能找到对应证据
+- 不出现大段空章
 
-每天只写轻量日志：
+### Task 8：`DESIGN.md` 初稿
+
+范围：
+
+- 先写一版可信初稿
+- 不追求一次写满
+- 不能拿未验证内容硬写成结论
+
+验收：
+
+- 能给内部对齐使用
+- 能清楚区分“已确认”和“待确认”
+
+### Task 9：验证
+
+建议至少做 3 类验证：
+
+- 完整性验证
+  `DESIGN.md` 该有的章节是否都能成立
+
+- 一致性验证
+  foundation、token、组件、页面样板间之间是否互相打架
+
+- 生成任务验证
+  用 TikTok case 或一个同结构新 case，检查规则是否真能指导生成
+
+验收：
+
+- 验证结果要写清楚通过项和失败项
+
+## 6. 两周节奏
+
+第 1 周：
+
+- 先完成 Foundation 状态表
+- 再完成 Token 缺口表
+- 再完成高优组件 / 基础样式补齐清单
+- 再完成 Layout / Grid Foundation 摘要
+
+第 2 周：
+
+- 完成页面样板间规则
+- 完成 AI 工作规则沉淀
+- 写 `DESIGN.md` 结构稿
+- 写 `DESIGN.md` 初稿
+- 做一轮验证并收口
+
+## 7. 每日 Changelog 规则
+
+每天只记录 4 件事：
 
 - 今天确认了什么
-- 今天落库了什么
+- 今天写入了什么
 - 今天验收了什么
-- 今天发现了什么问题
 - 明天只做什么
 
-不再一次性写大段方法论。
+不在 changelog 里堆大段方法论。
+
+## 8. 已完成里程碑 1：TikTok 还原
+
+这部分不再作为两周主线，但保留为第一个已完成里程碑：
+
+- TikTok 数据源接入主流程已经跑通
+- 它是当前最重要的案例素材
+- 后续主要用于验证页面样板间、组件边界、AI 规则是否站得住
+- 除非验证需要，否则不继续把它扩成新的短期主线

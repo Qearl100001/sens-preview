@@ -1,7 +1,7 @@
 # Divider Foundation
 
 > 主要来源：Figma `Sens.Design_分割线 v2.1_20230315`、`src/design-system/tokens.resolved.json`、`src/design-system/color-utils.ts`。  
-> 当前状态：先提供可消费 token 入口和基础样张；明天随 Typography 一起检查完整 token 生成链路。
+> 当前状态：已接入 `build-tokens.mjs` → `tokens.resolved.json`；运行时通过 `getDividerColor()` / `getDividerBorder()` 消费。
 
 ## 1. 定位
 
@@ -26,7 +26,7 @@ divider/width/hairline = 1px
 
 ## 3. 代码入口
 
-当前新增可消费入口：
+**推荐**（Divider Foundation 入库后）：
 
 ```ts
 import { getDividerBorder, getDividerColor } from "../design-system/divider";
@@ -36,17 +36,18 @@ getDividerColor("light", "solid");
 getDividerBorder("light");
 ```
 
-透明版本通过 `tokenRgba` 从透明线色 handle 派生：
+**迁移对照**（旧颜色 handle → 新 API）见 `DIVIDER_HANDLE_MAPPINGS`（`src/design-system/divider.ts`）：
 
-```ts
-tokenRgba("divideline-color-transparent-light", 0.08);
-```
+| 新 token | tone / mode | 透明 handle | 推荐 API | 旧写法（勿新增） |
+|---|---|---|---|---|
+| `divider/color/deep/transparent` | deep / transparent | `divideline-color-transparent-dack` | `getDividerColor("deep", "transparent")` | `tokenRgba("divideline-color-transparent-dack", 0.16)` |
+| `divider/color/outline/transparent` | outline / transparent | `outline-color-transparent` | `getDividerColor("outline", "transparent")` | `tokenRgba("outline-color-transparent", 0.12)` |
+| `divider/color/light/transparent` | light / transparent | `divideline-color-transparent-light` | `getDividerColor("light", "transparent")` | `tokenRgba("divideline-color-transparent-light", 0.08)` |
+| `divider/color/weak/transparent` | weak / transparent | `line-color-transparent` | `getDividerColor("weak", "transparent")` | `tokenRgba("line-color-transparent", 0.06)` |
 
-非透明版本通过 `getColorToken` 读取：
+非透明版本：`getDividerColor(tone, "solid")` 等价于 `getColorToken("<solidHandle>")`（如 `divideline-color-light`、`outline-color`）。
 
-```ts
-getColorToken("divideline-color-light");
-```
+`resolveDividerFromColorHandle(handle)` 可从旧 handle 反查 tone/mode，供批量迁移审计。
 
 ## 4. 使用规则
 
@@ -69,7 +70,5 @@ getColorToken("divideline-color-light");
 
 ## 6. 待补
 
-- 明天把 Divider token 和 Typography token 一起检查是否需要进入 `build-tokens.mjs` 生成结构。
-- 校验 Table 当前 `borderColor` / `headerSplitColor` 是否应该改为 Divider token 语义。
-- 校验 Card 当前描边和内部线是否都应该改为 `getDividerBorder` / `getDividerColor`。
-- 校验 Input / Select 默认边框是否应该显式归到 `divider/color/deep/transparent`。
+- 组件内遗留 `tokenRgba("divideline-*")` / `tokenRgba("outline-color-transparent")` 按上表逐个改为 `getDividerColor` / `getDividerBorder`（Card 样张已迁移）。
+- 导航专用菜单线仍归属 Navigation Color。

@@ -39,6 +39,14 @@
 - **链接下拉「更多 ▼」**：`ChevronDown` / `ChevronUp` 固定在文字**右侧**（`iconPosition="end"`），见 `base/button.md` 下拉按钮。
 - **`ChevronDown` / `ChevronUp`**：选择器后缀 + 链接下拉「更多」专用；普通链接按钮用业务图标或 `icon-default`（`1471:5057`），图标在左。
 
+## 导航图标（Top Navigation）
+- 分类：产品壳 / 顶部导航图标统一登记为 `navigation`，命名使用 `nav-*`。
+- 范围：右上角工具区图标、产品切换 / 功能入口图标、顶部导航展开收起箭头。
+- 颜色：不走通用 `icon-color`，由 Navigation Color 语义 token 决定。
+- 顶导航右上角工具区 / 导航项箭头：默认走 `theme-top-text`，hover / active 走 `theme-top-text-hover` / `theme-top-text-active`。
+- 功能入口菜单图标：默认走 `theme-top-funcMenu-icon`，hover / active 走 `theme-top-funcMenu-icon-hover` / `theme-top-funcMenu-icon-active`。
+- 实现：SVG 路径必须使用 `currentColor`，由 `SensIcon` 或组件调用方传入 token 解析后的颜色；不要把 Figma 导出的 `#747E94` 直接写死到组件里。
+
 ## 命名 / 分类（沿用规范）
 - 组件库分类：界面通用类 / 功能入口类。
 - 类型：编辑、操作、对象、符号、方向、功能、品牌标识、图表、文件格式、业务用语等。

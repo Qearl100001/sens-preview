@@ -11,7 +11,7 @@ import {
   SENS_TEXT_LINK_VAR,
   SENS_TEXT_WARNING_VAR,
 } from "../design-system/text-color-chains";
-import tokens from "../design-system/tokens.resolved.json";
+import { getUnitToken } from "../design-system/unit";
 import {
   SensDropdownMenuItem,
   type SensDropdownMenuItemPreviewState,
@@ -20,7 +20,6 @@ import {
 import "./dropdown-menu.css";
 import "./dropdown-menu-preview.css";
 
-const u = tokens.unit as Record<string, number>;
 const I18N_NS = "组件库";
 
 /** Figma 链接菜单面板：8×34 + 上6 + 下10 = 288 */
@@ -28,11 +27,11 @@ export const DROPDOWN_MENU_ITEM_HEIGHT = 34;
 export const DROPDOWN_MENU_MATRIX_CELL_WIDTH = 160;
 
 function dropdownMenuSpacing() {
-  const blockStart = (u["spacing/1x"] ?? 4) + (u["spacing/0․5x"] ?? 2);
+  const blockStart = getUnitToken("spacing/1.5x");
   return {
     popupPaddingBlockStart: blockStart,
-    popupPaddingBlockEnd: u["spacing/vertical/2․5x"] ?? 10,
-    itemPaddingInline: u["spacing/horizontal/3x"] ?? 12,
+    popupPaddingBlockEnd: getUnitToken("spacing/vertical/2.5x"),
+    itemPaddingInline: getUnitToken("spacing/horizontal/3x"),
     itemPaddingBlock: blockStart,
   };
 }
@@ -73,8 +72,8 @@ export function useSensDropdownMenuStyle(): CSSProperties {
 
 function useDropdownMenuMatrixVars(): CSSProperties {
   return {
-    "--sens-dropdown-menu-matrix-space-2x": `${u["spacing/2x"]}px`,
-    "--sens-dropdown-menu-matrix-space-6x": `${u["spacing/6x"]}px`,
+    "--sens-dropdown-menu-matrix-space-2x": `${getUnitToken("spacing/2x")}px`,
+    "--sens-dropdown-menu-matrix-space-6x": `${getUnitToken("spacing/6x")}px`,
     "--sens-dropdown-menu-matrix-cell-width": `${DROPDOWN_MENU_MATRIX_CELL_WIDTH}px`,
   } as CSSProperties;
 }

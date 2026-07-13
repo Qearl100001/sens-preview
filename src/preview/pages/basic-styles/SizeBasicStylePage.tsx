@@ -19,7 +19,8 @@ interface SizeScaleItem {
 }
 
 const SIZE_SCALE: SizeScaleItem[] = [
-  { key: "mini", tokenName: "size/mini", value: u["size/mini"], usage: "极小尺寸" },
+  { key: "2xs", tokenName: "size/2xs", value: u["size/2xs"], usage: "极小尺寸（状态标签小圆点）" },
+  { key: "mini", tokenName: "size/mini", value: u["size/mini"], usage: "极小尺寸（状态标签大圆点等）" },
   { key: "xxxs", tokenName: "size/xxxs", value: u["size/xxxs"], usage: "小图标、错误图标候选" },
   { key: "xxs", tokenName: "size/xxs", value: u["size/xxs"], usage: "常规图标" },
   { key: "xs", tokenName: "size/xs", value: u["size/xs"], usage: "小组件高度、标签高度候选" },
@@ -33,13 +34,14 @@ const SIZE_SCALE: SizeScaleItem[] = [
 
 const ICON_SIZE_ROWS = [
   { key: "mini", tokenName: "size/icon/mini", value: u["size/icon/mini"], usage: "极小图标" },
+  { key: "xs", tokenName: "size/icon/xs", value: u["size/icon/xs"], usage: "小关闭图标等" },
   { key: "s", tokenName: "size/icon/s", value: u["size/icon/s"], usage: "错误提示图标、小状态图标" },
   { key: "m", tokenName: "size/icon/m", value: u["size/icon/m"], usage: "more、down、常规操作图标" },
 ];
 
 const COMPONENT_HEIGHT_ROWS = [
-  { key: "xs", tokenName: "size/component-height/xs", value: u["size/component-height/xs"], usage: "Tag 小尺寸高度候选" },
-  { key: "s", tokenName: "size/component-height/s", value: u["size/component-height/s"], usage: "antd controlHeightSM，历史小尺寸输入类规则" },
+  { key: "xs", tokenName: "size/component-height/xs", value: u["size/component-height/xs"], usage: "Tag 小尺寸高度" },
+  { key: "s", tokenName: "size/component-height/s", value: u["size/component-height/s"], usage: "Tag 大尺寸高度；antd controlHeightSM" },
   { key: "m", tokenName: "size/component-height/m", value: u["size/component-height/m"], usage: "antd controlHeight，常规输入框、按钮、搜索等" },
   { key: "l", tokenName: "size/component-height/l", value: u["size/component-height/l"], usage: "FAB 交叉轴、部分中等控件" },
   { key: "xl", tokenName: "size/component-height/xl", value: u["size/component-height/xl"], usage: "表格信息区、较大信息区候选" },
@@ -48,14 +50,16 @@ const COMPONENT_HEIGHT_ROWS = [
 ];
 
 const TAG_SIZE_ROWS = [
-  { key: "height", rule: "tag/height/s", value: "size/component-height/xs = 20", status: "候选", note: "小标签高度" },
-  { key: "padding-inline", rule: "tag/padding-inline/s", value: "6", status: "待补", note: "组件专属 padding，不提升为全局 spacing" },
-  { key: "padding-block", rule: "tag/padding-block/s", value: "1", status: "待补", note: "由 20 - line-height/s 18 推导" },
-  { key: "gap", rule: "tag/gap", value: "spacing/1x = 4", status: "候选", note: "标签内部图文间距候选" },
-  { key: "radius", rule: "tag/radius", value: "radius/s = 3", status: "候选", note: "小标签圆角" },
-  { key: "font-size", rule: "tag/font-size", value: "font-size/s = 12", status: "候选", note: "标签文字字号" },
-  { key: "line-height", rule: "tag/line-height", value: "line-height/s = 18", status: "候选", note: "标签文字行高" },
-  { key: "font-weight", rule: "tag/font-weight", value: "font-weight/regular = 400", status: "候选", note: "标签文字字重" },
+  { key: "height-l", rule: "tag/height/l", value: "size/component-height/s = 24", status: "已挂", note: "大标签固定高度，无上下 padding" },
+  { key: "height-s", rule: "tag/height/s", value: "size/component-height/xs = 20", status: "已挂", note: "小标签固定高度，无上下 padding" },
+  { key: "padding-inline-l", rule: "tag/padding-inline/l", value: "spacing/horizontal/2x = 8", status: "已挂", note: "大标签左右 padding" },
+  { key: "padding-inline-s", rule: "tag/padding-inline/s", value: "spacing/horizontal/1.5x = 6", status: "已挂", note: "小标签左右 padding" },
+  { key: "close-l", rule: "tag/close/l", value: "size/icon/s = 14", status: "已挂", note: "大关闭图标" },
+  { key: "close-s", rule: "tag/close/s", value: "size/icon/xs = 12", status: "已挂", note: "小关闭图标" },
+  { key: "dot-l", rule: "tag/status-dot/l", value: "size/mini = 8", status: "已挂", note: "大状态圆点" },
+  { key: "dot-s", rule: "tag/status-dot/s", value: "size/2xs = 6", status: "已挂", note: "小状态圆点" },
+  { key: "gap", rule: "tag/gap", value: "spacing/1x = 4", status: "已挂", note: "内部图文 / 组间距" },
+  { key: "radius", rule: "tag/radius", value: "radius/s = 3", status: "已挂", note: "两档共用" },
 ];
 
 const CARD_SIZE_ROWS = [
@@ -152,7 +156,7 @@ function SizeSpecimen() {
       dataIndex: "status",
       key: "status",
       width: 100,
-      render: (value: string) => <Tag color={value === "候选" ? "processing" : "warning"}>{value}</Tag>,
+      render: (value: string) => <Tag color={value === "已挂" ? "success" : value === "候选" ? "processing" : "warning"}>{value}</Tag>,
     },
     { title: "说明", dataIndex: "note", key: "note" },
   ];

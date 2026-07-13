@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1500" height="760" viewBox="0 0 1500 760">
+  <defs>
+    <style>
+      text { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif; fill: #20242d; }
+      .title { font-size: 42px; font-weight: 800; }
+      .h { font-size: 30px; font-weight: 800; }
+      .p { font-size: 22px; font-weight: 500; fill: #596575; }
+      .small { font-size: 20px; font-weight: 600; fill: #596575; }
+      .box { fill: #f7fbff; stroke: #d5dde7; stroke-width: 2; }
+      .box-warm { fill: #fff7ec; stroke: #e6d8c6; stroke-width: 2; }
+      .base { fill: #e9f7f2; stroke: #00a879; stroke-width: 3; }
+      .out { fill: #fbfcfd; stroke: #d5dde7; stroke-width: 2; }
+      .arrow { stroke: #8d9aaa; stroke-width: 3; fill: none; marker-end: url(#arrow); }
+    </style>
+    <marker id="arrow" markerWidth="16" markerHeight="16" refX="14" refY="8" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L16,8 L0,16 z" fill="#8d9aaa"/>
+    </marker>
+  </defs>
+
+  <rect width="1500" height="760" fill="#fffdf8"/>
+  <text x="750" y="58" text-anchor="middle" class="title">AI 设计资产库构成</text>
+
+  <rect x="60" y="116" width="370" height="168" rx="18" class="box"/>
+  <text x="245" y="158" text-anchor="middle" class="h">通用页面样板间</text>
+  <text x="245" y="202" text-anchor="middle" class="p">表格筛选</text>
+  <text x="245" y="236" text-anchor="middle" class="p">数据源接入</text>
+  <text x="245" y="270" text-anchor="middle" class="p">配置页 / 详情页</text>
+
+  <rect x="60" y="352" width="370" height="168" rx="18" class="box-warm"/>
+  <text x="245" y="394" text-anchor="middle" class="h">通用交互样板间</text>
+  <text x="245" y="438" text-anchor="middle" class="p">空态到创建</text>
+  <text x="245" y="472" text-anchor="middle" class="p">搜索无结果</text>
+  <text x="245" y="506" text-anchor="middle" class="p">抽屉提交校验</text>
+
+  <rect x="545" y="116" width="370" height="168" rx="18" class="box"/>
+  <text x="730" y="158" text-anchor="middle" class="h">通用业务组件样板间</text>
+  <text x="730" y="202" text-anchor="middle" class="p">审批人选择</text>
+  <text x="730" y="236" text-anchor="middle" class="p">邮件发送流程</text>
+  <text x="730" y="270" text-anchor="middle" class="p">账号 / 字段映射</text>
+
+  <rect x="545" y="352" width="370" height="168" rx="18" class="box-warm"/>
+  <text x="730" y="394" text-anchor="middle" class="h">AI 工作规则</text>
+  <text x="730" y="438" text-anchor="middle" class="p">读 PRD / 抽字段</text>
+  <text x="730" y="472" text-anchor="middle" class="p">套组件 / 检查 token</text>
+  <text x="730" y="506" text-anchor="middle" class="p">输出代码 / 标注不确定项</text>
+
+  <line x1="245" y1="284" x2="245" y2="352" class="arrow"/>
+  <line x1="730" y1="284" x2="730" y2="352" class="arrow"/>
+
+  <rect x="60" y="604" width="855" height="92" rx="20" class="base"/>
+  <text x="487" y="642" text-anchor="middle" class="h">统一地基：foundation token + SensD 组件规则</text>
+  <text x="487" y="676" text-anchor="middle" class="small">颜色 / 字体 / 间距 / 圆角 / 投影 / 图标 / 组件状态</text>
+
+  <line x1="245" y1="520" x2="245" y2="604" class="arrow"/>
+  <line x1="730" y1="520" x2="730" y2="604" class="arrow"/>
+
+  <rect x="1064" y="178" width="360" height="440" rx="24" class="out"/>
+  <text x="1244" y="236" text-anchor="middle" class="h">面向协作的产出</text>
+  <rect x="1135" y="294" width="218" height="54" rx="27" fill="#ffffff" stroke="#d5dde7" stroke-width="2"/>
+  <text x="1244" y="329" text-anchor="middle" class="p" fill="#20242d">页面初稿</text>
+  <rect x="1135" y="374" width="218" height="54" rx="27" fill="#ffffff" stroke="#d5dde7" stroke-width="2"/>
+  <text x="1244" y="409" text-anchor="middle" class="p" fill="#20242d">代码草案</text>
+  <rect x="1135" y="454" width="218" height="54" rx="27" fill="#ffffff" stroke="#d5dde7" stroke-width="2"/>
+  <text x="1244" y="489" text-anchor="middle" class="p" fill="#20242d">验收清单</text>
+  <rect x="1135" y="534" width="218" height="54" rx="27" fill="#ffffff" stroke="#d5dde7" stroke-width="2"/>
+  <text x="1244" y="569" text-anchor="middle" class="p" fill="#20242d">可复用规则</text>
+
+  <line x1="915" y1="650" x2="1064" y2="438" class="arrow"/>
+  <text x="750" y="742" text-anchor="middle" class="small">上层是可复用资产，中间是统一设计地基，右侧是产品、设计、研发都可以讨论和验收的产出物。</text>
+</svg>

@@ -36,6 +36,16 @@
         ]
       }
     },
+    "1․5x": {
+      "$type": "number",
+      "$value": 6,
+      "$description": "6px；通用间距档（如标签左右 padding small、浮层上内边距）",
+      "$extensions": {
+        "sens": {
+          "source": "Sens.Design unit scale · spacing/1.5x"
+        }
+      }
+    },
     "2x": {
       "$type": "number",
       "$value": 8,
@@ -154,6 +164,16 @@
           ]
         }
       },
+      "1․5x": {
+        "$type": "number",
+        "$value": "{spacing.1․5x}",
+        "$description": "6px；横向间距 / 左右 padding",
+        "$extensions": {
+          "sens": {
+            "source": "Sens.Design unit scale · spacing/horizontal/1.5x"
+          }
+        }
+      },
       "2x": {
         "$type": "number",
         "$value": "{spacing.2x}",
@@ -254,6 +274,16 @@
           ]
         }
       },
+      "1․5x": {
+        "$type": "number",
+        "$value": "{spacing.1․5x}",
+        "$description": "6px；纵向间距 / 上下 padding",
+        "$extensions": {
+          "sens": {
+            "source": "Sens.Design unit scale · spacing/vertical/1.5x"
+          }
+        }
+      },
       "2x": {
         "$type": "number",
         "$value": "{spacing.2x}",
@@ -344,6 +374,19 @@
     }
   },
   "size": {
+    "2xs": {
+      "$type": "number",
+      "$value": 6,
+      "$description": "6px；极小尺寸（如状态标签小圆点）",
+      "$extensions": {
+        "sens": {
+          "source": "Sens.Design unit scale · size/2xs"
+        },
+        "com.figma.scopes": [
+          "WIDTH_HEIGHT"
+        ]
+      }
+    },
     "mini": {
       "$type": "number",
       "$value": 8,
@@ -472,6 +515,19 @@
           }
         }
       },
+      "xs": {
+        "$type": "number",
+        "$value": 12,
+        "$description": "12px；小关闭图标等",
+        "$extensions": {
+          "sens": {
+            "source": "Sens.Design unit scale · size/icon/xs"
+          },
+          "com.figma.scopes": [
+            "WIDTH_HEIGHT"
+          ]
+        }
+      },
       "s": {
         "$type": "number",
         "$value": "{size.xxxs}",
@@ -568,6 +624,26 @@
         "$value": "{size.xxxl}",
         "$extensions": {
           "com.figma.variableId": "VariableID:20058:13089",
+          "com.figma.scopes": [
+            "WIDTH_HEIGHT"
+          ]
+        }
+      },
+      "title-bar": {
+        "$type": "number",
+        "$value": 72,
+        "$description": "页面标题栏默认高度；适用于无辅助文案的 landing / drilldown 标题栏",
+        "$extensions": {
+          "com.figma.scopes": [
+            "WIDTH_HEIGHT"
+          ]
+        }
+      },
+      "title-bar-with-description": {
+        "$type": "number",
+        "$value": 94,
+        "$description": "页面标题栏带辅助文案高度；适用于带 description 的标题栏",
+        "$extensions": {
           "com.figma.scopes": [
             "WIDTH_HEIGHT"
           ]

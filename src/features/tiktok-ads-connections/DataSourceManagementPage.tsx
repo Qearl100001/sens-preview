@@ -73,6 +73,7 @@ export function DataSourceManagementPage({ onOpenSource }: DataSourceManagementP
   return (
     <>
       <SensPageTitleBar
+        variant="landing"
         title="数据源管理"
         actions={
           <SensButton tone="secondary" onClick={() => { /* TODO: Schema 管理 */ }}>

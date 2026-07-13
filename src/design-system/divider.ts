@@ -1,117 +1,127 @@
-import { getColorToken, tokenRgba } from "./color-utils";
+import { getColorToken } from "./color-utils";
 import tokens from "./tokens.resolved.json";
 
 export type DividerTone = "deep" | "outline" | "light" | "weak";
 export type DividerColorMode = "transparent" | "solid";
 
-export const dividerWidthTokens = {
-  "divider/width/hairline": 1,
-} as const;
+/** 颜色 handle ↔ Divider Foundation token 权威对照；样张与迁移审计用。 */
+export interface DividerHandleMapping {
+  tokenName: string;
+  tone: DividerTone;
+  mode: DividerColorMode;
+  transparentHandle: string;
+  solidHandle: string;
+  alpha: number;
+  figmaName: string;
+  recommendedApi: string;
+  legacyTransparentApi: string;
+}
+
+export const DIVIDER_HANDLE_MAPPINGS: DividerHandleMapping[] = [
+  {
+    tokenName: "divider/color/deep/transparent",
+    tone: "deep",
+    mode: "transparent",
+    transparentHandle: "divideline-color-transparent-dack",
+    solidHandle: "divideline-color-dack",
+    alpha: 0.16,
+    figmaName: "线/01_深分割线",
+    recommendedApi: 'getDividerColor("deep", "transparent")',
+    legacyTransparentApi: 'tokenRgba("divideline-color-transparent-dack", 0.16)',
+  },
+  {
+    tokenName: "divider/color/outline/transparent",
+    tone: "outline",
+    mode: "transparent",
+    transparentHandle: "outline-color-transparent",
+    solidHandle: "outline-color",
+    alpha: 0.12,
+    figmaName: "线/02_描边",
+    recommendedApi: 'getDividerColor("outline", "transparent")',
+    legacyTransparentApi: 'tokenRgba("outline-color-transparent", 0.12)',
+  },
+  {
+    tokenName: "divider/color/light/transparent",
+    tone: "light",
+    mode: "transparent",
+    transparentHandle: "divideline-color-transparent-light",
+    solidHandle: "divideline-color-light",
+    alpha: 0.08,
+    figmaName: "线/03_浅分割线",
+    recommendedApi: 'getDividerColor("light", "transparent")',
+    legacyTransparentApi: 'tokenRgba("divideline-color-transparent-light", 0.08)',
+  },
+  {
+    tokenName: "divider/color/weak/transparent",
+    tone: "weak",
+    mode: "transparent",
+    transparentHandle: "line-color-transparent",
+    solidHandle: "line-color",
+    alpha: 0.06,
+    figmaName: "线/04",
+    recommendedApi: 'getDividerColor("weak", "transparent")',
+    legacyTransparentApi: 'tokenRgba("line-color-transparent", 0.06)',
+  },
+];
+
+const dividerHandleLookup = new Map<string, { tone: DividerTone; mode: DividerColorMode }>();
+
+for (const mapping of DIVIDER_HANDLE_MAPPINGS) {
+  dividerHandleLookup.set(mapping.transparentHandle, { tone: mapping.tone, mode: "transparent" });
+  dividerHandleLookup.set(mapping.solidHandle, { tone: mapping.tone, mode: "solid" });
+}
+
+/** 从旧颜色 handle 解析 divider tone/mode；未知 handle 返回 null。 */
+export function resolveDividerFromColorHandle(
+  handle: string,
+): { tone: DividerTone; mode: DividerColorMode } | null {
+  return dividerHandleLookup.get(handle) ?? null;
+}
 
 const generatedDividerTokens =
   ((tokens as unknown as { divider?: Record<string, string | number> }).divider ?? {});
 
-export interface DividerColorTokenSpec {
-  tone: DividerTone;
-  figmaName: string;
-  usage: string;
-  transparent: {
-    tokenName: string;
-    handle: string;
-    alpha: number;
-  };
-  solid: {
-    tokenName: string;
-    handle: string;
-  };
+const FALLBACK_DIVIDER_COLOR_HANDLE = "outline-color";
+const FALLBACK_DIVIDER_HAIRLINE_WIDTH = 1;
+
+function dividerResolvedColorKey(tone: DividerTone, mode: DividerColorMode): string {
+  return `color/${tone}/${mode}`;
 }
 
-export const dividerColorTokenSpecs: DividerColorTokenSpec[] = [
-  {
-    tone: "deep",
-    figmaName: "线/01_深分割线",
-    usage: "控件默认边框、较强分隔",
-    transparent: {
-      tokenName: "divider/color/deep/transparent",
-      handle: "divideline-color-transparent-dack",
-      alpha: 0.16,
-    },
-    solid: {
-      tokenName: "divider/color/deep/solid",
-      handle: "divideline-color-dack",
-    },
-  },
-  {
-    tone: "outline",
-    figmaName: "线/02_描边",
-    usage: "卡片外描边、容器边界",
-    transparent: {
-      tokenName: "divider/color/outline/transparent",
-      handle: "outline-color-transparent",
-      alpha: 0.12,
-    },
-    solid: {
-      tokenName: "divider/color/outline/solid",
-      handle: "outline-color",
-    },
-  },
-  {
-    tone: "light",
-    figmaName: "线/03_浅分割线",
-    usage: "卡片内部、表格行、区块内分割",
-    transparent: {
-      tokenName: "divider/color/light/transparent",
-      handle: "divideline-color-transparent-light",
-      alpha: 0.08,
-    },
-    solid: {
-      tokenName: "divider/color/light/solid",
-      handle: "divideline-color-light",
-    },
-  },
-  {
-    tone: "weak",
-    figmaName: "线/04",
-    usage: "最弱层级线、背景区弱边界",
-    transparent: {
-      tokenName: "divider/color/weak/transparent",
-      handle: "line-color-transparent",
-      alpha: 0.06,
-    },
-    solid: {
-      tokenName: "divider/color/weak/solid",
-      handle: "line-color",
-    },
-  },
-];
+function warnMissingDividerToken(tokenName: string): void {
+  if (import.meta.env.DEV) {
+    console.warn(
+      `[divider] missing token "${tokenName}" in tokens.resolved.json; run node build-tokens.mjs`,
+    );
+  }
+}
 
-const dividerColorTokenSpecByTone = Object.fromEntries(
-  dividerColorTokenSpecs.map((spec) => [spec.tone, spec]),
-) as Record<DividerTone, DividerColorTokenSpec>;
+export function getDividerTokenName(tone: DividerTone, mode: DividerColorMode = "transparent"): string {
+  return `divider/${dividerResolvedColorKey(tone, mode)}`;
+}
 
+/** 读取分割线色；优先 tokens.resolved.json，缺失时 dev warn + outline 单色兜底。 */
 export function getDividerColor(tone: DividerTone, mode: DividerColorMode = "transparent"): string {
-  const spec = dividerColorTokenSpecByTone[tone];
-  const generatedValue = generatedDividerTokens[getDividerTokenName(tone, mode).replace(/^divider\//, "")];
+  const resolvedKey = dividerResolvedColorKey(tone, mode);
+  const generatedValue = generatedDividerTokens[resolvedKey];
 
   if (typeof generatedValue === "string") {
     return generatedValue;
   }
 
-  if (mode === "solid") {
-    return getColorToken(spec.solid.handle);
-  }
-
-  return tokenRgba(spec.transparent.handle, spec.transparent.alpha);
+  warnMissingDividerToken(getDividerTokenName(tone, mode));
+  return getColorToken(FALLBACK_DIVIDER_COLOR_HANDLE);
 }
 
-export function getDividerTokenName(tone: DividerTone, mode: DividerColorMode = "transparent"): string {
-  const spec = dividerColorTokenSpecByTone[tone];
-  return mode === "solid" ? spec.solid.tokenName : spec.transparent.tokenName;
+/** 读取 hairline 线宽；优先 tokens.resolved.json，缺失时 dev warn + 1px 兜底。 */
+export function getDividerHairlineWidth(): number {
+  const generatedWidth = generatedDividerTokens["width/hairline"];
+  if (typeof generatedWidth === "number") return generatedWidth;
+
+  warnMissingDividerToken("divider/width/hairline");
+  return FALLBACK_DIVIDER_HAIRLINE_WIDTH;
 }
 
 export function getDividerBorder(tone: DividerTone, mode: DividerColorMode = "transparent"): string {
-  const generatedWidth = generatedDividerTokens["width/hairline"];
-  const width = typeof generatedWidth === "number" ? generatedWidth : dividerWidthTokens["divider/width/hairline"];
-
-  return `${width}px solid ${getDividerColor(tone, mode)}`;
+  return `${getDividerHairlineWidth()}px solid ${getDividerColor(tone, mode)}`;
 }

@@ -1,27 +1,25 @@
 import type { CSSProperties, ReactNode } from "react";
-import tokens from "../design-system/tokens.resolved.json";
 import { getColorToken, tokenRgba } from "../design-system/color-utils";
 import { SensIcon } from "../design-system/icons";
 import { getTypographyToken } from "../design-system/typography";
+import { getUnitToken } from "../design-system/unit";
 import { SensButton } from "./SensButton";
 
-const u = tokens.unit as Record<string, number>;
-
 export const SENS_TITLE_BAR_HEIGHT = 72;
-export const SENS_TITLE_BAR_BACK_HIT_SIZE = 22;
+export const SENS_TITLE_BAR_BACK_HIT_SIZE = getUnitToken("spacing/6x");
 
 const titleBarTokens = {
   height: SENS_TITLE_BAR_HEIGHT,
   background: getColorToken("theme-title-background"),
   text: tokenRgba("text-color-transparent", 0.9),
-  paddingRight: u["spacing/6x"],
-  contentPaddingLeft: u["spacing/0․5x"],
-  actionGap: u["spacing/4x"],
-  actionTop: u["spacing/5x"],
+  paddingRight: getUnitToken("spacing/6x"),
+  contentPaddingLeft: getUnitToken("spacing/0.5x"),
+  actionGap: getUnitToken("spacing/4x"),
+  actionTop: getUnitToken("spacing/5x"),
   titleFontSize: getTypographyToken("font-size/xxl"),
   titleLineHeight: getTypographyToken("line-height/xxl"),
   titleFontWeight: getTypographyToken("font-weight/semibold"),
-  backIconSize: u["size/icon/l"],
+  backIconSize: getUnitToken("size/icon/l"),
 };
 
 export interface SensTitleBarProps {
@@ -66,15 +64,18 @@ export function SensTitleBar({
       >
         {onBack ? (
           <SensButton
-            tone="link"
+            tone="linkWeak"
             aria-label="返回"
             onClick={onBack}
             icon={<SensIcon name="chevron-left" sizeToken="size/icon/l" color="currentColor" />}
             style={{
               width: SENS_TITLE_BAR_BACK_HIT_SIZE,
-              height: SENS_TITLE_BAR_BACK_HIT_SIZE,
+              height: titleBarTokens.height,
               padding: 0,
               minWidth: SENS_TITLE_BAR_BACK_HIT_SIZE,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "flex-start",
               flexShrink: 0,
             }}
           />

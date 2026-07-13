@@ -17,9 +17,11 @@
 | 文档 | 说明 | 当前状态 |
 |---|---|---|
 | `color.md` | 颜色语义、透明色、换肤边界 | 初稿 |
+| `theme-skinning.md` | 导航主题与功能色主题的独立换肤规则；含 Functional Color Token Mapping | 映射表已落库，换肤未实现 |
 | `navigation-color.md` | 顶导航、侧导航、标题栏、页面主题背景、换肤映射 | 初稿 |
 | `typography.md` | 字体家族、字号、行高、标题层级 | 初稿 |
 | `spacing.md` | 间距 scale、页面 / 表单 / 卡片 / 组件间距 | 初稿 |
+| `layout-grid.md` | 页面级布局、栅格列数、断点、页面骨架 | 初稿 |
 | `size.md` | 固定尺寸、图标尺寸、组件高度、组件专属尺寸候选 | 初稿 |
 | `icon.md` | 图标资产、命名、尺寸关系、颜色语义和消费规则 | 初稿 |
 | `radius.md` | 圆角 scale 和使用场景 | 初稿 |

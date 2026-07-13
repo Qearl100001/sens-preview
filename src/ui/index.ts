@@ -14,7 +14,7 @@ export {
   SELECT_ARROW_ICON_SIZE,
   SelectClearIcon,
   SELECT_CLEAR_ICON_SIZE,
-  ChevronDownIcon, ChevronUpIcon, ChevronLeftIcon, CloseCircleIcon, EditorAddIcon, ErrorDiamondIcon, IconDefaultIcon, MoreIcon } from "./FieldIcons";
+  ChevronDownIcon, ChevronUpIcon, ChevronLeftIcon, CloseIcon, CloseCircleIcon, EditorAddIcon, ErrorDiamondIcon, IconDefaultIcon, MoreIcon } from "./FieldIcons";
 export type { IconProps as FieldIconProps } from "./FieldIcons";
 export { useSensAllowClear, useSensSearchFieldProps, useSensSearchPrefix, useSensSelectProps, useSensSelectSuffixProps, useSensSelectTriggerProps, useSensSelectTriggerSuffixProps, SensSelectSuffix, SensSelectTriggerArrow } from "./fieldIconProps";
 export { useSensIconTokens } from "./useSensIconTokens";
@@ -93,6 +93,26 @@ export type {
 } from "./SensTabs";
 export { SensBadge, BadgeStatesPreview } from "./SensBadge";
 export type { SensBadgeProps, SensBadgeVariant, SensWeakBadgeState, SensWeakBadgeSurface, SensStatusTone } from "./SensBadge";
+export {
+  SensTag,
+  TagTypesPreview,
+  TAG_STATUS_LABEL,
+  resolveTagInteractiveSurface,
+  resolveTagCloseColor,
+} from "./SensTag";
+export type {
+  SensTagProps,
+  TagVariant,
+  TagColor,
+  TagSize,
+  TagStatus,
+  TagInteractiveState,
+  TagCloseState,
+} from "./SensTag";
+export { SensMessage, MessageTypesPreview, MESSAGE_TYPE_LABEL } from "./SensMessage";
+export type { SensMessageProps, MessageType } from "./SensMessage";
+export { SensAlert, AlertTypesPreview, ALERT_TYPE_LABEL } from "./SensAlert";
+export type { SensAlertProps, AlertType } from "./SensAlert";
 export { SensTitleBar, SENS_TITLE_BAR_BACK_HIT_SIZE, SENS_TITLE_BAR_HEIGHT } from "./SensTitleBar";
 export type { SensTitleBarProps } from "./SensTitleBar";
 export { SensBreadcrumb } from "./SensBreadcrumb";

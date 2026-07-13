@@ -6,6 +6,8 @@ import "./table.css";
 export interface TableShellProps<T extends object> extends TableProps<T> {
   /** 信息区计数，默认「共 N 条」 */
   total?: number;
+  /** 嵌套在卡片内时去掉外壳描边，避免双层边框 */
+  borderless?: boolean;
 }
 
 /**
@@ -14,6 +16,7 @@ export interface TableShellProps<T extends object> extends TableProps<T> {
  */
 export function TableShell<T extends object>({
   total,
+  borderless = false,
   columns,
   dataSource,
   pagination = false,
@@ -25,8 +28,8 @@ export function TableShell<T extends object>({
   return (
     <div
       style={{
-        border: `1px solid ${token.colorBorder}`,
-        borderRadius: token.borderRadiusLG ?? token.borderRadius,
+        border: borderless ? undefined : `1px solid ${token.colorBorder}`,
+        borderRadius: borderless ? undefined : token.borderRadiusLG ?? token.borderRadius,
         overflow: "hidden",
         background: token.colorBgContainer,
       }}

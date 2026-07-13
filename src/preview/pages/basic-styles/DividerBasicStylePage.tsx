@@ -1,10 +1,9 @@
-import { Alert, Space, Table, Tag, Typography, theme } from "antd";
+import { Space, Table, Tag, Typography, theme } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import {
-  dividerColorTokenSpecs,
-  dividerWidthTokens,
   getDividerBorder,
   getDividerColor,
+  getDividerHairlineWidth,
   getDividerTokenName,
   type DividerColorMode,
   type DividerTone,
@@ -16,6 +15,39 @@ import { BasicStylePageLayout } from "./BasicStylePageLayout";
 const { Text, Title } = Typography;
 
 const u = tokens.unit as Record<string, number>;
+const dividerHairlineWidth = getDividerHairlineWidth();
+
+/** 样张专用 metadata；运行时色值走 tokens.resolved.json + getDividerColor。 */
+const DIVIDER_SHOWCASE_SPECS = [
+  {
+    tone: "deep" as const,
+    figmaName: "线/01_深分割线",
+    usage: "控件默认边框、较强分隔",
+    transparent: { tokenName: "divider/color/deep/transparent", handle: "divideline-color-transparent-dack", alpha: 0.16 },
+    solid: { tokenName: "divider/color/deep/solid", handle: "divideline-color-dack" },
+  },
+  {
+    tone: "outline" as const,
+    figmaName: "线/02_描边",
+    usage: "卡片外描边、容器边界",
+    transparent: { tokenName: "divider/color/outline/transparent", handle: "outline-color-transparent", alpha: 0.12 },
+    solid: { tokenName: "divider/color/outline/solid", handle: "outline-color" },
+  },
+  {
+    tone: "light" as const,
+    figmaName: "线/03_浅分割线",
+    usage: "卡片内部、表格行、区块内分割",
+    transparent: { tokenName: "divider/color/light/transparent", handle: "divideline-color-transparent-light", alpha: 0.08 },
+    solid: { tokenName: "divider/color/light/solid", handle: "divideline-color-light" },
+  },
+  {
+    tone: "weak" as const,
+    figmaName: "线/04",
+    usage: "最弱层级线、背景区弱边界",
+    transparent: { tokenName: "divider/color/weak/transparent", handle: "line-color-transparent", alpha: 0.06 },
+    solid: { tokenName: "divider/color/weak/solid", handle: "line-color" },
+  },
+];
 
 const MODE_LABELS: Record<DividerColorMode, string> = {
   transparent: "透明版本",
@@ -63,7 +95,7 @@ const SCENE_ROWS = [
 
 function DividerColorCard({ tone, mode }: { tone: DividerTone; mode: DividerColorMode }) {
   const { token } = theme.useToken();
-  const spec = dividerColorTokenSpecs.find((item) => item.tone === tone);
+  const spec = DIVIDER_SHOWCASE_SPECS.find((item) => item.tone === tone);
   if (!spec) return null;
 
   const color = getDividerColor(tone, mode);
@@ -97,7 +129,7 @@ function DividerColorCard({ tone, mode }: { tone: DividerTone; mode: DividerColo
           <div
             style={{
               width: "100%",
-              height: dividerWidthTokens["divider/width/hairline"],
+              height: dividerHairlineWidth,
               background: color,
             }}
           />
@@ -121,7 +153,7 @@ function ColorMatrix() {
         gap: token.marginMD,
       }}
     >
-      {dividerColorTokenSpecs.flatMap((spec) => [
+      {DIVIDER_SHOWCASE_SPECS.flatMap((spec) => [
         <DividerColorCard key={`${spec.tone}-transparent`} tone={spec.tone} mode="transparent" />,
         <DividerColorCard key={`${spec.tone}-solid`} tone={spec.tone} mode="solid" />,
       ])}
@@ -154,7 +186,7 @@ function DirectionSpecimen() {
             <div
               style={{
                 width: "100%",
-                height: dividerWidthTokens["divider/width/hairline"],
+                height: dividerHairlineWidth,
                 background: getDividerColor("light"),
               }}
             />
@@ -187,7 +219,7 @@ function DirectionSpecimen() {
             <Text type="secondary">状态</Text>
             <div
               style={{
-                width: dividerWidthTokens["divider/width/hairline"],
+                width: dividerHairlineWidth,
                 height: u["size/component-height/m"],
                 background: getDividerColor("light"),
               }}
@@ -218,17 +250,17 @@ function CardDividerSpecimen() {
         <br />
         <Text type="secondary">外层描边使用 outline，内部横线使用 light。</Text>
       </div>
-      <div style={{ height: dividerWidthTokens["divider/width/hairline"], background: getDividerColor("light") }} />
+      <div style={{ height: dividerHairlineWidth, background: getDividerColor("light") }} />
       <div style={{ padding: token.paddingMD }}>
         <Text>内容区</Text>
       </div>
-      <div style={{ height: dividerWidthTokens["divider/width/hairline"], background: getDividerColor("light") }} />
+      <div style={{ height: dividerHairlineWidth, background: getDividerColor("light") }} />
       <div style={{ padding: token.paddingMD }}>
         <Space
           split={
             <div
               style={{
-                width: dividerWidthTokens["divider/width/hairline"],
+                width: dividerHairlineWidth,
                 height: u["size/component-height/xs"],
                 background: getDividerColor("light"),
               }}
@@ -245,7 +277,7 @@ function CardDividerSpecimen() {
 }
 
 function MappingTable() {
-  const columns: ColumnsType<(typeof dividerColorTokenSpecs)[number]> = [
+  const columns: ColumnsType<(typeof DIVIDER_SHOWCASE_SPECS)[number]> = [
     { title: "Figma 语义", dataIndex: "figmaName", key: "figmaName", width: 170 },
     {
       title: "透明版本",
@@ -272,7 +304,7 @@ function MappingTable() {
     { title: "推荐用途", dataIndex: "usage", key: "usage" },
   ];
 
-  return <Table columns={columns} dataSource={dividerColorTokenSpecs} pagination={false} size="small" rowKey="tone" />;
+  return <Table columns={columns} dataSource={DIVIDER_SHOWCASE_SPECS} pagination={false} size="small" rowKey="tone" />;
 }
 
 function SceneTable() {
@@ -293,7 +325,7 @@ function DividerSpecimen() {
           分割线数值样张
         </Title>
         <Text type="secondary">
-          分割线统一使用 1px；四个线色均提供透明版本和非透明版本，当前先通过代码侧 helper 承接。
+          分割线统一使用 1px；色值由 `tokens.resolved.json` 生成，`getDividerColor()` / `getDividerBorder()` 消费。
         </Text>
       </div>
 
@@ -321,13 +353,6 @@ function DividerSpecimen() {
         <Title level={5}>场景准入</Title>
         <SceneTable />
       </section>
-
-      <Alert
-        type="warning"
-        showIcon
-        message="生成链路待明天统一校验"
-        description="当前 Divider token 是可消费入口；明天需要和 Typography 一起确认是否进入 build-tokens.mjs 的生成结构。"
-      />
     </Space>
   );
 }

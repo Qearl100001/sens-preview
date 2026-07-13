@@ -169,7 +169,9 @@ const PRESET_BUTTON_SHADOW_TOKENS = Object.fromEntries(
 
 const TYPOGRAPHY_TOKENS = flattenValueTokens(typographyDoc);
 const TYPO_FONT_SIZE_SM = TYPOGRAPHY_TOKENS["font-size/s"];
+const TYPO_FONT_SIZE_M = TYPOGRAPHY_TOKENS["font-size/m"];
 const TYPO_LINE_HEIGHT_SM = TYPOGRAPHY_TOKENS["line-height/s"];
+const TYPO_LINE_HEIGHT_M = TYPOGRAPHY_TOKENS["line-height/m"];
 function buildDividerTokens() {
   const out = {};
   for (const [name, node] of Object.entries(dividerDoc.width)) {
@@ -185,6 +187,9 @@ function buildDividerTokens() {
   return out;
 }
 const DIVIDER_TOKENS = buildDividerTokens();
+const DIVIDER_DEEP_TRANSPARENT = DIVIDER_TOKENS["color/deep/transparent"];
+const DIVIDER_LIGHT_SOLID = DIVIDER_TOKENS["color/light/solid"];
+const DIVIDER_WEAK_SOLID = DIVIDER_TOKENS["color/weak/solid"];
 // midnight-dark-04：outline-color-transparent @ 0.08（不换肤中性层）
 const MIDNIGHT_DARK_04 = alpha(C["outline-color-transparent"], 0.08);
 // Input 聚焦光晕：从语义 handle 派生 α，禁止写死 rgba 字面量
@@ -197,7 +202,7 @@ function buildInputErrorActiveShadow() {
 }
 const INPUT_ACTIVE_SHADOW = buildInputActiveShadow();
 const INPUT_ERROR_ACTIVE_SHADOW = buildInputErrorActiveShadow();
-const INPUT_DIVIDER_BORDER = alpha(C["divideline-color-transparent-dack"], 0.16);
+const INPUT_DIVIDER_BORDER = DIVIDER_DEEP_TRANSPARENT;
 
 /** Input / InputNumber 共享字段色（脚本层 DRY；InputNumber 不自动继承 components.Input） */
 function buildInputFieldTokens() {
@@ -219,7 +224,7 @@ function buildInputFieldTokens() {
     paddingInlineSM:        U[SP_H_2_5],
     paddingBlock:           0,
     paddingBlockSM:         0,
-    inputFontSize:          14,
+    inputFontSize:          TYPO_FONT_SIZE_M,
     inputFontSizeSM:        TYPO_FONT_SIZE_SM,
   };
 }
@@ -229,10 +234,11 @@ const INPUT_FIELD_TOKENS = buildInputFieldTokens();
 const INPUT_NUMBER_HANDLE_WIDTH = 17;
 const INPUT_NUMBER_CONTROL_WIDTH = 188;
 const SELECT_OPTION_HEIGHT = 34;
-// Figma 17767:72632 · 浮层上 6 / 下 10；6 = spacing/1x + spacing/0.5x（尚无 spacing/1.5x）
+// Figma 17767:72632 · 浮层上 6 / 下 10
+const SP_1_5 = `spacing/1${DOT}5x`;              // 6
 const SP_V_2_5 = `spacing/vertical/2${DOT}5x`;
 const SP_H_3 = "spacing/horizontal/3x";
-const SELECT_POPUP_PADDING_TOP = U[SP_0_5] + U["spacing/1x"];
+const SELECT_POPUP_PADDING_TOP = U[SP_1_5];
 const SELECT_POPUP_PADDING_BOTTOM = U[SP_V_2_5];
 const SELECT_OPTION_PADDING_INLINE = U[SP_H_3];
 const SELECT_OPTION_PADDING_BLOCK = SELECT_POPUP_PADDING_TOP;
@@ -276,7 +282,7 @@ const token = {
   colorTextSecondary: C["text-sub-color"],
   colorTextTertiary:  C["text-color-disable"],
   colorBorder:          C["outline-color"],
-  colorBorderSecondary: C["divideline-color-light"],
+  colorBorderSecondary: DIVIDER_LIGHT_SOLID,
   colorIcon:      C["icon-color-transparent"],   // 默认图标色 #747E94
   colorIconHover: C["text-color"],               // 图标 hover 加深到文字色
   colorBgContainer: C["white"],
@@ -295,8 +301,8 @@ const components = {
   Table: {
     headerBg:        C["background-04"],
     headerColor:     C["text-color"],
-    headerSplitColor:C["divideline-color-light"],
-    borderColor:     C["line-color"],
+    headerSplitColor:DIVIDER_LIGHT_SOLID,
+    borderColor:     DIVIDER_WEAK_SOLID,
     rowHoverBg:      C["background-grey-hover"],
     cellPaddingBlock: U["spacing/3x"],
   },
@@ -312,8 +318,8 @@ const components = {
     cardHeightSM:         U["size/component-height/s"],
     cardPaddingInline:    U["spacing/horizontal/3x"],
     cardPaddingInlineSM:  U[SP_H_2_5],
-    titleFontSize:        14,
-    titleFontSizeSM:      12,
+    titleFontSize:        TYPO_FONT_SIZE_M,
+    titleFontSizeSM:      TYPO_FONT_SIZE_SM,
   },
   // 胶囊：选中=白底 + D1 投影 + 绿字（已对 Figma：选中 Fill = @white）
   Segmented: {
@@ -332,10 +338,10 @@ const components = {
     itemBorderRadiusSM:    U["radius/s"],
     itemPaddingInline:     U["spacing/horizontal/3x"],
     itemPaddingInlineSM:   U[SP_H_2_5],
-    itemFontSize:          14,
-    itemFontSizeSM:        12,
-    itemLineHeight:        22,
-    itemLineHeightSM:      18,
+    itemFontSize:          TYPO_FONT_SIZE_M,
+    itemFontSizeSM:        TYPO_FONT_SIZE_SM,
+    itemLineHeight:        TYPO_LINE_HEIGHT_M,
+    itemLineHeightSM:      TYPO_LINE_HEIGHT_SM,
     itemGap:               U["spacing/1x"],
     // 胶囊上的徽标（与 badge 组件同源）
     badgeBg:               alpha(C["background-transparent-grey"], 0.08),
@@ -347,8 +353,8 @@ const components = {
     badgeHeight:           U["size/xxs"],
     badgeRadius:           U["radius/xl"],
     badgePaddingInline:    U[SP_0_5],
-    badgeFontSize:         12,
-    badgeLineHeight:       18,
+    badgeFontSize:         TYPO_FONT_SIZE_SM,
+    badgeLineHeight:       TYPO_LINE_HEIGHT_SM,
   },
   Badge: {
     dotSize:    U["size/mini"],

@@ -66,7 +66,35 @@ Navigation Color 负责统一顶导航、侧导航、标题栏、页面主题背
 
 Navigation Color 预览页已补：`/basic-styles/navigation-color` 当前作为导航颜色入口，展示边界、分组、已有代码方向、关键映射状态和待补问题；它不是完整导航换肤矩阵，也不代表产品壳 / 导航实现已完成。
 
-## 8. 代码落地规则
+## 8. Navigation Color 录入映射表
+
+> 这张表用于指导后续 token 录入：先判断现有 handle 是否足够，再决定补 source token、补 helper，还是只补组件接入。
+
+| 分组 | Figma 名称 / 设计项 | 当前 token handle / helper | 当前值 / 代码方向 | 状态 | 需要动作 | 备注 |
+|---|---|---|---|---|---|---|
+| 顶导航 | 背景渐变 | `getThemeTopBackground()` | 绿：`#0F9670 -> #0D826D`；蓝：走 helper | 半 ready | 补正式背景 helper/token；补绿/蓝换肤矩阵 | 现在是 helper，不是完整 token 表 |
+| 顶导航 | 角色背景 | `theme-top-role-background` | `#000000` + 组件侧透明度 | 半 ready | 补透明度语义 | 当前组件用 `tokenRgba(..., 0.14)` |
+| 顶导航 | 功能入口菜单背景 | `theme-top-funcMenu-background-hover/active` | `#00B280` + 组件侧透明度 | 半 ready | 补默认态；补透明度语义 | 当前缺明确 default background handle |
+| 顶导航 | 功能入口菜单文字 | `theme-top-funcMenu-text/hover/active` | `#171C26 / #00B280 / #00B280` | 已 ready | 组件按状态接入 | 用于产品壳专属下拉 |
+| 顶导航 | 功能入口菜单图标 | `theme-top-funcMenu-icon/hover/active` | `#747E94 / #00B280 / #00B280` | 已 ready | 组件按状态接入 | 顶部导航产品切换图标已接 default |
+| 顶导航 | 项目菜单背景 | `theme-top-proMenu-background-hover/active` | `#001540 / #00B280` | 半 ready | 补默认态；补透明度语义 | 当前 active 在 Figma 可能是主色透明度 |
+| 顶导航 | 项目菜单文字 | `theme-top-proMenu-text/hover/active` | `#171C26 / #171C26 / #00B280` | 已 ready | 组件按状态接入 | 需要和项目切换浮层一起验收 |
+| 顶导航 | logo | `theme-top-logo` | `#FFFFFF` | 已 ready | 组件接入 | 形状/品牌资产另归 Logo 边界 |
+| 顶导航 | 文字&图标 | `theme-top-text/hover/active` | `#FFFFFF / #FFFFFF / #FFFFFF` + 组件侧透明度 | 半 ready | 补默认 80% 透明度语义 | 当前默认态靠 `tokenRgba("theme-top-text", 0.8)` |
+| 顶导航 | 图标背景 | `theme-top-icon-hover/active` | `#000000 / #000000` + 组件侧透明度 | 半 ready | 补透明度语义 | 用于右上角工具图标 hover/active 背景 |
+| 顶导航 | 横线 / 竖线 | `theme-top-line-dack/light` | `#000000 / #000000` + 组件侧透明度 | 半 ready | 补线条透明度语义 | 当前组件用 `0.06/0.08/0.12` |
+| 顶导航 | 菜单线 | `theme-top-menuLine-outlined/divide/active` | `#001540 / #001540 / #00B280` | 已 ready | 组件接入 | 需确认 outlined/divide 的透明度是否在 token 层 |
+| 侧导航 | 默认背景渐变 | 暂无完整 handle | Figma：`#FAFCFC -> #F0F7F6` | 待录入 | 补 `getThemeSideBackground()` 或 source token | 当前只在文档里记录 |
+| 侧导航 | 目录背景 | 暂无完整 handle | 待确认 | 待录入 | 补目录背景 default/hover/active | 这是侧导航结构实现前必须补的项 |
+| 侧导航 | 背景状态 | `theme-side-background-hover/click/active` | `#001540 / #001540 / #00B280` | 半 ready | 补默认态；补透明度语义 | hover/click 可能是黑色透明度 |
+| 侧导航 | 文字 | `theme-side-text/subText/text-active` | `#171C26 / #081226 / #00B280` + 透明度待确认 | 半 ready | 补主要/辅助文字透明度语义 | Figma 记录为 90% / 58% |
+| 侧导航 | 图标 | `theme-side-icon/subIcon/icon-active` | `#747E94 / #747E94 / #00B280` | 已 ready | 组件接入 | 需要侧导航组件验证 |
+| 标题栏 | 背景 | `theme-title-background` | `#F5FAFA` | 已 ready | 组件接入 | 与页面背景同值但语义独立 |
+| 页面 | 页面主题背景 | `body-background` | `#F5FAFA` | 已 ready | 组件接入 | 跟随导航主题分支 |
+| 换肤 | 绿 / 蓝导航主题映射 | 部分 helper | 顶导航背景已有 helper；其他组不完整 | 待录入 | 补完整换肤矩阵 | 后续需要列出每个 handle 的绿/蓝值 |
+| 全局 | Figma -> token 长期映射 | 本表初版 | 文档 + HTML 展示 | 半 ready | 后续补变量 ID、Figma node、接入组件 | 作为 token 录入工作台 |
+
+## 9. 代码落地规则
 
 - 导航颜色不能混用普通 `component-*` / `text-*` / `link-*` 语义，除非已经明确映射。
 - 顶导航、侧导航、标题栏、页面主题背景应建立独立 token / helper / theme 映射。
@@ -74,7 +102,7 @@ Navigation Color 预览页已补：`/basic-styles/navigation-color` 当前作为
 - 做导航 / 产品壳前，必须先补映射表。
 - `tokens.resolved.json` / `theme.ts` 是生成物，不能手改。
 
-## 9. 当前问题与处理策略
+## 10. 当前问题与处理策略
 
 | 问题 | 当前处理 | 建议时机 |
 |---|---|---|
@@ -84,9 +112,9 @@ Navigation Color 预览页已补：`/basic-styles/navigation-color` 当前作为
 | Figma 与代码 `component-active` 存在 1 个 hex 差异 | 记录差异，不直接修正 | 换肤映射阶段 |
 | 缺少完整 Figma -> token 映射表 | 待补 | 导航实现前 |
 
-## 10. 待补
+## 11. 待补
 
-- 建立导航颜色完整映射表。
+- 按映射表逐项补 source token / helper / 组件接入状态。
 - 按顶导航 / 侧导航 / 标题栏 / 页面背景拆分 token。
 - Navigation Color 预览页已补，后续继续扩展完整映射表和换肤矩阵。
 - 做产品壳 / 导航组件前，先完成换肤状态矩阵。

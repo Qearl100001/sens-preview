@@ -7,6 +7,7 @@ import {
   getColorToken,
   tokenRgba,
 } from "../../../design-system/color-utils";
+import { getDividerColor, getDividerHairlineWidth } from "../../../design-system/divider";
 import tokens from "../../../design-system/tokens.resolved.json";
 import { SensIcon } from "../../../design-system/icons";
 import { getTypographyToken } from "../../../design-system/typography";
@@ -17,7 +18,6 @@ const { Paragraph, Text, Title } = Typography;
 
 const unit = tokens.unit as Record<string, number>;
 const shadowTokens = tokens.shadow as Record<string, string>;
-const dividerTokens = tokens.divider as Record<string, string | number>;
 
 const cardTokens = {
   padding: unit["spacing/4x"],
@@ -44,7 +44,7 @@ const cardTokens = {
 
 const colorTokens = {
   cardBg: getColorToken("white"),
-  outline: tokenRgba("outline-color-transparent", 0.12),
+  outline: getDividerColor("outline", "transparent"),
   activeBorder: getColorToken("component-active"),
   selectedBg: getColorToken("component-active-background"),
   disabledBg: getColorToken("background-grey"),
@@ -57,16 +57,16 @@ const colorTokens = {
   text: tokenRgba("text-color-transparent", 0.9),
   subText: tokenRgba("text-sub-color-transparent", 0.58),
   link: getColorToken("link-color"),
-  divider: tokenRgba("divideline-color-transparent-light", 0.08),
+  divider: getDividerColor("light", "transparent"),
 } as const;
 
 type CardInteractionState = "default" | "hover" | "pressed";
 type CardStatusState = "disabled" | "disabledHover" | "error";
 
 const cardInteractionTokens = {
-  defaultBorder: String(dividerTokens["color/outline/transparent"] ?? colorTokens.outline),
-  divider: String(dividerTokens["color/light/transparent"] ?? colorTokens.divider),
-  disabledBorder: String(dividerTokens["color/light/transparent"] ?? colorTokens.divider),
+  defaultBorder: getDividerColor("outline", "transparent"),
+  divider: getDividerColor("light", "transparent"),
+  disabledBorder: getDividerColor("light", "transparent"),
   hoverShadow: shadowTokens["D3/down"],
   pressedShadow: shadowTokens["active-ring/functional"],
 } as const;
@@ -158,10 +158,10 @@ const MAPPING_ROWS = [
   {
     key: "outline",
     usage: "描边",
-    source: "中性色/线/02_描边 @outline-color-transparent",
-    token: "outline-color-transparent @12%",
-    value: "rgba(0,21,64,0.12)",
-    code: 'tokenRgba("outline-color-transparent", 0.12)',
+    source: "Divider Foundation · outline",
+    token: "divider/color/outline/transparent",
+    value: getDividerColor("outline", "transparent"),
+    code: 'getDividerColor("outline", "transparent")',
     status: "已映射",
   },
   {
@@ -203,10 +203,10 @@ const MAPPING_ROWS = [
   {
     key: "divider",
     usage: "分割线",
-    source: "中性色/线/03_浅分割线 @divideline-color-transparent-light",
-    token: "divideline-color-transparent-light @8%",
-    value: "rgba(0,21,64,0.08)",
-    code: 'tokenRgba("divideline-color-transparent-light", 0.08)',
+    source: "Divider Foundation · light",
+    token: "divider/color/light/transparent",
+    value: getDividerColor("light", "transparent"),
+    code: 'getDividerColor("light", "transparent")',
     status: "已映射",
   },
   {
@@ -436,7 +436,7 @@ function InteractiveCardHeader({
                 width: cardTokens.iconSize,
                 height: cardTokens.iconSize,
                 borderRadius: cardTokens.checkboxRadius,
-                border: `1px solid ${checked ? colorTokens.activeBorder : tokenRgba("divideline-color-transparent-dack", 0.16)}`,
+                border: `1px solid ${checked ? colorTokens.activeBorder : getDividerColor("deep", "transparent")}`,
                 background: checked ? colorTokens.activeBorder : colorTokens.cardBg,
                 color: colorTokens.cardBg,
                 display: "inline-flex",
@@ -812,7 +812,7 @@ function TitledCardExample() {
             操作
           </Text>
         </div>
-        <div style={{ height: 1, background: colorTokens.divider }} />
+        <div style={{ height: getDividerHairlineWidth(), background: cardInteractionTokens.divider }} />
         <div style={{ padding: cardTokens.padding }}>
           <PlaceholderBlock compact />
         </div>

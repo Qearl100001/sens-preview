@@ -2,11 +2,12 @@ import { Select, theme, type SelectProps } from "antd";
 import { useCallback, useMemo, type CSSProperties, type ReactNode } from "react";
 import { useTranslation } from "react-i18next";
 import { buildShadowD4, getColorToken, tokenRgba } from "../design-system/color-utils";
+import { getDividerColor } from "../design-system/divider";
 import {
   getFunctionalColors,
   type FunctionalSkin,
 } from "../design-system/functional-skin";
-import tokens from "../design-system/tokens.resolved.json";
+import { getUnitToken } from "../design-system/unit";
 import { useSensSelectTriggerProps } from "./fieldIconProps";
 import {
   SELECT_CHECK_ICON_SIZE,
@@ -32,7 +33,6 @@ import "./select-dropdown-preview.css";
 import "./select-trigger.css";
 import "./select-trigger-preview.css";
 
-const u = tokens.unit as Record<string, number>;
 const I18N_NS = "组件库";
 
 export const SELECT_OPTION_HEIGHT = 34;
@@ -56,7 +56,7 @@ export function useSensSelectTriggerStyle(size?: SelectProps["size"]): CSSProper
     "--sens-select-error-active-border-color": token.colorErrorActive,
     "--sens-select-error-active-shadow": `0 0 0 2px ${tokenRgba("warning-color-active-shadow", 0.2)}`,
     "--sens-select-placeholder-color": tokenRgba("text-color-transparent-disable", 0.3),
-    "--sens-select-border-disabled": tokenRgba("divideline-color-transparent-light", 0.08),
+    "--sens-select-border-disabled": getDividerColor("light", "transparent"),
     "--sens-select-arrow-color": getColorToken("icon-color-transparent"),
     "--sens-select-arrow-color-disabled": tokenRgba("icon-color-transparent-disable", 0.3),
     "--sens-select-icon-hover-color": token.colorIconHover,
@@ -68,13 +68,13 @@ const SELECT_CHECK_COLOR = getColorToken("icon-color-transparent");
 const SELECT_CHECK_COLOR_DISABLED = tokenRgba("icon-color-transparent-disable", 0.3);
 const SELECT_CHECK_COLOR_DISABLED_HOVER = tokenRgba("icon-color-transparent-disable-hover", 0.24);
 
-/** Figma 17767:72632 · 6 = spacing/1x + spacing/0.5x */
+/** Figma 17767:72632 · 上 6 = spacing/1.5x；下 10 = spacing/vertical/2.5x */
 function selectDropdownSpacing() {
-  const blockStart = (u["spacing/1x"] ?? 4) + (u["spacing/0․5x"] ?? 2);
+  const blockStart = getUnitToken("spacing/1.5x");
   return {
     popupPaddingBlockStart: blockStart,
-    popupPaddingBlockEnd: u["spacing/vertical/2․5x"] ?? 10,
-    optionPaddingInline: u["spacing/horizontal/3x"] ?? 12,
+    popupPaddingBlockEnd: getUnitToken("spacing/vertical/2.5x"),
+    optionPaddingInline: getUnitToken("spacing/horizontal/3x"),
     optionPaddingBlock: blockStart,
   };
 }
@@ -107,15 +107,15 @@ export function useSensSelectDropdownStyle(skin: FunctionalSkin = "green"): CSSP
     "--sens-select-dropdown-stats-color": tokenRgba("text-sub-color-transparent", 0.58),
     /** 空态辅助文案 · 同上 */
     "--sens-select-dropdown-empty-desc-color": tokenRgba("text-sub-color-transparent", 0.58),
-    /** 搜索分割线 → 统计「共 n 条」：6px = spacing/1x + spacing/0.5x */
+    /** 搜索分割线 → 统计「共 n 条」：6px = spacing/1.5x */
     "--sens-select-dropdown-stats-padding-block-start": `${spacing.popupPaddingBlockStart}px`,
   } as CSSProperties;
 }
 
 function useSelectDropdownMatrixVars(): CSSProperties {
   return {
-    "--sens-select-matrix-space-2x": `${u["spacing/2x"]}px`,
-    "--sens-select-matrix-space-6x": `${u["spacing/6x"]}px`,
+    "--sens-select-matrix-space-2x": `${getUnitToken("spacing/2x")}px`,
+    "--sens-select-matrix-space-6x": `${getUnitToken("spacing/6x")}px`,
     "--sens-select-matrix-cell-width": `${SELECT_DROPDOWN_MATRIX_CELL_WIDTH}px`,
     "--sens-select-content-matrix-cell-width": `${SELECT_DROPDOWN_CONTENT_MATRIX_CELL_WIDTH}px`,
   } as CSSProperties;
@@ -778,8 +778,8 @@ function resolveSelectTriggerPreviewVars(
 
 function useSelectTriggerMatrixPreviewVars(): CSSProperties {
   return {
-    "--sens-select-matrix-space-2x": `${u["spacing/2x"]}px`,
-    "--sens-select-matrix-space-6x": `${u["spacing/6x"]}px`,
+    "--sens-select-matrix-space-2x": `${getUnitToken("spacing/2x")}px`,
+    "--sens-select-matrix-space-6x": `${getUnitToken("spacing/6x")}px`,
     "--sens-select-trigger-matrix-cell-width": `${SELECT_TRIGGER_MATRIX_CELL_WIDTH}px`,
   } as CSSProperties;
 }

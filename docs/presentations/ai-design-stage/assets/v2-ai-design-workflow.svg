@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1500" height="560" viewBox="0 0 1500 560">
+  <defs>
+    <style>
+      text { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif; fill: #20242d; }
+      .h { font-size: 29px; font-weight: 800; }
+      .p { font-size: 20px; font-weight: 500; fill: #596575; }
+      .card { fill: #fffdf8; stroke: #d5dde7; stroke-width: 2; }
+      .green { fill: #e9f7f2; stroke: #00a879; }
+      .blue { fill: #eaf3ff; stroke: #76a9e8; }
+      .orange { fill: #fff1e8; stroke: #e8662a; }
+      .purple { fill: #f1ecfa; stroke: #8c78d8; }
+      .gray { fill: #f4f7fa; stroke: #b7c2cf; }
+      .arrow { stroke: #8d9aaa; stroke-width: 3; marker-end: url(#arrow); }
+    </style>
+    <marker id="arrow" markerWidth="16" markerHeight="16" refX="14" refY="8" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L16,8 L0,16 z" fill="#8d9aaa"/>
+    </marker>
+  </defs>
+  <rect width="1500" height="560" fill="#fffdf8"/>
+
+  <rect x="46" y="128" width="245" height="245" rx="22" class="card blue"/>
+  <text x="168" y="178" text-anchor="middle" class="h">产品输入</text>
+  <text x="168" y="230" text-anchor="middle" class="p">PRD</text>
+  <text x="168" y="263" text-anchor="middle" class="p">字段定义</text>
+  <text x="168" y="296" text-anchor="middle" class="p">状态 / 操作</text>
+  <text x="168" y="329" text-anchor="middle" class="p">业务规则</text>
+
+  <line x1="291" y1="250" x2="360" y2="250" class="arrow"/>
+
+  <rect x="382" y="128" width="245" height="245" rx="22" class="card purple"/>
+  <text x="504" y="178" text-anchor="middle" class="h">AI 结构化</text>
+  <text x="504" y="230" text-anchor="middle" class="p">抽字段</text>
+  <text x="504" y="263" text-anchor="middle" class="p">匹配样板间</text>
+  <text x="504" y="296" text-anchor="middle" class="p">生成页面结构</text>
+
+  <line x1="627" y1="250" x2="696" y2="250" class="arrow"/>
+
+  <rect x="718" y="128" width="245" height="245" rx="22" class="card green"/>
+  <text x="840" y="178" text-anchor="middle" class="h">设计校验</text>
+  <text x="840" y="230" text-anchor="middle" class="p">体验判断</text>
+  <text x="840" y="263" text-anchor="middle" class="p">组件 / token 校验</text>
+  <text x="840" y="296" text-anchor="middle" class="p">视觉还原</text>
+  <text x="840" y="329" text-anchor="middle" class="p">状态补齐</text>
+
+  <line x1="963" y1="250" x2="1032" y2="250" class="arrow"/>
+
+  <rect x="1054" y="128" width="245" height="245" rx="22" class="card orange"/>
+  <text x="1176" y="178" text-anchor="middle" class="h">研发评估</text>
+  <text x="1176" y="230" text-anchor="middle" class="p">组件 API</text>
+  <text x="1176" y="263" text-anchor="middle" class="p">数据结构</text>
+  <text x="1176" y="296" text-anchor="middle" class="p">工程边界</text>
+  <text x="1176" y="329" text-anchor="middle" class="p">质量检查</text>
+
+  <line x1="1299" y1="250" x2="1368" y2="250" class="arrow"/>
+
+  <rect x="1390" y="128" width="64" height="245" rx="22" class="card gray"/>
+  <text x="1422" y="166" text-anchor="middle" writing-mode="tb" glyph-orientation-vertical="0" class="h">资产回流</text>
+
+  <path d="M1422 373 C1422 490 168 500 168 386" fill="none" stroke="#8d9aaa" stroke-width="3" stroke-dasharray="8 8" marker-end="url(#arrow)"/>
+  <text x="750" y="470" text-anchor="middle" class="p">样板间 / token / 组件规则 / AI 工作规则 / 验收清单持续回流</text>
+</svg>

@@ -2,10 +2,10 @@ import type { CSSProperties, ReactNode } from "react";
 import { Badge, theme, type BadgeProps } from "antd";
 import { tokenRgba } from "../design-system/color-utils";
 import tokens from "../design-system/tokens.resolved.json";
+import { getUnitToken } from "../design-system/unit";
 import "./badge.css";
 
 const c = tokens.color as Record<string, string>;
-const u = tokens.unit as Record<string, number>;
 
 type AntdStatus = NonNullable<BadgeProps["status"]>;
 
@@ -44,12 +44,12 @@ function weakBadgeVars(surface: SensWeakBadgeSurface, colorPrimary: string): CSS
     "--sens-badge-weak-text-active": colorPrimary,
     "--sens-badge-weak-bg-disabled": neutralBg,
     "--sens-badge-weak-text-disabled": tokenRgba("text-color-transparent-disable", 0.3),
-    "--sens-badge-weak-height": `${u["size/xxs"]}px`,
-    "--sens-badge-weak-min-width": `${u["size/xxs"]}px`,
-    "--sens-badge-weak-padding-inline-compact": `${u["spacing/0․5x"]}px`,
-    "--sens-badge-weak-padding-inline-overflow": `${u["spacing/horizontal/1x"] + u["spacing/0․5x"]}px`,
-    "--sens-badge-weak-radius-compact": `${u["radius/xl"]}px`,
-    "--sens-badge-weak-radius-overflow": `${u["spacing/2x"]}px`,
+    "--sens-badge-weak-height": `${getUnitToken("size/xxs")}px`,
+    "--sens-badge-weak-min-width": `${getUnitToken("size/xxs")}px`,
+    "--sens-badge-weak-padding-inline-compact": `${getUnitToken("spacing/0.5x")}px`,
+    "--sens-badge-weak-padding-inline-overflow": `${getUnitToken("spacing/horizontal/1x") + getUnitToken("spacing/0.5x")}px`,
+    "--sens-badge-weak-radius-compact": `${getUnitToken("radius/xl")}px`,
+    "--sens-badge-weak-radius-overflow": `${getUnitToken("spacing/2x")}px`,
     "--sens-badge-text-default": c["text-color"],
     "--sens-badge-text-active": colorPrimary,
     "--sens-badge-text-disabled": c["text-color-disable"],
@@ -64,7 +64,7 @@ function resolveDisplayCount(count: SensBadgeProps["count"], overflowCount: numb
 /** 点徽标圆点尺寸 · size/mini → components.Badge.dotSize / statusSize */
 function statusDotVars(color: string): CSSProperties {
   return {
-    "--sens-badge-dot-size": `${u["size/mini"]}px`,
+    "--sens-badge-dot-size": `${getUnitToken("size/mini")}px`,
     "--sens-badge-dot-color": color,
   } as CSSProperties;
 }
@@ -84,22 +84,22 @@ function useCountBadgeVars(): CSSProperties {
   return {
     "--sens-badge-count-bg": c["warning-color"],
     "--sens-badge-count-text": c.white,
-    "--sens-badge-count-height": `${u["size/xxs"]}px`,
-    "--sens-badge-count-min-width": `${u["size/xxs"]}px`,
-    "--sens-badge-count-padding-inline-compact": `${u["spacing/0․5x"]}px`,
-    "--sens-badge-count-padding-inline-overflow": `${u["spacing/horizontal/1x"] + u["spacing/0․5x"]}px`,
-    "--sens-badge-count-radius-compact": `${u["radius/circular"]}px`,
-    "--sens-badge-count-radius-overflow": `${u["spacing/2x"]}px`,
+    "--sens-badge-count-height": `${getUnitToken("size/xxs")}px`,
+    "--sens-badge-count-min-width": `${getUnitToken("size/xxs")}px`,
+    "--sens-badge-count-padding-inline-compact": `${getUnitToken("spacing/0.5x")}px`,
+    "--sens-badge-count-padding-inline-overflow": `${getUnitToken("spacing/horizontal/1x") + getUnitToken("spacing/0.5x")}px`,
+    "--sens-badge-count-radius-compact": `${getUnitToken("radius/circular")}px`,
+    "--sens-badge-count-radius-overflow": `${getUnitToken("spacing/2x")}px`,
   } as CSSProperties;
 }
 
 function useBadgePreviewPanelVars(colorPrimary: string): CSSProperties {
   return {
     "--sens-badge-preview-panel-bg": c.white,
-    "--sens-badge-preview-panel-radius": `${u["radius/xl"]}px`,
+    "--sens-badge-preview-panel-radius": `${getUnitToken("radius/xl")}px`,
     "--sens-badge-preview-panel-width": "486px",
     "--sens-badge-preview-panel-height": "860px",
-    "--sens-badge-preview-panel-padding": `${u["spacing/4x"]}px`,
+    "--sens-badge-preview-panel-padding": `${getUnitToken("spacing/4x")}px`,
     "--sens-badge-text-default": c["text-color"],
     "--sens-badge-text-active": colorPrimary,
     "--sens-badge-title-border": c["warning-color"],
@@ -166,7 +166,7 @@ export function SensBadge({
           {
             ...weakBadgeVars(resolvedWeakSurface, token.colorPrimary),
             "--sens-badge-weak-font-size": `${token.fontSizeSM}px`,
-            "--sens-badge-weak-line-height": `${u["size/xxs"] + u["spacing/0․5x"]}px`,
+            "--sens-badge-weak-line-height": `${getUnitToken("size/xxs") + getUnitToken("spacing/0.5x")}px`,
           } as CSSProperties
         }
       >
@@ -200,7 +200,7 @@ export function SensBadge({
           {
             ...useCountBadgeVars(),
             "--sens-badge-count-font-size": `${token.fontSizeSM}px`,
-            "--sens-badge-count-line-height": `${u["size/xxs"] + u["spacing/0․5x"]}px`,
+            "--sens-badge-count-line-height": `${getUnitToken("size/xxs") + getUnitToken("spacing/0.5x")}px`,
           } as CSSProperties
         }
       >

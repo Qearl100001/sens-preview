@@ -18,6 +18,7 @@ Spacing 负责统一页面、组件、表单、表格、卡片、弹层里的间
 | `spacing/none` | 0 |
 | `spacing/0.5x` | 2 |
 | `spacing/1x` | 4 |
+| `spacing/1.5x` | 6 |
 | `spacing/2x` | 8 |
 | `spacing/2.5x` | 10 |
 | `spacing/3x` | 12 |

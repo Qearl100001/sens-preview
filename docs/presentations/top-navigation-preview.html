@@ -1,0 +1,546 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Top Navigation Preview</title>
+    <style>
+      :root {
+        --bg: #f4f7f7;
+        --card: #ffffff;
+        --line: rgba(0, 21, 64, 0.08);
+        --line-light: rgba(0, 21, 64, 0.06);
+        --text: #171c26;
+        --sub: rgba(23, 28, 38, 0.72);
+        --green: #00b280;
+        --green-deep: #0d826d;
+        --green-mid: #0f9670;
+        --shadow:
+          0 4px 20px rgba(11, 12, 13, 0.08),
+          0 2px 12px rgba(11, 12, 13, 0.1);
+        --radius: 10px;
+        --radius-s: 4px;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        background:
+          radial-gradient(circle at top left, rgba(15, 150, 112, 0.08), transparent 32%),
+          linear-gradient(180deg, #f7fbfb 0%, var(--bg) 100%);
+        color: var(--text);
+        font:
+          14px/1.6 "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      }
+
+      .page {
+        max-width: 1380px;
+        margin: 0 auto;
+        padding: 32px 24px 48px;
+      }
+
+      .hero {
+        margin-bottom: 20px;
+      }
+
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 6px 12px;
+        border-radius: 999px;
+        background: rgba(15, 150, 112, 0.08);
+        color: #0a7a60;
+        font-size: 12px;
+        font-weight: 600;
+      }
+
+      h1 {
+        margin: 12px 0 8px;
+        font-size: 38px;
+        line-height: 1.1;
+      }
+
+      .hero p {
+        max-width: 900px;
+        margin: 0;
+        color: var(--sub);
+        font-size: 16px;
+      }
+
+      .notice {
+        margin-top: 16px;
+        padding: 14px 16px;
+        border: 1px solid rgba(15, 150, 112, 0.14);
+        border-radius: var(--radius-s);
+        background: rgba(15, 150, 112, 0.06);
+        color: #0b6b55;
+      }
+
+      .nav-shell {
+        margin-top: 24px;
+        overflow: hidden;
+        border: 1px solid rgba(0, 21, 64, 0.08);
+        border-radius: var(--radius);
+        background: var(--card);
+        box-shadow: var(--shadow);
+      }
+
+      .nav-top {
+        position: relative;
+        min-height: 180px;
+        background: linear-gradient(135deg, var(--green-mid) 0%, var(--green-deep) 100%);
+      }
+
+      .nav-top::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background:
+          radial-gradient(circle at 18% 60%, rgba(255, 255, 255, 0.12), transparent 32%),
+          radial-gradient(circle at 90% -8%, rgba(255, 255, 255, 0.14), transparent 42%),
+          linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.08) 100%);
+      }
+
+      .rail {
+        position: relative;
+        z-index: 1;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 16px;
+      }
+
+      .rail.top {
+        height: 36px;
+        border-bottom: 1px solid var(--line-light);
+      }
+
+      .rail.bottom {
+        height: 46px;
+      }
+
+      .row {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+      }
+
+      .logo {
+        width: 58px;
+        height: 20px;
+        border-radius: 3px;
+        background: rgba(255, 255, 255, 0.18);
+        color: #fff;
+        display: grid;
+        place-items: center;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+      }
+
+      .muted-top {
+        color: rgba(255, 255, 255, 0.8);
+      }
+
+      .icon-row {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+      }
+
+      .icon-row i {
+        width: 16px;
+        height: 16px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.46);
+        display: block;
+      }
+
+      .divider-v {
+        width: 1px;
+        height: 16px;
+        background: var(--line);
+      }
+
+      .role {
+        height: 32px;
+        padding: 0 12px;
+        border-radius: 999px;
+        background: rgba(0, 0, 0, 0.12);
+        color: rgba(255, 255, 255, 0.82);
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .entry {
+        display: flex;
+        align-items: center;
+        gap: 9px;
+        margin-right: 8px;
+      }
+
+      .entry-box {
+        width: 32px;
+        height: 32px;
+        border-radius: 4px;
+        background: rgba(0, 0, 0, 0.1);
+        color: #fff;
+        display: grid;
+        place-items: center;
+        font-size: 12px;
+      }
+
+      .nav-items {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        overflow: hidden;
+      }
+
+      .nav-item {
+        height: 40px;
+        padding: 0 16px;
+        border: 1px solid transparent;
+        border-radius: 4px;
+        color: rgba(255, 255, 255, 0.8);
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        white-space: nowrap;
+      }
+
+      .nav-item.active {
+        border-color: rgba(255, 255, 255, 0.08);
+        background: rgba(255, 255, 255, 0.08);
+        color: #fff;
+        font-weight: 600;
+      }
+
+      .fade {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: 98px;
+        background: linear-gradient(180deg, rgba(245, 250, 250, 0) 0%, #f5fafa 100%);
+      }
+
+      .dropdown {
+        position: absolute;
+        top: 78px;
+        left: 238px;
+        z-index: 2;
+        width: 232px;
+        padding: 10px;
+        border: 1px solid rgba(0, 21, 64, 0.04);
+        border-radius: 4px;
+        background: #fff;
+        box-shadow: var(--shadow);
+      }
+
+      .drop-item {
+        height: 36px;
+        padding: 0 12px;
+        border-radius: 4px;
+        display: flex;
+        align-items: center;
+      }
+
+      .drop-item.active {
+        background: rgba(0, 178, 128, 0.12);
+        color: var(--green);
+        font-weight: 600;
+      }
+
+      .drop-item:not(.active) {
+        color: rgba(23, 28, 38, 0.9);
+      }
+
+      .content-band {
+        display: grid;
+        grid-template-columns: 1.1fr 0.9fr;
+        gap: 16px;
+        padding: 24px;
+        background: #f5fafa;
+      }
+
+      .panel {
+        min-height: 128px;
+        padding: 20px;
+        border: 1px solid rgba(0, 21, 64, 0.08);
+        border-radius: var(--radius);
+        background: #fff;
+      }
+
+      .panel h3 {
+        margin: 10px 0 8px;
+        font-size: 28px;
+        line-height: 1.2;
+      }
+
+      .panel p {
+        margin: 0;
+        color: var(--sub);
+      }
+
+      .grid {
+        margin-top: 20px;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 16px;
+      }
+
+      .metric {
+        min-height: 140px;
+        padding: 18px;
+        border: 1px solid rgba(0, 21, 64, 0.08);
+        border-radius: 4px;
+        background: #fff;
+        box-shadow: 0 1px 2px rgba(11, 12, 13, 0.04);
+      }
+
+      .metric .label {
+        color: var(--sub);
+        font-size: 13px;
+      }
+
+      .metric .value {
+        margin: 8px 0;
+        font-size: 28px;
+        line-height: 1.2;
+        font-weight: 700;
+      }
+
+      .metric .desc {
+        color: var(--sub);
+      }
+
+      .section {
+        margin-top: 28px;
+        padding: 22px 24px;
+        border: 1px solid rgba(0, 21, 64, 0.08);
+        border-radius: 12px;
+        background: rgba(255, 255, 255, 0.76);
+        backdrop-filter: blur(8px);
+      }
+
+      .section h2 {
+        margin: 0 0 14px;
+        font-size: 24px;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+
+      th,
+      td {
+        padding: 12px 10px;
+        border-top: 1px solid rgba(0, 21, 64, 0.08);
+        text-align: left;
+        vertical-align: top;
+      }
+
+      th {
+        color: var(--sub);
+        font-size: 12px;
+        font-weight: 600;
+        border-top: none;
+      }
+
+      .pill {
+        display: inline-flex;
+        align-items: center;
+        padding: 4px 10px;
+        border-radius: 999px;
+        font-size: 12px;
+        font-weight: 600;
+      }
+
+      .pill.green {
+        background: rgba(0, 178, 128, 0.12);
+        color: var(--green);
+      }
+
+      .pill.blue {
+        background: rgba(49, 112, 235, 0.12);
+        color: #3170eb;
+      }
+
+      @media (max-width: 980px) {
+        .content-band {
+          grid-template-columns: 1fr;
+        }
+
+        h1 {
+          font-size: 30px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <div class="hero">
+        <div class="eyebrow">Top Navigation / 临时静态预览</div>
+        <h1>顶部导航是独立组件，颜色归 Navigation Color</h1>
+        <p>
+          这个 HTML 预览对应已经写进项目里的「顶部导航 Top Navigation」组件页。因为当前 5173
+          预览进程是旧的、没法在这里重启，我先给你一个同内容的本地 HTML 版本，方便你马上看结构和口径。
+        </p>
+        <div class="notice">
+          当前确认：导航组件独立；第二套颜色 token 放 Navigation Color；1280px 是电脑端最小宽度；小于 1280px
+          横向滚动；“更多”阈值待产品定义；下拉为产品壳专属；圆角和投影继续用基础 token；导航渐变可进入 helper。
+        </div>
+      </div>
+
+      <div class="nav-shell">
+        <div class="nav-top">
+          <div class="rail top">
+            <div class="row">
+              <div class="logo">SENS</div>
+              <div class="muted-top">正式项目</div>
+            </div>
+            <div class="icon-row">
+              <i></i><i></i><i></i><i></i><i></i><i></i>
+              <div class="divider-v"></div>
+              <div class="role"><strong>卓越</strong><span>分析师</span></div>
+            </div>
+          </div>
+
+          <div class="rail bottom">
+            <div class="entry">
+              <div class="entry-box">9</div>
+              <div class="divider-v"></div>
+            </div>
+            <div class="nav-items">
+              <div class="nav-item">概览</div>
+              <div class="nav-item active">分析 ▼</div>
+              <div class="nav-item">智能运营 ▼</div>
+              <div class="nav-item">渠道追踪</div>
+              <div class="nav-item">项目设置 ▼</div>
+              <div class="nav-item">更多 ▼</div>
+            </div>
+          </div>
+
+          <div class="dropdown">
+            <div class="drop-item active">运营计划</div>
+            <div class="drop-item">用户标签</div>
+            <div class="drop-item">流程画布</div>
+          </div>
+
+          <div class="fade"></div>
+        </div>
+
+        <div class="content-band">
+          <div class="panel">
+            <div class="eyebrow">组件边界</div>
+            <h3>结构归组件，颜色归 Navigation Color</h3>
+            <p>这样写进设计系统之后，后续不管做产品壳、做 token 映射，还是做页面还原，边界都更稳。</p>
+          </div>
+          <div class="panel">
+            <div class="eyebrow">下拉归属</div>
+            <h3 style="font-size: 22px">产品壳专属浮层</h3>
+            <p>主导航下拉、产品切换、个人中心不是通用 Dropdown；但圆角、投影、描边继续复用 foundation token。</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid">
+        <div class="metric">
+          <div class="label">最小电脑宽度</div>
+          <div class="value">1280px</div>
+          <div class="desc">小于 1280px 当前走横向滚动，不再继续压缩。</div>
+        </div>
+        <div class="metric">
+          <div class="label">组件分组</div>
+          <div class="value">独立组件</div>
+          <div class="desc">放到组件导航，不继续挂在基础样式下面。</div>
+        </div>
+        <div class="metric">
+          <div class="label">更多菜单</div>
+          <div class="value">待需求定义</div>
+          <div class="desc">现在只记录，不写固定收纳阈值。</div>
+        </div>
+        <div class="metric">
+          <div class="label">导航颜色</div>
+          <div class="value">独立承载</div>
+          <div class="desc">颜色、换肤、helper 在 Navigation Color 收口。</div>
+        </div>
+      </div>
+
+      <div class="section">
+        <h2>结构常量</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>结构项</th>
+              <th>值</th>
+              <th>归属</th>
+              <th>承载方式</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>顶部导航容器</td><td>180px</td><td>TopNavigation</td><td>组件结构常量</td></tr>
+            <tr><td>上导航</td><td>36px</td><td>TopNavigation</td><td>组件结构常量</td></tr>
+            <tr><td>下导航</td><td>46px</td><td>TopNavigation</td><td>组件结构常量</td></tr>
+            <tr><td>功能入口热区</td><td>32 × 32</td><td>TopNavigation</td><td>组件结构常量</td></tr>
+            <tr><td>导航项高度</td><td>40px</td><td>TopNavigation</td><td>组件结构常量</td></tr>
+            <tr><td>页面过渡层</td><td>98px</td><td>Navigation Color helper</td><td>导航效果</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="section">
+        <h2>token / helper 归属</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>归属</th>
+              <th>项目</th>
+              <th>token / helper</th>
+              <th>说明</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="pill green">Navigation Color</span></td>
+              <td>顶导航背景</td>
+              <td><code>getThemeTopBackground()</code></td>
+              <td>导航效果 helper，可随换肤变化</td>
+            </tr>
+            <tr>
+              <td><span class="pill green">Navigation Color</span></td>
+              <td>顶导航文字 / 图标</td>
+              <td><code>theme-top-text*</code></td>
+              <td>默认 80%，hover / 选中 100%</td>
+            </tr>
+            <tr>
+              <td><span class="pill green">Navigation Color</span></td>
+              <td>横线 / 竖线</td>
+              <td><code>theme-top-line-*</code></td>
+              <td>黑色透明度线条</td>
+            </tr>
+            <tr>
+              <td><span class="pill blue">Foundation</span></td>
+              <td>下拉圆角</td>
+              <td><code>radius/m</code></td>
+              <td>面板圆角继续复用基础 token</td>
+            </tr>
+            <tr>
+              <td><span class="pill blue">Foundation</span></td>
+              <td>下拉投影</td>
+              <td><code>shadow helper</code></td>
+              <td>浮层投影不在导航颜色里单独定义</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </body>
+</html>

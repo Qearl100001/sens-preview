@@ -1,20 +1,10 @@
 import { Alert, Space, Table, Tag, Typography, theme } from "antd";
 import type { ColumnsType } from "antd/es/table";
-import tokens from "../../../design-system/tokens.resolved.json";
+import { getUnitToken } from "../../../design-system/unit";
 import spacingDocSource from "../../../../docs/foundations/spacing.md?raw";
 import { BasicStylePageLayout } from "./BasicStylePageLayout";
 
 const { Text, Title } = Typography;
-
-const u = tokens.unit as Record<string, number>;
-
-function getUnit(tokenName: string): number {
-  const directValue = u[tokenName];
-  if (typeof directValue === "number") return directValue;
-
-  const normalizedTokenName = tokenName.replace(".", "\u2024");
-  return u[normalizedTokenName];
-}
 
 interface SpacingScaleItem {
   key: string;
@@ -24,42 +14,45 @@ interface SpacingScaleItem {
 }
 
 const SPACING_SCALE: SpacingScaleItem[] = [
-  { key: "none", tokenName: "spacing/none", value: getUnit("spacing/none"), usage: "无间距" },
-  { key: "0.5x", tokenName: "spacing/0.5x", value: getUnit("spacing/0.5x"), usage: "极小分隔" },
-  { key: "1x", tokenName: "spacing/1x", value: getUnit("spacing/1x"), usage: "图标与文字间距" },
-  { key: "2x", tokenName: "spacing/2x", value: getUnit("spacing/2x"), usage: "紧凑控件内距" },
-  { key: "2.5x", tokenName: "spacing/2.5x", value: getUnit("spacing/2.5x"), usage: "紧凑控件候选内距" },
-  { key: "3x", tokenName: "spacing/3x", value: getUnit("spacing/3x"), usage: "输入类组件水平内距候选" },
-  { key: "4x", tokenName: "spacing/4x", value: getUnit("spacing/4x"), usage: "卡片 / 区块常规内距" },
-  { key: "5x", tokenName: "spacing/5x", value: getUnit("spacing/5x"), usage: "中等区块间距" },
-  { key: "6x", tokenName: "spacing/6x", value: getUnit("spacing/6x"), usage: "页面内容左右内距" },
-  { key: "7x", tokenName: "spacing/7x", value: getUnit("spacing/7x"), usage: "较大区块间距" },
-  { key: "10x", tokenName: "spacing/10x", value: getUnit("spacing/10x"), usage: "大模块纵向间距" },
+  { key: "none", tokenName: "spacing/none", value: getUnitToken("spacing/none"), usage: "无间距" },
+  { key: "0.5x", tokenName: "spacing/0.5x", value: getUnitToken("spacing/0.5x"), usage: "极小分隔" },
+  { key: "1x", tokenName: "spacing/1x", value: getUnitToken("spacing/1x"), usage: "图标与文字间距" },
+  { key: "1.5x", tokenName: "spacing/1.5x", value: getUnitToken("spacing/1.5x"), usage: "标签左右 padding small、浮层上内边距" },
+  { key: "2x", tokenName: "spacing/2x", value: getUnitToken("spacing/2x"), usage: "紧凑控件内距" },
+  { key: "2.5x", tokenName: "spacing/2.5x", value: getUnitToken("spacing/2.5x"), usage: "紧凑控件候选内距" },
+  { key: "3x", tokenName: "spacing/3x", value: getUnitToken("spacing/3x"), usage: "输入类组件水平内距候选" },
+  { key: "4x", tokenName: "spacing/4x", value: getUnitToken("spacing/4x"), usage: "卡片 / 区块常规内距" },
+  { key: "5x", tokenName: "spacing/5x", value: getUnitToken("spacing/5x"), usage: "中等区块间距" },
+  { key: "6x", tokenName: "spacing/6x", value: getUnitToken("spacing/6x"), usage: "页面内容左右内距" },
+  { key: "7x", tokenName: "spacing/7x", value: getUnitToken("spacing/7x"), usage: "较大区块间距" },
+  { key: "10x", tokenName: "spacing/10x", value: getUnitToken("spacing/10x"), usage: "大模块纵向间距" },
 ];
 
 const HORIZONTAL_SPACING = [
-  { key: "none", tokenName: "spacing/horizontal/none", value: getUnit("spacing/horizontal/none") },
-  { key: "1x", tokenName: "spacing/horizontal/1x", value: getUnit("spacing/horizontal/1x") },
-  { key: "2x", tokenName: "spacing/horizontal/2x", value: getUnit("spacing/horizontal/2x") },
-  { key: "2.5x", tokenName: "spacing/horizontal/2.5x", value: getUnit("spacing/horizontal/2.5x") },
-  { key: "3x", tokenName: "spacing/horizontal/3x", value: getUnit("spacing/horizontal/3x") },
-  { key: "4x", tokenName: "spacing/horizontal/4x", value: getUnit("spacing/horizontal/4x") },
-  { key: "5x", tokenName: "spacing/horizontal/5x", value: getUnit("spacing/horizontal/5x") },
-  { key: "6x", tokenName: "spacing/horizontal/6x", value: getUnit("spacing/horizontal/6x") },
+  { key: "none", tokenName: "spacing/horizontal/none", value: getUnitToken("spacing/horizontal/none") },
+  { key: "1x", tokenName: "spacing/horizontal/1x", value: getUnitToken("spacing/horizontal/1x") },
+  { key: "1.5x", tokenName: "spacing/horizontal/1.5x", value: getUnitToken("spacing/horizontal/1.5x") },
+  { key: "2x", tokenName: "spacing/horizontal/2x", value: getUnitToken("spacing/horizontal/2x") },
+  { key: "2.5x", tokenName: "spacing/horizontal/2.5x", value: getUnitToken("spacing/horizontal/2.5x") },
+  { key: "3x", tokenName: "spacing/horizontal/3x", value: getUnitToken("spacing/horizontal/3x") },
+  { key: "4x", tokenName: "spacing/horizontal/4x", value: getUnitToken("spacing/horizontal/4x") },
+  { key: "5x", tokenName: "spacing/horizontal/5x", value: getUnitToken("spacing/horizontal/5x") },
+  { key: "6x", tokenName: "spacing/horizontal/6x", value: getUnitToken("spacing/horizontal/6x") },
 ];
 
 const VERTICAL_SPACING = [
-  { key: "none", tokenName: "spacing/vertical/none", value: getUnit("spacing/vertical/none") },
-  { key: "0.5x", tokenName: "spacing/vertical/0.5x", value: getUnit("spacing/vertical/0.5x") },
-  { key: "1x", tokenName: "spacing/vertical/1x", value: getUnit("spacing/vertical/1x") },
-  { key: "2x", tokenName: "spacing/vertical/2x", value: getUnit("spacing/vertical/2x") },
-  { key: "2.5x", tokenName: "spacing/vertical/2.5x", value: getUnit("spacing/vertical/2.5x") },
-  { key: "3x", tokenName: "spacing/vertical/3x", value: getUnit("spacing/vertical/3x") },
-  { key: "4x", tokenName: "spacing/vertical/4x", value: getUnit("spacing/vertical/4x") },
-  { key: "5x", tokenName: "spacing/vertical/5x", value: getUnit("spacing/vertical/5x") },
-  { key: "6x", tokenName: "spacing/vertical/6x", value: getUnit("spacing/vertical/6x") },
-  { key: "7x", tokenName: "spacing/vertical/7x", value: getUnit("spacing/vertical/7x") },
-  { key: "10x", tokenName: "spacing/vertical/10x", value: getUnit("spacing/vertical/10x") },
+  { key: "none", tokenName: "spacing/vertical/none", value: getUnitToken("spacing/vertical/none") },
+  { key: "0.5x", tokenName: "spacing/vertical/0.5x", value: getUnitToken("spacing/vertical/0.5x") },
+  { key: "1x", tokenName: "spacing/vertical/1x", value: getUnitToken("spacing/vertical/1x") },
+  { key: "1.5x", tokenName: "spacing/vertical/1.5x", value: getUnitToken("spacing/vertical/1.5x") },
+  { key: "2x", tokenName: "spacing/vertical/2x", value: getUnitToken("spacing/vertical/2x") },
+  { key: "2.5x", tokenName: "spacing/vertical/2.5x", value: getUnitToken("spacing/vertical/2.5x") },
+  { key: "3x", tokenName: "spacing/vertical/3x", value: getUnitToken("spacing/vertical/3x") },
+  { key: "4x", tokenName: "spacing/vertical/4x", value: getUnitToken("spacing/vertical/4x") },
+  { key: "5x", tokenName: "spacing/vertical/5x", value: getUnitToken("spacing/vertical/5x") },
+  { key: "6x", tokenName: "spacing/vertical/6x", value: getUnitToken("spacing/vertical/6x") },
+  { key: "7x", tokenName: "spacing/vertical/7x", value: getUnitToken("spacing/vertical/7x") },
+  { key: "10x", tokenName: "spacing/vertical/10x", value: getUnitToken("spacing/vertical/10x") },
 ];
 
 const BOUNDARY_ROWS = [
@@ -75,47 +68,47 @@ const BOUNDARY_ROWS = [
 ];
 
 const SCENE_ROWS = [
-  { key: "icon-text", scene: "图标与文字间距", rule: "spacing/1x", value: getUnit("spacing/1x"), note: "输入、选择器、搜索、菜单等常见组合" },
+  { key: "icon-text", scene: "图标与文字间距", rule: "spacing/1x", value: getUnitToken("spacing/1x"), note: "输入、选择器、搜索、菜单等常见组合" },
   {
     key: "compact-control",
     scene: "紧凑控件内距",
     rule: "spacing/2x / spacing/2.5x",
-    value: `${getUnit("spacing/2x")} / ${getUnit("spacing/2.5x")}`,
+    value: `${getUnitToken("spacing/2x")} / ${getUnitToken("spacing/2.5x")}`,
     note: "小尺寸或紧凑状态",
   },
   {
     key: "input-horizontal",
     scene: "输入类组件水平内距",
     rule: "spacing/horizontal/3x",
-    value: getUnit("spacing/horizontal/3x"),
+    value: getUnitToken("spacing/horizontal/3x"),
     note: "Input / Select 等基础组件常用",
   },
   {
     key: "card-padding",
     scene: "卡片 / 区块常规内距",
     rule: "spacing/4x",
-    value: getUnit("spacing/4x"),
+    value: getUnitToken("spacing/4x"),
     note: "卡片、信息区、内容块候选",
   },
   {
     key: "page-padding",
     scene: "页面内容左右内距",
     rule: "spacing/6x",
-    value: getUnit("spacing/6x"),
+    value: getUnitToken("spacing/6x"),
     note: "页面主内容区",
   },
   {
     key: "table-height",
     scene: "表格信息区高度",
     rule: "size/component-height/xl",
-    value: getUnit("size/component-height/xl"),
+    value: getUnitToken("size/component-height/xl"),
     note: "组件规格，不作为普通 spacing",
   },
   {
     key: "large-section",
     scene: "大区块间距",
     rule: "spacing/10x",
-    value: getUnit("spacing/10x"),
+    value: getUnitToken("spacing/10x"),
     note: "大模块之间的纵向距离",
   },
 ];

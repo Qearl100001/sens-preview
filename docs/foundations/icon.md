@@ -57,7 +57,7 @@ Icon asset
 
 | 分类 | 说明 | 当前示例 |
 |---|---|---|
-| 操作型图标 | 触发操作、打开菜单、清除、添加 | `more`、`editor-add`、`close-circle` |
+| 操作型图标 | 触发操作、打开菜单、清除、添加、关闭 | `more`、`editor-add`、`close`、`close-circle` |
 | 状态型图标 | 表达警告、错误、选中 | `error-diamond`、`select-check` |
 | 导航型图标 | 返回、展开、收起 | `chevron-left`、`chevron-down`、`chevron-up` |
 | 输入辅助图标 | 输入框、搜索、选择器辅助 | `search`、`chevron-down`（Select 箭头）、`close-circle`（Select 清空） |
@@ -140,6 +140,7 @@ Icon asset
 | `chevron-left` | `ChevronLeftIcon` | `src/ui/FieldIcons.tsx` | `0 0 16 16` | Minimal Search 返回箭头 | 16 | currentColor | 是 |
 | `chevron-down` | `ChevronDownIcon` | `src/ui/FieldIcons.tsx` | `0 0 16 16` | Select 触发框 / Dropdown / Button 下箭头 | 16 | subtle / currentColor | 是 |
 | `chevron-up` | `ChevronUpIcon` | `src/ui/FieldIcons.tsx` | `0 0 16 16` | Select / Dropdown / Button 上箭头 | 16 | currentColor | 是 |
+| `close` | `CloseIcon` | `src/ui/FieldIcons.tsx` | `0 0 16 16` | Tag / Message / Alert 关闭 | 12 / 14 / 16 | subtle / warning / currentColor | 是 |
 | `close-circle` | `CloseCircleIcon` | `src/ui/FieldIcons.tsx` | `0 0 16 16` | Input / Select / Search allowClear 清空 | 16 | subtle / currentColor | 是 |
 | `check` | `CheckIcon` | `src/ui/FieldIcons.tsx` | `0 0 16 16` | Card / Checkbox 已选中勾选 | 16 | inverse / inherit | 是 |
 | `rename` | `RenameIcon` | `src/ui/FieldIcons.tsx` | `0 0 16 16` | Card 标题区重命名 | 16 | subtle / inherit | 是 |
@@ -149,7 +150,7 @@ Icon asset
 | `more` | `MoreIcon` | `src/ui/FieldIcons.tsx` | `0 0 16 16` | 更多按钮 | 16 | subtle / currentColor | 是 |
 | `search` | `SearchIcon` | `src/ui/SearchIcon.tsx` | `0 0 16 16` | Search / Input 搜索前缀、搜索按钮 | 16 | subtle / currentColor | 是 |
 
-第一批只收当前项目自定义 SVG，不碰 antd 图标。共 **16** 个资产；`SelectArrowIcon` / `SelectClearIcon` 为过渡 wrapper，分别指向 `chevron-down` / `close-circle`，不单独入库。
+第一批只收当前项目自定义 SVG，不碰 antd 图标。`SelectArrowIcon` / `SelectClearIcon` 为过渡 wrapper，分别指向 `chevron-down` / `close-circle`，不单独入库。`close`（Figma 805:58）已入库，替换原 Tag/Message/Alert 手写小叉子。
 
 ## 12. 外部 antd 图标
 

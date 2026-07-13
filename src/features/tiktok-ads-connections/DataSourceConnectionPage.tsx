@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react";
 import { tokenRgba } from "../../design-system/color-utils";
-import { dividerWidthTokens } from "../../design-system/divider";
+import { getDividerBorder, getDividerHairlineWidth } from "../../design-system/divider";
 import tokens from "../../design-system/tokens.resolved.json";
 import {
   SEARCH_INPUT_DEFAULT_WIDTH,
@@ -101,7 +101,7 @@ export function DataSourceConnectionPage({
   };
 
   const verticalDividerStyle = {
-    width: dividerWidthTokens["divider/width/hairline"],
+    width: getDividerHairlineWidth(),
     flexShrink: 0,
     alignSelf: "stretch",
     background: tokenRgba("divideline-color-transparent-light", 0.08),
@@ -110,6 +110,7 @@ export function DataSourceConnectionPage({
   return (
     <>
       <SensPageTitleBar
+        variant="drilldown"
         title={spec.name}
         breadcrumbItems={toBreadcrumbItems(spec.breadcrumbs, onBack)}
         onBack={onBack}

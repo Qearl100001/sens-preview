@@ -10,22 +10,18 @@ import {
   type ShadowDirection,
   type ShadowLevel,
 } from "../../../design-system/color-utils";
+import tokens from "../../../design-system/tokens.resolved.json";
 import shadowDocSource from "../../../../docs/foundations/shadow.md?raw";
 import { BasicStylePageLayout } from "./BasicStylePageLayout";
 
 const { Text, Title } = Typography;
 
-interface ShadowLayer {
-  alpha: number;
-  blur: number;
-}
+const shadowTokens = tokens.shadow as Record<string, string>;
 
 interface ShadowLevelSpec {
   level: ShadowLevel;
   label: string;
   usage: string;
-  first: ShadowLayer;
-  second: ShadowLayer;
 }
 
 const SHADOW_LEVELS: ShadowLevelSpec[] = [
@@ -33,29 +29,21 @@ const SHADOW_LEVELS: ShadowLevelSpec[] = [
     level: "D1",
     label: "低层级选中",
     usage: "低层级选中 / 轻微浮起",
-    first: { alpha: 0.2, blur: 1 },
-    second: { alpha: 0.1, blur: 2 },
   },
   {
     level: "D2",
     label: "中低层级",
     usage: "中低层级容器 / 轻量浮层",
-    first: { alpha: 0.08, blur: 4 },
-    second: { alpha: 0.04, blur: 8 },
   },
   {
     level: "D3",
     label: "动作反馈",
     usage: "Button hover、轻量动作反馈",
-    first: { alpha: 0.1, blur: 6 },
-    second: { alpha: 0.04, blur: 12 },
   },
   {
     level: "D4",
     label: "高层浮层",
     usage: "FAB、Dropdown、Popover 等浮层",
-    first: { alpha: 0.1, blur: 12 },
-    second: { alpha: 0.08, blur: 20 },
   },
 ];
 
@@ -67,6 +55,7 @@ const DIRECTIONS: Array<{ key: ShadowDirection; label: string }> = [
 ];
 
 const HELPER_ROWS = [
+  { key: "resolved", item: "tokens.shadow", status: "已入库", note: "build-tokens.mjs 从 shadow.json 生成；helper 优先读此表" },
   { key: "d1", item: "D1 helper", status: "已有", note: "buildShadowD1() 兼容默认下方向" },
   { key: "d2", item: "D2 helper", status: "已补", note: "buildShadowD2() 兼容默认下方向" },
   { key: "d3", item: "D3 helper", status: "已有", note: "buildShadowD3() 兼容默认下方向" },
@@ -75,10 +64,6 @@ const HELPER_ROWS = [
   { key: "active-ring", item: "active ring", status: "已补", note: "buildActiveRingShadow(handle) 统一控件外环" },
   { key: "drawer", item: "Drawer 侧向投影", status: "已补", note: "buildDrawerShadow(\"right\") 承接右侧抽屉外层投影" },
 ];
-
-function buildShadowPreview(level: ShadowLevel, direction: ShadowDirection): string {
-  return buildShadow(level, direction);
-}
 
 function ShadowCard({ level, direction = "down" }: { level: ShadowLevel; direction?: ShadowDirection }) {
   const { token } = theme.useToken();
@@ -102,7 +87,7 @@ function ShadowCard({ level, direction = "down" }: { level: ShadowLevel; directi
           borderRadius: token.borderRadius,
           border: `1px solid ${token.colorBorderSecondary}`,
           background: token.colorBgContainer,
-          boxShadow: buildShadowPreview(level, direction),
+          boxShadow: buildShadow(level, direction),
         }}
       />
     </div>
@@ -138,6 +123,9 @@ function ShadowScaleBoard() {
             <Text strong>{item.level}</Text>
             <Text>{item.label}</Text>
             <Text type="secondary">{item.usage}</Text>
+            <Text code style={{ fontSize: 11, wordBreak: "break-all" }}>
+              {shadowTokens[`${item.level}/down`]}
+            </Text>
           </Space>
         </div>
       ))}
