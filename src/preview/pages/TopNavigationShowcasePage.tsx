@@ -1,10 +1,9 @@
+import { useState } from "react";
 import { Alert, Card, Space, Table, Tag, Typography, theme } from "antd";
 import type { ColumnsType } from "antd/es/table";
-import { useOutletContext } from "react-router-dom";
-import type { FunctionalSkin } from "../../design-system/functional-skin";
 import { getColorToken, tokenRgba, buildShadowD4 } from "../../design-system/color-utils";
 import { SensIcon, type IconName } from "../../design-system/icons";
-import { getThemeTopBackground } from "../../design-system/navigation-color";
+import { getThemeTopAtmosphere, getThemeTopBackground, type NavigationTheme } from "../../design-system/navigation-color";
 import tokens from "../../design-system/tokens.resolved.json";
 import { ComponentShowcaseLayout } from "../ComponentShowcaseLayout";
 
@@ -59,6 +58,9 @@ const topNavigationDesignDoc = `
 - 顶导航背景、文字 / 图标、分割线、菜单线、功能入口菜单、项目菜单颜色统一归 \`Navigation Color\`。
 - 导航图标的形状归 \`Icon / navigation\` 分类；颜色由顶部导航场景传入 Navigation Color token。
 - 导航渐变是一种导航效果，可以进入 \`Navigation Color helper\`，但不代表所有导航都必须使用渐变。
+- 九宫格功能入口默认使用 \`theme-top-text\`；工具图标 hover / 选中使用 \`theme-top-icon-*\` 背景。
+- 主导航选中使用 \`theme-top-text-active\` 的白色底部短线，不使用整项背景；带选择器时短线只位于文字下方。
+- 项目切换、账号角色和带下拉的主导航项是产品壳浮层，预览页可点击验证开关与选中状态，但不承接真实业务跳转。
 `;
 
 const topNavigationDevDoc = `
@@ -79,14 +81,15 @@ const topNavigationDevDoc = `
 
 ## 3. helper 使用
 
-- 顶导航渐变优先通过 \`getThemeTopBackground()\` 这类 helper 承接。
+- 顶导航基础背景和氛围叠层分别通过 \`getThemeTopBackground()\`、\`getThemeTopAtmosphere()\` 承接。
 - helper 表达的是“导航效果可复用的承载方式”，不是强制每个导航都用同一套渐变。
 - 侧导航 / 标题栏 / 页面背景仍继续由 \`Navigation Color\` 统一映射。
 - 导航图标使用 \`SensIcon\` 注册图标，SVG 必须是 \`currentColor\`，调用处按场景传 \`theme-top-text*\` 或 \`theme-top-funcMenu-icon*\`。
+- 产品壳浮层同时只允许打开一个；点击对应入口切换，选择菜单项或点击其他入口后关闭当前浮层。
 
 ## 4. 当前不做的事
 
-- 不在这页承诺完整产品壳实现。
+- 不在这页接入真实项目、账号或路由数据。
 - 不在这页确定“更多”的最终业务策略。
 - 不在这页把所有导航色重新复制一遍。
 `;
@@ -97,24 +100,29 @@ const structureRows = [
   { key: "bottom", item: "下导航", value: "46px", owner: "TopNavigation", source: "组件结构常量" },
   { key: "entry", item: "功能入口热区", value: "32 × 32", owner: "TopNavigation", source: "组件结构常量" },
   { key: "nav-item", item: "导航项高度", value: "40px", owner: "TopNavigation", source: "组件结构常量" },
+  { key: "project-panel", item: "项目切换面板", value: "294px / 288px max", owner: "ProjectSwitcher", source: "产品壳浮层结构常量" },
+  { key: "project-option", item: "项目切换选项", value: "262 × 36px", owner: "ProjectSwitcher", source: "产品壳浮层结构常量" },
   { key: "fade", item: "页面过渡层", value: "98px", owner: "Navigation Color helper", source: "导航效果" },
 ];
 
 const stateRows = [
-  { key: "nav", name: "NavItem", variants: "默认 / 悬停 / 选中；选择器 True / False", note: "主导航项基础变体" },
+  { key: "nav", name: "NavItem", variants: "默认 / 悬停 / 选中；选择器 True / False", note: "选中只显示文字下方的白色短线，不使用整项背景" },
+  { key: "utility", name: "UtilityIconButton", variants: "默认 / 悬停 / 选中", note: "默认透明；仅平台、资源管理、审批拥有持续选中态" },
   { key: "dropdown", name: "DropdownItem", variants: "默认 / 悬停 / 点击 / 选中", note: "产品壳专属浮层项" },
-  { key: "project", name: "ProjectSwitcher", variants: "多项目默认 / 多项目悬停 / 单项目默认", note: "项目入口独立规则" },
-  { key: "account", name: "AccountRole", variants: "默认 / 悬停", note: "账号角色胶囊" },
+  { key: "project", name: "ProjectSwitcher", variants: "关闭 / 打开 / 项目选中", note: "点击打开预览项目列表，选择后回填项目名称" },
+  { key: "account", name: "AccountRole", variants: "关闭 / 打开 / 菜单项悬停", note: "点击账号角色胶囊打开预览账号菜单" },
   { key: "more", name: "更多", variants: "当前不写固定阈值", note: "等待产品需求定义收纳策略" },
 ];
 
 const tokenRows = [
-  { key: "bg", item: "顶导航背景", bucket: "Navigation Color", handle: "getThemeTopBackground()", note: "导航效果 helper，可随换肤变化" },
+  { key: "bg", item: "顶导航背景与氛围层", bucket: "Navigation Color", handle: "getThemeTopBackground() / getThemeTopAtmosphere()", note: "基础渐变与氛围叠层分开换肤" },
   { key: "nav-icon-shape", item: "导航图标形状", bucket: "Icon", handle: "Icon / navigation / nav-*", note: "右上角工具、产品切换、展开箭头" },
   { key: "text", item: "顶导航文字 / 工具图标 / 箭头", bucket: "Navigation Color", handle: "theme-top-text*", note: "默认 80%，hover / 选中 100%" },
-  { key: "func-icon", item: "功能入口菜单图标", bucket: "Navigation Color", handle: "theme-top-funcMenu-icon*", note: "产品切换 / 功能入口图标颜色" },
+  { key: "function-entry", item: "功能入口九宫格 / 工具图标状态", bucket: "Navigation Color", handle: "theme-top-text* + theme-top-icon-*", note: "默认透明；hover / 选中使用黑色透明背景" },
+  { key: "func-icon", item: "功能入口菜单内图标", bucket: "Navigation Color", handle: "theme-top-funcMenu-icon*", note: "白底功能入口菜单中的默认 / hover / 选中图标色" },
   { key: "divider", item: "横线 / 竖线", bucket: "Navigation Color", handle: "theme-top-line-*", note: "黑色透明度线条" },
-  { key: "menu-line", item: "菜单线", bucket: "Navigation Color", handle: "theme-top-menuLine-*", note: "选中与分组分隔线" },
+  { key: "menu-line", item: "项目菜单描边 / 分割线", bucket: "Navigation Color", handle: "theme-top-menuLine-*", note: "项目菜单选中描边和分组分隔线，不用于顶导短线" },
+  { key: "nav-selection", item: "主导航选中短线", bucket: "Navigation Color", handle: "theme-top-text-active", note: "白色 16 × 3 短线，带选择器时仅位于文字下方" },
   { key: "radius", item: "下拉圆角", bucket: "Foundation", handle: "radius/m", note: "面板圆角继续复用基础 token" },
   { key: "shadow", item: "下拉投影", bucket: "Foundation", handle: "buildShadow(D4) / popup shadow", note: "浮层投影不在导航颜色里单独定义" },
 ];
@@ -125,12 +133,8 @@ const decisionRows = [
   { key: "min-width", item: "1280 以下策略", value: "横向滚动", detail: "1280px 是电脑端最小宽度，不再继续压缩" },
   { key: "more-threshold", item: "更多菜单阈值", value: "待产品定义", detail: "当前不沉淀固定断点" },
   { key: "dropdown", item: "下拉菜单归属", value: "产品壳专属", detail: "样式和颜色独立，但圆角投影继续吃 foundation token" },
-  { key: "gradient", item: "导航渐变 helper", value: "进入 Navigation Color", detail: "作为导航效果沉淀，但不强制所有导航都使用渐变" },
+  { key: "gradient", item: "导航渐变 helper", value: "进入 Navigation Color", detail: "基础背景与氛围叠层分别沉淀，但不强制所有导航都使用渐变" },
 ];
-
-type PreviewOutletContext = {
-  skin: FunctionalSkin;
-};
 
 function StructureTable() {
   const columns: ColumnsType<(typeof structureRows)[number]> = [
@@ -238,23 +242,51 @@ function NavigationIcon({
   );
 }
 
+type TopNavigationPanel = "project" | "account" | "marketing" | null;
+
+const PROJECT_OPTIONS = ["零售增长项目", "品牌增长项目", "新零售实验项目"];
+const ACCOUNT_MENU_ITEMS = ["个人中心", "语言", "诊断工具", "查询队列明细", "修改密码", "退出登录"];
+const MARKETING_MENU_ITEMS = ["营销活动总览", "活动计划", "优惠券配置", "触达流程"];
+
 function TopNavigationShellSpecimen() {
   const { token } = theme.useToken();
-  const { skin } = useOutletContext<PreviewOutletContext>();
+  const [activeNavLabel, setActiveNavLabel] = useState("数据看板");
+  const [activeProject, setActiveProject] = useState(PROJECT_OPTIONS[0]);
+  const [activeAccountMenuItem, setActiveAccountMenuItem] = useState("语言");
+  const [activeMarketingMenuItem, setActiveMarketingMenuItem] = useState(MARKETING_MENU_ITEMS[0]);
+  const [openPanel, setOpenPanel] = useState<TopNavigationPanel>(null);
+  const [hoveredMenuItem, setHoveredMenuItem] = useState<string | null>(null);
+  const [hoveredUtilityIcon, setHoveredUtilityIcon] = useState<IconName | null>(null);
+  const [activeUtilityIcon, setActiveUtilityIcon] = useState<IconName | null>(null);
+  const [isFunctionEntryHovered, setIsFunctionEntryHovered] = useState(false);
+  const [hoveredNavLabel, setHoveredNavLabel] = useState<string | null>(null);
+  const navigationTheme: NavigationTheme = "green";
   const navRadius = u["radius/xl"] ?? token.borderRadius;
-  const topText = tokenRgba("theme-top-text", 0.8);
-  const panelText = tokenRgba("theme-top-funcMenu-text", 0.9);
-  const panelStroke = tokenRgba("theme-top-line-dack", 0.08);
-  const panelDivider = tokenRgba("theme-top-line-dack", 0.06);
-  const activeBg = tokenRgba("theme-top-funcMenu-background-active", 0.12);
+  const topText = getColorToken("theme-top-text");
+  const panelText = getColorToken("theme-top-funcMenu-text");
+  const panelStroke = getColorToken("theme-top-line-dack");
+  const panelDivider = getColorToken("theme-top-line-light");
+  const activeBg = getColorToken("theme-top-funcMenu-background-active");
   const activeText = getColorToken("theme-top-funcMenu-text-active");
+  const functionMenuHoverText = getColorToken("theme-top-funcMenu-text-hover");
+  const menuLineOutlined = getColorToken("theme-top-menuLine-outlined");
+  const menuLineActive = getColorToken("theme-top-menuLine-active");
+  const topTextActive = getColorToken("theme-top-text-active");
+  const topTextHover = getColorToken("theme-top-text-hover");
+  const topIconHover = getColorToken("theme-top-icon-hover");
+  const topIconActive = getColorToken("theme-top-icon-active");
   const topIconColor = topText;
-  const funcMenuIconColor = getColorToken("theme-top-funcMenu-icon");
+  const projectText = getColorToken("theme-top-proMenu-text");
+  const projectTextHover = getColorToken("theme-top-proMenu-text-hover");
+  const projectTextActive = getColorToken("theme-top-proMenu-text-active");
+  const projectHoverBg = getColorToken("theme-top-proMenu-background-hover");
+  const projectActiveBg = getColorToken("theme-top-proMenu-background-active");
+  const functionMenuHoverBg = getColorToken("theme-top-funcMenu-background-hover");
 
   const canvasWidth = 1280;
   const navItems = [
-    { label: "首页", active: false },
-    { label: "数据看板", active: true },
+    { label: "首页" },
+    { label: "数据看板" },
     { label: "营销活动", active: false, arrow: true },
     { label: "人群资产", active: false },
     { label: "内容管理", active: false, arrow: true },
@@ -264,14 +296,89 @@ function TopNavigationShellSpecimen() {
     { label: "更多", active: false, arrow: true },
   ];
 
-  const utilityItems: Array<{ label: string; icon: IconName; nodeId: string }> = [
+  const utilityItems: Array<{ label: string; icon: IconName; nodeId: string; selectable?: boolean }> = [
     { label: "帮助中心", icon: "nav-helpcenter", nodeId: "803:199" },
     { label: "通知", icon: "nav-notice", nodeId: "803:174" },
-    { label: "平台", icon: "nav-platform", nodeId: "803:177" },
-    { label: "资源管理", icon: "nav-workload-manager", nodeId: "4934:15929" },
-    { label: "审批", icon: "nav-examine", nodeId: "4934:15931" },
+    { label: "平台", icon: "nav-platform", nodeId: "803:177", selectable: true },
+    { label: "资源管理", icon: "nav-workload-manager", nodeId: "4934:15929", selectable: true },
+    { label: "审批", icon: "nav-examine", nodeId: "4934:15931", selectable: true },
     { label: "语言", icon: "nav-language", nodeId: "7576:28035" },
   ];
+
+  const panelStyle = {
+    position: "absolute" as const,
+    top: `calc(100% + ${u["spacing/1․5x"]}px)`,
+    borderRadius: token.borderRadius,
+    background: getColorToken("white"),
+    boxShadow: buildShadowD4(),
+    zIndex: 3,
+  };
+
+  const functionMenuPanelStyle = {
+    ...panelStyle,
+    width: 220,
+    padding: "6px 8px 10px",
+    display: "flex",
+    flexDirection: "column" as const,
+    gap: u["spacing/1x"],
+  };
+
+  const projectPanelStyle = {
+    ...panelStyle,
+    width: 294,
+    maxHeight: 288,
+    overflowY: "auto" as const,
+    padding: u["spacing/4x"],
+    display: "flex",
+    flexDirection: "column" as const,
+    gap: u["spacing/2x"],
+    boxSizing: "border-box" as const,
+  };
+
+  const getPanelItemStyle = ({
+    key,
+    selected,
+    color,
+    hoverColor = color,
+    selectedColor,
+    hoverBackground,
+    selectedBackground,
+    outlineColor,
+    selectedOutlineColor,
+    justifyContent = "flex-start",
+  }: {
+    key: string;
+    selected: boolean;
+    color: string;
+    hoverColor?: string;
+    selectedColor: string;
+    hoverBackground: string;
+    selectedBackground: string;
+    outlineColor?: string;
+    selectedOutlineColor?: string;
+    justifyContent?: "flex-start" | "center";
+  }) => ({
+    width: "100%",
+    height: 36,
+    boxSizing: "border-box" as const,
+    padding: `0 ${u["spacing/3x"]}px`,
+    display: "flex",
+    alignItems: "center",
+    outline: "none",
+    borderRadius: token.borderRadius,
+    border: outlineColor ? `1px solid ${selected ? selectedOutlineColor ?? outlineColor : outlineColor}` : 0,
+    background: selected ? selectedBackground : hoveredMenuItem === key ? hoverBackground : "transparent",
+    color: selected ? selectedColor : hoveredMenuItem === key ? hoverColor : color,
+    cursor: "pointer",
+    fontWeight: selected ? 600 : 400,
+    textAlign: "left" as const,
+    justifyContent,
+    whiteSpace: "nowrap" as const,
+  });
+
+  const togglePanel = (panel: Exclude<TopNavigationPanel, null>) => {
+    setOpenPanel((current) => (current === panel ? null : panel));
+  };
 
   return (
     <Space direction="vertical" size="large" style={{ width: "100%" }}>
@@ -308,18 +415,14 @@ function TopNavigationShellSpecimen() {
               position: "relative",
               height: 180,
               padding: 0,
-              background: getThemeTopBackground(skin),
+              background: getThemeTopBackground(navigationTheme),
             }}
           >
             <div
               style={{
                 position: "absolute",
                 inset: 0,
-                background: [
-                  `radial-gradient(circle at 18% 62%, ${tokenRgba("white", 0.14)} 0, transparent 34%)`,
-                  `radial-gradient(circle at 82% -8%, ${tokenRgba("white", 0.12)} 0, transparent 42%)`,
-                  `linear-gradient(180deg, transparent 0%, ${tokenRgba("theme-top-line-dack", 0.12)} 100%)`,
-                ].join(", "),
+                background: getThemeTopAtmosphere(navigationTheme),
                 pointerEvents: "none",
               }}
             />
@@ -364,24 +467,70 @@ function TopNavigationShellSpecimen() {
                     >
                       SENS
                     </div>
-                    <Text style={{ color: topText, whiteSpace: "nowrap" }}>零售增长项目</Text>
+                    <Text style={{ color: topText, whiteSpace: "nowrap" }}>{activeProject}</Text>
                   </div>
 
-                  <div
-                    style={{
-                      height: 24,
-                      padding: "0 10px",
-                      borderRadius: token.borderRadius,
-                      background: tokenRgba("white", 0.1),
-                      color: topText,
-                      display: "flex",
-                      alignItems: "center",
-                      gap: 6,
-                      flexShrink: 0,
-                    }}
-                  >
-                    <span>项目切换</span>
-                    <NavigationIcon name="nav-down" label="展开项目切换" color={topIconColor} />
+                  <div style={{ position: "relative", flexShrink: 0 }}>
+                    <button
+                      type="button"
+                      aria-label="项目切换"
+                      aria-haspopup="menu"
+                      aria-expanded={openPanel === "project"}
+                      onClick={() => togglePanel("project")}
+                      style={{
+                        height: 24,
+                        padding: `0 ${u["spacing/2․5x"]}px`,
+                        border: 0,
+                        outline: "none",
+                        borderRadius: token.borderRadius,
+                        background: tokenRgba("white", 0.1),
+                        color: topText,
+                        display: "flex",
+                        alignItems: "center",
+                        gap: u["spacing/1․5x"],
+                        cursor: "pointer",
+                        whiteSpace: "nowrap",
+                      }}
+                    >
+                      <span>项目切换</span>
+                      <span style={{ display: "inline-flex", transform: openPanel === "project" ? "rotate(180deg)" : undefined }}>
+                        <NavigationIcon name="nav-down" label="展开项目切换" color={topIconColor} />
+                      </span>
+                    </button>
+                    {openPanel === "project" ? (
+                      <div role="menu" aria-label="项目切换菜单" style={{ ...projectPanelStyle, left: 0 }} onMouseLeave={() => setHoveredMenuItem(null)}>
+                        {PROJECT_OPTIONS.map((project) => {
+                          const itemKey = `project-${project}`;
+                          return (
+                            <button
+                              key={project}
+                              type="button"
+                              role="menuitem"
+                              onClick={() => {
+                                setActiveProject(project);
+                                setOpenPanel(null);
+                              }}
+                              onMouseEnter={() => setHoveredMenuItem(itemKey)}
+                              onMouseLeave={() => setHoveredMenuItem(null)}
+                              style={getPanelItemStyle({
+                                key: itemKey,
+                                selected: project === activeProject,
+                                color: projectText,
+                                hoverColor: projectTextHover,
+                                selectedColor: projectTextActive,
+                                hoverBackground: projectHoverBg,
+                                selectedBackground: projectActiveBg,
+                                outlineColor: menuLineOutlined,
+                                selectedOutlineColor: menuLineActive,
+                                justifyContent: "center",
+                              })}
+                            >
+                              {project}
+                            </button>
+                          );
+                        })}
+                      </div>
+                    ) : null}
                   </div>
                 </div>
 
@@ -393,38 +542,100 @@ function TopNavigationShellSpecimen() {
                     flexShrink: 0,
                   }}
                 >
-                  {utilityItems.map((item) => (
-                    <div
-                      key={item.label}
-                      title={item.label}
-                      aria-label={item.label}
-                      data-figma-node-id={item.nodeId}
+                  {utilityItems.map((item) => {
+                    const isSelected = item.selectable && activeUtilityIcon === item.icon;
+                    const isHovered = hoveredUtilityIcon === item.icon;
+                    const iconColor = isSelected ? topTextActive : isHovered ? topTextHover : topIconColor;
+                    const iconBackground = isSelected ? topIconActive : isHovered ? topIconHover : "transparent";
+
+                    return (
+                      <button
+                        key={item.label}
+                        type="button"
+                        title={item.label}
+                        aria-label={item.label}
+                        aria-pressed={isSelected || undefined}
+                        data-figma-node-id={item.nodeId}
+                        onMouseEnter={() => setHoveredUtilityIcon(item.icon)}
+                        onMouseLeave={() => setHoveredUtilityIcon(null)}
+                        onClick={() => {
+                          if (!item.selectable) return;
+                          setActiveUtilityIcon((current) => (current === item.icon ? null : item.icon));
+                        }}
+                        style={{
+                          width: 26,
+                          height: 26,
+                          padding: 5,
+                          display: "grid",
+                          placeItems: "center",
+                          flexShrink: 0,
+                          border: 0,
+                          outline: "none",
+                          borderRadius: u["radius/m"],
+                          background: iconBackground,
+                          color: iconColor,
+                          cursor: "pointer",
+                        }}
+                      >
+                        <NavigationIcon name={item.icon} label={item.label} color="currentColor" />
+                      </button>
+                    );
+                  })}
+                  <div style={{ width: 1, height: 16, background: panelStroke, flexShrink: 0 }} />
+                  <div style={{ position: "relative", flexShrink: 0 }}>
+                    <button
+                      type="button"
+                      aria-label="卓越 分析师"
+                      aria-haspopup="menu"
+                      aria-expanded={openPanel === "account"}
+                      onClick={() => togglePanel("account")}
                       style={{
-                        width: 16,
-                        height: 16,
-                        display: "grid",
-                        placeItems: "center",
-                        flexShrink: 0,
+                        height: 28,
+                        padding: `0 ${u["spacing/3x"]}px`,
+                        border: 0,
+                        outline: "none",
+                        borderRadius: u["radius/circular"],
+                        background: getColorToken("theme-top-role-background"),
+                        display: "flex",
+                        alignItems: "center",
+                        gap: u["spacing/2․5x"],
+                        cursor: "pointer",
                       }}
                     >
-                      <NavigationIcon name={item.icon} label={item.label} color={topIconColor} />
-                    </div>
-                  ))}
-                  <div style={{ width: 1, height: 16, background: panelStroke, flexShrink: 0 }} />
-                  <div
-                    style={{
-                      height: 28,
-                      padding: "0 12px",
-                      borderRadius: 999,
-                      background: tokenRgba("theme-top-role-background", 0.14),
-                      display: "flex",
-                      alignItems: "center",
-                      gap: 10,
-                      flexShrink: 0,
-                    }}
-                  >
-                    <div style={{ color: topText, fontWeight: 600, whiteSpace: "nowrap" }}>卓越</div>
-                    <div style={{ color: topText, fontSize: 12, whiteSpace: "nowrap" }}>分析师</div>
+                      <span style={{ color: topText, fontWeight: 600, whiteSpace: "nowrap" }}>卓越</span>
+                      <span style={{ color: topText, fontSize: 12, whiteSpace: "nowrap" }}>分析师</span>
+                    </button>
+                    {openPanel === "account" ? (
+                      <div role="menu" aria-label="分析师账号菜单" style={{ ...functionMenuPanelStyle, right: 0 }} onMouseLeave={() => setHoveredMenuItem(null)}>
+                        {ACCOUNT_MENU_ITEMS.map((item) => {
+                          const itemKey = `account-${item}`;
+                          return (
+                            <button
+                              key={item}
+                              type="button"
+                              role="menuitem"
+                              onClick={() => {
+                                setActiveAccountMenuItem(item);
+                                if (item === "退出登录") setOpenPanel(null);
+                              }}
+                              onMouseEnter={() => setHoveredMenuItem(itemKey)}
+                              onMouseLeave={() => setHoveredMenuItem(null)}
+                              style={getPanelItemStyle({
+                                key: itemKey,
+                                selected: item === activeAccountMenuItem,
+                                color: panelText,
+                                hoverColor: functionMenuHoverText,
+                                selectedColor: activeText,
+                                hoverBackground: functionMenuHoverBg,
+                                selectedBackground: activeBg,
+                              })}
+                            >
+                              {item}
+                            </button>
+                          );
+                        })}
+                      </div>
+                    ) : null}
                   </div>
                 </div>
               </div>
@@ -441,21 +652,28 @@ function TopNavigationShellSpecimen() {
                 }}
               >
                 <div style={{ display: "flex", alignItems: "center", gap: 10, flexShrink: 0 }}>
-                  <div
+                  <button
+                    type="button"
+                    aria-label="产品导航"
+                    onMouseEnter={() => setIsFunctionEntryHovered(true)}
+                    onMouseLeave={() => setIsFunctionEntryHovered(false)}
                     style={{
                       width: 32,
                       height: 32,
-                      borderRadius: token.borderRadius,
-                      background: tokenRgba("theme-top-line-dack", 0.1),
+                      padding: 7,
+                      border: 0,
+                      outline: "none",
+                      borderRadius: u["radius/m"],
+                      background: isFunctionEntryHovered ? topIconHover : "transparent",
                       display: "grid",
                       placeItems: "center",
-                      color: getColorToken("white"),
-                      fontSize: 12,
                       flexShrink: 0,
+                      color: isFunctionEntryHovered ? topTextHover : topIconColor,
+                      cursor: "pointer",
                     }}
                   >
-                    <NavigationIcon name="nav-product-navigation" label="产品导航" color={funcMenuIconColor} />
-                  </div>
+                    <NavigationIcon name="nav-product-navigation" label="产品导航" color="currentColor" size={18} />
+                  </button>
                   <div style={{ color: topText, fontWeight: 600, whiteSpace: "nowrap" }}>功能入口</div>
                   <div style={{ width: 1, height: 16, background: panelStroke, marginLeft: 6, flexShrink: 0 }} />
                 </div>
@@ -471,34 +689,109 @@ function TopNavigationShellSpecimen() {
                     minWidth: 0,
                   }}
                 >
-                  {navItems.map((item) => (
-                    <div
-                      key={item.label}
-                      style={{
-                        height: 40,
-                        padding: "0 16px",
-                        borderRadius: token.borderRadius,
-                        display: "flex",
-                        alignItems: "center",
-                        gap: 6,
-                        color: item.active ? getColorToken("white") : topText,
-                        background: item.active ? tokenRgba("white", 0.08) : "transparent",
-                        border: item.active ? `1px solid ${tokenRgba("white", 0.08)}` : "1px solid transparent",
-                        fontWeight: item.active ? 600 : 400,
-                        flexShrink: 0,
-                        whiteSpace: "nowrap",
-                      }}
-                    >
-                      <span style={{ whiteSpace: "nowrap" }}>{item.label}</span>
-                      {item.arrow ? (
-                        <NavigationIcon
-                          name="nav-down"
-                          label={`${item.label} 展开`}
-                          color={item.active ? getColorToken("theme-top-text-active") : topIconColor}
-                        />
-                      ) : null}
-                    </div>
-                  ))}
+                  {navItems.map((item) => {
+                    const isActive = item.label === activeNavLabel;
+                    const isHovered = item.label === hoveredNavLabel;
+                    const hasMarketingMenu = item.label === "营销活动";
+                    const itemColor = isActive ? topTextActive : isHovered ? topTextHover : topText;
+                    return (
+                      <div key={item.label} style={{ position: "relative", flexShrink: 0 }}>
+                        <button
+                          type="button"
+                          aria-label={item.label}
+                          aria-haspopup={hasMarketingMenu ? "menu" : undefined}
+                          aria-expanded={hasMarketingMenu ? openPanel === "marketing" : undefined}
+                          onClick={() => {
+                            setActiveNavLabel(item.label);
+                            setOpenPanel((current) => (hasMarketingMenu ? (current === "marketing" ? null : "marketing") : null));
+                          }}
+                          onMouseEnter={() => setHoveredNavLabel(item.label)}
+                          onMouseLeave={() => setHoveredNavLabel(null)}
+                          style={{
+                            position: "relative",
+                            height: 40,
+                            padding: isActive ? `8px ${u["spacing/4x"]}px 1px` : `4px ${u["spacing/4x"]}px`,
+                            border: 0,
+                            outline: "none",
+                            borderRadius: token.borderRadius,
+                            display: "flex",
+                            alignItems: "flex-start",
+                            gap: u["spacing/1․5x"],
+                            color: itemColor,
+                            background: "transparent",
+                            cursor: "pointer",
+                            fontWeight: isActive ? 600 : 400,
+                            flexShrink: 0,
+                            whiteSpace: "nowrap",
+                          }}
+                        >
+                          <span
+                            style={{
+                              display: "flex",
+                              flexDirection: "column",
+                              alignItems: "center",
+                              gap: isActive ? (item.arrow ? 2 : 4) : 0,
+                              lineHeight: "24px",
+                              whiteSpace: "nowrap",
+                            }}
+                          >
+                            <span>{item.label}</span>
+                            {isActive ? (
+                              <span
+                                aria-hidden
+                                style={{
+                                  width: 16,
+                                  height: 3,
+                                  borderRadius: u["radius/m"],
+                                  background: topTextActive,
+                                }}
+                              />
+                            ) : null}
+                          </span>
+                          {item.arrow ? (
+                            <span style={{ paddingTop: 4, paddingBottom: isActive ? 7 : 0 }}>
+                              <NavigationIcon
+                                name="nav-down"
+                                label={`${item.label} 展开`}
+                                color="currentColor"
+                              />
+                            </span>
+                          ) : null}
+                        </button>
+                        {hasMarketingMenu && openPanel === "marketing" ? (
+                          <div role="menu" aria-label="营销活动菜单" style={{ ...functionMenuPanelStyle, left: "50%", transform: "translateX(-50%)" }} onMouseLeave={() => setHoveredMenuItem(null)}>
+                            {MARKETING_MENU_ITEMS.map((menuItem) => {
+                              const itemKey = `marketing-${menuItem}`;
+                              return (
+                                <button
+                                  key={menuItem}
+                                  type="button"
+                                  role="menuitem"
+                                  onClick={() => {
+                                    setActiveMarketingMenuItem(menuItem);
+                                    setOpenPanel(null);
+                                  }}
+                                  onMouseEnter={() => setHoveredMenuItem(itemKey)}
+                                  onMouseLeave={() => setHoveredMenuItem(null)}
+                                  style={getPanelItemStyle({
+                                    key: itemKey,
+                                    selected: menuItem === activeMarketingMenuItem,
+                                    color: panelText,
+                                    hoverColor: functionMenuHoverText,
+                                    selectedColor: activeText,
+                                    hoverBackground: functionMenuHoverBg,
+                                    selectedBackground: activeBg,
+                                  })}
+                                >
+                                  {menuItem}
+                                </button>
+                              );
+                            })}
+                          </div>
+                        ) : null}
+                      </div>
+                    );
+                  })}
                 </div>
               </div>
             </div>
@@ -514,52 +807,6 @@ function TopNavigationShellSpecimen() {
               }}
             />
 
-            <div
-              style={{
-                position: "absolute",
-                top: 78,
-                left: 286,
-                width: 260,
-                padding: 10,
-                borderRadius: token.borderRadius,
-                background: getColorToken("white"),
-                boxShadow: buildShadowD4(),
-                border: `1px solid ${tokenRgba("theme-top-line-dack", 0.04)}`,
-                zIndex: 2,
-              }}
-            >
-              <div
-                style={{
-                  height: 36,
-                  borderRadius: token.borderRadius,
-                  background: activeBg,
-                  color: activeText,
-                  display: "flex",
-                  alignItems: "center",
-                  padding: "0 12px",
-                  fontWeight: 600,
-                  marginBottom: 4,
-                  whiteSpace: "nowrap",
-                }}
-              >
-                营销活动总览
-              </div>
-              {["活动计划", "优惠券配置", "触达流程"].map((item) => (
-                <div
-                  key={item}
-                  style={{
-                    height: 36,
-                    display: "flex",
-                    alignItems: "center",
-                    padding: "0 12px",
-                    color: panelText,
-                    whiteSpace: "nowrap",
-                  }}
-                >
-                  {item}
-                </div>
-              ))}
-            </div>
           </div>
 
           <div

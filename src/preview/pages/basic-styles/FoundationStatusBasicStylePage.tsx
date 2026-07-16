@@ -28,7 +28,7 @@ const DASHBOARD_DOC = `
 
 - foundation 层已经有不少内容可以直接进 \`DESIGN.md\`。
 - 真正高优缺口不是“全部重做”，而是“补映射、补边界、补承载方式判断”。
-- \`Layout / Grid\` 现在更适合沉淀规则和页面骨架，不建议为了它单开一整套 token 生成链路。
+- \`Layout\` 和 \`Grid\` 现在更适合沉淀规则和页面骨架，不建议为了它们单开一整套 token 生成链路。
 `;
 
 type Maturity = "高" | "中高" | "中" | "中偏低";
@@ -124,16 +124,28 @@ const FOUNDATION_ROWS: FoundationRow[] = [
     priority: "中",
   },
   {
-    key: "layout-grid",
-    name: "Layout / Grid",
+    key: "layout",
+    name: "Layout",
     doc: "已有",
     preview: "已有",
     tokenFit: "规则优先",
     maturity: "中",
     designMdFit: "可直接写",
-    gap: "缺页面模板映射、max-width / page padding / double-panel 比例等配置口径。",
-    next: "先沉淀规则，不单独开一整套 token 生成链路。",
+    gap: "缺真实页面模板映射，以及页面边距、内容最大宽度、双栏比例等配置口径。",
+    next: "先沉淀页面骨架和左侧区域行为，不单独开 token 生成链路。",
     priority: "高",
+  },
+  {
+    key: "grid",
+    name: "Grid",
+    doc: "已有",
+    preview: "已有",
+    tokenFit: "规则优先",
+    maturity: "中",
+    designMdFit: "可直接写",
+    gap: "缺 20 栏 / 12 栏与真实样板间、局部容器的典型映射。",
+    next: "先沉淀列数与占栏样张，再从真实模板判断 config 缺口。",
+    priority: "中",
   },
   {
     key: "size",
@@ -224,21 +236,21 @@ const TOKEN_GAP_ROWS: TokenGapRow[] = [
     key: "nav-map",
     item: "Navigation Color 完整映射表",
     owner: "Navigation Color",
-    current: "缺完整 Figma -> token -> 用途 -> 是否换肤 映射。",
+    current: "神策绿产品壳主题映射已完成；蓝、黄等主题矩阵待补。",
     carry: "token",
-    reason: "这是现在最影响 DESIGN.md 可信度的一块。",
-    priority: "高",
-    sprint: "是",
+    reason: "已形成新增导航主题时可复用的对照模板。",
+    priority: "中",
+    sprint: "否",
   },
   {
     key: "nav-gradient",
     item: "顶导航 / 侧导航渐变承接",
     owner: "Navigation Color",
-    current: "有规则，无稳定代码承接。",
+    current: "神策绿顶导 / 侧导渐变已入库，并通过 helper 消费。",
     carry: "helper",
-    reason: "渐变先保证统一消费，比急着塞进 foundation token 更重要。",
-    priority: "高",
-    sprint: "是",
+    reason: "后续只需为新 Navigation Theme 补同一槽位。",
+    priority: "中",
+    sprint: "否",
   },
   {
     key: "active-diff",
@@ -253,8 +265,8 @@ const TOKEN_GAP_ROWS: TokenGapRow[] = [
   {
     key: "layout-config",
     item: "页面边距 / 内容最大宽度 / 双栏比例",
-    owner: "Layout / Grid",
-    current: "有规则，无统一承载。",
+    owner: "Layout",
+    current: "页面骨架和左侧区域行为已拆分，页面边距等配置仍无统一承载。",
     carry: "config / 常量",
     reason: "这些更像布局配置，不像 design token。",
     priority: "中",
@@ -262,9 +274,9 @@ const TOKEN_GAP_ROWS: TokenGapRow[] = [
   },
   {
     key: "sider-width",
-    item: "侧边导航宽度 200",
-    owner: "Layout / Grid",
-    current: "规则已定，未统一承载。",
+    item: "产品壳侧导航展开宽度 220",
+    owner: "Layout / Product Side Navigation",
+    current: "Figma 和当前产品壳实现一致，尚未统一承载。",
     carry: "config / 常量",
     reason: "固定结构尺寸，配置化比 token 化更自然。",
     priority: "中",
@@ -390,15 +402,15 @@ const PRIORITY_ROWS = [
   },
   {
     key: "layout-map",
-    item: "Layout / Grid 与页面样板间挂钩",
+    item: "Layout 与 Grid 和页面样板间挂钩",
     why: "规则已经有了，但还没和页面模板形成一眼能选的关系。",
-    avoid: "不是给 Layout / Grid 新开整套 token。",
-    action: "在页面样板间阶段补‘哪类页面用哪种骨架’。",
+    avoid: "不是给 Layout 或 Grid 新开整套 token。",
+    action: "在页面样板间阶段补‘哪类页面用哪种骨架’，并让 Grid 跟随剩余内容宽度。",
   },
 ];
 
 const SUMMARY_ROWS = [
-  { key: "direct", label: "可直接进 DESIGN.md", value: 7, note: "Typography、Spacing、Layout/Grid、Size、Icon、Shadow、Divider" },
+  { key: "direct", label: "可直接进 DESIGN.md", value: 8, note: "Typography、Spacing、Layout、Grid、Size、Icon、Shadow、Divider" },
   { key: "summary", label: "需写摘要 / 边界", value: 4, note: "Color、Theme/Skinning、Navigation Color、Card" },
   { key: "high-gap", label: "高优 token / 映射缺口", value: 7, note: "先补映射和承载方式判断，不是全部入库" },
   { key: "no-token", label: "暂不 token 化", value: 3, note: "Layout 配置、Search 253、component-active 真相源" },
@@ -608,8 +620,8 @@ function FoundationStatusSpecimen() {
       <Alert
         type="warning"
         showIcon
-        message="Layout / Grid 先沉淀规则，不急着做独立 token"
-        description="目前更重要的是页面骨架、断点、样板间映射和边界说明；像页面边距、最大宽度、侧导宽度、双栏比例这类值，更适合优先判断是否应放进 config / 常量，而不是直接进 token。"
+        message="Layout 与 Grid 先沉淀规则，不急着做独立 token"
+        description="目前更重要的是页面骨架、左侧区域行为、断点、样板间映射和边界说明；像页面边距、最大宽度、产品壳侧导展开宽度、双栏比例这类值，更适合优先判断是否应放进 config / 常量，而不是直接进 token。"
       />
 
       <section>

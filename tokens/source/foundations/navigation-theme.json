@@ -1,0 +1,87 @@
+{
+  "$schema": "sens.foundation.navigation-theme.v1",
+  "$description": "产品壳导航主题补充源。Figma 当前颜色变量不输出渐变值，因此顶导与侧导背景在此按 Figma 色板节点 2194:54928 录入。新增导航主题时必须补齐同一组槽位。",
+  "theme": {
+    "green": {
+      "top": {
+        "background": {
+          "$type": "gradient",
+          "$extensions": {
+            "sens": { "handle": "theme-top-background" }
+          },
+          "$value": {
+            "type": "linear",
+            "angle": 135,
+            "stops": [
+              { "color": "#0F9670", "position": 0 },
+              { "color": "#0D826D", "position": 100 }
+            ]
+          }
+        },
+        "atmosphere": {
+          "$type": "gradient-stack",
+          "$description": "顶导航的氛围叠层。它独立于基础背景渐变，作为产品壳主题的一部分随换肤变化。当前绿肤值从已确认预览构成收口；后续其他产品壳主题必须补齐同一槽位。",
+          "$extensions": {
+            "sens": { "handle": "theme-top-atmosphere" }
+          },
+          "$value": {
+            "layers": [
+              {
+                "type": "radial",
+                "geometry": "circle at 18% 62%",
+                "stops": [
+                  { "color": "{中性色.白.01 @white}", "alpha": 0.14, "position": 0 },
+                  { "color": "transparent", "position": 34 }
+                ]
+              },
+              {
+                "type": "radial",
+                "geometry": "circle at 82% -8%",
+                "stops": [
+                  { "color": "{中性色.白.01 @white}", "alpha": 0.12, "position": 0 },
+                  { "color": "transparent", "position": 42 }
+                ]
+              },
+              {
+                "type": "linear",
+                "geometry": "180deg",
+                "stops": [
+                  { "color": "transparent", "position": 0 },
+                  { "color": "{主题色.顶导航.线.01_深 @theme-top-line-dack}", "alpha": 0.12, "position": 100 }
+                ]
+              }
+            ]
+          }
+        }
+      },
+      "side": {
+        "background": {
+          "$type": "gradient",
+          "$extensions": {
+            "sens": { "handle": "theme-side-background" }
+          },
+          "$value": {
+            "type": "linear",
+            "angle": 180,
+            "stops": [
+              { "color": "#FAFCFC", "position": 0 },
+              { "color": "#F0F7F6", "position": 100 }
+            ]
+          }
+        }
+      },
+      "title": {
+        "background": {
+          "$type": "color",
+          "$value": "#F5FAFA"
+        }
+      },
+      "page": {
+        "background": {
+          "$type": "color",
+          "$value": "#F5FAFA"
+        }
+      }
+    }
+  }
+}

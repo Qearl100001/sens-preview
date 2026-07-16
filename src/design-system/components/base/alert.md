@@ -11,6 +11,7 @@
 |---|---|---|
 | Sens.Design 提示专档 | [Figma · 校准版](https://www.figma.com/design/dsN9p6XMfzPkWzsjZAHaRb/Sens.Design_%E6%8F%90%E7%A4%BA-v0.3_20220324?node-id=1417-2759&m=dev) | 提示族规范正文（含警告条场景） |
 | 大库 · 警告 (Alert) | [Figma · 3476-12400](https://www.figma.com/design/IBBF40Lst6uPPJf70pi0bh/%F0%9F%A6%84-%E8%AE%BE%E8%AE%A1%E7%B3%BB%E7%BB%9F_v2.1%EF%BC%88%E7%A5%9E%E7%AD%96%E7%BB%BF%EF%BC%89?node-id=3476-12400&m=dev) | 组件变体矩阵（类型 × 辅助文案 × 关闭 × 链接按钮） |
+| 状态图标 | 大库 · `1499:5473` / `1499:5470` / `1499:5471` / `1499:5472` | 常规 / 成功 / 提醒 / 警告的前置图标 |
 | 状态色 / 浅底 / 浅描边 | `Color.json` → `@link-light-*` / `@success-light-*` / `@info-light-*` / `@warning-light-*` 等 | 条背景与描边 |
 
 ## 通则
@@ -46,6 +47,17 @@
 | `warning` | 警告 | `warning-color` | `warning-light-background` | `warning-light-outline` |
 
 四档浅底 / 描边 / 图标均走状态色 `*-color` / `*-light-background` / `*-light-outline`（常规 = 链接链）。
+
+## 状态图标
+
+| `type` | 图标 | Figma 节点 | 说明 |
+|---|---|---|---|
+| `default` | `SensIcon name="feedback-info"` | `1499:5473` | 常规信息图标，颜色走 `link-color` |
+| `success` | `SensIcon name="feedback-complete"` | `1499:5470` | 完成图标，颜色走 `success-color` |
+| `info` | `SensIcon name="feedback-warning"` | `1499:5471` | SensD「提醒」图标，颜色走 `info-color` |
+| `warning` | `SensIcon name="feedback-error"` | `1499:5472` | SensD「警告红」图标，颜色走 `warning-color` |
+
+Alert 前置状态图标必须来自 SensD icon registry，不使用 antd filled status icon。
 
 ## SensAlert API
 
@@ -103,6 +115,7 @@ type SensAlertProps = {
 - [x] 辅助文案色 `@0.58`；字号/行高 `font-size/s` / `line-height/s`
 - [ ] 关闭悬停/点击警告红
 - [x] 关闭资产：`SensIcon name="close"`
+- [x] 状态图标：`feedback-info` / `feedback-complete` / `feedback-warning` / `feedback-error`
 - [ ] 链接按钮细交互（现由调用方传入 `SensButton`）
 - [x] 尺寸：单行 `size/component-height/l`；有辅助公式 pad + hug；标题↔辅助 `spacing/1x`
 - [ ] 默认宽 400 To Confirm

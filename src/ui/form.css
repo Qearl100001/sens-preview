@@ -1,0 +1,291 @@
+.sens-form {
+  display: flex;
+  width: 100%;
+  min-width: 0;
+  flex-direction: column;
+  gap: var(--sens-form-row-gap);
+  color: var(--sens-form-text);
+  font-size: var(--sens-form-label-font-size);
+  line-height: var(--sens-form-label-line-height);
+}
+
+.sens-form-item {
+  display: grid;
+  min-width: 0;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--sens-form-label-stack-gap);
+}
+
+.sens-form--horizontal .sens-form-item,
+.sens-form-item--horizontal {
+  grid-template-columns: var(--sens-form-label-width) minmax(0, 1fr);
+  column-gap: var(--sens-form-label-control-gap);
+  row-gap: 0;
+}
+
+.sens-form--vertical .sens-form-item--horizontal {
+  grid-template-columns: var(--sens-form-label-width) minmax(0, 1fr);
+  column-gap: var(--sens-form-label-control-gap);
+  row-gap: 0;
+}
+
+.sens-form--horizontal .sens-form-item--vertical,
+.sens-form-item--vertical {
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--sens-form-label-stack-gap);
+}
+
+.sens-form-item-label {
+  min-width: 0;
+}
+
+.sens-form--horizontal .sens-form-item-label,
+.sens-form-item--horizontal .sens-form-item-label {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+.sens-form-item-label-row {
+  display: inline-flex;
+  min-width: 0;
+  align-items: center;
+  gap: var(--sens-form-label-inline-gap);
+  color: var(--sens-form-text);
+  font-size: var(--sens-form-label-font-size);
+  font-weight: var(--sens-form-label-font-weight);
+  line-height: var(--sens-form-label-line-height);
+}
+
+.sens-form--horizontal .sens-form-item-label-row,
+.sens-form-item--horizontal .sens-form-item-label-row {
+  min-height: var(--sens-form-control-height);
+}
+
+.sens-form--horizontal .sens-form-item--label-top .sens-form-item-label-row,
+.sens-form-item--horizontal.sens-form-item--label-top .sens-form-item-label-row {
+  min-height: 0;
+}
+
+.sens-form-item-label-text {
+  min-width: 0;
+}
+
+.sens-form--horizontal .sens-form-item-label-text,
+.sens-form-item--horizontal .sens-form-item-label-text {
+  max-width: var(--sens-form-label-text-max-width);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.sens-form-item-optional {
+  color: var(--sens-form-sub-text);
+  flex: 0 0 auto;
+  font-size: var(--sens-form-label-font-size);
+  font-weight: var(--sens-form-optional-font-weight);
+  line-height: var(--sens-form-label-line-height);
+  white-space: nowrap;
+}
+
+.sens-form-item-description,
+.sens-form-item-counter {
+  color: var(--sens-form-sub-text);
+  font-size: var(--sens-form-help-font-size);
+  line-height: var(--sens-form-help-line-height);
+}
+
+.sens-form-item-label-help,
+.sens-form-item-label-extra {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  color: var(--sens-form-icon);
+  cursor: help;
+  line-height: 0;
+  white-space: nowrap;
+}
+
+.sens-form-item-label-extra {
+  line-height: var(--sens-form-label-line-height);
+}
+
+.sens-form-item-control {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: var(--sens-form-message-gap);
+}
+
+.sens-form-item-field {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  gap: var(--sens-form-field-gap);
+}
+
+.sens-form--horizontal .sens-form-item--label-top .sens-form-item-field,
+.sens-form-item--horizontal.sens-form-item--label-top .sens-form-item-field {
+  align-items: flex-start;
+}
+
+.sens-form-item-field > *:first-child {
+  min-width: 0;
+}
+
+.sens-form-item-control-extra {
+  flex: 0 0 auto;
+  color: var(--sens-form-sub-text);
+}
+
+.sens-form-item-meta {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: var(--sens-form-message-gap);
+}
+
+.sens-form-item-error {
+  display: flex;
+  min-width: 0;
+  align-items: flex-start;
+  gap: var(--sens-form-label-inline-gap);
+  color: var(--sens-form-error);
+  font-size: var(--sens-form-help-font-size);
+  line-height: var(--sens-form-help-line-height);
+}
+
+.sens-form-item-error-icon {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  padding-top: calc((var(--sens-form-help-line-height) - var(--sens-form-error-icon-size)) / 2);
+  line-height: 0;
+}
+
+.sens-form-item-error-text {
+  min-width: 0;
+}
+
+.sens-form-actions {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  gap: var(--sens-form-actions-gap);
+}
+
+.sens-form-actions--aligned {
+  padding-left: calc(var(--sens-form-label-width) + var(--sens-form-label-control-gap));
+}
+
+.sens-form-rules-board {
+  display: grid;
+  gap: var(--sens-form-row-gap);
+}
+
+.sens-form-rule-card {
+  display: grid;
+  gap: var(--sens-form-label-stack-gap);
+  padding: var(--sens-form-row-gap);
+  border: var(--sens-form-divider-width) solid var(--sens-form-divider);
+  border-radius: var(--sens-form-card-radius);
+  background: var(--sens-form-surface);
+}
+
+.sens-form-rule-card--muted {
+  background: var(--sens-form-muted-surface);
+}
+
+.sens-form-rule-card-title {
+  color: var(--sens-form-text);
+  font-weight: 500;
+}
+
+.sens-form-rule-card-text {
+  color: var(--sens-form-sub-text);
+  font-size: var(--sens-form-help-font-size);
+  line-height: var(--sens-form-help-line-height);
+}
+
+.sens-form-spacing-ladder {
+  display: grid;
+  gap: var(--sens-form-label-stack-gap);
+}
+
+.sens-form-spacing-row {
+  display: grid;
+  grid-template-columns: max-content minmax(0, 1fr);
+  gap: var(--sens-form-label-control-gap);
+  align-items: start;
+}
+
+.sens-form-spacing-value {
+  color: var(--sens-form-text);
+  font-weight: 500;
+}
+
+.sens-form-spacing-rule {
+  display: grid;
+  gap: var(--sens-form-message-gap);
+  min-width: 0;
+}
+
+.sens-form-spacing-token {
+  color: var(--sens-form-sub-text);
+  font-size: var(--sens-form-help-font-size);
+  line-height: var(--sens-form-help-line-height);
+}
+
+.sens-form-spacing-demo {
+  display: grid;
+  gap: var(--sens-form-label-stack-gap);
+  padding-top: var(--sens-form-content-gap);
+}
+
+.sens-form-spacing-demo-section,
+.sens-form-spacing-demo-subsection,
+.sens-form-spacing-demo-items {
+  display: grid;
+}
+
+.sens-form-spacing-demo-section {
+  gap: var(--sens-form-section-gap);
+}
+
+.sens-form-spacing-demo-subsection {
+  gap: var(--sens-form-subsection-gap);
+}
+
+.sens-form-spacing-demo-items {
+  gap: var(--sens-form-row-gap);
+}
+
+.sens-form-linked-field {
+  display: grid;
+  gap: var(--sens-form-field-gap);
+  min-width: 0;
+  width: 100%;
+}
+
+.sens-form-linked-inputs {
+  display: grid;
+  gap: var(--sens-form-field-gap);
+  min-width: 0;
+  width: 100%;
+}
+
+.sens-form-validation-demos {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--sens-form-content-gap);
+}
+
+.sens-form-validation-card {
+  display: grid;
+  min-width: 0;
+  gap: var(--sens-form-label-stack-gap);
+  padding: var(--sens-form-content-gap);
+  border: var(--sens-form-divider-width) solid var(--sens-form-divider);
+  border-radius: var(--sens-form-card-radius);
+  background: var(--sens-form-surface);
+}

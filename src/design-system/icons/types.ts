@@ -3,11 +3,19 @@ import type { CSSProperties } from "react";
 /** 第一批已入库自定义 SVG 名称 */
 export type IconName =
   | "error-diamond"
+  | "feedback-info"
+  | "feedback-complete"
+  | "feedback-warning"
+  | "feedback-error"
+  | "help"
   | "icon-default"
   | "select-check"
   | "stepper-up"
   | "stepper-down"
   | "chevron-left"
+  | "chevron-right"
+  | "double-chevron-left"
+  | "double-chevron-right"
   | "chevron-down"
   | "chevron-up"
   | "close"
@@ -26,7 +34,14 @@ export type IconName =
   | "nav-examine"
   | "nav-language"
   | "nav-product-navigation"
-  | "nav-down";
+  | "nav-down"
+  | "side-nav-down"
+  | "side-nav-up"
+  | "side-nav-link"
+  | "side-nav-expand"
+  | "side-nav-collapse"
+  | "side-nav-unpin"
+  | "side-nav-pin";
 
 export type IconCategory =
   | "operational"

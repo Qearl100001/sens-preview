@@ -186,7 +186,7 @@ const components = {
     "shadowHover": "0px 2px 6px 0px rgba(11, 12, 13, 0.1), 0px 4px 12px 0px rgba(11, 12, 13, 0.04)",
     "shadowFloating": "0px 2px 12px 0px rgba(11, 12, 13, 0.1), 0px 4px 20px 0px rgba(11, 12, 13, 0.08)",
     "primarySolidBorderColor": "rgba(0, 21, 64, 0.08)",
-    "defaultColor": "#171C26",
+    "defaultColor": "#171C26E5",
     "defaultBorderColor": "rgba(0, 21, 64, 0.16)",
     "contentFontSizeSM": 12,
     "contentLineHeightSM": 18,
@@ -203,6 +203,19 @@ const components = {
     "colorPrimaryTextActive": "#008C65",
     "colorErrorBg": "transparent",
     "colorErrorBgActive": "transparent"
+  },
+  "Pagination": {
+    "itemBg": "#FFFFFF",
+    "itemSize": 32,
+    "itemSizeSM": 24,
+    "itemActiveBg": "#00B280",
+    "itemActiveColor": "#FFFFFF",
+    "itemActiveColorHover": "#FFFFFF",
+    "itemLinkBg": "#FFFFFF",
+    "itemActiveBgDisabled": "rgba(0, 21, 64, 0.06)",
+    "itemActiveColorDisabled": "rgba(0, 13, 38, 0.3)",
+    "itemInputBg": "#FFFFFF",
+    "miniOptionsSizeChangerTop": 0
   }
 } as const;
 

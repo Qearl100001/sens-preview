@@ -15,7 +15,7 @@ interface PreviewOutletContext {
 }
 
 type ThemeTrack = "Navigation Theme" | "Functional Color Theme";
-type ThemeStatus = "已拆分" | "部分 ready" | "待补矩阵" | "默认不参与";
+type ThemeStatus = "已拆分" | "部分 ready" | "绿肤 ready" | "待补矩阵" | "默认不参与";
 
 const THEME_MODEL_ROWS = [
   {
@@ -25,7 +25,7 @@ const THEME_MODEL_ROWS = [
     config: "独立选择",
     example: "导航可以是绿色、蓝色或黄色，不要求跟随功能色",
     owner: "Navigation Color",
-    status: "部分 ready",
+    status: "绿肤 ready",
   },
   {
     key: "functional",
@@ -91,7 +91,7 @@ const COMPONENT_MAPPING_ROWS = [
     theme: "Navigation Theme",
     token: "getThemeTopBackground() / theme-top-*",
     status: "部分 ready",
-    next: "继续补侧导、标题栏和导航换肤矩阵",
+    next: "后续蓝、黄等导航主题按同一组槽位补齐",
   },
   {
     key: "button",
@@ -570,14 +570,6 @@ function ThemeCombinationSpecimen() {
       func: "蓝色功能色",
       navBg: getThemeTopBackground("green"),
       funcColor: functionalBlue.primary,
-    },
-    {
-      key: "blue-green",
-      title: "组合 C",
-      nav: "蓝色导航主题",
-      func: "绿色功能色",
-      navBg: getThemeTopBackground("blue"),
-      funcColor: functionalGreen.primary,
     },
   ];
 

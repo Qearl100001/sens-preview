@@ -6,7 +6,11 @@ const generatedShadowTokens = (tokens as unknown as { shadow?: Record<string, st
 
 export function hexToRgba(hex: string, alpha: number): string {
   const normalized = hex.replace("#", "");
-  const full = normalized.length === 3 ? normalized.split("").map((ch) => ch + ch).join("") : normalized;
+  // Token can carry its Figma alpha as #RRGGBBAA. This helper intentionally
+  // derives a new alpha from the RGB base, so it reads only the first six digits.
+  const full = normalized.length === 3
+    ? normalized.split("").map((ch) => ch + ch).join("")
+    : normalized.slice(0, 6);
   const int = Number.parseInt(full, 16);
   const r = (int >> 16) & 255;
   const g = (int >> 8) & 255;

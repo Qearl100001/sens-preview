@@ -59,7 +59,7 @@ Icon asset
 |---|---|---|
 | 操作型图标 | 触发操作、打开菜单、清除、添加、关闭 | `more`、`editor-add`、`close`、`close-circle` |
 | 状态型图标 | 表达警告、错误、选中 | `error-diamond`、`select-check` |
-| 导航型图标 | 返回、展开、收起 | `chevron-left`、`chevron-down`、`chevron-up` |
+| 导航型图标 | 返回、展开、收起、产品壳导航交互 | `chevron-left`、`chevron-down`、`chevron-up`、`side-nav-*` |
 | 输入辅助图标 | 输入框、搜索、选择器辅助 | `search`、`chevron-down`（Select 箭头）、`close-circle`（Select 清空） |
 | 组件内部图标 | 只服务特定组件内部结构 | `stepper-up`、`stepper-down` |
 
@@ -149,6 +149,12 @@ Icon asset
 | `drag-vertical` | `DragVerticalIcon` | `src/ui/FieldIcons.tsx` | `0 0 16 16` | Card 标题区拖拽把手 | 16 | subtle / currentColor | 是 |
 | `more` | `MoreIcon` | `src/ui/FieldIcons.tsx` | `0 0 16 16` | 更多按钮 | 16 | subtle / currentColor | 是 |
 | `search` | `SearchIcon` | `src/ui/SearchIcon.tsx` | `0 0 16 16` | Search / Input 搜索前缀、搜索按钮 | 16 | subtle / currentColor | 是 |
+| `side-nav-down` | `SideNavDownIcon` | `src/ui/FieldIcons.tsx` | `0 0 14 14` | 产品壳侧导二级模块收起 | 14 | theme-side-icon / currentColor | 否 |
+| `side-nav-up` | `SideNavUpIcon` | `src/ui/FieldIcons.tsx` | `0 0 14 14` | 产品壳侧导二级模块展开 | 14 | theme-side-icon / currentColor | 否 |
+| `side-nav-link` | `SideNavLinkIcon` | `src/ui/FieldIcons.tsx` | `0 0 16 16` | 产品壳侧导更多推荐 | 16 | theme-side-subIcon / currentColor | 否 |
+| `side-nav-collapse` | `SideNavCollapseIcon` | `src/ui/FieldIcons.tsx` | `0 0 18 18` | 产品壳侧导锁定态收起 | 18 | theme-side-icon / currentColor | 否 |
+| `side-nav-unpin` | `SideNavUnpinIcon` | `src/ui/FieldIcons.tsx` | `0 0 16 16` | 产品壳侧导锁定入口 | 16 | theme-side-icon / currentColor | 否 |
+| `side-nav-pin` | `SideNavPinIcon` | `src/ui/FieldIcons.tsx` | `0 0 12.2838 12.2838` | 产品壳侧导锁定图标状态 | 16 | theme-side-icon-active / currentColor | 否 |
 
 第一批只收当前项目自定义 SVG，不碰 antd 图标。`SelectArrowIcon` / `SelectClearIcon` 为过渡 wrapper，分别指向 `chevron-down` / `close-circle`，不单独入库。`close`（Figma 805:58）已入库，替换原 Tag/Message/Alert 手写小叉子。
 

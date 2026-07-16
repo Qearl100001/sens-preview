@@ -1,13 +1,8 @@
 import type { CSSProperties, ReactNode } from "react";
-import {
-  CheckCircleFilled,
-  CloseCircleFilled,
-  ExclamationCircleFilled,
-  InfoCircleFilled,
-  LoadingOutlined,
-} from "@ant-design/icons";
+import { LoadingOutlined } from "@ant-design/icons";
 import { buildShadowD4, getColorToken, tokenRgba } from "../design-system/color-utils";
 import { SensIcon } from "../design-system/icons";
+import type { IconName } from "../design-system/icons";
 import { getTypographyToken } from "../design-system/typography";
 import { getUnitToken } from "../design-system/unit";
 
@@ -59,6 +54,13 @@ const ALERT_SURFACE: Record<
     background: "warning-light-background",
     border: "warning-light-outline",
   },
+};
+
+const FEEDBACK_ICON: Record<FeedbackTone, IconName> = {
+  default: "feedback-info",
+  success: "feedback-complete",
+  info: "feedback-warning",
+  warning: "feedback-error",
 };
 
 /** 有辅助文案时上下 pad = (单行高度 − 标题行高) / 2；不新增 5/7 spacing 档 */
@@ -131,16 +133,7 @@ export function FeedbackStatusIcon({
   if (type === "loading") {
     return <LoadingOutlined spin style={style} aria-hidden />;
   }
-  if (type === "success") {
-    return <CheckCircleFilled style={style} aria-hidden />;
-  }
-  if (type === "info") {
-    return <ExclamationCircleFilled style={style} aria-hidden />;
-  }
-  if (type === "warning") {
-    return <CloseCircleFilled style={style} aria-hidden />;
-  }
-  return <InfoCircleFilled style={style} aria-hidden />;
+  return <SensIcon name={FEEDBACK_ICON[type]} size={size} color={color} />;
 }
 
 /** 轻提示：整体高 `size/component-height/m`（32），内容垂直居中 */

@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
-import { buildShadow, getColorToken, tokenRgba } from "../../design-system/color-utils";
+import { buildShadow, getColorToken } from "../../design-system/color-utils";
+import { getThemeSideBackground } from "../../design-system/navigation-color";
 import { getTypographyToken } from "../../design-system/typography";
 import tokens from "../../design-system/tokens.resolved.json";
 import { ProductShellPlaceholder } from "./ProductShellPlaceholder";
@@ -7,9 +8,6 @@ import { ProductShellPlaceholder } from "./ProductShellPlaceholder";
 const u = tokens.unit as Record<string, number>;
 
 export const DATA_SOURCE_SIDE_NAV_WIDTH = 220;
-
-/** TODO: 侧导航渐变接入 theme-side-background token 后替换。 */
-const SIDE_NAV_GRADIENT = "linear-gradient(180deg, #FAFCFC 0%, #F0F7F6 100%)";
 
 const SIDE_NAV_GROUPS = [
   {
@@ -26,17 +24,17 @@ const SIDE_NAV_GROUPS = [
 ] as const;
 
 function SideNavPlaceholder() {
-  const sideText = tokenRgba("theme-side-text", 0.9);
-  const sideSubText = tokenRgba("theme-side-subText", 0.58);
+  const sideText = getColorToken("theme-side-text");
+  const sideSubText = getColorToken("theme-side-subText");
   const sideActiveText = getColorToken("theme-side-text-active");
-  const sideActiveBg = tokenRgba("component-primary", 0.1);
+  const sideActiveBg = getColorToken("theme-side-background-active");
 
   return (
     <aside
       style={{
         width: DATA_SOURCE_SIDE_NAV_WIDTH,
         flexShrink: 0,
-        background: SIDE_NAV_GRADIENT,
+        background: getThemeSideBackground(),
         paddingBottom: u["spacing/6x"],
         borderTopLeftRadius: u["radius/xl"],
         overflow: "hidden",

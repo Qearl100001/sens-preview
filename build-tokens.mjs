@@ -36,9 +36,20 @@ function loadFoundation(name) {
   return readJson(path.join(FOUNDATION_IN, `${name}.json`));
 }
 
+function loadOptionalFoundation(name) {
+  const file = path.join(FOUNDATION_IN, `${name}.json`);
+  return fs.existsSync(file) ? readJson(file) : null;
+}
+
+function withColorAlpha(hex, alphaValue) {
+  if (typeof alphaValue !== "number" || alphaValue >= 1) return hex;
+  const alphaHex = Math.round(alphaValue * 255).toString(16).padStart(2, "0").toUpperCase();
+  return `${hex}${alphaHex}`;
+}
+
 function resolve(value, root, depth = 0) {
   if (depth > 12) return null;
-  if (value && typeof value === "object" && "hex" in value) return value.hex;
+  if (value && typeof value === "object" && "hex" in value) return withColorAlpha(value.hex, value.alpha);
   if (typeof value === "string" && value.startsWith("{") && value.endsWith("}")) {
     let node = root;
     for (const seg of value.slice(1, -1).split(".")) { if (node == null) break; node = node[seg]; }
@@ -69,6 +80,7 @@ const C = byHandle, U = unitByPath;
 const typographyDoc = loadFoundation("typography");
 const dividerDoc = loadFoundation("divider");
 const shadowDoc = loadFoundation("shadow");
+const navigationThemeDoc = loadOptionalFoundation("navigation-theme");
 
 // 把不透明 hex + alpha 转成 rgba（透明语义色用）
 function alpha(hex, a) {
@@ -187,6 +199,44 @@ function buildDividerTokens() {
   return out;
 }
 const DIVIDER_TOKENS = buildDividerTokens();
+function buildNavigationThemeValue(node) {
+  if (node && typeof node === "object" && "$value" in node) {
+    if (node.$type === "gradient") {
+      const value = node.$value;
+      if (value.type !== "linear") throw new Error(`Unsupported navigation gradient type: ${value.type}`);
+      const stops = value.stops
+        .map((stop) => `${resolve(stop.color, colorDoc)} ${stop.position}%`)
+        .join(", ");
+      return `linear-gradient(${value.angle}deg, ${stops})`;
+    }
+    if (node.$type === "gradient-stack") {
+      return node.$value.layers.map((layer) => {
+        const stops = layer.stops.map((stop) => {
+          if (stop.color === "transparent") return `transparent ${stop.position}%`;
+          const color = resolve(stop.color, colorDoc);
+          const value = typeof stop.alpha === "number" ? alpha(color, stop.alpha) : color;
+          return `${value} ${stop.position}%`;
+        }).join(", ");
+        return `${layer.type}-gradient(${layer.geometry}, ${stops})`;
+      }).join(", ");
+    }
+    return resolve(node.$value, colorDoc);
+  }
+
+  if (node && typeof node === "object") {
+    return Object.fromEntries(
+      Object.entries(node)
+        .filter(([key]) => !key.startsWith("$"))
+        .map(([key, value]) => [key, buildNavigationThemeValue(value)]),
+    );
+  }
+
+  return node;
+}
+
+const NAVIGATION_THEME_TOKENS = navigationThemeDoc
+  ? buildNavigationThemeValue(navigationThemeDoc.theme)
+  : {};
 const DIVIDER_DEEP_TRANSPARENT = DIVIDER_TOKENS["color/deep/transparent"];
 const DIVIDER_LIGHT_SOLID = DIVIDER_TOKENS["color/light/solid"];
 const DIVIDER_WEAK_SOLID = DIVIDER_TOKENS["color/weak/solid"];
@@ -419,6 +469,20 @@ const components = {
     colorErrorBg:             "transparent",
     colorErrorBgActive:       "transparent",
   },
+  Pagination: {
+    // Pagination 不使用 antd 默认色源；所有可配项均从 SensD 语义 token / unit token 生成。
+    itemBg:                  C["white"],
+    itemSize:                U["size/component-height/m"],
+    itemSizeSM:              U["size/component-height/s"],
+    itemActiveBg:            C["component-primary"],
+    itemActiveColor:         C["white"],
+    itemActiveColorHover:    C["white"],
+    itemLinkBg:              C["white"],
+    itemActiveBgDisabled:    alpha(C["background-transparent-grey-hover"], 0.06),
+    itemActiveColorDisabled: alpha(C["text-color-transparent-disable"], 0.3),
+    itemInputBg:             C["white"],
+    miniOptionsSizeChangerTop: U["spacing/none"],
+  },
 };
 
 const themeTs = `// 由 build-tokens.mjs 自动生成，请勿手改。重新从 Figma 导出后重跑脚本。
@@ -467,6 +531,7 @@ fs.writeFileSync(
       typography: TYPOGRAPHY_TOKENS,
       divider: DIVIDER_TOKENS,
       shadow: SHADOW_TOKENS,
+      navigationTheme: NAVIGATION_THEME_TOKENS,
     },
     null,
     2,

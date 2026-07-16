@@ -15,6 +15,10 @@ import InputNumberShowcasePage from "./preview/pages/InputNumberShowcasePage";
 import SelectDropdownShowcasePage from "./preview/pages/SelectDropdownShowcasePage";
 import SelectShowcasePage from "./preview/pages/SelectShowcasePage";
 import SearchShowcasePage from "./preview/pages/SearchShowcasePage";
+import CheckboxShowcasePage from "./preview/pages/CheckboxShowcasePage";
+import RadioShowcasePage from "./preview/pages/RadioShowcasePage";
+import FormShowcasePage from "./preview/pages/FormShowcasePage";
+import TitleShowcasePage from "./preview/pages/TitleShowcasePage";
 import TabsShowcasePage from "./preview/pages/TabsShowcasePage";
 import BadgeShowcasePage from "./preview/pages/BadgeShowcasePage";
 import TagShowcasePage from "./preview/pages/TagShowcasePage";
@@ -22,8 +26,10 @@ import MessageShowcasePage from "./preview/pages/MessageShowcasePage";
 import AlertShowcasePage from "./preview/pages/AlertShowcasePage";
 import TitleBarShowcasePage from "./preview/pages/TitleBarShowcasePage";
 import TopNavigationShowcasePage from "./preview/pages/TopNavigationShowcasePage";
+import SideNavigationShowcasePage from "./preview/pages/SideNavigationShowcasePage";
 import DrawerShowcasePage from "./preview/pages/DrawerShowcasePage";
 import TableShowcasePage from "./preview/pages/TableShowcasePage";
+import PaginationShowcasePage from "./preview/pages/PaginationShowcasePage";
 import ChangelogPage from "./preview/pages/ChangelogPage";
 import {
   CaseLibraryPage,
@@ -37,7 +43,8 @@ import ThemeSkinningBasicStylePage from "./preview/pages/basic-styles/ThemeSkinn
 import NavigationColorBasicStylePage from "./preview/pages/basic-styles/NavigationColorBasicStylePage";
 import TypographyBasicStylePage from "./preview/pages/basic-styles/TypographyBasicStylePage";
 import SpacingBasicStylePage from "./preview/pages/basic-styles/SpacingBasicStylePage";
-import LayoutGridBasicStylePage from "./preview/pages/basic-styles/LayoutGridBasicStylePage";
+import LayoutBasicStylePage from "./preview/pages/basic-styles/LayoutBasicStylePage";
+import GridBasicStylePage from "./preview/pages/basic-styles/GridBasicStylePage";
 import SizeBasicStylePage from "./preview/pages/basic-styles/SizeBasicStylePage";
 import IconBasicStylePage from "./preview/pages/basic-styles/IconBasicStylePage";
 import RadiusBasicStylePage from "./preview/pages/basic-styles/RadiusBasicStylePage";
@@ -72,7 +79,9 @@ export default function App() {
             <Route path="basic-styles/navigation-color" element={<NavigationColorBasicStylePage />} />
             <Route path="basic-styles/typography" element={<TypographyBasicStylePage />} />
             <Route path="basic-styles/spacing" element={<SpacingBasicStylePage />} />
-            <Route path="basic-styles/layout-grid" element={<LayoutGridBasicStylePage />} />
+            <Route path="basic-styles/layout" element={<LayoutBasicStylePage />} />
+            <Route path="basic-styles/grid" element={<GridBasicStylePage />} />
+            <Route path="basic-styles/layout-grid" element={<Navigate to="/basic-styles/layout" replace />} />
             <Route path="basic-styles/size" element={<SizeBasicStylePage />} />
             <Route path="basic-styles/icon" element={<IconBasicStylePage />} />
             <Route path="basic-styles/radius" element={<RadiusBasicStylePage />} />
@@ -86,6 +95,10 @@ export default function App() {
             <Route path="components/select-dropdown" element={<SelectDropdownShowcasePage />} />
             <Route path="components/select" element={<SelectShowcasePage />} />
             <Route path="components/search" element={<SearchShowcasePage />} />
+            <Route path="components/checkbox" element={<CheckboxShowcasePage />} />
+            <Route path="components/radio" element={<RadioShowcasePage />} />
+            <Route path="components/form" element={<FormShowcasePage />} />
+            <Route path="components/title" element={<TitleShowcasePage />} />
             <Route path="components/tabs" element={<TabsShowcasePage />} />
             <Route path="components/badge" element={<BadgeShowcasePage />} />
             <Route path="components/tag" element={<TagShowcasePage />} />
@@ -93,8 +106,10 @@ export default function App() {
             <Route path="components/alert" element={<AlertShowcasePage />} />
             <Route path="components/title-bar" element={<TitleBarShowcasePage />} />
             <Route path="components/top-navigation" element={<TopNavigationShowcasePage />} />
+            <Route path="components/side-navigation" element={<SideNavigationShowcasePage />} />
             <Route path="components/drawer" element={<DrawerShowcasePage />} />
             <Route path="components/table" element={<TableShowcasePage />} />
+            <Route path="components/pagination" element={<PaginationShowcasePage />} />
             <Route path="components/divider" element={<DividerBasicStylePage />} />
             <Route path="templates" element={<TemplateLibraryPage />} />
             <Route path="cases" element={<CaseLibraryPage />} />

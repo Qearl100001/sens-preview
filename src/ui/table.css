@@ -1,11 +1,49 @@
-/* Sens.Design 表格复合组件布局（见 composite/table.md） */
+/* Sens.Design 基础表格布局（见 components/base/table.md） */
+
+.sens-table-info {
+  height: var(--sens-table-info-height);
+  box-sizing: border-box;
+  padding: var(--sens-table-info-padding-block) var(--sens-table-info-padding-inline);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sens-table-info-gap);
+  color: var(--sens-table-info-color);
+  border-bottom: var(--sens-table-divider-width) solid var(--sens-table-info-border);
+  box-shadow: inset 0 calc(-1 * var(--sens-table-divider-width)) 0 0 var(--sens-table-info-border);
+}
+
+.sens-table-info-main {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: var(--sens-table-info-main-gap);
+}
+
+.sens-table-info-text {
+  min-width: 0;
+  font-size: var(--sens-table-info-font-size);
+  line-height: var(--sens-table-info-line-height);
+}
+
+.sens-table-info-actions {
+  flex-shrink: 0;
+  gap: var(--sens-table-info-action-gap) !important;
+}
+
+.sens-table-info-extra {
+  flex-shrink: 0;
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+}
 
 .sens-table .ant-table-thead > tr > th,
 .sens-table .ant-table-tbody > tr > td {
-  height: 56px;
+  height: var(--sens-table-row-height);
   box-sizing: border-box;
-  padding-block: 6px;
-  padding-inline: 16px;
+  padding-block: var(--sens-table-cell-padding-block);
+  padding-inline: var(--sens-table-cell-padding-inline);
 }
 
 /* 去掉表头列间弱分割线 */
@@ -13,9 +51,9 @@
   display: none !important;
 }
 
-/* 表头标题与排序图标间距 4px */
+/* 表头标题与排序图标间距来自 spacing/1x */
 .sens-table .ant-table-column-sorters {
-  gap: 4px;
+  gap: var(--sens-table-column-sorter-gap);
   justify-content: flex-start;
 }
 
@@ -29,5 +67,56 @@
 
 /* 超长文案：最多 2 行 + 省略号 */
 .sens-table .ant-table-cell-ellipsis {
-  line-height: 22px;
+  line-height: var(--sens-table-link-line-height);
+}
+
+.sens-table .ant-table-tbody > tr.ant-table-row-selected > td,
+.sens-table .ant-table-tbody > tr.ant-table-row-selected:hover > td {
+  background: var(--sens-table-row-selected-bg);
+}
+
+.sens-table-link-button {
+  appearance: none;
+  border: 0;
+  background: transparent;
+  padding: 0;
+  margin: 0;
+  color: var(--sens-table-link-color);
+  cursor: pointer;
+  font: inherit;
+  font-size: var(--sens-table-link-font-size);
+  line-height: var(--sens-table-link-line-height);
+}
+
+.sens-table-link-button:hover {
+  color: var(--sens-table-link-hover-color);
+}
+
+.sens-table-link-button:active {
+  color: var(--sens-table-link-active-color);
+}
+
+.sens-table-link-button:disabled {
+  color: var(--sens-table-link-disabled-color);
+  cursor: not-allowed;
+}
+
+.sens-table-empty {
+  min-height: var(--sens-table-empty-min-height);
+  padding: var(--sens-table-empty-padding-block) var(--sens-table-empty-padding-inline);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sens-table-empty-gap);
+}
+
+.sens-table-empty-image {
+  width: var(--sens-table-empty-image-size);
+  height: var(--sens-table-empty-image-size);
+  object-fit: contain;
+}
+
+.sens-table-empty-action {
+  margin-top: var(--sens-table-empty-action-margin-top);
 }

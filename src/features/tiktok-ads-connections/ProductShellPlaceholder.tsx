@@ -1,4 +1,4 @@
-import { tokenRgba } from "../../design-system/color-utils";
+import { getColorToken } from "../../design-system/color-utils";
 import { getThemeTopBackground } from "../../design-system/navigation-color";
 import { getTypographyToken } from "../../design-system/typography";
 import tokens from "../../design-system/tokens.resolved.json";
@@ -18,7 +18,7 @@ const NAV_ITEMS = [
 const SHELL_VISIBLE_HEIGHT = 82;
 
 const shellTextStyle = {
-  color: tokenRgba("theme-top-text", 0.8),
+  color: getColorToken("theme-top-text"),
   fontSize: getTypographyToken("font-size/m"),
   lineHeight: `${getTypographyToken("line-height/m")}px`,
 } as const;
@@ -75,11 +75,11 @@ export function ProductShellPlaceholder() {
                 borderRadius: u["radius/circular"],
                 fontSize: getTypographyToken("font-size/l"),
                 lineHeight: `${getTypographyToken("line-height/l")}px`,
-                color: tokenRgba("theme-top-text", isActive ? 1 : 0.8),
+                color: isActive ? getColorToken("theme-top-text-active") : getColorToken("theme-top-text"),
                 fontWeight: isActive
                   ? getTypographyToken("font-weight/semibold")
                   : getTypographyToken("font-weight/regular"),
-                background: isActive ? tokenRgba("theme-top-proMenu-background-active", 0.15) : undefined,
+                background: isActive ? getColorToken("theme-top-proMenu-background-active") : undefined,
               }}
             >
               {item}

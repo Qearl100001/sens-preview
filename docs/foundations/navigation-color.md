@@ -1,120 +1,113 @@
 # Navigation Color Foundation
 
-> 主要来源：Figma `设计系统 2.0 导航设计`、`docs/foundations/color.md` 原导航颜色系统段落、`src/design-system/tokens.resolved.json`、`src/design-system/theme.ts`。  
-> 当前状态：规则确认中；本文件先作为导航主题色 foundation，不等同于产品壳 / 导航实现已完成。
+> 主要来源：Figma `设计系统 2.0 导航设计`，色板节点 `2194:54928`「神策绿 主题色」。
+> 当前状态：神策绿产品壳主题已入库；其他导航主题必须按同一套槽位补齐，不得用功能色替代。
 
-## 1. 定位
+## 1. 定位与边界
 
-Navigation Color 负责统一顶导航、侧导航、标题栏、页面主题背景、功能入口菜单、项目菜单、logo / text / icon / line 等导航主题色。
+`Navigation Color` 是 `Product Shell Theme` 的导航颜色子系统，统一承接顶部导航、侧边导航、标题栏、页面背景和产品壳专属菜单。
 
-它是独立的主题色分支，不应直接混进普通 `component-*` / `text-*` / `link-*` 颜色体系里。
-
-## 2. 与 Color Foundation 的边界
-
-| 类型 | 归属 | 说明 |
+| 内容 | 归属 | 说明 |
 |---|---|---|
-| 普通组件主色 / hover / active | `color.md` | Button、Input、Select、选中态等 |
-| 链接 / 成功 / 提醒 / 警告 | `color.md` | 状态色不随功能色换肤变化 |
-| 文本 / 边框 / 背景 | `color.md` | 普通页面和组件中性色 |
-| 顶导航 / 侧导航 / 标题栏 | `navigation-color.md` | 产品框架专属主题色 |
-| 页面主题背景 | `navigation-color.md` | 跟随导航主题分支 |
-| 换肤映射表 | `navigation-color.md` | 后续按 Figma / token 映射维护 |
+| Button、Input、Switch、Tag 的功能表达 | Functional Skin | 使用 `component-*` 等功能色语义 |
+| 顶导、侧导、标题栏、页面背景 | Product Shell Theme / Navigation Color | 使用产品壳主题 Token / helper |
+| 普通文本、边框、卡片背景 | Color Foundation | 默认不参与换肤 |
+| 阴影、圆角、普通分割线 | Foundation | 导航组件继续复用，不另造导航视觉值 |
 
-## 3. 来源
+`Product Shell Theme` 与 `Functional Skin` 可以独立组合。例如导航使用黄色主题，功能色使用蓝色主题。
 
-- Figma：`设计系统 2.0 导航设计`
-- 页面节点：`83:12679`，`换肤 ⭐️⭐️⭐️`
-- 色板节点：`2194:54928`，`神策绿 主题色`
-- 表格节点：`2194:53497`，`神策绿 换肤`
+### 1.1 不自动复用的范围
 
-## 4. 当前命名差异
+以下内容即使视觉上像“侧边导航”或“局部目录”，也**不自动复用** `theme-side-*`：
 
-| Figma 命名 | 当前代码方向 | 说明 |
-|---|---|---|
-| `主题色/顶导航/...` | `theme-top-*` | 顶部导航专用颜色 |
-| `主题色/侧导航/...` | `theme-side-*` | 侧边导航专用颜色 |
-| `主题色/标题栏/背景/01` | `theme-title-background` | 标题栏背景 |
-| `主题色/页面/背景/01` | `body-background` | 页面背景 |
+- 页面内锚点、目录、筛选栏等 Context Side Panel。
+- 抽屉内局部导航、分组目录、配置页局部切换区。
+- 表格左侧辅助筛选、树筛选、映射页局部结构栏。
 
-## 5. 导航颜色主要分组
+这些内容如果需要复用产品壳导航规则，必须在对应组件或样板间文档中单独确认；默认只允许复用 `Layout / Reflow` 行为，不自动继承产品壳导航的尺寸、颜色和交互口径。
 
-- 顶导航：背景、角色背景、功能入口菜单背景 / 文字 / 图标、项目菜单背景 / 文字、logo、文字与图标、图标背景、线、菜单线。
-- 侧导航：背景、目录背景、文字、图标。
-- 标题栏：背景。
-- 页面：背景。
-- 导航换肤：导航主题色需要独立换肤矩阵；如复用功能色，必须通过映射表确认。
+## 2. 产品壳主题槽位
 
-## 6. 已读到的关键值
+每套 `Product Shell Theme` 的导航颜色子系统都必须同时定义以下槽位。只换顶导颜色、遗漏侧导或页面背景，不算完成一套产品壳主题。
 
-| 名称 | 色值 | 说明 |
-|---|---|---|
-| `主题色/顶导航/背景/01` | `linear-gradient(135deg, #0F9670 0%, #0D826D 100%)` | 顶导航背景，跟随换肤 |
-| `主题色/侧导航/背景/01` | `linear-gradient(180deg, #FAFCFC 0%, #F0F7F6 100%)` | 侧导航背景，跟随换肤 |
-| `主题色/页面/背景/01` | `#F5FAFA` | 页面背景，跟随换肤 |
-| `主题色/标题栏/背景/01` | `#F5FAFA` | 标题栏背景，跟随换肤 |
-| `主题色/顶导航/文字&图标/01_默认` | `rgba(255, 255, 255, 0.8)` | 顶导航功能选择区域默认文字和图标 |
-| `主题色/顶导航/文字&图标/02_悬停` | `#FFFFFF` | 顶导航功能选择区域悬停文字和图标 |
-| `主题色/顶导航/文字&图标/03_选中` | `#FFFFFF` | 顶导航功能选择区域选中文字和图标 |
-| `主题色/侧导航/文字/01_主要` | `rgba(23, 28, 38, 0.9)` | 侧导航主要文字 |
-| `主题色/侧导航/文字/02_辅助` | `rgba(8, 18, 38, 0.58)` | 侧导航辅助文字 |
-| `主题色/侧导航/文字/03_选中` | `#00B280` | 侧导航选中文字 |
+| 产品壳区域 | Figma 语义 | 当前消费方式 | 神策绿基线 |
+|---|---|---|---|
+| 顶部导航基础背景 | `theme-top-background` | `getThemeTopBackground()` | `#0F9670 -> #0D826D` |
+| 顶部导航氛围层 | `theme-top-atmosphere` | `getThemeTopAtmosphere()` | 三层产品壳氛围渐变 |
+| 侧边导航 | `theme-side-background` | `getThemeSideBackground()` | `#FAFCFC -> #F0F7F6` |
+| 标题栏 | `theme-title-background` | `getNavigationTheme().title.background` / `theme-title-background` | `#F5FAFA` |
+| 页面背景 | `body-background` | `getNavigationTheme().page.background` / `body-background` | `#F5FAFA` |
 
-## 7. 待确认差异
+Figma 的渐变并未随颜色变量 JSON 输出，因此顶导基础背景、顶导氛围层与侧导背景由 `tokens/source/foundations/navigation-theme.json` 补充录入；这是 Figma 色板的结构化补充，不是组件私有硬编码。
 
-- Figma 表格里功能色点击值为 `#008C64`，当前代码 `theme.ts` / `tokens.resolved.json` 中 `component-active` 为 `#008C65`。后续处理换肤或导航 token 时必须确认来源差异，不能直接忽略。
-- 当前 TikTok case 导航后置，但后续实现产品壳 / 导航时必须单独整理映射表：`Figma 名称 -> 当前代码 token -> 色值 -> 是否跟随换肤 -> 用途 -> 待确认`。
+## 3. Token 来源与生成
 
-Navigation Color 预览页已补：`/basic-styles/navigation-color` 当前作为导航颜色入口，展示边界、分组、已有代码方向、关键映射状态和待补问题；它不是完整导航换肤矩阵，也不代表产品壳 / 导航实现已完成。
+```text
+tokens/source/figma/Color.json
+  └─ 顶导 / 侧导状态色、标题栏、页面背景及透明度
+tokens/source/foundations/navigation-theme.json
+  └─ 顶导基础 / 氛围渐变、侧导渐变与产品壳主题矩阵
+        ↓ node build-tokens.mjs
+src/design-system/tokens.resolved.json
+  └─ color、navigationTheme
+        ↓
+src/design-system/navigation-color.ts
+  └─ getThemeTopBackground() / getThemeTopAtmosphere() / getThemeSideBackground()
+```
 
-## 8. Navigation Color 录入映射表
+- `tokens.resolved.json` 和 `theme.ts` 都是生成物，禁止手改。
+- Figma 颜色透明度保留为 CSS `#RRGGBBAA`，例如侧导悬停为 `#0015400F`。
+- 直接使用已有语义色时，优先 `getColorToken(handle)`；只有需要派生新透明度的效果层才用 `tokenRgba(handle, alpha)`。
 
-> 这张表用于指导后续 token 录入：先判断现有 handle 是否足够，再决定补 source token、补 helper，还是只补组件接入。
+## 4. 顶导航颜色映射
 
-| 分组 | Figma 名称 / 设计项 | 当前 token handle / helper | 当前值 / 代码方向 | 状态 | 需要动作 | 备注 |
-|---|---|---|---|---|---|---|
-| 顶导航 | 背景渐变 | `getThemeTopBackground()` | 绿：`#0F9670 -> #0D826D`；蓝：走 helper | 半 ready | 补正式背景 helper/token；补绿/蓝换肤矩阵 | 现在是 helper，不是完整 token 表 |
-| 顶导航 | 角色背景 | `theme-top-role-background` | `#000000` + 组件侧透明度 | 半 ready | 补透明度语义 | 当前组件用 `tokenRgba(..., 0.14)` |
-| 顶导航 | 功能入口菜单背景 | `theme-top-funcMenu-background-hover/active` | `#00B280` + 组件侧透明度 | 半 ready | 补默认态；补透明度语义 | 当前缺明确 default background handle |
-| 顶导航 | 功能入口菜单文字 | `theme-top-funcMenu-text/hover/active` | `#171C26 / #00B280 / #00B280` | 已 ready | 组件按状态接入 | 用于产品壳专属下拉 |
-| 顶导航 | 功能入口菜单图标 | `theme-top-funcMenu-icon/hover/active` | `#747E94 / #00B280 / #00B280` | 已 ready | 组件按状态接入 | 顶部导航产品切换图标已接 default |
-| 顶导航 | 项目菜单背景 | `theme-top-proMenu-background-hover/active` | `#001540 / #00B280` | 半 ready | 补默认态；补透明度语义 | 当前 active 在 Figma 可能是主色透明度 |
-| 顶导航 | 项目菜单文字 | `theme-top-proMenu-text/hover/active` | `#171C26 / #171C26 / #00B280` | 已 ready | 组件按状态接入 | 需要和项目切换浮层一起验收 |
-| 顶导航 | logo | `theme-top-logo` | `#FFFFFF` | 已 ready | 组件接入 | 形状/品牌资产另归 Logo 边界 |
-| 顶导航 | 文字&图标 | `theme-top-text/hover/active` | `#FFFFFF / #FFFFFF / #FFFFFF` + 组件侧透明度 | 半 ready | 补默认 80% 透明度语义 | 当前默认态靠 `tokenRgba("theme-top-text", 0.8)` |
-| 顶导航 | 图标背景 | `theme-top-icon-hover/active` | `#000000 / #000000` + 组件侧透明度 | 半 ready | 补透明度语义 | 用于右上角工具图标 hover/active 背景 |
-| 顶导航 | 横线 / 竖线 | `theme-top-line-dack/light` | `#000000 / #000000` + 组件侧透明度 | 半 ready | 补线条透明度语义 | 当前组件用 `0.06/0.08/0.12` |
-| 顶导航 | 菜单线 | `theme-top-menuLine-outlined/divide/active` | `#001540 / #001540 / #00B280` | 已 ready | 组件接入 | 需确认 outlined/divide 的透明度是否在 token 层 |
-| 侧导航 | 默认背景渐变 | 暂无完整 handle | Figma：`#FAFCFC -> #F0F7F6` | 待录入 | 补 `getThemeSideBackground()` 或 source token | 当前只在文档里记录 |
-| 侧导航 | 目录背景 | 暂无完整 handle | 待确认 | 待录入 | 补目录背景 default/hover/active | 这是侧导航结构实现前必须补的项 |
-| 侧导航 | 背景状态 | `theme-side-background-hover/click/active` | `#001540 / #001540 / #00B280` | 半 ready | 补默认态；补透明度语义 | hover/click 可能是黑色透明度 |
-| 侧导航 | 文字 | `theme-side-text/subText/text-active` | `#171C26 / #081226 / #00B280` + 透明度待确认 | 半 ready | 补主要/辅助文字透明度语义 | Figma 记录为 90% / 58% |
-| 侧导航 | 图标 | `theme-side-icon/subIcon/icon-active` | `#747E94 / #747E94 / #00B280` | 已 ready | 组件接入 | 需要侧导航组件验证 |
-| 标题栏 | 背景 | `theme-title-background` | `#F5FAFA` | 已 ready | 组件接入 | 与页面背景同值但语义独立 |
-| 页面 | 页面主题背景 | `body-background` | `#F5FAFA` | 已 ready | 组件接入 | 跟随导航主题分支 |
-| 换肤 | 绿 / 蓝导航主题映射 | 部分 helper | 顶导航背景已有 helper；其他组不完整 | 待录入 | 补完整换肤矩阵 | 后续需要列出每个 handle 的绿/蓝值 |
-| 全局 | Figma -> token 长期映射 | 本表初版 | 文档 + HTML 展示 | 半 ready | 后续补变量 ID、Figma node、接入组件 | 作为 token 录入工作台 |
+| Figma 分组 | Token | 神策绿值 | 状态 |
+|---|---|---|---|
+| 基础背景 | `theme-top-background` | `linear-gradient(135deg, #0F9670, #0D826D)` | Ready |
+| 氛围叠层 | `theme-top-atmosphere` | 三层 CSS gradient stack | Ready |
+| 角色背景 | `theme-top-role-background` | `#0000000F` | Ready |
+| 功能入口 / 账号菜单背景 | `theme-top-funcMenu-background-hover/active` | `#00B2801A` | Ready |
+| 功能入口 / 账号菜单文字 / 图标 | `theme-top-funcMenu-text*` / `theme-top-funcMenu-icon*` | 默认中性，悬停 / 选中 `#00B280` | Ready |
+| 项目菜单背景 | `theme-top-proMenu-background-hover/active` | `#0015400F` / `#00B2801A` | Ready |
+| 项目菜单文字 | `theme-top-proMenu-text*` | 默认 `#171C26E5`，选中 `#00B280` | Ready |
+| 顶导文字与图标 | `theme-top-text*` | 默认 `#FFFFFFCC`，悬停 / 选中 `#FFFFFF` | Ready |
+| 工具图标背景 | `theme-top-icon-hover/active` | `#0000001A` / `#00000033` | Ready |
+| 顶导线 | `theme-top-line-*` | 含 Figma 原始透明度 | Ready |
+| 项目菜单线 | `theme-top-menuLine-*` | 描边、分割线、项目菜单选中描边 | Ready |
+| 主导航选中短线 | `theme-top-text-active` | `#FFFFFF`，`16 × 3px` | Ready |
 
-## 9. 代码落地规则
+## 5. 侧导航颜色映射
 
-- 导航颜色不能混用普通 `component-*` / `text-*` / `link-*` 语义，除非已经明确映射。
-- 顶导航、侧导航、标题栏、页面主题背景应建立独立 token / helper / theme 映射。
-- 渐变、rgba、换肤状态必须通过 token 或 helper 承接，不能在产品壳里继续硬编码。
-- 做导航 / 产品壳前，必须先补映射表。
-- `tokens.resolved.json` / `theme.ts` 是生成物，不能手改。
+| Figma 分组 | Token | 神策绿值 | 状态 |
+|---|---|---|---|
+| 整体背景 | `theme-side-background` | `linear-gradient(180deg, #FAFCFC, #F0F7F6)` | Ready |
+| 目录默认态 | 无额外 Token | 透明，承接侧导整体背景 | Ready |
+| 目录悬停 / 点击 / 选中 | `theme-side-background-hover/click/active` | `#0015400F` / `#00154014` / `#00B2801A` | Ready |
+| 主要 / 辅助 / 选中文字 | `theme-side-text/subText/text-active` | `#171C26E5` / `#08122694` / `#00B280` | Ready |
+| 主要 / 辅助 / 选中图标 | `theme-side-icon/subIcon/icon-active` | `#747E94` / `#747E94CC` / `#00B280` | Ready |
 
-## 10. 当前问题与处理策略
+侧导航默认态不新增 `theme-side-background-default`。设计稿定义的是透明默认态与三种目录状态，默认背景由 `theme-side-background` 承接。
 
-| 问题 | 当前处理 | 建议时机 |
-|---|---|---|
-| 导航主题色系统独立 | 已拆出 Navigation Color Foundation | 做产品壳 / 导航前 |
-| 全局换肤未完成 | 先记录，不纳入 TikTok 两周主验收 | 单独立项 |
-| 顶导航 / 侧导航渐变仍可能硬编码 | 暂不改代码 | 产品壳阶段 |
-| Figma 与代码 `component-active` 存在 1 个 hex 差异 | 记录差异，不直接修正 | 换肤映射阶段 |
-| 缺少完整 Figma -> token 映射表 | 待补 | 导航实现前 |
+## 6. 换肤规则
 
-## 11. 待补
+- `NavigationTheme` 是独立类型，不复用 `FunctionalSkin`。
+- 当前仅录入 `green` 神策绿产品壳主题；蓝、黄等导航主题要先从 Figma 读到完整色板后再录入。
+- 新增导航主题时，必须补齐第 2 节的五个产品壳槽位，以及本页第 4、5 节所有状态 Token 的对应值。
+- 组件不能根据 `component-primary` 推导侧导选中态；侧导必须消费 `theme-side-*`。
+- 导航图标形状属于 Icon / navigation 分类，颜色由所在导航场景传入 `theme-top-*` 或 `theme-side-*`。
+- `Navigation Color` 和 `Functional Skin` 是并列关系，不是上下级关系。位于产品壳里的功能组件，仍优先判断自己是否属于功能色消费对象，不能因为“在导航附近”就改用导航主题色。
 
-- 按映射表逐项补 source token / helper / 组件接入状态。
-- 按顶导航 / 侧导航 / 标题栏 / 页面背景拆分 token。
-- Navigation Color 预览页已补，后续继续扩展完整映射表和换肤矩阵。
-- 做产品壳 / 导航组件前，先完成换肤状态矩阵。
+## 7. 组件接入规则
+
+- 顶导航、侧导航的结构、层级、收起展开归各自组件文档。
+- 渐变、氛围层、文字、图标、目录状态必须通过 `Navigation Color` Token / helper 读取。
+- 下拉面板的圆角、阴影、通用描边继续复用 Foundation；仅导航专属颜色进入本文件。
+- 使用功能色的组件不因为位于产品壳中就改用 `theme-top-*` 或 `theme-side-*`。
+- 页面样板间中如出现锚点、目录、筛选栏、抽屉内局部导航，应先按样板间和组件规则判断，不默认纳入本文件。
+
+## 8. 当前范围与待补
+
+- 已完成：神策绿顶导、侧导、标题栏、页面背景的主题基线；Figma 透明 Token 的生成与产品壳样张接入。
+- 待补：蓝、黄等 `Product Shell Theme` 导航子系统的完整 Figma 色板与换肤矩阵。
+- 待补：侧边导航组件的结构、层级、收起 / 展开、悬停与固定规则。
+- 不在本页处理：功能色 `#008C64 / #008C65` 的来源差异、业务组件颜色和状态色换肤。

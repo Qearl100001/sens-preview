@@ -1,0 +1,225 @@
+.sens-radio {
+  position: relative;
+  display: inline-flex;
+  align-items: flex-start;
+  gap: var(--sens-radio-gap);
+  color: var(--sens-radio-text);
+  font-size: var(--sens-radio-font-size);
+  line-height: var(--sens-radio-line-height);
+  cursor: pointer;
+  user-select: none;
+}
+
+.sens-radio--control-only {
+  gap: 0;
+}
+
+.sens-radio-input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.sens-radio-control {
+  box-sizing: border-box;
+  position: relative;
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  width: var(--sens-radio-control-size);
+  height: var(--sens-radio-control-size);
+  margin-top: calc((var(--sens-radio-line-height) - var(--sens-radio-control-size)) / 2);
+  border: var(--sens-radio-border-width) solid var(--sens-radio-border);
+  border-radius: var(--sens-radio-radius);
+  background: var(--sens-radio-bg);
+  color: var(--sens-radio-mark);
+  transition:
+    background-color 0.16s ease,
+    border-color 0.16s ease,
+    box-shadow 0.16s ease,
+    color 0.16s ease;
+}
+
+.sens-radio-dot {
+  width: calc(var(--sens-radio-control-size) / 2);
+  height: calc(var(--sens-radio-control-size) / 2);
+  border-radius: var(--sens-radio-radius);
+  background: currentColor;
+  opacity: 0;
+  transition: opacity 0.16s ease;
+}
+
+.sens-radio-body {
+  display: inline-flex;
+  min-width: 0;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--sens-radio-description-gap);
+}
+
+.sens-radio-main {
+  display: inline-flex;
+  min-width: 0;
+  align-items: center;
+  gap: var(--sens-radio-inline-gap);
+}
+
+.sens-radio-icon,
+.sens-radio-help {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  color: var(--sens-radio-icon);
+  line-height: 0;
+}
+
+.sens-radio-label {
+  min-width: 0;
+}
+
+.sens-radio-description {
+  color: var(--sens-radio-sub-text);
+  font-size: var(--sens-radio-description-font-size);
+  line-height: var(--sens-radio-description-line-height);
+}
+
+.sens-radio:not(.sens-radio--disabled, .sens-radio--readonly):hover .sens-radio-control,
+.sens-radio-preview--hover .sens-radio:not(.sens-radio--disabled) .sens-radio-control {
+  border-color: var(--sens-radio-hover-border);
+}
+
+.sens-radio:not(.sens-radio--disabled, .sens-radio--readonly):active .sens-radio-control,
+.sens-radio-preview--active .sens-radio:not(.sens-radio--disabled) .sens-radio-control,
+.sens-radio-input:focus-visible + .sens-radio-control {
+  border-color: var(--sens-radio-active-border);
+  box-shadow: var(--sens-radio-active-shadow);
+}
+
+.sens-radio-input:checked + .sens-radio-control {
+  border-color: var(--sens-radio-checked-bg);
+  background: var(--sens-radio-checked-bg);
+}
+
+.sens-radio-input:checked + .sens-radio-control .sens-radio-dot {
+  opacity: 1;
+}
+
+.sens-radio:not(.sens-radio--disabled, .sens-radio--readonly):hover .sens-radio-input:checked + .sens-radio-control,
+.sens-radio-preview--hover .sens-radio:not(.sens-radio--disabled) .sens-radio-input:checked + .sens-radio-control {
+  border-color: var(--sens-radio-checked-hover-bg);
+  background: var(--sens-radio-checked-hover-bg);
+}
+
+.sens-radio:not(.sens-radio--disabled, .sens-radio--readonly):active .sens-radio-input:checked + .sens-radio-control,
+.sens-radio-preview--active .sens-radio:not(.sens-radio--disabled) .sens-radio-input:checked + .sens-radio-control {
+  border-color: var(--sens-radio-checked-active-bg);
+  background: var(--sens-radio-checked-active-bg);
+}
+
+.sens-radio--disabled,
+.sens-radio-input:disabled ~ .sens-radio-body {
+  color: var(--sens-radio-disabled-text);
+  cursor: not-allowed;
+}
+
+.sens-radio--disabled .sens-radio-icon,
+.sens-radio--disabled .sens-radio-help {
+  color: var(--sens-radio-icon-disabled);
+}
+
+.sens-radio--disabled .sens-radio-description,
+.sens-radio-input:disabled ~ .sens-radio-body .sens-radio-description {
+  color: var(--sens-radio-disabled-text);
+}
+
+.sens-radio-input:disabled + .sens-radio-control {
+  border-color: var(--sens-radio-disabled-border);
+  background: var(--sens-radio-disabled-bg);
+  color: var(--sens-radio-mark-disabled);
+}
+
+.sens-radio-preview--disabled-hover .sens-radio--disabled {
+  color: var(--sens-radio-disabled-hover-text);
+}
+
+.sens-radio-preview--disabled-hover .sens-radio--disabled .sens-radio-icon,
+.sens-radio-preview--disabled-hover .sens-radio--disabled .sens-radio-help {
+  color: var(--sens-radio-icon-disabled-hover);
+}
+
+.sens-radio-preview--disabled-hover .sens-radio--disabled .sens-radio-description {
+  color: var(--sens-radio-disabled-hover-text);
+}
+
+.sens-radio-preview--disabled-hover .sens-radio-input:disabled + .sens-radio-control {
+  border-color: var(--sens-radio-disabled-hover-border);
+  background: var(--sens-radio-disabled-hover-bg);
+}
+
+.sens-radio--readonly {
+  cursor: default;
+}
+
+.sens-radio-group {
+  display: inline-flex;
+  flex-direction: column;
+  color: var(--sens-radio-text);
+}
+
+.sens-radio-group-options {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  column-gap: var(--sens-radio-group-column-gap);
+  row-gap: var(--sens-radio-group-row-gap);
+}
+
+.sens-radio-group--vertical .sens-radio-group-options {
+  flex-direction: column;
+}
+
+.sens-radio-group--single-line .sens-radio-group-options {
+  align-items: center;
+}
+
+.sens-radio-group--single-line .sens-radio {
+  min-height: var(--sens-radio-option-height);
+  align-items: center;
+}
+
+.sens-radio-group--single-line .sens-radio-control {
+  margin-top: 0;
+}
+
+.sens-radio-matrix {
+  display: inline-grid;
+  gap: var(--sens-radio-gap);
+  min-width: max-content;
+}
+
+.sens-radio-matrix-head,
+.sens-radio-matrix-row {
+  display: grid;
+  grid-template-columns: 96px repeat(5, 180px);
+  gap: var(--sens-radio-gap);
+  align-items: start;
+}
+
+.sens-radio-matrix-head {
+  color: var(--sens-radio-sub-text);
+  font-size: var(--sens-radio-description-font-size);
+  line-height: var(--sens-radio-description-line-height);
+}
+
+.sens-radio-matrix-title {
+  color: var(--sens-radio-text);
+  font-weight: 500;
+}
+
+.sens-radio-matrix-cell {
+  min-height: 48px;
+}

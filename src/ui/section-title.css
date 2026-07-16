@@ -1,0 +1,164 @@
+.sens-section-title {
+  box-sizing: border-box;
+  max-width: 100%;
+  color: var(--sens-section-title-text);
+}
+
+.sens-section-title--general {
+  display: flex;
+  width: 100%;
+  min-width: 0;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: var(--sens-section-title-radius);
+  background: var(--sens-section-title-bg);
+}
+
+.sens-section-title--general.sens-section-title--large {
+  height: var(--sens-section-title-large-height);
+  padding-block: var(--sens-section-title-large-padding-block);
+  padding-inline: var(--sens-section-title-large-padding-inline);
+}
+
+.sens-section-title--general.sens-section-title--small {
+  height: var(--sens-section-title-small-height);
+  padding-block: var(--sens-section-title-small-padding-block);
+  padding-inline: var(--sens-section-title-small-padding-inline);
+}
+
+.sens-section-title--productLine {
+  display: inline-flex;
+  min-width: 0;
+  align-items: center;
+  gap: var(--sens-section-title-block-gap);
+}
+
+.sens-section-title-main {
+  display: flex;
+  min-width: 0;
+  flex: 1 1 auto;
+  align-items: center;
+  gap: var(--sens-section-title-block-gap);
+}
+
+.sens-section-title--productLine .sens-section-title-main {
+  flex: 0 1 auto;
+}
+
+.sens-section-title-title-row,
+.sens-section-title-meta,
+.sens-section-title-actions,
+.sens-section-title-help {
+  display: inline-flex;
+  min-width: 0;
+  align-items: center;
+}
+
+.sens-section-title-title-row {
+  gap: var(--sens-section-title-inline-gap);
+}
+
+.sens-section-title-meta {
+  flex: 0 0 auto;
+  gap: var(--sens-section-title-inline-gap);
+}
+
+.sens-section-title-text {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.sens-section-title--general.sens-section-title--large .sens-section-title-text {
+  font-size: var(--sens-section-title-large-title-size);
+  font-weight: var(--sens-section-title-large-title-weight);
+  line-height: var(--sens-section-title-large-title-line);
+}
+
+.sens-section-title--general.sens-section-title--small .sens-section-title-text {
+  font-size: var(--sens-section-title-small-title-size);
+  font-weight: var(--sens-section-title-small-title-weight);
+  line-height: var(--sens-section-title-small-title-line);
+}
+
+.sens-section-title--productLine.sens-section-title--large .sens-section-title-text {
+  font-size: var(--sens-section-title-product-large-title-size);
+  font-weight: var(--sens-section-title-product-large-title-weight);
+  line-height: var(--sens-section-title-product-large-title-line);
+}
+
+.sens-section-title--productLine.sens-section-title--small .sens-section-title-text {
+  font-size: var(--sens-section-title-product-small-title-size);
+  font-weight: var(--sens-section-title-product-small-title-weight);
+  line-height: var(--sens-section-title-product-small-title-line);
+}
+
+.sens-section-title-description {
+  color: var(--sens-section-title-sub-text);
+  font-size: var(--sens-section-title-description-size);
+  line-height: var(--sens-section-title-description-line);
+}
+
+.sens-section-title--general.sens-section-title--large .sens-section-title-description {
+  padding-top: var(--sens-section-title-large-description-offset);
+}
+
+.sens-section-title--general.sens-section-title--small .sens-section-title-description {
+  padding-top: var(--sens-section-title-small-description-offset);
+}
+
+.sens-section-title-help {
+  color: var(--sens-section-title-icon);
+  line-height: 0;
+}
+
+.sens-section-title-actions {
+  flex: 0 0 auto;
+  gap: var(--sens-section-title-actions-gap);
+  margin-left: var(--sens-section-title-actions-offset);
+}
+
+.sens-section-title-accent {
+  width: var(--sens-section-title-accent-width);
+  height: var(--sens-section-title-accent-height);
+  flex: 0 0 auto;
+  border-radius: var(--sens-section-title-accent-width);
+  background: var(--sens-section-title-accent);
+}
+
+.sens-section-title-showcase,
+.sens-section-title-matrix {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sens-section-title-preview-gap);
+}
+
+.sens-section-title-demo-card,
+.sens-section-title-matrix-card {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: var(--sens-section-title-preview-card-gap);
+  border-radius: var(--sens-section-title-preview-card-radius);
+  background: var(--sens-section-title-surface);
+}
+
+.sens-section-title-demo-card {
+  padding: var(--sens-section-title-preview-card-padding);
+}
+
+.sens-section-title-demo-label,
+.sens-section-title-matrix-title {
+  color: var(--sens-section-title-text);
+  font-size: var(--sens-section-title-small-title-size);
+  font-weight: var(--sens-section-title-large-title-weight);
+  line-height: var(--sens-section-title-small-title-line);
+}
+
+.sens-section-title-matrix-text,
+.sens-section-title-matrix-token {
+  color: var(--sens-section-title-sub-text);
+  font-size: var(--sens-section-title-description-size);
+  line-height: var(--sens-section-title-description-line);
+}

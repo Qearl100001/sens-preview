@@ -15,7 +15,8 @@ export const BASIC_STYLE_NAV = [
   { key: "/basic-styles/navigation-color", label: "导航颜色" },
   { key: "/basic-styles/typography", label: "字体" },
   { key: "/basic-styles/spacing", label: "间距" },
-  { key: "/basic-styles/layout-grid", label: "布局 / 栅格" },
+  { key: "/basic-styles/layout", label: "布局" },
+  { key: "/basic-styles/grid", label: "栅格" },
   { key: "/basic-styles/size", label: "尺寸" },
   { key: "/basic-styles/icon", label: "图标" },
   { key: "/basic-styles/radius", label: "圆角" },
@@ -31,6 +32,10 @@ export const COMPONENT_NAV = [
   { key: "/components/select-dropdown", label: "下拉浮层" },
   { key: "/components/select", label: "选择器" },
   { key: "/components/search", label: "搜索" },
+  { key: "/components/checkbox", label: "复选框" },
+  { key: "/components/radio", label: "单选框" },
+  { key: "/components/form", label: "表单" },
+  { key: "/components/title", label: "标题" },
   { key: "/components/tabs", label: "标签页" },
   { key: "/components/badge", label: "徽标" },
   { key: "/components/tag", label: "标签" },
@@ -38,8 +43,10 @@ export const COMPONENT_NAV = [
   { key: "/components/alert", label: "警告" },
   { key: "/components/title-bar", label: "标题栏" },
   { key: "/components/top-navigation", label: "顶部导航" },
+  { key: "/components/side-navigation", label: "侧边导航" },
   { key: "/components/drawer", label: "抽屉" },
   { key: "/components/table", label: "表格" },
+  { key: "/components/pagination", label: "分页器" },
   { key: "/components/divider", label: "分割线" },
 ] as const;
 
@@ -98,7 +105,7 @@ function getSectionMenuItems(section: ProductSection) {
       {
         type: "group" as const,
         label: "导航",
-        children: COMPONENT_NAV.filter((item) => ["/components/top-navigation", "/components/title-bar", "/components/tabs"].includes(item.key)).map(
+        children: COMPONENT_NAV.filter((item) => ["/components/top-navigation", "/components/side-navigation", "/components/title-bar", "/components/tabs"].includes(item.key)).map(
           (item) => ({ key: item.key, label: item.label }),
         ),
       },
@@ -106,7 +113,17 @@ function getSectionMenuItems(section: ProductSection) {
         type: "group" as const,
         label: "输入与选择",
         children: COMPONENT_NAV.filter((item) =>
-          ["/components/input", "/components/textarea", "/components/inputnumber", "/components/select-dropdown", "/components/select", "/components/search"].includes(item.key),
+          [
+            "/components/input",
+            "/components/textarea",
+            "/components/inputnumber",
+            "/components/select-dropdown",
+            "/components/select",
+            "/components/search",
+            "/components/checkbox",
+            "/components/radio",
+            "/components/form",
+          ].includes(item.key),
         ).map((item) => ({ key: item.key, label: item.label })),
       },
       {
@@ -119,7 +136,7 @@ function getSectionMenuItems(section: ProductSection) {
       {
         type: "group" as const,
         label: "内容与数据展示",
-        children: COMPONENT_NAV.filter((item) => ["/components/badge", "/components/tag", "/components/table", "/components/divider"].includes(item.key)).map(
+        children: COMPONENT_NAV.filter((item) => ["/components/title", "/components/badge", "/components/tag", "/components/table", "/components/pagination", "/components/divider"].includes(item.key)).map(
           (item) => ({ key: item.key, label: item.label }),
         ),
       },
