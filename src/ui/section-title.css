@@ -45,7 +45,13 @@
   flex: 0 1 auto;
 }
 
-.sens-section-title-title-row,
+.sens-section-title-title-row {
+  display: inline-flex;
+  min-width: 0;
+  align-items: baseline;
+  gap: var(--sens-section-title-inline-gap);
+}
+
 .sens-section-title-meta,
 .sens-section-title-actions,
 .sens-section-title-help {
@@ -54,12 +60,9 @@
   align-items: center;
 }
 
-.sens-section-title-title-row {
-  gap: var(--sens-section-title-inline-gap);
-}
-
 .sens-section-title-meta {
   flex: 0 0 auto;
+  align-self: center;
   gap: var(--sens-section-title-inline-gap);
 }
 
@@ -95,17 +98,15 @@
 }
 
 .sens-section-title-description {
+  flex: 0 1 auto;
+  min-width: 0;
+  overflow: hidden;
   color: var(--sens-section-title-sub-text);
   font-size: var(--sens-section-title-description-size);
+  font-weight: var(--sens-section-title-small-title-weight);
   line-height: var(--sens-section-title-description-line);
-}
-
-.sens-section-title--general.sens-section-title--large .sens-section-title-description {
-  padding-top: var(--sens-section-title-large-description-offset);
-}
-
-.sens-section-title--general.sens-section-title--small .sens-section-title-description {
-  padding-top: var(--sens-section-title-small-description-offset);
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .sens-section-title-help {
@@ -158,6 +159,40 @@
 
 .sens-section-title-matrix-text,
 .sens-section-title-matrix-token {
+  color: var(--sens-section-title-sub-text);
+  font-size: var(--sens-section-title-description-size);
+  line-height: var(--sens-section-title-description-line);
+}
+
+/* Preview-only: baseline guide for 辅助文案 vs 标题 */
+.sens-section-title-baseline-board {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sens-section-title-preview-card-gap);
+}
+
+.sens-section-title-baseline-sample {
+  position: relative;
+}
+
+.sens-section-title-baseline-sample .sens-section-title-title-row {
+  position: relative;
+}
+
+.sens-section-title-baseline-sample .sens-section-title-title-row::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: 0.2em;
+  left: 0;
+  z-index: 1;
+  height: 1px;
+  pointer-events: none;
+  background: var(--sens-section-title-accent);
+  opacity: 0.45;
+}
+
+.sens-section-title-baseline-note {
   color: var(--sens-section-title-sub-text);
   font-size: var(--sens-section-title-description-size);
   line-height: var(--sens-section-title-description-line);

@@ -44,8 +44,6 @@ function buildSectionTitleTokenVars(): CSSProperties {
     "--sens-section-title-small-padding-inline": px(getUnitToken("spacing/horizontal/2x")),
     "--sens-section-title-large-padding-block": px(getUnitToken("spacing/vertical/3x")),
     "--sens-section-title-small-padding-block": px(getUnitToken("spacing/vertical/1.5x")),
-    "--sens-section-title-large-description-offset": px(getUnitToken("spacing/vertical/1x")),
-    "--sens-section-title-small-description-offset": px(getUnitToken("spacing/vertical/0.5x")),
     "--sens-section-title-large-title-size": px(getTypographyToken("font-size/l")),
     "--sens-section-title-large-title-line": px(getTypographyToken("line-height/l")),
     "--sens-section-title-large-title-weight": getTypographyToken("font-weight/semibold"),
@@ -106,8 +104,8 @@ export function SensSectionTitle({
               {helpIcon != null ? <span className="sens-section-title-help">{helpIcon}</span> : null}
             </span>
           ) : null}
+          {hasDescription ? <span className="sens-section-title-description">{description}</span> : null}
         </div>
-        {hasDescription ? <div className="sens-section-title-description">{description}</div> : null}
       </div>
       {showActions ? <div className="sens-section-title-actions">{actions}</div> : null}
     </div>

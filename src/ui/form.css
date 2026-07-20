@@ -289,3 +289,81 @@
   border-radius: var(--sens-form-card-radius);
   background: var(--sens-form-surface);
 }
+
+/* Preview: form grouping hierarchy (69:26542) */
+.sens-form-grouping-board {
+  display: grid;
+  gap: var(--sens-form-content-gap);
+  width: 100%;
+  min-width: 0;
+}
+
+.sens-form-grouping-note {
+  color: var(--sens-form-sub-text);
+  font-size: var(--sens-form-help-font-size);
+  line-height: var(--sens-form-help-line-height);
+}
+
+.sens-form-grouping-stack {
+  display: grid;
+  gap: var(--sens-form-section-gap);
+  min-width: 0;
+}
+
+.sens-form-grouping-block {
+  display: grid;
+  gap: var(--sens-form-subsection-gap);
+  min-width: 0;
+}
+
+.sens-form-grouping-level2,
+.sens-form-grouping-level3 {
+  margin: 0;
+  color: var(--sens-form-text);
+}
+
+.sens-form-grouping-level2 {
+  font-size: var(--sens-form-group-title-l-size);
+  font-weight: var(--sens-form-group-title-l-weight);
+  line-height: var(--sens-form-group-title-l-line);
+}
+
+.sens-form-grouping-level3 {
+  font-size: var(--sens-form-label-font-size);
+  font-weight: var(--sens-form-label-font-weight);
+  line-height: var(--sens-form-label-line-height);
+}
+
+.sens-form-grouping-fields {
+  display: grid;
+  gap: var(--sens-form-row-gap);
+  min-width: 0;
+}
+
+.sens-form-grouping-card-outline {
+  display: grid;
+  gap: var(--sens-form-subsection-gap);
+  min-width: 0;
+  padding: var(--sens-form-content-gap);
+  border: var(--sens-form-divider-width) solid var(--sens-form-card-outline);
+  border-radius: var(--sens-form-card-radius);
+  background: var(--sens-form-surface);
+}
+
+.sens-form-grouping-card-muted {
+  display: grid;
+  gap: var(--sens-form-row-gap);
+  min-width: 0;
+  padding: var(--sens-form-content-gap);
+  border-radius: var(--sens-form-card-radius);
+  background: var(--sens-form-muted-surface);
+}
+
+.sens-form-grouping-token-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sens-form-label-inline-gap);
+  color: var(--sens-form-sub-text);
+  font-size: var(--sens-form-help-font-size);
+  line-height: var(--sens-form-help-line-height);
+}
