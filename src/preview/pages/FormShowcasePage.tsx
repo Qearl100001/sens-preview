@@ -116,34 +116,39 @@ function FormGroupingPreview() {
       </div>
 
       <div className="sens-form-grouping-stack">
-        <SensSectionTitle title="顶层分组标题" description="16px + 灰条 · font-size/l" />
+        <div className="sens-form-section-block">
+          <SensSectionTitle title="顶层分组标题" description="16px + 灰条 · font-size/l" />
+          <div className="sens-form-group-content">
+            <div className="sens-form-grouping-block">
+              <h3 className="sens-form-grouping-level2">第二层分组标题</h3>
+              <div className="sens-form-grouping-fields">
+                <SensFormItem label="字段标题">
+                  <SensInput placeholder="挂在第二层下的字段" style={{ width: "100%" }} />
+                </SensFormItem>
+              </div>
+            </div>
 
-        <div className="sens-form-grouping-block">
-          <h3 className="sens-form-grouping-level2">第二层分组标题</h3>
-          <div className="sens-form-grouping-fields">
-            <SensFormItem label="字段标题">
-              <SensInput placeholder="挂在第二层下的字段" style={{ width: "100%" }} />
-            </SensFormItem>
-          </div>
-        </div>
+            <div className="sens-form-grouping-block">
+              <h4 className="sens-form-grouping-level3">第三层分组标题</h4>
+              <div className="sens-form-grouping-fields">
+                <SensFormItem label="字段标题">
+                  <SensInput placeholder="挂在第三层下的字段" style={{ width: "100%" }} />
+                </SensFormItem>
+              </div>
+            </div>
 
-        <div className="sens-form-grouping-block">
-          <h4 className="sens-form-grouping-level3">第三层分组标题</h4>
-          <div className="sens-form-grouping-fields">
-            <SensFormItem label="字段标题">
-              <SensInput placeholder="挂在第三层下的字段" style={{ width: "100%" }} />
-            </SensFormItem>
-          </div>
-        </div>
-
-        <div className="sens-form-grouping-card-outline">
-          <SensSectionTitle title="白卡内重置 · 顶层" description="灰条可重置分组树" />
-          <h3 className="sens-form-grouping-level2">白卡内第二层（16 · font-size/l）</h3>
-          <div className="sens-form-grouping-card-muted">
-            <h4 className="sens-form-grouping-level3">灰底卡内标题（仅 14 · font-size/m）</h4>
-            <SensFormItem label="字段标题">
-              <SensInput placeholder="灰卡内字段；不可再套白描边卡" style={{ width: "100%" }} />
-            </SensFormItem>
+            <div className="sens-form-grouping-card-outline">
+              <SensSectionTitle title="白卡内重置 · 顶层" description="灰条可重置分组树" />
+              <div className="sens-form-group-content">
+                <h3 className="sens-form-grouping-level2">白卡内第二层（16 · font-size/l）</h3>
+                <div className="sens-form-grouping-card-muted">
+                  <h4 className="sens-form-grouping-level3">灰底卡内标题（仅 14 · font-size/m）</h4>
+                  <SensFormItem label="字段标题">
+                    <SensInput placeholder="灰卡内字段；不可再套白描边卡" style={{ width: "100%" }} />
+                  </SensFormItem>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -219,7 +224,7 @@ function FormDemo() {
             ]}
           />
         </SensFormItem>
-        <SensFormActions alignWithControl={layout === "horizontal"}>
+        <SensFormActions>
           <SensButton tone="primary">提交</SensButton>
           <SensButton>取消</SensButton>
         </SensFormActions>

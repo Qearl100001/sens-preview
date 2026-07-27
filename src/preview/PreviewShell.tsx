@@ -9,6 +9,8 @@ const { Header, Sider, Content } = Layout;
 const { Text } = Typography;
 const { useToken } = theme;
 
+const PRODUCT_MIN_DESKTOP_WIDTH = 1280;
+
 export const BASIC_STYLE_NAV = [
   { key: "/basic-styles/color", label: "颜色" },
   { key: "/basic-styles/theme-skinning", label: "换肤规则" },
@@ -58,13 +60,14 @@ const CASE_NAV = [
   { key: "/cases/ai-design-stage-ppt", label: "AI 设计环节 PPT" },
 ] as const;
 
-type ProductSection = "overview" | "foundation" | "components" | "templates" | "cases" | "guides";
+type ProductSection = "overview" | "foundation" | "components" | "composite" | "templates" | "cases" | "guides";
 
 const SECTION_META: Record<ProductSection, { label: string; description: string; href: string }> = {
   overview: { label: "系统概览", description: "设计系统建设状态与当前工作入口", href: "/overview" },
   foundation: { label: "基础样式", description: "跨组件复用的视觉与布局规则", href: "/basic-styles/color" },
-  components: { label: "组件", description: "组件 Demo、状态矩阵与使用说明", href: "/components/button" },
-  templates: { label: "样板间", description: "可复用的页面结构与组件组合", href: "/templates" },
+  components: { label: "基础组件", description: "单个组件的 Demo、状态矩阵与使用说明", href: "/components/button" },
+  composite: { label: "复合组件", description: "跨基础组件组合出的稳定模式", href: "/composite" },
+  templates: { label: "样板间", description: "承接真实业务场景的页面样板", href: "/templates" },
   cases: { label: "案例", description: "真实业务与 AI 验证的沉淀", href: "/cases" },
   guides: { label: "规范与方法", description: "设计系统交付、AI 工作规则与方法论", href: "/guides" },
 };
@@ -72,7 +75,8 @@ const SECTION_META: Record<ProductSection, { label: string; description: string;
 const TOP_NAV: { key: ProductSection; label: string; href: string }[] = [
   { key: "overview", label: "系统概览", href: "/overview" },
   { key: "foundation", label: "基础样式", href: "/basic-styles/color" },
-  { key: "components", label: "组件", href: "/components/button" },
+  { key: "components", label: "基础组件", href: "/components/button" },
+  { key: "composite", label: "复合组件", href: "/composite" },
   { key: "templates", label: "样板间", href: "/templates" },
   { key: "cases", label: "案例", href: "/cases" },
   { key: "guides", label: "规范与方法", href: "/guides" },
@@ -80,6 +84,7 @@ const TOP_NAV: { key: ProductSection; label: string; href: string }[] = [
 
 function getProductSection(pathname: string): ProductSection {
   if (pathname.startsWith("/components/")) return "components";
+  if (pathname.startsWith("/composite")) return "composite";
   if (pathname.startsWith("/basic-styles/foundation-status") || pathname === "/overview") return "overview";
   if (pathname.startsWith("/basic-styles/")) return "foundation";
   if (pathname.startsWith("/templates")) return "templates";
@@ -143,6 +148,29 @@ function getSectionMenuItems(section: ProductSection) {
     ];
   }
 
+  if (section === "composite") {
+    return [
+      { key: "/composite", label: "复合组件概览" },
+      { key: "/composite/form", label: "复合表单" },
+      { key: "/composite/table", label: "复合表格" },
+    ];
+  }
+
+  if (section === "templates") {
+    return [
+      { key: "/templates", label: "样板间概览" },
+      {
+        key: "templates-sdh",
+        label: "SDH / 录入型表格",
+        children: [
+          { key: "/templates/sdh-editable-table/event-scroll", label: "新增元事件 / 滚动" },
+          { key: "/templates/sdh-editable-table/material-element", label: "物料元素录入" },
+          { key: "/templates/sdh-editable-table/create-dimension-event-property", label: "创建维度（事件属性）" },
+        ],
+      },
+    ];
+  }
+
   if (section === "cases") return CASE_NAV.map((item) => ({ key: item.key, label: item.label }));
   if (section === "guides") {
     return [
@@ -167,12 +195,20 @@ function getSelectedMenuKey(section: ProductSection, pathname: string) {
     return COMPONENT_NAV.some((item) => item.key === pathname) ? pathname : SECTION_META.components.href;
   }
 
+  if (section === "composite") {
+    return ["/composite", "/composite/form", "/composite/table"].includes(pathname) ? pathname : SECTION_META.composite.href;
+  }
+
+  if (section === "templates") {
+    return pathname.startsWith("/templates/sdh-editable-table/") ? pathname : pathname === "/templates" ? pathname : "/templates";
+  }
+
   if (section === "cases") {
     return CASE_NAV.some((item) => item.key === pathname) ? pathname : SECTION_META.cases.href;
   }
 
   if (section === "guides") return pathname === "/changelog" ? "/changelog" : "/guides";
-  return SECTION_META[section].href;
+  return "/overview";
 }
 
 export interface PreviewShellProps {
@@ -232,7 +268,8 @@ export function PreviewShell({ skin, onSkinChange, headerExtra }: PreviewShellPr
   );
 
   return (
-    <Layout style={{ height: "100vh", overflow: "hidden", background: token.colorBgLayout }}>
+    <Layout style={{ height: "100vh", overflow: "auto", background: token.colorBgLayout }}>
+      <div style={{ minWidth: PRODUCT_MIN_DESKTOP_WIDTH, minHeight: "100%", display: "flex", flexDirection: "column" }}>
       <Header
         style={{
           flexShrink: 0,
@@ -296,22 +333,6 @@ export function PreviewShell({ skin, onSkinChange, headerExtra }: PreviewShellPr
               onClick={({ key }) => navigate(key)}
               style={{ borderInlineEnd: 0, paddingBottom: token.paddingMD }}
             />
-            {section === "components" ? (
-              <div
-                style={{
-                  borderTop: `1px solid ${token.colorBorderSecondary}`,
-                  margin: `${token.marginXS}px ${token.marginMD} 0`,
-                  padding: `${token.paddingMD}px ${token.paddingXS}px`,
-                }}
-              >
-                <Text strong style={{ fontSize: token.fontSizeSM }}>
-                  业务组件
-                </Text>
-                <Text type="secondary" style={{ display: "block", marginTop: token.marginXXS, fontSize: token.fontSizeSM }}>
-                  在两个或更多样板间稳定复用后，再收录到这里。
-                </Text>
-              </div>
-            ) : null}
           </Sider>
         ) : null}
         <Content
@@ -331,6 +352,7 @@ export function PreviewShell({ skin, onSkinChange, headerExtra }: PreviewShellPr
           )}
         </Content>
       </Layout>
+      </div>
     </Layout>
   );
 }

@@ -1,7 +1,11 @@
 # Spacing Foundation
 
-> 主要来源：`/Users/liyuwen/Desktop/Sens.Design_间距_v0.4_220505.pdf`、`src/design-system/tokens.resolved.json`。  
-> 当前状态：规则确认中；本文件先作为 foundation 文档，不直接等同于所有组件已完成 token 映射。
+> 统一页面、组件、表单、表格、卡片、弹层里的间距、内边距、外边距和元素间距。<br>
+> 成熟度：Stable<br>
+> 实现：Implemented<br>
+> 验证：Verified（2026-07-24：`/basic-styles/spacing` 设计说明与数值样张）
+> 来源：`/Users/liyuwen/Desktop/Sens.Design_间距_v0.4_220505.pdf`、`tokens.resolved.json`。<br>
+> 预览：`/basic-styles/spacing`
 
 ## 1. 定位
 
@@ -81,17 +85,17 @@ Spacing 不负责所有尺寸。
 - 表格信息区高度：40px，作为表格组件规格，不直接当作普通 spacing。
 - 表格单元格 padding 和行高：进入 TableShell / Table 组件阶段单独确认。
 - 抽屉 body / footer padding：不能直接依赖 antd `paddingLG`，做 Drawer 时映射到 SensD spacing。
-- 表单项间距、label 与控件关系、错误提示距离：做 Form / FormItem 组件时再依据表单设计稿确认和校准，本阶段不提前写死。
+- 表单项间距、label 与控件关系、错误提示距离：以 `components/base/form.md` 为唯一展开维护源；本篇只引用，不重复定义。
 
 ## 7. 当前问题与处理策略
 
 | 问题 | 当前处理 | 建议时机 |
 |---|---|---|
-| 代码里存在硬写 padding / gap / margin | 本轮只记录，不批量改 | Foundation 收尾检查 |
+| 代码里存在硬写 padding / gap / margin | 按组件清单化收敛，不做全仓批量替换 | 组件维护时 |
 | antd spacing token 未完全映射 SensD | 先记录规则，不手改生成文件 | 做 spacing helper / 组件 helper 时处理 |
 | 表格有 11px / 6px 这类公式值 | 暂不升为全局 token | Table 组件阶段 |
 | 抽屉 padding 仍依赖 antd token | 暂不改代码 | Drawer 组件阶段 |
-| 表单 spacing 规则尚未校准 | 先记录边界，不提前写死 | Form / FormItem 组件阶段 |
+| 表格单元格 padding 文档与实现待核对 | 不作为 Spacing Foundation v0.9 阻塞项 | Table 组件收口 |
 | 间距 PDF 还没逐页结构化 | 先补核心规则 | 后续按模块细化 |
 
 ## 8. 单组件间距验收
@@ -105,10 +109,10 @@ Spacing 不负责所有尺寸。
 - 是否存在公式型值；如果存在，说明计算来源。
 - 如果某个间距暂时不能 token 化，必须说明原因并暂停确认。
 
-## 9. 待补
+## 9. v0.9 边界与后续
 
-- 从间距 PDF 逐页提炼页面标题栏、卡片、表单、表格、下拉、模态的具体规则。
-- 建立 semantic spacing：`page.padding`、`card.padding`、`form.itemGap`、`section.gap` 等。
-- Spacing 预览页已补，当前展示基础 scale、水平 / 垂直 spacing、spacing 与 size 边界和典型公式值提醒。
-- Foundation 收尾时检查现有组件中的 padding / margin / gap 是否绑定 token。
-- 做 Form / FormItem 时补表单专属 spacing 规则。
+- Spacing 预览页展示基础 scale、水平 / 垂直 spacing、spacing 与 size 边界和典型公式值提醒。
+- 表单专属间距由 `components/base/form.md` 维护；卡片、Table、Drawer 等专属间距由对应组件规则维护。
+- v0.9 不新增 `page.padding`、`card.padding`、`form.itemGap` 等 semantic spacing token。
+- v0.9 不做全仓 padding / margin / gap 批量替换；组件进入维护时按本篇与 `conventions.md` 逐项收敛。
+- 间距 PDF 的逐页结构化、Drawer 间距和 Table 单元格 padding 作为后续组件阶段任务。

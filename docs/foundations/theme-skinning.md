@@ -1,6 +1,11 @@
 # Theme / Skinning
 
-> Theme / Skinning 定义设计系统中的换肤模型。当前规则将换肤拆成两条独立主题线：`Product Shell Theme` 和 `Functional Skin`。两者可以独立选择、独立组合，不要求同色系；普通中性色默认不参与换肤。
+> 定义 Product Shell Theme 与 Functional Skin 两条独立主题线；普通中性色默认不参与换肤。<br>
+> 成熟度：Pilot<br>
+> 实现：Partial<br>
+> 验证：Pending<br>
+> 来源：`functional-skin.ts`、`navigation-color.ts`、`navigation-color.md`、`color.md`。<br>
+> 预览：`/basic-styles/theme-skinning`
 
 ## 1. 定义
 
@@ -54,9 +59,10 @@
 
 - 主操作色：默认、悬停、点击、禁用。
 - 选中背景：默认、悬停、点击。
-- 链接色：默认、悬停、点击、浅色背景、浅色描边。
 - 开关、标签、便签等组件背景功能色。
 - 需要表达功能状态的组件局部颜色。
+
+链接色属于固定状态色，不参与 Functional Skin；见 `src/design-system/color-semantics.md` 与 `color.md`。
 
 功能色可以自由选择一套配置使用，不需要跟随产品壳主题。例如 `Product Shell Theme` 使用绿色，`Functional Skin` 可以使用蓝色。
 

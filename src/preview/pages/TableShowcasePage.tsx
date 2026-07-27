@@ -1,14 +1,16 @@
 import { useMemo, useState } from "react";
 import type { TableColumnsType } from "antd";
-import { Segmented, Space, Typography } from "antd";
+import { Segmented, Space } from "antd";
 import tableDesignDoc from "../../design-system/components/base/table.design.md?raw";
 import tableDevDoc from "../../design-system/components/base/table.md?raw";
-import { LinkButton, SensButton, StatusBadge, TableActions, TableShell, type RunStatus } from "../../ui";
+import { getColorToken } from "../../design-system/color-utils";
+import { SensIcon } from "../../design-system/icons";
+import { getTypographyToken } from "../../design-system/typography";
+import { getUnitToken } from "../../design-system/unit";
+import { LinkButton, SensButton, StatusBadge, TableActions, TableEllipsis, TableShell, type RunStatus } from "../../ui";
 import { ComponentShowcaseLayout } from "../ComponentShowcaseLayout";
 
-const { Text } = Typography;
-
-type TableDemoState = "normal" | "filtered" | "selected" | "empty" | "loading";
+type TableDemoState = "normal" | "filtered" | "selected" | "noData" | "noResult" | "loadFailed" | "loading";
 
 interface DataRecord {
   key: string;
@@ -58,6 +60,36 @@ const TABLE_ROWS: DataRecord[] = [
   },
 ];
 
+const previewSubtextStyle = {
+  color: getColorToken("text-sub-color"),
+  fontSize: `${getTypographyToken("font-size/s")}px`,
+  lineHeight: `${getTypographyToken("line-height/s")}px`,
+};
+
+const previewTitleStyle = {
+  color: getColorToken("text-color"),
+  fontSize: `${getTypographyToken("font-size/m")}px`,
+  fontWeight: 600,
+  lineHeight: `${getTypographyToken("line-height/m")}px`,
+};
+
+const previewSectionGap = getUnitToken("spacing/4x");
+const previewControlGap = getUnitToken("spacing/2x");
+const previewItemGap = getUnitToken("spacing/1x");
+
+function TableInfoExtra() {
+  return (
+    <Space size={previewControlGap}>
+      <SensButton size="small" tone="tertiary" icon={<SensIcon name="reload" sizeToken="size/icon/m" color="currentColor" />}>
+        刷新
+      </SensButton>
+      <SensButton size="small" tone="tertiary" icon={<SensIcon name="setting" sizeToken="size/icon/m" color="currentColor" />}>
+        设置
+      </SensButton>
+    </Space>
+  );
+}
+
 function useTableColumns(): TableColumnsType<DataRecord> {
   return useMemo(
     () => [
@@ -69,11 +101,23 @@ function useTableColumns(): TableColumnsType<DataRecord> {
         fixed: "left",
         ellipsis: true,
         sorter: (a, b) => a.name.localeCompare(b.name, "zh-CN"),
-        render: (name: string) => <LinkButton>{name}</LinkButton>,
+        sortDirections: ["ascend", "descend", null],
+        showSorterTooltip: { title: "点击排序" },
+        render: (name: string) => (
+          <TableEllipsis>
+            <LinkButton tone="weak">{name}</LinkButton>
+          </TableEllipsis>
+        ),
       },
       { title: "负责人", dataIndex: "owner", key: "owner", width: 120 },
       { title: "数据源", dataIndex: "dataSource", key: "dataSource", width: 140 },
-      { title: "数据连接", dataIndex: "connection", key: "connection", width: 240, ellipsis: true },
+      {
+        title: "数据连接",
+        dataIndex: "connection",
+        key: "connection",
+        width: 240,
+        render: (connection: string) => <TableEllipsis>{connection}</TableEllipsis>,
+      },
       { title: "运行状态", dataIndex: "status", key: "status", width: 150, render: (status: RunStatus) => <StatusBadge status={status} /> },
       {
         title: "关联任务",
@@ -82,6 +126,8 @@ function useTableColumns(): TableColumnsType<DataRecord> {
         width: 120,
         align: "right",
         sorter: (a, b) => a.count - b.count,
+        sortDirections: ["ascend", "descend", null],
+        showSorterTooltip: { title: "点击排序" },
       },
       {
         title: "创建时间",
@@ -89,7 +135,13 @@ function useTableColumns(): TableColumnsType<DataRecord> {
         key: "createdAt",
         width: 190,
       },
-      { title: "备注", dataIndex: "remark", key: "remark", width: 220, ellipsis: true },
+      {
+        title: "备注",
+        dataIndex: "remark",
+        key: "remark",
+        width: 220,
+        render: (remark: string) => <TableEllipsis>{remark}</TableEllipsis>,
+      },
       {
         title: "操作",
         key: "action",
@@ -115,14 +167,17 @@ function TableDemo() {
   const [state, setState] = useState<TableDemoState>("normal");
   const columns = useTableColumns();
   const isSelected = state === "selected";
-  const isEmpty = state === "empty";
+  const isNoData = state === "noData";
+  const isNoResult = state === "noResult";
+  const isLoadFailed = state === "loadFailed";
   const isLoading = state === "loading";
+  const isEmpty = isNoData || isNoResult || isLoadFailed;
 
   return (
-    <Space direction="vertical" size="large" style={{ width: "100%" }}>
-      <Space wrap align="end" size="middle">
-        <Space direction="vertical" size={4}>
-          <Text type="secondary">基础表格状态</Text>
+    <Space direction="vertical" size={previewSectionGap} style={{ width: "100%" }}>
+      <Space wrap align="end" size={previewControlGap}>
+        <Space direction="vertical" size={previewItemGap}>
+          <span style={previewSubtextStyle}>基础表格状态</span>
           <Segmented
             value={state}
             onChange={(v) => setState(v as TableDemoState)}
@@ -130,7 +185,9 @@ function TableDemo() {
               { label: "常规", value: "normal" },
               { label: "筛选计数", value: "filtered" },
               { label: "批量操作", value: "selected" },
-              { label: "空状态", value: "empty" },
+              { label: "无数据", value: "noData" },
+              { label: "筛选无结果", value: "noResult" },
+              { label: "加载失败", value: "loadFailed" },
               { label: "加载", value: "loading" },
             ]}
           />
@@ -141,6 +198,7 @@ function TableDemo() {
         total={isEmpty ? 0 : 1000}
         foundTotal={state === "filtered" || isSelected ? 1000 : undefined}
         selectedCount={isSelected ? 9 : 0}
+        infoExtra={<TableInfoExtra />}
         infoActions={
           isSelected
             ? [
@@ -151,7 +209,6 @@ function TableDemo() {
               ]
             : undefined
         }
-        infoExtra={<SensButton tone="tertiary" size="small">设置</SensButton>}
         rowKey="key"
         rowSelection={
           isSelected
@@ -163,13 +220,13 @@ function TableDemo() {
         columns={columns}
         dataSource={isEmpty ? [] : TABLE_ROWS}
         loading={isLoading}
-        emptyState={state === "filtered" ? "noResult" : "noData"}
-        emptyAction={isEmpty ? <LinkButton>刷新</LinkButton> : undefined}
+        emptyState={isLoadFailed ? "loadFailed" : isNoResult ? "noResult" : "noData"}
+        emptyAction={isEmpty ? <SensButton tone="tertiary" size="small">重新加载</SensButton> : undefined}
         scroll={{ x: 1280 }}
         pagination={false}
       />
 
-      <Text type="secondary">分页器已作为独立基础组件收录；筛选表格后续会组合 TableShell + 筛选区 + Pagination。</Text>
+      <span style={previewSubtextStyle}>分页器已作为独立基础组件收录；筛选表格后续会组合 TableShell、筛选区与 Pagination。</span>
     </Space>
   );
 }
@@ -178,10 +235,10 @@ function TableAuditBoard() {
   const columns = useTableColumns();
 
   return (
-    <Space direction="vertical" size="large" style={{ width: "100%" }}>
+    <Space direction="vertical" size={previewSectionGap} style={{ width: "100%" }}>
       <div>
-        <Text strong>常规表格：信息区 + 横向滚动 + 右侧操作冻结</Text>
-        <div style={{ marginTop: 8 }}>
+        <span style={previewTitleStyle}>常规表格：信息区 + 横向滚动 + 右侧操作冻结</span>
+        <div style={{ marginTop: getUnitToken("spacing/2x") }}>
           <TableShell<DataRecord>
             total={1000}
             rowKey="key"
@@ -192,19 +249,19 @@ function TableAuditBoard() {
         </div>
       </div>
       <div>
-        <Text strong>批量操作信息区：已找到 + 当页选中 + 批量动作</Text>
-        <div style={{ marginTop: 8 }}>
+        <span style={previewTitleStyle}>批量操作信息区：已找到 + 当页选中 + 批量动作</span>
+        <div style={{ marginTop: getUnitToken("spacing/2x") }}>
           <TableShell<DataRecord>
             total={1000}
             foundTotal={1000}
             selectedCount={9}
+            infoExtra={<TableInfoExtra />}
             infoActions={[
               { key: "hide", label: "隐藏" },
               { key: "show", label: "显示" },
               { key: "delete", label: "删除" },
               { key: "cancel", label: "取消选择", tone: "tertiary" },
             ]}
-            infoExtra={<SensButton tone="tertiary" size="small">设置</SensButton>}
             rowKey="key"
             rowSelection={{ selectedRowKeys: TABLE_ROWS.map((row) => row.key) }}
             columns={columns}
@@ -214,8 +271,8 @@ function TableAuditBoard() {
         </div>
       </div>
       <div>
-        <Text strong>空状态与加载：使用 SensD 非页面级空态插图</Text>
-        <div style={{ marginTop: 8 }}>
+        <span style={previewTitleStyle}>空状态与加载：使用 SensD 非页面级空态插图</span>
+        <div style={{ marginTop: getUnitToken("spacing/2x") }}>
           <TableShell<DataRecord>
             total={0}
             rowKey="key"

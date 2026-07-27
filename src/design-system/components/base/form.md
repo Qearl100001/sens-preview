@@ -1,13 +1,19 @@
 # 表单 Form
 
-表单用于承载一组录入、选择、说明、校验和提交行为。当前先沉淀基础表单结构与间距规则，不把业务表单样板间直接混进基础组件。
+> 承载录入、选择、说明、校验和提交的基础表单结构，不混入业务表单样板间。<br>
+> 成熟度：Pilot<br>
+> 实现：Implemented<br>
+> 验证：Pending<br>
+> 来源：Sens.Design 表单组件 v2.1、`SensForm`、Form 相关基础组件。<br>
+> 预览：`/components/form`
 
 ## 组件边界
 
 - 表单负责表单项布局、标题、选填文案、帮助入口、辅助说明、报错、字符限制和操作区骨架。
 - 必填只作为语义和校验规则，不在标题前展示红色星号；视觉层只展示选填项。
 - 输入框、数字输入框、选择器、单选组、复选框组等具体控件仍回到各自基础组件规则。
-- 配置栏表单、分步表单、锚点表单、模态级表单、带表格的表单、联动表单、表单滚动、整页报错反馈属于“业务样板间 > 表单”。卡片嵌套的**分组规则**见下文；完整图 1/2/3 结构样张可后续进样板间。
+- 配置栏表单、分步表单、锚点表单、模态级表单、带表格的表单、联动表单、整页报错反馈属于“业务样板间 > 表单”。卡片嵌套的**分组规则**见下文；完整图 1/2/3 结构样张可后续进样板间。
+- 长表单的“内容区滚动与产品壳收起”属于跨页面 Layout / Product Shell 行为，表单只按需引用；规则见 `docs/foundations/layout.md`，不在 Form 中定义滚动容器、收起阈值或产品壳高度。
 - 标题组件已作为 `SensSectionTitle` 单独录入；表单页只引用“表单项标题 / 分组标题”的使用关系。
 - 表单不使用 antd Form 视觉层；`SensForm` 只提供 SensD 表单骨架。
 
@@ -61,6 +67,8 @@
 | 白卡内灰条 | 允许再出现灰条标题，并 **重置** 一组分组树（顶层再次 16px + 灰条，其下仍按 16 无条 → 14 无条） |
 | 灰底卡内标题 | **目前仅支持 14px**；灰卡内 **16px 暂无场景**，不要用 16px 灰条 / 16px 无条当灰卡内标题 |
 | 卡片样式 | 容器规则引用 `docs/foundations/card.md`（白描边 ≈ 描边卡片；灰底 ≈ 色块卡片） |
+| 灰条标题下内容 | 纵向：灰底标题到下方同组内容固定 `spacing/vertical/4x`（16px）。水平：同组内容左右内缩 `spacing/horizontal/4x`（16px），与灰条内标题文字左边对齐；不得与灰条容器外边缘对齐 |
+| 卡片通用限制 | 卡片通栏、圆角使用 `radius/l`（6px）；同一业务页面不同时混用超过两种卡片样式；卡片优先于分割线建立信息边界 |
 
 ### 与间距表的关系
 
@@ -80,6 +88,12 @@
 | 字符限制 | 用于输入长度反馈，属于表单项 meta |
 | 操作区 | 提交、取消、重置等按钮组合 |
 
+## 操作区规则
+
+- 表单操作区默认与表单项标题左侧对齐，不跟控件列左侧对齐。
+- 按钮之间使用 `spacing/horizontal/4x`。
+- `SensFormActions alignWithControl` 仅作为特殊场景能力保留；基础表单默认不使用。
+
 ## 辅助信息与报错规则
 
 - 辅助信息和字段报错共用同一个表单项信息槽。
@@ -88,7 +102,7 @@
 - 报错图标尺寸使用 `size/icon/m`，颜色和报错文案都使用 `warning-color`。
 - 报错文案使用辅助文案字号和行高：`font-size/s` + `line-height/s`。
 - 报错出现后，表单项高度自适应向下撑开，后续表单项自然下移；不使用绝对定位或固定遮盖。
-- 字符限制 `counter` 可继续作为独立 meta 展示；本规则只定义辅助信息与报错之间的替换关系。
+- 字符限制 `counter` 属于同一 meta 行：正常状态下与辅助信息同行右侧展示；报错状态下与报错信息同行右侧展示；没有辅助 / 报错时也保留在 meta 行右侧，不独占底部一行。
 
 ## 布局规则
 
@@ -106,7 +120,7 @@
 - 帮助图标使用 `SensIcon name="help"`，尺寸 `size/icon/m`，颜色来自 `icon-color-transparent`。
 - 标题文案使用四级标题样式：`text-color-transparent` @90% + `font-size/m` + `line-height/m` + `font-weight/medium`。
 - 选填文案使用 `text-sub-color-transparent` @58% + `font-size/m` + `line-height/m` + `font-weight/regular`，并和标题保持同一行高。
-- 左右布局中标题文字最大宽度为 112px（8 个中文字），由 `font-size/m * 8` 推导；超出时省略显示，悬停展示完整标题。
+- 左右布局中表单项标题文字超过 8 个中文字时才省略；标题文字最大宽度为 112px，由 `font-size/m * 8` 推导。出现省略时，悬停展示完整标题 tips；Tooltip 基础组件未录入前，先用原生 `title` 承接。
 - 帮助图标、`(选填)` 和标题附加信息不允许折行，也不参与标题文字省略。
 
 ## 左右布局标题对齐
@@ -129,7 +143,7 @@
 | 40px | `spacing/vertical/10x` | 二级标题分组之间；内容区到页脚按钮区 |
 | 28px | `spacing/vertical/7x` | 三级标题分组之间 |
 | 20px | `spacing/vertical/5x` | 表单项 / 组件和组件之间，排除基础表达式内部间距 |
-| 16px | `spacing/vertical/4x` / `spacing/horizontal/4x` | 标题栏 tab、sub tab、表单标题、分割线、Alert 到内容区；左右布局标题到控件 |
+| 16px | `spacing/vertical/4x` / `spacing/horizontal/4x` | 灰底标题到下方同组内容（固定）；标题栏 tab、sub tab、表单标题、分割线、Alert 到内容区；左右布局标题到控件 |
 | 8px | `spacing/vertical/2x` / `spacing/horizontal/2x` | 上下布局标题到控件；联动组件之间；组件多排；控件与单位 / 后缀内容 |
 | 4px | `spacing/vertical/1x` / `spacing/horizontal/1x` | 辅助文案到关联内容；报错到关联内容；图标到文字 / 内容 |
 
@@ -147,8 +161,9 @@
 ## 单个录入组件尺寸
 
 - 单个录入组件的宽度根据界面自由组合，不强制要求所有字段等宽。
+- 表单项控件区最大宽度使用 `form/control/max-width`（当前 600），包括输入框、选择器、数字输入框、单选 / 复选组和纯文本说明。
 - 组件宽度不得小于对应基础组件最小值。
-- Input / Select / Search / NumberInput 等具体宽度范围与建议值，回到对应基础组件文档维护。
+- Input / Select / Search / NumberInput 等具体最小宽度与建议值，回到对应基础组件文档维护；Form 只统一限制最大宽度。
 - Checkbox / Radio 无单独宽度约束；组内间距沿用 CheckboxGroup / RadioGroup。
 
 ## Token 映射
@@ -169,15 +184,18 @@
 | 操作区按钮间距 | `spacing/horizontal/4x` | Ready |
 | 表单项标题 | `text-color-transparent` @90% + `font-size/m` + `line-height/m` + `font-weight/medium` | Ready |
 | 选填文案 | `text-sub-color-transparent` @58% + `font-size/m` + `line-height/m` + `font-weight/regular` | Ready |
+| 表单项控件区最大宽度 | `form/control/max-width` = 600 | Ready |
 | 左右布局标题最大宽度 | `font-size/m * 8 = 112px` 推导 | To Confirm |
 | 辅助文案 | `text-sub-color-transparent` @58% + `font-size/s` + `line-height/s` | Ready |
 | 帮助图标 | `SensIcon name="help"` + `icon-color-transparent` + `size/icon/m` | Ready |
 | 报错图标 | `SensIcon name="feedback-error"` + `warning-color` + `size/icon/m` | Ready |
 | 报错文案 | `warning-color` + `font-size/s` + `line-height/s` | Ready |
+| 字符限制 meta | 与辅助 / 报错同一 meta 行右侧展示 | Ready |
 | 左右布局标题对齐高度 | `size/component-height/m` | Ready |
 | 单行单选 / 复选组选项高度 | `size/component-height/m` | Ready |
 | 表单项标题默认列宽 | `spacing/10x * 3` 推导 | To Confirm |
 | 分割 / 边框 | `divider/color/light/transparent` | Ready |
+| 操作区对齐 | 默认与表单项标题左侧对齐 | Ready |
 
 ## 验收记录
 

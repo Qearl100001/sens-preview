@@ -21,6 +21,7 @@
 - 灰底卡片内标题 **仅支持 14px**；灰卡内 16px（含灰条）暂无场景。
 - 通用小尺寸灰底标题存在，用于业务组件内部；**不得**充当表单分组第二 / 三层。
 - 第二层（16px 无条）、第三层（14px 无条）、字段 label **不得**套用灰条 / 绿条。
+- **灰底标题到下方同组内容的纵向间距固定为 `spacing/vertical/4x`（16px）**；组合灰底标题与内容时使用 `sens-form-section-block` / `form-templates-section-block` / `form-templates-table-block` 等 16px gap 容器，不得用 8px 或表单项 20px 间距替代。
 
 ### 顶层标题辅助文案基线对齐
 

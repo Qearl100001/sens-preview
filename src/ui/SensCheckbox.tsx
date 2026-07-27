@@ -117,7 +117,7 @@ export function SensCheckbox({
         onChange={readOnly ? undefined : onChange}
       />
       <span className="sens-checkbox-control" aria-hidden="true">
-        <SensIcon name="check" sizeToken="size/icon/m" color="currentColor" className="sens-checkbox-check" />
+        <SensIcon name="checkbox-check" sizeToken="size/icon/m" color="currentColor" className="sens-checkbox-check" />
         <span className="sens-checkbox-line" />
       </span>
       {hasBody ? (
@@ -153,6 +153,8 @@ export interface SensCheckboxGroupProps extends Omit<HTMLAttributes<HTMLDivEleme
   disabled?: boolean;
   readOnly?: boolean;
   direction?: "horizontal" | "vertical";
+  /** Use natural option height when the group directly controls linked content. */
+  itemHeight?: "control" | "content";
   onChange?: (value: string[]) => void;
 }
 
@@ -164,6 +166,7 @@ export function SensCheckboxGroup({
   disabled = false,
   readOnly = false,
   direction = "horizontal",
+  itemHeight = "control",
   className,
   style,
   onChange,
@@ -194,6 +197,7 @@ export function SensCheckboxGroup({
         direction === "vertical" && "sens-checkbox-group--vertical",
         hasDescription && "sens-checkbox-group--with-description",
         !hasDescription && "sens-checkbox-group--single-line",
+        itemHeight === "content" && "sens-checkbox-group--content-height",
         disabled && "sens-checkbox-group--disabled",
         className,
       )}

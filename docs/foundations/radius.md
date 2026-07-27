@@ -1,7 +1,11 @@
 # Radius Foundation
 
-> 主要来源：`src/design-system/tokens.resolved.json`、`src/design-system/theme.ts`、卡片规范截图。  
-> 当前状态：规则确认中；本文件先作为 foundation 文档，不直接等同于所有组件已完成 token 映射。
+> 控件、容器、卡片、胶囊与圆形按钮的圆角语义规则源。
+> 成熟度：Pilot
+> 实现：Partial
+> 验证：Pending
+> 来源：`tokens/source/figma/unit.json`、`tokens.resolved.json`、`theme.ts`
+> 预览：`/basic-styles/radius`
 
 ## 1. 定位
 

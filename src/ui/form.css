@@ -112,6 +112,8 @@
 
 .sens-form-item-control {
   display: flex;
+  width: 100%;
+  max-width: var(--sens-form-control-max-width);
   min-width: 0;
   flex-direction: column;
   gap: var(--sens-form-message-gap);
@@ -119,6 +121,7 @@
 
 .sens-form-item-field {
   display: flex;
+  width: 100%;
   min-width: 0;
   align-items: center;
   gap: var(--sens-form-field-gap);
@@ -138,11 +141,23 @@
   color: var(--sens-form-sub-text);
 }
 
-.sens-form-item-meta {
+.sens-form-item-meta-row {
   display: flex;
+  width: 100%;
   min-width: 0;
-  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
   gap: var(--sens-form-message-gap);
+}
+
+.sens-form-item-meta-content {
+  min-width: 0;
+}
+
+.sens-form-item-counter {
+  flex: 0 0 auto;
+  margin-left: auto;
+  text-align: right;
 }
 
 .sens-form-item-error {
@@ -310,6 +325,21 @@
   min-width: 0;
 }
 
+/* Content following a grey group title aligns to the title text, not its outer edge. */
+.sens-form-group-content {
+  display: grid;
+  min-width: 0;
+  gap: var(--sens-form-row-gap);
+  padding-inline: var(--sens-form-group-content-padding-inline);
+}
+
+/* 灰底标题 → 下方内容：固定 spacing/vertical/4x（16px）。 */
+.sens-form-section-block {
+  display: grid;
+  min-width: 0;
+  gap: var(--sens-form-content-gap);
+}
+
 .sens-form-grouping-block {
   display: grid;
   gap: var(--sens-form-subsection-gap);
@@ -342,7 +372,7 @@
 
 .sens-form-grouping-card-outline {
   display: grid;
-  gap: var(--sens-form-subsection-gap);
+  gap: var(--sens-form-content-gap);
   min-width: 0;
   padding: var(--sens-form-content-gap);
   border: var(--sens-form-divider-width) solid var(--sens-form-card-outline);

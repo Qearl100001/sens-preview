@@ -117,7 +117,7 @@
 | 框外 help 行 | 14×14 | 12px / 行高 18px | `size/icon/s` + `inputFontSizeSM` / `typography/line-height/s` |
 | 框内图标与文字 | 间距 4px | — | `spacing/horizontal/1x` |
 | 框外图标与文案 | 间距 4px | — | `spacing/horizontal/1x` |
-| 输入框与框外 help | 间距 4px | — | `spacing/horizontal/1x`（`input.css` `--sens-input-help-gap`） |
+| 输入框与框外 help | 间距 4px | — | `spacing/vertical/1x`（`input.css` `--sens-input-help-gap`） |
 
 实现：`FieldIcons.ErrorDiamondIcon`；`SensInput` `warningPlacement` + `help` / `warningMessage`。
 

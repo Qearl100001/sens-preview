@@ -13,11 +13,11 @@
 | 文件 | 作用 | 何时更新 |
 |---|---|---|
 | `theme.ts` | antd 主题：种子 + 中性 + 图标 + 按钮态 + Table/Segmented 等组件 token。**AI 每次都读，必须最新。** | 由 `build-tokens.mjs` 生成；改了 token 就重新生成 |
-| `build-tokens.mjs` | 生产工具：读 Figma 导出的 DTCG，生成 `theme.ts` / `tokens.resolved.json` / i18n。**不是给 AI 读的。** | 仅在重新从 Figma 导出 token、或要改 token 映射时跑 |
+| `../../build-tokens.mjs` | 生成工具：读取 `tokens/source/`，生成 `theme.ts` / `tokens.resolved.json` / i18n。**不是给 AI 读的。** | 修改 Token Source 或生成映射后运行 |
 | `tokens.resolved.json` | 全量已解析 token（color handle→hex、unit→number），团队/AI 查阅用 | 跟随 build-tokens 重新生成 |
 | `i18n/zh.json`·`en.json` | 中英文案表（来自 Figma Text 集合），文案走 key | 跟随 build-tokens 重新生成 |
 
-> 注：脚本和产物是配套的一对。改 token 的正确姿势是 **改 `build-tokens.mjs` → 重跑 → 覆盖 `theme.ts`**，不要手改 `theme.ts`。
+> 注：Source、脚本和产物是一条链。改 token 的正确顺序是 **改 `tokens/source/` → 必要时改 `build-tokens.mjs` 映射 → `npm run tokens:build` → `npm run tokens:check`**；不要手改 `theme.ts`、`tokens.resolved.json` 或 i18n 生成物。
 
 ### 横切规范（所有组件通用，AI 每次都读，保持最新）
 | 文件 | 作用 |
@@ -41,19 +41,84 @@
 
 > 纪律全文：`changelog/README.md`。changelog 是**唯一**可在用户未点名时由 Cursor 主动更新的 markdown 目录（见 `review-checklist.md` · 收口必过项）。
 
-### 组件规则（各组件专属，只写"和 antd 不同"的点）
-| 文件 | 组件 | antd 映射要点 |
+### 组件规则
+
+阅读顺序：`conventions.md` → 对应组件 `.md` → 该组件引用的 foundation。组件规则只写“和 antd 不同”或必须遵守的点；通用 token、颜色和间距回到 foundation。
+
+| 路径 | 组件 | 规则重点 |
 |---|---|---|
-| `components/base/button.md` | 按钮 | type/danger/ghost/size；二级 hover 无底、禁用=加载同色 |
-| `components/base/search.md` | 搜索 | Input/Input.Search/AutoComplete；变体矩阵；禁用图层名当文案 |
-| `components/base/input.md` | 输入框（单行） | Input 大/小；只读/警告；与 search / textarea 分工 |
-| `components/base/textarea.md` | 文本域 | Input.TextArea；4.5 行、showCount；颜色规则引用 input.md |
-| `components/base/inputnumber.md` | 数字输入框 | InputNumber + 步进器；188px 默认宽；components.InputNumber |
-| `components/base/dropdown-menu.md` | 下拉菜单（浮层面板） | 选项行 34px + 搜索六面 + 动作菜单；`SELECT_OPTION_ROW_TOKENS`；components.Select popup |
-| `components/base/select.md` | 选择器（触发框） | 32px 触发框 + clearable + 与 Input 同源字段色；串联 `dropdown-menu.md` |
-| `components/base/message.md` | 轻提示 Message | P0：`SensMessage` + `/components/message`；五 type（含加载）；白底+D4 |
-| `components/base/alert.md` | 警告 Alert | P0：`SensAlert` + `/components/alert`；四 type；浅底+浅描边 |
-| `components/composite/table.md` | 表格（复合） | 黑盒 antd Table；列→单元格类型；操作列=链接 |
+| `components/base/button.md` | Button | 变体、状态、操作优先级；二级 hover 无底、禁用与加载同色 |
+| `components/base/input.md` · `textarea.md` · `inputnumber.md` | 输入 | 单行、文本域、数字输入的尺寸、边界与状态 |
+| `components/base/search.md` · `select.md` · `select-dropdown.md` · `dropdown-menu.md` | 搜索与选择 | 触发框、选项面板、搜索和动作菜单边界 |
+| `components/base/checkbox.md` · `radio.md` | 选择控件 | 控件尺寸、组选项、辅助说明与联动边界 |
+| `components/base/form.md` · `title.md` | 表单与区块标题 | 表单布局、分组树、灰底标题和内容对齐 |
+| `components/base/table.md` · `pagination.md` | 基础表格与分页 | 单元格、信息区、分页器和基础 Table 边界 |
+| `components/base/tabs.md` · `badge.md` · `tag.md` | 导航与信息标记 | Tabs、徽标、标签的状态和规格 |
+| `components/base/title-bar.md` · `drawer.md` | 标题栏与抽屉 | 页面 / 抽屉标题、返回、右侧操作与抽屉结构 |
+| `components/base/top-navigation.md` | 顶部导航 | 产品壳主导航、专属浮层与 Navigation Color 关系 |
+| `components/composite/form.md` | 复合表单 | 带表格、联动、卡片三类跨组件表单模式 |
+| `components/composite/table.md` | 复合表格 | 筛选区、录入型表格、树表和嵌套 / 交叉表的组合边界 |
+| `components/composite/side-navigation.md` | 侧边导航 | 产品壳侧导结构、状态和页面关系 |
+
+### 文档策略
+
+- `.md` 是实现规则：token、组件 API / antd 映射、状态和验收入口。
+- `.design.md` 是可选的设计评审说明：选型、使用场景、推荐与禁止；不存在不表示组件缺失。
+- `SensBreadcrumb` 当前归属 `components/base/title-bar.md`：只承接标题栏内普通态 / 省略态面包屑。出现独立于标题栏的面包屑场景后，再拆出 `breadcrumb.md`。
+- 复合组件默认维护单篇 `.md`；只有存在独立设计评审材料时才增加 `.design.md`。
+
+### 状态模型
+
+组件、Foundation、复合组件和样板间必须将成熟度、实现和验证拆开描述；不得用单一状态词混合表达。
+
+| 维度 | 可用值 | 含义 |
+|---|---|---|
+| 成熟度 | `Stable` / `Pilot` / `Planned` / `Deprecated` | 规则是否可作为团队默认方案 |
+| 实现 | `Implemented` / `Partial` / `Missing` | 是否已有可复用实现 |
+| 验证 | `Verified` / `Pending` / `Not Applicable` | 是否已按预览、状态矩阵或浏览器验收 |
+| 优先级（可选） | `P0` / `P1` / `P2` | 仅表示建设顺序，不表示成熟度 |
+
+状态解释：
+
+- `Stable`：规则、实现和核心验收已完成，可作为默认方案。
+- `Pilot`：已有可运行规则或样张，可试用，仍可能调整。
+- `Planned`：方向已确认，但尚未形成可用资产。
+- `Deprecated`：不再推荐新增使用，仅为兼容保留。
+- `Partial`：已有首轮实现，但关键状态、流程或边界未完成。
+- `Pending`：已落地但尚未完成对应验收。
+
+旧状态迁移：
+
+```text
+Ready            → Stable + Implemented + Verified
+初稿             → Pilot 或 Planned，按是否存在可用规则判断
+首轮已收录       → Pilot + Implemented / Partial
+待收录           → Planned + Missing
+🔶待验           → 验证 Pending
+⏳待做           → 实现 Partial / Missing，按实际情况判断
+P0 / P1          → 只保留为优先级
+```
+
+### 规则源文档模板
+
+Foundation、基础组件、复合组件和样板间的规则源文档，默认按以下结构组织；可按类型删减，但状态字段、边界、验收和缺口必须保留。
+
+```md
+# 名称
+
+> 一句话定位
+> 成熟度：...
+> 实现：...
+> 验证：...
+> 来源：...
+> 预览：...
+
+## 边界
+## 核心规则
+## Token / 组件映射
+## 验收
+## 缺口与待确认
+```
 
 ## 维护原则
 - **现行规则（`.md` + `theme.ts`）勤更新**；`build-tokens.mjs` 跟着 token 走。

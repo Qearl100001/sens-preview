@@ -1,17 +1,57 @@
 import { useState } from "react";
-import { Alert, Segmented, Space, Table, Tag, Typography, theme } from "antd";
+import { Alert, Space, Table, Tag, Typography } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import layoutDocSource from "../../../../docs/foundations/layout.md?raw";
+import { buildShadow, getColorToken, tokenRgba } from "../../../design-system/color-utils";
+import { getDividerColor, getDividerHairlineWidth } from "../../../design-system/divider";
+import { getThemeTopBackground } from "../../../design-system/navigation-color";
+import { getTypographyToken } from "../../../design-system/typography";
+import { getUnitToken } from "../../../design-system/unit";
 import { BasicStylePageLayout } from "./BasicStylePageLayout";
 
 const { Text, Title } = Typography;
 
 // Fixed expanded width from the product side-navigation Figma and current shell implementation.
 const PRODUCT_SIDER_EXPANDED_WIDTH = 220;
+const px = (value: number) => `${value}px`;
+
+const layoutTokens = {
+  cardPadding: getUnitToken("spacing/4x"),
+  sectionGap: getUnitToken("spacing/6x"),
+  contentGap: getUnitToken("spacing/2x"),
+  contentBlockPadding: getUnitToken("spacing/vertical/4x"),
+  contentInlinePadding: getUnitToken("spacing/horizontal/6x"),
+  compactGap: getUnitToken("spacing/1x"),
+  demoHeight: getUnitToken("spacing/10x") * 5,
+  chromeHeight: getUnitToken("spacing/10x"),
+  radius: getUnitToken("radius/l"),
+  innerRadius: getUnitToken("radius/m"),
+  titleSize: getTypographyToken("font-size/m"),
+  titleLine: getTypographyToken("line-height/m"),
+  titleWeight: getTypographyToken("font-weight/medium"),
+  bodySize: getTypographyToken("font-size/m"),
+  bodyLine: getTypographyToken("line-height/m"),
+  captionSize: getTypographyToken("font-size/s"),
+  captionLine: getTypographyToken("line-height/s"),
+  dividerWidth: getDividerHairlineWidth(),
+} as const;
+
+const layoutColors = {
+  page: getColorToken("background-grey"),
+  surface: getColorToken("white"),
+  fill: tokenRgba("background-transparent-grey", 0.04),
+  fillStrong: tokenRgba("background-transparent-grey", 0.08),
+  border: getDividerColor("outline", "transparent"),
+  divider: getDividerColor("light", "transparent"),
+  text: tokenRgba("text-color-transparent", 0.9),
+  subText: tokenRgba("text-sub-color-transparent", 0.58),
+  chromeText: getColorToken("theme-top-text"),
+  topBackground: getThemeTopBackground(),
+} as const;
 
 const PAGE_LAYOUT_ROWS = [
-  { key: "t", layout: "T 型布局", scene: "三级落地页、带产品壳导航的管理页", structure: "顶部导航 + 左侧产品壳导航 + 主内容区", note: "侧导展开宽度固定 220px，主内容使用剩余宽度" },
-  { key: "vertical", layout: "上下布局", scene: "独立管理页、下钻详情页", structure: "顶部标题 / 操作区 + 下方内容区", note: "标题区不承担复杂分栏，内容区再选择局部结构" },
+  { key: "t", layout: "T 型布局", scene: "三级落地页、带产品壳导航的管理页", structure: "顶部导航 + 左侧产品壳导航 + 主内容区", note: "右侧标题栏贴合顶部；标题栏与首个工具区间距为 0px，内容模块左右 24px" },
+  { key: "vertical", layout: "上下布局", scene: "独立管理页、下钻详情页", structure: "顶部标题 / 操作区 + 下方内容区", note: "白色正文区上下 16px、左右 24px；标题区不承担复杂分栏" },
   { key: "context", layout: "上下 + 上下文侧栏", scene: "锚点、目录、详情辅助区", structure: "页面内辅助侧栏 + 主内容区", note: "展开或收起后，主内容和内部栅格重新计算" },
 ];
 
@@ -32,19 +72,18 @@ const BREAKPOINT_ROWS = [
 type PanelMode = "overlay" | "docked" | "reflow";
 
 function ContentPlaceholder({ dense = false }: { dense?: boolean }) {
-  const { token } = theme.useToken();
   const count = dense ? 4 : 3;
 
   return (
-    <div style={{ display: "grid", gridTemplateColumns: `repeat(${count}, minmax(0, 1fr))`, gap: token.marginSM }}>
+    <div style={{ display: "grid", gridTemplateColumns: `repeat(${count}, minmax(0, 1fr))`, gap: px(layoutTokens.contentGap) }}>
       {Array.from({ length: count }).map((_, index) => (
         <div
           key={index}
           style={{
-            minHeight: token.controlHeightLG * 2,
-            border: `${token.lineWidth}px solid ${token.colorBorderSecondary}`,
-            borderRadius: token.borderRadius,
-            background: token.colorFillQuaternary,
+            minHeight: px(layoutTokens.chromeHeight * 2),
+            border: `${layoutTokens.dividerWidth}px solid ${layoutColors.border}`,
+            borderRadius: px(layoutTokens.innerRadius),
+            background: layoutColors.fill,
           }}
         />
       ))}
@@ -53,38 +92,49 @@ function ContentPlaceholder({ dense = false }: { dense?: boolean }) {
 }
 
 function LayoutSkeletons() {
-  const { token } = theme.useToken();
   const cardStyle = {
-    padding: token.paddingMD,
-    border: `${token.lineWidth}px solid ${token.colorBorderSecondary}`,
-    borderRadius: token.borderRadiusLG,
-    background: token.colorBgContainer,
+    padding: px(layoutTokens.cardPadding),
+    border: `${layoutTokens.dividerWidth}px solid ${layoutColors.border}`,
+    borderRadius: px(layoutTokens.radius),
+    background: layoutColors.surface,
   } as const;
 
   return (
-    <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: token.marginMD }}>
+    <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: px(layoutTokens.cardPadding) }}>
       <div style={cardStyle}>
-        <Space direction="vertical" size="small" style={{ width: "100%" }}>
-          <Text strong>T 型布局</Text>
-          <Text type="secondary">适合有产品壳导航的三级落地页。</Text>
-          <div style={{ display: "flex", minHeight: token.controlHeightLG * 5 }}>
-            <div style={{ flex: `0 0 ${PRODUCT_SIDER_EXPANDED_WIDTH}px`, padding: token.paddingSM, background: token.colorFillTertiary, borderRight: `${token.lineWidth}px solid ${token.colorBorderSecondary}` }}>
+        <Space direction="vertical" size={layoutTokens.contentGap} style={{ width: "100%" }}>
+          <Text strong style={{ color: layoutColors.text }}>T 型布局</Text>
+          <Text style={{ color: layoutColors.subText }}>适合有产品壳导航的三级落地页。</Text>
+          <div style={{ display: "flex", minHeight: px(layoutTokens.demoHeight) }}>
+            <div style={{ flex: `0 0 ${PRODUCT_SIDER_EXPANDED_WIDTH}px`, padding: px(layoutTokens.contentGap), background: layoutColors.fillStrong, borderRight: `${layoutTokens.dividerWidth}px solid ${layoutColors.border}` }}>
               <Tag color="green">产品壳侧导</Tag>
             </div>
-            <div style={{ flex: 1, padding: token.paddingSM, minWidth: 0 }}>
-              <ContentPlaceholder dense />
+            <div style={{ display: "flex", flex: 1, minWidth: 0, flexDirection: "column" }}>
+              <div style={{ padding: `${px(layoutTokens.contentBlockPadding)} ${px(layoutTokens.contentInlinePadding)}`, background: layoutColors.fill, color: layoutColors.text, fontSize: px(layoutTokens.captionSize), lineHeight: px(layoutTokens.captionLine) }}>
+                右侧页面标题栏 · 顶部贴合
+              </div>
+              <div style={{ paddingInline: px(layoutTokens.contentInlinePadding), paddingBlock: 0 }}>
+                <div style={{ minHeight: px(getUnitToken("size/component-height/m")), display: "flex", alignItems: "center", color: layoutColors.subText, fontSize: px(layoutTokens.captionSize), lineHeight: px(layoutTokens.captionLine) }}>
+                  首个工具区 · 与标题栏 0px 间距
+                </div>
+                <div style={{ paddingTop: px(layoutTokens.contentBlockPadding) }}>
+                  <ContentPlaceholder dense />
+                </div>
+              </div>
             </div>
           </div>
         </Space>
       </div>
       <div style={cardStyle}>
-        <Space direction="vertical" size="small" style={{ width: "100%" }}>
-          <Text strong>上下布局</Text>
-          <Text type="secondary">适合独立管理页或下钻详情页。</Text>
-          <div style={{ padding: token.paddingSM, background: token.colorFillTertiary, borderRadius: token.borderRadius }}>
-            <Text type="secondary">标题 / 操作区</Text>
+        <Space direction="vertical" size={layoutTokens.contentGap} style={{ width: "100%" }}>
+          <Text strong style={{ color: layoutColors.text }}>上下布局</Text>
+          <Text style={{ color: layoutColors.subText }}>适合独立管理页或下钻详情页。</Text>
+          <div style={{ padding: px(layoutTokens.contentGap), background: layoutColors.fillStrong, borderRadius: px(layoutTokens.innerRadius) }}>
+            <Text style={{ color: layoutColors.subText }}>标题 / 操作区</Text>
           </div>
-          <ContentPlaceholder />
+          <div style={{ padding: `${px(layoutTokens.contentBlockPadding)} ${px(layoutTokens.contentInlinePadding)}`, background: layoutColors.surface, border: `${layoutTokens.dividerWidth}px solid ${layoutColors.border}`, borderRadius: px(layoutTokens.innerRadius) }}>
+            <ContentPlaceholder />
+          </div>
         </Space>
       </div>
     </div>
@@ -92,7 +142,6 @@ function LayoutSkeletons() {
 }
 
 function LeftPanelBehaviorBoard() {
-  const { token } = theme.useToken();
   const [mode, setMode] = useState<PanelMode>("overlay");
   const isOverlay = mode === "overlay";
   const isContext = mode === "reflow";
@@ -104,37 +153,54 @@ function LeftPanelBehaviorBoard() {
       style={{
         width: PRODUCT_SIDER_EXPANDED_WIDTH,
         flex: `0 0 ${PRODUCT_SIDER_EXPANDED_WIDTH}px`,
-        padding: token.paddingSM,
-        background: isContext ? token.colorFillTertiary : token.colorFillSecondary,
-        borderRight: `${token.lineWidth}px solid ${token.colorBorderSecondary}`,
-        boxShadow: isOverlay ? token.boxShadowSecondary : undefined,
+        padding: px(layoutTokens.contentGap),
+        background: isContext ? layoutColors.fillStrong : layoutColors.surface,
+        borderRight: `${layoutTokens.dividerWidth}px solid ${layoutColors.border}`,
+        boxShadow: isOverlay ? buildShadow("D3") : undefined,
       }}
     >
-      <Space direction="vertical" size="small">
-        <Text strong>{panelLabel}</Text>
-        <Text type="secondary">{panelDescription}</Text>
+      <Space direction="vertical" size={layoutTokens.compactGap}>
+        <Text strong style={{ color: layoutColors.text }}>{panelLabel}</Text>
+        <Text style={{ color: layoutColors.subText }}>{panelDescription}</Text>
         <Tag color={isContext ? "blue" : "green"}>{mode === "overlay" ? "Overlay" : mode === "docked" ? "Docked" : "Reflow"}</Tag>
       </Space>
     </div>
   );
 
   return (
-    <Space direction="vertical" size="middle" style={{ width: "100%" }}>
-      <Segmented
-        value={mode}
-        onChange={(value) => setMode(value as PanelMode)}
-        options={[
-          { label: "临时覆盖", value: "overlay" },
-          { label: "锁定侧导", value: "docked" },
-          { label: "页面内目录", value: "reflow" },
-        ]}
-      />
-      <div style={{ position: "relative", display: "flex", minHeight: token.controlHeightLG * 7, overflow: "hidden", border: `${token.lineWidth}px solid ${token.colorBorderSecondary}`, borderRadius: token.borderRadiusLG, background: token.colorBgContainer }}>
+    <Space direction="vertical" size={layoutTokens.cardPadding} style={{ width: "100%" }}>
+      <div style={{ display: "flex", flexWrap: "wrap", gap: px(layoutTokens.contentGap) }}>
+        {([
+          ["overlay", "临时覆盖"],
+          ["docked", "锁定侧导"],
+          ["reflow", "页面内目录"],
+        ] as const).map(([value, label]) => (
+          <button
+            key={value}
+            type="button"
+            onClick={() => setMode(value)}
+            style={{
+              height: px(getUnitToken("size/component-height/m")),
+              paddingInline: px(layoutTokens.cardPadding),
+              border: `${layoutTokens.dividerWidth}px solid ${mode === value ? getColorToken("component-primary") : layoutColors.border}`,
+              borderRadius: px(layoutTokens.innerRadius),
+              background: mode === value ? tokenRgba("component-active-background", 1) : layoutColors.surface,
+              color: mode === value ? getColorToken("component-active") : layoutColors.text,
+              fontSize: px(layoutTokens.bodySize),
+              lineHeight: px(layoutTokens.bodyLine),
+              cursor: "pointer",
+            }}
+          >
+            {label}
+          </button>
+        ))}
+      </div>
+      <div style={{ position: "relative", display: "flex", minHeight: px(layoutTokens.demoHeight + layoutTokens.chromeHeight * 2), overflow: "hidden", border: `${layoutTokens.dividerWidth}px solid ${layoutColors.border}`, borderRadius: px(layoutTokens.radius), background: layoutColors.surface }}>
         {isOverlay ? <div style={{ position: "absolute", insetBlock: 0, insetInlineStart: 0, zIndex: 1 }}>{panel}</div> : panel}
-        <div style={{ flex: 1, minWidth: 0, padding: token.paddingMD }}>
-          <Space direction="vertical" size="small" style={{ width: "100%" }}>
-            <Text strong>主内容区</Text>
-            <Text type="secondary">{isOverlay ? "仍使用整块内容宽度" : "按剩余内容宽度组织"}</Text>
+        <div style={{ flex: 1, minWidth: 0, padding: px(layoutTokens.cardPadding) }}>
+          <Space direction="vertical" size={layoutTokens.contentGap} style={{ width: "100%" }}>
+            <Text strong style={{ color: layoutColors.text }}>主内容区</Text>
+            <Text style={{ color: layoutColors.subText }}>{isOverlay ? "仍使用整块内容宽度" : "按剩余内容宽度组织"}</Text>
             <ContentPlaceholder dense={!isOverlay} />
           </Space>
         </div>
@@ -143,32 +209,101 @@ function LeftPanelBehaviorBoard() {
   );
 }
 
+function ScrollChromeBoard() {
+  const [chromeState, setChromeState] = useState<"expanded" | "collapsed">("expanded");
+  const isCollapsed = chromeState === "collapsed";
+
+  return (
+    <Space direction="vertical" size={layoutTokens.cardPadding} style={{ width: "100%" }}>
+      <div style={{ display: "flex", flexWrap: "wrap", gap: px(layoutTokens.contentGap) }}>
+        {([
+          ["expanded", "产品顶导展开"],
+          ["collapsed", "产品顶导收起"],
+        ] as const).map(([value, label]) => (
+          <button
+            key={value}
+            type="button"
+            onClick={() => setChromeState(value)}
+            style={{
+              height: px(getUnitToken("size/component-height/m")),
+              paddingInline: px(layoutTokens.cardPadding),
+              border: `${layoutTokens.dividerWidth}px solid ${chromeState === value ? getColorToken("component-primary") : layoutColors.border}`,
+              borderRadius: px(layoutTokens.innerRadius),
+              background: chromeState === value ? tokenRgba("component-active-background", 1) : layoutColors.surface,
+              color: chromeState === value ? getColorToken("component-active") : layoutColors.text,
+              fontSize: px(layoutTokens.bodySize),
+              lineHeight: px(layoutTokens.bodyLine),
+              cursor: "pointer",
+            }}
+          >
+            {label}
+          </button>
+        ))}
+      </div>
+      <div style={{ overflow: "hidden", border: `${layoutTokens.dividerWidth}px solid ${layoutColors.border}`, borderRadius: px(layoutTokens.radius), background: layoutColors.surface }}>
+        <div
+          style={{
+            height: isCollapsed ? 0 : px(layoutTokens.chromeHeight),
+            overflow: "hidden",
+            paddingInline: isCollapsed ? 0 : px(layoutTokens.cardPadding),
+            display: "flex",
+            alignItems: "center",
+            background: layoutColors.topBackground,
+            color: layoutColors.chromeText,
+          }}
+        >
+          <span style={{ fontSize: px(layoutTokens.captionSize), lineHeight: px(layoutTokens.captionLine) }}>产品壳顶部导航 · 行为示意，不表示最终导航尺寸</span>
+        </div>
+        <div style={{ padding: px(layoutTokens.cardPadding), display: "grid", gap: px(layoutTokens.contentGap) }}>
+          <div style={{ padding: px(layoutTokens.contentGap), borderRadius: px(layoutTokens.innerRadius), background: layoutColors.fillStrong, color: layoutColors.text, fontSize: px(layoutTokens.titleSize), lineHeight: px(layoutTokens.titleLine), fontWeight: layoutTokens.titleWeight }}>
+            页面标题栏保持当前规则；P0 不默认让它随产品顶导收起。
+          </div>
+          <ContentPlaceholder dense />
+          <div style={{ color: layoutColors.subText, fontSize: px(layoutTokens.captionSize), lineHeight: px(layoutTokens.captionLine) }}>
+            {isCollapsed ? "收起态仅增加主内容可用高度；内容宽度和内部栅格不改变。" : "展开态由页面唯一的主内容滚动容器承载滚动行为。"}
+          </div>
+        </div>
+      </div>
+      <Alert
+        type="warning"
+        showIcon
+        message="阈值、滞回区间、动效时长和标题栏联动待 Figma 补读"
+        description="本样张验证归属和两态边界，不把未稳定的计算值升级为 Design Token。"
+      />
+    </Space>
+  );
+}
+
 function LayoutSpecimen() {
   return (
     <Space direction="vertical" size="large" style={{ width: "100%" }}>
       <div>
-        <Title level={5} style={{ marginTop: 0 }}>布局规则入口</Title>
-        <Text type="secondary">页面骨架先决定区域关系，再把内容交给栅格组织。</Text>
+        <Title level={5} style={{ marginTop: 0, color: layoutColors.text }}>布局规则入口</Title>
+        <Text style={{ color: layoutColors.subText }}>页面骨架先决定区域关系，再把内容交给栅格组织。</Text>
       </div>
       <Alert type="info" showIcon message="Layout 不等于 Grid" description="这里查看骨架、断点和左侧区域行为；20 栏、12 栏及局部列数已移到独立的“栅格”页。" />
       <section>
-        <Title level={5}>页面骨架样张</Title>
+        <Title level={5} style={{ color: layoutColors.text }}>页面骨架样张</Title>
         <LayoutSkeletons />
       </section>
       <section>
-        <Title level={5}>左侧区域展开 / 收起行为</Title>
+        <Title level={5} style={{ color: layoutColors.text }}>左侧区域展开 / 收起行为</Title>
         <LeftPanelBehaviorBoard />
       </section>
       <section>
-        <Title level={5}>页面级布局类型</Title>
+        <Title level={5} style={{ color: layoutColors.text }}>内容区滚动与产品壳收起</Title>
+        <ScrollChromeBoard />
+      </section>
+      <section>
+        <Title level={5} style={{ color: layoutColors.text }}>页面级布局类型</Title>
         <Table columns={layoutColumns} dataSource={PAGE_LAYOUT_ROWS} pagination={false} size="small" scroll={{ x: 900 }} />
       </section>
       <section>
-        <Title level={5}>行为边界</Title>
+        <Title level={5} style={{ color: layoutColors.text }}>行为边界</Title>
         <Table columns={behaviorColumns} dataSource={PANEL_BEHAVIOR_ROWS} pagination={false} size="small" scroll={{ x: 860 }} />
       </section>
       <section>
-        <Title level={5}>断点与适配</Title>
+        <Title level={5} style={{ color: layoutColors.text }}>断点与适配</Title>
         <Table columns={breakpointColumns} dataSource={BREAKPOINT_ROWS} pagination={false} size="small" />
       </section>
       <Alert type="warning" showIcon message="侧导紧凑态宽度仍待从图标资产与交互稿确认" description="本页只使用 Figma 已明确且产品壳已消费的 220px 展开宽度；紧凑 rail 宽度不在这里推导成全局规则。" />

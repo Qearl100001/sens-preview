@@ -36,17 +36,23 @@
   min-width: var(--sens-btn-width-trigger);
 }
 
+/* 链接按钮：纯文字 / 图标+文字 / 纯图标均无水平内边距；间距由上下文或图文 gap 控制 */
+.sens-btn-link.ant-btn {
+  min-width: 0;
+  padding-inline: 0;
+}
+
 /* 弱化链接：默认辅色，hover/点击走链接状态色（button.md · linkWeak） */
 .sens-btn-link-weak.ant-btn-variant-link:not(:disabled) {
-  color: var(--ant-color-text-secondary);
+  color: var(--sens-btn-link-weak-text);
 }
 
 .sens-btn-link-weak.ant-btn-variant-link:not(:disabled):hover {
-  color: var(--ant-color-link);
+  color: var(--sens-btn-link-weak-link-hover);
 }
 
 .sens-btn-link-weak.ant-btn-variant-link:not(:disabled):active {
-  color: var(--ant-color-link-active);
+  color: var(--sens-btn-link-weak-link-active);
 }
 
 .sens-btn-link-weak.ant-btn-variant-link > .ant-btn-icon {

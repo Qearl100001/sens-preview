@@ -16,6 +16,9 @@
 | 空状态 / 加载 | 是 | 表格自身的数据状态 |
 | 分页器 | 否 | 独立基础组件，由复合表格组合 |
 | 筛选区 | 否 | 属于「筛选表格」复合组件 |
+| 录入型表格 | 否 | 属于「录入型表格」复合组件 |
+| 树表格 | 否 | 属于「树表格」复合组件 |
+| 嵌套 / 交叉表格 | 否 | 属于后续复合表格 |
 
 ## 表格信息区
 | 场景 | 文案 |
@@ -29,7 +32,8 @@
 - 批量操作放在信息区右侧，不单独漂浮。
 - 批量选择口径是「当页选中」，不是全量选中。
 - 批量操作使用按钮，不使用链接。常规批量动作使用小号二级按钮，弱操作如「取消选择」使用小号三级按钮。
-- 信息区最右侧可放一个独立操作入口，例如列设置 icon；setting icon 资产尚未录入 SensD 时，不用错误图标替代。
+- 信息区最右侧可放一个独立操作入口，例如刷新或列设置 icon；刷新使用 `reload`，设置使用 `setting`。
+- 数据刷新入口与设置入口同属信息区右侧能力；真实数据请求和列配置面板进入复合表格。
 
 ## 列与单元格
 | 类型 | 对齐 | 说明 |
@@ -37,7 +41,13 @@
 | 文本 | 左对齐 | 超长内容截断并提供 hover 查看 |
 | 数字 / 计数 | 右对齐 | 用于数量、比例、金额等可比较信息 |
 | 状态 | 左对齐 | 状态点 + 文案，颜色按语义 |
-| 操作 | 左对齐 | 链接按钮形态，默认中性色，hover / active 进入链接蓝，固定为最后一列 |
+| 操作 | 左对齐 | 常规蓝色链接按钮，固定为最后一列 |
+
+- 简单排序固定为三态循环：默认、升序、降序、默认；hover 显示排序提示。
+- 多于三种排序方式时使用复杂排序菜单，必须保留当前排序信息；该能力待业务字段规则稳定后进入复合组件。
+- 可下钻主属性默认中性文字，hover / active 进入链接蓝；操作列默认即为蓝色链接按钮。
+- 文本过长使用 `TableEllipsis` 省略并在 hover 通过 Tooltip 展示完整内容；行内编辑、用户下钻、状态和 Tag 作为单元格组合使用，不新增表格专属业务组件。
+- `StatusBadge` 目前作为旧组件出现在表格示例里，后续需要纳入全组件 SensD token 审计；表格文档只定义状态单元格可复用 Tag / 状态分类。
 
 ## 操作列
 - 操作 1-3 个时平铺展示。
@@ -64,16 +74,18 @@
 ## Token 映射状态
 | 视觉项 | SensD token / handle | 组件消费 | 状态 |
 |---|---|---|---|
-| 表格容器背景 | `white` | `colorBgContainer` | Ready |
-| 容器描边 | `outline-color` | `colorBorder` | Ready |
-| 信息区文字 | `text-sub-color` | `colorTextSecondary` | Ready |
-| 信息区分割线 | `divideline-color-light` | `colorBorderSecondary` | Ready |
-| 表头背景 | `background-04` | `Table.headerBg` / `colorFillAlter` | Ready |
-| 表头文字 | `text-color` | `Table.headerColor` / `colorText` | Ready |
-| 行分割线 | `line-color` | `Table.borderColor` | Ready |
-| 行 hover | `background-grey-hover` | `Table.rowHoverBg` | Ready |
-| 操作链接默认 | `text-color` | `LinkButton` 默认态 | Ready |
-| 操作链接 hover / active | `link-color` / `link-active-color` | `LinkButton` hover / active | Ready |
+| 表格容器背景 | `white` | `TableShell` 容器背景 | Ready |
+| 容器描边 | `divider/color/outline/solid` -> `outline-color` | `TableShell` 容器描边 | Ready |
+| 容器圆角 | `radius/l` | `TableShell` 容器圆角 | Ready |
+| 信息区文字 | `text-sub-color` | 信息区文案 | Ready |
+| 信息区分割线 | `divider/color/light/solid` -> `divideline-color-light` | 信息区底部分割线 | Ready |
+| 表头背景 | `background-04` | 表头背景 | Ready |
+| 表头文字 | `text-color` | 表头文字 | Ready |
+| 行分割线 | `divider/color/weak/solid` -> `line-color` | 表体分割线 | Ready |
+| 行 hover | `background-grey-hover` | 表体 hover | Ready |
+| 排序图标 | `icon-color-transparent` / `link-color` | 默认 / 当前排序 | Ready |
+| 下钻弱链接默认 / hover / active | `text-color` / `link-color` / `link-active-color` | `LinkButton tone="weak"` | Ready |
+| 操作链接默认 / hover / active | `link-color` / `link-hover-color` / `link-active-color` | `LinkButton tone="link"` | Ready |
 | 批量操作按钮 | Button 小号二级 / 三级 token | `SensButton size="small"` | Ready，依赖 Button |
 | 选中行背景 | `white` | 选中行覆盖 | Ready |
 | 信息区高度 | `size/component-height/xl` | 信息区高度 | Ready |
@@ -81,7 +93,8 @@
 | 信息区字号 / 行高 | `font-size/s` / `line-height/s` | 信息区文案 | Ready |
 | 表格操作字号 / 行高 | `font-size/m` / `line-height/m` | 操作列链接 | Ready |
 | 空态区域尺寸 | `size/component-height/xxxl` + `spacing/2x` 推导 | 表格空态容器 / 插图尺寸 | Ready，推导值 |
-| 信息区右侧 setting icon | Figma `1650:7132` | SensD icon registry | To Confirm，待单独确认落库 |
+| 信息区刷新 icon | Figma `803:278` | `SensIcon name="reload"` | Ready |
+| 信息区右侧 setting icon | Figma `1650:7139` | `SensIcon name="setting"` | Ready |
 | 加载 GIF | Figma 资产 | 表格 loading | Missing，暂不录入 |
 
 ---

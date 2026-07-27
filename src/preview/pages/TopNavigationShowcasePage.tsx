@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Alert, Card, Space, Table, Tag, Typography, theme } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import { getColorToken, tokenRgba, buildShadowD4 } from "../../design-system/color-utils";
@@ -248,9 +248,30 @@ const PROJECT_OPTIONS = ["零售增长项目", "品牌增长项目", "新零售�
 const ACCOUNT_MENU_ITEMS = ["个人中心", "语言", "诊断工具", "查询队列明细", "修改密码", "退出登录"];
 const MARKETING_MENU_ITEMS = ["营销活动总览", "活动计划", "优惠券配置", "触达流程"];
 
-function TopNavigationShellSpecimen() {
+export interface SensTopNavigationItem {
+  label: string;
+  arrow?: boolean;
+}
+
+export interface SensTopNavigationProps {
+  /** 业务页面嵌入时只渲染产品壳导航，不渲染组件说明和演示占位内容。 */
+  embedded?: boolean;
+  activeNavLabel?: string;
+  items?: SensTopNavigationItem[];
+}
+
+/** 顶部导航的真实实现；展示页与业务样板间共用同一产品壳。 */
+export function SensTopNavigation({
+  embedded = false,
+  activeNavLabel: initialActiveNavLabel = "数据看板",
+  items,
+}: SensTopNavigationProps) {
   const { token } = theme.useToken();
-  const [activeNavLabel, setActiveNavLabel] = useState("数据看板");
+  const [activeNavLabel, setActiveNavLabel] = useState(initialActiveNavLabel);
+
+  useEffect(() => {
+    setActiveNavLabel(initialActiveNavLabel);
+  }, [initialActiveNavLabel]);
   const [activeProject, setActiveProject] = useState(PROJECT_OPTIONS[0]);
   const [activeAccountMenuItem, setActiveAccountMenuItem] = useState("语言");
   const [activeMarketingMenuItem, setActiveMarketingMenuItem] = useState(MARKETING_MENU_ITEMS[0]);
@@ -284,17 +305,18 @@ function TopNavigationShellSpecimen() {
   const functionMenuHoverBg = getColorToken("theme-top-funcMenu-background-hover");
 
   const canvasWidth = 1280;
-  const navItems = [
+  const defaultNavItems: SensTopNavigationItem[] = [
     { label: "首页" },
     { label: "数据看板" },
-    { label: "营销活动", active: false, arrow: true },
-    { label: "人群资产", active: false },
-    { label: "内容管理", active: false, arrow: true },
-    { label: "自动化流程", active: false },
-    { label: "投放分析", active: false },
-    { label: "项目设置", active: false, arrow: true },
-    { label: "更多", active: false, arrow: true },
+    { label: "营销活动", arrow: true },
+    { label: "人群资产" },
+    { label: "内容管理", arrow: true },
+    { label: "自动化流程" },
+    { label: "投放分析" },
+    { label: "项目设置", arrow: true },
+    { label: "更多", arrow: true },
   ];
+  const navItems = items ?? defaultNavItems;
 
   const utilityItems: Array<{ label: string; icon: IconName; nodeId: string; selectable?: boolean }> = [
     { label: "帮助中心", icon: "nav-helpcenter", nodeId: "803:199" },
@@ -382,12 +404,14 @@ function TopNavigationShellSpecimen() {
 
   return (
     <Space direction="vertical" size="large" style={{ width: "100%" }}>
-      <Alert
+      {!embedded ? (
+        <Alert
         type="info"
         showIcon
         message="这页看组件壳层，颜色去 Navigation Color"
         description="顶部导航组件只收结构、状态、收纳和浮层边界；颜色与换肤不在这里重复定义。"
-      />
+        />
+      ) : null}
 
       <div
         data-top-navigation-scroll
@@ -395,7 +419,7 @@ function TopNavigationShellSpecimen() {
           width: "100%",
           overflowX: "auto",
           overflowY: "hidden",
-          paddingBottom: token.paddingSM,
+          paddingBottom: embedded ? 0 : token.paddingSM,
         }}
       >
         <div
@@ -403,29 +427,31 @@ function TopNavigationShellSpecimen() {
           style={{
             width: canvasWidth,
             minWidth: canvasWidth,
-            borderRadius: navRadius,
+            borderRadius: embedded ? 0 : navRadius,
             overflow: "hidden",
             background: getColorToken("white"),
-            boxShadow: buildShadowD4(),
-            border: `1px solid ${token.colorBorderSecondary}`,
+            boxShadow: embedded ? "none" : buildShadowD4(),
+            border: embedded ? 0 : `1px solid ${token.colorBorderSecondary}`,
           }}
         >
           <div
             style={{
               position: "relative",
-              height: 180,
+              height: embedded ? 82 : 180,
               padding: 0,
               background: getThemeTopBackground(navigationTheme),
             }}
           >
-            <div
+            {!embedded ? (
+              <div
               style={{
                 position: "absolute",
                 inset: 0,
                 background: getThemeTopAtmosphere(navigationTheme),
                 pointerEvents: "none",
               }}
-            />
+              />
+            ) : null}
 
             <div style={{ position: "relative", zIndex: 1 }}>
               <div
@@ -796,7 +822,8 @@ function TopNavigationShellSpecimen() {
               </div>
             </div>
 
-            <div
+            {!embedded ? (
+              <div
               style={{
                 position: "absolute",
                 left: 0,
@@ -805,11 +832,13 @@ function TopNavigationShellSpecimen() {
                 height: 98,
                 background: `linear-gradient(180deg, ${tokenRgba("theme-title-background", 0)} 0%, ${getColorToken("theme-title-background")} 100%)`,
               }}
-            />
+              />
+            ) : null}
 
           </div>
 
-          <div
+          {!embedded ? (
+            <div
             style={{
               height: 128,
               padding: "22px 24px",
@@ -836,18 +865,22 @@ function TopNavigationShellSpecimen() {
                 {item}
               </div>
             ))}
-          </div>
+            </div>
+          ) : null}
         </div>
       </div>
 
-      <Alert
+      {!embedded ? (
+        <Alert
         type="success"
         showIcon
         message="样板间已按 1280px 画布承载"
         description="这个预览区域现在模拟电脑端最小宽度。外层容器不足 1280px 时，应该横向滚动查看，而不是压缩导航项或让文字换行。"
-      />
+        />
+      ) : null}
 
-      <div
+      {!embedded ? (
+        <div
         style={{
           display: "grid",
           gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
@@ -858,13 +891,14 @@ function TopNavigationShellSpecimen() {
         <MetricCard label="组件分组" value="独立组件" note="放到组件导航，不再放到基础样式口子里。" />
         <MetricCard label="更多菜单" value="待需求定义" note="现在先记录，不写固定收纳阈值。" />
         <MetricCard label="导航颜色" value="独立承载" note="颜色、换肤、helper 在 Navigation Color 收口。" />
-      </div>
+        </div>
+      ) : null}
     </Space>
   );
 }
 
 function TopNavigationDemo() {
-  return <TopNavigationShellSpecimen />;
+  return <SensTopNavigation />;
 }
 
 function TopNavigationMatrix() {

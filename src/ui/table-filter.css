@@ -1,0 +1,66 @@
+/* 表格筛选区：仅复合表格上下文；定宽 / 三行半滚动不进全局 Select */
+
+.sens-table-filter-bar {
+  width: 100%;
+  min-width: 0;
+}
+
+.sens-table-filter-bar__flow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--sens-table-filter-item-gap);
+  min-width: 0;
+}
+
+.sens-table-filter-bar__flow--expanded {
+  max-height: calc(
+    var(--sens-table-filter-control-height) + var(--sens-table-filter-row-gap) +
+      var(--sens-table-filter-expanded-max-height)
+  );
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.sens-table-filter-bar__actions {
+  flex: 0 0 auto;
+  margin-left: auto;
+  align-self: center;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sens-table-filter-action-gap);
+}
+
+.sens-table-filter-bar__action-divider {
+  width: var(--sens-table-filter-divider-width);
+  height: var(--sens-table-filter-label-line-height);
+  background: var(--sens-table-filter-action-divider-color);
+}
+
+.sens-table-filter-field {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: var(--sens-table-filter-label-gap);
+  min-width: 0;
+}
+
+.sens-table-filter-field__label {
+  flex: 0 0 auto;
+  color: var(--sens-table-filter-label-color);
+  font-size: var(--sens-table-filter-label-font-size);
+  font-weight: var(--sens-table-filter-label-weight);
+  line-height: var(--sens-table-filter-label-line-height);
+  white-space: nowrap;
+}
+
+.sens-table-filter-field__control {
+  flex: 0 0 auto;
+  width: var(--sens-table-filter-trigger-width);
+  min-width: var(--sens-table-filter-trigger-width);
+  max-width: var(--sens-table-filter-trigger-width);
+}
+
+.sens-table-filter-bar__search {
+  flex: 0 0 auto;
+}

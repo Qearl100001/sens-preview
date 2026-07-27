@@ -1,7 +1,11 @@
 # Size Foundation
 
-> 主要来源：`/Users/liyuwen/Downloads/Mode 1.tokens 2.json`、`src/design-system/tokens.resolved.json`、已实现组件文档。  
-> 当前状态：草稿校准中；本文件先记录尺寸、图标尺寸、组件高度和少量组件专属尺寸候选，不代表所有组件已完成 token 接入。
+> 固定尺寸、图标尺寸、组件高度与组件专属尺寸的规则源。
+> 成熟度：Pilot
+> 实现：Partial
+> 验证：Pending
+> 来源：`tokens/source/figma/unit.json`、`tokens.resolved.json`、已实现组件文档
+> 预览：`/basic-styles/size`
 
 ## 1. 定位
 

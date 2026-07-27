@@ -52,6 +52,7 @@ function buildFormTokenVars(labelWidth?: number | string): CSSProperties {
 
   return {
     "--sens-form-label-width": toCssSize(resolvedLabelWidth),
+    "--sens-form-control-max-width": px(getUnitToken("form/control/max-width")),
     "--sens-form-section-gap": px(getUnitToken("spacing/vertical/10x")),
     "--sens-form-subsection-gap": px(getUnitToken("spacing/vertical/7x")),
     "--sens-form-row-gap": px(getUnitToken("spacing/vertical/5x")),
@@ -61,6 +62,7 @@ function buildFormTokenVars(labelWidth?: number | string): CSSProperties {
     "--sens-form-label-control-gap": px(getUnitToken("spacing/horizontal/4x")),
     "--sens-form-field-gap": px(getUnitToken("spacing/horizontal/2x")),
     "--sens-form-label-inline-gap": px(getUnitToken("spacing/horizontal/1x")),
+    "--sens-form-group-content-padding-inline": px(getUnitToken("spacing/horizontal/4x")),
     "--sens-form-message-gap": px(getUnitToken("spacing/vertical/1x")),
     "--sens-form-actions-gap": px(getUnitToken("spacing/horizontal/4x")),
     "--sens-form-text": tokenRgba("text-color-transparent", 0.9),
@@ -82,6 +84,10 @@ function buildFormTokenVars(labelWidth?: number | string): CSSProperties {
     "--sens-form-help-line-height": px(getTypographyToken("line-height/s")),
     "--sens-form-error-icon-size": px(getUnitToken("size/icon/m")),
   } as CSSProperties;
+}
+
+function shouldShowLabelTooltip(label: ReactNode): boolean {
+  return typeof label === "string" && Array.from(label).length > 8;
 }
 
 export function SensForm({
@@ -134,7 +140,7 @@ export function SensFormItem({
       <div className="sens-form-item-description">{description}</div>
     ) : null;
   const hasMeta = metaNode != null || counter != null;
-  const labelTextTitle = typeof label === "string" ? label : undefined;
+  const labelTextTitle = typeof label === "string" && shouldShowLabelTooltip(label) ? label : undefined;
   const labelHelpTitle = typeof labelHelp === "string" ? labelHelp : undefined;
 
   const labelNode =
@@ -173,8 +179,8 @@ export function SensFormItem({
           {controlExtra != null ? <span className="sens-form-item-control-extra">{controlExtra}</span> : null}
         </div>
         {hasMeta ? (
-          <div className="sens-form-item-meta">
-            {metaNode}
+          <div className="sens-form-item-meta-row">
+            <div className="sens-form-item-meta-content">{metaNode}</div>
             {counter != null ? <div className="sens-form-item-counter">{counter}</div> : null}
           </div>
         ) : null}

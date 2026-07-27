@@ -170,14 +170,22 @@ antd Select genStyleHooks 不继承 components.Input → 必须显式 spread
 
 **高度 ✅** — 见 §一 1 · 框体 · 尺寸。
 
-**宽度 ⏳**
+**宽度 ✅**
 
-| 项 | 现状 |
+| 类型 | 规则 |
 |---|---|
-| design 建议 | min **128px** / max **600px** |
-| 组件 | `SensSelectDropdown` **无**内置 `minWidth`/`maxWidth` |
-| 预览 | `SelectTriggerStatesPreview` inline `style` 含 128/600（**仅矩阵 demo**，非组件契约） |
-| 业务 | 调用方 `style` / `minWidth` / `maxWidth`（同 `input.md` 惯例） |
+| 固定宽 | 通用三档：**128px / 148px / 600px**；选中前后宽度保持一致 |
+| 自适应宽 | `min-width: 128px`，`max-width: 600px`，根据内容宽度自适应 |
+| 特殊固定宽 | 不提前泛化；遇到具体业务或组件场景时单独确认 |
+
+**工程接口**
+
+| 场景 | 实现 |
+|---|---|
+| 固定宽 | `SensSelectDropdown widthPreset="128" / "148" / "600"` |
+| 自适应宽 | `SensSelectDropdown widthMode="adaptive"` |
+| 表格筛选 | 固定 `148px`，避免空态 / 选中 / 可清空态宽度跳变 |
+| 表单 | 通常使用自适应宽，或长配置项使用 `600px` 固定宽 |
 
 **标签高度 / Tips / 穿梭框** — design ⏳，未实现。
 
@@ -230,6 +238,8 @@ antd Select genStyleHooks 不继承 components.Input → 必须显式 spread
 设计规格见 `select.design.md` §三。
 
 ### 1. 单选 ⏳（`clearable` 工程 ✅）
+
+`clearable` 是可选能力，不是所有 Select 默认开启。表单场景默认不启用，除非业务明确允许快速清空；列表 / 表格筛选等临时筛选条件场景可以启用。
 
 | 项 | 实现 |
 |---|---|

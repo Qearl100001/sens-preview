@@ -37,6 +37,7 @@
 - 单选组横向选项间距固定为 `spacing/horizontal/6x`。
 - 单选组纵向选项间距固定为 `spacing/vertical/1x`。
 - 无辅助文案的单行单选组使用 `size/component-height/m` 作为选项对齐盒高度；选项内圆点和文字垂直居中。
+- `itemHeight="content"` 仅用于选中后直接承接控件、卡片或关联结果的联动组：单行选项回到自然文字高度，不保留 `size/component-height/m` 的 32px 对齐盒。
 - 禁用时主文案和辅助文案都使用禁用文字色；禁用悬停时同步切到禁用悬停文字色。
 - 带辅助文案或只读状态的组，不额外叠加 Figma 默认的上下 5px 组 padding；表单项里的垂直间距后续由表单基础规则接管。
 - 单选框适合互斥选项；可多选场景必须使用 Checkbox。
@@ -53,6 +54,7 @@
 | 组内横向选项间距 | `spacing/horizontal/6x` | Ready |
 | 组内纵向选项间距 | `spacing/vertical/1x` | Ready |
 | 单行组选项高度 | `size/component-height/m` | Ready |
+| 联动组选项高度 | 主文案 `line-height/m`，不额外补齐控件高度 | Ready |
 | 默认底色 | `white` | Ready |
 | 默认描边 | `divider/color/deep/transparent` | Ready |
 | hover 描边 | `component-primary` | Ready |

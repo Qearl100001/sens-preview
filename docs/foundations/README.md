@@ -16,22 +16,25 @@
 
 | 文档 | 说明 | 当前状态 |
 |---|---|---|
-| `color.md` | 颜色语义、透明色、换肤边界 | 初稿 |
-| `theme-skinning.md` | 导航主题与功能色主题的独立换肤规则；含 Functional Color Token Mapping | 映射表已落库，换肤未实现 |
-| `navigation-color.md` | 顶导航、侧导航、标题栏、页面主题背景、换肤映射 | 初稿 |
-| `typography.md` | 字体家族、字号、行高、标题层级 | 初稿 |
-| `spacing.md` | 间距 scale、页面 / 表单 / 卡片 / 组件间距 | 初稿 |
-| `layout.md` | 页面骨架、断点和可展开左侧区域行为 | 初稿 |
-| `grid.md` | `20` 栏、`12` 栏和局部容器排布 | 初稿 |
-| `size.md` | 固定尺寸、图标尺寸、组件高度、组件专属尺寸候选 | 初稿 |
-| `icon.md` | 图标资产、命名、尺寸关系、颜色语义和消费规则 | 初稿 |
-| `radius.md` | 圆角 scale 和使用场景 | 初稿 |
-| `shadow.md` | 投影层级、D1-D4、卡片阴影 | 初稿 |
-| `card.md` | 卡片定义、类型、入口卡片、网格卡片 | 初稿 |
+| `token-registry.md` | Token 来源、生成链路、语义维护源与检查边界 | Pilot · Partial · Pending |
+| `color.md` | 颜色语义、透明色、绿色基线与换肤边界 | Stable · Implemented · Verified |
+| `theme-skinning.md` | 导航主题与功能色主题的独立换肤规则；含 Functional Color Token Mapping | Pilot · Partial · Pending |
+| `navigation-color.md` | 顶导航、侧导航、标题栏、页面主题背景、换肤映射 | Pilot · Partial · Pending |
+| `typography.md` | 字体家族、字号、行高、标题层级 | Stable · Implemented · Verified |
+| `spacing.md` | 间距 scale、页面 / 表单 / 卡片 / 组件间距 | Stable · Implemented · Verified |
+| `layout.md` | 页面骨架、断点和可展开左侧区域行为 | Pilot · Partial · Pending |
+| `grid.md` | `20` 栏、`12` 栏和局部容器排布 | Pilot · Partial · Pending |
+| `size.md` | 固定尺寸、图标尺寸、组件高度、组件专属尺寸候选 | Pilot · Partial · Pending |
+| `icon.md` | 图标资产、命名、尺寸关系、颜色语义和消费规则 | Pilot · Partial · Pending |
+| `radius.md` | 圆角 scale 和使用场景 | Pilot · Partial · Pending |
+| `shadow.md` | 投影层级、D1-D4、卡片阴影 | Pilot · Implemented · Pending |
+| `divider.md` | 分割线宽度、层级、透明度与消费 helper | Pilot · Implemented · Pending |
+| `card.md` | 卡片定义、类型、入口卡片、网格卡片 | Pilot · Missing · Pending |
 
 ## 使用原则
 
 - 业务页面优先引用组件；组件优先引用 foundation token。
+- 改 token 前先读 `token-registry.md`，再定位对应 Token Source 与唯一语义维护文档。
 - 遇到视觉不一致时，先判断是 foundation 缺口、组件缺口，还是业务特殊场景。
 - 不直接把 PDF 文案复制成规则；要提炼成 AI 可执行的结构。
 - 每条规则尽量包含：来源、语义、token 映射、使用场景、待确认点。

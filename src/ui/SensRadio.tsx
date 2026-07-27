@@ -138,6 +138,8 @@ export interface SensRadioGroupProps extends Omit<HTMLAttributes<HTMLDivElement>
   disabled?: boolean;
   readOnly?: boolean;
   direction?: "horizontal" | "vertical";
+  /** Use natural option height when the group directly controls linked content. */
+  itemHeight?: "control" | "content";
   onChange?: (value: string) => void;
 }
 
@@ -149,6 +151,7 @@ export function SensRadioGroup({
   disabled = false,
   readOnly = false,
   direction = "horizontal",
+  itemHeight = "control",
   className,
   style,
   onChange,
@@ -175,6 +178,7 @@ export function SensRadioGroup({
         direction === "vertical" && "sens-radio-group--vertical",
         hasDescription && "sens-radio-group--with-description",
         !hasDescription && "sens-radio-group--single-line",
+        itemHeight === "content" && "sens-radio-group--content-height",
         disabled && "sens-radio-group--disabled",
         className,
       )}

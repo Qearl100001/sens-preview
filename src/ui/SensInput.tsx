@@ -1,4 +1,4 @@
-import { Input, Tooltip, theme, type InputProps } from "antd";
+import { Input, Tooltip, type InputProps } from "antd";
 import type { CSSProperties, ReactNode } from "react";
 import { useTranslation } from "react-i18next";
 import { getColorToken, tokenRgba } from "../design-system/color-utils";
@@ -32,14 +32,12 @@ function isInputEmpty(value: InputProps["value"], defaultValue: InputProps["defa
 
 /** 锁高 + 警告/只读 CSS 变量（paddingBlock=0 时由组件层补足 controlHeight） */
 export function useSensInputHeightStyle(): CSSProperties {
-  const { token } = theme.useToken();
-
   return {
-    "--sens-input-height": `${token.controlHeight}px`,
-    "--sens-input-height-sm": `${token.controlHeightSM}px`,
+    "--sens-input-height": `${u["size/component-height/m"]}px`,
+    "--sens-input-height-sm": `${u["size/component-height/s"]}px`,
     "--sens-input-line-height": `${INPUT_LINE_HEIGHT}px`,
     "--sens-input-line-height-sm": `${INPUT_LINE_HEIGHT_SM}px`,
-    "--sens-input-error-color": token.colorError,
+    "--sens-input-error-color": getColorToken("warning-color"),
     "--sens-input-error-active-shadow": `0 0 0 2px ${tokenRgba("warning-color-active-shadow", 0.2)}`,
     "--sens-input-help-gap": `${INPUT_HELP_GAP}px`,
     "--sens-input-icon-gap": `${INPUT_HELP_GAP}px`,
@@ -290,15 +288,15 @@ interface InputPreviewStyleToken {
   colorTextPlaceholderDisabledHover: string;
 }
 
-function getInputPreviewStyleToken(antdToken: ReturnType<typeof theme.useToken>["token"]): InputPreviewStyleToken {
+function getInputPreviewStyleToken(): InputPreviewStyleToken {
   return {
-    hoverBorderColor: antdToken.colorPrimary,
-    activeBorderColor: antdToken.colorPrimaryActive,
+    hoverBorderColor: getColorToken("component-primary"),
+    activeBorderColor: getColorToken("component-active"),
     activeShadow: `0 0 0 2px ${tokenRgba("component-active-shadow", 0.2)}`,
     colorBorderDisabledHover: tokenRgba("line-color-transparent", 0.06),
     colorBgContainerDisabledHover: tokenRgba("background-transparent-grey", 0.04),
-    colorErrorHover: antdToken.colorErrorHover,
-    colorErrorActive: antdToken.colorErrorActive,
+    colorErrorHover: getColorToken("warning-color-hover"),
+    colorErrorActive: getColorToken("warning-color-active"),
     errorActiveShadow: `0 0 0 2px ${tokenRgba("warning-color-active-shadow", 0.2)}`,
     colorTextPlaceholderDisabledHover: tokenRgba("text-color-transparent-disable-hover", 0.24),
   };
@@ -441,8 +439,7 @@ export interface InputStatesPreviewProps {
  */
 export function InputStatesPreview({ title, filledValue = INPUT_PREVIEW_FILLED_VALUE }: InputStatesPreviewProps) {
   const { t } = useTranslation();
-  const { token } = theme.useToken();
-  const styleToken = getInputPreviewStyleToken(token);
+  const styleToken = getInputPreviewStyleToken();
   const placeholder = t(`${I18N_NS}.sensd-input-placeholder`, { defaultValue: "请输入" });
   const label = (key: string, defaultValue: string) => t(`${I18N_NS}.${key}`, { defaultValue });
 

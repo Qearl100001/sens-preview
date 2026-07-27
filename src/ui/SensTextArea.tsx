@@ -1,8 +1,8 @@
-import { Input, theme, type InputProps } from "antd";
+import { Input, type InputProps } from "antd";
 import type { TextAreaProps } from "antd/es/input";
 import type { CSSProperties, ReactNode } from "react";
 import { useTranslation } from "react-i18next";
-import { tokenRgba } from "../design-system/color-utils";
+import { getColorToken, tokenRgba } from "../design-system/color-utils";
 import tokens from "../design-system/tokens.resolved.json";
 import {
   INPUT_ERROR_ICON_SIZE_M,
@@ -313,15 +313,15 @@ interface TextAreaPreviewStyleToken {
   colorTextPlaceholderDisabledHover: string;
 }
 
-function getTextAreaPreviewStyleToken(antdToken: ReturnType<typeof theme.useToken>["token"]): TextAreaPreviewStyleToken {
+function getTextAreaPreviewStyleToken(): TextAreaPreviewStyleToken {
   return {
-    hoverBorderColor: antdToken.colorPrimary,
-    activeBorderColor: antdToken.colorPrimaryActive,
+    hoverBorderColor: getColorToken("component-primary"),
+    activeBorderColor: getColorToken("component-active"),
     activeShadow: `0 0 0 2px ${tokenRgba("component-active-shadow", 0.2)}`,
     colorBorderDisabledHover: tokenRgba("line-color-transparent", 0.06),
     colorBgContainerDisabledHover: tokenRgba("background-transparent-grey", 0.04),
-    colorErrorHover: antdToken.colorErrorHover,
-    colorErrorActive: antdToken.colorErrorActive,
+    colorErrorHover: getColorToken("warning-color-hover"),
+    colorErrorActive: getColorToken("warning-color-active"),
     errorActiveShadow: `0 0 0 2px ${tokenRgba("warning-color-active-shadow", 0.2)}`,
     colorTextPlaceholderDisabledHover: tokenRgba("text-color-transparent-disable-hover", 0.24),
   };
@@ -456,8 +456,7 @@ export function TextAreaStatesPreview({
   filledValue = TEXTAREA_PREVIEW_FILLED_VALUE,
 }: TextAreaStatesPreviewProps) {
   const { t } = useTranslation();
-  const { token } = theme.useToken();
-  const styleToken = getTextAreaPreviewStyleToken(token);
+  const styleToken = getTextAreaPreviewStyleToken();
   const placeholder = t(`${I18N_NS}.sensd-input-placeholder`, { defaultValue: "请输入" });
   const label = (key: string, defaultValue: string) => t(`${I18N_NS}.${key}`, { defaultValue });
 

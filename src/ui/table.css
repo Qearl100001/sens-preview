@@ -10,7 +10,6 @@
   gap: var(--sens-table-info-gap);
   color: var(--sens-table-info-color);
   border-bottom: var(--sens-table-divider-width) solid var(--sens-table-info-border);
-  box-shadow: inset 0 calc(-1 * var(--sens-table-divider-width)) 0 0 var(--sens-table-info-border);
 }
 
 .sens-table-info-main {
@@ -22,13 +21,18 @@
 
 .sens-table-info-text {
   min-width: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sens-table-info-action-gap);
   font-size: var(--sens-table-info-font-size);
   line-height: var(--sens-table-info-line-height);
 }
 
 .sens-table-info-actions {
   flex-shrink: 0;
-  gap: var(--sens-table-info-action-gap) !important;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sens-table-info-action-gap);
 }
 
 .sens-table-info-extra {
@@ -38,17 +42,43 @@
   align-items: center;
 }
 
+.sens-table-shell {
+  overflow: hidden;
+  border: var(--sens-table-shell-border);
+  border-radius: var(--sens-table-shell-radius);
+  background: var(--sens-table-shell-bg);
+}
+
+.sens-table-shell-borderless {
+  border: 0;
+  border-radius: 0;
+}
+
+.sens-table .ant-table,
+.sens-table .ant-table-container,
+.sens-table .ant-table-content > table {
+  background: var(--sens-table-shell-bg);
+}
+
 .sens-table .ant-table-thead > tr > th,
 .sens-table .ant-table-tbody > tr > td {
   height: var(--sens-table-row-height);
   box-sizing: border-box;
   padding-block: var(--sens-table-cell-padding-block);
   padding-inline: var(--sens-table-cell-padding-inline);
+  color: var(--sens-table-body-color);
+  border-bottom-color: var(--sens-table-row-border);
+}
+
+.sens-table .ant-table-thead > tr > th {
+  color: var(--sens-table-header-color);
+  background: var(--sens-table-header-bg);
+  border-bottom-color: var(--sens-table-row-border);
 }
 
 /* 去掉表头列间弱分割线 */
 .sens-table .ant-table-thead > tr > th::before {
-  display: none !important;
+  display: none;
 }
 
 /* 表头标题与排序图标间距来自 spacing/1x */
@@ -63,16 +93,35 @@
 
 .sens-table .ant-table-column-sorter {
   margin-inline-start: 0;
+  color: var(--sens-table-sorter-color);
 }
 
-/* 超长文案：最多 2 行 + 省略号 */
-.sens-table .ant-table-cell-ellipsis {
+.sens-table .ant-table-column-sorter-up.active,
+.sens-table .ant-table-column-sorter-down.active {
+  color: var(--sens-table-sorter-active-color);
+}
+
+/* 超长文案：基础表格默认单行省略；业务需要两行时由列渲染器另行定义。 */
+.sens-table-ellipsis {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
   line-height: var(--sens-table-link-line-height);
 }
 
 .sens-table .ant-table-tbody > tr.ant-table-row-selected > td,
 .sens-table .ant-table-tbody > tr.ant-table-row-selected:hover > td {
-  background: var(--sens-table-row-selected-bg);
+  background: var(--sens-table-row-selected-bg) !important;
+}
+
+/* antd 的 hover 选择器优先级更高，适配层必须显式覆盖为 SensD 悬停色。 */
+.sens-table .ant-table-tbody > tr:not(.ant-table-row-selected):hover > td {
+  background: var(--sens-table-row-hover-bg) !important;
+}
+
+.sens-table-shell-has-footer .sens-table .ant-table-tbody > tr:last-child > td {
+  border-bottom-color: transparent;
 }
 
 .sens-table-link-button {
@@ -101,6 +150,13 @@
   cursor: not-allowed;
 }
 
+.sens-table-actions {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sens-table-info-gap);
+  white-space: nowrap;
+}
+
 .sens-table-empty {
   min-height: var(--sens-table-empty-min-height);
   padding: var(--sens-table-empty-padding-block) var(--sens-table-empty-padding-inline);
@@ -117,6 +173,44 @@
   object-fit: contain;
 }
 
+.sens-table-empty-text {
+  color: var(--sens-table-info-color);
+  font-size: var(--sens-table-info-font-size);
+  line-height: var(--sens-table-info-line-height);
+}
+
 .sens-table-empty-action {
   margin-top: var(--sens-table-empty-action-margin-top);
+}
+
+.sens-table-footer {
+  min-height: var(--sens-table-footer-height);
+  box-sizing: border-box;
+  padding: var(--sens-table-footer-padding-block) var(--sens-table-footer-padding-inline);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sens-table-footer-gap);
+  color: var(--sens-table-footer-text-color);
+  background: var(--sens-table-footer-bg);
+  border-top: var(--sens-table-divider-width) solid var(--sens-table-info-border);
+}
+
+.sens-table-footer-left {
+  flex: 0 0 auto;
+  color: var(--sens-table-footer-text-color);
+  font-size: var(--sens-table-info-font-size);
+  line-height: var(--sens-table-info-line-height);
+  white-space: nowrap;
+}
+
+.sens-table-footer-right {
+  flex: 0 0 auto;
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+}
+
+.sens-table-footer-right .ant-pagination-total-text {
+  display: none;
 }

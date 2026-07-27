@@ -41,6 +41,16 @@ export const SELECT_DROPDOWN_CONTENT_MATRIX_CELL_WIDTH = 200;
 export const SELECT_DROPDOWN_DEMO_WIDTH = 200;
 export const SELECT_TRIGGER_MATRIX_CELL_WIDTH = 200;
 const SELECT_TRIGGER_FIELD_WIDTH = 200;
+export const SELECT_ADAPTIVE_MIN_WIDTH = 128;
+export const SELECT_ADAPTIVE_MAX_WIDTH = 600;
+export const SELECT_FIXED_WIDTH_PRESETS = {
+  "128": 128,
+  "148": 148,
+  "600": 600,
+} as const;
+
+export type SensSelectWidthPreset = keyof typeof SELECT_FIXED_WIDTH_PRESETS;
+export type SensSelectWidthMode = "adaptive";
 
 /** R3 触发框 CSS 变量（字段色与 SensInput 同源） */
 export function useSensSelectTriggerStyle(size?: SelectProps["size"]): CSSProperties {
@@ -152,6 +162,29 @@ export interface SensSelectDropdownProps extends SelectProps {
   warningPlacement?: SensInputWarningPlacement;
   help?: ReactNode;
   warningMessage?: ReactNode;
+  /** 固定宽三档：选中前后保持同宽；特殊宽度由具体场景另行确认 */
+  widthPreset?: SensSelectWidthPreset;
+  /** 自适应宽：min 128 / max 600，随内容增长 */
+  widthMode?: SensSelectWidthMode;
+}
+
+function resolveSelectWidthStyle(
+  widthPreset?: SensSelectWidthPreset,
+  widthMode?: SensSelectWidthMode,
+): CSSProperties {
+  if (widthPreset) {
+    return { width: SELECT_FIXED_WIDTH_PRESETS[widthPreset] };
+  }
+
+  if (widthMode === "adaptive") {
+    return {
+      width: "fit-content",
+      minWidth: SELECT_ADAPTIVE_MIN_WIDTH,
+      maxWidth: SELECT_ADAPTIVE_MAX_WIDTH,
+    };
+  }
+
+  return {};
 }
 
 /** 基础单选 Select + 浮层 token（R1 容器/行 + R2 搜索 + R3 触发框） */
@@ -169,6 +202,8 @@ export function SensSelectDropdown({
   warningPlacement,
   help,
   warningMessage,
+  widthPreset,
+  widthMode,
   className,
   style,
   size,
@@ -199,7 +234,8 @@ export function SensSelectDropdown({
 
   const mergedClassName = [triggerProps.className, className].filter(Boolean).join(" ");
 
-  const mergedStyle = { ...triggerProps.style, ...style };
+  const widthStyle = resolveSelectWidthStyle(widthPreset, widthMode);
+  const mergedStyle = { ...triggerProps.style, ...widthStyle, ...style };
   const mergedSuffixIcon = suffixIconProp ?? triggerProps.suffixIcon;
   const mergedAllowClear =
     allowClearProp ?? ("allowClear" in triggerProps ? triggerProps.allowClear : undefined);

@@ -1,7 +1,8 @@
 import type { CSSProperties, ReactNode } from "react";
 import type { TableProps } from "antd";
-import { Space, Table, theme, Typography } from "antd";
-import { getDividerBorder, getDividerHairlineWidth } from "../design-system/divider";
+import { Table, Tooltip } from "antd";
+import { getColorToken } from "../design-system/color-utils";
+import { getDividerBorder, getDividerColor, getDividerHairlineWidth } from "../design-system/divider";
 import { getTypographyToken } from "../design-system/typography";
 import { getUnitToken } from "../design-system/unit";
 import { EMPTY_STATE_ILLUSTRATIONS, type NonPageEmptyIllustrationKey } from "./EmptyStateIllustrations";
@@ -55,6 +56,8 @@ export interface TableShellProps<T extends object> extends TableProps<T> {
   infoExtra?: ReactNode;
   /** 自定义信息区内容 */
   infoContent?: ReactNode;
+  /** 表格框内底部区域；复合表格可放分页器，不改变基础表格 pagination=false 的约定 */
+  footerBar?: ReactNode;
   /** 是否展示信息区；高度来自 size/component-height/xl */
   showInfoBar?: boolean;
   /** 空状态插图类型 */
@@ -75,7 +78,7 @@ function px(value: number): string {
   return `${value}px`;
 }
 
-function buildTableTokenVars(token: ReturnType<typeof theme.useToken>["token"]): CSSProperties {
+function buildTableTokenVars(): CSSProperties {
   const infoHeight = getUnitToken("size/component-height/xl");
   const infoLineHeight = getTypographyToken("line-height/s");
   const infoPaddingBlock = (infoHeight - infoLineHeight) / 2;
@@ -91,9 +94,26 @@ function buildTableTokenVars(token: ReturnType<typeof theme.useToken>["token"]):
     "--sens-table-info-action-gap": px(getUnitToken("spacing/horizontal/2x")),
     "--sens-table-info-font-size": px(getTypographyToken("font-size/s")),
     "--sens-table-info-line-height": px(infoLineHeight),
-    "--sens-table-info-color": token.colorTextSecondary,
-    "--sens-table-info-border": token.colorBorderSecondary,
+    "--sens-table-info-color": getColorToken("text-sub-color"),
+    "--sens-table-info-border": getDividerColor("light", "solid"),
+    "--sens-table-footer-height": px(getUnitToken("size/component-height/xxxl")),
+    "--sens-table-footer-padding-block": px(getUnitToken("spacing/vertical/3x")),
+    "--sens-table-footer-padding-inline": px(getUnitToken("spacing/horizontal/4x")),
+    "--sens-table-footer-gap": px(getUnitToken("spacing/horizontal/4x")),
+    "--sens-table-footer-bg": getColorToken("white"),
+    "--sens-table-footer-text-color": getColorToken("text-sub-color"),
     "--sens-table-divider-width": px(getDividerHairlineWidth()),
+    "--sens-table-shell-bg": getColorToken("white"),
+    "--sens-table-shell-border": getDividerBorder("outline", "solid"),
+    "--sens-table-shell-radius": px(getUnitToken("radius/l")),
+    "--sens-table-header-bg": getColorToken("background-04"),
+    "--sens-table-header-color": getColorToken("text-color"),
+    "--sens-table-body-color": getColorToken("text-color"),
+    "--sens-table-row-border": getDividerColor("weak", "solid"),
+    "--sens-table-row-hover-bg": getColorToken("background-grey-hover"),
+    "--sens-table-sorter-color": getColorToken("icon-color-transparent"),
+    "--sens-table-sorter-active-color": getColorToken("link-color"),
+    "--sens-table-row-selected-bg": getColorToken("white"),
     "--sens-table-row-height": px(rowHeight),
     "--sens-table-cell-padding-block": px(getUnitToken("spacing/1.5x")),
     "--sens-table-cell-padding-inline": px(getUnitToken("spacing/horizontal/4x")),
@@ -117,7 +137,6 @@ export function TableInfoBar({
   extra,
   children,
 }: TableInfoBarProps) {
-  const { token } = theme.useToken();
   const hasFoundTotal = typeof foundTotal === "number";
   const hasSelected = selectedCount > 0;
   const summary = hasFoundTotal ? `已找到 ${formatTableCount(foundTotal)} 条` : `共 ${formatTableCount(total)} 条`;
@@ -133,16 +152,14 @@ export function TableInfoBar({
       className="sens-table-info"
       style={
         {
-          ...buildTableTokenVars(token),
+          ...buildTableTokenVars(),
         } as CSSProperties
       }
     >
       <div className="sens-table-info-main">
-        <Typography.Text className="sens-table-info-text" type="secondary">
-          {content}
-        </Typography.Text>
+        <span className="sens-table-info-text">{content}</span>
         {actions?.length ? (
-          <Space size={getUnitToken("spacing/horizontal/2x")} className="sens-table-info-actions">
+          <div className="sens-table-info-actions">
             {actions.map((item) => (
               <SensButton
                 key={item.key}
@@ -154,7 +171,7 @@ export function TableInfoBar({
                 {item.label}
               </SensButton>
             ))}
-          </Space>
+          </div>
         ) : null}
       </div>
       {extra ? <div className="sens-table-info-extra">{extra}</div> : null}
@@ -178,7 +195,7 @@ function TableEmptyState({ type = "noData", description, action }: TableEmptySta
   return (
     <div className="sens-table-empty">
       <img src={EMPTY_STATE_ILLUSTRATIONS[type]} alt="" className="sens-table-empty-image" />
-      <Typography.Text type="secondary">{description ?? TABLE_EMPTY_DESCRIPTION[type]}</Typography.Text>
+      <span className="sens-table-empty-text">{description ?? TABLE_EMPTY_DESCRIPTION[type]}</span>
       {action ? <div className="sens-table-empty-action">{action}</div> : null}
     </div>
   );
@@ -186,7 +203,7 @@ function TableEmptyState({ type = "noData", description, action }: TableEmptySta
 
 /**
  * 基础表格外壳：信息区 + 表体（见 components/base/table.md）
- * 颜色全部走 ConfigProvider / theme token，不在此硬编码。
+ * 所有视觉值都读取 SensD token；antd Table 只承担表格 DOM 与交互适配。
  */
 export function TableShell<T extends object>({
   total,
@@ -195,6 +212,7 @@ export function TableShell<T extends object>({
   infoActions,
   infoExtra,
   infoContent,
+  footerBar,
   showInfoBar = true,
   emptyState = "noData",
   emptyDescription,
@@ -207,22 +225,23 @@ export function TableShell<T extends object>({
   pagination = false,
   ...rest
 }: TableShellProps<T>) {
-  const { token } = theme.useToken();
   const count = total ?? dataSource?.length ?? 0;
   const tableClassName = ["sens-table", className].filter(Boolean).join(" ");
-  const tableTokenVars = buildTableTokenVars(token);
+  const shellClassName = [
+    "sens-table-shell",
+    footerBar && "sens-table-shell-has-footer",
+    borderless && "sens-table-shell-borderless",
+  ]
+    .filter(Boolean)
+    .join(" ");
+  const tableTokenVars = buildTableTokenVars();
 
   return (
     <div
-      className="sens-table-shell"
+      className={shellClassName}
       style={
         {
-          border: borderless ? undefined : getDividerBorder("outline", "solid"),
-          borderRadius: borderless ? undefined : token.borderRadiusLG ?? token.borderRadius,
-          overflow: "hidden",
-          background: token.colorBgContainer,
           ...tableTokenVars,
-          "--sens-table-row-selected-bg": token.colorBgContainer,
         } as CSSProperties
       }
     >
@@ -250,6 +269,7 @@ export function TableShell<T extends object>({
         pagination={pagination}
         {...rest}
       />
+      {footerBar ? <div className="sens-table-footer">{footerBar}</div> : null}
     </div>
   );
 }
@@ -258,12 +278,21 @@ export interface LinkButtonProps {
   children: ReactNode;
   onClick?: () => void;
   disabled?: boolean;
+  /** weak 用于可下钻主属性；link 用于操作列。两者 hover 均进入链接蓝。 */
+  tone?: "weak" | "link";
 }
 
-/** 操作列链接按钮：默认中性色，hover/active 进入链接蓝 */
-export function LinkButton({ children, onClick, disabled = false }: LinkButtonProps) {
-  const { token } = theme.useToken();
+function buildTableLinkTokenVars(tone: NonNullable<LinkButtonProps["tone"]>): CSSProperties {
+  return {
+    "--sens-table-link-color": getColorToken(tone === "link" ? "link-color" : "text-color"),
+    "--sens-table-link-hover-color": getColorToken(tone === "link" ? "link-hover-color" : "link-color"),
+    "--sens-table-link-active-color": getColorToken("link-active-color"),
+    "--sens-table-link-disabled-color": getColorToken("text-color-disable"),
+  } as CSSProperties;
+}
 
+/** 链接按钮：弱链接用于可下钻主属性；常规链接用于操作列。 */
+export function LinkButton({ children, onClick, disabled = false, tone = "weak" }: LinkButtonProps) {
   return (
     <button
       type="button"
@@ -272,15 +301,25 @@ export function LinkButton({ children, onClick, disabled = false }: LinkButtonPr
       onClick={disabled ? undefined : onClick}
       style={
         {
-          "--sens-table-link-color": token.colorText,
-          "--sens-table-link-hover-color": token.colorLink,
-          "--sens-table-link-active-color": token.colorLinkActive,
-          "--sens-table-link-disabled-color": token.colorTextDisabled,
+          ...buildTableLinkTokenVars(tone),
         } as CSSProperties
       }
     >
       {children}
     </button>
+  );
+}
+
+export interface TableEllipsisProps {
+  children: ReactNode;
+}
+
+/** 表格长文本：省略显示，hover 时使用系统 Tooltip 展示完整内容。 */
+export function TableEllipsis({ children }: TableEllipsisProps) {
+  return (
+    <Tooltip title={children} placement="top">
+      <span className="sens-table-ellipsis">{children}</span>
+    </Tooltip>
   );
 }
 
@@ -300,17 +339,17 @@ export function TableActions({ items }: TableActionsProps) {
   }));
 
   return (
-    <Space size={getUnitToken("spacing/horizontal/4x")}>
+    <div className="sens-table-actions">
       {visibleItems.map((item) => (
-        <LinkButton key={item.key} onClick={item.onClick} disabled={item.disabled}>
+        <LinkButton key={item.key} tone="link" onClick={item.onClick} disabled={item.disabled}>
           {item.label}
         </LinkButton>
       ))}
       {overflowItems.length ? (
-        <SensButtonActionMenu tone="linkWeak" size="small" showChevron items={menuItems}>
+        <SensButtonActionMenu tone="link" size="small" showChevron items={menuItems}>
           更多
         </SensButtonActionMenu>
       ) : null}
-    </Space>
+    </div>
   );
 }

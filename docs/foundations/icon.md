@@ -1,7 +1,11 @@
 # Icon Foundation
 
-> 主要来源：Figma `校准版//Sens.Design_图标 v2.1_20230328`、`src/ui/FieldIcons.tsx`、`src/ui/SearchIcon.tsx`、`docs/foundations/size.md`、`docs/foundations/color.md`。  
-> 当前状态：草稿校准中；第一阶段只收录项目已有自定义 SVG，不重画图标，不替换现有组件。
+> 图标资产、命名、尺寸关系、颜色语义与消费边界的规则源。
+> 成熟度：Pilot
+> 实现：Partial
+> 验证：Pending
+> 来源：Figma `校准版//Sens.Design_图标 v2.1_20230328`、`src/design-system/icons/registry.tsx`、`size.md`、`color.md`
+> 预览：`/basic-styles/icon`
 
 ## 1. 定位
 

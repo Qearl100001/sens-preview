@@ -1,7 +1,11 @@
 # Grid Foundation
 
-> 主要来源：Figma `Sens.Design 栅格布局 v0.3 220505`、`Sens.Design 卡片 v2.1 20230320`、`/Users/liyuwen/Desktop/DESIGN.md`、`src/features/tiktok-ads-connections/DataSourceManagementPage.tsx`、`src/design-system/components/base/drawer.design.md`。
-> 当前状态：第一版规则沉淀。定义页面主栅格、抽屉内部栅格和局部容器排布；不定义页面骨架或左侧区域交互。
+> 在 Layout 已确定的可用内容区内定义列数、占栏和局部容器排布。
+> 成熟度：Pilot
+> 实现：Partial
+> 验证：Pending
+> 来源：Figma `Sens.Design 栅格布局 v0.3 220505`、`Sens.Design 卡片 v2.1 20230320`
+> 预览：`/basic-styles/grid`
 
 ## 1. 定位
 

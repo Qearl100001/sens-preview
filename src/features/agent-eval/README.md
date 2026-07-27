@@ -4,7 +4,7 @@
 
 ## 开发
 
-- 场景页（sens-preview 内）：http://127.0.0.1:5173/scene/agent-eval-dashboard
+- 场景页（sens-preview 内）：http://127.0.0.1:5173/cases/agent-eval-dashboard
 - 独立入口 dev：http://127.0.0.1:5173/agent-eval.html
 
 ## 构建与预览

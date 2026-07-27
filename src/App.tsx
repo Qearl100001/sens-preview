@@ -7,7 +7,6 @@ import { useTranslation } from "react-i18next";
 import { buildAntdTheme } from "./design-system/theme";
 import type { FunctionalSkin } from "./design-system/functional-skin";
 import { PreviewShell } from "./preview/PreviewShell";
-import LegacyPreviewPage from "./preview/LegacyPreviewPage";
 import ButtonShowcasePage from "./preview/pages/ButtonShowcasePage";
 import InputShowcasePage from "./preview/pages/InputShowcasePage";
 import TextAreaShowcasePage from "./preview/pages/TextAreaShowcasePage";
@@ -18,6 +17,9 @@ import SearchShowcasePage from "./preview/pages/SearchShowcasePage";
 import CheckboxShowcasePage from "./preview/pages/CheckboxShowcasePage";
 import RadioShowcasePage from "./preview/pages/RadioShowcasePage";
 import FormShowcasePage from "./preview/pages/FormShowcasePage";
+import FormTemplatesPage from "./preview/pages/FormTemplatesPage";
+import CompositeTablePage from "./preview/pages/CompositeTablePage";
+import SdhEditableTableTemplatePage from "./preview/pages/SdhEditableTableTemplatePage";
 import TitleShowcasePage from "./preview/pages/TitleShowcasePage";
 import TabsShowcasePage from "./preview/pages/TabsShowcasePage";
 import BadgeShowcasePage from "./preview/pages/BadgeShowcasePage";
@@ -32,7 +34,13 @@ import TableShowcasePage from "./preview/pages/TableShowcasePage";
 import PaginationShowcasePage from "./preview/pages/PaginationShowcasePage";
 import ChangelogPage from "./preview/pages/ChangelogPage";
 import {
+  AgentRulesGuidePage,
+  AiDesignMethodologyGuidePage,
+  DesignSystemGuidePage,
+} from "./preview/pages/GuideDetailPages";
+import {
   CaseLibraryPage,
+  CompositeLibraryPage,
   GuidesHubPage,
   SystemOverviewPage,
   TemplateLibraryPage,
@@ -81,12 +89,10 @@ export default function App() {
             <Route path="basic-styles/spacing" element={<SpacingBasicStylePage />} />
             <Route path="basic-styles/layout" element={<LayoutBasicStylePage />} />
             <Route path="basic-styles/grid" element={<GridBasicStylePage />} />
-            <Route path="basic-styles/layout-grid" element={<Navigate to="/basic-styles/layout" replace />} />
             <Route path="basic-styles/size" element={<SizeBasicStylePage />} />
             <Route path="basic-styles/icon" element={<IconBasicStylePage />} />
             <Route path="basic-styles/radius" element={<RadiusBasicStylePage />} />
             <Route path="basic-styles/shadow" element={<ShadowBasicStylePage />} />
-            <Route path="basic-styles/divider" element={<Navigate to="/components/divider" replace />} />
             <Route path="basic-styles/card" element={<CardBasicStylePage />} />
             <Route path="components/button" element={<ButtonShowcasePage />} />
             <Route path="components/input" element={<InputShowcasePage />} />
@@ -111,7 +117,12 @@ export default function App() {
             <Route path="components/table" element={<TableShowcasePage />} />
             <Route path="components/pagination" element={<PaginationShowcasePage />} />
             <Route path="components/divider" element={<DividerBasicStylePage />} />
+            <Route path="composite" element={<CompositeLibraryPage />} />
+            <Route path="composite/form" element={<FormTemplatesPage />} />
+            <Route path="composite/table" element={<CompositeTablePage />} />
             <Route path="templates" element={<TemplateLibraryPage />} />
+            <Route path="templates/sdh-editable-table" element={<Navigate to="/templates/sdh-editable-table/event-scroll" replace />} />
+            <Route path="templates/sdh-editable-table/:scenarioKey" element={<SdhEditableTableTemplatePage />} />
             <Route path="cases" element={<CaseLibraryPage />} />
             <Route path="cases/data-source-connection" element={<DataSourceConnectionDemoPage />} />
             <Route path="cases/tiktok-ads-connections" element={<TikTokAdsConnectionsPage />} />
@@ -125,14 +136,10 @@ export default function App() {
               }
             />
             <Route path="guides" element={<GuidesHubPage />} />
+            <Route path="guides/design-system" element={<DesignSystemGuidePage />} />
+            <Route path="guides/agent-rules" element={<AgentRulesGuidePage />} />
+            <Route path="guides/methodology" element={<AiDesignMethodologyGuidePage />} />
             <Route path="changelog" element={<ChangelogPage />} />
-            <Route path="pages/data-source-demo" element={<Navigate to="/cases/data-source-connection" replace />} />
-            <Route path="pages/tiktok-ads-connections" element={<Navigate to="/cases/tiktok-ads-connections" replace />} />
-            <Route path="scene/data-source-demo" element={<Navigate to="/cases/data-source-connection" replace />} />
-            <Route path="scene/tiktok-ads-connections" element={<Navigate to="/cases/tiktok-ads-connections" replace />} />
-            <Route path="scene/agent-eval-dashboard" element={<Navigate to="/cases/agent-eval-dashboard" replace />} />
-            <Route path="scene/ai-design-stage-ppt" element={<Navigate to="/cases/ai-design-stage-ppt" replace />} />
-            <Route path="legacy" element={<LegacyPreviewPage />} />
           </Route>
         </Routes>
       </BrowserRouter>

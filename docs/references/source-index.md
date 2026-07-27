@@ -17,7 +17,7 @@
 | 资料 | 位置 | 用途 | 当前状态 |
 |---|---|---|---|
 | Sens.Design 间距 v0.4 | `/Users/liyuwen/Desktop/Sens.Design_间距_v0.4_220505.pdf` | 页面间距、标题栏、内容区、卡片、表格、下拉、模态等 spacing 规则 | 已读目录和部分关键页；待逐页提炼 |
-| Sens.Design 字体 v0.4 | `/Users/liyuwen/Desktop/Sens.Design_字体_v0.4_220505.pdf` | 字体家族、字号、行高、字重、标题层级 | 已读关键页；待映射到 typography token |
+| Sens.Design 字体 v0.4 | `/Users/liyuwen/Desktop/Sens.Design_字体_v0.4_220505.pdf` | 字体家族、字号、行高、字重、标题层级 | 已映射到 `typography.json` 与 `typography.md`；真实页面边界持续校验 |
 | Sens.Design 卡片 v2.1 | `/Users/liyuwen/Desktop/Sens.Design_卡片 v2.1_20230320.pdf` | 卡片定义、类型、比例、网格视图、入口型、自由容器 | 已读目录和关键页；待提炼 `SensCard` / `SensEntryCard` |
 | 色彩 Color · 基础样式 | `/Users/liyuwen/Desktop/colors.md` | 颜色三层关系、语义 handle、透明色、换肤现状 | 已作为 color foundation 的主要来源 |
 | 卡片阴影截图 | `/Users/liyuwen/Desktop/227a34fe-7021-4e60-a49e-540a9a2485ca 1.png` | 一到四级卡片圆角和双层 shadow 参考 | 已读，待转成 shadow / card token |

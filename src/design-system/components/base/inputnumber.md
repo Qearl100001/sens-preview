@@ -10,7 +10,7 @@
 
 | 本轮包含 | 本轮不包含 |
 |---|---|
-| 大/小尺寸、默认宽 188px、框内/框外警告、7+1 态矩阵 | 单行 `Input`（`input.md`）、文本域（`textarea.md`） |
+| 大/小尺寸、建议宽 108-122px、框内/框外警告、7+1 态矩阵 | 单行 `Input`（`input.md`）、文本域（`textarea.md`） |
 | 步进器箭头色链、分隔线、10×10 图标 | 组合 / 密码 / 搜索变体 |
 
 ## 与 input.md 的关系
@@ -28,10 +28,12 @@
 
 | 项 | 值 |
 |---|---|
-| 默认宽度 | **188px**（`components.InputNumber.controlWidth`） |
-| 范围 | **108–600px** |
+| 默认宽度 | **122px** |
+| 范围 | **108–122px** |
 | 控件高 | 大 32 / 小 24（`controlHeight` / `controlHeightSM`） |
 | 数字对齐 | **左对齐**（antd `textAlign: start`） |
+
+> 表单中的控件最大宽度由 `form.md` 的 `form/control/max-width` 统一限制；但数字输入框自身仍保持 108-122px，不随普通输入框拉宽。若业务需要像普通输入框一样铺满并在右侧带单位，应使用 Input + 单位后缀的表单组合，而不是 InputNumber。
 
 ## 步进器专有（Figma `17464:62740`）
 

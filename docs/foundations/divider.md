@@ -1,7 +1,11 @@
 # Divider Foundation
 
-> 主要来源：Figma `Sens.Design_分割线 v2.1_20230315`、`src/design-system/tokens.resolved.json`、`src/design-system/color-utils.ts`。  
-> 当前状态：已接入 `build-tokens.mjs` → `tokens.resolved.json`；运行时通过 `getDividerColor()` / `getDividerBorder()` 消费。
+> 线色、透明度、宽度、方向与使用场景共同定义的分割规则。
+> 成熟度：Pilot
+> 实现：Implemented
+> 验证：Pending
+> 来源：Figma `Sens.Design_分割线 v2.1_20230315`、`tokens/source/foundations/divider.json`
+> 预览：`/basic-styles/divider`
 
 ## 1. 定位
 

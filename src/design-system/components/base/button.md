@@ -1,7 +1,11 @@
 # 设计系统 skill · 基础组件：按钮 Button
 
-> 基础层，直接用 antd。**颜色一律用 token，不要硬编码。**
-> 源自 Sens.Design 按钮规范 v2.1 + Figma 变体矩阵。
+> 基于 antd 的基础按钮；颜色一律使用 token，不硬编码。<br>
+> 成熟度：Stable<br>
+> 实现：Implemented<br>
+> 验证：Pending<br>
+> 来源：Sens.Design 按钮规范 v2.1、Figma 变体矩阵。<br>
+> 预览：`/components/button`
 
 ## 通则
 - **重要前提**：本套用 antd 当底座 + 本规范去改它。**凡本规范没写明的点，agent 会沿用 antd 默认**。所以"和 antd 不一样的地方"必须在此写死，否则会露出 antd 行为。
@@ -22,7 +26,7 @@
 |---|---|---|---|---|---|
 | 一级（实心）| `type="primary"` | 底 `component-primary` / 字 `white` | 底 `component-hover` | 底 `component-active` | 底 `component-disable` / 字 `white` |
 | 二级（绿描边）| `<Button>` 描边主色 | 边+字 `component-primary` / 底 `white` | **边+字变 `component-hover`，底不变（无填充）** | **边+字变 `component-active`，底不变** | 边+字 `component-disable` |
-| 三级（绿文字无边框）| `type="text"` 主色字 | 字 `component-primary` / 透明底 | **字变 `component-hover`，无底** | **字变 `component-active`，无底** | 字 `component-disable` |
+| 三级（中性文字无边框）| `color="default"` + `variant="text"` | 字 `text-color-transparent` / 透明底 | **字变 `component-hover`，无底** | **字变 `component-active`，无底** | 字 `text-color-disable` |
 
 ## 链接按钮（蓝）
 | 类型 | antd | 默认 | 悬停 | 点击 | 禁用 |
@@ -32,6 +36,7 @@
 
 - **走状态色通道**：**禁止** `color="primary"`（那是功能色绿，会随换肤变）。
 - 三形态：纯图标 / 图标+文字 / 纯文字；**图标在文字左侧**（`icons.md`）。
+- 链接按钮不带水平内边距；与相邻元素的距离由父级布局 gap 或图文间距 token 控制，不能吃 antd 默认 `padding-inline`。
 - 预览示例图标用 Figma `icon-default`（`1471:5057`）；**不要用** `ChevronDown` / `ChevronUp`（下拉 / 选择器专用）。
 
 ## 警告按钮（红，作用在二级 / 三级 / 链接上）
@@ -120,7 +125,7 @@
 | 禁用文字 | `text-color-disable` | `colorTextDisabled` |
 | 辅助文字 | `text-sub-color` | `colorTextSecondary` |
 | 二级描边 hover/点击（无底） | `component-hover` / `component-active` | Button `defaultHoverBorderColor` / `defaultActiveBorderColor` |
-| 三级文字 hover/点击（无底） | `component-hover` / `component-active` | Button `colorPrimaryTextHover` / `colorPrimaryTextActive`；背景 `colorPrimaryBg` / `colorPrimaryBorder` → `transparent`（**仅 `components.Button` 级覆盖**，不动根 token） |
+| 三级文字默认 / hover / 点击（无底） | `text-color-transparent` / `component-hover` / `component-active` | Button `defaultColor` / `defaultHoverColor` / `defaultActiveColor`；透明底（**仅 `components.Button` 级覆盖**，不动根 token） |
 | 警告三级文字 hover/点击（无底） | `warning-color-hover` / `warning-color-active` | Button `colorErrorBg` / `colorErrorBgActive` → `transparent`（**仅 `components.Button` 级覆盖**） |
 | 虚线浅绿底 | `component-active-hover-background` / `component-active-click-background` | 仅虚线按钮 |
 | 菜单项行底（中性灰） | `background-transparent-grey-hover` @6% / `background-01-transparent` @8% | 下拉菜单项（对齐 Select 未选中行） |

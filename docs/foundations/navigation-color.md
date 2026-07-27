@@ -1,7 +1,11 @@
 # Navigation Color Foundation
 
-> 主要来源：Figma `设计系统 2.0 导航设计`，色板节点 `2194:54928`「神策绿 主题色」。
-> 当前状态：神策绿产品壳主题已入库；其他导航主题必须按同一套槽位补齐，不得用功能色替代。
+> Product Shell Theme 的导航颜色子系统；不以组件功能色替代导航槽位。
+> 成熟度：Pilot
+> 实现：Partial
+> 验证：Pending
+> 来源：Figma `设计系统 2.0 导航设计`、`tokens/source/figma/Color.json`、`tokens/source/foundations/navigation-theme.json`
+> 预览：`/components/top-navigation`
 
 ## 1. 定位与边界
 

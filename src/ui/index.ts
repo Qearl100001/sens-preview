@@ -1,5 +1,22 @@
-export { TableShell, TableInfoBar, LinkButton, TableActions } from "./TableShell";
-export type { TableShellProps, TableInfoBarProps, LinkButtonProps, TableActionsProps, TableActionItem } from "./TableShell";
+export { TableShell, TableInfoBar, LinkButton, TableEllipsis, TableActions } from "./TableShell";
+export type {
+  TableShellProps,
+  TableInfoBarProps,
+  LinkButtonProps,
+  TableEllipsisProps,
+  TableActionsProps,
+  TableActionItem,
+} from "./TableShell";
+export {
+  SensTableFilterBar,
+  TABLE_FILTER_TRIGGER_WIDTH,
+  TABLE_FILTER_EXPANDED_MAX_HEIGHT,
+} from "./SensTableFilterBar";
+export type {
+  SensTableFilterBarProps,
+  SensTableFilterField,
+  SensTableFilterSelectOption,
+} from "./SensTableFilterBar";
 export { SensPagination } from "./SensPagination";
 export type { SensPaginationProps } from "./SensPagination";
 export { SensCheckbox, SensCheckboxGroup, CheckboxStatesPreview } from "./SensCheckbox";
@@ -36,7 +53,7 @@ export {
   SELECT_ARROW_ICON_SIZE,
   SelectClearIcon,
   SELECT_CLEAR_ICON_SIZE,
-  ChevronDownIcon, ChevronUpIcon, ChevronLeftIcon, CloseIcon, CloseCircleIcon, EditorAddIcon, ErrorDiamondIcon, IconDefaultIcon, MoreIcon } from "./FieldIcons";
+  ChevronDownIcon, ChevronUpIcon, ChevronLeftIcon, CloseIcon, CloseCircleIcon, EditorAddIcon, ErrorDiamondIcon, IconDefaultIcon, MoreIcon, ReloadIcon, SettingIcon } from "./FieldIcons";
 export type { IconProps as FieldIconProps } from "./FieldIcons";
 export { useSensAllowClear, useSensSearchFieldProps, useSensSearchPrefix, useSensSelectProps, useSensSelectSuffixProps, useSensSelectTriggerProps, useSensSelectTriggerSuffixProps, SensSelectSuffix, SensSelectTriggerArrow } from "./fieldIconProps";
 export { useSensIconTokens } from "./useSensIconTokens";
@@ -141,6 +158,8 @@ export { SensBreadcrumb } from "./SensBreadcrumb";
 export type { SensBreadcrumbItem, SensBreadcrumbProps } from "./SensBreadcrumb";
 export { SensPageTitleBar, SENS_PAGE_TITLE_BAR_HEIGHT } from "./SensPageTitleBar";
 export type { SensPageTitleBarProps } from "./SensPageTitleBar";
+export { SensTopNavigation } from "./SensTopNavigation";
+export type { SensTopNavigationItem, SensTopNavigationProps } from "./SensTopNavigation";
 export { SensDrawer, SENS_DRAWER_WIDTH } from "./SensDrawer";
 export type { SensDrawerProps, SensDrawerSize } from "./SensDrawer";
 export { SensInput, InputStatesPreview, useSensInputHeightStyle, InsideErrorSuffix, InputHelpRow } from "./SensInput";

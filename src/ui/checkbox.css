@@ -226,6 +226,20 @@
   margin-top: 0;
 }
 
+/* Linked content uses the option's natural text height instead of a 32px control box. */
+.sens-checkbox-group--content-height.sens-checkbox-group--single-line .sens-checkbox-group-options {
+  align-items: flex-start;
+}
+
+.sens-checkbox-group--content-height.sens-checkbox-group--single-line .sens-checkbox {
+  min-height: 0;
+  align-items: flex-start;
+}
+
+.sens-checkbox-group--content-height.sens-checkbox-group--single-line .sens-checkbox-control {
+  margin-top: calc((var(--sens-checkbox-line-height) - var(--sens-checkbox-control-size)) / 2);
+}
+
 .sens-checkbox-matrix {
   display: inline-grid;
   gap: var(--sens-checkbox-gap);

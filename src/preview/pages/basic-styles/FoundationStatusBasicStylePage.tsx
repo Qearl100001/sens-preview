@@ -7,11 +7,11 @@ const { Text, Title } = Typography;
 const DASHBOARD_DOC = `
 # Foundation / Token 看板（内部工作台）
 
-> 这页主要给内部推进和 \`DESIGN.md\` 取舍用，不是最终对外文档正文。
+> 这页主要给内部推进和 \`DESIGN.md\` 维护用，不是最终对外文档正文。
 
 ## 这页怎么用
 
-- 先看哪些 foundation 已经足够稳定，可以直接写进 \`DESIGN.md\`。
+- 先看哪些 foundation 已经足够稳定，需要持续同步到 \`DESIGN.md\`。
 - 再看哪些内容虽然有规则，但更适合只写摘要或边界。
 - 最后看 token 缺口到底该走 \`token\`、\`config / 常量\`、\`helper\`，还是先保留为规则，不要一上来就全入库。
 
@@ -21,12 +21,12 @@ const DASHBOARD_DOC = `
 - \`HTML 样张\`：是否已有当前预览工程里的可视化入口。
 - \`token / helper\`：是否已有稳定承接方式。
 - \`当前成熟度\`：是内部推进判断，不是对外承诺。
-- \`进 DESIGN.md\`：表示适合在最终文档里怎么写，不代表要原样搬整张表进去。
+- \`进 DESIGN.md\`：表示适合在总入口里怎么写，不代表要原样搬整张表进去。
 - \`建议承载方式\`：帮助判断这条缺口更适合进 token、config / 常量、helper，还是先保留规则。
 
 ## 当前总判断
 
-- foundation 层已经有不少内容可以直接进 \`DESIGN.md\`。
+- foundation 层已经有不少内容进入 \`DESIGN.md\`，后续重点是持续收口和同步。
 - 真正高优缺口不是“全部重做”，而是“补映射、补边界、补承载方式判断”。
 - \`Layout\` 和 \`Grid\` 现在更适合沉淀规则和页面骨架，不建议为了它们单开一整套 token 生成链路。
 `;
@@ -83,9 +83,9 @@ const FOUNDATION_ROWS: FoundationRow[] = [
     tokenFit: "部分",
     maturity: "中偏低",
     designMdFit: "可写摘要",
-    gap: "缺完整 Figma -> token -> 用途映射表，渐变和换肤矩阵还没沉淀完。",
-    next: "两周内高优先补映射表，不急着扩完整产品壳。",
-    priority: "高",
+    gap: "神策绿槽位与渐变已入库；其他产品壳主题矩阵及浏览器验收仍待补。",
+    next: "保持 Product Shell Theme 与 Functional Skin 分层，补主题矩阵后再扩产品壳。",
+    priority: "中",
   },
   {
     key: "theme-skinning",
@@ -105,7 +105,7 @@ const FOUNDATION_ROWS: FoundationRow[] = [
     doc: "已有",
     preview: "已有",
     tokenFit: "完整",
-    maturity: "高",
+    maturity: "中",
     designMdFit: "可直接写",
     gap: "组件级消费迁移还没完全收口。",
     next: "后续只做接入检查，不重写规则。",
@@ -189,11 +189,11 @@ const FOUNDATION_ROWS: FoundationRow[] = [
     doc: "已有",
     preview: "已有",
     tokenFit: "完整",
-    maturity: "高",
+    maturity: "中",
     designMdFit: "可直接写",
-    gap: "组件接入还没全部完成，但 foundation 本身已经稳定。",
-    next: "后续只做组件消费迁移和局部验收。",
-    priority: "低",
+    gap: "token 生成和 helper 已有承接；组件消费与样张验收尚未完成。",
+    next: "先按 D1–D4 与 active ring 补验，再逐步迁移组件消费。",
+    priority: "中",
   },
   {
     key: "divider",
@@ -201,11 +201,11 @@ const FOUNDATION_ROWS: FoundationRow[] = [
     doc: "已有",
     preview: "已有",
     tokenFit: "完整",
-    maturity: "高",
+    maturity: "中",
     designMdFit: "可直接写",
-    gap: "仍有少量旧写法和旧 handle 迁移工作。",
-    next: "后续在组件收口时顺带迁移。",
-    priority: "低",
+    gap: "生成与 helper 已落地；旧写法迁移和样张验收仍待完成。",
+    next: "后续在组件收口时迁移，并补基础样张验收。",
+    priority: "中",
   },
   {
     key: "card",

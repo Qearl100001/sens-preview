@@ -22,7 +22,7 @@
 
 | 区块 | 说明 |
 | --- | --- |
-| 选择框 | 16px，自定义视觉层；勾选和半选横线由组件内部绘制 |
+| 选择框 | 16px，自定义视觉层；勾选使用 Figma `813:242` 复选框专用对勾，半选横线由组件内部绘制 |
 | 主文案 | 14 / 22，使用主要文字色 |
 | 辅助文案 | 12 / 18，使用辅助文字色 |
 | 前置图标 | 仅消费已录入 SensD 图标；无默认图标 |
@@ -37,6 +37,7 @@
 - 复选框组横向选项间距固定为 `spacing/horizontal/6x`。
 - 复选框组纵向选项间距固定为 `spacing/vertical/1x`。
 - 无辅助文案的单行复选框组使用 `size/component-height/m` 作为选项对齐盒高度；选项内勾选框和文字垂直居中。
+- `itemHeight="content"` 仅用于勾选后直接承接控件、卡片或关联结果的联动组：单行选项回到自然文字高度，不保留 `size/component-height/m` 的 32px 对齐盒。
 - 禁用时主文案和辅助文案都使用禁用文字色；禁用悬停时同步切到禁用悬停文字色。
 - 带辅助文案或只读状态的组，不额外叠加 Figma 默认的上下 5px 组 padding；表单项里的垂直间距后续由表单基础规则接管。
 - 表格表头全选、行多选可以复用本组件；批量操作信息区属于表格组件。
@@ -54,6 +55,7 @@
 | 组内横向选项间距 | `spacing/horizontal/6x` | Ready |
 | 组内纵向选项间距 | `spacing/vertical/1x` | Ready |
 | 单行组选项高度 | `size/component-height/m` | Ready |
+| 联动组选项高度 | 主文案 `line-height/m`，不额外补齐控件高度 | Ready |
 | 默认底色 | `white` | Ready |
 | 默认描边 | `divider/color/deep/transparent` | Ready |
 | hover 描边 | `component-primary` | Ready |
@@ -61,6 +63,7 @@
 | 点击外环 | `component-active-shadow` | Ready |
 | 选中底色 | `component-primary` / `component-hover` / `component-active` | Ready |
 | 选中标记 | `white` | Ready |
+| 选中对勾图标 | `SensIcon name="checkbox-check"` · Figma `813:242` | Ready |
 | 禁用底色 | `background-transparent-grey-hover` @6% | Ready |
 | 禁用悬停底色 | `background-transparent-grey` @4% | Ready |
 | 禁用描边 | `divider/color/light/transparent` | Ready |

@@ -81,6 +81,10 @@ const typographyDoc = loadFoundation("typography");
 const dividerDoc = loadFoundation("divider");
 const shadowDoc = loadFoundation("shadow");
 const navigationThemeDoc = loadOptionalFoundation("navigation-theme");
+const semanticUnitDoc = loadOptionalFoundation("semantic-unit");
+if (semanticUnitDoc) {
+  Object.assign(unitByPath, flattenValueTokens(semanticUnitDoc));
+}
 
 // 把不透明 hex + alpha 转成 rgba（透明语义色用）
 function alpha(hex, a) {

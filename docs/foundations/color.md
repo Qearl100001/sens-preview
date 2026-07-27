@@ -1,7 +1,11 @@
 # Color Foundation
 
-> 主要来源：`/Users/liyuwen/Desktop/colors.md`、`src/design-system/tokens.resolved.json`、`src/design-system/theme.ts`、`src/design-system/color-utils.ts`、`src/design-system/functional-skin.ts`。  
-> 当前状态：规则确认中；本文件先作为 foundation 文档，不直接等同于代码问题已全部修复。
+> 统一基础色板、语义 handle、antd theme token 与组件用色关系。<br>
+> 成熟度：Stable<br>
+> 实现：Implemented<br>
+> 验证：Verified（2026-07-24：`/basic-styles/color` 设计说明与数值样张）
+> 来源：`/Users/liyuwen/Desktop/colors.md`、`tokens.resolved.json`、`theme.ts`、`color-utils.ts`。<br>
+> 预览：`/basic-styles/color`
 
 ## 1. 定位
 
@@ -32,7 +36,7 @@ Color 负责统一基础色板、语义 color handle、antd theme token、组件
 | `src/design-system/tokens.resolved.json` | 当前已解析 token 值 | 生成物，不能手改 |
 | `src/design-system/theme.ts` | antd theme token 与 components token | 生成物，不能手改 |
 | `src/design-system/color-utils.ts` | `getColorToken` / `tokenRgba` / shadow helper | 可作为业务和组件取色入口 |
-| `src/design-system/functional-skin.ts` | 局部功能色换肤映射 | 仅局部预览可用，未完成全局换肤 |
+| `src/design-system/functional-skin.ts` | 局部功能色换肤映射 | 仅局部消费；全局 antd theme 仍使用绿色基线 |
 
 ## 4. 功能色
 
@@ -54,7 +58,7 @@ Color 负责统一基础色板、语义 color handle、antd theme token、组件
 
 - 主按钮、选中态、聚焦边框、功能性 hover 使用功能色。
 - 链接按钮、表格操作列、帮助文档链接不能用功能色冒充，必须使用链接状态色。
-- 全局换肤尚未完成，TikTok 两周 case 先不把蓝肤作为验收目标。
+- v0.9 的全局 antd theme 固定为绿色基线；蓝肤仅作为局部 Functional Skin 预览，不作为页面或组件默认验收目标。
 
 ## 5. 状态色
 
@@ -70,6 +74,9 @@ Color 负责统一基础色板、语义 color handle、antd theme token、组件
 | 警告红 | `warning-color` | `#E54545` | `colorError` |
 | 警告 hover | `warning-color-hover` | `#EB6767` | `colorErrorHover` |
 | 警告 active | `warning-color-active` | `#B22B2B` | `colorErrorActive` |
+| 涨 | `rise-color` | 见 `color-semantics.md` | 业务层 handle |
+| 跌 | `fall-color` | 见 `color-semantics.md` | 业务层 handle |
+| 不变 | `flat-color` | 见 `color-semantics.md` | 业务层 handle |
 
 重要约束：
 
@@ -120,53 +127,11 @@ tokenRgba("outline-color-transparent", 0.08)
 - 删除 / 危险行为：使用警告红，并结合一致性流程规则做挽留确认。
 - 导航和产品壳涉及换肤，已明确后置；当前只记录，不纳入 TikTok 两周主验收。
 
-## 9. 导航颜色系统
+## 9. 与导航颜色的边界
 
-导航颜色系统是独立的主题色分支，不应直接混进普通 `component-*` / `text-*` / `link-*` 颜色体系里。
+导航颜色是独立的 Product Shell Theme，不混入普通 `component-*` / `text-*` / `link-*` 颜色体系。顶导、侧导、标题栏和页面主题背景的 token、helper 与换肤矩阵统一维护在 [Navigation Color](./navigation-color.md)。
 
-来源：
-
-- Figma：`设计系统 2.0 导航设计`
-- 页面节点：`83:12679`，`换肤 ⭐️⭐️⭐️`
-- 色板节点：`2194:54928`，`神策绿 主题色`
-- 表格节点：`2194:53497`，`神策绿 换肤`
-
-当前读到的命名差异：
-
-| Figma 命名 | 当前代码方向 | 说明 |
-|---|---|---|
-| `主题色/顶导航/...` | `theme-top-*` | 顶部导航专用颜色 |
-| `主题色/侧导航/...` | `theme-side-*` | 侧边导航专用颜色 |
-| `主题色/标题栏/背景/01` | `theme-title-background` | 标题栏背景 |
-| `主题色/页面/背景/01` | `body-background` | 页面背景 |
-
-导航颜色的主要分组：
-
-- 顶导航：背景、角色背景、功能入口菜单背景 / 文字 / 图标、项目菜单背景 / 文字、logo、文字与图标、图标背景、线、菜单线。
-- 侧导航：背景、目录背景、文字、图标。
-- 标题栏：背景。
-- 页面：背景。
-- 功能色换肤：默认、悬停、点击、禁用、选中背景、点击投影、浅色背景。
-
-已读到的关键值：
-
-| 名称 | 色值 | 说明 |
-|---|---|---|
-| `主题色/顶导航/背景/01` | `linear-gradient(135deg, #0F9670 0%, #0D826D 100%)` | 顶导航背景，跟随换肤 |
-| `主题色/侧导航/背景/01` | `linear-gradient(180deg, #FAFCFC 0%, #F0F7F6 100%)` | 侧导航背景，跟随换肤 |
-| `主题色/页面/背景/01` | `#F5FAFA` | 页面背景，跟随换肤 |
-| `主题色/标题栏/背景/01` | `#F5FAFA` | 标题栏背景，跟随换肤 |
-| `主题色/顶导航/文字&图标/01_默认` | `rgba(255, 255, 255, 0.8)` | 顶导航功能选择区域默认文字和图标 |
-| `主题色/顶导航/文字&图标/02_悬停` | `#FFFFFF` | 顶导航功能选择区域悬停文字和图标 |
-| `主题色/顶导航/文字&图标/03_选中` | `#FFFFFF` | 顶导航功能选择区域选中文字和图标 |
-| `主题色/侧导航/文字/01_主要` | `rgba(23, 28, 38, 0.9)` | 侧导航主要文字 |
-| `主题色/侧导航/文字/02_辅助` | `rgba(8, 18, 38, 0.58)` | 侧导航辅助文字 |
-| `主题色/侧导航/文字/03_选中` | `#00B280` | 侧导航选中文字 |
-
-待确认：
-
-- Figma 表格里功能色点击值为 `#008C64`，当前代码 `theme.ts` / `tokens.resolved.json` 中 `component-active` 为 `#008C65`。后续处理换肤或导航 token 时必须确认来源差异，不能直接忽略。
-- 当前 TikTok case 导航后置，但后续实现产品壳 / 导航时必须单独整理映射表：`Figma 名称 -> 当前代码 token -> 色值 -> 是否跟随换肤 -> 用途 -> 待确认`。
+当前 Token Source 中 `component-active` 为 `#008C65`，v0.9 以该值作为绿色基线；历史 Figma 表格中的 `#008C64` 差异不在本轮回溯。
 
 ## 10. 代码落地规则
 

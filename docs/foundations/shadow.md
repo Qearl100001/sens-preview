@@ -1,7 +1,11 @@
 # Shadow Foundation
 
-> 主要来源：Figma `Sens.Design 投影 v2.1 20230313`、`src/design-system/color-utils.ts`、`src/design-system/theme.ts`、输入框激活态 Figma 示例。  
-> 当前状态：规则确认中；本文件先作为 foundation 文档，不直接等同于所有组件已完成 token 映射。
+> 组件状态反馈、浮层、卡片层级与抽屉投影的规则源。
+> 成熟度：Pilot
+> 实现：Implemented
+> 验证：Pending
+> 来源：Figma `Sens.Design 投影 v2.1 20230313`、`tokens/source/foundations/shadow.json`、`color-utils.ts`
+> 预览：`/basic-styles/shadow`
 
 ## 1. 定位
 

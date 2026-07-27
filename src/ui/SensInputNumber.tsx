@@ -1,8 +1,8 @@
-import { InputNumber, theme, type InputNumberProps } from "antd";
+import { InputNumber, type InputNumberProps } from "antd";
 import type { CSSProperties, ReactNode } from "react";
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
-import { tokenRgba } from "../design-system/color-utils";
+import { getColorToken, tokenRgba } from "../design-system/color-utils";
 import tokens from "../design-system/tokens.resolved.json";
 import {
   INPUT_ERROR_ICON_SIZE_M,
@@ -26,9 +26,9 @@ import "./inputnumber-preview.css";
 const u = tokens.unit as Record<string, number>;
 const I18N_NS = "组件库";
 const INPUT_NUMBER_HANDLE_WIDTH = 17;
-const INPUT_NUMBER_DEFAULT_WIDTH = 188;
+const INPUT_NUMBER_DEFAULT_WIDTH = 122;
 const INPUT_NUMBER_MIN_WIDTH = 108;
-const INPUT_NUMBER_MAX_WIDTH = 600;
+const INPUT_NUMBER_MAX_WIDTH = 122;
 
 function isInputNumberEmpty(
   value: InputNumberProps["value"],
@@ -51,7 +51,6 @@ function resolveReadOnlyText(
 
 /** 数字框专有 CSS 变量（字段色与 SensInput 同源） */
 export function useSensInputNumberStyle(size?: InputNumberProps["size"]): CSSProperties {
-  const { token } = theme.useToken();
   const fieldVars = useSensInputHeightStyle();
   const iconSize = size === "small" ? INPUT_ERROR_ICON_SIZE_S : INPUT_ERROR_ICON_SIZE_M;
   const iconGap = u["spacing/horizontal/1x"] ?? 4;
@@ -61,11 +60,11 @@ export function useSensInputNumberStyle(size?: InputNumberProps["size"]): CSSPro
   return {
     ...fieldVars,
     "--sens-inputnumber-handle-width": `${INPUT_NUMBER_HANDLE_WIDTH}px`,
-    "--sens-inputnumber-handler-bg": token.colorBgContainer,
+    "--sens-inputnumber-handler-bg": getColorToken("white"),
     "--sens-inputnumber-handler-border-color": tokenRgba("divideline-color-transparent-dack", 0.16),
-    "--sens-inputnumber-handler-default-color": token.colorIcon,
-    "--sens-inputnumber-handler-hover-color": token.colorPrimary,
-    "--sens-inputnumber-handler-active-color": token.colorPrimaryActive,
+    "--sens-inputnumber-handler-default-color": getColorToken("icon-color-transparent"),
+    "--sens-inputnumber-handler-hover-color": getColorToken("component-primary"),
+    "--sens-inputnumber-handler-active-color": getColorToken("component-active"),
     "--sens-inputnumber-handler-disabled-color": tokenRgba("icon-color-transparent-disable", 0.3),
     "--sens-inputnumber-handler-disabled-hover-color": tokenRgba(
       "icon-color-transparent-disable-hover",
@@ -349,17 +348,15 @@ interface InputNumberPreviewStyleToken {
   colorTextPlaceholderDisabledHover: string;
 }
 
-function getInputNumberPreviewStyleToken(
-  antdToken: ReturnType<typeof theme.useToken>["token"],
-): InputNumberPreviewStyleToken {
+function getInputNumberPreviewStyleToken(): InputNumberPreviewStyleToken {
   return {
-    hoverBorderColor: antdToken.colorPrimary,
-    activeBorderColor: antdToken.colorPrimaryActive,
+    hoverBorderColor: getColorToken("component-primary"),
+    activeBorderColor: getColorToken("component-active"),
     activeShadow: `0 0 0 2px ${tokenRgba("component-active-shadow", 0.2)}`,
     colorBorderDisabledHover: tokenRgba("line-color-transparent", 0.06),
     colorBgContainerDisabledHover: tokenRgba("background-transparent-grey", 0.04),
-    colorErrorHover: antdToken.colorErrorHover,
-    colorErrorActive: antdToken.colorErrorActive,
+    colorErrorHover: getColorToken("warning-color-hover"),
+    colorErrorActive: getColorToken("warning-color-active"),
     errorActiveShadow: `0 0 0 2px ${tokenRgba("warning-color-active-shadow", 0.2)}`,
     colorTextPlaceholderDisabledHover: tokenRgba("text-color-transparent-disable-hover", 0.24),
   };
@@ -510,8 +507,7 @@ export function InputNumberStatesPreview({
   filledValue = INPUT_NUMBER_PREVIEW_FILLED_VALUE,
 }: InputNumberStatesPreviewProps) {
   const { t } = useTranslation();
-  const { token } = theme.useToken();
-  const styleToken = getInputNumberPreviewStyleToken(token);
+  const styleToken = getInputNumberPreviewStyleToken();
   const placeholder = t(`${I18N_NS}.sensd-input-placeholder`, { defaultValue: "请输入" });
   const label = (key: string, defaultValue: string) => t(`${I18N_NS}.${key}`, { defaultValue });
 

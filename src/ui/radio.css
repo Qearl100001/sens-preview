@@ -195,6 +195,20 @@
   margin-top: 0;
 }
 
+/* Linked content uses the option's natural text height instead of a 32px control box. */
+.sens-radio-group--content-height.sens-radio-group--single-line .sens-radio-group-options {
+  align-items: flex-start;
+}
+
+.sens-radio-group--content-height.sens-radio-group--single-line .sens-radio {
+  min-height: 0;
+  align-items: flex-start;
+}
+
+.sens-radio-group--content-height.sens-radio-group--single-line .sens-radio-control {
+  margin-top: calc((var(--sens-radio-line-height) - var(--sens-radio-control-size)) / 2);
+}
+
 .sens-radio-matrix {
   display: inline-grid;
   gap: var(--sens-radio-gap);

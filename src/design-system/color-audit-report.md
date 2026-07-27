@@ -6,7 +6,7 @@
 >
 > **勿「纠正」**：`info-color` → `colorWarning`、`warning-color` → `colorError` 为**故意映射**（见 `color-semantics.md`）。
 
-扫描日期：2026-06-17 · 更新：2026-06-17（第三轮）
+扫描日期：2026-06-17 · 规则边界复核：2026-07-24
 
 ---
 
@@ -25,7 +25,7 @@
 | 项 | 状态 |
 |---|---|
 | 状态色三处 + 图标 + 中性色 + Table | ✅ **已修**（走 `c["…"]` handle） |
-| 功能色换肤 | ✅ **已修**（`functional-skin.ts` + `buildAntdTheme(skin)`） |
+| 功能色换肤 | 🔶 **局部已接入**（`functional-skin.ts` 可供局部预览消费；全局 antd theme 固定绿色基线） |
 | `hexToRgba()` 工具 | ✅ 正常（从 token 计算） |
 
 ### `src/App.tsx`
@@ -80,7 +80,7 @@
 
 ---
 
-## 状态：本轮审计项已全部完成
+## 状态：硬编码审计项已完成；全局换肤不在 v0.9 范围
 
 - [x] 链接按钮 `colorLink`
 - [x] `theme.ts` 状态色 + 图标/Table/中性色
@@ -89,3 +89,4 @@
 - [x] `SchemaManagementPage` 变量化（无暗色）
 - [x] `linkWeak`
 - [x] 移除误导性 light/dark 换肤
+- [ ] 全局 Functional Skin 接线（后续单独立项）

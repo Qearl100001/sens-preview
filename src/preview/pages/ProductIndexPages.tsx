@@ -126,20 +126,26 @@ export function SystemOverviewPage() {
             {
               title: "基础样式",
               description: "颜色、换肤、栅格、图标与卡片等跨组件的通用规则。",
-              status: "11 项规则",
+              status: "Foundation 规则库",
               href: "/basic-styles/color",
             },
             {
-              title: "组件库",
-              description: "查看已收录组件的 Demo、状态矩阵与设计、研发说明。",
+              title: "基础组件",
+              description: "查看已收录基础组件的 Demo、状态矩阵与设计、研发说明。",
               status: "持续完善",
               href: "/components/button",
+            },
+            {
+              title: "复合组件",
+              description: "沉淀跨基础组件复用的表单、表格等稳定组合模式。",
+              status: "新增入口",
+              href: "/composite",
             },
           ],
         },
         {
           title: "下一步沉淀",
-          description: "这些内容会直接服务于两周后的 DESIGN.md 交付。",
+          description: "这些内容会继续补入当前 DESIGN.md 和对应规则层。",
           items: [
             {
               title: "Token 对照",
@@ -148,7 +154,7 @@ export function SystemOverviewPage() {
             },
             {
               title: "真实样板间",
-              description: "把管理列表、创建抽屉、配置表单等可复用页面结构收敛为标准模板。",
+              description: "把业务配置页、管理页等真实场景收敛为可验证页面样板。",
               status: "筹备中",
               href: "/templates",
             },
@@ -165,30 +171,88 @@ export function SystemOverviewPage() {
   );
 }
 
+export function CompositeLibraryPage() {
+  return (
+    <ProductIndexPage
+      eyebrow="Composite Components"
+      title="复合组件"
+      description="复合组件沉淀的是可复用的组件组合模式。它不绑定具体业务对象，但会规定基础组件之间的结构、边界、状态和 token 依赖。"
+      sections={[
+        {
+          title: "已收录",
+          description: "先承接已经完成基础组件验证、且能跨业务复用的组合模式。",
+          items: [
+            {
+              title: "复合表单",
+              description: "带表格、联动和卡片三类表单组合；步骤条、锚点和模态表单等待基础组件补齐。",
+              status: "P1 已录入",
+              href: "/composite/form",
+            },
+            {
+              title: "复合表格",
+              description: "筛选区与录入型表格已完成首轮样张；树表格、嵌套 / 交叉表格继续按复合模式收录。",
+              status: "首轮已收录",
+              href: "/composite/table",
+            },
+          ],
+        },
+        {
+          title: "与样板间的关系",
+          description: "复合组件讲通用模式，样板间讲业务场景；真实业务对象、流程和页面壳由样板间承接。",
+          items: [
+            {
+              title: "筛选表格",
+              description: "筛选区、表格信息区、表格、分页器、批量操作和列设置入口的标准组合。",
+              status: "首轮已收录 / 待验",
+            },
+            {
+              title: "录入型表格",
+              description: "首轮行内编辑样张已收录；真实校验、增删和滚动规则待补。",
+              status: "首轮已收录 / 待补交互",
+            },
+            {
+              title: "树表格",
+              description: "层级展开、树节点缩进和父子选择关系；后续服务 SDH 树表格场景。",
+              status: "待收录",
+            },
+          ],
+        },
+      ]}
+    />
+  );
+}
+
 export function TemplateLibraryPage() {
   return (
     <ProductIndexPage
       eyebrow="Page Templates"
       title="样板间"
-      description="样板间沉淀的是可复用的页面结构，不绑定具体业务名称。案例验证过的结构达到稳定程度后，再进入这里。"
+      description="样板间沉淀真实业务场景中的页面结构、对象流程和使用边界；通用组合模式进入复合组件。"
       sections={[
+        {
+          title: "已收录",
+          description: "样板间只放绑定真实业务对象的页面样板；通用组合模式仍在复合组件维护。",
+          items: [
+            {
+              title: "SDH / 录入型表格场景",
+              description: "基于录入型表格复合组件，承接新增元事件、物料元素和属性配置三类录入场景。",
+              status: "首轮收录",
+              href: "/templates/sdh-editable-table",
+            },
+          ],
+        },
         {
           title: "计划收录",
           description: "先以页面骨架、组件组合和适用边界为核心，而不是只展示一张静态页面。",
           items: [
             {
-              title: "管理列表",
-              description: "页面标题、筛选区、工具栏、表格、空态与批量操作的标准组合。",
+              title: "SDH / 树表格场景",
+              description: "基于树表格复合组件，承接真实层级数据治理场景。",
               status: "待收录",
             },
             {
-              title: "创建与编辑抽屉",
-              description: "基础信息、字段校验、帮助说明、保存与离开的通用交互结构。",
-              status: "待收录",
-            },
-            {
-              title: "详情与配置页",
-              description: "信息概览、分组配置、状态反馈和二级操作的页面级骨架。",
+              title: "业务配置表单",
+              description: "基于复合表单，补充具体业务对象、流程、默认值、校验和离开保护。",
               status: "待收录",
             },
           ],
@@ -249,22 +313,25 @@ export function GuidesHubPage() {
       sections={[
         {
           title: "设计系统交付",
-          description: "最终会以一份结构化 DESIGN.md 汇总基础规则、组件边界、样板间与验证方式。",
+          description: "当前已经以一份结构化 DESIGN.md 汇总基础规则、组件边界、样板间与验证方式，并持续更新。",
           items: [
             {
               title: "设计系统总览",
-              description: "两周目标交付物：从设计基础、组件、样板间到验证方式的一份可读总览。",
-              status: "建设中",
+              description: "正式总入口：从设计基础、组件、样板间到验证方式的一份可读总览。",
+              status: "正式入口",
+              href: "/guides/design-system",
             },
             {
               title: "AI 工作规则",
               description: "价值体验原则、一致性流程和页面生成后的校验清单。",
               status: "已沉淀",
+              href: "/guides/agent-rules",
             },
             {
               title: "AI 设计方法",
               description: "从 PRD、Spec、模板到前端骨架和人工验收的标准工作流。",
               status: "已沉淀",
+              href: "/guides/methodology",
             },
           ],
         },

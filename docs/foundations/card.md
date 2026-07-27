@@ -1,7 +1,11 @@
 # Card Foundation
 
-> 主要来源：Figma `Sens.Design_卡片 v2.1_20230320`、`docs/foundations/color.md`、`docs/foundations/spacing.md`、`docs/foundations/radius.md`、`docs/foundations/size.md`、`docs/foundations/typography.md`。  
-> 当前状态：基础样式收敛中；本文件先定义 Card 容器和组合示例的规则，不代表 `SensCard` 真实组件 API 已完成。
+> 由多项 Foundation 组合而成的基础容器规则，不定义业务卡片的信息架构。
+> 成熟度：Pilot
+> 实现：Missing
+> 验证：Pending
+> 来源：Figma `Sens.Design_卡片 v2.1_20230320`、Color、Spacing、Radius、Size、Typography、Shadow Foundation
+> 预览：`/basic-styles/card`
 
 ## 1. 定位
 

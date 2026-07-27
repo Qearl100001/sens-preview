@@ -551,7 +551,8 @@
     "radius/m": 4,
     "radius/l": 6,
     "radius/xl": 10,
-    "radius/circular": 999
+    "radius/circular": 999,
+    "form/control/max-width": 600
   },
   "typography": {
     "font-size/s": 12,
