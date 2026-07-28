@@ -3,7 +3,7 @@
 > 可跨业务复用的表单组合模式，不替代 Form、Table、Radio、Checkbox、Title 等基础组件规则。<br>
 > 成熟度：Pilot<br>
 > 实现：Implemented<br>
-> 验证：Pending<br>
+> 验证：Verified<br>
 > 来源：Form、Table、Title、Radio、Checkbox 等基础组件规则。<br>
 > 预览：`/composite/form`
 

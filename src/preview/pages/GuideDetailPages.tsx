@@ -1,8 +1,9 @@
 import { ArrowRightOutlined } from "@ant-design/icons";
-import { Card, Col, Layout, Row, Space, Table, Tag, Typography, theme } from "antd";
+import { Card, Col, Layout, Row, Space, Table, Tag, Typography } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import type { ReactNode } from "react";
 import { Link } from "react-router-dom";
+import { getPreviewTokens } from "../previewTokens";
 
 const { Content } = Layout;
 const { Paragraph, Text, Title } = Typography;
@@ -25,7 +26,7 @@ interface GuidePageProps {
 }
 
 function GuidePage({ eyebrow, title, description, sections }: GuidePageProps) {
-  const { token } = theme.useToken();
+  const token = getPreviewTokens();
 
   return (
     <Layout style={{ height: "100%", background: token.colorBgLayout }}>
@@ -85,7 +86,7 @@ const taskColumns: ColumnsType<GuideRow> = [
 ];
 
 export function DesignSystemGuidePage() {
-  const { token } = theme.useToken();
+  const token = getPreviewTokens();
 
   return (
     <GuidePage

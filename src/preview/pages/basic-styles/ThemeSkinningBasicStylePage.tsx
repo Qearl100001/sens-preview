@@ -1,4 +1,4 @@
-import { Alert, Space, Table, Tag, Typography, theme } from "antd";
+import { Alert, Space, Table, Tag, Typography } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import { useOutletContext } from "react-router-dom";
 import { getColorToken } from "../../../design-system/color-utils";
@@ -7,6 +7,7 @@ import { getFunctionalColors } from "../../../design-system/functional-skin";
 import { getThemeTopBackground } from "../../../design-system/navigation-color";
 import themeSkinningDocSource from "../../../../docs/foundations/theme-skinning.md?raw";
 import { BasicStylePageLayout } from "./BasicStylePageLayout";
+import { getPreviewTokens } from "../../previewTokens";
 
 const { Text, Title } = Typography;
 
@@ -551,7 +552,7 @@ function MappingSummaryTable() {
 }
 
 function ThemeCombinationSpecimen() {
-  const { token } = theme.useToken();
+  const token = getPreviewTokens();
   const functionalGreen = getFunctionalColors("green");
   const functionalBlue = getFunctionalColors("blue");
   const combinations = [
@@ -633,7 +634,7 @@ function ThemeCombinationSpecimen() {
 }
 
 function CurrentFunctionalSkinCard() {
-  const { token } = theme.useToken();
+  const token = getPreviewTokens();
   const { skin } = useOutletContext<PreviewOutletContext>();
   const functional = getFunctionalColors(skin);
 

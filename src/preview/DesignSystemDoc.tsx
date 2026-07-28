@@ -1,7 +1,8 @@
 import type { Components } from "react-markdown";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
-import { Typography, theme } from "antd";
+import { Typography } from "antd";
+import { getPreviewTokens } from "./previewTokens";
 
 const { Title, Paragraph, Text } = Typography;
 
@@ -10,7 +11,7 @@ export interface DesignSystemDocProps {
 }
 
 export function DesignSystemDoc({ source }: DesignSystemDocProps) {
-  const { token } = theme.useToken();
+  const token = getPreviewTokens();
 
   const components: Components = {
     h1: ({ children }) => (

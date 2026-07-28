@@ -1,4 +1,5 @@
-import { Space, theme } from "antd";
+import { Space } from "antd";
+import { getColorToken } from "../design-system/color-utils";
 
 export type RunStatus = "running" | "stopped" | "failed";
 
@@ -8,19 +9,20 @@ const STATUS_LABEL: Record<RunStatus, string> = {
   failed: "运行失败",
 };
 
+/** 状态圆点色：状态色 / 失效中性，与 SensTag 状态圆点同一批 handle */
+const STATUS_DOT_TOKEN: Record<RunStatus, string> = {
+  running: "success-color",
+  stopped: "text-color-disable",
+  failed: "warning-color",
+};
+
 export interface StatusBadgeProps {
   status: RunStatus;
 }
 
-/** 运行状态：圆点 + 文案（颜色走 theme token） */
+/** 运行状态：圆点 + 文案（颜色直读 design token） */
 export function StatusBadge({ status }: StatusBadgeProps) {
-  const { token } = theme.useToken();
-  const dotColor =
-    status === "running"
-      ? token.colorSuccess
-      : status === "failed"
-        ? token.colorError
-        : token.colorTextTertiary;
+  const dotColor = getColorToken(STATUS_DOT_TOKEN[status]);
 
   return (
     <Space size={8} align="center">
@@ -33,7 +35,7 @@ export function StatusBadge({ status }: StatusBadgeProps) {
           flexShrink: 0,
         }}
       />
-      <span style={{ fontSize: 14, lineHeight: "22px", color: token.colorText }}>
+      <span style={{ fontSize: 14, lineHeight: "22px", color: getColorToken("text-color") }}>
         {STATUS_LABEL[status]}
       </span>
     </Space>

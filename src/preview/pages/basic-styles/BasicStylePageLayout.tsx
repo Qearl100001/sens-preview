@@ -1,6 +1,7 @@
 import { useState, type ReactNode } from "react";
-import { Layout, Space, Tabs, Typography, theme } from "antd";
+import { Layout, Space, Tabs, Typography } from "antd";
 import { DesignSystemDoc } from "../../DesignSystemDoc";
+import { getPreviewTokens } from "../../previewTokens";
 
 const { Content } = Layout;
 const { Paragraph, Title } = Typography;
@@ -20,7 +21,7 @@ export function BasicStylePageLayout({
   designDocSource,
   specimen,
 }: BasicStylePageLayoutProps) {
-  const { token } = theme.useToken();
+  const token = getPreviewTokens();
   const [activeTab, setActiveTab] = useState<BasicStyleTabKey>("design");
 
   return (

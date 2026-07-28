@@ -1,8 +1,9 @@
-import { Space, Table, Tag, Typography, theme } from "antd";
+import { Space, Table, Tag, Typography } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import tokens from "../../../design-system/tokens.resolved.json";
 import radiusDocSource from "../../../../docs/foundations/radius.md?raw";
 import { BasicStylePageLayout } from "./BasicStylePageLayout";
+import { getPreviewTokens } from "../../previewTokens";
 
 const { Text, Title } = Typography;
 
@@ -71,7 +72,7 @@ const SCENE_ROWS = [
 ];
 
 function RadiusPreviewBlock({ item }: { item: RadiusScaleItem }) {
-  const { token } = theme.useToken();
+  const token = getPreviewTokens();
   const isCircular = item.tokenName === "radius/circular";
   const width = isCircular ? 56 : 112;
   const height = 56;
@@ -91,7 +92,7 @@ function RadiusPreviewBlock({ item }: { item: RadiusScaleItem }) {
 }
 
 function RadiusScaleBoard() {
-  const { token } = theme.useToken();
+  const token = getPreviewTokens();
 
   return (
     <div

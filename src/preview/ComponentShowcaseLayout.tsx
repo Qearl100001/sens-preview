@@ -1,7 +1,8 @@
 import { useState, type ReactNode } from "react";
 import { ReadOutlined } from "@ant-design/icons";
-import { Button, Card, Drawer, Grid, Layout, Space, Typography, theme } from "antd";
+import { Button, Card, Drawer, Grid, Layout, Space, Typography } from "antd";
 import { ComponentDocPanel } from "./ComponentDocPanel";
+import { getPreviewTokens } from "./previewTokens";
 
 const { Title } = Typography;
 const { Content } = Layout;
@@ -29,7 +30,7 @@ export function ComponentShowcaseLayout({
   designDocSource,
   devDocSource,
 }: ComponentShowcaseLayoutProps) {
-  const { token } = theme.useToken();
+  const token = getPreviewTokens();
   const screens = Grid.useBreakpoint();
   const showDocPanel = screens.lg === true;
   const [docDrawerOpen, setDocDrawerOpen] = useState(false);

@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { Divider, Flex, Segmented, Space, Switch, Typography, theme } from "antd";
+import { Divider, Flex, Segmented, Space, Switch, Typography } from "antd";
 import { useTranslation } from "react-i18next";
 import buttonDesignDoc from "../../design-system/components/base/button.design.md?raw";
 import buttonDevDoc from "../../design-system/components/base/button.md?raw";
@@ -17,6 +17,7 @@ import {
 } from "../../ui";
 import { ComponentShowcaseLayout } from "../ComponentShowcaseLayout";
 import { ShowcaseSelect } from "../ShowcaseSelect";
+import { getPreviewTokens } from "../previewTokens";
 
 const { Text } = Typography;
 
@@ -137,7 +138,7 @@ function FabDemoPreview({
 }
 
 function FabDemo() {
-  const { token } = theme.useToken();
+  const token = getPreviewTokens();
   const { t } = useTranslation();
   const actionLabel = t("组件库.sensd-button-action-button", { defaultValue: "按钮" });
 
@@ -246,7 +247,7 @@ function FabDemo() {
 
 function ButtonDemo() {
   const { t } = useTranslation();
-  const { token } = theme.useToken();
+  const token = getPreviewTokens();
   const [variant, setVariant] = useState<SensButtonVariant>("primary");
   const [size, setSize] = useState<ButtonSize>("large");
   const [disabled, setDisabled] = useState(false);

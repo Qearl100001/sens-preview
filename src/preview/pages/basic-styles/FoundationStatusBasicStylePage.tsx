@@ -1,6 +1,7 @@
-import { Alert, Space, Table, Tag, Typography, theme } from "antd";
+import { Alert, Space, Table, Tag, Typography } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import { BasicStylePageLayout } from "./BasicStylePageLayout";
+import { getPreviewTokens } from "../../previewTokens";
 
 const { Text, Title } = Typography;
 
@@ -11,7 +12,7 @@ const DASHBOARD_DOC = `
 
 ## 这页怎么用
 
-- 先看哪些 foundation 已经足够稳定，需要持续同步到 \`DESIGN.md\`。
+- 先判断哪个规则源需要补边界、实现或验收；具体规则不在本页维护。
 - 再看哪些内容虽然有规则，但更适合只写摘要或边界。
 - 最后看 token 缺口到底该走 \`token\`、\`config / 常量\`、\`helper\`，还是先保留为规则，不要一上来就全入库。
 
@@ -20,13 +21,14 @@ const DASHBOARD_DOC = `
 - \`文档\`：是否已有 foundation 文档。
 - \`HTML 样张\`：是否已有当前预览工程里的可视化入口。
 - \`token / helper\`：是否已有稳定承接方式。
-- \`当前成熟度\`：是内部推进判断，不是对外承诺。
+- \`当前成熟度\`：是人工维护的内部推进判断，不是 Foundation / 组件的正式三维状态。
 - \`进 DESIGN.md\`：表示适合在总入口里怎么写，不代表要原样搬整张表进去。
 - \`建议承载方式\`：帮助判断这条缺口更适合进 token、config / 常量、helper，还是先保留规则。
+- 看板与规则源不一致时，以对应 Foundation、组件或样板间文档正文为准；先修正看板，不在这里反向定义规则。
 
 ## 当前总判断
 
-- foundation 层已经有不少内容进入 \`DESIGN.md\`，后续重点是持续收口和同步。
+- \`DESIGN.md\` 只维护入口与来源层级；Foundation 正文持续维护具体规则。
 - 真正高优缺口不是“全部重做”，而是“补映射、补边界、补承载方式判断”。
 - \`Layout\` 和 \`Grid\` 现在更适合沉淀规则和页面骨架，不建议为了它们单开一整套 token 生成链路。
 `;
@@ -455,7 +457,7 @@ function tagColorForSprint(value: SprintFit): string {
 }
 
 function SummaryBoard() {
-  const { token } = theme.useToken();
+  const token = getPreviewTokens();
 
   return (
     <div

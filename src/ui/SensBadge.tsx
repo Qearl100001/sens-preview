@@ -1,11 +1,13 @@
 import type { CSSProperties, ReactNode } from "react";
-import { Badge, theme, type BadgeProps } from "antd";
+import { Badge, type BadgeProps } from "antd";
 import { tokenRgba } from "../design-system/color-utils";
 import tokens from "../design-system/tokens.resolved.json";
+import { getTypographyToken } from "../design-system/typography";
 import { getUnitToken } from "../design-system/unit";
 import "./badge.css";
 
 const c = tokens.color as Record<string, string>;
+const BADGE_FONT_SIZE_SM = getTypographyToken("font-size/s");
 
 type AntdStatus = NonNullable<BadgeProps["status"]>;
 
@@ -141,7 +143,7 @@ export function SensBadge({
   weakState = "default",
   weakSurface,
 }: SensBadgeProps) {
-  const { token } = theme.useToken();
+  const colorPrimary = c["component-primary"];
   const displayCount = resolveDisplayCount(count, overflowCount);
   const shouldRenderCount = Boolean(dot) || showZero || (typeof count === "number" && count > 0);
   const isOverflowLike = displayCount.length > 1;
@@ -164,8 +166,8 @@ export function SensBadge({
         ].join(" ")}
         style={
           {
-            ...weakBadgeVars(resolvedWeakSurface, token.colorPrimary),
-            "--sens-badge-weak-font-size": `${token.fontSizeSM}px`,
+            ...weakBadgeVars(resolvedWeakSurface, colorPrimary),
+            "--sens-badge-weak-font-size": `${BADGE_FONT_SIZE_SM}px`,
             "--sens-badge-weak-line-height": `${getUnitToken("size/xxs") + getUnitToken("spacing/0.5x")}px`,
           } as CSSProperties
         }
@@ -199,7 +201,7 @@ export function SensBadge({
         style={
           {
             ...useCountBadgeVars(),
-            "--sens-badge-count-font-size": `${token.fontSizeSM}px`,
+            "--sens-badge-count-font-size": `${BADGE_FONT_SIZE_SM}px`,
             "--sens-badge-count-line-height": `${getUnitToken("size/xxs") + getUnitToken("spacing/0.5x")}px`,
           } as CSSProperties
         }
@@ -223,9 +225,8 @@ export function SensBadge({
 }
 
 export function BadgeStatesPreview() {
-  const { token } = theme.useToken();
   return (
-    <div className="sens-badge-preview-panel" style={useBadgePreviewPanelVars(token.colorPrimary)}>
+    <div className="sens-badge-preview-panel" style={useBadgePreviewPanelVars(c["component-primary"])}>
       <div className="sens-badge-section">
         <div className="sens-badge-section-title">徽标 / 基础徽标</div>
         <div className="sens-badge-section-body sens-badge-section-body--basic">

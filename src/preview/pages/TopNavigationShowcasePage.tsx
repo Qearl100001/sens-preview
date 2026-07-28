@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
-import { Alert, Card, Space, Table, Tag, Typography, theme } from "antd";
+import { Alert, Card, Space, Table, Tag, Typography } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import { getColorToken, tokenRgba, buildShadowD4 } from "../../design-system/color-utils";
 import { SensIcon, type IconName } from "../../design-system/icons";
 import { getThemeTopAtmosphere, getThemeTopBackground, type NavigationTheme } from "../../design-system/navigation-color";
 import tokens from "../../design-system/tokens.resolved.json";
 import { ComponentShowcaseLayout } from "../ComponentShowcaseLayout";
+import { getPreviewTokens } from "../previewTokens";
 
 const { Text, Title } = Typography;
 
@@ -191,7 +192,7 @@ function DecisionTable() {
 }
 
 function MetricCard({ label, value, note }: { label: string; value: string; note: string }) {
-  const { token } = theme.useToken();
+  const token = getPreviewTokens();
 
   return (
     <Card
@@ -266,7 +267,7 @@ export function SensTopNavigation({
   activeNavLabel: initialActiveNavLabel = "数据看板",
   items,
 }: SensTopNavigationProps) {
-  const { token } = theme.useToken();
+  const token = getPreviewTokens();
   const [activeNavLabel, setActiveNavLabel] = useState(initialActiveNavLabel);
 
   useEffect(() => {

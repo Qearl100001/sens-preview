@@ -1,6 +1,6 @@
 import { useEffect, useLayoutEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
 import { LoadingOutlined } from "@ant-design/icons";
-import { Button, theme, type ButtonProps } from "antd";
+import { Button, type ButtonProps } from "antd";
 import { useTranslation } from "react-i18next";
 import { buildShadowD4 } from "../design-system/color-utils";
 import tokens from "../design-system/tokens.resolved.json";
@@ -274,7 +274,7 @@ function FabGroupSegment({ tone, item, index, count }: FabGroupSegmentProps) {
   return buttonNode;
 }
 
-function toFabStyleToken(antdToken: ReturnType<typeof theme.useToken>["token"]): FabStyleToken {
+function toFabStyleToken(): FabStyleToken {
   function hexToRgba(hex: string, alpha: number): string {
     const normalized = hex.replace("#", "");
     const full = normalized.length === 3 ? normalized.split("").map((ch) => ch + ch).join("") : normalized;
@@ -375,8 +375,7 @@ function FabGroupPreview({
   segmentStates,
   buttonLabel,
 }: FabGroupPreviewProps) {
-  const { token } = theme.useToken();
-  const styleToken = toFabStyleToken(token);
+  const styleToken = toFabStyleToken();
   const labels = Array.from({ length: count }, () => buttonLabel);
   const icons =
     contentType === "icon" || contentType === "iconText"

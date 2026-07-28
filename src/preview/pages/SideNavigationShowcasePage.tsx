@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Alert, Segmented, Space, Table, Tag, Typography, theme } from "antd";
+import { Alert, Segmented, Space, Table, Tag, Typography } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import { buildShadow, getColorToken } from "../../design-system/color-utils";
 import { getThemeSideBackground, getThemeTopBackground } from "../../design-system/navigation-color";
@@ -13,6 +13,7 @@ import {
 import { ComponentShowcaseLayout } from "../ComponentShowcaseLayout";
 import sideNavigationDesignDoc from "../../design-system/components/composite/side-navigation.design.md?raw";
 import sideNavigationDevDoc from "../../design-system/components/composite/side-navigation.md?raw";
+import { getPreviewTokens } from "../previewTokens";
 
 const { Text, Title } = Typography;
 const u = tokens.unit as Record<string, number>;
@@ -71,7 +72,7 @@ const stateRuleColumns: ColumnsType<(typeof stateRuleRows)[number]> = [
 ];
 
 function ContentPlaceholder() {
-  const { token } = theme.useToken();
+  const token = getPreviewTokens();
 
   return (
     <div style={{ display: "grid", gridTemplateColumns: "repeat(4, minmax(0, 1fr))", gap: token.marginMD }}>
@@ -91,7 +92,7 @@ function ContentPlaceholder() {
 }
 
 function SideNavigationDemo() {
-  const { token } = theme.useToken();
+  const token = getPreviewTokens();
   const [mode, setMode] = useState<ProductShellSideNavigationMode>("normal");
   const [activeItem, setActiveItem] = useState("数据源管理");
   const canvasWidth = 1280;

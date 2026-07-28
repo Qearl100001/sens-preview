@@ -1,6 +1,7 @@
 import { useState } from "react";
-import { Tabs, theme } from "antd";
+import { Tabs } from "antd";
 import { DesignSystemDoc } from "./DesignSystemDoc";
+import { getPreviewTokens } from "./previewTokens";
 
 export interface ComponentDocPanelProps {
   designDocSource: string;
@@ -11,7 +12,7 @@ type DocTabKey = "design" | "dev";
 
 /** 右栏文档区：设计规范 / 研发文档 双 tab，内容来自 ?raw 导入的 md 原文件 */
 export function ComponentDocPanel({ designDocSource, devDocSource }: ComponentDocPanelProps) {
-  const { token } = theme.useToken();
+  const token = getPreviewTokens();
   const [activeTab, setActiveTab] = useState<DocTabKey>("design");
 
   const activeSource = activeTab === "design" ? designDocSource : devDocSource;

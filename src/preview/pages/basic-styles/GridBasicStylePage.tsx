@@ -1,7 +1,8 @@
-import { Alert, Space, Table, Tag, Typography, theme } from "antd";
+import { Alert, Space, Table, Tag, Typography } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import gridDocSource from "../../../../docs/foundations/grid.md?raw";
 import { BasicStylePageLayout } from "./BasicStylePageLayout";
+import { getPreviewTokens } from "../../previewTokens";
 
 const { Text, Title } = Typography;
 
@@ -19,7 +20,7 @@ const LOCAL_CONTAINER_ROWS = [
 ];
 
 function ColumnCells({ count, color }: { count: number; color: string }) {
-  const { token } = theme.useToken();
+  const token = getPreviewTokens();
   return (
     <div style={{ display: "grid", gridTemplateColumns: `repeat(${count}, minmax(0, 1fr))`, gap: token.marginXXS }}>
       {Array.from({ length: count }).map((_, index) => (
@@ -30,7 +31,7 @@ function ColumnCells({ count, color }: { count: number; color: string }) {
 }
 
 function GridBoards() {
-  const { token } = theme.useToken();
+  const token = getPreviewTokens();
   const cardStyle = {
     padding: token.paddingMD,
     border: `${token.lineWidth}px solid ${token.colorBorderSecondary}`,

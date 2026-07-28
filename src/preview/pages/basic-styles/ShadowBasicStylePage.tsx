@@ -1,5 +1,5 @@
 import { Fragment } from "react";
-import { Space, Table, Tag, Typography, theme } from "antd";
+import { Space, Table, Tag, Typography } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import {
   buildActiveRingShadow,
@@ -13,6 +13,7 @@ import {
 import tokens from "../../../design-system/tokens.resolved.json";
 import shadowDocSource from "../../../../docs/foundations/shadow.md?raw";
 import { BasicStylePageLayout } from "./BasicStylePageLayout";
+import { getPreviewTokens } from "../../previewTokens";
 
 const { Text, Title } = Typography;
 
@@ -66,7 +67,7 @@ const HELPER_ROWS = [
 ];
 
 function ShadowCard({ level, direction = "down" }: { level: ShadowLevel; direction?: ShadowDirection }) {
-  const { token } = theme.useToken();
+  const token = getPreviewTokens();
 
   return (
     <div
@@ -95,7 +96,7 @@ function ShadowCard({ level, direction = "down" }: { level: ShadowLevel; directi
 }
 
 function ShadowScaleBoard() {
-  const { token } = theme.useToken();
+  const token = getPreviewTokens();
 
   return (
     <div
@@ -134,7 +135,7 @@ function ShadowScaleBoard() {
 }
 
 function ShadowDirectionMatrix() {
-  const { token } = theme.useToken();
+  const token = getPreviewTokens();
 
   return (
     <div style={{ overflowX: "auto" }}>
@@ -203,7 +204,7 @@ function ActiveRingPreview({
   borderHandle: "component-active" | "warning-color";
   description: string;
 }) {
-  const { token } = theme.useToken();
+  const token = getPreviewTokens();
 
   return (
     <div
@@ -243,7 +244,7 @@ function ActiveRingPreview({
 }
 
 function ActiveRingBoard() {
-  const { token } = theme.useToken();
+  const token = getPreviewTokens();
 
   return (
     <div
@@ -270,7 +271,7 @@ function ActiveRingBoard() {
 }
 
 function DrawerShadowBoard() {
-  const { token } = theme.useToken();
+  const token = getPreviewTokens();
 
   return (
     <div

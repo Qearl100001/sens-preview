@@ -1,8 +1,9 @@
-import { Alert, Space, Table, Tag, Typography, theme } from "antd";
+import { Alert, Space, Table, Tag, Typography } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import tokens from "../../../design-system/tokens.resolved.json";
 import sizeDocSource from "../../../../docs/foundations/size.md?raw";
 import { BasicStylePageLayout } from "./BasicStylePageLayout";
+import { getPreviewTokens } from "../../previewTokens";
 
 const { Text, Title } = Typography;
 
@@ -71,7 +72,7 @@ const CARD_SIZE_ROWS = [
 ];
 
 function SizeScaleBoard({ items }: { items: SizeScaleItem[] }) {
-  const { token } = theme.useToken();
+  const token = getPreviewTokens();
 
   return (
     <div
@@ -128,7 +129,7 @@ function SimpleTable<T extends { key: string }>({ columns, data }: { columns: Co
 }
 
 function TagRulePreview() {
-  const { token } = theme.useToken();
+  const token = getPreviewTokens();
 
   return (
     <div

@@ -1,4 +1,4 @@
-import { Space, Table, Tag, Typography, theme } from "antd";
+import { Space, Table, Tag, Typography } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import {
   getDividerBorder,
@@ -11,6 +11,7 @@ import {
 import tokens from "../../../design-system/tokens.resolved.json";
 import dividerDocSource from "../../../../docs/foundations/divider.md?raw";
 import { BasicStylePageLayout } from "./BasicStylePageLayout";
+import { getPreviewTokens } from "../../previewTokens";
 
 const { Text, Title } = Typography;
 
@@ -94,7 +95,7 @@ const SCENE_ROWS = [
 ];
 
 function DividerColorCard({ tone, mode }: { tone: DividerTone; mode: DividerColorMode }) {
-  const { token } = theme.useToken();
+  const token = getPreviewTokens();
   const spec = DIVIDER_SHOWCASE_SPECS.find((item) => item.tone === tone);
   if (!spec) return null;
 
@@ -143,7 +144,7 @@ function DividerColorCard({ tone, mode }: { tone: DividerTone; mode: DividerColo
 }
 
 function ColorMatrix() {
-  const { token } = theme.useToken();
+  const token = getPreviewTokens();
 
   return (
     <div
@@ -162,7 +163,7 @@ function ColorMatrix() {
 }
 
 function DirectionSpecimen() {
-  const { token } = theme.useToken();
+  const token = getPreviewTokens();
 
   return (
     <div
@@ -234,7 +235,7 @@ function DirectionSpecimen() {
 }
 
 function CardDividerSpecimen() {
-  const { token } = theme.useToken();
+  const token = getPreviewTokens();
 
   return (
     <div

@@ -1,5 +1,5 @@
-import { theme } from "antd";
 import { Fragment, useMemo } from "react";
+import { getColorToken } from "../design-system/color-utils";
 
 function escapeRegExp(value: string): string {
   return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
@@ -41,9 +41,8 @@ export interface SearchHighlightProps {
   className?: string;
 }
 
-/** 关键词高亮：仅 label 字面子串；拼音过滤命中不高亮。仅 colorPrimary，禁 dangerouslySetInnerHTML */
+/** 关键词高亮：仅 label 字面子串；拼音过滤命中不高亮。仅 component-primary，禁 dangerouslySetInnerHTML */
 export function SearchHighlight({ text, keyword, className }: SearchHighlightProps) {
-  const { token } = theme.useToken();
   const segments = useMemo(() => splitByKeyword(text, keyword), [text, keyword]);
 
   return (
@@ -53,7 +52,7 @@ export function SearchHighlight({ text, keyword, className }: SearchHighlightPro
           <span
             key={index}
             className="sens-search-highlight"
-            style={{ color: token.colorPrimary }}
+            style={{ color: getColorToken("component-primary") }}
           >
             {segment.text}
           </span>

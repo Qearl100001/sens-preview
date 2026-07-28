@@ -1,5 +1,5 @@
-import type { GlobalToken } from "antd/es/theme/interface";
 import type { CSSProperties } from "react";
+import { getColorToken } from "./color-utils";
 
 /** 三态字色链：default / hover / active */
 export interface TextColorChain {
@@ -11,24 +11,24 @@ export interface TextColorChain {
 /** 共享语义前缀：链接蓝（状态色 link-color 链） */
 export const SENS_TEXT_LINK_VAR = "--sens-text-link";
 
-/** 共享语义前缀：警告红（sensd warning-color → antd colorError 链） */
+/** 共享语义前缀：警告红（warning-color 三态链） */
 export const SENS_TEXT_WARNING_VAR = "--sens-text-warning";
 
-/** 从 antd 全局 token 取链接字色链（与 variant="link" / colorLink 同源） */
-export function getLinkTextChain(token: GlobalToken): TextColorChain {
+/** 链接字色链：直读 design token link-color 三态链（与 variant="link" 视觉同源） */
+export function getLinkTextChain(): TextColorChain {
   return {
-    default: token.colorLink,
-    hover: token.colorLinkHover,
-    active: token.colorLinkActive,
+    default: getColorToken("link-color"),
+    hover: getColorToken("link-hover-color"),
+    active: getColorToken("link-active-color"),
   };
 }
 
-/** 从 antd 全局 token 取警告字色链（与 Button danger 链同源） */
-export function getWarningTextChain(token: GlobalToken): TextColorChain {
+/** 警告字色链：直读 design token warning-color 三态链（与 Button danger 链视觉同源） */
+export function getWarningTextChain(): TextColorChain {
   return {
-    default: token.colorError,
-    hover: token.colorErrorHover,
-    active: token.colorErrorActive,
+    default: getColorToken("warning-color"),
+    hover: getColorToken("warning-color-hover"),
+    active: getColorToken("warning-color-active"),
   };
 }
 

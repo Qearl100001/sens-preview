@@ -1,6 +1,6 @@
 import "../../ui/search-preview.css";
 import { useState } from "react";
-import { Flex, Segmented, Space, Switch, Typography, theme } from "antd";
+import { Flex, Segmented, Space, Switch, Typography } from "antd";
 import searchDesignDoc from "../../design-system/components/base/search.design.md?raw";
 import searchDevDoc from "../../design-system/components/base/search.md?raw";
 import {
@@ -14,6 +14,7 @@ import {
 } from "../../ui";
 import { ComponentShowcaseLayout } from "../ComponentShowcaseLayout";
 import { ShowcaseSelect } from "../ShowcaseSelect";
+import { getPreviewTokens } from "../previewTokens";
 
 const { Text } = Typography;
 
@@ -60,7 +61,7 @@ function SearchDemoInstance({
 }
 
 function SearchDemo() {
-  const { token } = theme.useToken();
+  const token = getPreviewTokens();
   const [variant, setVariant] = useState<SearchDemoVariant>("realtime");
   const [visualVariant, setVisualVariant] = useState<SearchVisualVariant>("default");
   const [showCreate, setShowCreate] = useState(true);

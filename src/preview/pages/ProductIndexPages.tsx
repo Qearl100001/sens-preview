@@ -1,6 +1,7 @@
 import { ArrowRightOutlined } from "@ant-design/icons";
-import { Button, Card, Col, Layout, Row, Space, Tag, Typography, theme } from "antd";
+import { Button, Card, Col, Layout, Row, Space, Tag, Typography } from "antd";
 import { Link } from "react-router-dom";
+import { getPreviewTokens } from "../previewTokens";
 
 const { Content } = Layout;
 const { Paragraph, Text, Title } = Typography;
@@ -26,7 +27,7 @@ interface ProductIndexPageProps {
 }
 
 function IndexCard({ item }: { item: IndexItem }) {
-  const { token } = theme.useToken();
+  const token = getPreviewTokens();
   const content = (
     <Card
       hoverable={Boolean(item.href)}
@@ -63,7 +64,7 @@ function IndexCard({ item }: { item: IndexItem }) {
 }
 
 function ProductIndexPage({ eyebrow, title, description, sections }: ProductIndexPageProps) {
-  const { token } = theme.useToken();
+  const token = getPreviewTokens();
 
   return (
     <Layout style={{ height: "100%", background: token.colorBgLayout }}>
@@ -203,12 +204,12 @@ export function CompositeLibraryPage() {
             {
               title: "筛选表格",
               description: "筛选区、表格信息区、表格、分页器、批量操作和列设置入口的标准组合。",
-              status: "首轮已收录 / 待验",
+              status: "首轮已验",
             },
             {
               title: "录入型表格",
               description: "首轮行内编辑样张已收录；真实校验、增删和滚动规则待补。",
-              status: "首轮已收录 / 待补交互",
+              status: "首轮已验 / 待补交互",
             },
             {
               title: "树表格",

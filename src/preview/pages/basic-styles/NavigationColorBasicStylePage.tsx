@@ -1,9 +1,10 @@
-import { Alert, Space, Table, Tag, Typography, theme } from "antd";
+import { Alert, Space, Table, Tag, Typography } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import { getColorToken } from "../../../design-system/color-utils";
 import { getThemeSideBackground, getThemeTopBackground } from "../../../design-system/navigation-color";
 import navigationColorDocSource from "../../../../docs/foundations/navigation-color.md?raw";
 import { BasicStylePageLayout } from "./BasicStylePageLayout";
+import { getPreviewTokens } from "../../previewTokens";
 
 const { Text, Title } = Typography;
 
@@ -260,7 +261,7 @@ function GroupTable() {
 }
 
 function TokenSampleBoard() {
-  const { token } = theme.useToken();
+  const token = getPreviewTokens();
 
   return (
     <div

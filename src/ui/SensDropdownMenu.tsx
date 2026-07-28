@@ -1,5 +1,4 @@
 import type { CSSProperties, ReactNode } from "react";
-import { theme } from "antd";
 import { useTranslation } from "react-i18next";
 import { buildShadowD4, getColorToken, tokenRgba } from "../design-system/color-utils";
 import {
@@ -42,14 +41,13 @@ function dropdownMenuSpacing() {
  * M1/M2：未来 components.Menu token 或共享 PopupShell 只改此 hook + dropdown-menu.css 变量名。
  */
 export function useSensDropdownMenuStyle(): CSSProperties {
-  const { token } = theme.useToken();
   const spacing = dropdownMenuSpacing();
-  const linkTextChain = getLinkTextChain(token);
-  const warningTextChain = getWarningTextChain(token);
+  const linkTextChain = getLinkTextChain();
+  const warningTextChain = getWarningTextChain();
 
   return {
-    "--sens-dropdown-menu-bg": token.colorBgContainer,
-    "--sens-dropdown-menu-radius": `${token.borderRadius}px`,
+    "--sens-dropdown-menu-bg": getColorToken("white"),
+    "--sens-dropdown-menu-radius": `${getUnitToken("radius/m")}px`,
     "--sens-dropdown-menu-shadow": buildShadowD4(),
     "--sens-dropdown-menu-padding-block-start": `${spacing.popupPaddingBlockStart}px`,
     "--sens-dropdown-menu-padding-block-end": `${spacing.popupPaddingBlockEnd}px`,
@@ -57,7 +55,7 @@ export function useSensDropdownMenuStyle(): CSSProperties {
     "--sens-dropdown-menu-item-height": `${DROPDOWN_MENU_ITEM_HEIGHT}px`,
     "--sens-dropdown-menu-item-padding-inline": `${spacing.itemPaddingInline}px`,
     "--sens-dropdown-menu-item-padding-block": `${spacing.itemPaddingBlock}px`,
-    "--sens-dropdown-menu-item-bg": token.colorBgContainer,
+    "--sens-dropdown-menu-item-bg": getColorToken("white"),
     "--sens-dropdown-menu-item-hover-bg": tokenRgba("background-transparent-grey-hover", 0.06),
     "--sens-dropdown-menu-item-active-bg": tokenRgba("background-01-transparent", 0.08),
     "--sens-dropdown-menu-item-color-default": getColorToken("text-color"),
@@ -65,8 +63,8 @@ export function useSensDropdownMenuStyle(): CSSProperties {
     ...toTextChainCssVars(SENS_TEXT_WARNING_VAR, warningTextChain),
     ...toDropdownMenuLinkColorAliases(),
     ...toDropdownMenuDangerColorAliases(),
-    "--sens-dropdown-menu-item-color-disabled": token.colorTextDisabled,
-    "--sens-dropdown-menu-item-color-loading": tokenRgba("text-color-transparent-disable", 0.3),
+    "--sens-dropdown-menu-item-color-disabled": getColorToken("text-color-transparent-disable"),
+    "--sens-dropdown-menu-item-color-loading": getColorToken("text-color-transparent-disable"),
   } as CSSProperties;
 }
 

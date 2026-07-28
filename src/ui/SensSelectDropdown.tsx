@@ -1,4 +1,4 @@
-import { Select, theme, type SelectProps } from "antd";
+import { Select, type SelectProps } from "antd";
 import { useCallback, useMemo, type CSSProperties, type ReactNode } from "react";
 import { useTranslation } from "react-i18next";
 import { buildShadowD4, getColorToken, tokenRgba } from "../design-system/color-utils";
@@ -52,24 +52,23 @@ export const SELECT_FIXED_WIDTH_PRESETS = {
 export type SensSelectWidthPreset = keyof typeof SELECT_FIXED_WIDTH_PRESETS;
 export type SensSelectWidthMode = "adaptive";
 
-/** R3 触发框 CSS 变量（字段色与 SensInput 同源） */
+/** R3 触发框 CSS 变量（字段色与 SensInput 同源；视觉直读 design token） */
 export function useSensSelectTriggerStyle(size?: SelectProps["size"]): CSSProperties {
-  const { token } = theme.useToken();
   const fieldVars = useSensInputHeightStyle();
 
   return {
     ...fieldVars,
-    "--sens-select-hover-border-color": token.colorPrimary,
-    "--sens-select-active-border-color": token.colorPrimaryActive,
+    "--sens-select-hover-border-color": getColorToken("component-primary"),
+    "--sens-select-active-border-color": getColorToken("component-active"),
     "--sens-select-active-shadow": `0 0 0 2px ${tokenRgba("component-active-shadow", 0.2)}`,
-    "--sens-select-error-hover-border-color": token.colorErrorHover,
-    "--sens-select-error-active-border-color": token.colorErrorActive,
+    "--sens-select-error-hover-border-color": getColorToken("warning-color-hover"),
+    "--sens-select-error-active-border-color": getColorToken("warning-color-active"),
     "--sens-select-error-active-shadow": `0 0 0 2px ${tokenRgba("warning-color-active-shadow", 0.2)}`,
-    "--sens-select-placeholder-color": tokenRgba("text-color-transparent-disable", 0.3),
+    "--sens-select-placeholder-color": getColorToken("text-color-transparent-disable"),
     "--sens-select-border-disabled": getDividerColor("light", "transparent"),
     "--sens-select-arrow-color": getColorToken("icon-color-transparent"),
     "--sens-select-arrow-color-disabled": tokenRgba("icon-color-transparent-disable", 0.3),
-    "--sens-select-icon-hover-color": token.colorIconHover,
+    "--sens-select-icon-hover-color": getColorToken("text-color"),
   } as CSSProperties;
 }
 
@@ -91,7 +90,6 @@ function selectDropdownSpacing() {
 
 /** 浮层 CSS 变量（portaled popup 须经 styles.popup 注入） */
 export function useSensSelectDropdownStyle(skin: FunctionalSkin = "green"): CSSProperties {
-  const { token } = theme.useToken();
   const functional = getFunctionalColors(skin);
   const spacing = selectDropdownSpacing();
 
@@ -101,13 +99,13 @@ export function useSensSelectDropdownStyle(skin: FunctionalSkin = "green"): CSSP
     "--sens-select-option-selected-bg": functional.activeBackground,
     "--sens-select-option-selected-hover-bg": functional.activeHoverBackground,
     "--sens-select-option-selected-active-bg": functional.activeClickBackground,
-    "--sens-select-option-disabled-color": tokenRgba("text-color-transparent-disable", 0.3),
-    "--sens-select-option-disabled-hover-color": tokenRgba("text-color-transparent-disable-hover", 0.24),
+    "--sens-select-option-disabled-color": getColorToken("text-color-transparent-disable"),
+    "--sens-select-option-disabled-hover-color": getColorToken("text-color-transparent-disable-hover"),
     "--sens-select-option-check-color": SELECT_CHECK_COLOR,
     "--sens-select-option-check-color-disabled": SELECT_CHECK_COLOR_DISABLED,
     "--sens-select-option-check-color-disabled-hover": SELECT_CHECK_COLOR_DISABLED_HOVER,
     "--sens-select-popup-shadow": buildShadowD4(),
-    "--sens-select-popup-radius": `${token.borderRadius}px`,
+    "--sens-select-popup-radius": `${getUnitToken("radius/m")}px`,
     "--sens-select-option-height": `${SELECT_OPTION_HEIGHT}px`,
     "--sens-select-popup-padding-block-start": `${spacing.popupPaddingBlockStart}px`,
     "--sens-select-popup-padding-block-end": `${spacing.popupPaddingBlockEnd}px`,
@@ -774,19 +772,17 @@ interface SelectTriggerPreviewStyleToken {
   colorTextPlaceholderDisabledHover: string;
 }
 
-function getSelectTriggerPreviewStyleToken(
-  antdToken: ReturnType<typeof theme.useToken>["token"],
-): SelectTriggerPreviewStyleToken {
+function getSelectTriggerPreviewStyleToken(): SelectTriggerPreviewStyleToken {
   return {
-    hoverBorderColor: antdToken.colorPrimary,
-    activeBorderColor: antdToken.colorPrimaryActive,
+    hoverBorderColor: getColorToken("component-primary"),
+    activeBorderColor: getColorToken("component-active"),
     activeShadow: `0 0 0 2px ${tokenRgba("component-active-shadow", 0.2)}`,
     colorBorderDisabledHover: tokenRgba("line-color-transparent", 0.06),
     colorBgContainerDisabledHover: tokenRgba("background-transparent-grey", 0.04),
-    colorErrorHover: antdToken.colorErrorHover,
-    colorErrorActive: antdToken.colorErrorActive,
+    colorErrorHover: getColorToken("warning-color-hover"),
+    colorErrorActive: getColorToken("warning-color-active"),
     errorActiveShadow: `0 0 0 2px ${tokenRgba("warning-color-active-shadow", 0.2)}`,
-    colorTextPlaceholderDisabledHover: tokenRgba("text-color-transparent-disable-hover", 0.24),
+    colorTextPlaceholderDisabledHover: getColorToken("text-color-transparent-disable-hover"),
   };
 }
 
@@ -909,8 +905,7 @@ export interface SelectTriggerStatesPreviewProps {
 /** R3：触发框 2 警告 × 2 内容 × 5 态（仅 32px，无小尺寸） */
 export function SelectTriggerStatesPreview({ title }: SelectTriggerStatesPreviewProps) {
   const { t } = useTranslation();
-  const { token } = theme.useToken();
-  const styleToken = getSelectTriggerPreviewStyleToken(token);
+  const styleToken = getSelectTriggerPreviewStyleToken();
   const placeholder = t(`${I18N_NS}.sensd-select-placeholder`, { defaultValue: "请选择" });
   const label = (key: string, defaultValue: string) => t(`${I18N_NS}.${key}`, { defaultValue });
 

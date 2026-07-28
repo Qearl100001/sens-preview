@@ -1,6 +1,6 @@
 import { useState } from "react";
 import type { CSSProperties, ReactNode } from "react";
-import { Alert, Space, Table, Tabs, Tag, Typography, theme } from "antd";
+import { Alert, Space, Table, Tabs, Tag, Typography } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import {
   getColorByPath,
@@ -13,6 +13,7 @@ import { SensIcon } from "../../../design-system/icons";
 import { getTypographyToken } from "../../../design-system/typography";
 import cardDocSource from "../../../../docs/foundations/card.md?raw";
 import { BasicStylePageLayout } from "./BasicStylePageLayout";
+import { getPreviewTokens } from "../../previewTokens";
 
 const { Paragraph, Text, Title } = Typography;
 
@@ -823,7 +824,7 @@ function TitledCardExample() {
 }
 
 function CardShowcase() {
-  const { token } = theme.useToken();
+  const token = getPreviewTokens();
 
   return (
     <Space direction="vertical" size="large" style={{ width: "100%" }}>
@@ -933,7 +934,7 @@ function CardRulePanel() {
 }
 
 function CardSpecimen() {
-  const { token } = theme.useToken();
+  const token = getPreviewTokens();
 
   return (
     <div style={{ display: "grid", gridTemplateColumns: "minmax(0, 1.2fr) minmax(420px, 0.8fr)", gap: token.marginLG }}>

@@ -1,9 +1,11 @@
-import { Button, theme } from "antd";
+import { Button } from "antd";
 import { useTranslation } from "react-i18next";
+import { getColorToken } from "../design-system/color-utils";
 import { EMPTY_STATE_ILLUSTRATIONS } from "./EmptyStateIllustrations";
 import "./select-dropdown.css";
 
 const I18N_NS = "组件库";
+const LINK_COLOR = getColorToken("link-color");
 
 export type SelectDropdownEmptyType = "noResult" | "loadFailed" | "noData";
 
@@ -20,7 +22,6 @@ export interface SelectDropdownEmptyProps {
  */
 export function SelectDropdownEmpty({ type, onAction, className }: SelectDropdownEmptyProps) {
   const { t } = useTranslation();
-  const { token } = theme.useToken();
   const label = (key: string, defaultValue: string) =>
     t(`${I18N_NS}.${key}`, { defaultValue });
 
@@ -62,7 +63,7 @@ export function SelectDropdownEmpty({ type, onAction, className }: SelectDropdow
               type="link"
               size="small"
               className="sens-select-dropdown-empty-action"
-              style={{ color: token.colorLink, padding: 0, height: "auto" }}
+              style={{ color: LINK_COLOR, padding: 0, height: "auto" }}
               onClick={onAction}
             >
               {label("sensd-selectPanel-refresh", "刷新")}
@@ -76,7 +77,7 @@ export function SelectDropdownEmpty({ type, onAction, className }: SelectDropdow
               type="link"
               size="small"
               className="sens-select-dropdown-empty-action"
-              style={{ color: token.colorLink, padding: 0, height: "auto" }}
+              style={{ color: LINK_COLOR, padding: 0, height: "auto" }}
               onClick={onAction}
             >
               {label("sensd-selectPanel-add", "添加")}

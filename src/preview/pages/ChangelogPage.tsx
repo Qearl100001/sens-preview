@@ -1,6 +1,7 @@
 import { useMemo, useState } from "react";
-import { Card, Layout, Segmented, Space, Typography, theme } from "antd";
+import { Card, Layout, Segmented, Space, Typography } from "antd";
 import { DesignSystemDoc } from "../DesignSystemDoc";
+import { getPreviewTokens } from "../previewTokens";
 
 const { Content } = Layout;
 const { Text, Title } = Typography;
@@ -37,7 +38,7 @@ function formatToday() {
 }
 
 export default function ChangelogPage() {
-  const { token } = theme.useToken();
+  const token = getPreviewTokens();
   const [activeKey, setActiveKey] = useState<string>(() => CHANGELOG_ENTRIES[0]?.key ?? "");
 
   const activeEntry = useMemo(

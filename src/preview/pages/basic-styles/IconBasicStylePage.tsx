@@ -4,7 +4,7 @@ import {
   LoadingOutlined,
   ReadOutlined,
 } from "@ant-design/icons";
-import { Alert, Space, Table, Tag, Typography, theme } from "antd";
+import { Alert, Space, Table, Tag, Typography } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import iconDocSource from "../../../../docs/foundations/icon.md?raw";
 import tokens from "../../../design-system/tokens.resolved.json";
@@ -18,6 +18,7 @@ import {
   type IconName,
 } from "../../../design-system/icons";
 import { BasicStylePageLayout } from "./BasicStylePageLayout";
+import { getPreviewTokens } from "../../previewTokens";
 
 const { Text, Title } = Typography;
 
@@ -94,7 +95,7 @@ function resolvePreviewColorRole(name: IconName): IconColorRole {
 }
 
 function RegisteredIconCard({ name }: { name: IconName }) {
-  const { token } = theme.useToken();
+  const token = getPreviewTokens();
   const entry = ICON_REGISTRY[name];
   const previewSize = resolvePreviewSize(name);
   const previewColorRole = resolvePreviewColorRole(name);
@@ -154,7 +155,7 @@ function RegisteredIconCard({ name }: { name: IconName }) {
 }
 
 function ColorRolePreview() {
-  const { token } = theme.useToken();
+  const token = getPreviewTokens();
 
   return (
     <div
@@ -198,7 +199,7 @@ function ColorRolePreview() {
 }
 
 function AntdIconPreview({ iconKey }: { iconKey: string }) {
-  const { token } = theme.useToken();
+  const token = getPreviewTokens();
   const iconSize = u["size/icon/m"];
   const iconColor = resolveIconColor("subtle");
 
