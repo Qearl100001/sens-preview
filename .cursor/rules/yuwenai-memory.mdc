@@ -1,0 +1,46 @@
+---
+description: YuwenAI 记忆交接：Cursor 完成需求后写入项目工作日志
+alwaysApply: true
+---
+
+# YuwenAI Memory Handoff
+
+这个项目已经接入 YuwenAI 长期记忆系统。
+
+开始处理 `sens-preview` 需求前，先读取：
+
+- `AGENTS.md`
+- `DESIGN.md`
+- `/Users/liyuwen/Documents/Codex/YuwenAI/Projects/sens-preview/Handoff.md`
+- `/Users/liyuwen/Documents/Codex/YuwenAI/Projects/sens-preview/Cursor-Worklog.md`
+
+只有在具体任务需要时，再按 `DESIGN.md` 指引补读 `docs/agent-rules/`、`docs/foundations/`、`src/design-system/README.md` 和对应组件文档。
+
+## Cursor 工作完成后的交接要求
+
+每次完成一段相对独立的需求后，在以下文件追加交接日志：
+
+- `/Users/liyuwen/Documents/Codex/YuwenAI/Projects/sens-preview/Cursor-Worklog.md`
+
+如果有需要 Codex 或后续任务接手的事项，也更新：
+
+- `/Users/liyuwen/Documents/Codex/YuwenAI/Projects/sens-preview/Handoff.md`
+
+## 交接日志必须包含
+
+- 本次目标
+- 已完成
+- 修改文件
+- 未完成
+- 产品 / 设计 / 技术决策
+- 风险或不确定
+- 需要 Codex 接手
+- 是否可进入作品集素材
+
+## 重要边界
+
+- 不要把临时想法直接写入永久记忆。
+- 不要直接修改 `/Users/liyuwen/Documents/Codex/YuwenAI/Memory/Permanent-Memory.md`。
+- 不要直接修改 `/Users/liyuwen/Documents/Codex/YuwenAI/Projects/sens-preview/Decisions.md`，除非用户明确确认。
+- 不要写入公司敏感信息、未脱敏客户信息、内部数据、不可公开截图或录音。
+- 项目代码仍需遵守现有 token、changelog 和 agent-rules 规则。
