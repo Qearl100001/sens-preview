@@ -55,6 +55,7 @@ import LayoutBasicStylePage from "./preview/pages/basic-styles/LayoutBasicStyleP
 import GridBasicStylePage from "./preview/pages/basic-styles/GridBasicStylePage";
 import SizeBasicStylePage from "./preview/pages/basic-styles/SizeBasicStylePage";
 import IconBasicStylePage from "./preview/pages/basic-styles/IconBasicStylePage";
+import CursorBasicStylePage from "./preview/pages/basic-styles/CursorBasicStylePage";
 import RadiusBasicStylePage from "./preview/pages/basic-styles/RadiusBasicStylePage";
 import ShadowBasicStylePage from "./preview/pages/basic-styles/ShadowBasicStylePage";
 import DividerBasicStylePage from "./preview/pages/basic-styles/DividerBasicStylePage";
@@ -63,6 +64,7 @@ import DataSourceConnectionDemoPage from "./features/tiktok-ads-connections/Data
 import TikTokAdsConnectionsPage from "./features/tiktok-ads-connections/TikTokAdsConnectionsPage";
 import EvalDashboardPage from "./features/agent-eval/EvalDashboardPage";
 import "./ui/button.css";
+import "./ui/cursors.css";
 import "./ui/fab-group.css";
 
 const AiDesignStagePresentationPage = lazy(
@@ -91,6 +93,7 @@ export default function App() {
             <Route path="basic-styles/grid" element={<GridBasicStylePage />} />
             <Route path="basic-styles/size" element={<SizeBasicStylePage />} />
             <Route path="basic-styles/icon" element={<IconBasicStylePage />} />
+            <Route path="basic-styles/cursor" element={<CursorBasicStylePage />} />
             <Route path="basic-styles/radius" element={<RadiusBasicStylePage />} />
             <Route path="basic-styles/shadow" element={<ShadowBasicStylePage />} />
             <Route path="basic-styles/card" element={<CardBasicStylePage />} />

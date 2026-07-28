@@ -22,7 +22,8 @@
 ### 横切规范（所有组件通用，AI 每次都读，保持最新）
 | 文件 | 作用 |
 |---|---|
-| `how-cursor-works.md` | 三层样式模型（去盲盒）+ 识破 AI 瞎搞的安全/危险词 + 别矫枉过正三原则 |
+| `how-cursor-works.md` | **Cursor AI** 工作说明（三层样式模型等），**不是**鼠标光标文档 |
+| `cursors.ts` | SensD 鼠标规则 registry（系统 `cursor` 关键字 + 语义文案）；样式见 `src/ui/cursors.css`；规则见 `docs/foundations/cursor.md` |
 | `conventions.md` | 实现约定：用 token+props 驱动、不写 CSS 盖 `ant-*`、真实状态用 props、组件层 vs 预览板层 |
 | `icons.md` | 全局图标规范：按角色取色、图标-文字间距、状态、搜索特例 |
 | `color-semantics.md` | 功能色 / 状态色 / 基础色板三层；antd 故意交叉映射；链接禁止 primary |
@@ -66,6 +67,13 @@
 - `.design.md` 是可选的设计评审说明：选型、使用场景、推荐与禁止；不存在不表示组件缺失。
 - `SensBreadcrumb` 当前归属 `components/base/title-bar.md`：只承接标题栏内普通态 / 省略态面包屑。出现独立于标题栏的面包屑场景后，再拆出 `breadcrumb.md`。
 - 复合组件默认维护单篇 `.md`；只有存在独立设计评审材料时才增加 `.design.md`。
+
+### 唯一规则源
+
+- `tokens/source/` 是 Token 数值、别名和原始引用的唯一编辑源；`theme.ts`、`tokens.resolved.json` 与 i18n 是生成运行时产物，不是语义规则编辑入口。
+- Foundation 正文维护跨组件规则；组件 / 复合组件 / 样板间正文只维护各自专属边界。索引、Preview、状态看板和 changelog 只引用、验证或记录历史。
+- 三维状态的正式值维护在对应规则源文档头部。状态看板中的推进摘要不是正式状态，出现不一致时以规则源为准。
+- 完整的来源对照与冲突裁决顺序见仓库根目录 `DESIGN.md` §3.6。
 
 ### 状态模型
 
@@ -121,7 +129,7 @@ Foundation、基础组件、复合组件和样板间的规则源文档，默认�
 ```
 
 ## 维护原则
-- **现行规则（`.md` + `theme.ts`）勤更新**；`build-tokens.mjs` 跟着 token 走。
+- **现行规则正文勤更新；Token 先改 `tokens/source/`，再按需调整 `build-tokens.mjs` 映射并生成产物**。
 - 通用的写进横切规范（越硬越好）；组件专属的只写进各自 `.md`（绝不外溢到横切规范）。
 - 新组件先按现有规则裸跑暴露偏差，再针对偏差补规则；只写"和 antd 不同"的点，别矫枉过正。
 - 装上 sensd 后，这些状态/颜色规则大多由库内置，知识库主要价值转为"和研发对齐 sensd 该怎么调"的清单。

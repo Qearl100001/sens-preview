@@ -1,5 +1,6 @@
-import { useState } from "react";
-import { Flex, Segmented, Space, Switch, Typography, theme } from "antd";
+import { useMemo, useState } from "react";
+import { Flex, Segmented, Space, Switch, Typography } from "antd";
+import { useTranslation } from "react-i18next";
 import tabsDesignDoc from "../../design-system/components/base/tabs.design.md?raw";
 import tabsDevDoc from "../../design-system/components/base/tabs.md?raw";
 import {
@@ -11,8 +12,10 @@ import {
 } from "../../ui";
 import { ComponentShowcaseLayout } from "../ComponentShowcaseLayout";
 import { ShowcaseSelect } from "../ShowcaseSelect";
+import { getPreviewTokens } from "../previewTokens";
 
 const { Text } = Typography;
+const I18N_NS = "组件库";
 
 type TabsDemoVariant = "basic" | "editable-card" | "pill";
 
@@ -40,17 +43,28 @@ function TabsDemoInstance({
     case "editable-card":
       return <SensEditableCardTabs />;
     case "pill":
-      return <SensPillTabs size={size} withBadge={withBadge} itemCount={10} />;
+      return <SensPillTabs size={size} withBadge={withBadge} itemCount={10} disabledLastItem />;
     default:
       return null;
   }
 }
 
 function TabsDemo() {
-  const { token } = theme.useToken();
+  const { t } = useTranslation();
+  const token = getPreviewTokens();
   const [variant, setVariant] = useState<TabsDemoVariant>("basic");
   const [size, setSize] = useState<SensTabSize>("large");
   const [withBadge, setWithBadge] = useState(false);
+  const editableCardDemoItems = useMemo(
+    () =>
+      Array.from({ length: 12 }, (_, index) => ({
+        key: `page-${index + 1}`,
+        title: t(`${I18N_NS}.sensd-tabs-pageTitle-${index + 1}`, {
+          defaultValue: `页面标题 ${index + 1}`,
+        }),
+      })),
+    [t],
+  );
 
   const showSize = SUPPORTS_SIZE.has(variant);
   const showBadge = SUPPORTS_BADGE.has(variant);
@@ -71,6 +85,7 @@ function TabsDemo() {
           <Space direction="vertical" size={4}>
             <Text type="secondary">尺寸</Text>
             <Segmented
+              className="sens-tabs-demo-size-segmented"
               value={size}
               onChange={(v) => setSize(v as SensTabSize)}
               options={[
@@ -92,12 +107,20 @@ function TabsDemo() {
       </Flex>
 
       <Space direction="vertical" size="small" style={{ width: "100%" }}>
-        <TabsDemoInstance variant={variant} size={size} withBadge={withBadge} />
+        {variant === "editable-card" ? (
+          <SensEditableCardTabs
+            initialItems={editableCardDemoItems}
+            defaultActiveKey="page-9"
+            defaultMoreOpen
+          />
+        ) : (
+          <TabsDemoInstance variant={variant} size={size} withBadge={withBadge} />
+        )}
         <Text type="secondary">
           {variant === "editable-card"
-            ? "点击切换页签、添加/关闭；悬停标题与删除图标查看交互"
+            ? "默认展示稳定溢出场景；更多下拉初始展开，便于对照 Figma；点击可切换、收起、双击编辑"
             : variant === "pill"
-              ? "对齐 Figma 4 变体：10项胶囊条（大/小 × 徽标开关）"
+              ? "对齐 Figma 4 变体：10项胶囊条（大/小 × 徽标开关）；最后一项保留 disabled 走查"
               : "点击切换选中项；悬停未选中/已选中标签查看 hover"}
         </Text>
       </Space>

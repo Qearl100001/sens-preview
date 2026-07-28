@@ -26,6 +26,7 @@
 | `grid.md` | `20` 栏、`12` 栏和局部容器排布 | Pilot · Partial · Pending |
 | `size.md` | 固定尺寸、图标尺寸、组件高度、组件专属尺寸候选 | Pilot · Partial · Pending |
 | `icon.md` | 图标资产、命名、尺寸关系、颜色语义和消费规则 | Pilot · Partial · Pending |
+| `cursor.md` | SensD 鼠标态位图、hotspot、拖拽用 move 的映射 | Pilot · Partial · Pending |
 | `radius.md` | 圆角 scale 和使用场景 | Pilot · Partial · Pending |
 | `shadow.md` | 投影层级、D1-D4、卡片阴影 | Pilot · Implemented · Pending |
 | `divider.md` | 分割线宽度、层级、透明度与消费 helper | Pilot · Implemented · Pending |
@@ -33,6 +34,8 @@
 
 ## 使用原则
 
+- 本索引只维护 Foundation 的入口、状态汇总和阅读关系；具体规则只在对应 Foundation 正文展开维护。
+- 索引状态与 Foundation 正文不一致时，以正文头部的成熟度、实现和验证字段为准，并回写本索引。
 - 业务页面优先引用组件；组件优先引用 foundation token。
 - 改 token 前先读 `token-registry.md`，再定位对应 Token Source 与唯一语义维护文档。
 - 遇到视觉不一致时，先判断是 foundation 缺口、组件缺口，还是业务特殊场景。

@@ -1,0 +1,112 @@
+/**
+ * SensD 鼠标态（系统光标 + 规则语义）
+ *
+ * 实现：CSS 系统关键字（`move` / `pointer` / …），原生观感。
+ * 规则：何时用哪一态，见 `docs/foundations/cursor.md` 与本文件 `labelZh` / `description`。
+ * PNG 仅作走查页示意（可选），不参与真实 `cursor`。
+ *
+ * 页签拖拽等「换位」用 `move`，不用 `grab` / `grabbing`。
+ * 注意：`how-cursor-works.md` 是 Cursor AI 工作说明，不是本文件。
+ */
+
+:root {
+  /* 主验 8 态 + 完整映射：一律系统关键字 */
+  --sens-cursor-default: default;
+  --sens-cursor-pointer: pointer;
+  --sens-cursor-not-allowed: not-allowed;
+  --sens-cursor-text: text;
+  --sens-cursor-vertical-text: vertical-text;
+  --sens-cursor-crosshair: crosshair;
+  /* 页签拖拽用 move，不用 grab/grabbing */
+  --sens-cursor-move: move;
+  --sens-cursor-no-drop: no-drop;
+  --sens-cursor-grab: grab;
+  --sens-cursor-grabbing: grabbing;
+  --sens-cursor-copy: copy;
+  --sens-cursor-n-resize: n-resize;
+  --sens-cursor-e-resize: e-resize;
+  --sens-cursor-s-resize: s-resize;
+  --sens-cursor-w-resize: w-resize;
+  --sens-cursor-ne-resize: ne-resize;
+  --sens-cursor-nw-resize: nw-resize;
+  --sens-cursor-se-resize: se-resize;
+  --sens-cursor-sw-resize: sw-resize;
+  --sens-cursor-ns-resize: ns-resize;
+  --sens-cursor-ew-resize: ew-resize;
+  --sens-cursor-nesw-resize: nesw-resize;
+  --sens-cursor-nwse-resize: nwse-resize;
+  --sens-cursor-col-resize: col-resize;
+}
+
+.sens-cursor-default {
+  cursor: var(--sens-cursor-default);
+}
+.sens-cursor-pointer {
+  cursor: var(--sens-cursor-pointer);
+}
+.sens-cursor-not-allowed {
+  cursor: var(--sens-cursor-not-allowed);
+}
+.sens-cursor-text {
+  cursor: var(--sens-cursor-text);
+}
+.sens-cursor-vertical-text {
+  cursor: var(--sens-cursor-vertical-text);
+}
+.sens-cursor-crosshair {
+  cursor: var(--sens-cursor-crosshair);
+}
+.sens-cursor-move {
+  cursor: var(--sens-cursor-move);
+}
+.sens-cursor-no-drop {
+  cursor: var(--sens-cursor-no-drop);
+}
+.sens-cursor-grab {
+  cursor: var(--sens-cursor-grab);
+}
+.sens-cursor-grabbing {
+  cursor: var(--sens-cursor-grabbing);
+}
+.sens-cursor-copy {
+  cursor: var(--sens-cursor-copy);
+}
+.sens-cursor-n-resize {
+  cursor: var(--sens-cursor-n-resize);
+}
+.sens-cursor-e-resize {
+  cursor: var(--sens-cursor-e-resize);
+}
+.sens-cursor-s-resize {
+  cursor: var(--sens-cursor-s-resize);
+}
+.sens-cursor-w-resize {
+  cursor: var(--sens-cursor-w-resize);
+}
+.sens-cursor-ne-resize {
+  cursor: var(--sens-cursor-ne-resize);
+}
+.sens-cursor-nw-resize {
+  cursor: var(--sens-cursor-nw-resize);
+}
+.sens-cursor-se-resize {
+  cursor: var(--sens-cursor-se-resize);
+}
+.sens-cursor-sw-resize {
+  cursor: var(--sens-cursor-sw-resize);
+}
+.sens-cursor-ns-resize {
+  cursor: var(--sens-cursor-ns-resize);
+}
+.sens-cursor-ew-resize {
+  cursor: var(--sens-cursor-ew-resize);
+}
+.sens-cursor-nesw-resize {
+  cursor: var(--sens-cursor-nesw-resize);
+}
+.sens-cursor-nwse-resize {
+  cursor: var(--sens-cursor-nwse-resize);
+}
+.sens-cursor-col-resize {
+  cursor: var(--sens-cursor-col-resize);
+}

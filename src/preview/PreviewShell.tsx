@@ -1,13 +1,13 @@
 import type { ReactNode } from "react";
 import { SettingOutlined } from "@ant-design/icons";
-import { Button, Layout, Menu, Popover, Segmented, Space, Typography, theme } from "antd";
+import { Button, Layout, Menu, Popover, Segmented, Space, Typography } from "antd";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import type { FunctionalSkin } from "../design-system/functional-skin";
+import { getPreviewTokens } from "./previewTokens";
 
 const { Header, Sider, Content } = Layout;
 const { Text } = Typography;
-const { useToken } = theme;
 
 const PRODUCT_MIN_DESKTOP_WIDTH = 1280;
 
@@ -21,6 +21,7 @@ export const BASIC_STYLE_NAV = [
   { key: "/basic-styles/grid", label: "栅格" },
   { key: "/basic-styles/size", label: "尺寸" },
   { key: "/basic-styles/icon", label: "图标" },
+  { key: "/basic-styles/cursor", label: "鼠标" },
   { key: "/basic-styles/radius", label: "圆角" },
   { key: "/basic-styles/shadow", label: "投影" },
   { key: "/basic-styles/card", label: "卡片" },
@@ -218,7 +219,7 @@ export interface PreviewShellProps {
 }
 
 export function PreviewShell({ skin, onSkinChange, headerExtra }: PreviewShellProps) {
-  const { token } = useToken();
+  const token = getPreviewTokens();
   const navigate = useNavigate();
   const location = useLocation();
   const { i18n } = useTranslation();

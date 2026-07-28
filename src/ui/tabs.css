@@ -41,52 +41,200 @@
 
 .sens-tabs-pill-label {
   max-width: var(--sens-tabs-pill-max-width);
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  /* 中文在 line-height=盒高 时光学偏上；收紧行高交给父级 flex 居中 */
+  line-height: 1;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  vertical-align: middle;
 }
 
-/* 真实组件：仅保留布局/滚动/必要尺寸结构 */
-.sens-pill-tabs.ant-segmented {
-  padding: var(--sens-pill-track-padding, 4px);
-}
-
-.sens-pill-tabs-strip.ant-segmented {
+/* 真实组件：自持轨道与按钮结构，不再依赖 antd Segmented DOM */
+.sens-pill-tabs {
+  box-sizing: border-box;
+  display: block;
+  width: fit-content;
   max-width: 100%;
   overflow-x: auto;
+  padding: var(--sens-pill-track-padding, 4px);
+  border-radius: var(--sens-pill-track-radius, 6px);
+  background: var(--sens-pill-track-bg, rgba(0, 21, 64, 0.04));
 }
 
-.sens-pill-tabs .ant-segmented-group {
+.sens-pill-tabs-track {
+  display: inline-flex;
+  width: max-content;
   gap: var(--sens-pill-item-gap, 4px);
 }
 
-.sens-pill-tabs .ant-segmented-item {
+.sens-pill-tab {
+  appearance: none;
+  border: 1px solid transparent;
+  margin: 0;
+  padding: 0 var(--sens-pill-item-padding-inline, 12px);
   border-radius: var(--sens-pill-item-radius, 4px);
-  min-height: var(--sens-pill-item-min-height, 28px);
+  height: var(--sens-pill-item-height, 28px);
+  min-height: var(--sens-pill-item-height, 28px);
+  flex: 0 0 auto;
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  background: var(--sens-pill-item-bg, transparent);
+  cursor: pointer;
+  font: inherit;
+  color: inherit;
+  transition: background-color 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
 }
 
-.sens-pill-tabs .ant-segmented-item-label {
-  padding: 3px var(--sens-pill-item-padding-inline, 12px);
+.sens-pill-tab:focus,
+.sens-pill-tab:focus-visible {
+  outline: none;
+}
+
+.sens-pill-tab .sens-tabs-pill-label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  min-height: 100%;
   font-size: var(--sens-pill-item-font-size, 14px);
-  line-height: var(--sens-pill-item-line-height, 22px);
+  color: var(--sens-pill-item-color, rgba(8, 18, 38, 0.58));
+  transition: color 0.15s ease;
 }
 
-.sens-pill-tabs-small .ant-segmented-item {
-  min-height: 24px;
+.sens-pill-tab .sens-tabs-counter-badge {
+  flex-shrink: 0;
+}
+
+.sens-pill-tab--active {
+  background: var(--sens-pill-item-selected-bg, #fff);
+  border-color: var(--sens-pill-item-selected-border-color, transparent);
+  box-shadow: var(--sens-pill-selected-shadow);
+}
+
+.sens-pill-tab--active .sens-tabs-pill-label {
+  color: var(--sens-pill-item-selected-color, #00b280);
+}
+
+.sens-pill-tab:not(.sens-pill-tab--active):not(:disabled):hover {
+  background: var(--sens-pill-item-hover-bg) !important;
+}
+
+.sens-pill-tab:not(.sens-pill-tab--active):not(:disabled):hover .sens-tabs-pill-label {
+  color: var(--sens-pill-item-hover-color) !important;
+}
+
+.sens-pill-tab:not(.sens-pill-tab--active):not(:disabled):active {
+  background: var(--sens-pill-item-click-bg) !important;
+}
+
+.sens-pill-tab:not(.sens-pill-tab--active):not(:disabled):active .sens-tabs-pill-label {
+  color: var(--sens-pill-item-click-color) !important;
+}
+
+.sens-pill-tab--active:hover .sens-tabs-pill-label {
+  color: var(--sens-pill-selected-hover-color, #27c296);
+}
+
+.sens-pill-tab:disabled {
+  background: var(--sens-pill-item-disabled-bg) !important;
+  cursor: default;
+}
+
+.sens-pill-tab:disabled .sens-tabs-pill-label {
+  color: var(--sens-pill-item-disabled-color) !important;
+}
+
+.sens-pill-tab:disabled:hover {
+  background: var(--sens-pill-item-disabled-hover-bg) !important;
+}
+
+.sens-pill-tab:disabled:hover .sens-tabs-pill-label {
+  color: var(--sens-pill-item-disabled-hover-color) !important;
+}
+
+.sens-pill-tab:not(.sens-pill-tab--active):not(:disabled):hover .sens-tabs-counter-badge,
+.sens-pill-tab:not(.sens-pill-tab--active):not(:disabled):active .sens-tabs-counter-badge {
+  background: var(--sens-tabs-badge-active-bg, #e1faf3);
+  color: var(--sens-tabs-badge-active-text, #00b280);
+}
+
+.sens-pill-tab:disabled .sens-tabs-counter-badge {
+  background: var(--sens-tabs-badge-bg, rgba(0, 21, 64, 0.08));
+  color: var(--sens-pill-item-disabled-color) !important;
+}
+
+.sens-pill-tab:disabled:hover .sens-tabs-counter-badge {
+  color: var(--sens-pill-item-disabled-hover-color) !important;
 }
 
 .sens-line-tabs-bar-only .ant-tabs-content-holder {
   display: none;
 }
 
-.sens-basic-tabs .ant-tabs-nav {
-  margin-bottom: 0;
+/*
+ * 基础标签页（line）· Figma 3695 / 3713
+ * 悬停 component-primary · 点击 component-active · 选中 Semibold + ink
+ * 内容区距 nav：spacing/4x = 16
+ */
+.sens-basic-tabs {
+  --sens-basic-tabs-content-gap: 16px;
+  --sens-basic-tabs-active-weight: 600;
+  --sens-basic-tabs-text: var(--sens-basic-tabs-text-token, inherit);
+  --sens-basic-tabs-hover: var(--sens-basic-tabs-hover-token, #00b280);
+  --sens-basic-tabs-click: var(--sens-basic-tabs-click-token, #008c65);
+  --sens-basic-tabs-selected: var(--sens-basic-tabs-selected-token, #00b280);
+}
+
+.sens-basic-tabs > .ant-tabs-nav {
+  margin: 0 0 var(--sens-basic-tabs-content-gap, 16px) 0 !important;
+}
+
+/* barOnly：内容自管，nav 不再占 16 间距 */
+.sens-basic-tabs.sens-line-tabs-bar-only > .ant-tabs-nav {
+  margin-bottom: 0 !important;
 }
 
 .sens-basic-tabs .ant-tabs-tab + .ant-tabs-tab {
   margin-left: 24px;
+}
+
+.sens-basic-tabs .ant-tabs-tab .ant-tabs-tab-btn {
+  font-weight: 400;
+  color: var(--sens-basic-tabs-text);
+  transition: color 0.15s ease;
+}
+
+.sens-basic-tabs .ant-tabs-tab:hover:not(.ant-tabs-tab-disabled):not(.ant-tabs-tab-active) .ant-tabs-tab-btn {
+  color: var(--sens-basic-tabs-hover) !important;
+}
+
+.sens-basic-tabs .ant-tabs-tab:active:not(.ant-tabs-tab-disabled):not(.ant-tabs-tab-active) .ant-tabs-tab-btn {
+  color: var(--sens-basic-tabs-click) !important;
+}
+
+.sens-basic-tabs .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
+  font-weight: var(--sens-basic-tabs-active-weight, 600) !important;
+  color: var(--sens-basic-tabs-selected) !important;
+}
+
+.sens-basic-tabs .ant-tabs-ink-bar {
+  background: var(--sens-basic-tabs-selected) !important;
+}
+
+/* 悬停/点击：徽标同步进功能色浅底（Figma 3695:20693 / 20695） */
+.sens-basic-tabs .ant-tabs-tab:hover:not(.ant-tabs-tab-disabled) .sens-tabs-counter-badge,
+.sens-basic-tabs .ant-tabs-tab:active:not(.ant-tabs-tab-disabled) .sens-tabs-counter-badge {
+  background: var(--sens-tabs-badge-active-bg, #e1faf3);
+  color: var(--sens-tabs-badge-active-text, #00b280);
+}
+
+.sens-basic-tabs-large .ant-tabs-tab .ant-tabs-tab-btn {
+  font-size: 16px;
+  line-height: 24px;
 }
 
 .sens-basic-tabs-small .ant-tabs-tab {
@@ -101,7 +249,7 @@
 }
 
 .sens-basic-tabs-small .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
-  font-weight: 500;
+  font-weight: var(--sens-basic-tabs-active-weight, 600) !important;
 }
 
 .sens-basic-tabs-small .ant-tabs-ink-bar {
@@ -130,7 +278,8 @@
 }
 
 .ant-tabs-tab-active .sens-tabs-counter-badge,
-.ant-segmented-item-selected .sens-tabs-counter-badge {
+.ant-segmented-item-selected .sens-tabs-counter-badge,
+.sens-pill-tab--active .sens-tabs-counter-badge {
   background: var(--sens-tabs-badge-active-bg, #e1faf3);
   color: var(--sens-tabs-badge-active-text, #00b280);
 }
@@ -147,18 +296,32 @@
   justify-content: center;
   gap: 4px;
   max-width: 112px;
+  box-sizing: border-box;
+  line-height: 1;
 }
 
 .sens-pill-tab-snapshot-large {
-  padding: 3px 12px;
+  padding: 0 12px;
   border-radius: 4px;
+  height: 28px;
   min-height: 28px;
+  font-size: 14px;
 }
 
 .sens-pill-tab-snapshot-small {
-  padding: 3px 10px;
-  border-radius: 3px;
+  padding: 0 10px;
+  border-radius: 3px; /* radius/s · 对齐 Figma 3831:13908 */
+  height: 24px;
   min-height: 24px;
+  font-size: 12px;
+}
+
+/* 演示区尺寸 Segmented（大/小）同样光学居中 */
+.sens-tabs-demo-size-segmented .ant-segmented-item-label {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center;
+  line-height: 1 !important;
 }
 
 .sens-tabs-strip-section {
@@ -196,5 +359,469 @@
 
 /* 预览板专用：页签关闭钮悬停色（token 经单元格 CSS 变量注入，不进真实组件） */
 .sens-tabs-preview-card-hover-delete .ant-tabs-tab-remove {
-  color: var(--sens-tabs-preview-remove-hover);
+  color: var(--sens-tabs-preview-remove-hover, var(--sens-card-tab-remove-hover)) !important;
+  opacity: 1 !important;
+}
+
+.sens-tabs-preview-card-hover-title .ant-tabs-tab:not(.ant-tabs-tab-active) .ant-tabs-tab-remove,
+.sens-tabs-preview-card-hover-delete .ant-tabs-tab:not(.ant-tabs-tab-active) .ant-tabs-tab-remove {
+  opacity: 1 !important;
+}
+
+.sens-tabs-preview-card-default-idle .ant-tabs-tab:not(.ant-tabs-tab-active) .ant-tabs-tab-remove {
+  opacity: 0 !important;
+}
+
+/*
+ * 页签标签页（editable-card）· SensD token
+ * Figma 6354:27022 / 27032 / 27050（当前项）+ 4205:14883 / 14882 / 14880（非当前项）
+ */
+.sens-card-tabs.ant-tabs-card > .ant-tabs-nav .ant-tabs-tab {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: var(--sens-card-tab-height, 32px) !important;
+  padding: var(--sens-card-tab-padding-block, 6px) var(--sens-card-tab-padding-inline, 12px) !important;
+  margin: 0 !important;
+  background: var(--sens-card-tab-bg-default) !important;
+  border: 1px solid transparent !important;
+  border-radius: var(--sens-card-tab-radius, 4px) var(--sens-card-tab-radius, 4px) 0 0 !important;
+  transition: color 0.15s ease, background 0.15s ease, border-color 0.15s ease;
+}
+
+.sens-card-tabs.ant-tabs-card > .ant-tabs-nav .ant-tabs-tab + .ant-tabs-tab {
+  margin-left: var(--sens-card-tab-gap, 4px) !important;
+}
+
+.sens-card-tabs.ant-tabs-card > .ant-tabs-nav .ant-tabs-tab .ant-tabs-tab-btn {
+  display: inline-flex;
+  align-items: center;
+  line-height: 1 !important;
+  font-size: var(--sens-card-tab-font-size, 14px) !important;
+  font-weight: 400;
+  color: var(--sens-card-tab-text-default) !important;
+}
+
+.sens-card-tabs.ant-tabs-card > .ant-tabs-nav .ant-tabs-tab:hover .ant-tabs-tab-btn {
+  color: var(--sens-card-tab-text-hover) !important;
+}
+
+.sens-card-tabs.ant-tabs-card > .ant-tabs-nav .ant-tabs-tab-active {
+  position: relative;
+  z-index: 2;
+  background: var(--sens-card-tab-bg-active) !important;
+  border-color: var(--sens-card-tab-border) !important;
+  /* 底边用白底盖住分隔线，选中项与内容区连通（此处不应有线） */
+  border-bottom-color: var(--sens-card-tab-bg-active) !important;
+}
+
+.sens-card-tabs.ant-tabs-card > .ant-tabs-nav .ant-tabs-tab-active .ant-tabs-tab-btn {
+  font-weight: 500;
+  color: var(--sens-card-tab-text-active) !important;
+}
+
+.sens-card-tabs.ant-tabs-card > .ant-tabs-nav .ant-tabs-tab-active:hover .ant-tabs-tab-btn {
+  color: var(--sens-card-tab-text-active-hover) !important;
+}
+
+.sens-card-tabs.ant-tabs-card > .ant-tabs-nav .ant-tabs-tab-remove {
+  margin-left: var(--sens-card-tab-gap, 4px) !important;
+  margin-right: 0 !important;
+  width: var(--sens-card-tab-icon-size, 16px) !important;
+  height: var(--sens-card-tab-icon-size, 16px) !important;
+  padding: 0 !important;
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  color: var(--sens-card-tab-remove) !important;
+  opacity: 0;
+  transition: color 0.15s ease, opacity 0.15s ease;
+}
+
+.sens-card-tabs.ant-tabs-card > .ant-tabs-nav .ant-tabs-tab-remove .anticon,
+.sens-card-tabs.ant-tabs-card > .ant-tabs-nav .ant-tabs-tab-remove svg {
+  width: var(--sens-card-tab-icon-size, 16px) !important;
+  height: var(--sens-card-tab-icon-size, 16px) !important;
+  font-size: var(--sens-card-tab-icon-size, 16px) !important;
+  flex-shrink: 0;
+}
+
+.sens-card-tabs.ant-tabs-card > .ant-tabs-nav .ant-tabs-tab:hover .ant-tabs-tab-remove,
+.sens-card-tabs.ant-tabs-card > .ant-tabs-nav .ant-tabs-tab-active .ant-tabs-tab-remove {
+  opacity: 1;
+}
+
+.sens-card-tabs.ant-tabs-card > .ant-tabs-nav .ant-tabs-tab-remove:hover {
+  color: var(--sens-card-tab-remove-hover) !important;
+  background: transparent !important;
+}
+
+/* 选中页签：底边无分隔线，白条遮挡 nav 底边（Figma「遮挡」）；未选区仅一根线 */
+.sens-card-tabs.ant-tabs-card > .ant-tabs-nav::before {
+  border-bottom: 1px solid var(--sens-card-tab-border) !important;
+}
+
+.sens-card-tabs.ant-tabs-card > .ant-tabs-nav .ant-tabs-tab-active {
+  /* 底边遮挡条由下方 ::after 提供 */
+  position: relative;
+  z-index: 2;
+}
+
+.sens-card-tabs.ant-tabs-card > .ant-tabs-nav .ant-tabs-tab-active::after {
+  content: "";
+  position: absolute;
+  left: 1px;
+  right: 1px;
+  bottom: -1px;
+  height: 2px;
+  background: var(--sens-card-tab-bg-active);
+  pointer-events: none;
+  z-index: 3;
+}
+
+.sens-card-tabs.ant-tabs-card > .ant-tabs-nav .ant-tabs-ink-bar {
+  display: none;
+}
+
+/* 内容卡片：Card Foundation 描边卡片；顶边去掉，避免与 nav::before 叠成双线 */
+.sens-card-tabs.ant-tabs-card > .ant-tabs-content-holder {
+  background: var(--sens-card-tab-panel-bg) !important;
+  border-left: 1px solid var(--sens-card-tab-panel-border) !important;
+  border-right: 1px solid var(--sens-card-tab-panel-border) !important;
+  border-bottom: 1px solid var(--sens-card-tab-panel-border) !important;
+  border-top: 0 !important;
+  border-top-width: 0 !important;
+  border-top-style: none !important;
+  border-radius: 0 var(--sens-card-tab-panel-radius, 6px) var(--sens-card-tab-panel-radius, 6px)
+    var(--sens-card-tab-panel-radius, 6px) !important;
+  margin-top: 0 !important;
+}
+
+.sens-card-tabs.ant-tabs-card > .ant-tabs-content {
+  margin-top: 0 !important;
+}
+
+.sens-card-tabs .sens-card-tabs-panel-body {
+  padding: var(--sens-card-tab-panel-padding, 16px);
+  color: var(--sens-card-tab-panel-text);
+  font-size: var(--sens-card-tab-font-size, 14px);
+  line-height: var(--sens-card-tab-line-height, 22px);
+  font-weight: 400;
+}
+
+.sens-card-tabs.ant-tabs-card > .ant-tabs-nav {
+  margin-bottom: 0 !important;
+}
+
+/* 加号：弱化链接色链；点击后不因 :focus 残留蓝色（SensD link-hover-color） */
+.sens-card-tabs.ant-tabs > .ant-tabs-nav .ant-tabs-nav-add,
+.sens-card-tabs.ant-tabs > div > .ant-tabs-nav .ant-tabs-nav-add {
+  height: var(--sens-card-tab-height, 32px) !important;
+  margin: 0 0 0 var(--sens-card-tab-add-gap, 8px) !important;
+  padding: 0 !important;
+  min-width: var(--sens-card-tab-icon-size, 16px) !important;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  color: var(--sens-card-tab-add) !important;
+  outline: none !important;
+}
+
+.sens-card-tabs.ant-tabs > .ant-tabs-nav .ant-tabs-nav-add:hover,
+.sens-card-tabs.ant-tabs > div > .ant-tabs-nav .ant-tabs-nav-add:hover {
+  color: var(--sens-card-tab-add-hover) !important;
+  background: transparent !important;
+  border: none !important;
+}
+
+.sens-card-tabs.ant-tabs > .ant-tabs-nav .ant-tabs-nav-add:focus,
+.sens-card-tabs.ant-tabs > .ant-tabs-nav .ant-tabs-nav-add:focus-visible,
+.sens-card-tabs.ant-tabs > div > .ant-tabs-nav .ant-tabs-nav-add:focus,
+.sens-card-tabs.ant-tabs > div > .ant-tabs-nav .ant-tabs-nav-add:focus-visible {
+  color: var(--sens-card-tab-add) !important;
+  background: transparent !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.sens-card-tabs.ant-tabs > .ant-tabs-nav .ant-tabs-nav-add:focus:hover,
+.sens-card-tabs.ant-tabs > div > .ant-tabs-nav .ant-tabs-nav-add:focus:hover {
+  color: var(--sens-card-tab-add-hover) !important;
+}
+
+.sens-card-tabs.ant-tabs > .ant-tabs-nav .ant-tabs-nav-add:active,
+.sens-card-tabs.ant-tabs > div > .ant-tabs-nav .ant-tabs-nav-add:active {
+  color: var(--sens-card-tab-add-active) !important;
+  background: transparent !important;
+  border: none !important;
+}
+
+.sens-card-tabs .ant-tabs-nav-add .anticon,
+.sens-card-tabs .ant-tabs-nav-add svg {
+  width: var(--sens-card-tab-icon-size, 16px);
+  height: var(--sens-card-tab-icon-size, 16px);
+  font-size: var(--sens-card-tab-icon-size, 16px);
+  color: currentColor;
+}
+
+/* 更多操作区：勿裁剪下拉；相对定位兜底 */
+.sens-card-tabs .ant-tabs-nav-operations {
+  position: relative;
+  overflow: visible;
+}
+
+/* 更多：Figma 804:78 down / 804:79 up；默认灰向下，展开绿向上（由 moreOpen 驱动 icon，不靠 aria-expanded） */
+.sens-card-tabs .ant-tabs-nav-more {
+  position: relative !important;
+  height: var(--sens-card-tab-height, 32px) !important;
+  margin: 0 0 0 var(--sens-card-tab-gap, 4px) !important;
+  padding: 0 !important;
+  min-width: var(--sens-card-tab-icon-size, 16px) !important;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  color: var(--sens-card-tab-add) !important;
+  outline: none !important;
+  overflow: visible;
+}
+
+.sens-card-tabs .ant-tabs-nav-more:hover {
+  color: var(--sens-card-tab-add-hover) !important;
+  background: transparent !important;
+}
+
+.sens-card-tabs .ant-tabs-nav-more:focus,
+.sens-card-tabs .ant-tabs-nav-more:focus-visible {
+  color: var(--sens-card-tab-add) !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.sens-card-tabs .ant-tabs-nav-more[aria-expanded="true"],
+.sens-card-tabs--more-open .ant-tabs-nav-more,
+.sens-card-tabs-more-icons--open {
+  color: var(--sens-card-tab-text-active) !important;
+}
+
+.sens-card-tabs--more-open .ant-tabs-nav-more {
+  color: var(--sens-card-tab-text-active) !important;
+}
+
+.sens-card-tabs-more-icons {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--sens-card-tab-icon-size, 16px);
+  height: var(--sens-card-tab-icon-size, 16px);
+}
+
+.sens-card-tabs-more-icons .sens-card-tabs-more-down,
+.sens-card-tabs-more-icons .sens-card-tabs-more-up {
+  display: inline-flex;
+}
+
+.sens-card-tabs-more-icons svg {
+  width: var(--sens-card-tab-icon-size, 16px);
+  height: var(--sens-card-tab-icon-size, 16px);
+}
+
+/* 拖拽排序：悬停可拖与拖中均用 SensD move（1145:160 四向箭头），不用 grab/grabbing */
+.sens-card-tabs .sens-card-tab-label {
+  touch-action: none;
+  cursor: var(--sens-cursor-move);
+  user-select: none;
+}
+
+.sens-card-tabs--dragging,
+.sens-card-tabs--dragging .ant-tabs-tab,
+.sens-card-tabs--dragging .sens-card-tab-label {
+  cursor: var(--sens-cursor-move);
+  user-select: none;
+}
+
+.sens-card-tabs .ant-tabs-tab.sens-card-tab--dragging {
+  position: relative;
+  z-index: 5;
+  opacity: 0.96;
+  box-shadow: none;
+}
+
+.sens-card-tabs--dragging .ant-tabs-tab:not(.sens-card-tab--dragging) {
+  transition: transform 0.15s ease;
+}
+
+/* 通用锚定溢出层：挂 body + fixed，避免局部 overflow/定位上下文裁切 */
+.sens-anchored-overflow-dropdown.ant-tabs-dropdown,
+.sens-anchored-overflow-dropdown.ant-dropdown {
+  pointer-events: auto !important;
+}
+
+.sens-card-tabs-dropdown-proxy {
+  display: none !important;
+}
+
+/* Tabs 溢出下拉：右缘对齐 More，宽 188px；全量页签、无删除 */
+.sens-card-tabs-dropdown .ant-dropdown-menu,
+.sens-card-tabs-dropdown.ant-tabs-dropdown .ant-tabs-dropdown-menu,
+.sens-card-tabs-dropdown .ant-tabs-dropdown-menu,
+.sens-card-tabs-dropdown .ant-menu,
+.sens-card-tabs-dropdown .sens-card-tabs-dropdown-list {
+  box-sizing: border-box;
+  /* Figma 5521:5449「1单行」：固定 188px（无对应 unit token；勿与 InputNumber controlWidth 混用） */
+  width: var(--sens-card-tabs-dropdown-width, 188px);
+  min-width: var(--sens-card-tabs-dropdown-width, 188px);
+  max-width: var(--sens-card-tabs-dropdown-width, 188px);
+  margin: 0;
+  padding-block-start: var(--sens-dropdown-menu-padding-block-start, 6px);
+  padding-block-end: var(--sens-dropdown-menu-padding-block-end, 10px);
+  padding-inline: 0;
+  background: var(--sens-dropdown-menu-bg, #fff);
+  border-radius: var(--sens-dropdown-menu-radius, 4px);
+  box-shadow: var(--sens-dropdown-menu-shadow) !important;
+  list-style: none;
+  border: none !important;
+}
+
+.sens-card-tabs-dropdown .ant-dropdown-menu-item,
+.sens-card-tabs-dropdown .ant-tabs-dropdown-menu-item,
+.sens-card-tabs-dropdown .ant-menu-item,
+.sens-card-tabs-dropdown .sens-card-tabs-dropdown-item {
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+  width: 100%;
+  min-height: var(--sens-dropdown-menu-item-height, 34px);
+  margin: 0 !important;
+  padding-block: var(--sens-dropdown-menu-item-padding-block, 6px) !important;
+  padding-inline: var(--sens-dropdown-menu-item-padding-inline, 12px) !important;
+  border-radius: 0 !important;
+  background: var(--sens-dropdown-menu-item-bg, #fff) !important;
+  color: var(--sens-card-tabs-dropdown-item-color-default, var(--sens-dropdown-menu-item-color-default)) !important;
+  cursor: pointer;
+}
+
+.sens-card-tabs-dropdown .sens-card-tabs-dropdown-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.sens-card-tabs-dropdown .sens-card-tabs-dropdown-item {
+  border: none;
+  font: inherit;
+  text-align: left;
+  gap: 8px;
+}
+
+.sens-card-tabs-dropdown .sens-card-tabs-dropdown-item-label {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.sens-card-tabs-dropdown .sens-card-tabs-dropdown-item-check {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-inline-start: auto;
+  color: var(--sens-card-tabs-dropdown-item-check-color);
+}
+
+.sens-card-tabs-dropdown .sens-card-tabs-dropdown-item-check svg path {
+  stroke: currentColor;
+}
+
+/* 溢出菜单不提供删除（关闭只在页签条上） */
+.sens-card-tabs-dropdown .ant-tabs-dropdown-menu-item-remove {
+  display: none !important;
+}
+
+/* More 菜单：未选中 hover/active 走中性单选项；当前项走浅绿底 + 深色字 + check */
+.sens-card-tabs-dropdown .ant-dropdown-menu-item:hover,
+.sens-card-tabs-dropdown .ant-tabs-dropdown-menu-item:hover,
+.sens-card-tabs-dropdown .ant-tabs-dropdown-menu-item-active,
+.sens-card-tabs-dropdown .ant-menu-item:hover,
+.sens-card-tabs-dropdown .sens-card-tabs-dropdown-item:hover {
+  background: var(--sens-card-tabs-dropdown-item-hover-bg, var(--sens-dropdown-menu-item-hover-bg)) !important;
+  color: var(--sens-card-tabs-dropdown-item-color-default, var(--sens-dropdown-menu-item-color-default)) !important;
+}
+
+.sens-card-tabs-dropdown .sens-card-tabs-dropdown-item:active {
+  background: var(--sens-card-tabs-dropdown-item-active-bg, var(--sens-dropdown-menu-item-active-bg)) !important;
+  color: var(--sens-card-tabs-dropdown-item-color-default, var(--sens-dropdown-menu-item-color-default)) !important;
+}
+
+.sens-card-tabs-dropdown .ant-dropdown-menu-item-selected,
+.sens-card-tabs-dropdown .ant-tabs-dropdown-menu-item-selected,
+.sens-card-tabs-dropdown .ant-menu-item-selected,
+.sens-card-tabs-dropdown .sens-card-tabs-dropdown-item-selected {
+  background: var(--sens-card-tabs-dropdown-item-selected-bg) !important;
+  color: var(--sens-card-tabs-dropdown-item-color-default, var(--sens-dropdown-menu-item-color-default)) !important;
+  font-weight: var(--sens-card-tabs-dropdown-item-selected-font-weight, 600);
+}
+
+.sens-card-tabs-dropdown .ant-dropdown-menu-item-selected:hover,
+.sens-card-tabs-dropdown .ant-tabs-dropdown-menu-item-selected:hover,
+.sens-card-tabs-dropdown .ant-menu-item-selected:hover,
+.sens-card-tabs-dropdown .sens-card-tabs-dropdown-item-selected:hover {
+  background: var(--sens-card-tabs-dropdown-item-selected-hover-bg) !important;
+  color: var(--sens-card-tabs-dropdown-item-color-default, var(--sens-dropdown-menu-item-color-default)) !important;
+}
+
+.sens-card-tabs-dropdown .sens-card-tabs-dropdown-item-selected:active {
+  background: var(--sens-card-tabs-dropdown-item-selected-active-bg) !important;
+  color: var(--sens-card-tabs-dropdown-item-color-default, var(--sens-dropdown-menu-item-color-default)) !important;
+}
+
+/* Figma 6354:27070 · 编辑前选区 */
+.sens-card-tabs .sens-card-tab-title-select {
+  display: inline-block;
+  background: var(--sens-card-tab-select-bg);
+  color: var(--sens-card-tab-select-text) !important;
+  line-height: var(--sens-card-tab-line-height, 22px);
+  font-weight: 500;
+}
+
+/* 标题槽：编辑态锁宽，input 铺满槽宽，页签整体不因进入编辑变宽 */
+.sens-card-tabs .sens-card-tab-label-slot {
+  display: inline-flex;
+  align-items: center;
+  max-width: 100%;
+  vertical-align: top;
+}
+
+.sens-card-tabs .sens-card-tab-label {
+  display: inline-block;
+  max-width: 100%;
+}
+
+/* Figma 6354:27099 · 编辑中可输入（无边框，压过页签标题绿字） */
+.sens-card-tabs .sens-card-tab-edit-input,
+.sens-card-tabs.ant-tabs-card > .ant-tabs-nav .ant-tabs-tab .ant-tabs-tab-btn .sens-card-tab-edit-input,
+.sens-card-tabs.ant-tabs-card > .ant-tabs-nav .ant-tabs-tab-active .ant-tabs-tab-btn .sens-card-tab-edit-input {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: none !important;
+  outline: none !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  font: inherit;
+  font-size: var(--sens-card-tab-font-size, 14px) !important;
+  font-weight: 500;
+  line-height: var(--sens-card-tab-line-height, 22px);
+  color: var(--sens-card-tab-edit-text) !important;
+  caret-color: var(--sens-card-tab-edit-text);
+}
+
+.sens-tabs-preview-card-editing .ant-tabs-tab:not(.ant-tabs-tab-active) .ant-tabs-tab-remove,
+.sens-tabs-preview-card-editing .ant-tabs-tab-active .ant-tabs-tab-remove {
+  opacity: 1 !important;
 }
