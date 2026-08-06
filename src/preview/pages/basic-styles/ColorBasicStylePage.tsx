@@ -1,6 +1,12 @@
 import { Alert, Space, Table, Tag, Typography } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import { getColorToken, tokenRgba } from "../../../design-system/color-utils";
+import {
+  COLOR_PALETTE_SPECS,
+  getColorPaletteSteps,
+  getColorPaletteValue,
+  getContrastRatio,
+} from "../../../design-system/color-palette";
 import colorDocSource from "../../../../docs/foundations/color.md?raw";
 import { BasicStylePageLayout } from "./BasicStylePageLayout";
 import { getPreviewTokens } from "../../previewTokens";
@@ -62,6 +68,22 @@ const ALPHA_ROWS = [
   { key: "outline-08", label: "透明边框", handle: "outline-color-transparent", alpha: 0.08, usage: "透明边框 / 弱边界" },
 ];
 
+const SCALE_RULE_ROWS = [
+  { key: "default", state: "默认", scale: "10", usage: "基准色、默认功能表达" },
+  { key: "hover", state: "悬停", scale: "8", usage: "功能性 hover" },
+  { key: "active", state: "点击", scale: "12", usage: "点击、激活和 pressed" },
+  { key: "disabled", state: "禁用", scale: "6", usage: "功能色禁用态" },
+  { key: "disabled-hover", state: "禁用悬停", scale: "5", usage: "禁用控件的 hover 反馈" },
+  { key: "selected", state: "选中背景", scale: "衍生色", usage: "根据基准色生成浅色背景" },
+  { key: "light", state: "浅色背景", scale: "01 或衍生色", usage: "标签、选中项和功能浅底" },
+];
+
+const CONTRAST_ROWS = [
+  { key: "normal", label: "普通文字", aa: "4.5:1", aaa: "7:1" },
+  { key: "large", label: "大文字（≥ 24px，或粗体 ≥ 19px）", aa: "3:1", aaa: "4.5:1" },
+  { key: "non-text", label: "非文字边界 / 聚焦指示", aa: "3:1", aaa: "—" },
+];
+
 const TIKTOK_ROWS = [
   { key: "management", scene: "数据源管理页", rule: "页面灰底 + 白色内容容器 + 中性色文字", status: "通用颜色" },
   { key: "card", scene: "数据源卡片", rule: "白底、浅边框，hover 使用功能色边框和投影", status: "功能色 + 中性色" },
@@ -77,7 +99,7 @@ const ISSUE_ROWS = [
   { key: "generated", issue: "theme.ts 内有大量 hex", status: "生成文件现状", next: "找到 token 源或重建生成链路后处理" },
   { key: "fallback", issue: "组件内仍有 fallback hex / rgba", status: "不批量改", next: "进入对应组件时逐个解决" },
   { key: "ant-overrides", issue: ".ant-* 覆盖和 !important 较多", status: "不一刀切", next: "单组件验收时说明必要性或替换为 token / props" },
-  { key: "palette", issue: "基础色板完整样张缺失", status: "暂不影响 TikTok case", next: "Foundation 展示页阶段补" },
+  { key: "palette", issue: "基础色板完整样张", status: "已补入本页", next: "持续按 Figma 色板维护" },
 ];
 
 function ColorCard({ item, extra }: { item: ColorItem; extra?: string }) {
@@ -217,6 +239,118 @@ function IssueTable() {
   return <Table columns={columns} dataSource={ISSUE_ROWS} pagination={false} size="small" />;
 }
 
+function PaletteBoard() {
+  const token = getPreviewTokens();
+  const white = getColorPaletteValue("象牙白", 8);
+  const dark = getColorPaletteValue("子夜黑", 12);
+
+  return (
+    <Space direction="vertical" size="middle" style={{ width: "100%" }}>
+      <Alert
+        type="info"
+        showIcon
+        message="基础色板"
+        description="色阶以 HSB 作为定义模型，彩色主题以 10 阶作为基准色。色阶只作为设计源、审计源和换肤映射源，组件不直接引用基础色板路径。"
+      />
+      <div style={{ display: "grid", gap: token.marginSM, overflowX: "auto" }}>
+        {COLOR_PALETTE_SPECS.map((spec) => {
+          const steps = getColorPaletteSteps(spec.name);
+          return (
+            <div key={spec.name} style={{ minWidth: 960 }}>
+              <Space style={{ marginBottom: token.marginXS }}>
+                <Text strong>{spec.name}</Text>
+                <Text type="secondary">{spec.steps === 16 ? "16 阶" : `${spec.steps} 阶`}</Text>
+                {spec.steps >= 10 ? <Text code>基准色 / 10</Text> : null}
+              </Space>
+              <div style={{ display: "grid", gridTemplateColumns: `repeat(${steps.length}, minmax(48px, 1fr))`, gap: 2 }}>
+                {steps.map((step) => {
+                  const color = getColorPaletteValue(spec.name, step);
+                  const useWhite = getContrastRatio(color, white) >= getContrastRatio(color, dark);
+                  return (
+                    <div
+                      key={`${spec.name}-${step}`}
+                      title={`基础色板/${spec.name}/${String(step).padStart(2, "0")} · ${color}`}
+                      style={{
+                        minHeight: 48,
+                        display: "grid",
+                        placeItems: "center",
+                        borderRadius: token.borderRadiusSM,
+                        background: color,
+                        color: useWhite ? white : dark,
+                        fontSize: token.fontSizeSM,
+                        fontWeight: 600,
+                      }}
+                    >
+                      {String(step).padStart(2, "0")}
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </Space>
+  );
+}
+
+function ScaleRuleTable() {
+  const columns: ColumnsType<(typeof SCALE_RULE_ROWS)[number]> = [
+    { title: "状态 /角色", dataIndex: "state", key: "state", width: 150 },
+    { title: "推荐色阶", dataIndex: "scale", key: "scale", width: 140 },
+    { title: "使用说明", dataIndex: "usage", key: "usage" },
+  ];
+
+  return <Table columns={columns} dataSource={SCALE_RULE_ROWS} pagination={false} size="small" />;
+}
+
+function ContrastBoard() {
+  const token = getPreviewTokens();
+  const contrastSamples = COLOR_PALETTE_SPECS.filter((spec) => spec.steps >= 10).map((spec) => {
+    const color = getColorPaletteValue(spec.name, 10);
+    const white = getColorPaletteValue("象牙白", 8);
+    const dark = getColorPaletteValue("子夜黑", 12);
+    return {
+      key: spec.name,
+      name: spec.name,
+      color,
+      whiteRatio: getContrastRatio(color, white).toFixed(2),
+      darkRatio: getContrastRatio(color, dark).toFixed(2),
+    };
+  });
+
+  const columns: ColumnsType<(typeof CONTRAST_ROWS)[number]> = [
+    { title: "对象", dataIndex: "label", key: "label" },
+    { title: "AA", dataIndex: "aa", key: "aa", width: 120 },
+    { title: "AAA", dataIndex: "aaa", key: "aaa", width: 120 },
+  ];
+
+  return (
+    <Space direction="vertical" size="middle" style={{ width: "100%" }}>
+      <Table columns={columns} dataSource={CONTRAST_ROWS} pagination={false} size="small" />
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", gap: token.marginSM }}>
+        {contrastSamples.map((sample) => (
+          <div
+            key={sample.key}
+            style={{
+              padding: token.paddingSM,
+              borderRadius: token.borderRadius,
+              background: sample.color,
+              color: getContrastRatio(sample.color, getColorPaletteValue("象牙白", 8)) >= getContrastRatio(sample.color, getColorPaletteValue("子夜黑", 12))
+                ? getColorPaletteValue("象牙白", 8)
+                : getColorPaletteValue("子夜黑", 12),
+            }}
+          >
+            <Text strong style={{ color: "inherit" }}>{sample.name} / 10</Text>
+            <div style={{ fontSize: token.fontSizeSM }}>白底：{sample.whiteRatio}:1</div>
+            <div style={{ fontSize: token.fontSizeSM }}>黑底：{sample.darkRatio}:1</div>
+          </div>
+        ))}
+      </div>
+    </Space>
+  );
+}
+
 function ColorSpecimen() {
   return (
     <Space direction="vertical" size="large" style={{ width: "100%" }}>
@@ -228,6 +362,31 @@ function ColorSpecimen() {
           这里展示 Color Foundation 的语义 handle、antd 承接关系、透明色派生和 TikTok case 用色准入；当前页面只做验收样张，不改真实组件颜色。
         </Text>
       </div>
+
+      <section>
+        <Title level={5}>基础色板与色阶</Title>
+        <PaletteBoard />
+      </section>
+
+      <section>
+        <Title level={5}>色阶语义定义</Title>
+        <ScaleRuleTable />
+      </section>
+
+      <section>
+        <Title level={5}>色彩模型与衍生规则</Title>
+        <Alert
+          type="info"
+          showIcon
+          message="HSB 色彩模型"
+          description="先以 HSB 色相环筛选基础色相，再按颜色感知收敛主题色。深色区域保持色相、提高饱和度并降低明度；浅色区域保持色相、降低饱和度并提高明度。"
+        />
+      </section>
+
+      <section>
+        <Title level={5}>对比度与有限无障碍</Title>
+        <ContrastBoard />
+      </section>
 
       <section>
         <Title level={5}>四层关系</Title>

@@ -1,13 +1,18 @@
 import type { CSSProperties, HTMLAttributes, InputHTMLAttributes, MouseEvent, ReactNode } from "react";
 import { useEffect, useRef, useState } from "react";
-import { buildActiveRingShadow, getColorToken, tokenRgba } from "../design-system/color-utils";
+import { getColorToken, tokenRgba } from "../design-system/color-utils";
 import { getDividerColor, getDividerHairlineWidth } from "../design-system/divider";
+import { buildFunctionalActiveRingShadow, functionalCssVar } from "../design-system/functional-skin";
 import { SensIcon } from "../design-system/icons";
 import { getTypographyToken } from "../design-system/typography";
 import { getUnitToken } from "../design-system/unit";
 import "./checkbox.css";
 
 export interface SensCheckboxProps extends Omit<InputHTMLAttributes<HTMLInputElement>, "children" | "type"> {
+  /**
+   * Visible label content. When omitted, provide aria-label or aria-labelledby
+   * so the native checkbox still has an accessible name.
+   */
   children?: ReactNode;
   description?: ReactNode;
   icon?: ReactNode;
@@ -28,12 +33,12 @@ function buildCheckboxTokenVars(): CSSProperties {
     "--sens-checkbox-border-width": px(getDividerHairlineWidth()),
     "--sens-checkbox-bg": getColorToken("white"),
     "--sens-checkbox-border": getDividerColor("deep", "transparent"),
-    "--sens-checkbox-hover-border": getColorToken("component-primary"),
-    "--sens-checkbox-active-border": getColorToken("component-active"),
-    "--sens-checkbox-active-shadow": buildActiveRingShadow("component-active-shadow"),
-    "--sens-checkbox-checked-bg": getColorToken("component-primary"),
-    "--sens-checkbox-checked-hover-bg": getColorToken("component-hover"),
-    "--sens-checkbox-checked-active-bg": getColorToken("component-active"),
+    "--sens-checkbox-hover-border": functionalCssVar("--sens-skin-primary", "component-primary"),
+    "--sens-checkbox-active-border": functionalCssVar("--sens-skin-active", "component-active"),
+    "--sens-checkbox-active-shadow": buildFunctionalActiveRingShadow(),
+    "--sens-checkbox-checked-bg": functionalCssVar("--sens-skin-primary", "component-primary"),
+    "--sens-checkbox-checked-hover-bg": functionalCssVar("--sens-skin-hover", "component-hover"),
+    "--sens-checkbox-checked-active-bg": functionalCssVar("--sens-skin-active", "component-active"),
     "--sens-checkbox-mark": getColorToken("white"),
     "--sens-checkbox-mark-disabled": getColorToken("icon-color-transparent-disable"),
     "--sens-checkbox-disabled-bg": tokenRgba("background-transparent-grey-hover", 0.06),
@@ -113,6 +118,7 @@ export function SensCheckbox({
         disabled={disabled}
         readOnly={readOnly}
         aria-checked={indeterminate ? "mixed" : inputProps["aria-checked"]}
+        aria-readonly={readOnly ? "true" : undefined}
         onClick={handleClick}
         onChange={readOnly ? undefined : onChange}
       />

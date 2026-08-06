@@ -1,24 +1,34 @@
 import { useState } from "react";
-import type { CSSProperties, ReactNode } from "react";
+import type { ReactNode } from "react";
 import { Alert, Space, Table, Tabs, Tag, Typography } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import {
+  buildShadowD3,
   getColorByPath,
   getColorToken,
   tokenRgba,
 } from "../../../design-system/color-utils";
 import { getDividerColor, getDividerHairlineWidth } from "../../../design-system/divider";
 import tokens from "../../../design-system/tokens.resolved.json";
-import { SensIcon } from "../../../design-system/icons";
+import { SensIcon, type ColorfulIconName } from "../../../design-system/icons";
 import { getTypographyToken } from "../../../design-system/typography";
 import cardDocSource from "../../../../docs/foundations/card.md?raw";
 import { BasicStylePageLayout } from "./BasicStylePageLayout";
 import { getPreviewTokens } from "../../previewTokens";
+import { buildFunctionalActiveRingShadow, functionalCssVar } from "../../../design-system/functional-skin";
+import {
+  SensButton,
+  SensButtonActionMenu,
+  SensCard,
+  SensCheckbox,
+  SensEntryCard,
+  SensTag,
+} from "../../../ui";
+import type { SensDropdownMenuItemConfig } from "../../../ui";
 
 const { Paragraph, Text, Title } = Typography;
 
 const unit = tokens.unit as Record<string, number>;
-const shadowTokens = tokens.shadow as Record<string, string>;
 
 const cardTokens = {
   padding: unit["spacing/4x"],
@@ -26,12 +36,12 @@ const cardTokens = {
   gap: unit["spacing/3x"],
   compactGap: unit["spacing/1x"],
   actionGap: unit["spacing/4x"],
+  actionBarHeight: 40,
+  actionBarPadding: 9,
   radius: unit["radius/l"],
-  checkboxRadius: unit["radius/s"],
   innerRadius: unit["radius/m"],
   iconSize: unit["size/icon/m"],
   mediaSize: unit["size/xxl"] + unit["spacing/1x"],
-  tagHeight: unit["size/component-height/xs"],
   placeholderMinHeight: unit["size/component-height/xxxl"] * 2,
   titleFontSize: getTypographyToken("font-size/m"),
   titleLineHeight: getTypographyToken("line-height/m"),
@@ -46,14 +56,13 @@ const cardTokens = {
 const colorTokens = {
   cardBg: getColorToken("white"),
   outline: getDividerColor("outline", "transparent"),
-  activeBorder: getColorToken("component-active"),
-  selectedBg: getColorToken("component-active-background"),
+  activeBorder: functionalCssVar("--sens-skin-active", "component-active"),
+  selectedBg: functionalCssVar("--sens-skin-active-bg", "component-active-background"),
   disabledBg: getColorToken("background-grey"),
   disabledText: tokenRgba("text-color-transparent-disable", 0.3),
   warning: getColorToken("warning-color"),
   warningBg: getColorToken("warning-light-background"),
   filledBg: tokenRgba("background-transparent-grey", 0.04),
-  tagBg: tokenRgba("background-01-transparent", 0.08),
   placeholder: getColorByPath("基础色板/兰花紫/02"),
   text: tokenRgba("text-color-transparent", 0.9),
   subText: tokenRgba("text-sub-color-transparent", 0.58),
@@ -65,11 +74,23 @@ type CardInteractionState = "default" | "hover" | "pressed";
 type CardStatusState = "disabled" | "disabledHover" | "error";
 
 const cardInteractionTokens = {
-  defaultBorder: getDividerColor("outline", "transparent"),
   divider: getDividerColor("light", "transparent"),
-  disabledBorder: getDividerColor("light", "transparent"),
-  hoverShadow: shadowTokens["D3/down"],
-  pressedShadow: shadowTokens["active-ring/functional"],
+} as const;
+
+const CARD_OPERATION_MENU_ITEMS: SensDropdownMenuItemConfig[] = [
+  { key: "operation-3", label: "操作 3", variant: "link" },
+  { key: "operation-4", label: "操作 4", variant: "link" },
+  { key: "operation-5", label: "操作 5", variant: "link" },
+];
+
+const cardActionButtonStyle = {
+  height: cardTokens.bodyLineHeight,
+  minHeight: cardTokens.bodyLineHeight,
+  paddingInline: 0,
+  paddingBlock: 0,
+  fontSize: cardTokens.bodyFontSize,
+  fontWeight: cardTokens.bodyFontWeight,
+  lineHeight: `${cardTokens.bodyLineHeight}px`,
 } as const;
 
 const CARD_STATUS_SPECS: Array<{
@@ -97,6 +118,34 @@ const CARD_STATUS_SPECS: Array<{
     tokens: ["warning-light-background", "warning-color", "Typography 辅助文案"],
   },
 ];
+
+const GENERIC_CARD_PLACEHOLDER_HEIGHT = 168;
+
+const ENTRY_CARD_STATES = [
+  { key: "default", label: "默认" },
+  { key: "hover", label: "悬停" },
+  { key: "pressed", label: "点击" },
+  { key: "selected", label: "选中" },
+  { key: "selectedHover", label: "选中悬停" },
+  { key: "disabled", label: "禁用" },
+  { key: "disabledHover", label: "禁用悬停" },
+] as const;
+
+type EntryCardState = (typeof ENTRY_CARD_STATES)[number]["key"];
+
+const ENTRY_CARD_ICONS: ColorfulIconName[] = ["webhook-setting", "section-settings", "view-api", "api-key-manage"];
+
+const GENERIC_CARD_STATES = [
+  { key: "default", label: "默认" },
+  { key: "hover", label: "悬停" },
+  { key: "pressed", label: "点击" },
+  { key: "selected", label: "选中" },
+  { key: "selectedHover", label: "选中悬停" },
+  { key: "disabled", label: "禁用" },
+  { key: "disabledHover", label: "禁用悬停" },
+] as const;
+
+type GenericCardState = (typeof GENERIC_CARD_STATES)[number]["key"];
 
 interface CardSurfaceSpec {
   key: string;
@@ -135,6 +184,7 @@ const DESIGN_RULES = [
   "自由容器只规定外层容器，不定义内部业务结构。",
   "紫色块只作为内容占位，帮助验收 padding 和承载区域，不属于 Card 容器规则。",
   "标题区是组合示例，不代表 Card 必须内置标题区。",
+  "入口型卡片是建立在 SensCard 之上的业务组合：图标、标题和辅助信息必选，整卡具备导航属性。",
 ];
 
 const MAPPING_ROWS = [
@@ -234,7 +284,7 @@ const MAPPING_ROWS = [
     source: "功能色/06_选中背景默认",
     token: "component-active-background",
     value: "#EBF7F4",
-    code: 'getColorToken("component-active-background")',
+    code: 'functionalCssVar("--sens-skin-active-bg", "component-active-background")',
     status: "已映射，仅 checkbox 场景",
   },
   {
@@ -303,50 +353,17 @@ function TokenLabels({ labels }: { labels: string[] }) {
   );
 }
 
-function PlaceholderBlock({ compact = false }: { compact?: boolean }) {
+function PlaceholderBlock({ compact = false, fill = false, height }: { compact?: boolean; fill?: boolean; height?: number }) {
   return (
     <div
       style={{
-        minHeight: compact ? unit["size/component-height/xxl"] * 2 : cardTokens.placeholderMinHeight,
+        minHeight: height ?? (compact ? unit["size/component-height/xxl"] * 2 : cardTokens.placeholderMinHeight),
+        height: fill ? "100%" : undefined,
         borderRadius: cardTokens.innerRadius,
         background: colorTokens.placeholder,
       }}
     />
   );
-}
-
-function getInteractiveCardStyle(state: CardInteractionState, selected = false): CSSProperties {
-  return {
-    padding: cardTokens.interactivePadding,
-    borderRadius: cardTokens.radius,
-    border: `1px solid ${state === "pressed" || selected ? colorTokens.activeBorder : cardInteractionTokens.defaultBorder}`,
-    background: selected ? colorTokens.selectedBg : colorTokens.cardBg,
-    boxShadow: selected ? "none" : state === "hover" ? cardInteractionTokens.hoverShadow : state === "pressed" ? cardInteractionTokens.pressedShadow : "none",
-    transition: "border-color 0.16s ease, box-shadow 0.16s ease, background-color 0.16s ease",
-    cursor: "pointer",
-  };
-}
-
-function getStatusCardStyle(state: CardStatusState): CSSProperties {
-  if (state === "error") {
-    return {
-      padding: cardTokens.interactivePadding,
-      borderRadius: cardTokens.radius,
-      border: `1px solid ${colorTokens.warning}`,
-      background: colorTokens.warningBg,
-      boxShadow: "none",
-      cursor: "default",
-    };
-  }
-
-  return {
-    padding: cardTokens.interactivePadding,
-    borderRadius: cardTokens.radius,
-    border: `1px solid ${cardInteractionTokens.disabledBorder}`,
-    background: colorTokens.disabledBg,
-    boxShadow: state === "disabledHover" ? cardInteractionTokens.hoverShadow : "none",
-    cursor: "not-allowed",
-  };
 }
 
 function useCardInteractionState() {
@@ -365,23 +382,9 @@ function useCardInteractionState() {
 
 function CardTag() {
   return (
-    <span
-      style={{
-        height: cardTokens.tagHeight,
-        display: "inline-flex",
-        alignItems: "center",
-        justifyContent: "center",
-        paddingInline: cardTokens.gap / 2,
-        borderRadius: cardTokens.checkboxRadius,
-        background: colorTokens.tagBg,
-        color: colorTokens.text,
-        fontSize: cardTokens.captionFontSize,
-        lineHeight: `${cardTokens.captionLineHeight}px`,
-        fontWeight: cardTokens.bodyFontWeight,
-      }}
-    >
+    <SensTag variant="multicolor" color="neutral" size="small">
       标签
-    </span>
+    </SensTag>
   );
 }
 
@@ -408,11 +411,19 @@ function InteractiveCardHeader({
   withCheckbox = false,
   checked = false,
   iconColor = colorTokens.subText,
+  withMoreMenu = false,
+  disabled = false,
+  moreMenuOpen = false,
+  onMoreMenuOpenChange,
 }: {
   withMedia: boolean;
   withCheckbox?: boolean;
   checked?: boolean;
   iconColor?: string;
+  withMoreMenu?: boolean;
+  disabled?: boolean;
+  moreMenuOpen?: boolean;
+  onMoreMenuOpenChange?: (open: boolean) => void;
 }) {
   return (
     <div style={{ display: "flex", gap: cardTokens.gap, alignItems: "center", width: "100%" }}>
@@ -431,26 +442,8 @@ function InteractiveCardHeader({
       <div style={{ minWidth: 0, flex: 1, display: "flex", flexDirection: "column", gap: cardTokens.compactGap }}>
         <div style={{ display: "flex", alignItems: "center", gap: cardTokens.compactGap, minWidth: 0 }}>
           {withCheckbox ? (
-            <span
-              aria-hidden
-              style={{
-                width: cardTokens.iconSize,
-                height: cardTokens.iconSize,
-                borderRadius: cardTokens.checkboxRadius,
-                border: `1px solid ${checked ? colorTokens.activeBorder : getDividerColor("deep", "transparent")}`,
-                background: checked ? colorTokens.activeBorder : colorTokens.cardBg,
-                color: colorTokens.cardBg,
-                display: "inline-flex",
-                alignItems: "center",
-                justifyContent: "center",
-                fontSize: cardTokens.captionFontSize,
-                lineHeight: `${cardTokens.captionLineHeight}px`,
-                flex: "0 0 auto",
-              }}
-            >
-              {checked ? (
-                <SensIcon name="check" sizeToken="size/icon/m" color={colorTokens.cardBg} />
-              ) : null}
+            <span aria-hidden="true" style={{ display: "inline-flex", flex: "0 0 auto", pointerEvents: "none" }}>
+              <SensCheckbox checked={checked} readOnly tabIndex={-1} style={{ pointerEvents: "none" }} />
             </span>
           ) : null}
           <Text
@@ -466,7 +459,36 @@ function InteractiveCardHeader({
           >
             卡片标题
           </Text>
-          <SensIcon name="more" sizeToken="size/icon/m" color={iconColor} />
+          {withMoreMenu ? (
+            <SensButtonActionMenu
+              tone={moreMenuOpen ? "link" : "linkWeak"}
+              items={CARD_OPERATION_MENU_ITEMS}
+              disabled={disabled}
+              trigger={["click"]}
+              dropdownProps={{
+                open: moreMenuOpen,
+                placement: "bottomRight",
+                onOpenChange: onMoreMenuOpenChange,
+              }}
+            >
+              <SensButton
+                tone={moreMenuOpen ? "link" : "linkWeak"}
+                disabled={disabled}
+                aria-label="更多操作"
+                aria-haspopup="menu"
+                onClick={(event) => event.stopPropagation()}
+                icon={<SensIcon name="more" sizeToken="size/icon/m" color="currentColor" />}
+                style={{
+                  width: cardTokens.iconSize + cardTokens.compactGap * 2,
+                  height: cardTokens.iconSize + cardTokens.compactGap * 2,
+                  minHeight: cardTokens.iconSize + cardTokens.compactGap * 2,
+                  padding: 0,
+                }}
+              />
+            </SensButtonActionMenu>
+          ) : (
+            <SensIcon name="more" sizeToken="size/icon/m" color={iconColor} />
+          )}
         </div>
         <div style={{ display: "flex", alignItems: "center", gap: cardTokens.compactGap, minWidth: 0 }}>
           <CardTag />
@@ -489,19 +511,81 @@ function InteractiveCardHeader({
   );
 }
 
-function InteractiveCardActions({ active, disabled = false }: { active: boolean; disabled?: boolean }) {
+function InteractiveCardActions({
+  active = false,
+  disabled = false,
+  withMoreMenu = false,
+  moreMenuOpen = false,
+  onMoreMenuOpenChange,
+}: {
+  active?: boolean;
+  disabled?: boolean;
+  withMoreMenu?: boolean;
+  moreMenuOpen?: boolean;
+  onMoreMenuOpenChange?: (open: boolean) => void;
+}) {
   return (
-    <div style={{ display: "flex", gap: cardTokens.actionGap, alignItems: "center", minHeight: cardTokens.bodyLineHeight }}>
-      <CardActionText active={active} disabled={disabled}>操作 1</CardActionText>
-      <CardActionText active={active} disabled={disabled}>操作 2</CardActionText>
-      <span style={{ display: "inline-flex", gap: cardTokens.compactGap, alignItems: "center" }}>
-        <CardActionText active={active} disabled={disabled}>更多</CardActionText>
-        <SensIcon
-          name="chevron-down"
-          sizeToken="size/icon/m"
-          color={disabled ? colorTokens.disabledText : active ? colorTokens.link : colorTokens.subText}
-        />
-      </span>
+    <div
+      onClick={(event) => event.stopPropagation()}
+      style={{
+        marginInline: -cardTokens.interactivePadding,
+        marginTop: 0,
+        marginBottom: -cardTokens.interactivePadding,
+        borderTop: `1px solid ${cardInteractionTokens.divider}`,
+        boxSizing: "border-box",
+        height: cardTokens.actionBarHeight,
+        flex: `0 0 ${cardTokens.actionBarHeight}px`,
+        padding: `${cardTokens.actionBarPadding}px ${cardTokens.interactivePadding}px`,
+        display: "flex",
+        gap: cardTokens.actionGap,
+        alignItems: "center",
+      }}
+    >
+      {withMoreMenu ? (
+        <>
+          <SensButton
+            tone="linkWeak"
+            disabled={disabled}
+            style={cardActionButtonStyle}
+          >
+            操作 1
+          </SensButton>
+          <SensButton
+            tone="linkWeak"
+            disabled={disabled}
+            style={cardActionButtonStyle}
+          >
+            操作 2
+          </SensButton>
+          <SensButtonActionMenu
+            tone={moreMenuOpen ? "link" : "linkWeak"}
+            showChevron
+            items={CARD_OPERATION_MENU_ITEMS}
+            disabled={disabled}
+            style={cardActionButtonStyle}
+            dropdownProps={{
+              open: moreMenuOpen,
+              placement: "bottomLeft",
+              onOpenChange: onMoreMenuOpenChange,
+            }}
+          >
+            更多
+          </SensButtonActionMenu>
+        </>
+      ) : (
+        <>
+          <CardActionText active={active} disabled={disabled}>操作 1</CardActionText>
+          <CardActionText active={active} disabled={disabled}>操作 2</CardActionText>
+          <span style={{ display: "inline-flex", gap: cardTokens.compactGap, alignItems: "center" }}>
+            <CardActionText active={active} disabled={disabled}>更多</CardActionText>
+            <SensIcon
+              name="chevron-down"
+              sizeToken="size/icon/m"
+              color={disabled ? colorTokens.disabledText : active ? colorTokens.link : colorTokens.subText}
+            />
+          </span>
+        </>
+      )}
     </div>
   );
 }
@@ -533,11 +617,26 @@ function StatusSampleShell({
   demo: string;
   children: ReactNode;
 }) {
+  const interactive = state === "error";
+  const { eventHandlers } = useCardInteractionState();
+
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: cardTokens.compactGap }}>
-      <div data-card-demo={demo} data-card-state={state} style={getStatusCardStyle(state)}>
+      <SensCard
+        {...(interactive ? eventHandlers : {})}
+        data-card-demo={demo}
+        data-card-state={state}
+        interactive={interactive}
+        pressable={false}
+        disabled={state !== "error"}
+        error={state === "error"}
+        style={{
+          padding: cardTokens.interactivePadding,
+          ...(state === "disabledHover" ? { boxShadow: buildShadowD3() } : {}),
+        }}
+      >
         {children}
-      </div>
+      </SensCard>
       {state === "error" ? <ErrorMessage /> : null}
     </div>
   );
@@ -548,7 +647,7 @@ function FreeStatusCardSample({ state }: { state: CardStatusState }) {
 
   return (
     <StatusSampleShell state={state} demo={`free-${state}`}>
-      <div style={{ display: "flex", flexDirection: "column", gap: cardTokens.gap, minHeight: 170 }}>
+      <div style={{ display: "flex", flexDirection: "column", gap: cardTokens.gap }}>
         <PlaceholderBlock compact />
         <Text
           style={{
@@ -567,22 +666,39 @@ function FreeStatusCardSample({ state }: { state: CardStatusState }) {
 
 function GridStatusCardSample({ state }: { state: CardStatusState }) {
   const disabled = state === "disabled" || state === "disabledHover";
+  const interactive = state === "error";
+  const [openMenu, setOpenMenu] = useState<"bottom" | "top" | null>(null);
+
+  const handleMenuOpenChange = (menu: "bottom" | "top") => (open: boolean) => {
+    setOpenMenu(open ? menu : null);
+  };
 
   return (
     <StatusSampleShell state={state} demo={`grid-${state}`}>
       <div
         style={{
-          minHeight: unit["size/m"] * 9 + cardTokens.gap + 2,
           display: "flex",
           flexDirection: "column",
           gap: cardTokens.gap,
           overflow: "hidden",
         }}
       >
-        <InteractiveCardHeader withMedia iconColor={disabled ? colorTokens.disabledText : colorTokens.subText} />
+        <InteractiveCardHeader
+          withMedia
+          iconColor={disabled ? colorTokens.disabledText : colorTokens.subText}
+          withMoreMenu
+          disabled={disabled}
+          moreMenuOpen={openMenu === "top"}
+          onMoreMenuOpenChange={handleMenuOpenChange("top")}
+        />
         <PlaceholderBlock />
-        <div style={{ marginInline: -cardTokens.interactivePadding, borderTop: `1px solid ${cardInteractionTokens.divider}` }} />
-        <InteractiveCardActions active={false} disabled={disabled} />
+        <InteractiveCardActions
+          active={false}
+          disabled={disabled}
+          withMoreMenu
+          moreMenuOpen={openMenu === "bottom"}
+          onMoreMenuOpenChange={handleMenuOpenChange("bottom")}
+        />
       </div>
     </StatusSampleShell>
   );
@@ -615,6 +731,69 @@ function CardStatusGroup({ title, description, kind }: { title: string; descript
   );
 }
 
+function GenericCardStateSample({ state }: { state: GenericCardState }) {
+  const selected = state === "selected" || state === "selectedHover";
+  const disabled = state === "disabled" || state === "disabledHover";
+  const label = GENERIC_CARD_STATES.find((item) => item.key === state)?.label;
+  const stateVisualStyle = {
+    ...(state === "hover" ? { boxShadow: buildShadowD3() } : {}),
+    ...(state === "pressed"
+      ? {
+          borderColor: colorTokens.activeBorder,
+          boxShadow: buildFunctionalActiveRingShadow(),
+        }
+      : {}),
+    ...(state === "selected"
+      ? { borderColor: colorTokens.activeBorder, boxShadow: "none" }
+      : {}),
+    ...(state === "selectedHover"
+      ? { borderColor: colorTokens.activeBorder, boxShadow: buildShadowD3() }
+      : {}),
+  };
+
+  return (
+    <Space direction="vertical" size="small" style={{ width: "100%" }}>
+      <Text>{label}</Text>
+      <SensCard
+        data-card-demo={`generic-${state}`}
+        data-card-state={state}
+        interactive={!disabled}
+        selected={selected}
+        disabled={disabled}
+        style={{
+          padding: unit["spacing/3x"],
+          ...(selected ? { background: colorTokens.cardBg } : {}),
+          ...stateVisualStyle,
+          ...(disabled
+            ? {
+                background: colorTokens.filledBg,
+                borderColor: cardInteractionTokens.divider,
+                ...(state === "disabledHover" ? { boxShadow: buildShadowD3() } : {}),
+              }
+            : {}),
+        }}
+      >
+        <PlaceholderBlock height={GENERIC_CARD_PLACEHOLDER_HEIGHT} />
+      </SensCard>
+    </Space>
+  );
+}
+
+function GenericCardStateMatrix() {
+  return (
+    <Space direction="vertical" size="small" style={{ width: "100%" }}>
+      <Paragraph style={{ margin: 0, color: colorTokens.subText }}>
+        通用卡片只展示容器状态；默认、悬停、点击和选中悬停支持真实鼠标走查，选中语义仍由宿主决定。
+      </Paragraph>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(4, minmax(160px, 1fr))", gap: cardTokens.gap }}>
+        {GENERIC_CARD_STATES.map((state) => (
+          <GenericCardStateSample key={state.key} state={state.key} />
+        ))}
+      </div>
+    </Space>
+  );
+}
+
 function FreeInteractiveCardExample() {
   const { state, eventHandlers } = useCardInteractionState();
 
@@ -626,13 +805,13 @@ function FreeInteractiveCardExample() {
           自由卡片与网格视图卡片共用 default / hover / pressed 状态，不带分割线。
         </Paragraph>
       </div>
-      <div
+      <SensCard
         {...eventHandlers}
         data-card-demo="free"
         data-card-state={state}
+        interactive
         style={{
-          ...getInteractiveCardStyle(state),
-          minHeight: cardTokens.placeholderMinHeight + cardTokens.bodyLineHeight + cardTokens.gap * 3,
+          padding: cardTokens.interactivePadding,
           display: "flex",
           flexDirection: "column",
           gap: cardTokens.gap,
@@ -649,7 +828,7 @@ function FreeInteractiveCardExample() {
         >
           自由内容区域
         </Text>
-      </div>
+      </SensCard>
       <TokenLabels labels={["default / hover / pressed", "radius/l", "spacing/3x", "shadow/D3/down"]} />
     </Space>
   );
@@ -657,58 +836,80 @@ function FreeInteractiveCardExample() {
 
 function GridInteractiveCardExample() {
   const { state, eventHandlers } = useCardInteractionState();
-  const actionActive = state === "hover";
+  const [openMenu, setOpenMenu] = useState<"bottom" | "top" | null>(null);
+
+  const handleMenuOpenChange = (menu: "bottom" | "top") => (open: boolean) => {
+    setOpenMenu(open ? menu : null);
+  };
 
   return (
     <Space direction="vertical" size="small" style={{ width: "100%" }}>
       <div>
-        <Text strong>网格视图卡片 / 交互状态</Text>
+        <Text strong>网格视图卡片 / 操作外露型 / 无选择功能</Text>
         <Paragraph style={{ marginTop: cardTokens.compactGap, marginBottom: 0, color: colorTokens.subText }}>
-          带标题区、内容区、操作区和分割线；交互状态与自由卡片共用。
+          卡片只承载打开、编辑等操作，不提供选中语义；操作区使用弱化链接按钮，更多操作通过下拉菜单收纳。
         </Paragraph>
       </div>
-      <div
+      <SensCard
         {...eventHandlers}
-        data-card-demo="grid"
+        data-card-demo="grid-operation-only"
         data-card-state={state}
+        data-card-selectable="false"
+        interactive
+        pressable={false}
         style={{
-          ...getInteractiveCardStyle(state),
+          padding: cardTokens.interactivePadding,
           width: "100%",
-          maxWidth: unit["size/m"] * 10 + unit["spacing/1x"],
-          minHeight: unit["size/m"] * 9 + cardTokens.gap + 2,
           display: "flex",
           flexDirection: "column",
           gap: cardTokens.gap,
           overflow: "hidden",
         }}
       >
-        <InteractiveCardHeader withMedia />
+        <InteractiveCardHeader
+          withMedia
+          withMoreMenu
+          moreMenuOpen={openMenu === "top"}
+          onMoreMenuOpenChange={handleMenuOpenChange("top")}
+        />
         <PlaceholderBlock />
-        <div style={{ marginInline: -cardTokens.interactivePadding, borderTop: `1px solid ${cardInteractionTokens.divider}` }} />
-        <InteractiveCardActions active={actionActive} />
-      </div>
-      <TokenLabels labels={["divider/color/light/transparent", "Typography 正文内容", "link-color on hover"]} />
+        <InteractiveCardActions
+          withMoreMenu
+          moreMenuOpen={openMenu === "bottom"}
+          onMoreMenuOpenChange={handleMenuOpenChange("bottom")}
+        />
+      </SensCard>
+      <TokenLabels labels={["divider/color/light/transparent", "linkWeak", "dropdown-menu / variant=link", "无 selected"]} />
     </Space>
   );
 }
 
 function SelectableCardExample() {
   const [selected, setSelected] = useState(false);
+  const { state, eventHandlers } = useCardInteractionState();
+  const [openMenu, setOpenMenu] = useState<"bottom" | "top" | null>(null);
+
+  const handleMenuOpenChange = (menu: "bottom" | "top") => (open: boolean) => {
+    setOpenMenu(open ? menu : null);
+  };
 
   return (
     <Space direction="vertical" size="small" style={{ width: "100%" }}>
       <div>
         <Text strong>选择型卡片 / 激活状态</Text>
         <Paragraph style={{ marginTop: cardTokens.compactGap, marginBottom: 0, color: colorTokens.subText }}>
-          激活只属于带 checkbox 的选择型卡片：浅绿背景 + active 描边 + 无投影。
+          激活只属于带 checkbox 的选择型卡片：浅绿背景 + active 描边 + active 外环；悬停复用网格视图卡片的 D3 投影。
         </Paragraph>
       </div>
-      <div
+      <SensCard
+        {...eventHandlers}
         role="checkbox"
         aria-checked={selected}
         tabIndex={0}
         data-card-demo="selectable"
-        data-card-state={selected ? "checked" : "unchecked"}
+        data-card-state={selected ? "checked" : state}
+        interactive
+        selected={selected}
         onClick={() => setSelected((value) => !value)}
         onKeyDown={(event) => {
           if (event.key === "Enter" || event.key === " ") {
@@ -717,20 +918,158 @@ function SelectableCardExample() {
           }
         }}
         style={{
-          ...getInteractiveCardStyle("default", selected),
-          minHeight: cardTokens.placeholderMinHeight + cardTokens.tagHeight + cardTokens.bodyLineHeight + cardTokens.gap * 6,
+          padding: cardTokens.interactivePadding,
           display: "flex",
           flexDirection: "column",
           gap: cardTokens.gap,
           overflow: "hidden",
         }}
       >
-        <InteractiveCardHeader withMedia={false} withCheckbox checked={selected} />
+        <InteractiveCardHeader
+          withMedia={false}
+          withCheckbox
+          checked={selected}
+          withMoreMenu
+          moreMenuOpen={openMenu === "top"}
+          onMoreMenuOpenChange={handleMenuOpenChange("top")}
+        />
         <PlaceholderBlock />
-        <div style={{ marginInline: -cardTokens.interactivePadding, borderTop: `1px solid ${cardInteractionTokens.divider}` }} />
-        <InteractiveCardActions active={false} />
+        <InteractiveCardActions
+          withMoreMenu
+          moreMenuOpen={openMenu === "bottom"}
+          onMoreMenuOpenChange={handleMenuOpenChange("bottom")}
+        />
+      </SensCard>
+      <TokenLabels labels={["SensCheckbox", "component-primary / hover / active", "linkWeak default", "link-color on hover / open", "two dropdown menus"]} />
+    </Space>
+  );
+}
+
+function EntryCardIcon({ name }: { name: ColorfulIconName }) {
+  return <SensIcon name={name} variant="colorful" size={unit["size/xxl"]} />;
+}
+
+function EntryCardStateSample({ state, size = "large" }: { state: EntryCardState; size?: "large" | "small" }) {
+  const selected = state === "selected" || state === "selectedHover";
+  const disabled = state === "disabled" || state === "disabledHover";
+  const stateStyle = {
+    ...(state === "hover" ? { boxShadow: buildShadowD3() } : {}),
+    ...(state === "pressed"
+      ? {
+          borderColor: colorTokens.activeBorder,
+          borderRadius: unit["radius/m"],
+          boxShadow: buildFunctionalActiveRingShadow(),
+        }
+      : {}),
+    ...(selected
+      ? {
+          borderColor: colorTokens.activeBorder,
+          background: colorTokens.selectedBg,
+          boxShadow: state === "selectedHover" ? buildShadowD3() : "none",
+        }
+      : {}),
+    ...(disabled
+      ? {
+          background: colorTokens.filledBg,
+          borderColor: cardInteractionTokens.divider,
+          ...(state === "disabledHover" ? { boxShadow: buildShadowD3() } : {}),
+        }
+      : {}),
+  };
+
+  return (
+    <Space direction="vertical" size="small" style={{ width: "100%" }}>
+      <Text>{ENTRY_CARD_STATES.find((item) => item.key === state)?.label}</Text>
+      <SensEntryCard
+        data-card-demo={`entry-${size}-${state}`}
+        data-card-state={state}
+        size={size}
+        icon={<EntryCardIcon name={ENTRY_CARD_ICONS[0]} />}
+        title="入口标题"
+        description="辅助信息"
+        selected={selected}
+        disabled={disabled}
+        interactive={!disabled}
+        style={stateStyle}
+      />
+    </Space>
+  );
+}
+
+function EntryCardInteractiveExample() {
+  const [selectedEntry, setSelectedEntry] = useState<"large" | "small" | null>(null);
+  const [lastDoubleClickedEntry, setLastDoubleClickedEntry] = useState<"large" | "small" | null>(null);
+
+  const toggleSelectedEntry = (entry: "large" | "small") => {
+    setSelectedEntry((current) => (current === entry ? null : entry));
+  };
+
+  return (
+    <Space direction="vertical" size="small" style={{ width: "100%" }}>
+      <div>
+        <Text strong>入口型卡片 / 可点击入口</Text>
+        <Paragraph style={{ marginTop: cardTokens.compactGap, marginBottom: 0, color: colorTokens.subText }}>
+          入口卡片是具备导航属性的按钮；图标、标题和辅助信息由业务宿主传入，卡片自身支持键盘激活和双击。
+        </Paragraph>
       </div>
-      <TokenLabels labels={["component-active-background", "component-active", "no shadow", "checkbox only"]} />
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(2, minmax(0, 1fr))", gap: cardTokens.gap }}>
+        <SensEntryCard
+          data-card-demo="entry-large"
+          size="large"
+          icon={<EntryCardIcon name="webhook-setting" />}
+          title="企业触达通道配置"
+          description="配置企业内的触达方式"
+          selected={selectedEntry === "large"}
+          aria-current={selectedEntry === "large" ? "page" : undefined}
+          onClick={() => toggleSelectedEntry("large")}
+          onDoubleClick={() => setLastDoubleClickedEntry("large")}
+        />
+        <SensEntryCard
+          data-card-demo="entry-small"
+          size="small"
+          icon={<EntryCardIcon name="section-settings" />}
+          title="项目设置"
+          description="管理项目基础配置"
+          selected={selectedEntry === "small"}
+          aria-current={selectedEntry === "small" ? "page" : undefined}
+          onClick={() => toggleSelectedEntry("small")}
+          onDoubleClick={() => setLastDoubleClickedEntry("small")}
+        />
+      </div>
+      {lastDoubleClickedEntry ? (
+        <Text style={{ color: colorTokens.subText }}>
+          双击已触发：{lastDoubleClickedEntry === "large" ? "企业触达通道配置" : "项目设置"}
+        </Text>
+      ) : null}
+      <TokenLabels
+        labels={[
+          "SensCard",
+          "spacing/3x",
+          "radius/m · 点击",
+          "radius/l · 选中",
+          "彩色图标 48px",
+          "大号图标布局位 60px",
+          "component-active",
+          "shadow/active-ring/functional · 点击",
+          "shadow/D3/down · 悬停",
+          "component-active-background · 选中",
+        ]}
+      />
+    </Space>
+  );
+}
+
+function EntryCardMatrix() {
+  return (
+    <Space direction="vertical" size="small" style={{ width: "100%" }}>
+      <Paragraph style={{ margin: 0, color: colorTokens.subText }}>
+        入口型卡片的状态矩阵使用真实 SensEntryCard；实际场景中由业务宿主决定导航和选中语义。
+      </Paragraph>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(4, minmax(0, 1fr))", gap: cardTokens.gap }}>
+        {ENTRY_CARD_STATES.map((state) => (
+          <EntryCardStateSample key={state.key} state={state.key} />
+        ))}
+      </div>
     </Space>
   );
 }
@@ -744,16 +1083,12 @@ function FreeContainerCard({ spec }: { spec: CardSurfaceSpec }) {
           {spec.description}
         </Paragraph>
       </div>
-      <div
-        style={{
-          padding: cardTokens.padding,
-          borderRadius: cardTokens.radius,
-          border: spec.border,
-          background: spec.background,
-        }}
+      <SensCard
+        variant={spec.key === "filled" ? "filled" : "outline"}
+        style={{ padding: cardTokens.padding }}
       >
         <PlaceholderBlock />
-      </div>
+      </SensCard>
       <TokenLabels labels={spec.labels} />
     </Space>
   );
@@ -769,14 +1104,7 @@ function TitledCardExample() {
         </Paragraph>
       </div>
 
-      <div
-        style={{
-          borderRadius: cardTokens.radius,
-          border: `1px solid ${colorTokens.outline}`,
-          background: colorTokens.cardBg,
-          overflow: "hidden",
-        }}
-      >
+      <SensCard style={{ padding: 0, overflow: "hidden" }}>
         <div
           style={{
             minHeight: unit["size/component-height/l"],
@@ -786,8 +1114,22 @@ function TitledCardExample() {
             gap: cardTokens.compactGap,
           }}
         >
-          <SensIcon name="drag-vertical" sizeToken="size/icon/m" colorRole="subtle" />
-          <SensIcon name="chevron-down" sizeToken="size/icon/m" colorRole="subtle" />
+          <SensButton
+            tone="linkWeak"
+            aria-label="拖拽标题区"
+            icon={<SensIcon name="drag-vertical" sizeToken="size/icon/m" color="currentColor" />}
+            style={{
+              width: cardTokens.iconSize + cardTokens.compactGap * 2,
+              height: cardTokens.iconSize + cardTokens.compactGap * 2,
+              minHeight: cardTokens.iconSize + cardTokens.compactGap * 2,
+              padding: 0,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              lineHeight: 0,
+              cursor: "var(--sens-cursor-move)",
+            }}
+          />
           <Text
             style={{
               flex: 1,
@@ -801,47 +1143,46 @@ function TitledCardExample() {
           >
             标题区
           </Text>
-          <SensIcon name="rename" sizeToken="size/icon/m" colorRole="subtle" />
-          <Text
-            style={{
-              color: colorTokens.link,
-              fontSize: cardTokens.bodyFontSize,
-              lineHeight: `${cardTokens.bodyLineHeight}px`,
-              fontWeight: cardTokens.bodyFontWeight,
-            }}
+          <SensButton
+            tone="link"
+            icon={<SensIcon name="rename" sizeToken="size/icon/m" color="currentColor" />}
+            style={{ minWidth: 0, paddingInline: 0 }}
           >
             操作
-          </Text>
+          </SensButton>
         </div>
         <div style={{ height: getDividerHairlineWidth(), background: cardInteractionTokens.divider }} />
         <div style={{ padding: cardTokens.padding }}>
           <PlaceholderBlock compact />
         </div>
-      </div>
+      </SensCard>
       <TokenLabels labels={["Typography 四级标题", "Typography 正文内容", "size/icon/m", "仅组合示例"]} />
     </Space>
   );
 }
 
-function CardShowcase() {
+export function CardInteractiveShowcase() {
   const token = getPreviewTokens();
 
   return (
     <Space direction="vertical" size="large" style={{ width: "100%" }}>
       <section>
         <Title level={5} style={{ marginTop: 0 }}>
-          自由容器卡片
+          通用卡片 / 状态
         </Title>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(2, minmax(260px, 1fr))", gap: token.marginLG }}>
-          {CARD_SURFACES.map((spec) => (
-            <FreeContainerCard key={spec.key} spec={spec} />
-          ))}
-        </div>
+        <GenericCardStateMatrix />
       </section>
 
       <section>
-        <Title level={5}>组合示例</Title>
+        <Title level={5} style={{ marginTop: 0 }}>
+          组合示例
+        </Title>
         <TitledCardExample />
+      </section>
+
+      <section>
+        <Title level={5}>入口型卡片</Title>
+        <EntryCardInteractiveExample />
       </section>
 
       <section>
@@ -872,6 +1213,27 @@ function CardShowcase() {
   );
 }
 
+export function CardMatrixPanel() {
+  return (
+    <Space direction="vertical" size="large" style={{ width: "100%" }}>
+      <CardStatusGroup
+        title="自由卡片 / 状态矩阵"
+        description="静态对照 default 之外的禁用、禁用悬停和报错状态。"
+        kind="free"
+      />
+      <CardStatusGroup
+        title="网格视图卡片 / 状态矩阵"
+        description="网格结构复用同一套容器状态，内部标题区、分割线和操作区保持可见。"
+        kind="grid"
+      />
+      <section>
+        <Text strong>入口型卡片 / 状态矩阵</Text>
+        <EntryCardMatrix />
+      </section>
+    </Space>
+  );
+}
+
 function DesignRulesPanel() {
   return (
     <Space direction="vertical" size="middle" style={{ width: "100%" }}>
@@ -879,7 +1241,7 @@ function DesignRulesPanel() {
         type="info"
         showIcon
         message="Card 本轮边界"
-        description="本轮只收敛自由容器卡片和一个标题区组合示例，不进入 EntryCard / DataSourceCard / 复杂拖拽场景。"
+        description="本轮收敛自由容器卡片、入口型卡片和标题区组合示例；业务页面中的入口卡片组合进入样板间。"
       />
       <ul style={{ margin: 0, paddingInlineStart: 20 }}>
         {DESIGN_RULES.map((rule) => (
@@ -892,7 +1254,7 @@ function DesignRulesPanel() {
         type="warning"
         showIcon
         message="状态边界"
-        description="selected / 激活只属于带 checkbox 的选择型卡片，普通自由卡片和网格视图卡片只定义 default / hover / pressed。"
+        description="selected / 激活只属于带 checkbox 的选择型卡片；入口型卡片的 selected 由业务宿主按导航场景决定。"
       />
     </Space>
   );
@@ -920,7 +1282,7 @@ function MappingPanel() {
   );
 }
 
-function CardRulePanel() {
+export function CardRulePanel() {
   return (
     <Tabs
       size="small"
@@ -933,15 +1295,33 @@ function CardRulePanel() {
   );
 }
 
-function CardSpecimen() {
+function CardFoundationSpecimen() {
   const token = getPreviewTokens();
 
   return (
-    <div style={{ display: "grid", gridTemplateColumns: "minmax(0, 1.2fr) minmax(420px, 0.8fr)", gap: token.marginLG }}>
-      <CardShowcase />
+    <Space direction="vertical" size="large" style={{ width: "100%" }}>
+      <Space direction="vertical" size="large" style={{ width: "100%" }}>
+        <section>
+          <Title level={5} style={{ marginTop: 0 }}>
+            自由容器卡片
+          </Title>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(2, minmax(260px, 1fr))", gap: token.marginLG }}>
+            {CARD_SURFACES.map((spec) => (
+              <FreeContainerCard key={spec.key} spec={spec} />
+            ))}
+          </div>
+        </section>
+        <Alert
+          type="info"
+          showIcon
+          message="基础样式页边界"
+          description="这里只展示 Card 容器的基础类型、尺寸和 token 映射；真实交互状态请前往 /components/card。"
+        />
+      </Space>
       <div
         style={{
           minWidth: 0,
+          width: "100%",
           border: `1px solid ${token.colorBorderSecondary}`,
           borderRadius: token.borderRadius,
           padding: token.paddingMD,
@@ -949,9 +1329,13 @@ function CardSpecimen() {
           alignSelf: "start",
         }}
       >
-        <CardRulePanel />
+        <Tabs
+          size="small"
+          defaultActiveKey="mapping"
+          items={[{ key: "mapping", label: "数值与 Token 映射", children: <MappingPanel /> }]}
+        />
       </div>
-    </div>
+    </Space>
   );
 }
 
@@ -959,9 +1343,9 @@ export default function CardBasicStylePage() {
   return (
     <BasicStylePageLayout
       title="卡片"
-      description="展示 Card 自由容器基础样式、标题区组合示例，以及设计规则和 token 映射。"
+      description="展示 Card 容器的基础类型、尺寸和 token 对照；交互状态请在基础组件页单独走查。"
       designDocSource={cardDocSource}
-      specimen={<CardSpecimen />}
+      specimen={<CardFoundationSpecimen />}
     />
   );
 }

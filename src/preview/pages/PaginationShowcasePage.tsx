@@ -77,39 +77,115 @@ function PaginationAuditBoard() {
     <Space direction="vertical" size="large" style={{ width: "100%" }}>
       <div>
         <Text strong>总页数 ≤ 10 / 无数量控制</Text>
-        <div>
-          <Text style={AUDIT_HELP_TEXT_STYLE}>单屏范围内显示全部页码，一般不提供快速跳转。</Text>
+        <div style={{ marginTop: 8 }}>
+          <Text style={AUDIT_HELP_TEXT_STYLE}>单屏范围内显示全部页码；默认不提供快速跳转。</Text>
         </div>
         <div style={{ marginTop: 8 }}>
-          <SensPagination defaultCurrent={1} defaultPageSize={20} total={200} showSizeChanger={false} showQuickJumper={false} />
+          <SensPagination defaultCurrent={1} defaultPageSize={20} total={200} showSizeChanger={false} />
         </div>
       </div>
       <div>
         <Text strong>总页数 ≤ 10 / 有数量控制</Text>
         <div>
-          <Text style={AUDIT_HELP_TEXT_STYLE}>页码全部展示，允许调整每页条数；仍不需要快速跳转。</Text>
+          <Text style={AUDIT_HELP_TEXT_STYLE}>页码全部展示，允许调整每页条数；默认不提供快速跳转。</Text>
         </div>
         <div style={{ marginTop: 8 }}>
-          <SensPagination defaultCurrent={1} defaultPageSize={20} total={200} showSizeChanger showQuickJumper={false} />
+          <SensPagination defaultCurrent={1} defaultPageSize={20} total={200} showSizeChanger />
         </div>
       </div>
       <div>
         <Text strong>总页数 &gt; 10 / 无数量控制</Text>
         <div>
-          <Text style={AUDIT_HELP_TEXT_STYLE}>超过 10 页时使用折叠页码，通常提供快速跳转。</Text>
+          <Text style={AUDIT_HELP_TEXT_STYLE}>超过 10 页时使用折叠页码；默认提供快速跳转。</Text>
         </div>
         <div style={{ marginTop: 8 }}>
-          <SensPagination defaultCurrent={3} defaultPageSize={20} total={1000} showSizeChanger={false} showQuickJumper />
+          <SensPagination defaultCurrent={3} defaultPageSize={20} total={1000} showSizeChanger={false} />
         </div>
       </div>
       <div>
         <Text strong>总页数 &gt; 10 / 有数量控制</Text>
         <div>
-          <Text style={AUDIT_HELP_TEXT_STYLE}>折叠页码 + 每页条数选择器 + 快速跳转，是普通列表表格最常见组合。</Text>
+          <Text style={AUDIT_HELP_TEXT_STYLE}>折叠页码 + 每页条数选择器 + 快速跳转（默认），是普通列表表格最常见组合。</Text>
         </div>
         <div style={{ marginTop: 8 }}>
-          <SensPagination defaultCurrent={3} defaultPageSize={20} total={1000} showSizeChanger showQuickJumper />
+          <SensPagination defaultCurrent={3} defaultPageSize={20} total={1000} showSizeChanger />
         </div>
+      </div>
+      <div>
+        <Text strong>简版</Text>
+        <div>
+          <Text style={AUDIT_HELP_TEXT_STYLE}>
+            上一页 icon + 小输入框 + / 总页数 + 下一页 icon；无总数范围、无每页条数、无跳页。
+          </Text>
+        </div>
+        <div style={{ marginTop: 8 }}>
+          <SensPagination simple defaultCurrent={3} defaultPageSize={20} total={1000} />
+        </div>
+      </div>
+      <div>
+        <Text strong>整组禁用</Text>
+        <div>
+          <Text style={AUDIT_HELP_TEXT_STYLE}>常规分页整组 `disabled`；页码、翻页、条数与跳页均不可操作。</Text>
+        </div>
+        <div style={{ marginTop: 8 }}>
+          <SensPagination disabled defaultCurrent={3} defaultPageSize={20} total={1000} showSizeChanger />
+        </div>
+      </div>
+      <div>
+        <Text strong>边界翻页 Tips（≤10 与 &gt;10 路径须一致）</Text>
+        <div>
+          <Text style={AUDIT_HELP_TEXT_STYLE}>
+            首页 hover 上一页 →「当前已在首页」；末页 hover 下一页 →「当前已在尾页」。用于对照自组页码条与 antd 折叠路径。
+          </Text>
+        </div>
+        <Space direction="vertical" size="middle" style={{ width: "100%", marginTop: 8 }}>
+          <div>
+            <Text type="secondary">≤10 · 首页</Text>
+            <div style={{ marginTop: 4 }}>
+              <SensPagination
+                defaultCurrent={1}
+                defaultPageSize={20}
+                total={200}
+                showSizeChanger={false}
+                showQuickJumper={false}
+              />
+            </div>
+          </div>
+          <div>
+            <Text type="secondary">≤10 · 末页</Text>
+            <div style={{ marginTop: 4 }}>
+              <SensPagination
+                defaultCurrent={10}
+                defaultPageSize={20}
+                total={200}
+                showSizeChanger={false}
+                showQuickJumper={false}
+              />
+            </div>
+          </div>
+          <div>
+            <Text type="secondary">&gt;10 · 首页（折叠路径）</Text>
+            <div style={{ marginTop: 4 }}>
+              <SensPagination
+                defaultCurrent={1}
+                defaultPageSize={20}
+                total={1000}
+                showSizeChanger={false}
+              />
+            </div>
+          </div>
+          <div>
+            <Text type="secondary">&gt;10 · 末页（折叠路径）</Text>
+            <div style={{ marginTop: 4 }}>
+              <SensPagination
+                defaultCurrent={50}
+                defaultPageSize={20}
+                total={1000}
+                showSizeChanger={false}
+              />
+            </div>
+          </div>
+        </Space>
       </div>
     </Space>
   );

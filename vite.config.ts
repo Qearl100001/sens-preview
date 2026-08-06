@@ -35,6 +35,14 @@ export default defineConfig({
         main: path.resolve(__dirname, "index.html"),
         agentEval: path.resolve(__dirname, "agent-eval.html"),
       },
+      output: {
+        manualChunks: {
+          "vendor-react": ["react", "react-dom", "react-router-dom"],
+          "vendor-antd": ["antd", "@ant-design/icons"],
+          "vendor-i18n": ["i18next", "react-i18next"],
+        },
+      },
     },
   },
 });
+

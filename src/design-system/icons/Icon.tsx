@@ -2,6 +2,7 @@ import tokens from "../tokens.resolved.json";
 import { getColorToken, tokenRgba } from "../color-utils";
 import { getIconRegistryEntry } from "./registry";
 import type { IconColorRole, IconSizeTokenName, SensIconProps } from "./types";
+import { functionalCssVar } from "../functional-skin";
 
 const unitTokens = tokens.unit as Record<string, number>;
 
@@ -30,7 +31,7 @@ export function resolveIconColor(role: IconColorRole): string {
     case "link":
       return getColorToken("link-color");
     case "functional":
-      return getColorToken("component-active");
+      return functionalCssVar("--sens-skin-active", "component-active");
     case "warning":
       return getColorToken("warning-color");
     case "inverse":
@@ -73,6 +74,7 @@ function resolveIconRenderColor({
 /** 统一图标渲染入口；尺寸与颜色由使用场景传入，registry 不绑定默认值。 */
 export function SensIcon({
   name,
+  variant = "linear",
   size,
   sizeToken,
   colorRole,
@@ -80,7 +82,7 @@ export function SensIcon({
   className,
   style,
 }: SensIconProps) {
-  const entry = getIconRegistryEntry(name);
+  const entry = getIconRegistryEntry(name, variant);
   const { Component } = entry;
 
   return (

@@ -27,13 +27,13 @@
 
 - 使用功能色的选中、悬停、点击态跟随 Functional Skin。
 - 默认边框、文字、禁用等中性色不随功能色改变。
-- 帮助图标不是单选框本体，必须来自 SensD icon registry；未确认前保持 Missing。
+- 帮助图标经 `helpIcon` 槽位传入，资产为 SensD `help`（与 Form / Title / Checkbox 同源）；不是单选框本体默认装饰。
 - 图示中的“关联结果 / 选择后展开 / 置灰关联区域”不属于本次基础组件，后续进入表单基础规则或表单样板间。
 
 ## 当前缺口
 
 | 项 | 说明 | 状态 |
 | --- | --- | --- |
-| 帮助图标 | 当前未确认 registry 中对应 Figma help asset | Missing |
+| 帮助图标 | `SensIcon name="help"`（HelpIcon · Figma 输入辅助）已录入；Radio 经 `helpIcon` 消费 | Ready |
 | 只读态 | Figma 有状态呈现，但业务使用边界未确认 | To Confirm |
-| 组上下 5px padding | Figma 普通组存在，但带辅助信息或只读需去掉；后续看是否升为表单间距 token | To Confirm |
+| 组上下 5px padding | Figma 普通组有、带辅助/只读需去掉；当前实现不加。字面 5 与 TextArea 等一并观察，**满第 5 处再升组件内部 token**，不进 foundation | Deferred |

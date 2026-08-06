@@ -140,6 +140,7 @@ export const SENS_CURSORS: Record<SensCursorName, SensCursorDef> = {
     cssVar: "--sens-cursor-no-drop",
     cssValue: "no-drop",
     illustration: illust("no-drop"),
+    /** 与 copy 同帧（规则稿移动次要态区 `1119:2856`），非笔误 */
     figma: "1119:2856",
     group: "move",
     labelZh: "禁止放下",
@@ -173,6 +174,7 @@ export const SENS_CURSORS: Record<SensCursorName, SensCursorDef> = {
     cssVar: "--sens-cursor-copy",
     cssValue: "copy",
     illustration: illust("copy"),
+    /** 与 no-drop 同帧（规则稿移动次要态区 `1119:2856`），非笔误 */
     figma: "1119:2856",
     group: "move",
     labelZh: "复制",

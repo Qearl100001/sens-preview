@@ -1,5 +1,6 @@
 import { Fragment, useMemo } from "react";
 import { getColorToken } from "../design-system/color-utils";
+import { functionalCssVar } from "../design-system/functional-skin";
 
 function escapeRegExp(value: string): string {
   return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
@@ -52,7 +53,7 @@ export function SearchHighlight({ text, keyword, className }: SearchHighlightPro
           <span
             key={index}
             className="sens-search-highlight"
-            style={{ color: getColorToken("component-primary") }}
+            style={{ color: functionalCssVar("--sens-skin-primary", "component-primary") }}
           >
             {segment.text}
           </span>

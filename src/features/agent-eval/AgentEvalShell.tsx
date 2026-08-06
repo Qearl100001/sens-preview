@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
+import { useNavigationTheme } from "../../design-system/appearance";
 import { buildShadow, getColorToken } from "../../design-system/color-utils";
-import { getThemeSideBackground } from "../../design-system/navigation-color";
+import { getNavigationColorToken, getThemeSideBackground } from "../../design-system/navigation-color";
 import { getTypographyToken } from "../../design-system/typography";
 import tokens from "../../design-system/tokens.resolved.json";
 import { ProductShellPlaceholder } from "../tiktok-ads-connections/ProductShellPlaceholder";
@@ -16,16 +17,17 @@ const SIDE_NAV_ITEMS = [
 ] as const;
 
 function AgentEvalSideNav() {
+  const navigationTheme = useNavigationTheme();
   const sideText = getColorToken("theme-side-text");
-  const sideActiveText = getColorToken("theme-side-text-active");
-  const sideActiveBg = getColorToken("theme-side-background-active");
+  const sideActiveText = getNavigationColorToken("theme-side-text-active", navigationTheme);
+  const sideActiveBg = getNavigationColorToken("theme-side-background-active", navigationTheme);
 
   return (
     <aside
       style={{
         width: AGENT_EVAL_SIDE_NAV_WIDTH,
         flexShrink: 0,
-        background: getThemeSideBackground(),
+        background: getThemeSideBackground(navigationTheme),
         paddingBottom: u["spacing/6x"],
         borderTopLeftRadius: u["radius/xl"],
         overflow: "hidden",

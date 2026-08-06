@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import { buildShadowD4, getColorToken, tokenRgba } from "../design-system/color-utils";
 import { getDividerColor } from "../design-system/divider";
 import {
+  functionalCssVar,
   getFunctionalColors,
   type FunctionalSkin,
 } from "../design-system/functional-skin";
@@ -58,9 +59,9 @@ export function useSensSelectTriggerStyle(size?: SelectProps["size"]): CSSProper
 
   return {
     ...fieldVars,
-    "--sens-select-hover-border-color": getColorToken("component-primary"),
-    "--sens-select-active-border-color": getColorToken("component-active"),
-    "--sens-select-active-shadow": `0 0 0 2px ${tokenRgba("component-active-shadow", 0.2)}`,
+    "--sens-select-hover-border-color": functionalCssVar("--sens-skin-primary", "component-primary"),
+    "--sens-select-active-border-color": functionalCssVar("--sens-skin-active", "component-active"),
+    "--sens-select-active-shadow": `0 0 0 2px ${functionalCssVar("--sens-skin-active-shadow", "component-active-shadow")}`,
     "--sens-select-error-hover-border-color": getColorToken("warning-color-hover"),
     "--sens-select-error-active-border-color": getColorToken("warning-color-active"),
     "--sens-select-error-active-shadow": `0 0 0 2px ${tokenRgba("warning-color-active-shadow", 0.2)}`,
@@ -774,9 +775,9 @@ interface SelectTriggerPreviewStyleToken {
 
 function getSelectTriggerPreviewStyleToken(): SelectTriggerPreviewStyleToken {
   return {
-    hoverBorderColor: getColorToken("component-primary"),
-    activeBorderColor: getColorToken("component-active"),
-    activeShadow: `0 0 0 2px ${tokenRgba("component-active-shadow", 0.2)}`,
+    hoverBorderColor: functionalCssVar("--sens-skin-primary", "component-primary"),
+    activeBorderColor: functionalCssVar("--sens-skin-active", "component-active"),
+    activeShadow: `0 0 0 2px ${functionalCssVar("--sens-skin-active-shadow", "component-active-shadow")}`,
     colorBorderDisabledHover: tokenRgba("line-color-transparent", 0.06),
     colorBgContainerDisabledHover: tokenRgba("background-transparent-grey", 0.04),
     colorErrorHover: getColorToken("warning-color-hover"),

@@ -4,15 +4,21 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { MinimalSearchField, resolveMinimalSelectorLineTone } from "./MinimalSearchField";
 import { useSensAllowClear, useSensSearchPrefix, useSensSelectSuffixProps } from "./fieldIconProps";
+import { SelectCheckIcon } from "./FieldIcons";
 import { SearchIcon } from "./SearchIcon";
+import { SearchPlaceholderTip } from "./SearchPlaceholderTip";
+import { useSensSelectDropdownStyle } from "./SensSelectDropdown";
 import { useSearchRootStyle, useSearchTokens } from "./searchTokens";
+import { useSensAppearance } from "../design-system/appearance";
 import "./search.css";
+import "./select-dropdown.css";
 
 export const SEARCH_INPUT_DEFAULT_WIDTH = 200;
 /** @deprecated 不再作为组件总宽；仅预览矩阵列宽估算（分类自适应 + 搜索 200px） */
 export const SEARCH_CATEGORY_DEFAULT_WIDTH = 280;
 export const SEARCH_TRIGGER_CATEGORY_PREVIEW_WIDTH = 312;
 export const SEARCH_CATEGORY_MINIMAL_WIDTH = 272;
+/** 布局估算宽（简约+创建）；尚无 spacing token，勿升 foundation */
 export const SEARCH_MINIMAL_CREATE_DEFAULT_WIDTH = 253;
 
 /** i18n 文案在 zh.json 的「组件库」命名空间下 */
@@ -103,17 +109,27 @@ function useSearchAllowClear() {
 }
 
 function useCategorySelectProps(extraClassName?: string) {
+  const { functionalSkin } = useSensAppearance();
   const selectSuffix = useSensSelectSuffixProps();
+  const dropdownStyle = useSensSelectDropdownStyle(functionalSkin);
   return {
     ...selectSuffix,
     className: [extraClassName, selectSuffix.className].filter(Boolean).join(" "),
-    style: { width: "auto", flex: "0 0 auto" } as CSSProperties,
+    style: { width: "auto", flex: "0 0 auto", ...selectSuffix.style } as CSSProperties,
     popupMatchSelectWidth: false,
+    /** 分类浮层走 SensSelectDropdown 同款 token / 选项态（非 antd 默认下拉） */
+    classNames: { popup: { root: "sens-select-dropdown" } },
+    styles: { popup: { root: dropdownStyle } },
+    menuItemSelectedIcon: (
+      <span className="sens-select-option-check" aria-hidden>
+        <SelectCheckIcon />
+      </span>
+    ),
   };
 }
 
 export interface SearchInputProps
-  extends Omit<InputProps, "prefix" | "allowClear" | "variant" | "size"> {
+  extends Omit<InputProps, "prefix" | "allowClear" | "variant" | "size" | "disabled"> {
   /** 定宽，默认 200px（规范 108–600px） */
   width?: number;
   /** 常规（描边）或简约（仅底部分割线）；均为 32px 高，无 small 尺寸 */
@@ -122,7 +138,7 @@ export interface SearchInputProps
   onBack?: () => void;
 }
 
-/** 实时型搜索：前缀图标 + allowClear，无搜索按钮（search.md） */
+/** 实时型搜索：前缀图标 + allowClear，无搜索按钮（search.md）；搜索无禁用态 */
 export function SearchInput({
   width = SEARCH_INPUT_DEFAULT_WIDTH,
   visualVariant = "default",
@@ -130,12 +146,18 @@ export function SearchInput({
   className,
   placeholder,
   onBack,
+  value,
+  defaultValue,
+  onChange,
   ...rest
 }: SearchInputProps) {
   const allowClear = useSearchAllowClear();
   const rootStyle = useSearchRootStyle(style);
   const isMinimal = visualVariant === "minimal";
   const resolvedPlaceholder = useSearchPlaceholder(placeholder);
+  const [innerValue, setInnerValue] = useState(() => String(value ?? defaultValue ?? ""));
+  const currentValue = value !== undefined ? String(value) : innerValue;
+  const hasValue = currentValue.length > 0;
 
   if (isMinimal) {
     return (
@@ -145,26 +167,37 @@ export function SearchInput({
         style={rootStyle}
         placeholder={resolvedPlaceholder}
         onBack={onBack}
+        value={value}
+        defaultValue={defaultValue}
+        onChange={onChange}
         {...rest}
       />
     );
   }
 
   return (
-    <Input
-      allowClear={allowClear}
-      variant="outlined"
-      prefix={<SearchPrefix />}
-      placeholder={resolvedPlaceholder}
-      style={{ width, ...rootStyle }}
-      className={["sens-search-field", className].filter(Boolean).join(" ") || undefined}
-      {...rest}
-    />
+    <SearchPlaceholderTip placeholder={resolvedPlaceholder} hasValue={hasValue}>
+      <Input
+        allowClear={allowClear}
+        variant="outlined"
+        prefix={<SearchPrefix />}
+        placeholder={resolvedPlaceholder}
+        value={value}
+        defaultValue={defaultValue}
+        onChange={(event) => {
+          if (value === undefined) setInnerValue(event.target.value);
+          onChange?.(event);
+        }}
+        style={{ width, ...rootStyle }}
+        className={["sens-search-field", className].filter(Boolean).join(" ") || undefined}
+        {...rest}
+      />
+    </SearchPlaceholderTip>
   );
 }
 
 export interface CategorySearchInputProps
-  extends Omit<InputProps, "prefix" | "allowClear" | "variant" | "size"> {
+  extends Omit<InputProps, "prefix" | "allowClear" | "variant" | "size" | "disabled"> {
   searchWidth?: number;
   visualVariant?: SearchVisualVariant;
   categoryOptions?: SelectProps["options"];
@@ -186,10 +219,12 @@ export function CategorySearchInput({
   onCategoryChange,
   style,
   className,
-  disabled,
   placeholder,
   onBack,
   categorySelectOpen,
+  value,
+  defaultValue,
+  onChange,
   ...rest
 }: CategorySearchInputProps) {
   const allowClear = useSearchAllowClear();
@@ -200,6 +235,9 @@ export function CategorySearchInput({
   const categorySelectProps = useCategorySelectProps("sens-search-category-select");
   const resolvedCategoryOptions = useCategoryOptions(categoryOptions);
   const resolvedPlaceholder = useSearchPlaceholder(placeholder);
+  const [innerValue, setInnerValue] = useState(() => String(value ?? defaultValue ?? ""));
+  const currentValue = value !== undefined ? String(value) : innerValue;
+  const hasValue = currentValue.length > 0;
 
   const [selectorHovered, setSelectorHovered] = useState(false);
   const [selectorPressed, setSelectorPressed] = useState(false);
@@ -236,6 +274,9 @@ export function CategorySearchInput({
         placeholder={resolvedPlaceholder}
         onBack={onBack}
         style={rootStyle}
+        value={value}
+        defaultValue={defaultValue}
+        onChange={onChange}
         {...rest}
       />
     );
@@ -274,16 +315,23 @@ export function CategorySearchInput({
   );
 
   const input = (
-    <Input
-      allowClear={allowClear}
-      className="sens-search-field sens-search-category-input"
-      variant="outlined"
-      prefix={<SearchPrefix />}
-      placeholder={resolvedPlaceholder}
-      disabled={disabled}
-      style={rootStyle}
-      {...rest}
-    />
+    <SearchPlaceholderTip placeholder={resolvedPlaceholder} hasValue={hasValue}>
+      <Input
+        allowClear={allowClear}
+        className="sens-search-field sens-search-category-input"
+        variant="outlined"
+        prefix={<SearchPrefix />}
+        placeholder={resolvedPlaceholder}
+        value={value}
+        defaultValue={defaultValue}
+        onChange={(event) => {
+          if (value === undefined) setInnerValue(event.target.value);
+          onChange?.(event);
+        }}
+        style={rootStyle}
+        {...rest}
+      />
+    </SearchPlaceholderTip>
   );
 
   return (
@@ -294,32 +342,44 @@ export function CategorySearchInput({
   );
 }
 
-export interface SearchTriggerInputProps extends Omit<InputProps, "addonAfter" | "size"> {
+export interface SearchTriggerInputProps extends Omit<InputProps, "addonAfter" | "size" | "disabled"> {
   width?: number;
 }
 
-/** 触发型搜索：Input.Search，点击按钮 / 回车触发 */
+/** 触发型搜索：Input.Search，点击按钮 / 回车触发；搜索无禁用态 */
 export function SearchTriggerInput({
   width = SEARCH_INPUT_DEFAULT_WIDTH,
   style,
-  disabled,
   placeholder,
+  value,
+  defaultValue,
+  onChange,
   ...rest
 }: SearchTriggerInputProps) {
   const allowClear = useSearchAllowClear();
   const rootStyle = useSearchRootStyle(style);
   const resolvedPlaceholder = useSearchPlaceholder(placeholder);
+  const [innerValue, setInnerValue] = useState(() => String(value ?? defaultValue ?? ""));
+  const currentValue = value !== undefined ? String(value) : innerValue;
+  const hasValue = currentValue.length > 0;
 
   return (
-    <Input.Search
-      allowClear={allowClear}
-      className="sens-search-trigger"
-      placeholder={resolvedPlaceholder}
-      enterButton={<SearchTriggerButtonIcon />}
-      disabled={disabled}
-      style={{ width, ...rootStyle }}
-      {...rest}
-    />
+    <SearchPlaceholderTip placeholder={resolvedPlaceholder} hasValue={hasValue}>
+      <Input.Search
+        allowClear={allowClear}
+        className="sens-search-trigger"
+        placeholder={resolvedPlaceholder}
+        enterButton={<SearchTriggerButtonIcon />}
+        value={value}
+        defaultValue={defaultValue}
+        onChange={(event) => {
+          if (value === undefined) setInnerValue(event.target.value);
+          onChange?.(event);
+        }}
+        style={{ width, ...rootStyle }}
+        {...rest}
+      />
+    </SearchPlaceholderTip>
   );
 }
 
@@ -331,7 +391,7 @@ export interface CategorySearchTriggerInputProps extends SearchTriggerInputProps
   onCategoryChange?: (value: string) => void;
 }
 
-/** 触发型 + 左侧分类选择 */
+/** 触发型 + 左侧分类选择；搜索无禁用态 */
 export function CategorySearchTriggerInput({
   searchWidth = SEARCH_INPUT_DEFAULT_WIDTH,
   categoryOptions,
@@ -340,8 +400,10 @@ export function CategorySearchTriggerInput({
   onCategoryChange,
   style,
   className,
-  disabled,
   placeholder,
+  value,
+  defaultValue,
+  onChange,
   ...rest
 }: CategorySearchTriggerInputProps) {
   const allowClear = useSearchAllowClear();
@@ -352,6 +414,9 @@ export function CategorySearchTriggerInput({
   const categorySelectProps = useCategorySelectProps("sens-search-category-select");
   const resolvedCategoryOptions = useCategoryOptions(categoryOptions);
   const resolvedPlaceholder = useSearchPlaceholder(placeholder);
+  const [innerValue, setInnerValue] = useState(() => String(value ?? defaultValue ?? ""));
+  const currentValue = value !== undefined ? String(value) : innerValue;
+  const hasValue = currentValue.length > 0;
 
   return (
     <Space.Compact className={`sens-search-trigger-category ${className ?? ""}`} style={rootStyle}>
@@ -361,16 +426,22 @@ export function CategorySearchTriggerInput({
         value={categoryValue}
         defaultValue={categoryValue === undefined ? defaultCategoryValue : undefined}
         onChange={onCategoryChange}
-        disabled={disabled}
       />
-      <Input.Search
-        allowClear={allowClear}
-        className="sens-search-trigger"
-        placeholder={resolvedPlaceholder}
-        enterButton={<SearchTriggerButtonIcon />}
-        disabled={disabled}
-        {...rest}
-      />
+      <SearchPlaceholderTip placeholder={resolvedPlaceholder} hasValue={hasValue}>
+        <Input.Search
+          allowClear={allowClear}
+          className="sens-search-trigger"
+          placeholder={resolvedPlaceholder}
+          enterButton={<SearchTriggerButtonIcon />}
+          value={value}
+          defaultValue={defaultValue}
+          onChange={(event) => {
+            if (value === undefined) setInnerValue(event.target.value);
+            onChange?.(event);
+          }}
+          {...rest}
+        />
+      </SearchPlaceholderTip>
     </Space.Compact>
   );
 }
@@ -392,7 +463,6 @@ export function MinimalSearchWithCreate({
   createDisabled,
   className,
   style,
-  disabled,
   onBack,
   ...rest
 }: MinimalSearchWithCreateProps) {
@@ -407,7 +477,6 @@ export function MinimalSearchWithCreate({
       createDisabled={createDisabled}
       className={className}
       style={rootStyle}
-      disabled={disabled}
       onBack={onBack}
       {...rest}
     />
@@ -635,6 +704,7 @@ export function SearchStatesPreview({ filledValue = "用户名称" }: SearchStat
             visualVariant="minimal"
             placeholder={placeholder}
             categoryOptions={categoryOnlyOptions}
+            categorySelectOpen={state === "activeSelector"}
             {...props}
           />
         )}
@@ -650,6 +720,7 @@ export function SearchStatesPreview({ filledValue = "用户名称" }: SearchStat
             visualVariant="minimal"
             placeholder={placeholder}
             categoryOptions={categoryOnlyOptions}
+            categorySelectOpen={state === "activeSelector"}
             {...props}
           />
         )}

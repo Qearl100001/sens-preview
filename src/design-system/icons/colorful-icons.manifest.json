@@ -1,0 +1,894 @@
+[
+  {
+    "nodeId": "8028:26272",
+    "figmaName": "approval-process-custom",
+    "name": "approval-process-custom",
+    "width": 48,
+    "height": 48,
+    "category": "colorful-functional",
+    "categoryZh": "彩色功能图标"
+  },
+  {
+    "nodeId": "8028:26273",
+    "figmaName": "approval-process-existing",
+    "name": "approval-process-existing",
+    "width": 48,
+    "height": 48,
+    "category": "colorful-functional",
+    "categoryZh": "彩色功能图标"
+  },
+  {
+    "nodeId": "8028:26897",
+    "figmaName": "view-api",
+    "name": "view-api",
+    "width": 48,
+    "height": 48,
+    "category": "colorful-functional",
+    "categoryZh": "彩色功能图标"
+  },
+  {
+    "nodeId": "8028:26900",
+    "figmaName": "reproduction-project",
+    "name": "reproduction-project",
+    "width": 48,
+    "height": 48,
+    "category": "colorful-functional",
+    "categoryZh": "彩色功能图标"
+  },
+  {
+    "nodeId": "8028:26901",
+    "figmaName": "sent-box-setting",
+    "name": "sent-box-setting",
+    "width": 48,
+    "height": 48,
+    "category": "colorful-functional",
+    "categoryZh": "彩色功能图标"
+  },
+  {
+    "nodeId": "8028:26907",
+    "figmaName": "upgrade-online",
+    "name": "upgrade-online",
+    "width": 48,
+    "height": 48,
+    "category": "colorful-functional",
+    "categoryZh": "彩色功能图标"
+  },
+  {
+    "nodeId": "12785:39701",
+    "figmaName": "api-key-manage",
+    "name": "api-key-manage",
+    "width": 48,
+    "height": 48,
+    "category": "colorful-functional",
+    "categoryZh": "彩色功能图标"
+  },
+  {
+    "nodeId": "12934:39603",
+    "figmaName": "wecom-member-task",
+    "name": "wecom-member-task",
+    "width": 48,
+    "height": 48,
+    "category": "colorful-functional",
+    "categoryZh": "彩色功能图标"
+  },
+  {
+    "nodeId": "12942:35550",
+    "figmaName": "wechat-service-template-msg",
+    "name": "wechat-service-template-msg",
+    "width": 48,
+    "height": 48,
+    "category": "colorful-functional",
+    "categoryZh": "彩色功能图标"
+  },
+  {
+    "nodeId": "12942:35551",
+    "figmaName": "wechat-broadcast",
+    "name": "wechat-broadcast",
+    "width": 48,
+    "height": 48,
+    "category": "colorful-functional",
+    "categoryZh": "彩色功能图标"
+  },
+  {
+    "nodeId": "12942:35552",
+    "figmaName": "wechat-active-push",
+    "name": "wechat-active-push",
+    "width": 48,
+    "height": 48,
+    "category": "colorful-functional",
+    "categoryZh": "彩色功能图标"
+  },
+  {
+    "nodeId": "8031:26935",
+    "figmaName": "wechat-authorization-management",
+    "name": "wechat-authorization-management",
+    "width": 48,
+    "height": 48,
+    "category": "colorful-functional",
+    "categoryZh": "彩色功能图标"
+  },
+  {
+    "nodeId": "12942:35582",
+    "figmaName": "line",
+    "name": "line",
+    "width": 48,
+    "height": 48,
+    "category": "colorful-functional",
+    "categoryZh": "彩色功能图标"
+  },
+  {
+    "nodeId": "16759:57561",
+    "figmaName": "whatsapp",
+    "name": "whatsapp",
+    "width": 48,
+    "height": 48,
+    "category": "colorful-functional",
+    "categoryZh": "彩色功能图标"
+  },
+  {
+    "nodeId": "16782:57592",
+    "figmaName": "time-zones-setting",
+    "name": "time-zones-setting",
+    "width": 48,
+    "height": 48,
+    "category": "colorful-functional",
+    "categoryZh": "彩色功能图标"
+  },
+  {
+    "nodeId": "17730:69217",
+    "figmaName": "android-store-report-hand",
+    "name": "android-store-report-hand",
+    "width": 48,
+    "height": 48,
+    "category": "colorful-functional",
+    "categoryZh": "彩色功能图标"
+  },
+  {
+    "nodeId": "17730:69216",
+    "figmaName": "android-store-report-voluntarily",
+    "name": "android-store-report-voluntarily",
+    "width": 48,
+    "height": 48,
+    "category": "colorful-functional",
+    "categoryZh": "彩色功能图标"
+  },
+  {
+    "nodeId": "18258:71179",
+    "figmaName": "mini-program-subscribe-message",
+    "name": "mini-program-subscribe-message",
+    "width": 48,
+    "height": 48,
+    "category": "colorful-functional",
+    "categoryZh": "彩色功能图标"
+  },
+  {
+    "nodeId": "8031:26916",
+    "figmaName": "push-management",
+    "name": "push-management",
+    "width": 48,
+    "height": 48,
+    "category": "colorful-functional",
+    "categoryZh": "彩色功能图标"
+  },
+  {
+    "nodeId": "8031:26922",
+    "figmaName": "global-reach-limit",
+    "name": "global-reach-limit",
+    "width": 48,
+    "height": 48,
+    "category": "colorful-functional",
+    "categoryZh": "彩色功能图标"
+  },
+  {
+    "nodeId": "8031:26923",
+    "figmaName": "touch-channel-management",
+    "name": "touch-channel-management",
+    "width": 48,
+    "height": 48,
+    "category": "colorful-functional",
+    "categoryZh": "彩色功能图标"
+  },
+  {
+    "nodeId": "8031:26924",
+    "figmaName": "online-service-address",
+    "name": "online-service-address",
+    "width": 48,
+    "height": 48,
+    "category": "colorful-functional",
+    "categoryZh": "彩色功能图标"
+  },
+  {
+    "nodeId": "8031:26927",
+    "figmaName": "application-management",
+    "name": "application-management",
+    "width": 48,
+    "height": 48,
+    "category": "colorful-functional",
+    "categoryZh": "彩色功能图标"
+  },
+  {
+    "nodeId": "12623:39389",
+    "figmaName": "promotion-android-store",
+    "name": "promotion-android-store",
+    "width": 48,
+    "height": 48,
+    "category": "colorful-functional",
+    "categoryZh": "彩色功能图标"
+  },
+  {
+    "nodeId": "12623:39392",
+    "figmaName": "advertising-space-in-site",
+    "name": "advertising-space-in-site",
+    "width": 48,
+    "height": 48,
+    "category": "colorful-functional",
+    "categoryZh": "彩色功能图标"
+  },
+  {
+    "nodeId": "12623:39393",
+    "figmaName": "return-deep-event",
+    "name": "return-deep-event",
+    "width": 48,
+    "height": 48,
+    "category": "colorful-functional",
+    "categoryZh": "彩色功能图标"
+  },
+  {
+    "nodeId": "12623:39390",
+    "figmaName": "promotion-advertising-platform",
+    "name": "promotion-advertising-platform",
+    "width": 48,
+    "height": 48,
+    "category": "colorful-functional",
+    "categoryZh": "彩色功能图标"
+  },
+  {
+    "nodeId": "12623:39394",
+    "figmaName": "promotion-offline",
+    "name": "promotion-offline",
+    "width": 48,
+    "height": 48,
+    "category": "colorful-functional",
+    "categoryZh": "彩色功能图标"
+  },
+  {
+    "nodeId": "12623:39391",
+    "figmaName": "promotion-advertiser-channel",
+    "name": "promotion-advertiser-channel",
+    "width": 48,
+    "height": 48,
+    "category": "colorful-functional",
+    "categoryZh": "彩色功能图标"
+  },
+  {
+    "nodeId": "12942:35636",
+    "figmaName": "webhook",
+    "name": "webhook",
+    "width": 48,
+    "height": 48,
+    "category": "colorful-functional",
+    "categoryZh": "彩色功能图标"
+  },
+  {
+    "nodeId": "12934:39592",
+    "figmaName": "edm",
+    "name": "edm",
+    "width": 48,
+    "height": 48,
+    "category": "colorful-functional",
+    "categoryZh": "彩色功能图标"
+  },
+  {
+    "nodeId": "12934:39593",
+    "figmaName": "text-msg",
+    "name": "text-msg",
+    "width": 48,
+    "height": 48,
+    "category": "colorful-functional",
+    "categoryZh": "彩色功能图标"
+  },
+  {
+    "nodeId": "12934:39598",
+    "figmaName": "app-push",
+    "name": "app-push",
+    "width": 48,
+    "height": 48,
+    "category": "colorful-functional",
+    "categoryZh": "彩色功能图标"
+  },
+  {
+    "nodeId": "13143:35902",
+    "figmaName": "configure-advertising-account",
+    "name": "configure-advertising-account",
+    "width": 48,
+    "height": 48,
+    "category": "colorful-functional",
+    "categoryZh": "彩色功能图标"
+  },
+  {
+    "nodeId": "13440:35945",
+    "figmaName": "improve-user-experience",
+    "name": "improve-user-experience",
+    "width": 48,
+    "height": 48,
+    "category": "colorful-functional",
+    "categoryZh": "彩色功能图标"
+  },
+  {
+    "nodeId": "13442:35946",
+    "figmaName": "restore-scenario-quickly",
+    "name": "restore-scenario-quickly",
+    "width": 48,
+    "height": 48,
+    "category": "colorful-functional",
+    "categoryZh": "彩色功能图标"
+  },
+  {
+    "nodeId": "14337:36694",
+    "figmaName": "instant-event-management",
+    "name": "instant-event-management",
+    "width": 48,
+    "height": 48,
+    "category": "colorful-functional",
+    "categoryZh": "彩色功能图标"
+  },
+  {
+    "nodeId": "14841:44967",
+    "figmaName": "audience-real-time-management",
+    "name": "audience-real-time-management",
+    "width": 48,
+    "height": 48,
+    "category": "colorful-functional",
+    "categoryZh": "彩色功能图标"
+  },
+  {
+    "nodeId": "16368:56399",
+    "figmaName": "business-event-management",
+    "name": "business-event-management",
+    "width": 48,
+    "height": 48,
+    "category": "colorful-functional",
+    "categoryZh": "彩色功能图标"
+  },
+  {
+    "nodeId": "18274:71121",
+    "figmaName": "audience-group-cleaning",
+    "name": "audience-group-cleaning",
+    "width": 48,
+    "height": 48,
+    "category": "colorful-functional",
+    "categoryZh": "彩色功能图标"
+  },
+  {
+    "nodeId": "18274:71120",
+    "figmaName": "blacklist-management",
+    "name": "blacklist-management",
+    "width": 48,
+    "height": 48,
+    "category": "colorful-functional",
+    "categoryZh": "彩色功能图标"
+  },
+  {
+    "nodeId": "19137:78645",
+    "figmaName": "intelligent-outbound-call",
+    "name": "intelligent-outbound-call",
+    "width": 48,
+    "height": 48,
+    "category": "colorful-functional",
+    "categoryZh": "彩色功能图标"
+  },
+  {
+    "nodeId": "20627:2177",
+    "figmaName": "section-settings",
+    "name": "section-settings",
+    "width": 48,
+    "height": 48,
+    "category": "colorful-functional",
+    "categoryZh": "彩色功能图标"
+  },
+  {
+    "nodeId": "21130:2302",
+    "figmaName": "not-disturb-setting",
+    "name": "not-disturb-setting",
+    "width": 48,
+    "height": 48,
+    "category": "colorful-functional",
+    "categoryZh": "彩色功能图标"
+  },
+  {
+    "nodeId": "21595:3634",
+    "figmaName": "pre-set-template",
+    "name": "pre-set-template",
+    "width": 48,
+    "height": 48,
+    "category": "colorful-functional",
+    "categoryZh": "彩色功能图标"
+  },
+  {
+    "nodeId": "21508:2326",
+    "figmaName": "metric-management",
+    "name": "metric-management",
+    "width": 48,
+    "height": 48,
+    "category": "colorful-functional",
+    "categoryZh": "彩色功能图标"
+  },
+  {
+    "nodeId": "22147:27716",
+    "figmaName": "channel-large-default",
+    "name": "channel-large-default",
+    "width": 48,
+    "height": 48,
+    "category": "colorful-functional",
+    "categoryZh": "彩色功能图标"
+  },
+  {
+    "nodeId": "8028:26910",
+    "figmaName": "download-resource-report",
+    "name": "download-resource-report",
+    "width": 48,
+    "height": 48,
+    "category": "colorful-functional",
+    "categoryZh": "彩色功能图标"
+  },
+  {
+    "nodeId": "8028:26911",
+    "figmaName": "webhook-setting",
+    "name": "webhook-setting",
+    "width": 48,
+    "height": 48,
+    "category": "colorful-functional",
+    "categoryZh": "彩色功能图标"
+  },
+  {
+    "nodeId": "8028:26912",
+    "figmaName": "analysis-model-setting",
+    "name": "analysis-model-setting",
+    "width": 48,
+    "height": 48,
+    "category": "colorful-functional",
+    "categoryZh": "彩色功能图标"
+  },
+  {
+    "nodeId": "8028:26913",
+    "figmaName": "user-group-portrait-template",
+    "name": "user-group-portrait-template",
+    "width": 48,
+    "height": 48,
+    "category": "colorful-functional",
+    "categoryZh": "彩色功能图标"
+  },
+  {
+    "nodeId": "12942:35557",
+    "figmaName": "popup-gustomized",
+    "name": "popup-gustomized",
+    "width": 48,
+    "height": 48,
+    "category": "colorful-functional",
+    "categoryZh": "彩色功能图标"
+  },
+  {
+    "nodeId": "10860:34359",
+    "figmaName": "programming-test",
+    "name": "programming-test",
+    "width": 48,
+    "height": 48,
+    "category": "colorful-functional",
+    "categoryZh": "彩色功能图标"
+  },
+  {
+    "nodeId": "10860:34360",
+    "figmaName": "test-multi-link",
+    "name": "test-multi-link",
+    "width": 48,
+    "height": 48,
+    "category": "colorful-functional",
+    "categoryZh": "彩色功能图标"
+  },
+  {
+    "nodeId": "10860:34361",
+    "figmaName": "visual-test",
+    "name": "visual-test",
+    "width": 48,
+    "height": 48,
+    "category": "colorful-functional",
+    "categoryZh": "彩色功能图标"
+  },
+  {
+    "nodeId": "12942:35562",
+    "figmaName": "popup-in-app",
+    "name": "popup-in-app",
+    "width": 48,
+    "height": 48,
+    "category": "colorful-functional",
+    "categoryZh": "彩色功能图标"
+  },
+  {
+    "nodeId": "12942:35567",
+    "figmaName": "popup-in-miniporgram",
+    "name": "popup-in-miniporgram",
+    "width": 48,
+    "height": 48,
+    "category": "colorful-functional",
+    "categoryZh": "彩色功能图标"
+  },
+  {
+    "nodeId": "12942:35572",
+    "figmaName": "popup-in-h5",
+    "name": "popup-in-h5",
+    "width": 48,
+    "height": 48,
+    "category": "colorful-functional",
+    "categoryZh": "彩色功能图标"
+  },
+  {
+    "nodeId": "13442:36042",
+    "figmaName": "ftp-data-set",
+    "name": "ftp-data-set",
+    "width": 48,
+    "height": 48,
+    "category": "colorful-functional",
+    "categoryZh": "彩色功能图标"
+  },
+  {
+    "nodeId": "13442:36043",
+    "figmaName": "logagent",
+    "name": "logagent",
+    "width": 48,
+    "height": 48,
+    "category": "colorful-functional",
+    "categoryZh": "彩色功能图标"
+  },
+  {
+    "nodeId": "14075:36753",
+    "figmaName": "test-model-time",
+    "name": "test-model-time",
+    "width": 48,
+    "height": 48,
+    "category": "colorful-functional",
+    "categoryZh": "彩色功能图标"
+  },
+  {
+    "nodeId": "14075:36754",
+    "figmaName": "test-model-people",
+    "name": "test-model-people",
+    "width": 48,
+    "height": 48,
+    "category": "colorful-functional",
+    "categoryZh": "彩色功能图标"
+  },
+  {
+    "nodeId": "17721:68955",
+    "figmaName": "template-enter",
+    "name": "template-enter",
+    "width": 48,
+    "height": 48,
+    "category": "colorful-functional",
+    "categoryZh": "彩色功能图标"
+  },
+  {
+    "nodeId": "17721:68956",
+    "figmaName": "template-enter-target",
+    "name": "template-enter-target",
+    "width": 48,
+    "height": 48,
+    "category": "colorful-functional",
+    "categoryZh": "彩色功能图标"
+  },
+  {
+    "nodeId": "17721:68957",
+    "figmaName": "template-no-enter",
+    "name": "template-no-enter",
+    "width": 48,
+    "height": 48,
+    "category": "colorful-functional",
+    "categoryZh": "彩色功能图标"
+  },
+  {
+    "nodeId": "17730:69214",
+    "figmaName": "information-flow-report",
+    "name": "information-flow-report",
+    "width": 48,
+    "height": 48,
+    "category": "colorful-functional",
+    "categoryZh": "彩色功能图标"
+  },
+  {
+    "nodeId": "21595:3616",
+    "figmaName": "sem-report",
+    "name": "sem-report",
+    "width": 48,
+    "height": 48,
+    "category": "colorful-functional",
+    "categoryZh": "彩色功能图标"
+  },
+  {
+    "nodeId": "21415:2323",
+    "figmaName": "campaign-plan",
+    "name": "campaign-plan",
+    "width": 48,
+    "height": 48,
+    "category": "colorful-functional",
+    "categoryZh": "彩色功能图标"
+  },
+  {
+    "nodeId": "21415:2322",
+    "figmaName": "journey",
+    "name": "journey",
+    "width": 48,
+    "height": 48,
+    "category": "colorful-functional",
+    "categoryZh": "彩色功能图标"
+  },
+  {
+    "nodeId": "8031:26929",
+    "figmaName": "data-access",
+    "name": "data-access",
+    "width": 48,
+    "height": 48,
+    "category": "colorful-functional",
+    "categoryZh": "彩色功能图标"
+  },
+  {
+    "nodeId": "8031:26928",
+    "figmaName": "similarity-label-feature-template",
+    "name": "similarity-label-feature-template",
+    "width": 48,
+    "height": 48,
+    "category": "colorful-functional",
+    "categoryZh": "彩色功能图标"
+  },
+  {
+    "nodeId": "8031:26936",
+    "figmaName": "data-source-management",
+    "name": "data-source-management",
+    "width": 48,
+    "height": 48,
+    "category": "colorful-functional",
+    "categoryZh": "彩色功能图标"
+  },
+  {
+    "nodeId": "8053:27046",
+    "figmaName": "single-user-panoramic-view-template",
+    "name": "single-user-panoramic-view-template",
+    "width": 48,
+    "height": 48,
+    "category": "colorful-functional",
+    "categoryZh": "彩色功能图标"
+  },
+  {
+    "nodeId": "8031:26930",
+    "figmaName": "data-validation",
+    "name": "data-validation",
+    "width": 48,
+    "height": 48,
+    "category": "colorful-functional",
+    "categoryZh": "彩色功能图标"
+  },
+  {
+    "nodeId": "8031:26937",
+    "figmaName": "data-sheet-management",
+    "name": "data-sheet-management",
+    "width": 48,
+    "height": 48,
+    "category": "colorful-functional",
+    "categoryZh": "彩色功能图标"
+  },
+  {
+    "nodeId": "12942:35577",
+    "figmaName": "reward-grant",
+    "name": "reward-grant",
+    "width": 48,
+    "height": 48,
+    "category": "colorful-functional",
+    "categoryZh": "彩色功能图标"
+  },
+  {
+    "nodeId": "17730:69218",
+    "figmaName": "asa-report",
+    "name": "asa-report",
+    "width": 48,
+    "height": 48,
+    "category": "colorful-functional",
+    "categoryZh": "彩色功能图标"
+  },
+  {
+    "nodeId": "18465:71379",
+    "figmaName": "entity-set",
+    "name": "entity-set",
+    "width": 48,
+    "height": 48,
+    "category": "colorful-functional",
+    "categoryZh": "彩色功能图标"
+  },
+  {
+    "nodeId": "18465:71380",
+    "figmaName": "entity-filter-trait-template",
+    "name": "entity-filter-trait-template",
+    "width": 48,
+    "height": 48,
+    "category": "colorful-functional",
+    "categoryZh": "彩色功能图标"
+  },
+  {
+    "nodeId": "18465:71381",
+    "figmaName": "single-entity-panoramic-view-template",
+    "name": "single-entity-panoramic-view-template",
+    "width": 48,
+    "height": 48,
+    "category": "colorful-functional",
+    "categoryZh": "彩色功能图标"
+  },
+  {
+    "nodeId": "21350:9639",
+    "figmaName": "information-catalog-management",
+    "name": "information-catalog-management",
+    "width": 48,
+    "height": 48,
+    "category": "colorful-functional",
+    "categoryZh": "彩色功能图标"
+  },
+  {
+    "nodeId": "23023:2423",
+    "figmaName": "resource-management",
+    "name": "resource-management",
+    "width": 48,
+    "height": 48,
+    "category": "colorful-functional",
+    "categoryZh": "彩色功能图标"
+  },
+  {
+    "nodeId": "23061:2527",
+    "figmaName": "control-group-management",
+    "name": "control-group-management",
+    "width": 48,
+    "height": 48,
+    "category": "colorful-functional",
+    "categoryZh": "彩色功能图标"
+  },
+  {
+    "nodeId": "23253:2456",
+    "figmaName": "Exchange-rate-rule",
+    "name": "exchange-rate-rule",
+    "width": 48,
+    "height": 48,
+    "category": "colorful-functional",
+    "categoryZh": "彩色功能图标"
+  },
+  {
+    "nodeId": "23503:10381",
+    "figmaName": "date-mark",
+    "name": "date-mark",
+    "width": 48,
+    "height": 48,
+    "category": "colorful-functional",
+    "categoryZh": "彩色功能图标"
+  },
+  {
+    "nodeId": "23698:3199",
+    "figmaName": "wiki",
+    "name": "wiki",
+    "width": 48,
+    "height": 48,
+    "category": "colorful-functional",
+    "categoryZh": "彩色功能图标"
+  },
+  {
+    "nodeId": "24571:2687",
+    "figmaName": "webhook-sms",
+    "name": "webhook-sms",
+    "width": 48,
+    "height": 48,
+    "category": "colorful-functional",
+    "categoryZh": "彩色功能图标"
+  },
+  {
+    "nodeId": "24571:2690",
+    "figmaName": "webhook-whatsapp",
+    "name": "webhook-whatsapp",
+    "width": 48,
+    "height": 48,
+    "category": "colorful-functional",
+    "categoryZh": "彩色功能图标"
+  },
+  {
+    "nodeId": "24571:2692",
+    "figmaName": "webhook-benefits",
+    "name": "webhook-benefits",
+    "width": 48,
+    "height": 48,
+    "category": "colorful-functional",
+    "categoryZh": "彩色功能图标"
+  },
+  {
+    "nodeId": "24571:2688",
+    "figmaName": "webhook-push",
+    "name": "webhook-push",
+    "width": 48,
+    "height": 48,
+    "category": "colorful-functional",
+    "categoryZh": "彩色功能图标"
+  },
+  {
+    "nodeId": "24571:2689",
+    "figmaName": "webhook-email",
+    "name": "webhook-email",
+    "width": 48,
+    "height": 48,
+    "category": "colorful-functional",
+    "categoryZh": "彩色功能图标"
+  },
+  {
+    "nodeId": "24571:2691",
+    "figmaName": "webhook-waihu",
+    "name": "webhook-waihu",
+    "width": 48,
+    "height": 48,
+    "category": "colorful-functional",
+    "categoryZh": "彩色功能图标"
+  },
+  {
+    "nodeId": "24591:2764",
+    "figmaName": "asset-label-management",
+    "name": "asset-label-management",
+    "width": 48,
+    "height": 48,
+    "category": "colorful-functional",
+    "categoryZh": "彩色功能图标"
+  },
+  {
+    "nodeId": "24717:2825",
+    "figmaName": "strategy-priority",
+    "name": "strategy-priority",
+    "width": 48,
+    "height": 48,
+    "category": "colorful-functional",
+    "categoryZh": "彩色功能图标"
+  },
+  {
+    "nodeId": "24852:3149",
+    "figmaName": "sensors_sms",
+    "name": "sensors-sms",
+    "width": 48,
+    "height": 48,
+    "category": "colorful-functional",
+    "categoryZh": "彩色功能图标"
+  },
+  {
+    "nodeId": "24852:3150",
+    "figmaName": "sensors_inter_sms",
+    "name": "sensors-inter-sms",
+    "width": 48,
+    "height": 48,
+    "category": "colorful-functional",
+    "categoryZh": "彩色功能图标"
+  },
+  {
+    "nodeId": "25075:3541",
+    "figmaName": "agent-skill-management",
+    "name": "agent-skill-management",
+    "width": 48,
+    "height": 48,
+    "category": "colorful-functional",
+    "categoryZh": "彩色功能图标"
+  },
+  {
+    "nodeId": "25618:6005",
+    "figmaName": "time-authorization-management",
+    "name": "time-authorization-management",
+    "width": 48,
+    "height": 48,
+    "category": "colorful-functional",
+    "categoryZh": "彩色功能图标"
+  },
+  {
+    "nodeId": "25785:4833",
+    "figmaName": "sending-limit-management",
+    "name": "sending-limit-management",
+    "width": 48,
+    "height": 48,
+    "category": "colorful-functional",
+    "categoryZh": "彩色功能图标"
+  }
+]
+

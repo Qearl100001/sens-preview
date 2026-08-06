@@ -1,8 +1,10 @@
 import { useEffect, useState, type CSSProperties } from "react";
+import { Pagination } from "antd";
 import type { PaginationProps, SelectProps } from "antd";
-import { Pagination, Tooltip } from "antd";
-import { buildActiveRingShadow, buildShadowD3, getColorToken, tokenRgba } from "../design-system/color-utils";
+import { buildShadowD3, getColorToken, tokenRgba } from "../design-system/color-utils";
 import { getDividerColor, getDividerHairlineWidth } from "../design-system/divider";
+import { buildFunctionalActiveRingShadow, functionalCssVar } from "../design-system/functional-skin";
+import { useSensAppearance } from "../design-system/appearance";
 import { SensIcon } from "../design-system/icons";
 import { getTypographyToken } from "../design-system/typography";
 import { getUnitToken } from "../design-system/unit";
@@ -10,6 +12,7 @@ import { SELECT_CHECK_ICON_SIZE, SelectCheckIcon } from "./FieldIcons";
 import { useSensSelectTriggerProps } from "./fieldIconProps";
 import { SensInput } from "./SensInput";
 import { SensSelectDropdown, useSensSelectDropdownStyle, useSensSelectTriggerStyle } from "./SensSelectDropdown";
+import { SensTips } from "./SensTips";
 import "./pagination.css";
 
 export type SensPaginationProps = Omit<
@@ -27,7 +30,7 @@ function PaginationArrowIcon({
   const title = disabled ? (direction === "prev" ? "当前已在首页" : "当前已在尾页") : direction === "prev" ? "上一页" : "下一页";
 
   return (
-    <Tooltip title={title} placement="top">
+    <SensTips title={title} placement="top">
       <button
         aria-disabled={disabled}
         aria-label={title}
@@ -37,7 +40,7 @@ function PaginationArrowIcon({
       >
         <SensIcon name={direction === "prev" ? "chevron-left" : "chevron-right"} sizeToken="size/icon/m" color="currentColor" />
       </button>
-    </Tooltip>
+    </SensTips>
   );
 }
 
@@ -45,7 +48,7 @@ function PaginationJumpIcon({ direction }: { direction: "prev" | "next" }) {
   const title = direction === "prev" ? "向前 5 页" : "向后 5 页";
 
   return (
-    <Tooltip title={title} placement="top">
+    <SensTips title={title} placement="top">
       <span className="sens-pagination-jump-icon" aria-label={title}>
         <SensIcon name="more" sizeToken="size/icon/m" color="currentColor" className="sens-pagination-jump-more" />
         <SensIcon
@@ -55,7 +58,7 @@ function PaginationJumpIcon({ direction }: { direction: "prev" | "next" }) {
           className="sens-pagination-jump-arrow"
         />
       </span>
-    </Tooltip>
+    </SensTips>
   );
 }
 
@@ -110,15 +113,15 @@ function buildPaginationTokenVars(): CSSProperties {
     "--sens-pagination-item-bg": getColorToken("white"),
     "--sens-pagination-item-border": getDividerColor("deep", "transparent"),
     "--sens-pagination-item-hover-bg": getColorToken("white"),
-    "--sens-pagination-item-hover-border": getColorToken("component-primary"),
-    "--sens-pagination-item-hover-text": getColorToken("component-primary"),
+    "--sens-pagination-item-hover-border": functionalCssVar("--sens-skin-primary", "component-primary"),
+    "--sens-pagination-item-hover-text": functionalCssVar("--sens-skin-primary", "component-primary"),
     "--sens-pagination-item-hover-shadow": buildShadowD3(),
     "--sens-pagination-item-pressed-bg": getColorToken("white"),
-    "--sens-pagination-item-pressed-border": getColorToken("component-active"),
-    "--sens-pagination-item-pressed-text": getColorToken("component-active"),
-    "--sens-pagination-item-pressed-shadow": buildActiveRingShadow("component-active-shadow"),
-    "--sens-pagination-item-selected-bg": getColorToken("component-primary"),
-    "--sens-pagination-item-selected-hover-bg": getColorToken("component-hover"),
+    "--sens-pagination-item-pressed-border": functionalCssVar("--sens-skin-active", "component-active"),
+    "--sens-pagination-item-pressed-text": functionalCssVar("--sens-skin-active", "component-active"),
+    "--sens-pagination-item-pressed-shadow": buildFunctionalActiveRingShadow(),
+    "--sens-pagination-item-selected-bg": functionalCssVar("--sens-skin-primary", "component-primary"),
+    "--sens-pagination-item-selected-hover-bg": functionalCssVar("--sens-skin-hover", "component-hover"),
     "--sens-pagination-item-selected-text": getColorToken("white"),
     "--sens-pagination-item-selected-border": getDividerColor("light", "transparent"),
     "--sens-pagination-item-disabled-bg": tokenRgba("background-transparent-grey-hover", 0.06),
@@ -135,9 +138,9 @@ function buildPaginationTokenVars(): CSSProperties {
     "--sens-pagination-text-color": tokenRgba("text-color-transparent", 0.9),
     "--sens-pagination-range-text-color": tokenRgba("text-color-transparent", 0.9),
     "--sens-pagination-border-color": getColorToken("outline-color"),
-    "--sens-pagination-input-hover-border": getColorToken("component-primary"),
-    "--sens-pagination-input-focus-border": getColorToken("component-active"),
-    "--sens-pagination-input-focus-shadow": buildActiveRingShadow("component-active-shadow"),
+    "--sens-pagination-input-hover-border": functionalCssVar("--sens-skin-primary", "component-primary"),
+    "--sens-pagination-input-focus-border": functionalCssVar("--sens-skin-active", "component-active"),
+    "--sens-pagination-input-focus-shadow": buildFunctionalActiveRingShadow(),
     "--sens-pagination-item-size": px(getUnitToken("size/component-height/m")),
     "--sens-pagination-item-size-sm": px(getUnitToken("size/component-height/s")),
     "--sens-pagination-item-radius": px(getUnitToken("radius/m")),
@@ -158,8 +161,9 @@ function usePaginationSizeChangerConfig(
   showSizeChanger: SensPaginationProps["showSizeChanger"],
   simple: boolean,
 ): PaginationProps["showSizeChanger"] {
+  const { functionalSkin } = useSensAppearance();
   const triggerStyle = useSensSelectTriggerStyle();
-  const dropdownStyle = useSensSelectDropdownStyle();
+  const dropdownStyle = useSensSelectDropdownStyle(functionalSkin);
   const triggerProps = useSensSelectTriggerProps(false, triggerStyle);
   const mergedShowSizeChanger = showSizeChanger ?? !simple;
 
@@ -222,6 +226,7 @@ export function SensPagination({
   ...rest
 }: SensPaginationProps) {
   const isSimple = Boolean(simple);
+  const { functionalSkin } = useSensAppearance();
   const sizeChangerConfig = usePaginationSizeChangerConfig(showSizeChanger, isSimple);
   const [innerCurrent, setInnerCurrent] = useState(defaultCurrent);
   const [innerPageSize, setInnerPageSize] = useState(defaultPageSize);
@@ -238,7 +243,8 @@ export function SensPagination({
     .filter(Boolean)
     .join(" ");
   const sizeChangerProps = typeof sizeChangerConfig === "object" ? sizeChangerConfig : undefined;
-  const mergedShowQuickJumper = showQuickJumper ?? !isSimple;
+  /** 未显式传入时：简版无跳页；常规仅总页 >10 默认提供（对齐场景表） */
+  const mergedShowQuickJumper = showQuickJumper ?? (!isSimple && pageCount > 10);
   const shouldShowSizeChanger = !isSimple && Boolean(sizeChangerProps);
   const shouldShowQuickJumper = !isSimple && Boolean(mergedShowQuickJumper) && pageCount > 1;
 
@@ -308,7 +314,7 @@ export function SensPagination({
         className={mergeClassName(paginationClassName, "sens-pagination-simple")}
         style={{ ...buildPaginationTokenVars(), ...style }}
       >
-        <Tooltip title={prevDisabled ? "当前已在首页" : "上一页"} placement="top">
+        <SensTips title={prevDisabled ? "当前已在首页" : "上一页"} placement="top">
           <button
             aria-disabled={prevDisabled}
             aria-label={prevDisabled ? "当前已在首页" : "上一页"}
@@ -318,8 +324,8 @@ export function SensPagination({
           >
             <SensIcon name="chevron-left" sizeToken="size/icon/m" color="currentColor" />
           </button>
-        </Tooltip>
-        <Tooltip title="输入要跳转的页码" placement="top">
+        </SensTips>
+        <SensTips title="输入要跳转的页码" placement="top">
           <span className="sens-pagination-control-tooltip">
             <SensInput
               className="sens-pagination-simple-input"
@@ -331,9 +337,9 @@ export function SensPagination({
               onPressEnter={handleSimpleJump}
             />
           </span>
-        </Tooltip>
+        </SensTips>
         <span className="sens-pagination-simple-total">/ {pageCount}</span>
-        <Tooltip title={nextDisabled ? "当前已在尾页" : "下一页"} placement="top">
+        <SensTips title={nextDisabled ? "当前已在尾页" : "下一页"} placement="top">
           <button
             aria-disabled={nextDisabled}
             aria-label={nextDisabled ? "当前已在尾页" : "下一页"}
@@ -343,7 +349,7 @@ export function SensPagination({
           >
             <SensIcon name="chevron-right" sizeToken="size/icon/m" color="currentColor" />
           </button>
-        </Tooltip>
+        </SensTips>
       </div>
     );
   }
@@ -393,8 +399,8 @@ export function SensPagination({
         pageSizeOptions={pageSizeOptions}
         {...rest}
         showTitle={false}
-        prevIcon={<PaginationArrowIcon direction="prev" />}
-        nextIcon={<PaginationArrowIcon direction="next" />}
+        prevIcon={<PaginationArrowIcon direction="prev" disabled={mergedCurrent <= 1 || disabled} />}
+        nextIcon={<PaginationArrowIcon direction="next" disabled={mergedCurrent >= pageCount || disabled} />}
         jumpPrevIcon={<PaginationJumpIcon direction="prev" />}
         jumpNextIcon={<PaginationJumpIcon direction="next" />}
       />
@@ -404,7 +410,7 @@ export function SensPagination({
     shouldShowSizeChanger || shouldShowQuickJumper ? (
       <div className="ant-pagination-options">
         {shouldShowSizeChanger ? (
-          <Tooltip title="切换每页条数" placement="top">
+          <SensTips title="切换每页条数" placement="top">
             <span className="sens-pagination-control-tooltip">
               <SensSelectDropdown
                 {...sizeChangerProps}
@@ -415,6 +421,7 @@ export function SensPagination({
                 options={getPageSizeOptions(pageSizeOptions, mergedPageSize)}
                 popupMatchSelectWidth={false}
                 showSearch={false}
+                functionalSkin={functionalSkin}
                 value={mergedPageSize}
                 onChange={(nextValue, option) => {
                   handlePageSizeChange(Number(nextValue));
@@ -422,12 +429,12 @@ export function SensPagination({
                 }}
               />
             </span>
-          </Tooltip>
+          </SensTips>
         ) : null}
         {shouldShowQuickJumper ? (
           <span className="ant-pagination-options-quick-jumper">
             跳至
-            <Tooltip title="输入要跳转的页码" placement="top">
+            <SensTips title="输入要跳转的页码" placement="top">
               <span className="sens-pagination-control-tooltip">
                 <SensInput
                   className="sens-pagination-quick-input"
@@ -438,7 +445,7 @@ export function SensPagination({
                   onPressEnter={handleQuickJump}
                 />
               </span>
-            </Tooltip>
+            </SensTips>
             页
           </span>
         ) : null}

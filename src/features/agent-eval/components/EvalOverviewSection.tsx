@@ -5,6 +5,7 @@ import tokens from "../../../design-system/tokens.resolved.json";
 import { SensBadge } from "../../../ui";
 import type { EvalScoreOverviewSpec } from "../evalDashboardTypes";
 import { EvalPanel, EvalSectionTitle } from "./EvalLayout";
+import { functionalCssVar } from "../../../design-system/functional-skin";
 
 const u = tokens.unit as Record<string, number>;
 
@@ -117,7 +118,7 @@ function ScoreColumn({
             background: tagActive
               ? tokenRgba("component-primary", 0.1)
               : tokenRgba("background-transparent-grey", 0.04),
-            color: tagActive ? getColorToken("component-primary") : tokenRgba("text-sub-color-transparent", 0.58),
+            color: tagActive ? functionalCssVar("--sens-skin-primary", "component-primary") : tokenRgba("text-sub-color-transparent", 0.58),
             border: tagActive ? undefined : getDividerBorder("outline", "transparent"),
           }}
         >
@@ -207,11 +208,11 @@ function EvalConclusionCard({
   conclusion: EvalScoreOverviewSpec["conclusion"];
   delta: number;
 }) {
-  const gradient = `linear-gradient(180deg, ${getColorToken("component-active-click-background")} 0%, ${getColorToken("white")} 100%)`;
+  const gradient = `linear-gradient(180deg, ${functionalCssVar("--sens-skin-active-click-bg", "component-active-click-background")} 0%, ${getColorToken("white")} 100%)`;
 
   return (
     <EvalPanel
-      title={<span style={{ color: getColorToken("component-active") }}>报告结论</span>}
+      title={<span style={{ color: functionalCssVar("--sens-skin-active", "component-active") }}>报告结论</span>}
       extra={<SensBadge variant="status" status="success" text={conclusion.grade} />}
       padding={20}
       style={{
@@ -249,7 +250,7 @@ function EvalConclusionCard({
               fontSize: getTypographyToken("font-size/m"),
               lineHeight: `${getTypographyToken("line-height/m")}px`,
               fontWeight: getTypographyToken("font-weight/semibold"),
-              color: getColorToken("component-active"),
+              color: functionalCssVar("--sens-skin-active", "component-active"),
               letterSpacing: "0.04em",
             }}
           >
@@ -268,7 +269,7 @@ function EvalConclusionCard({
             >
               <span
                 style={{
-                  color: getColorToken("component-primary"),
+                  color: functionalCssVar("--sens-skin-primary", "component-primary"),
                   fontWeight: getTypographyToken("font-weight/semibold"),
                   flexShrink: 0,
                 }}

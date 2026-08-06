@@ -40,21 +40,6 @@ const components = {
     "rowHoverBg": "#F0F1F4",
     "cellPaddingBlock": 12
   },
-  "Tabs": {
-    "itemColor": "#2F333C",
-    "itemHoverColor": "#00B280",
-    "itemActiveColor": "#008C65",
-    "itemSelectedColor": "#00B280",
-    "inkBarColor": "#00B280",
-    "itemDisabledColor": "#B3B7BE",
-    "horizontalItemGutter": 24,
-    "cardHeight": 32,
-    "cardHeightSM": 24,
-    "cardPaddingInline": 12,
-    "cardPaddingInlineSM": 10,
-    "titleFontSize": 14,
-    "titleFontSizeSM": 12
-  },
   "Segmented": {
     "trackBg": "rgba(0, 21, 64, 0.04)",
     "trackPadding": 4,

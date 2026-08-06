@@ -1,6 +1,7 @@
 import { useMemo, useState } from "react";
 import type { ColumnsType } from "antd/es/table";
 import { getColorToken, tokenRgba } from "../../../design-system/color-utils";
+import { sensCursorValue } from "../../../design-system/cursors";
 import { getDividerBorder } from "../../../design-system/divider";
 import { getTypographyToken } from "../../../design-system/typography";
 import tokens from "../../../design-system/tokens.resolved.json";
@@ -18,6 +19,7 @@ import {
 import { ChartPlaceholder, EvalChartLegend, EvalDimensionSection } from "./EvalDimensionSection";
 import { EvalFilterBar } from "./EvalFilterBar";
 import { EVAL_MODULE_STACK_GAP, EVAL_TOOLBAR_STACK_GAP, EvalPanel, EvalSectionTitle } from "./EvalLayout";
+import { functionalCssVar } from "../../../design-system/functional-skin";
 
 const u = tokens.unit as Record<string, number>;
 
@@ -120,13 +122,13 @@ function KpiCard({
       style={{
         width: "100%",
         textAlign: "left",
-        cursor: "pointer",
+        cursor: sensCursorValue("pointer"),
         border: highlighted
-          ? `1px solid ${getColorToken("component-primary")}`
+          ? `1px solid ${functionalCssVar("--sens-skin-primary", "component-primary")}`
           : getDividerBorder("outline", "transparent"),
         borderRadius: u["radius/l"],
         background: highlighted
-          ? getColorToken("component-active-background")
+          ? functionalCssVar("--sens-skin-active-bg", "component-active-background")
           : getColorToken("white"),
         padding: "16px 18px",
         display: "flex",
@@ -174,7 +176,7 @@ function KpiCard({
           style={{
             fontSize: 11,
             marginTop: 2,
-            color: active ? getColorToken("component-active") : getColorToken("component-primary"),
+            color: active ? functionalCssVar("--sens-skin-active", "component-active") : functionalCssVar("--sens-skin-primary", "component-primary"),
             fontWeight: active
               ? getTypographyToken("font-weight/semibold")
               : getTypographyToken("font-weight/regular"),
@@ -251,7 +253,7 @@ function LowTracePanelContent({
       dataIndex: "id",
       width: 110,
       render: (value: string) => (
-        <span style={{ fontFamily: "ui-monospace, SFMono-Regular, Menlo, monospace", fontSize: 12, color: getColorToken("component-primary") }}>
+        <span style={{ fontFamily: "ui-monospace, SFMono-Regular, Menlo, monospace", fontSize: 12, color: functionalCssVar("--sens-skin-primary", "component-primary") }}>
           {value}
         </span>
       ),
@@ -356,7 +358,7 @@ function AnnotationPanelContent({
       dataIndex: "session",
       width: 100,
       render: (value: string) => (
-        <span style={{ fontFamily: "ui-monospace, SFMono-Regular, Menlo, monospace", fontSize: 12, color: getColorToken("component-primary") }}>
+        <span style={{ fontFamily: "ui-monospace, SFMono-Regular, Menlo, monospace", fontSize: 12, color: functionalCssVar("--sens-skin-primary", "component-primary") }}>
           {value}
         </span>
       ),
@@ -477,7 +479,7 @@ function StatMiniCard({
           fontSize: 30,
           fontWeight: 700,
           color: accent
-            ? getColorToken("component-primary")
+            ? functionalCssVar("--sens-skin-primary", "component-primary")
             : warning
               ? getColorToken("warning-color")
               : tokenRgba("text-color-transparent", 0.9),

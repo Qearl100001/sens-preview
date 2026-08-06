@@ -81,6 +81,7 @@ const typographyDoc = loadFoundation("typography");
 const dividerDoc = loadFoundation("divider");
 const shadowDoc = loadFoundation("shadow");
 const navigationThemeDoc = loadOptionalFoundation("navigation-theme");
+const functionalSkinDoc = loadOptionalFoundation("functional-skin");
 const semanticUnitDoc = loadOptionalFoundation("semantic-unit");
 if (semanticUnitDoc) {
   Object.assign(unitByPath, flattenValueTokens(semanticUnitDoc));
@@ -241,6 +242,33 @@ function buildNavigationThemeValue(node) {
 const NAVIGATION_THEME_TOKENS = navigationThemeDoc
   ? buildNavigationThemeValue(navigationThemeDoc.theme)
   : {};
+
+/** 功能色换肤矩阵：每组功能色按 source 中的 01–10 槽位生成。 */
+function buildFunctionalSkinValue(skinMap) {
+  if (!skinMap || typeof skinMap !== "object") return {};
+  return Object.fromEntries(
+    Object.entries(skinMap)
+      .filter(([key]) => !key.startsWith("$"))
+      .map(([skin, slots]) => [
+        skin,
+        Object.fromEntries(
+          Object.entries(slots)
+            .filter(([key]) => !key.startsWith("$"))
+            .map(([slot, node]) => {
+              if (!node || typeof node !== "object" || !("$value" in node)) {
+                throw new Error(`functional-skin.${skin}.${slot} must be a color token with $value`);
+              }
+              return [slot, resolve(node.$value, colorDoc)];
+            }),
+        ),
+      ]),
+  );
+}
+
+const FUNCTIONAL_SKIN_TOKENS = functionalSkinDoc
+  ? buildFunctionalSkinValue(functionalSkinDoc.skin)
+  : {};
+
 const DIVIDER_DEEP_TRANSPARENT = DIVIDER_TOKENS["color/deep/transparent"];
 const DIVIDER_LIGHT_SOLID = DIVIDER_TOKENS["color/light/solid"];
 const DIVIDER_WEAK_SOLID = DIVIDER_TOKENS["color/weak/solid"];
@@ -359,23 +387,6 @@ const components = {
     borderColor:     DIVIDER_WEAK_SOLID,
     rowHoverBg:      C["background-grey-hover"],
     cellPaddingBlock: U["spacing/3x"],
-  },
-  Tabs: {
-    itemColor:            C["text-color"],
-    /* 基础标签页 Figma 3695：悬停 primary / 点击 active / 选中 primary */
-    itemHoverColor:       C["component-primary"],
-    itemActiveColor:      C["component-active"],
-    itemSelectedColor:    C["component-primary"],
-    inkBarColor:          C["component-primary"],
-    itemDisabledColor:    C["text-color-disable"],
-    horizontalItemGutter: U["spacing/6x"],
-    cardHeight:           U["size/component-height/m"],
-    cardHeightSM:         U["size/component-height/s"],
-    cardPaddingInline:    U["spacing/horizontal/3x"],
-    cardPaddingInlineSM:  U[SP_H_2_5],
-    // 页签框体上下 6px（spacing/1.5x）；antd 无独立 cardPaddingBlock，由 .sens-card-tabs CSS 承接
-    titleFontSize:        TYPO_FONT_SIZE_M,
-    titleFontSizeSM:      TYPO_FONT_SIZE_SM,
   },
   // 胶囊：选中=白底 + D1 投影 + 绿字（已对 Figma：选中 Fill = @white）
   Segmented: {
@@ -538,6 +549,7 @@ fs.writeFileSync(
       divider: DIVIDER_TOKENS,
       shadow: SHADOW_TOKENS,
       navigationTheme: NAVIGATION_THEME_TOKENS,
+      functionalSkin: FUNCTIONAL_SKIN_TOKENS,
     },
     null,
     2,

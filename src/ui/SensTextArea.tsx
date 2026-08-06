@@ -1,6 +1,7 @@
 import { Input, type InputProps } from "antd";
 import type { TextAreaProps } from "antd/es/input";
 import type { CSSProperties, ReactNode } from "react";
+import { useId } from "react";
 import { useTranslation } from "react-i18next";
 import { getColorToken, tokenRgba } from "../design-system/color-utils";
 import tokens from "../design-system/tokens.resolved.json";
@@ -16,9 +17,11 @@ import {
   type SensInputReadOnlyVariant,
   type SensInputWarningPlacement,
 } from "./SensInput";
+import { useSensAllowClear } from "./fieldIconProps";
 import "./textarea.css";
 import "./textarea-preview.css";
 import "./input-preview.css";
+import { functionalCssVar } from "../design-system/functional-skin";
 
 const { TextArea } = Input;
 const typography = tokens.typography as Record<string, number>;
@@ -29,8 +32,8 @@ const I18N_NS = "组件库";
 const TEXTAREA_PADDING_BLOCK = 5;
 const TEXTAREA_VISIBLE_ROWS = 4.5;
 const TEXTAREA_BORDER_SIZE = 1;
-const INPUT_LINE_HEIGHT = 22;
-const INPUT_LINE_HEIGHT_SM = typography["line-height/s"] ?? 18;
+const INPUT_LINE_HEIGHT = typography["line-height/m"];
+const INPUT_LINE_HEIGHT_SM = typography["line-height/s"];
 
 function isTextAreaEmpty(value: TextAreaProps["value"], defaultValue: TextAreaProps["defaultValue"]): boolean {
   const current = value ?? defaultValue;
@@ -76,17 +79,41 @@ export function useSensTextAreaStyle(size?: InputProps["size"]): CSSProperties {
     "--sens-textarea-min-height-sm": `${minHeightSm}px`,
     "--sens-textarea-inside-warning-icon-size": `${iconSize}px`,
     "--sens-textarea-inside-warning-reserve": `${iconSize + iconGap + paddingInline}px`,
-    "--sens-textarea-active-shadow": `0 0 0 2px ${tokenRgba("component-active-shadow", 0.2)}`,
+    "--sens-textarea-active-shadow": `0 0 0 2px ${functionalCssVar("--sens-skin-active-shadow", "component-active-shadow")}`,
   } as CSSProperties;
 }
 
 export type SensTextAreaWarningPlacement = SensInputWarningPlacement;
 export type SensTextAreaReadOnlyVariant = SensInputReadOnlyVariant;
 
+export interface SensTextAreaCountFormatterArgs {
+  value: string;
+  count: number;
+  maxLength?: number;
+}
+
+/** 文本域框内计数：当前值超限时只把当前数字标红，最大值保持中性。 */
+export function formatSensTextAreaCount({
+  count,
+  maxLength,
+}: SensTextAreaCountFormatterArgs): ReactNode {
+  const isOverLimit = maxLength != null && count > maxLength;
+  return (
+    <>
+      <span className={isOverLimit ? "sens-textarea-count-current-over" : "sens-textarea-count-current"}>
+        {count}
+      </span>
+      {maxLength != null ? <span className="sens-textarea-count-limit">/{maxLength}</span> : null}
+    </>
+  );
+}
+
 export interface SensTextAreaProps extends TextAreaProps {
   warningPlacement?: SensTextAreaWarningPlacement;
   help?: ReactNode;
   warningMessage?: ReactNode;
+  /** 预览矩阵内部使用：静态样张不进入 live region */
+  helpLive?: boolean;
   readOnlyVariant?: SensTextAreaReadOnlyVariant;
 }
 
@@ -116,14 +143,19 @@ export function SensTextArea({
   warningPlacement,
   help,
   warningMessage,
+  helpLive = true,
   readOnly: readOnlyProp,
   readOnlyVariant,
+  id: idProp,
+  allowClear: allowClearProp,
+  ["aria-describedby"]: ariaDescribedByProp,
   value,
   defaultValue,
   placeholder,
   ...props
 }: SensTextAreaProps) {
   const { t } = useTranslation();
+  const generatedId = useId();
   const textAreaStyle = useSensTextAreaStyle(size);
   const readOnly = readOnlyProp ?? Boolean(readOnlyVariant);
   const unsetLabel = t(`${I18N_NS}.sensd-input-unset`, { defaultValue: "未设置" });
@@ -132,6 +164,17 @@ export function SensTextArea({
   const resolvedDefaultValue = showUnset ? undefined : defaultValue;
   const resolvedPlaceholder = readOnlyVariant ? undefined : placeholder;
   const readOnlyText = resolveReadOnlyText(showUnset, unsetLabel, value, defaultValue);
+  const inputId = idProp ?? generatedId;
+  const hasOutsideHelp = warningPlacement === "outside" && help != null && help !== "";
+  const helpId = hasOutsideHelp ? inputId + "-help" : undefined;
+  const describedBy = [ariaDescribedByProp, helpId].filter(Boolean).join(" ") || undefined;
+  const sensAllowClear = useSensAllowClear();
+  const allowClear =
+    allowClearProp === true
+      ? sensAllowClear
+      : allowClearProp && typeof allowClearProp === "object"
+        ? { ...allowClearProp, clearIcon: allowClearProp.clearIcon ?? sensAllowClear.clearIcon }
+        : allowClearProp;
 
   const isWarning = warningPlacement === "inside" || warningPlacement === "outside";
   const isReadOnlyWarning = Boolean(readOnlyVariant && isWarning);
@@ -181,7 +224,7 @@ export function SensTextArea({
       return (
         <div className={fieldClassName} style={mergedStyle}>
           <span className={plainTextClass}>{readOnlyText}</span>
-          <InputHelpRow help={help} />
+          <InputHelpRow help={help} id={helpId} live={helpLive} />
         </div>
       );
     }
@@ -195,6 +238,7 @@ export function SensTextArea({
   const textArea = (
     <TextArea
       className={mergedClassName}
+      id={inputId}
       style={mergedStyle}
       size={size}
       status={status}
@@ -203,6 +247,8 @@ export function SensTextArea({
       value={resolvedValue}
       defaultValue={resolvedDefaultValue}
       placeholder={resolvedPlaceholder}
+      allowClear={allowClear}
+      aria-describedby={describedBy}
       {...props}
     />
   );
@@ -237,7 +283,7 @@ export function SensTextArea({
   return (
     <div className={["sens-textarea-field", className].filter(Boolean).join(" ")} style={mergedStyle}>
       {wrappedTextArea}
-      <InputHelpRow help={help} />
+      <InputHelpRow help={help} id={helpId} live={helpLive} />
     </div>
   );
 }
@@ -315,9 +361,9 @@ interface TextAreaPreviewStyleToken {
 
 function getTextAreaPreviewStyleToken(): TextAreaPreviewStyleToken {
   return {
-    hoverBorderColor: getColorToken("component-primary"),
-    activeBorderColor: getColorToken("component-active"),
-    activeShadow: `0 0 0 2px ${tokenRgba("component-active-shadow", 0.2)}`,
+    hoverBorderColor: functionalCssVar("--sens-skin-primary", "component-primary"),
+    activeBorderColor: functionalCssVar("--sens-skin-active", "component-active"),
+    activeShadow: `0 0 0 2px ${functionalCssVar("--sens-skin-active-shadow", "component-active-shadow")}`,
     colorBorderDisabledHover: tokenRgba("line-color-transparent", 0.06),
     colorBgContainerDisabledHover: tokenRgba("background-transparent-grey", 0.04),
     colorErrorHover: getColorToken("warning-color-hover"),
@@ -368,6 +414,7 @@ function buildPreviewTextAreaProps(
   const props: SensTextAreaProps = {
     placeholder,
     style: { width: TEXTAREA_MATRIX_FIELD_WIDTH, minWidth: 128, maxWidth: 600 },
+    helpLive: false,
     defaultValue: content === "filled" ? filledValue : undefined,
   };
 

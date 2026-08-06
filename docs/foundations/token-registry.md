@@ -50,7 +50,8 @@ tokens/source/figma + tokens/source/foundations
 | 分割线 | `divider/width/*`、`divider/color/*` | 容器与内容层级分隔 | 不适用 | `foundations/divider.json` | `divider.md` / 组件文档 | 已录入 |
 | 阴影 | `shadow/*`、`active-ring/*` | 浮层、卡片、聚焦外环 | 中性层不换肤；功能态由语义色派生 | `foundations/shadow.json` | `shadow.md` | 已录入 |
 | 导航颜色 handle | `theme-top-*`、`theme-side-*`、`body-background` | 顶导、侧导、标题栏、页面背景 | Product Shell Theme，独立于 Functional Skin | `figma/Color.json` | `navigation-color.md` | 首轮录入 |
-| 导航主题氛围 | `navigationTheme` | 导航渐变、氛围层 | Product Shell Theme，独立于 Functional Skin | `foundations/navigation-theme.json` | `navigation-color.md` | 首轮录入 |
+| 导航主题氛围 | `navigationTheme` | 导航渐变、氛围层、accent、品牌 handles | Product Shell Theme，独立于 Functional Skin | `foundations/navigation-theme.json` | `navigation-color.md` | green / blue 已录入 |
+| 功能色换肤矩阵 | `functionalSkin` | 功能色 01–10 绿/蓝 | Functional Skin | `foundations/functional-skin.json` | `theme-skinning.md` | green / blue 已录入 |
 | antd 组件主题映射 | `components.*` | antd 承接层的组件默认值 | 不直接作为业务取值入口 | `build-tokens.mjs` | `theme.ts`、对应组件文档 | 脚本层 |
 | 脚本层公式常量 | 输入框、选择器等公式值 | 无法由通用 token 表达的组件公式 | 不适用 | `build-tokens.mjs` | 对应组件文档 | 脚本层 |
 | 文案 | `zh-cn.tokens.json`、`en.tokens.json` | i18n 文案承接 | 不适用 | `figma/*.tokens.json` | `src/design-system/i18n/` | 已录入 |
@@ -59,9 +60,9 @@ tokens/source/figma + tokens/source/foundations
 
 `tokens/source/figma/` 是 Figma 导出源，包含 `Color.json`、`unit.json`、`zh-cn.tokens.json`、`en.tokens.json`；其中 `unit.json` 同时承载 spacing、size 与 radius。
 
-`tokens/source/foundations/` 是仓库维护的补充源，包含 Typography、Divider、Shadow、Navigation Theme 与 Semantic Unit。它们与 Figma 导出共同进入同一生成链。
+`tokens/source/foundations/` 是仓库维护的补充源，包含 Typography、Divider、Shadow、Navigation Theme、Functional Skin 与 Semantic Unit。它们与 Figma 导出共同进入同一生成链。
 
-`tokens.resolved.json` 的顶层结构为 `color`、`colorByPath`、`unit`、`typography`、`divider`、`shadow`、`navigationTheme`。antd 的组件级 `components.*` 映射只在 `theme.ts` 中，不应误以为可从 `tokens.resolved.json` 查询。
+`tokens.resolved.json` 的顶层结构为 `color`、`colorByPath`、`unit`、`typography`、`divider`、`shadow`、`navigationTheme`、`functionalSkin`。antd 的组件级 `components.*` 映射只在 `theme.ts` 中，不应误以为可从 `tokens.resolved.json` 查询。
 
 ## 5. 检查边界
 
@@ -83,5 +84,5 @@ tokens/source/figma + tokens/source/foundations
 ## 7. 当前缺口
 
 - 组件级 semantic token 尚未覆盖全部组件；新增前应先判断是否属于 Foundation、组件专属规则或公式值。
-- Navigation Color 与全局 Functional Skin 仍是两个独立主题系统；不得跨层临时复用 token。
+- Navigation Color 与 Functional Skin 仍是两个独立主题系统；不得跨层临时复用 token。绿/蓝矩阵已录入；组件接线与 Context 见换肤流程阶段 2–3。
 - 本篇是索引，不取代 `tokens.resolved.json` 的完整键值清单。

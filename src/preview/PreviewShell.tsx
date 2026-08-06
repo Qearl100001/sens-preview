@@ -3,8 +3,12 @@ import { SettingOutlined } from "@ant-design/icons";
 import { Button, Layout, Menu, Popover, Segmented, Space, Typography } from "antd";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import type { FunctionalSkin } from "../design-system/functional-skin";
+import { useSensAppearance } from "../design-system/appearance";
+import { FUNCTIONAL_SKIN_LABELS, type FunctionalSkin } from "../design-system/functional-skin";
+import { NAVIGATION_THEME_LABELS, type NavigationTheme } from "../design-system/navigation-color";
 import { getPreviewTokens } from "./previewTokens";
+import { SENS_FONT_FAMILY } from "../design-system/typography";
+import type { PreviewOutletContext } from "./previewOutletContext";
 
 const { Header, Sider, Content } = Layout;
 const { Text } = Typography;
@@ -38,13 +42,16 @@ export const COMPONENT_NAV = [
   { key: "/components/checkbox", label: "复选框" },
   { key: "/components/radio", label: "单选框" },
   { key: "/components/form", label: "表单" },
+  { key: "/components/card", label: "卡片" },
   { key: "/components/title", label: "标题" },
   { key: "/components/tabs", label: "标签页" },
   { key: "/components/badge", label: "徽标" },
   { key: "/components/tag", label: "标签" },
   { key: "/components/message", label: "轻提示" },
   { key: "/components/alert", label: "警告" },
+  { key: "/components/tips", label: "便签" },
   { key: "/components/title-bar", label: "标题栏" },
+  { key: "/components/breadcrumb", label: "面包屑" },
   { key: "/components/top-navigation", label: "顶部导航" },
   { key: "/components/side-navigation", label: "侧边导航" },
   { key: "/components/drawer", label: "抽屉" },
@@ -59,6 +66,7 @@ const CASE_NAV = [
   { key: "/cases/tiktok-ads-connections", label: "TikTok Ads 连接列表" },
   { key: "/cases/agent-eval-dashboard", label: "AgentEval 评测报告" },
   { key: "/cases/ai-design-stage-ppt", label: "AI 设计环节 PPT" },
+  { key: "/cases/sdh-feature-segment-create", label: "SDH 特征分群创建" },
 ] as const;
 
 type ProductSection = "overview" | "foundation" | "components" | "composite" | "templates" | "cases" | "guides";
@@ -111,7 +119,7 @@ function getSectionMenuItems(section: ProductSection) {
       {
         type: "group" as const,
         label: "导航",
-        children: COMPONENT_NAV.filter((item) => ["/components/top-navigation", "/components/side-navigation", "/components/title-bar", "/components/tabs"].includes(item.key)).map(
+        children: COMPONENT_NAV.filter((item) => ["/components/top-navigation", "/components/side-navigation", "/components/title-bar", "/components/breadcrumb", "/components/tabs"].includes(item.key)).map(
           (item) => ({ key: item.key, label: item.label }),
         ),
       },
@@ -135,14 +143,14 @@ function getSectionMenuItems(section: ProductSection) {
       {
         type: "group" as const,
         label: "操作与反馈",
-        children: COMPONENT_NAV.filter((item) => ["/components/button", "/components/drawer", "/components/message", "/components/alert"].includes(item.key)).map(
-          (item) => ({ key: item.key, label: item.label }),
-        ),
+        children: COMPONENT_NAV.filter((item) =>
+          ["/components/button", "/components/drawer", "/components/message", "/components/alert", "/components/tips"].includes(item.key),
+        ).map((item) => ({ key: item.key, label: item.label })),
       },
       {
         type: "group" as const,
         label: "内容与数据展示",
-        children: COMPONENT_NAV.filter((item) => ["/components/title", "/components/badge", "/components/tag", "/components/table", "/components/pagination", "/components/divider"].includes(item.key)).map(
+        children: COMPONENT_NAV.filter((item) => ["/components/card", "/components/title", "/components/badge", "/components/tag", "/components/table", "/components/pagination", "/components/divider"].includes(item.key)).map(
           (item) => ({ key: item.key, label: item.label }),
         ),
       },
@@ -169,6 +177,7 @@ function getSectionMenuItems(section: ProductSection) {
           { key: "/templates/sdh-editable-table/create-dimension-event-property", label: "创建维度（事件属性）" },
         ],
       },
+      { key: "/templates/card/entry-settings", label: "入口卡片" },
     ];
   }
 
@@ -201,7 +210,11 @@ function getSelectedMenuKey(section: ProductSection, pathname: string) {
   }
 
   if (section === "templates") {
-    return pathname.startsWith("/templates/sdh-editable-table/") ? pathname : pathname === "/templates" ? pathname : "/templates";
+    return pathname.startsWith("/templates/sdh-editable-table/") || pathname === "/templates/card/entry-settings"
+      ? pathname
+      : pathname === "/templates"
+        ? pathname
+        : "/templates";
   }
 
   if (section === "cases") {
@@ -213,21 +226,25 @@ function getSelectedMenuKey(section: ProductSection, pathname: string) {
 }
 
 export interface PreviewShellProps {
-  skin: FunctionalSkin;
-  onSkinChange: (skin: FunctionalSkin) => void;
   headerExtra?: ReactNode;
 }
 
-export function PreviewShell({ skin, onSkinChange, headerExtra }: PreviewShellProps) {
+export function PreviewShell({ headerExtra }: PreviewShellProps) {
   const token = getPreviewTokens();
   const navigate = useNavigate();
   const location = useLocation();
   const { i18n } = useTranslation();
   const lang = i18n.language;
+  const {
+    functionalSkin,
+    navigationTheme,
+    setFunctionalSkin,
+    setNavigationTheme,
+  } = useSensAppearance();
+  const outletContext: PreviewOutletContext = { skin: functionalSkin, navigationTheme };
 
   const isComponentPage = location.pathname.startsWith("/components/");
   const isBasicStylePage = location.pathname.startsWith("/basic-styles/");
-  const isCasePage = location.pathname.startsWith("/cases/");
   const section = getProductSection(location.pathname);
   const sectionMeta = SECTION_META[section];
   const sectionMenuItems = getSectionMenuItems(section);
@@ -250,26 +267,39 @@ export function PreviewShell({ skin, onSkinChange, headerExtra }: PreviewShellPr
         />
       </div>
       <div>
-        <Text strong>功能色预览</Text>
+        <Text strong>换肤预览</Text>
         <Text type="secondary" style={{ display: "block", marginTop: token.marginXXS, fontSize: token.fontSizeSM }}>
-          仅切换功能色，不影响导航主题。
+          Functional Skin 与 Product Shell Theme 独立切换，用于验证品牌主题与功能色的组合关系。
+        </Text>
+        <Text type="secondary" style={{ display: "block", marginTop: token.marginXS, fontSize: token.fontSizeSM }}>
+          功能色
         </Text>
         <Segmented
           block
-          value={skin}
-          onChange={(value) => onSkinChange(value as FunctionalSkin)}
-          options={[
-            { label: "绿", value: "green" },
-            { label: "蓝", value: "blue" },
-          ]}
+          value={functionalSkin}
+          onChange={(value) => setFunctionalSkin(value as FunctionalSkin)}
+          options={Object.entries(FUNCTIONAL_SKIN_LABELS).map(([value, label]) => ({ label, value }))}
           style={{ marginTop: token.marginXS }}
         />
+        <Text type="secondary" style={{ display: "block", marginTop: token.marginXS, fontSize: token.fontSizeSM }}>
+          产品壳导航主题
+        </Text>
+        <Segmented
+          block
+          value={navigationTheme}
+          onChange={(value) => setNavigationTheme(value as NavigationTheme)}
+          options={Object.entries(NAVIGATION_THEME_LABELS).map(([value, label]) => ({ label, value }))}
+          style={{ marginTop: token.marginXS }}
+        />
+        <Text type="secondary" style={{ display: "block", marginTop: token.marginXS, fontSize: token.fontSizeSM }}>
+          当前组合：导航 {NAVIGATION_THEME_LABELS[navigationTheme]} · 功能色 {FUNCTIONAL_SKIN_LABELS[functionalSkin]}
+        </Text>
       </div>
     </Space>
   );
 
   return (
-    <Layout style={{ height: "100vh", overflow: "auto", background: token.colorBgLayout }}>
+    <Layout style={{ height: "100vh", overflow: "auto", background: token.colorBgLayout, fontFamily: SENS_FONT_FAMILY }}>
       <div style={{ minWidth: PRODUCT_MIN_DESKTOP_WIDTH, minHeight: "100%", display: "flex", flexDirection: "column" }}>
       <Header
         style={{
@@ -344,13 +374,7 @@ export function PreviewShell({ skin, onSkinChange, headerExtra }: PreviewShellPr
             padding: 0,
           }}
         >
-          {isComponentPage || isBasicStylePage ? (
-            <Outlet context={{ skin }} />
-          ) : isCasePage ? (
-            <Outlet context={{ skin }} />
-          ) : (
-            <Outlet />
-          )}
+            <Outlet context={outletContext} />
         </Content>
       </Layout>
       </div>

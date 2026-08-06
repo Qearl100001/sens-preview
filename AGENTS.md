@@ -28,6 +28,13 @@
 - `src/design-system/README.md`
 - 对应组件、复合组件、样板间文档
 
+## 交接与上下文（必守）
+
+- 读序：`Handoff.md`（先看最后更新日期）→ `Cursor-Worklog.md` **只读最近 1～3 条** → 任务相关组件/foundation/当日 changelog。
+- 若 Handoff 日期落后仓库 `changelog/` 最新日超过 1 天：先补交接，再改代码。
+- Cursor 完成一段可交接工作后三段式写入：① 仓库 changelog（触发时）② 追加 Worklog ③ 需要时更新 Handoff（日期 / 摘要 / Top 待验）。
+- `changelog` 自述已验 ≠ 交接已同步 ≠ 浏览器已验。
+
 ## 项目原则
 
 - 尊重现有 Vite + React + antd 架构。

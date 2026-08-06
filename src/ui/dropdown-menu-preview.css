@@ -109,7 +109,7 @@
   .sens-dropdown-menu-item--disabled {
   background-color: var(--sens-dropdown-menu-item-hover-bg) !important;
   color: var(--sens-dropdown-menu-item-color-disabled) !important;
-  cursor: not-allowed;
+  cursor: var(--sens-cursor-not-allowed);
 }
 
 .sens-dropdown-menu-matrix-preview--loading-hover
@@ -117,5 +117,5 @@
   .sens-dropdown-menu-item--loading {
   background-color: var(--sens-dropdown-menu-item-hover-bg) !important;
   color: var(--sens-dropdown-menu-item-color-loading) !important;
-  cursor: not-allowed;
+  cursor: var(--sens-cursor-not-allowed);
 }

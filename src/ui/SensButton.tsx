@@ -1,8 +1,23 @@
-import { Children, cloneElement, isValidElement, useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
+import {
+  Children,
+  cloneElement,
+  forwardRef,
+  isValidElement,
+  useRef,
+  useState,
+  type CSSProperties,
+  type ReactElement,
+  type ReactNode,
+} from "react";
 import { LoadingOutlined } from "@ant-design/icons";
 import { Button, Dropdown, type ButtonProps, type DropdownProps } from "antd";
 import { useTranslation } from "react-i18next";
-import { buildShadowD3, buildShadowD4, SHADOW_NONE } from "../design-system/color-utils";
+import { buildActiveRingShadow, buildShadowD3, buildShadowD4, SHADOW_NONE } from "../design-system/color-utils";
+import { getDividerColor } from "../design-system/divider";
+import {
+  buildFunctionalActiveRingShadow,
+  functionalCssVar,
+} from "../design-system/functional-skin";
 import { getButtonPrimaryBorderColor } from "../design-system/theme";
 import tokens from "../design-system/tokens.resolved.json";
 import { ChevronDownIcon, ChevronUpIcon, EditorAddIcon, IconDefaultIcon, MoreIcon } from "./FieldIcons";
@@ -38,7 +53,13 @@ function hexToRgba(hex: string, alpha: number): string {
 
 const I18N_NS = "组件库";
 
-const LINK_TONES = new Set<SensButtonVariant>(["link", "linkWeak", "dangerLink", "dangerLinkWeak"]);
+const LINK_TONES = new Set<SensButtonVariant>([
+  "link",
+  "linkWeak",
+  "dangerLink",
+  "dangerLinkEmphasis",
+  "dangerLinkWeak",
+]);
 
 function isLinkTone(tone: SensButtonVariant): boolean {
   return LINK_TONES.has(tone);
@@ -95,8 +116,11 @@ export type SensButtonVariant =
   | "link"
   | "linkWeak"
   | "dangerSecondary"
+  | "dangerSecondaryWeak"
   | "dangerTertiary"
+  | "dangerTertiaryWeak"
   | "dangerLink"
+  | "dangerLinkEmphasis"
   | "dangerLinkWeak"
   | "dashed";
 
@@ -165,7 +189,135 @@ function hasPersistentD4Shadow(_tone: SensButtonVariant, fab?: boolean): boolean
 }
 
 function isHoverShadowTone(tone: SensButtonVariant): boolean {
-  return tone === "primary" || tone === "secondary" || tone === "dangerSecondary";
+  return tone === "primary" || tone === "secondary" || tone === "dangerSecondary" || tone === "dangerSecondaryWeak";
+}
+
+function isWarningTone(tone: SensButtonVariant): boolean {
+  return (
+    tone === "dangerSecondary" ||
+    tone === "dangerSecondaryWeak" ||
+    tone === "dangerTertiary" ||
+    tone === "dangerTertiaryWeak" ||
+    tone === "dangerLink" ||
+    tone === "dangerLinkEmphasis" ||
+    tone === "dangerLinkWeak"
+  );
+}
+
+function resolveActiveRingShadow(tone: SensButtonVariant): string {
+  if (isWarningTone(tone)) return buildActiveRingShadow("warning-color-active-shadow");
+  return buildFunctionalActiveRingShadow();
+}
+
+function isActiveRingTone(tone: SensButtonVariant): boolean {
+  return (
+    tone === "primary" ||
+    tone === "secondary" ||
+    tone === "dangerSecondary" ||
+    tone === "dangerSecondaryWeak" ||
+    tone === "dashed"
+  );
+}
+
+function isNeutralActionIconTone(tone: SensButtonVariant): boolean {
+  return (
+    tone === "secondary" ||
+    tone === "tertiary" ||
+    tone === "dangerSecondaryWeak" ||
+    tone === "dangerTertiaryWeak" ||
+    tone === "dashed"
+  );
+}
+
+function resolveNeutralActionIconColor(tone: SensButtonVariant, state: ButtonPreviewState): string | undefined {
+  if (!isNeutralActionIconTone(tone)) return undefined;
+
+  switch (state) {
+    case "hover":
+      return functionalCssVar("--sens-skin-hover", "component-hover");
+    case "active":
+      return functionalCssVar("--sens-skin-active", "component-active");
+    case "disabled":
+    case "disabledHover":
+    case "loading":
+    case "loadingHover":
+      return c["icon-color-transparent-disable"];
+    default:
+      return c["icon-color-transparent"];
+  }
+}
+
+function withIconColor(icon: ReactNode | undefined, color: string | undefined): ReactNode | undefined {
+  if (!icon || !color || !isValidElement(icon)) return icon;
+  const element = icon as ReactElement<{ style?: CSSProperties }>;
+  return cloneElement(element, {
+    style: { ...(element.props.style ?? {}), color },
+  });
+}
+
+function resolveButtonIconForState(
+  tone: SensButtonVariant,
+  icon: ReactNode | undefined,
+  state: ButtonPreviewState,
+): ReactNode | undefined {
+  if (tone === "dangerLinkWeak") {
+    const color = (() => {
+      switch (state) {
+        case "hover":
+          return c["warning-color"];
+        case "active":
+          return c["warning-color-active"];
+        case "disabled":
+        case "disabledHover":
+        case "loading":
+        case "loadingHover":
+          return c["icon-color-transparent-disable"];
+        default:
+          return c["icon-color-transparent"];
+      }
+    })();
+    return withIconColor(icon, color);
+  }
+
+  if (tone === "dangerSecondaryWeak" || tone === "dangerTertiaryWeak" || tone === "dangerLinkEmphasis") {
+    const color = (() => {
+      switch (state) {
+        case "hover":
+          return c["warning-color"];
+        case "active":
+          return c["warning-color-active"];
+        case "disabled":
+        case "disabledHover":
+        case "loading":
+        case "loadingHover":
+          return c["icon-color-transparent-disable"];
+        default:
+          return tone === "dangerLinkEmphasis" ? c["link-color"] : c["icon-color-transparent"];
+      }
+    })();
+    return withIconColor(icon, color);
+  }
+
+  if (tone === "linkWeak") {
+    const color = (() => {
+      switch (state) {
+        case "hover":
+          return c["link-color"];
+        case "active":
+          return c["link-active-color"];
+        case "disabled":
+        case "disabledHover":
+        case "loading":
+        case "loadingHover":
+          return c["icon-color-transparent-disable"];
+        default:
+          return c["icon-color-transparent"];
+      }
+    })();
+    return withIconColor(icon, color);
+  }
+
+  return withIconColor(icon, resolveNeutralActionIconColor(tone, state));
 }
 
 function isDisabledPreviewState(state: ButtonPreviewState): boolean {
@@ -180,20 +332,124 @@ function resolvePreviewShadow(
 ): string {
   if (hasPersistentD4Shadow(tone, fab)) return shadows.floating;
   if (isDisabledPreviewState(state)) return SHADOW_NONE;
+  if (state === "active" && isActiveRingTone(tone)) return resolveActiveRingShadow(tone);
   if (isHoverShadowTone(tone) && state === "hover") return shadows.hover;
   return SHADOW_NONE;
 }
 
 function resolveLiveShadow(
   tone: SensButtonVariant,
-  { isHovered, isDisabled }: { isHovered: boolean; isDisabled: boolean },
+  { isHovered, isPressed, isDisabled }: { isHovered: boolean; isPressed: boolean; isDisabled: boolean },
   shadows: ButtonShadowToken,
   fab?: boolean,
 ): string {
-  if (hasPersistentD4Shadow(tone, fab)) return shadows.floating;
   if (isDisabled) return SHADOW_NONE;
+  if (!fab && isPressed && isActiveRingTone(tone)) return resolveActiveRingShadow(tone);
+  if (hasPersistentD4Shadow(tone, fab)) return shadows.floating;
   if (isHoverShadowTone(tone) && isHovered) return shadows.hover;
   return SHADOW_NONE;
+}
+
+function getLiveStateStyle(tone: SensButtonVariant, state: ButtonPreviewState, isFab: boolean): CSSProperties {
+  if (isFab) {
+    if (tone !== "secondary") return {};
+    if (state === "hover") return { color: functionalCssVar("--sens-skin-hover", "component-hover"), backgroundColor: c.white, borderColor: "transparent" };
+    if (state === "active") return { color: functionalCssVar("--sens-skin-active", "component-active"), backgroundColor: c.white, borderColor: "transparent" };
+    return {};
+  }
+
+  if (state === "default") return {};
+
+  switch (tone) {
+    case "secondary":
+      if (state === "hover") return { color: functionalCssVar("--sens-skin-hover", "component-hover"), borderColor: functionalCssVar("--sens-skin-hover", "component-hover"), backgroundColor: c.white };
+      if (state === "active") return { color: functionalCssVar("--sens-skin-active", "component-active"), borderColor: functionalCssVar("--sens-skin-active", "component-active"), backgroundColor: c.white };
+      return {};
+    case "dashed":
+      if (state === "hover") return { color: functionalCssVar("--sens-skin-hover", "component-hover"), borderColor: functionalCssVar("--sens-skin-hover", "component-hover"), backgroundColor: c.white };
+      if (state === "active") return { color: functionalCssVar("--sens-skin-active", "component-active"), borderColor: functionalCssVar("--sens-skin-active", "component-active"), backgroundColor: c.white };
+      return {};
+    case "tertiary":
+      if (state === "hover") return { color: functionalCssVar("--sens-skin-hover", "component-hover"), backgroundColor: "transparent", borderColor: "transparent" };
+      if (state === "active") return { color: functionalCssVar("--sens-skin-active", "component-active"), backgroundColor: "transparent", borderColor: "transparent" };
+      return {};
+    case "dangerSecondary":
+      if (state === "hover") return { color: c["warning-color-hover"], borderColor: c["warning-color-hover"], backgroundColor: c.white };
+      if (state === "active") return { color: c["warning-color-active"], borderColor: c["warning-color-active"], backgroundColor: c.white };
+      return {};
+    case "dangerSecondaryWeak":
+      if (state === "hover") return { color: c["warning-color"], borderColor: c["warning-color"], backgroundColor: c.white };
+      if (state === "active") return { color: c["warning-color-active"], borderColor: c["warning-color-active"], backgroundColor: c.white };
+      return {};
+    case "dangerTertiary":
+      if (state === "hover") return { color: c["warning-color-hover"], backgroundColor: "transparent", borderColor: "transparent" };
+      if (state === "active") return { color: c["warning-color-active"], backgroundColor: "transparent", borderColor: "transparent" };
+      return {};
+    case "dangerTertiaryWeak":
+      if (state === "hover") return { color: c["warning-color"], backgroundColor: "transparent", borderColor: "transparent" };
+      if (state === "active") return { color: c["warning-color-active"], backgroundColor: "transparent", borderColor: "transparent" };
+      return {};
+    case "link":
+      if (state === "hover") return { color: c["link-hover-color"], backgroundColor: "transparent", borderColor: "transparent" };
+      if (state === "active") return { color: c["link-active-color"], backgroundColor: "transparent", borderColor: "transparent" };
+      return {};
+    case "linkWeak":
+      if (state === "hover") return { color: c["link-color"], backgroundColor: "transparent", borderColor: "transparent" };
+      if (state === "active") return { color: c["link-active-color"], backgroundColor: "transparent", borderColor: "transparent" };
+      return {};
+    case "dangerLink":
+      if (state === "hover") return { color: c["warning-color-hover"], backgroundColor: "transparent", borderColor: "transparent" };
+      if (state === "active") return { color: c["warning-color-active"], backgroundColor: "transparent", borderColor: "transparent" };
+      return {};
+    case "dangerLinkEmphasis":
+      if (state === "hover") return { color: c["warning-color"], backgroundColor: "transparent", borderColor: "transparent" };
+      if (state === "active") return { color: c["warning-color-active"], backgroundColor: "transparent", borderColor: "transparent" };
+      return {};
+    case "dangerLinkWeak":
+      if (state === "hover") return { color: c["warning-color"], backgroundColor: "transparent", borderColor: "transparent" };
+      if (state === "active") return { color: c["warning-color-active"], backgroundColor: "transparent", borderColor: "transparent" };
+      return {};
+    default:
+      return {};
+  }
+}
+
+function getBaseToneStyle(tone: SensButtonVariant, isFab: boolean): CSSProperties {
+  if (isFab && tone === "secondary") {
+    return { color: c["text-color-transparent"], backgroundColor: c.white, borderColor: "transparent" };
+  }
+
+  switch (tone) {
+    case "link":
+      return { ...LINK_NO_FILL, color: c["link-color"], minWidth: 0, paddingInline: 0 };
+    case "linkWeak":
+      return { ...LINK_NO_FILL, color: c["text-color-transparent"], minWidth: 0, paddingInline: 0 };
+    case "dangerLink":
+      return { ...LINK_NO_FILL, color: c["warning-color"], minWidth: 0, paddingInline: 0 };
+    case "dangerLinkEmphasis":
+      return { ...LINK_NO_FILL, color: c["link-color"], minWidth: 0, paddingInline: 0 };
+    case "dangerLinkWeak":
+      return { ...LINK_NO_FILL, color: c["text-color-transparent"], minWidth: 0, paddingInline: 0 };
+    default:
+      return {};
+  }
+}
+
+function resolveFabSecondaryColor(state: ButtonPreviewState): string {
+  switch (state) {
+    case "hover":
+      return functionalCssVar("--sens-skin-hover", "component-hover");
+    case "active":
+      return functionalCssVar("--sens-skin-active", "component-active");
+    case "disabled":
+    case "loading":
+      return hexToRgba(c["text-color-transparent-disable"], 0.3);
+    case "disabledHover":
+    case "loadingHover":
+      return hexToRgba(c["text-color-transparent-disable"], 0.24);
+    default:
+      return c["text-color-transparent"];
+  }
 }
 
 function mergePreviewStyle(
@@ -294,10 +550,16 @@ function buildToneProps(variant: SensButtonVariant): ButtonProps {
       return { type: "link", className: "sens-btn-link-weak" };
     case "dangerSecondary":
       return { color: "danger", variant: "outlined" };
+    case "dangerSecondaryWeak":
+      return { color: "default", variant: "outlined" };
     case "dangerTertiary":
       return { color: "danger", variant: "text" };
+    case "dangerTertiaryWeak":
+      return { color: "default", variant: "text" };
     case "dangerLink":
       return { color: "danger", variant: "link" };
+    case "dangerLinkEmphasis":
+      return { type: "link" };
     case "dangerLinkWeak":
       return { type: "link", className: "sens-btn-danger-link-weak" };
     case "dashed":
@@ -361,9 +623,9 @@ interface PreviewStyleToken {
 
 function getPreviewStyleToken(): PreviewStyleToken {
   return {
-    primary: c["component-primary"],
-    primaryHover: c["component-hover"],
-    primaryActive: c["component-active"],
+    primary: functionalCssVar("--sens-skin-primary", "component-primary"),
+    primaryHover: functionalCssVar("--sens-skin-hover", "component-hover"),
+    primaryActive: functionalCssVar("--sens-skin-active", "component-active"),
     warning: c["warning-color"],
     warningHover: c["warning-color-hover"],
     warningActive: c["warning-color-active"],
@@ -376,7 +638,7 @@ function getPreviewStyleToken(): PreviewStyleToken {
     iconPrimary: c["icon-color-transparent"],
     bgContainer: c.white,
     primarySolidBorder: getButtonPrimaryBorderColor(),
-    dashedDefaultBorder: hexToRgba(c["outline-color-transparent"], 0.16),
+    dashedDefaultBorder: getDividerColor("deep", "transparent"),
     dashedDefaultText: hexToRgba(c["text-color-transparent"], 0.9),
     disabledBg: hexToRgba(c["outline-color-transparent"], 0.06),
     disabledBorder: hexToRgba(c["outline-color-transparent"], 0.08),
@@ -399,9 +661,15 @@ function getDefaultSnapshotStyle(tone: SensButtonVariant, t: PreviewStyleToken):
     case "link":
       return { color: t.link, backgroundColor: "transparent", borderColor: "transparent" };
     case "linkWeak":
-      return { color: t.textSecondary, backgroundColor: "transparent", borderColor: "transparent" };
+      return { color: t.textPrimary, backgroundColor: "transparent", borderColor: "transparent" };
     case "dangerLinkWeak":
       return { color: t.textPrimary, backgroundColor: "transparent", borderColor: "transparent" };
+    case "dangerSecondaryWeak":
+      return { color: t.textPrimary, borderColor: t.dashedDefaultBorder, backgroundColor: t.bgContainer };
+    case "dangerTertiaryWeak":
+      return { color: t.textPrimary, backgroundColor: "transparent", borderColor: "transparent" };
+    case "dangerLinkEmphasis":
+      return { color: t.link, backgroundColor: "transparent", borderColor: "transparent" };
     case "dangerSecondary":
       return { color: t.warning, borderColor: t.warning, backgroundColor: t.bgContainer };
     case "dangerTertiary":
@@ -420,7 +688,9 @@ function isNoFillTone(tone: SensButtonVariant): boolean {
     tone === "secondary" ||
     tone === "tertiary" ||
     tone === "dangerSecondary" ||
-    tone === "dangerTertiary"
+    tone === "dangerSecondaryWeak" ||
+    tone === "dangerTertiary" ||
+    tone === "dangerTertiaryWeak"
   );
 }
 
@@ -439,6 +709,7 @@ function getDisabledSnapshotStyle(tone: SensButtonVariant, t: PreviewStyleToken)
     case "link":
     case "linkWeak":
     case "dangerLink":
+    case "dangerLinkEmphasis":
     case "dangerLinkWeak":
       return { color: t.textDisabled, backgroundColor: "transparent", borderColor: "transparent" };
     default:
@@ -469,6 +740,7 @@ function getDisabledHoverSnapshotStyle(tone: SensButtonVariant, t: PreviewStyleT
     case "link":
     case "linkWeak":
     case "dangerLink":
+    case "dangerLinkEmphasis":
     case "dangerLinkWeak":
       return { color: t.textDisabled, backgroundColor: "transparent", borderColor: "transparent" };
     default:
@@ -489,6 +761,11 @@ function getHoverSnapshotStyle(tone: SensButtonVariant, t: PreviewStyleToken): C
       case "linkWeak":
         return { color: t.link, backgroundColor: "transparent" };
       case "dangerLinkWeak":
+        return { color: t.warning, backgroundColor: "transparent", borderColor: "transparent" };
+      case "dangerSecondaryWeak":
+        return { color: t.warning, borderColor: t.warning, backgroundColor: t.bgContainer };
+      case "dangerTertiaryWeak":
+      case "dangerLinkEmphasis":
         return { color: t.warning, backgroundColor: "transparent", borderColor: "transparent" };
       case "dangerSecondary":
         return { color: t.warningHover, borderColor: t.warningHover, backgroundColor: t.bgContainer };
@@ -514,6 +791,11 @@ function getActiveSnapshotStyle(tone: SensButtonVariant, t: PreviewStyleToken): 
     case "linkWeak":
       return { color: t.linkActive, backgroundColor: "transparent" };
     case "dangerLinkWeak":
+      return { color: t.warningActive, backgroundColor: "transparent", borderColor: "transparent" };
+    case "dangerSecondaryWeak":
+      return { color: t.warningActive, borderColor: t.warningActive, backgroundColor: t.bgContainer };
+    case "dangerTertiaryWeak":
+    case "dangerLinkEmphasis":
       return { color: t.warningActive, backgroundColor: "transparent", borderColor: "transparent" };
     case "dangerSecondary":
       return { color: t.warningActive, borderColor: t.warningActive, backgroundColor: t.bgContainer };
@@ -582,36 +864,27 @@ function buildPreviewCellSnapshot(
   };
 }
 
-function getDangerLinkWeakCssVars(): CSSProperties {
-  return {
-    "--sens-btn-danger-link-weak-text": c["text-color-transparent"],
-    "--sens-btn-danger-link-weak-icon": c["icon-color-transparent"],
-    "--sens-btn-danger-link-weak-warning": c["warning-color"],
-    "--sens-btn-danger-link-weak-warning-active": c["warning-color-active"],
-  } as CSSProperties;
-}
-
-function getLinkWeakCssVars(): CSSProperties {
-  return {
-    "--sens-btn-link-weak-text": c["text-sub-color"],
-    "--sens-btn-link-weak-link": c["link-color"],
-    "--sens-btn-link-weak-link-hover": c["link-hover-color"],
-    "--sens-btn-link-weak-link-active": c["link-active-color"],
-  } as CSSProperties;
-}
-
-function resolveDangerLinkWeakPreviewIcon(
+function resolveRiskPreviewIcon(
   tone: SensButtonVariant,
   state: ButtonPreviewState,
   icon: ReactNode | undefined,
   t: PreviewStyleToken,
 ): ReactNode | undefined {
-  if (tone !== "dangerLinkWeak" || !icon || !isValidElement(icon)) return icon;
+  if (
+    (tone !== "dangerSecondaryWeak" &&
+      tone !== "dangerTertiaryWeak" &&
+      tone !== "dangerLinkEmphasis" &&
+      tone !== "dangerLinkWeak") ||
+    !icon ||
+    !isValidElement(icon)
+  ) {
+    return icon;
+  }
 
   const color = (() => {
     switch (state) {
       case "default":
-        return t.iconPrimary;
+        return tone === "dangerLinkEmphasis" ? t.link : t.iconPrimary;
       case "hover":
         return t.warning;
       case "active":
@@ -632,6 +905,8 @@ function resolveDangerLinkWeakPreviewIcon(
   });
 }
 
+export type SensButtonRef = HTMLButtonElement | HTMLAnchorElement;
+
 export interface SensButtonProps extends Omit<ButtonProps, "type" | "variant"> {
   tone?: SensButtonVariant;
   /** 横向单项 FAB：与 tone=primary|secondary 组合；圆角 999、恒 D4 投影、二级无描边白底 */
@@ -639,7 +914,7 @@ export interface SensButtonProps extends Omit<ButtonProps, "type" | "variant"> {
 }
 
 /** 按钮语义封装：仅通过 antd props + 主题 token 驱动样式。 */
-export function SensButton({
+export const SensButton = forwardRef<SensButtonRef, SensButtonProps>(function SensButton({
   tone = "secondary",
   fab = false,
   className,
@@ -653,10 +928,17 @@ export function SensButton({
   onMouseLeave,
   onMouseDown,
   onMouseUp,
+  onKeyDown,
+  onKeyUp,
   ...rest
-}: SensButtonProps) {
+}, forwardedRef) {
   const shadows = getButtonShadowToken();
-  const buttonRef = useRef<HTMLButtonElement | HTMLAnchorElement>(null);
+  const setButtonRef = (node: SensButtonRef | null) => {
+    if (typeof forwardedRef === "function") forwardedRef(node);
+    else if (forwardedRef) {
+      (forwardedRef as { current: SensButtonRef | null }).current = node;
+    }
+  };
   const [isHovered, setIsHovered] = useState(false);
   const [isPressed, setIsPressed] = useState(false);
   const isFab = fab && isFabTone(tone);
@@ -664,16 +946,30 @@ export function SensButton({
   const isLoading = !!loading;
   const isDisabled = disabled || isLoading;
   const resolvedIcon = rest.icon ?? toneProps.icon;
+  const iconState: ButtonPreviewState = isLoading
+    ? "loading"
+    : isDisabled
+      ? "disabled"
+      : isPressed
+        ? "active"
+        : isHovered
+          ? "hover"
+          : "default";
+  const themedIcon = resolveButtonIconForState(tone, resolvedIcon, iconState);
   const fabShape = isFab ? resolveFabShape(children, resolvedIcon, isLoading) : undefined;
   const mergedClassName =
     [isLinkTone(tone) ? "sens-btn-link" : "", toneProps.className, className].filter(Boolean).join(" ") ||
     undefined;
   const { className: _toneClassName, icon: _toneIcon, ...restToneProps } = toneProps;
-  const boxShadow = resolveLiveShadow(tone, { isHovered, isDisabled }, shadows, isFab);
+  const boxShadow = resolveLiveShadow(tone, { isHovered, isPressed, isDisabled }, shadows, isFab);
+  const baseToneStyle = getBaseToneStyle(tone, isFab);
+  const liveStateStyle = isDisabled ? {} : getLiveStateStyle(tone, iconState, isFab);
   const primaryBorderStyle: CSSProperties =
     tone === "primary" && !isFab ? { borderColor: getButtonPrimaryBorderColor() } : {};
-  const linkWeakStyle = tone === "linkWeak" ? getLinkWeakCssVars() : {};
-  const dangerLinkWeakStyle = tone === "dangerLinkWeak" ? getDangerLinkWeakCssVars() : {};
+  const textVariantTransparentStyle: CSSProperties =
+    !isFab && (tone === "tertiary" || tone === "dangerTertiary" || tone === "dangerTertiaryWeak")
+      ? { backgroundColor: "transparent", borderColor: "transparent" }
+      : {};
   const fabStyle: CSSProperties = isFab
     ? {
         ...getFabCssVars(),
@@ -685,35 +981,14 @@ export function SensButton({
           ? {
               ...getFabSecondaryCssVars(),
               backgroundColor: c.white,
+              color: c["text-color-transparent"],
+              borderColor: "transparent",
             }
           : {}),
       }
     : {};
   const hasIcon = Boolean(resolvedIcon) || isLoading;
   const buttonText = formatButtonText(children, { tone, hasIcon });
-
-  useEffect(() => {
-    if (!isFab || tone !== "secondary") return;
-    const el = buttonRef.current;
-    if (!el) return;
-    if (isDisabled) {
-      el.removeAttribute("data-fab-hover");
-      el.removeAttribute("data-fab-active");
-      return;
-    }
-    if (isPressed) {
-      el.setAttribute("data-fab-active", "");
-      el.removeAttribute("data-fab-hover");
-      return;
-    }
-    if (isHovered) {
-      el.setAttribute("data-fab-hover", "");
-      el.removeAttribute("data-fab-active");
-      return;
-    }
-    el.removeAttribute("data-fab-hover");
-    el.removeAttribute("data-fab-active");
-  }, [isFab, tone, isHovered, isPressed, isDisabled]);
 
   const handleMouseEnter: NonNullable<ButtonProps["onMouseEnter"]> = (event) => {
     setIsHovered(true);
@@ -728,24 +1003,42 @@ export function SensButton({
 
   const buttonNode = (
     <Button
-      ref={buttonRef}
+      ref={setButtonRef}
       {...restToneProps}
       {...rest}
       size={isFab ? undefined : sizeProp}
       shape={isFab ? fabShape : shapeProp}
       loading={loading}
       disabled={isDisabled}
+      aria-busy={isLoading ? true : undefined}
       className={mergedClassName}
-      style={{ ...linkWeakStyle, ...dangerLinkWeakStyle, ...style, ...primaryBorderStyle, ...fabStyle, boxShadow }}
+      icon={themedIcon}
+      style={{
+        ...baseToneStyle,
+        ...primaryBorderStyle,
+        ...textVariantTransparentStyle,
+        ...fabStyle,
+        ...liveStateStyle,
+        boxShadow,
+        ...style,
+      }}
       onMouseEnter={isFab && tone === "secondary" ? undefined : handleMouseEnter}
       onMouseLeave={isFab && tone === "secondary" ? undefined : handleMouseLeave}
       onMouseDown={(event) => {
-        if (isFab && tone === "secondary") setIsPressed(true);
+        setIsPressed(true);
         onMouseDown?.(event);
       }}
       onMouseUp={(event) => {
-        if (isFab && tone === "secondary") setIsPressed(false);
+        setIsPressed(false);
         onMouseUp?.(event);
+      }}
+      onKeyDown={(event) => {
+        if (event.key === "Enter" || event.key === " ") setIsPressed(true);
+        onKeyDown?.(event);
+      }}
+      onKeyUp={(event) => {
+        if (event.key === "Enter" || event.key === " ") setIsPressed(false);
+        onKeyUp?.(event);
       }}
     >
       {buttonText}
@@ -769,7 +1062,8 @@ export function SensButton({
   }
 
   return buttonNode;
-}
+});
+SensButton.displayName = "SensButton";
 
 export type SensMoreButtonTone = Extract<SensButtonVariant, "primary" | "secondary" | "tertiary">;
 
@@ -779,13 +1073,17 @@ export interface SensMoreButtonProps extends Omit<SensButtonProps, "tone" | "ico
 }
 
 /** 更多 ··· 按钮（Figma 矩阵「更多 / 大尺寸」；二级 + 横向省略号尾图标） */
-export function SensMoreButton({ tone = "secondary", children, ...rest }: SensMoreButtonProps) {
+export const SensMoreButton = forwardRef<SensButtonRef, SensMoreButtonProps>(function SensMoreButton(
+  { tone = "secondary", children, ...rest },
+  ref,
+) {
   return (
-    <SensButton tone={tone} icon={<MoreIcon />} iconPosition="end" {...rest}>
+    <SensButton ref={ref} tone={tone} icon={<MoreIcon />} iconPosition="end" {...rest}>
       {children}
     </SensButton>
   );
-}
+});
+SensMoreButton.displayName = "SensMoreButton";
 
 export type { SensDropdownMenuItemConfig } from "./SensDropdownMenuItem";
 
@@ -837,6 +1135,7 @@ export function SensDropdownButton({
   const overlayClassName = ["sens-dropdown-menu-overlay", dropdownOverlayClassName].filter(Boolean).join(" ");
   /** portal 根须注入 token 变量；内层 SensDropdownMenu 再挂一份，双保险继承到行 */
   const overlayStyle = { ...menuStyle, ...dropdownOverlayStyle };
+  const dropdownIcon = <span className="sens-dropdown-btn-icon">{isOpen ? <ChevronUpIcon /> : <ChevronDownIcon />}</span>;
 
   return (
     <Dropdown
@@ -865,7 +1164,7 @@ export function SensDropdownButton({
     >
       <SensButton
         tone="link"
-        icon={isOpen ? <ChevronUpIcon /> : <ChevronDownIcon />}
+        icon={dropdownIcon}
         iconPosition="end"
         loading={loading}
         disabled={disabled}
@@ -889,6 +1188,7 @@ function FabPreviewMatrixButton({
   iconPosition,
   cellContent,
   isLoadingState,
+  ariaLabel,
 }: {
   tone: FabTone;
   previewState: ButtonPreviewState;
@@ -899,6 +1199,7 @@ function FabPreviewMatrixButton({
   iconPosition?: "start" | "end";
   cellContent: ReactNode;
   isLoadingState: boolean;
+  ariaLabel?: string;
 }) {
   const buttonRef = useRef<HTMLButtonElement | HTMLAnchorElement>(null);
 
@@ -910,19 +1211,16 @@ function FabPreviewMatrixButton({
       {...snapshot.buttonProps}
       icon={resolvedIcon}
       iconPosition={iconPosition}
-      className={[
-        fabToneProps.className,
-        tone === "secondary" ? `sens-btn-fab-preview-${previewState}` : undefined,
-      ]
-        .filter(Boolean)
-        .join(" ")}
+      className={["sens-btn-preview-button", fabToneProps.className].filter(Boolean).join(" ")}
       style={{
         ...(tone === "secondary" ? getFabSecondaryCssVars() : {}),
+        ...(tone === "secondary" ? { color: resolveFabSecondaryColor(previewState) } : {}),
         ...getFabCssVars(),
         ...getFabCrossAxisStyle(cellContent, resolvedIcon, isLoadingState),
         ...getFabSinglePaddingStyle(cellContent, resolvedIcon, isLoadingState),
         ...snapshot.style,
       }}
+      aria-label={ariaLabel}
     >
       {cellContent}
     </Button>
@@ -974,6 +1272,7 @@ function FabPreviewRow({
                   iconPosition={entry.iconPosition}
                   cellContent={cellContent}
                   isLoadingState={isLoadingState}
+                  ariaLabel={entry.content == null ? label(entry.titleKey, entry.titleDefault) : undefined}
                 />
               </div>
             </div>
@@ -1007,13 +1306,17 @@ function PreviewRow({ entry, size, styleToken, shadowToken, label, stateLabel, s
       <div className="sens-btn-matrix-states">
         {states.map((state) => {
           const snapshot = buildPreviewCellSnapshot(entry.tone, state, styleToken, shadowToken);
-          const previewIcon = resolveDangerLinkWeakPreviewIcon(
+          const previewIcon = resolveRiskPreviewIcon(
             entry.tone,
             state,
             snapshot.icon ?? entry.icon,
             styleToken,
           );
-          const resolvedIcon = previewIcon ?? buildToneProps(entry.tone).icon;
+          const resolvedIcon = resolveButtonIconForState(
+            entry.tone,
+            previewIcon ?? buildToneProps(entry.tone).icon,
+            state,
+          );
           const hasIcon = Boolean(resolvedIcon);
           const cellContent = formatButtonText(entry.content, {
             tone: entry.tone,
@@ -1031,27 +1334,41 @@ function PreviewRow({ entry, size, styleToken, shadowToken, label, stateLabel, s
             <span className="sens-btn-matrix-label">{stateLabel(state)}</span>
             <div className="sens-btn-preview">
               {isMoreEntry ? (
-                <SensMoreButton
-                  tone="secondary"
+                <Button
+                  {...buildToneProps("secondary")}
                   {...sizeProps}
                   {...snapshot.buttonProps}
                   disabled={isDisabledState}
                   loading={isLoadingState}
-                  style={previewStyle}
+                  icon={resolveButtonIconForState("secondary", <MoreIcon />, state)}
+                  iconPosition="end"
+                  className={["sens-btn-preview-button", buildToneProps("secondary").className].filter(Boolean).join(" ")}
+                  style={{
+                    ...previewStyle,
+                  }}
                 >
                   {cellContent}
-                </SensMoreButton>
+                </Button>
               ) : (
                 <Button
                   {...buildToneProps(entry.tone)}
                   {...sizeProps}
                   shape={entry.shape}
                   {...snapshot.buttonProps}
-                  icon={previewIcon ?? buildToneProps(entry.tone).icon}
+                  icon={resolvedIcon}
                   iconPosition={entry.iconPosition}
+                  aria-label={entry.content == null ? label(entry.titleKey, entry.titleDefault) : undefined}
+                  className={
+                    [
+                      "sens-btn-preview-button",
+                      buildToneProps(entry.tone).className,
+                      isLinkTone(entry.tone) ? "sens-btn-link" : undefined,
+                    ]
+                      .filter(Boolean)
+                      .join(" ") || undefined
+                  }
                   style={{
-                    ...(entry.tone === "linkWeak" ? getLinkWeakCssVars() : {}),
-                    ...(entry.tone === "dangerLinkWeak" ? getDangerLinkWeakCssVars() : {}),
+                    ...(isLinkTone(entry.tone) ? { minWidth: 0, paddingInline: 0 } : {}),
                     ...previewStyle,
                   }}
                 >
@@ -1089,9 +1406,9 @@ function DropdownCorePreview({ styleToken, label, moreLabel }: DropdownCorePrevi
             <div className="sens-btn-preview">
               <Button
                 type="link"
-                icon={snapshot.icon}
+                icon={<span className="sens-dropdown-btn-icon">{snapshot.icon}</span>}
                 iconPosition="end"
-                className="sens-dropdown-btn"
+                className="sens-btn-preview-button sens-dropdown-btn"
                 style={snapshot.style}
               >
                 {formatButtonText(moreLabel, { tone: "link", hasIcon: true })}
@@ -1133,9 +1450,9 @@ function DropdownExtraPreview({ styleToken, label, moreLabel }: DropdownExtraPre
             <div className="sens-btn-preview">
               <Button
                 type="link"
-                icon={snapshot.icon}
+                icon={<span className="sens-dropdown-btn-icon">{snapshot.icon}</span>}
                 iconPosition="end"
-                className="sens-dropdown-btn"
+                className="sens-btn-preview-button sens-dropdown-btn"
                 style={snapshot.style}
               >
                 {formatButtonText(moreLabel, { tone: "link", hasIcon: true })}
@@ -1154,8 +1471,8 @@ function useButtonPreviewVars(): CSSProperties {
     "--sens-btn-space-5x": `${u["spacing/5x"]}px`,
     "--sens-btn-space-6x": `${u["spacing/6x"]}px`,
     "--sens-btn-width-trigger": `${u["size/component-height/m"]}px`,
+    "--sens-btn-preview-text-secondary": c["text-color-transparent"],
     ...getFabCssVars(),
-    ...getDangerLinkWeakCssVars(),
   } as CSSProperties;
 }
 
@@ -1201,10 +1518,13 @@ export function ButtonStatesPreview({ title, afterFabSection }: ButtonStatesPrev
   const warningEntries: PreviewEntry[] = [
     { key: "danger-secondary-off", titleKey: "sensd-button-danger-secondaryOff", titleDefault: "警告 / 二级 / 二次确认关", tone: "dangerSecondary", content: buttonLabel },
     { key: "danger-secondary-on", titleKey: "sensd-button-danger-secondaryOn", titleDefault: "警告 / 二级 / 二次确认开", tone: "dangerSecondary", content: confirmDeleteLabel },
+    { key: "danger-secondary-weak", titleKey: "sensd-button-danger-secondaryWeak", titleDefault: "警告 / 二级 / 其他风险", tone: "dangerSecondaryWeak", content: buttonLabel },
     { key: "danger-tertiary-off", titleKey: "sensd-button-danger-tertiaryOff", titleDefault: "警告 / 三级 / 二次确认关", tone: "dangerTertiary", content: buttonLabel },
     { key: "danger-tertiary-on", titleKey: "sensd-button-danger-tertiaryOn", titleDefault: "警告 / 三级 / 二次确认开", tone: "dangerTertiary", content: confirmDeleteLabel },
+    { key: "danger-tertiary-weak", titleKey: "sensd-button-danger-tertiaryWeak", titleDefault: "警告 / 三级 / 其他风险", tone: "dangerTertiaryWeak", content: buttonLabel },
     { key: "danger-link-off", titleKey: "sensd-button-danger-linkOff", titleDefault: "警告 / 链接 / 二次确认关", tone: "dangerLink", content: buttonLabel },
     { key: "danger-link-on", titleKey: "sensd-button-danger-linkOn", titleDefault: "警告 / 链接 / 二次确认开", tone: "dangerLink", content: confirmDeleteLabel },
+    { key: "danger-link-emphasis", titleKey: "sensd-button-danger-linkEmphasis", titleDefault: "警告 / 链接强调 / 其他风险", tone: "dangerLinkEmphasis", content: buttonLabel },
     { key: "dangerLinkWeak-icon", titleKey: "sensd-button-dangerLinkWeak-icon", titleDefault: "警告 / 链接弱化 / 纯图标", tone: "dangerLinkWeak", content: null, icon: <IconDefaultIcon /> },
     { key: "dangerLinkWeak-icon-text", titleKey: "sensd-button-dangerLinkWeak-iconText", titleDefault: "警告 / 链接弱化 / 图标+文字", tone: "dangerLinkWeak", content: buttonLabel, icon: <IconDefaultIcon /> },
     { key: "dangerLinkWeak-text", titleKey: "sensd-button-dangerLinkWeak-text", titleDefault: "警告 / 链接弱化 / 纯文字", tone: "dangerLinkWeak", content: buttonLabel },

@@ -101,7 +101,7 @@
     "theme-side-subIcon": "#747E94CC",
     "theme-side-icon-active": "#00B280",
     "theme-title-background": "#F5FAFA",
-    "body-background": "#F5FAFA",
+    "body-background": "#F2F7F7",
     "tooltip-background": "#3A3E46",
     "switch-background": "#00154029",
     "switch-background-hover": "#0015401F",
@@ -252,7 +252,7 @@
     "主题色/侧导航/图标/02_辅助 @theme-side-subIcon": "#747E94CC",
     "主题色/侧导航/图标/03_选中 @theme-side-icon-active": "#00B280",
     "主题色/标题栏/背景/01 @theme-title-background": "#F5FAFA",
-    "主题色/页面/背景/01 @body-background": "#F5FAFA",
+    "主题色/页面/背景/01 @body-background": "#F2F7F7",
     "定制色/便签/背景/01 @tooltip-background": "#3A3E46",
     "定制色/开关/背景/01_关闭默认 @switch-background": "#00154029",
     "定制色/开关/背景/02_关闭悬停 @switch-background-hover": "#0015401F",
@@ -616,8 +616,484 @@
         "background": "#F5FAFA"
       },
       "page": {
-        "background": "#F5FAFA"
+        "background": "#F2F7F7"
+      },
+      "accent": {
+        "solid": "#00B280",
+        "subtle": "#00B2801A"
+      },
+      "handles": {}
+    },
+    "blue": {
+      "top": {
+        "background": "linear-gradient(135deg, #3B78C9 0%, #305BB0 100%)",
+        "atmosphere": "radial-gradient(circle at 18% 62%, rgba(255, 255, 255, 0.14) 0%, transparent 34%), radial-gradient(circle at 82% -8%, rgba(255, 255, 255, 0.12) 0%, transparent 42%), linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.12) 100%)"
+      },
+      "side": {
+        "background": "linear-gradient(180deg, #FAFBFC 0%, #F0F2F7 100%)"
+      },
+      "title": {
+        "background": "#F5F7FA"
+      },
+      "page": {
+        "background": "#F5F7FA"
+      },
+      "accent": {
+        "solid": "#3170EB",
+        "subtle": "#3170EB1A"
+      },
+      "handles": {
+        "theme-top-funcMenu-background-hover": "#3170EB1A",
+        "theme-top-funcMenu-background-active": "#3170EB1A",
+        "theme-top-funcMenu-text-hover": "#3170EB",
+        "theme-top-funcMenu-text-active": "#3170EB",
+        "theme-top-funcMenu-icon-hover": "#3170EB",
+        "theme-top-funcMenu-icon-active": "#3170EB",
+        "theme-top-proMenu-background-active": "#3170EB1A",
+        "theme-top-proMenu-text-active": "#3170EB",
+        "theme-top-menuLine-active": "#3170EB",
+        "theme-side-background-active": "#3170EB1A",
+        "theme-side-text-active": "#3170EB",
+        "theme-side-icon-active": "#3170EB",
+        "theme-title-background": "#F5F7FA",
+        "body-background": "#F5F7FA"
       }
+    },
+    "wildYellow": {
+      "top": {
+        "background": "linear-gradient(135deg, #F0C400 0%, #F0AC00 100%)",
+        "atmosphere": "radial-gradient(circle at 18% 62%, rgba(255, 255, 255, 0.14) 0%, transparent 34%), radial-gradient(circle at 82% -8%, rgba(255, 255, 255, 0.12) 0%, transparent 42%), linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.12) 100%)"
+      },
+      "side": {
+        "background": "linear-gradient(180deg, #FCFCFA 0%, #F7F6F2 100%)"
+      },
+      "title": {
+        "background": "#FAF8F5"
+      },
+      "page": {
+        "background": "#FAF8F5"
+      },
+      "accent": {
+        "solid": "#EA9B02",
+        "subtle": "#FAB3001F"
+      },
+      "handles": {
+        "theme-top-funcMenu-background-hover": "#FAB3001F",
+        "theme-top-funcMenu-background-active": "#FAB3001F",
+        "theme-top-funcMenu-text-hover": "#EA9B02",
+        "theme-top-funcMenu-text-active": "#EA9B02",
+        "theme-top-funcMenu-icon-hover": "#EA9B02",
+        "theme-top-funcMenu-icon-active": "#EA9B02",
+        "theme-top-proMenu-background-active": "#FAB3001F",
+        "theme-top-proMenu-text-active": "#EA9B02",
+        "theme-top-menuLine-active": "#EA9B02",
+        "theme-side-background-active": "#FAB3001F",
+        "theme-side-text-active": "#EA9B02",
+        "theme-side-icon-active": "#EA9B02",
+        "theme-title-background": "#FAF8F5",
+        "body-background": "#FAF8F5"
+      }
+    },
+    "limeGreen": {
+      "top": {
+        "background": "linear-gradient(135deg, #99CC00 0%, #76B500 100%)",
+        "atmosphere": "radial-gradient(circle at 18% 62%, rgba(255, 255, 255, 0.14) 0%, transparent 34%), radial-gradient(circle at 82% -8%, rgba(255, 255, 255, 0.12) 0%, transparent 42%), linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.12) 100%)"
+      },
+      "side": {
+        "background": "linear-gradient(180deg, #FCFCFA 0%, #F6F7F2 100%)"
+      },
+      "title": {
+        "background": "#F9FAF5"
+      },
+      "page": {
+        "background": "#F9FAF5"
+      },
+      "accent": {
+        "solid": "#88B500",
+        "subtle": "#99CC001F"
+      },
+      "handles": {
+        "theme-top-funcMenu-background-hover": "#99CC001F",
+        "theme-top-funcMenu-background-active": "#99CC001F",
+        "theme-top-funcMenu-text-hover": "#88B500",
+        "theme-top-funcMenu-text-active": "#88B500",
+        "theme-top-funcMenu-icon-hover": "#88B500",
+        "theme-top-funcMenu-icon-active": "#88B500",
+        "theme-top-proMenu-background-active": "#99CC001F",
+        "theme-top-proMenu-text-active": "#88B500",
+        "theme-top-menuLine-active": "#88B500",
+        "theme-side-background-active": "#99CC001F",
+        "theme-side-text-active": "#88B500",
+        "theme-side-icon-active": "#88B500",
+        "theme-title-background": "#F9FAF5",
+        "body-background": "#F9FAF5"
+      }
+    },
+    "duneGold": {
+      "top": {
+        "background": "linear-gradient(135deg, #E0860F 0%, #D4690C 100%)",
+        "atmosphere": "radial-gradient(circle at 18% 62%, rgba(255, 255, 255, 0.14) 0%, transparent 34%), radial-gradient(circle at 82% -8%, rgba(255, 255, 255, 0.12) 0%, transparent 42%), linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.12) 100%)"
+      },
+      "side": {
+        "background": "linear-gradient(180deg, #FCFBFA 0%, #F7F3F0 100%)"
+      },
+      "title": {
+        "background": "#FAF8F5"
+      },
+      "page": {
+        "background": "#FAF8F5"
+      },
+      "accent": {
+        "solid": "#F57D14",
+        "subtle": "#F57D141A"
+      },
+      "handles": {
+        "theme-top-funcMenu-background-hover": "#F57D141A",
+        "theme-top-funcMenu-background-active": "#F57D141A",
+        "theme-top-funcMenu-text-hover": "#F57D14",
+        "theme-top-funcMenu-text-active": "#F57D14",
+        "theme-top-funcMenu-icon-hover": "#F57D14",
+        "theme-top-funcMenu-icon-active": "#F57D14",
+        "theme-top-proMenu-background-active": "#F57D141A",
+        "theme-top-proMenu-text-active": "#F57D14",
+        "theme-top-menuLine-active": "#F57D14",
+        "theme-side-background-active": "#F57D141A",
+        "theme-side-text-active": "#F57D14",
+        "theme-side-icon-active": "#F57D14",
+        "theme-title-background": "#FAF8F5",
+        "body-background": "#FAF8F5"
+      }
+    },
+    "sunriseRed": {
+      "top": {
+        "background": "linear-gradient(135deg, #CC4F41 0%, #B23D3D 100%)",
+        "atmosphere": "radial-gradient(circle at 18% 62%, rgba(255, 255, 255, 0.14) 0%, transparent 34%), radial-gradient(circle at 82% -8%, rgba(255, 255, 255, 0.12) 0%, transparent 42%), linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.12) 100%)"
+      },
+      "side": {
+        "background": "linear-gradient(180deg, #FCFAFA 0%, #F7F2F2 100%)"
+      },
+      "title": {
+        "background": "#FAF8F8"
+      },
+      "page": {
+        "background": "#FAF8F8"
+      },
+      "accent": {
+        "solid": "#E54545",
+        "subtle": "#E545451A"
+      },
+      "handles": {
+        "theme-top-funcMenu-background-hover": "#E545451A",
+        "theme-top-funcMenu-background-active": "#E545451A",
+        "theme-top-funcMenu-text-hover": "#E54545",
+        "theme-top-funcMenu-text-active": "#E54545",
+        "theme-top-funcMenu-icon-hover": "#E54545",
+        "theme-top-funcMenu-icon-active": "#E54545",
+        "theme-top-proMenu-background-active": "#E545451A",
+        "theme-top-proMenu-text-active": "#E54545",
+        "theme-top-menuLine-active": "#E54545",
+        "theme-side-background-active": "#E545451A",
+        "theme-side-text-active": "#E54545",
+        "theme-side-icon-active": "#E54545",
+        "theme-title-background": "#FAF8F8",
+        "body-background": "#FAF8F8"
+      }
+    },
+    "auroraGreen": {
+      "top": {
+        "background": "linear-gradient(135deg, #4F9931 0%, #3D852D 100%)",
+        "atmosphere": "radial-gradient(circle at 18% 62%, rgba(255, 255, 255, 0.14) 0%, transparent 34%), radial-gradient(circle at 82% -8%, rgba(255, 255, 255, 0.12) 0%, transparent 42%), linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.12) 100%)"
+      },
+      "side": {
+        "background": "linear-gradient(180deg, #FBFCFA 0%, #F3F7F2 100%)"
+      },
+      "title": {
+        "background": "#F9FAF5"
+      },
+      "page": {
+        "background": "#F9FAF5"
+      },
+      "accent": {
+        "solid": "#5CB838",
+        "subtle": "#5CB8381A"
+      },
+      "handles": {
+        "theme-top-funcMenu-background-hover": "#5CB8381A",
+        "theme-top-funcMenu-background-active": "#5CB8381A",
+        "theme-top-funcMenu-text-hover": "#5CB838",
+        "theme-top-funcMenu-text-active": "#5CB838",
+        "theme-top-funcMenu-icon-hover": "#5CB838",
+        "theme-top-funcMenu-icon-active": "#5CB838",
+        "theme-top-proMenu-background-active": "#5CB8381A",
+        "theme-top-proMenu-text-active": "#5CB838",
+        "theme-top-menuLine-active": "#5CB838",
+        "theme-side-background-active": "#5CB8381A",
+        "theme-side-text-active": "#5CB838",
+        "theme-side-icon-active": "#5CB838",
+        "theme-title-background": "#F9FAF5",
+        "body-background": "#F9FAF5"
+      }
+    },
+    "landscapeBlue": {
+      "top": {
+        "background": "linear-gradient(135deg, #119ABF 0%, #0D77A8 100%)",
+        "atmosphere": "radial-gradient(circle at 18% 62%, rgba(255, 255, 255, 0.14) 0%, transparent 34%), radial-gradient(circle at 82% -8%, rgba(255, 255, 255, 0.12) 0%, transparent 42%), linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.12) 100%)"
+      },
+      "side": {
+        "background": "linear-gradient(180deg, #FAFCFC 0%, #F0F5F7 100%)"
+      },
+      "title": {
+        "background": "#F5F9FA"
+      },
+      "page": {
+        "background": "#F5F9FA"
+      },
+      "accent": {
+        "solid": "#15ACD6",
+        "subtle": "#15ACD61A"
+      },
+      "handles": {
+        "theme-top-funcMenu-background-hover": "#15ACD61A",
+        "theme-top-funcMenu-background-active": "#15ACD61A",
+        "theme-top-funcMenu-text-hover": "#15ACD6",
+        "theme-top-funcMenu-text-active": "#15ACD6",
+        "theme-top-funcMenu-icon-hover": "#15ACD6",
+        "theme-top-funcMenu-icon-active": "#15ACD6",
+        "theme-top-proMenu-background-active": "#15ACD61A",
+        "theme-top-proMenu-text-active": "#15ACD6",
+        "theme-top-menuLine-active": "#15ACD6",
+        "theme-side-background-active": "#15ACD61A",
+        "theme-side-text-active": "#15ACD6",
+        "theme-side-icon-active": "#15ACD6",
+        "theme-title-background": "#F5F9FA",
+        "body-background": "#F5F9FA"
+      }
+    },
+    "orchidPurple": {
+      "top": {
+        "background": "linear-gradient(135deg, #7E58D1 0%, #5F46B8 100%)",
+        "atmosphere": "radial-gradient(circle at 18% 62%, rgba(255, 255, 255, 0.14) 0%, transparent 34%), radial-gradient(circle at 82% -8%, rgba(255, 255, 255, 0.12) 0%, transparent 42%), linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.12) 100%)"
+      },
+      "side": {
+        "background": "linear-gradient(180deg, #FBFAFC 0%, #F2F0F7 100%)"
+      },
+      "title": {
+        "background": "#F6F5FA"
+      },
+      "page": {
+        "background": "#F6F5FA"
+      },
+      "accent": {
+        "solid": "#7554EB",
+        "subtle": "#7554EB1A"
+      },
+      "handles": {
+        "theme-top-funcMenu-background-hover": "#7554EB1A",
+        "theme-top-funcMenu-background-active": "#7554EB1A",
+        "theme-top-funcMenu-text-hover": "#7554EB",
+        "theme-top-funcMenu-text-active": "#7554EB",
+        "theme-top-funcMenu-icon-hover": "#7554EB",
+        "theme-top-funcMenu-icon-active": "#7554EB",
+        "theme-top-proMenu-background-active": "#7554EB1A",
+        "theme-top-proMenu-text-active": "#7554EB",
+        "theme-top-menuLine-active": "#7554EB",
+        "theme-side-background-active": "#7554EB1A",
+        "theme-side-text-active": "#7554EB",
+        "theme-side-icon-active": "#7554EB",
+        "theme-title-background": "#F6F5FA",
+        "body-background": "#F6F5FA"
+      }
+    },
+    "wavePurple": {
+      "top": {
+        "background": "linear-gradient(135deg, #A947BF 0%, #8939A8 100%)",
+        "atmosphere": "radial-gradient(circle at 18% 62%, rgba(255, 255, 255, 0.14) 0%, transparent 34%), radial-gradient(circle at 82% -8%, rgba(255, 255, 255, 0.12) 0%, transparent 42%), linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.12) 100%)"
+      },
+      "side": {
+        "background": "linear-gradient(180deg, #FCFAFC 0%, #F5F0F7 100%)"
+      },
+      "title": {
+        "background": "#F8F5FA"
+      },
+      "page": {
+        "background": "#F8F5FA"
+      },
+      "accent": {
+        "solid": "#AE43D9",
+        "subtle": "#AE43D91A"
+      },
+      "handles": {
+        "theme-top-funcMenu-background-hover": "#AE43D91A",
+        "theme-top-funcMenu-background-active": "#AE43D91A",
+        "theme-top-funcMenu-text-hover": "#AE43D9",
+        "theme-top-funcMenu-text-active": "#AE43D9",
+        "theme-top-funcMenu-icon-hover": "#AE43D9",
+        "theme-top-funcMenu-icon-active": "#AE43D9",
+        "theme-top-proMenu-background-active": "#AE43D91A",
+        "theme-top-proMenu-text-active": "#AE43D9",
+        "theme-top-menuLine-active": "#AE43D9",
+        "theme-side-background-active": "#AE43D91A",
+        "theme-side-text-active": "#AE43D9",
+        "theme-side-icon-active": "#AE43D9",
+        "theme-title-background": "#F8F5FA",
+        "body-background": "#F8F5FA"
+      }
+    },
+    "cloudPink": {
+      "top": {
+        "background": "linear-gradient(135deg, #D63A8E 0%, #BD2E6C 100%)",
+        "atmosphere": "radial-gradient(circle at 18% 62%, rgba(255, 255, 255, 0.14) 0%, transparent 34%), radial-gradient(circle at 82% -8%, rgba(255, 255, 255, 0.12) 0%, transparent 42%), linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.12) 100%)"
+      },
+      "side": {
+        "background": "linear-gradient(180deg, #FCFAFB 0%, #F7F2F5 100%)"
+      },
+      "title": {
+        "background": "#FAF7F9"
+      },
+      "page": {
+        "background": "#FAF7F9"
+      },
+      "accent": {
+        "solid": "#E5459A",
+        "subtle": "#E5459A1A"
+      },
+      "handles": {
+        "theme-top-funcMenu-background-hover": "#E5459A1A",
+        "theme-top-funcMenu-background-active": "#E5459A1A",
+        "theme-top-funcMenu-text-hover": "#E5459A",
+        "theme-top-funcMenu-text-active": "#E5459A",
+        "theme-top-funcMenu-icon-hover": "#E5459A",
+        "theme-top-funcMenu-icon-active": "#E5459A",
+        "theme-top-proMenu-background-active": "#E5459A1A",
+        "theme-top-proMenu-text-active": "#E5459A",
+        "theme-top-menuLine-active": "#E5459A",
+        "theme-side-background-active": "#E5459A1A",
+        "theme-side-text-active": "#E5459A",
+        "theme-side-icon-active": "#E5459A",
+        "theme-title-background": "#FAF7F9",
+        "body-background": "#FAF7F9"
+      }
+    },
+    "midnightBlack": {
+      "top": {
+        "background": "linear-gradient(135deg, #48505E 0%, #2E333C 100%)",
+        "atmosphere": "radial-gradient(circle at 18% 62%, rgba(255, 255, 255, 0.14) 0%, transparent 34%), radial-gradient(circle at 82% -8%, rgba(255, 255, 255, 0.12) 0%, transparent 42%), linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.12) 100%)"
+      },
+      "side": {
+        "background": "linear-gradient(180deg, #F9FAFC 0%, #F2F4F7 100%)"
+      },
+      "title": {
+        "background": "#F5F6F9"
+      },
+      "page": {
+        "background": "#F5F6F9"
+      },
+      "accent": {
+        "solid": "#00B280",
+        "subtle": "#00B2801A"
+      },
+      "handles": {
+        "theme-top-funcMenu-background-hover": "#00B2801A",
+        "theme-top-funcMenu-background-active": "#00B2801A",
+        "theme-top-funcMenu-text-hover": "#00B280",
+        "theme-top-funcMenu-text-active": "#00B280",
+        "theme-top-funcMenu-icon-hover": "#00B280",
+        "theme-top-funcMenu-icon-active": "#00B280",
+        "theme-top-proMenu-background-active": "#00B2801A",
+        "theme-top-proMenu-text-active": "#00B280",
+        "theme-top-menuLine-active": "#00B280",
+        "theme-side-background-active": "#00B2801A",
+        "theme-side-text-active": "#00B280",
+        "theme-side-icon-active": "#00B280",
+        "theme-title-background": "#F5F6F9",
+        "body-background": "#F5F6F9"
+      }
+    }
+  },
+  "functionalSkin": {
+    "green": {
+      "primary": "#00B280",
+      "hover": "#27C296",
+      "active": "#008C65",
+      "disable": "#55D4B0",
+      "disableHover": "#6EDBBC",
+      "activeBackground": "#EBF7F4",
+      "activeHoverBackground": "#F2FAF8",
+      "activeClickBackground": "#E4F5F1",
+      "activeShadow": "#00B28033",
+      "lightBackground": "#E1FAF3"
+    },
+    "blue": {
+      "primary": "#3170EB",
+      "hover": "#598CF0",
+      "active": "#1F53B8",
+      "disable": "#82A9F5",
+      "disableHover": "#97B8F7",
+      "activeBackground": "#EDF2FC",
+      "activeHoverBackground": "#F5F8FF",
+      "activeClickBackground": "#E6EDFA",
+      "activeShadow": "#3170EB33",
+      "lightBackground": "#ECF2FF"
+    },
+    "limeGreen": {
+      "primary": "#99CC00",
+      "hover": "#ABD62B",
+      "active": "#779E00",
+      "disable": "#BFE05A",
+      "disableHover": "#C9E573",
+      "activeBackground": "#F6FAE8",
+      "activeHoverBackground": "#F9FCF0",
+      "activeClickBackground": "#F2F7E1",
+      "activeShadow": "#99CC0038",
+      "lightBackground": "#F4FAE1"
+    },
+    "auroraGreen": {
+      "primary": "#5CB838",
+      "hover": "#77C758",
+      "active": "#418F22",
+      "disable": "#96D67C",
+      "disableHover": "#A6DE90",
+      "activeBackground": "#EEF7EB",
+      "activeHoverBackground": "#F5FAF2",
+      "activeClickBackground": "#E9F5E4",
+      "activeShadow": "#5CB83833",
+      "lightBackground": "#EDFAE8"
+    },
+    "landscapeBlue": {
+      "primary": "#15ACD6",
+      "hover": "#3FBDE0",
+      "active": "#0D87A8",
+      "disable": "#6BCDE8",
+      "disableHover": "#82D6ED",
+      "activeBackground": "#EBF7FA",
+      "activeHoverBackground": "#F2FAFC",
+      "activeClickBackground": "#E4F3F7",
+      "activeShadow": "#15ACD633",
+      "lightBackground": "#E6F7FC"
+    },
+    "orchidPurple": {
+      "primary": "#7554EB",
+      "hover": "#9075F0",
+      "active": "#5033B8",
+      "disable": "#AC98F5",
+      "disableHover": "#B9A8F7",
+      "activeBackground": "#F3F0FC",
+      "activeHoverBackground": "#F9F7FF",
+      "activeClickBackground": "#ECE8FA",
+      "activeShadow": "#7554EB33",
+      "lightBackground": "#F2EFFF"
+    },
+    "wavePurple": {
+      "primary": "#AE43D9",
+      "hover": "#BD65E0",
+      "active": "#8428A8",
+      "disable": "#CD89E8",
+      "disableHover": "#D69DED",
+      "activeBackground": "#F7F0FA",
+      "activeHoverBackground": "#FBF7FC",
+      "activeClickBackground": "#F3E9F7",
+      "activeShadow": "#AE43D933",
+      "lightBackground": "#F6EBFB"
     }
   }
 }

@@ -6,7 +6,7 @@
   color: var(--sens-checkbox-text);
   font-size: var(--sens-checkbox-font-size);
   line-height: var(--sens-checkbox-line-height);
-  cursor: pointer;
+  cursor: var(--sens-cursor-pointer);
   user-select: none;
 }
 
@@ -37,10 +37,10 @@
   border-radius: var(--sens-checkbox-radius);
   background: var(--sens-checkbox-bg);
   color: var(--sens-checkbox-mark);
+  /* box-shadow 不参与过渡：focus-visible / active 外环需立即可见 */
   transition:
     background-color 0.16s ease,
     border-color 0.16s ease,
-    box-shadow 0.16s ease,
     color 0.16s ease;
 }
 
@@ -154,7 +154,7 @@
 .sens-checkbox--disabled,
 .sens-checkbox-input:disabled ~ .sens-checkbox-body {
   color: var(--sens-checkbox-disabled-text);
-  cursor: not-allowed;
+  cursor: var(--sens-cursor-not-allowed);
 }
 
 .sens-checkbox--disabled .sens-checkbox-icon,
@@ -173,26 +173,31 @@
   color: var(--sens-checkbox-mark-disabled);
 }
 
+.sens-checkbox--disabled:hover,
 .sens-checkbox-preview--disabled-hover .sens-checkbox--disabled {
   color: var(--sens-checkbox-disabled-hover-text);
 }
 
+.sens-checkbox--disabled:hover .sens-checkbox-icon,
+.sens-checkbox--disabled:hover .sens-checkbox-help,
 .sens-checkbox-preview--disabled-hover .sens-checkbox--disabled .sens-checkbox-icon,
 .sens-checkbox-preview--disabled-hover .sens-checkbox--disabled .sens-checkbox-help {
   color: var(--sens-checkbox-icon-disabled-hover);
 }
 
+.sens-checkbox--disabled:hover .sens-checkbox-description,
 .sens-checkbox-preview--disabled-hover .sens-checkbox--disabled .sens-checkbox-description {
   color: var(--sens-checkbox-disabled-hover-text);
 }
 
+.sens-checkbox--disabled:hover .sens-checkbox-input:disabled + .sens-checkbox-control,
 .sens-checkbox-preview--disabled-hover .sens-checkbox-input:disabled + .sens-checkbox-control {
   border-color: var(--sens-checkbox-disabled-hover-border);
   background: var(--sens-checkbox-disabled-hover-bg);
 }
 
 .sens-checkbox--readonly {
-  cursor: default;
+  cursor: var(--sens-cursor-default);
 }
 
 .sens-checkbox-group {

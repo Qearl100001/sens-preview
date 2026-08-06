@@ -1,6 +1,7 @@
 import type { CSSProperties, ReactNode } from "react";
 import { getColorToken, tokenRgba } from "../design-system/color-utils";
 import { SensIcon } from "../design-system/icons";
+import { navigationCssVar } from "../design-system/navigation-color";
 import { getTypographyToken } from "../design-system/typography";
 import { getUnitToken } from "../design-system/unit";
 import { SensBreadcrumb, type SensBreadcrumbItem } from "./SensBreadcrumb";
@@ -15,7 +16,8 @@ const pageTitleBarTokens = {
   height: SENS_PAGE_TITLE_BAR_HEIGHT,
   descriptionHeight: SENS_PAGE_TITLE_BAR_DESCRIPTION_HEIGHT,
   landingBackground: getColorToken("white"),
-  drilldownBackground: getColorToken("theme-title-background"),
+  /** 导航换肤：theme-title-background → --sens-nav-title-bg */
+  drilldownBackground: navigationCssVar("--sens-nav-title-bg", "theme-title-background"),
   text: tokenRgba("text-color-transparent", 0.9),
   subText: tokenRgba("text-sub-color-transparent", 0.58),
   paddingLeftWithBack: getUnitToken("spacing/0.5x"),
@@ -60,6 +62,8 @@ export interface SensPageTitleBarProps {
   onBack?: () => void;
   className?: string;
   style?: CSSProperties;
+  /** 可选；挂在标题节点，便于页面级 heading / 测试定位 */
+  titleId?: string;
 }
 
 /** 页面标题栏：不包含顶部导航，只承载返回、面包屑、页面标题和右侧操作。 */
@@ -73,6 +77,7 @@ export function SensPageTitleBar({
   onBack,
   className,
   style,
+  titleId,
 }: SensPageTitleBarProps) {
   const showBreadcrumb = Boolean(breadcrumbItems?.length);
   const showDescription = Boolean(description);
@@ -117,6 +122,17 @@ export function SensPageTitleBar({
     lineHeight: `${pageTitleBarTokens.titleLineHeight}px`,
     fontWeight: pageTitleBarTokens.titleFontWeight,
   };
+
+  const renderTitle = (extraStyle?: CSSProperties) => (
+    <div
+      id={titleId}
+      role="heading"
+      aria-level={1}
+      style={{ ...titleTextStyle, ...extraStyle }}
+    >
+      {title}
+    </div>
+  );
 
   const descriptionTextStyle: CSSProperties = {
     minWidth: 0,
@@ -212,7 +228,7 @@ export function SensPageTitleBar({
             {showBack ? (
               <div style={{ width: pageTitleBarTokens.backContentGap, flexShrink: 0 }} aria-hidden />
             ) : null}
-            <div style={{ ...titleTextStyle, flex: 1 }}>{title}</div>
+            {renderTitle({ flex: 1 })}
           </div>
 
           {showDescription ? (
@@ -321,9 +337,7 @@ export function SensPageTitleBar({
           alignSelf: "center",
         }}
       >
-        <div style={titleTextStyle}>
-          {title}
-        </div>
+        {renderTitle()}
       </div>
 
       {showDescription ? (

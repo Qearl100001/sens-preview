@@ -13,6 +13,8 @@ export interface BasicStylePageLayoutProps {
   description: string;
   designDocSource: string;
   specimen: ReactNode;
+  /** 默认 Tab；验收主面在样张时应传 `specimen` */
+  initialTab?: BasicStyleTabKey;
 }
 
 export function BasicStylePageLayout({
@@ -20,9 +22,10 @@ export function BasicStylePageLayout({
   description,
   designDocSource,
   specimen,
+  initialTab = "design",
 }: BasicStylePageLayoutProps) {
   const token = getPreviewTokens();
-  const [activeTab, setActiveTab] = useState<BasicStyleTabKey>("design");
+  const [activeTab, setActiveTab] = useState<BasicStyleTabKey>(initialTab);
 
   return (
     <Layout style={{ height: "100%", background: token.colorBgLayout }}>

@@ -225,9 +225,10 @@ export default function CursorBasicStylePage() {
   return (
     <BasicStylePageLayout
       title="鼠标 / Cursor"
-      description="SensD 鼠标使用规则 + 系统光标实现。hover 热区切换原生 cursor；示意 PNG 不参与真实指针。"
+      description="验收入口：本页默认「数值样张」。悬停热区看系统光标；示意 PNG 不参与真实指针。规则见设计说明 Tab。"
       designDocSource={cursorDocSource}
       specimen={<CursorSpecimen />}
+      initialTab="specimen"
     />
   );
 }

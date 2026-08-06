@@ -1,12 +1,39 @@
 import { Alert, Space, Table, Tag, Typography } from "antd";
 import type { ColumnsType } from "antd/es/table";
+import { useNavigationTheme } from "../../../design-system/appearance";
 import { getColorToken } from "../../../design-system/color-utils";
-import { getThemeSideBackground, getThemeTopBackground } from "../../../design-system/navigation-color";
+import {
+  getNavigationAccent,
+  getNavigationColorToken,
+  getNavigationTheme,
+  NAVIGATION_THEME_LABELS,
+  getThemeTopAtmosphere,
+  getThemeSideBackground,
+  getThemeTopBackground,
+  type NavigationTheme,
+} from "../../../design-system/navigation-color";
 import navigationColorDocSource from "../../../../docs/foundations/navigation-color.md?raw";
 import { BasicStylePageLayout } from "./BasicStylePageLayout";
 import { getPreviewTokens } from "../../previewTokens";
 
 const { Text, Title } = Typography;
+
+const NAVIGATION_THEME_KEYS = Object.keys(NAVIGATION_THEME_LABELS) as NavigationTheme[];
+
+const FUNCTIONAL_THEME_BY_NAVIGATION: Record<NavigationTheme, string> = {
+  green: "神策绿",
+  blue: "冰绽蓝",
+  wildYellow: "冰绽蓝",
+  limeGreen: "青柠绿",
+  duneGold: "冰绽蓝",
+  sunriseRed: "冰绽蓝",
+  auroraGreen: "极光绿",
+  landscapeBlue: "山水蓝",
+  orchidPurple: "兰花紫",
+  wavePurple: "波光紫",
+  cloudPink: "冰绽蓝",
+  midnightBlack: "神策绿",
+};
 
 const BOUNDARY_ROWS = [
   { key: "functional", type: "普通组件主色 / hover / active", owner: "color.md", note: "Button、Input、Select、选中态等" },
@@ -18,29 +45,29 @@ const BOUNDARY_ROWS = [
 ];
 
 const GROUP_ROWS = [
-  { key: "top", group: "顶导航", scope: "背景、角色背景、功能入口菜单、项目菜单、logo、文字与图标、线、菜单线", status: "绿肤 ready" },
-  { key: "side", group: "侧导航", scope: "背景、目录背景、文字、图标", status: "绿肤 ready" },
-  { key: "title", group: "标题栏", scope: "标题栏背景", status: "绿肤 ready" },
-  { key: "page", group: "页面", scope: "页面主题背景", status: "绿肤 ready" },
-  { key: "skin", group: "导航换肤", scope: "Navigation Theme 独立于 Functional Skin；蓝、黄等按同一组槽位补齐", status: "待补矩阵" },
+  { key: "top", group: "顶导航", scope: "背景、角色背景、功能入口菜单、项目菜单、logo、文字与图标、线、菜单线", status: "12 套 ready" },
+  { key: "side", group: "侧导航", scope: "背景、目录背景、文字、图标", status: "12 套 ready" },
+  { key: "title", group: "标题栏", scope: "标题栏背景", status: "12 套 ready" },
+  { key: "page", group: "页面", scope: "页面主题背景", status: "12 套 ready" },
+  { key: "skin", group: "导航换肤", scope: "预览设置可独立选择 12 套 Navigation Theme", status: "12 套 ready" },
 ];
 
-const TOKEN_SAMPLE_ROWS = [
-  { key: "top-bg", name: "顶导航背景", handle: "theme-top-background", note: "产品壳主题渐变，走 getThemeTopBackground()", background: getThemeTopBackground() },
-  { key: "side-bg", name: "侧导航背景", handle: "theme-side-background", note: "产品壳主题渐变，走 getThemeSideBackground()", background: getThemeSideBackground() },
-  { key: "title-bg", name: "标题栏背景", handle: "theme-title-background", note: "对应 Figma 标题栏背景方向" },
-  { key: "body-bg", name: "页面主题背景", handle: "body-background", note: "对应 Figma 页面背景方向" },
-  { key: "side-text-active", name: "侧导航选中文字", handle: "theme-side-text-active", note: "侧导航主题专属选中态，不复用功能主色" },
-  { key: "top-logo", name: "顶导航 logo", handle: "theme-top-logo", note: "顶导航 logo / 文案亮色方向" },
+const TOKEN_SAMPLE_META = [
+  { key: "top-bg", name: "顶导航背景", handle: "theme-top-background", note: "产品壳主题渐变，走 getThemeTopBackground(theme)" },
+  { key: "side-bg", name: "侧导航背景", handle: "theme-side-background", note: "产品壳主题渐变，走 getThemeSideBackground(theme)" },
+  { key: "title-bg", name: "标题栏背景", handle: "theme-title-background", note: "getNavigationTheme(theme).title / getNavigationColorToken" },
+  { key: "body-bg", name: "页面主题背景", handle: "body-background", note: "getNavigationTheme(theme).page / getNavigationColorToken" },
+  { key: "side-text-active", name: "侧导航选中文字", handle: "theme-side-text-active", note: "品牌态走 getNavigationColorToken(handle, theme)" },
+  { key: "top-logo", name: "顶导航 logo", handle: "theme-top-logo", note: "中性亮色，不随品牌换肤" },
 ];
 
 const KEY_VALUE_ROWS = [
-  { key: "top-bg", item: "顶导航背景", source: "Figma 主题色", code: "navigationTheme.green.top.background / getThemeTopBackground()", status: "绿肤 ready" },
-  { key: "side-bg", item: "侧导航背景", source: "Figma 主题色", code: "navigationTheme.green.side.background / getThemeSideBackground()", status: "绿肤 ready" },
-  { key: "title-bg", item: "标题栏背景", source: "Figma 主题色", code: "theme-title-background", status: "绿肤 ready" },
-  { key: "page-bg", item: "页面背景", source: "Figma 主题色", code: "body-background", status: "绿肤 ready" },
+  { key: "top-bg", item: "顶导航背景", source: "Figma 主题色", code: "navigationTheme.<theme>.top.background / getThemeTopBackground(theme)", status: "12 套 ready" },
+  { key: "side-bg", item: "侧导航背景", source: "Figma 主题色", code: "navigationTheme.<theme>.side.background / getThemeSideBackground(theme)", status: "12 套 ready" },
+  { key: "title-bg", item: "标题栏背景", source: "Figma 主题色", code: "getNavigationTheme(theme).title / getNavigationColorToken", status: "12 套 ready" },
+  { key: "page-bg", item: "页面背景", source: "Figma 主题色", code: "getNavigationTheme(theme).page / getNavigationColorToken", status: "12 套 ready" },
   { key: "alpha", item: "导航透明状态", source: "Figma 颜色变量", code: "Token 生成保留 #RRGGBBAA", status: "已 ready" },
-  { key: "independent", item: "导航主题与功能色主题", source: "换肤规则", code: "NavigationTheme 与 FunctionalSkin 分开", status: "已拆分" },
+  { key: "independent", item: "导航主题与功能色主题", source: "换肤规则", code: "NavigationTheme 与 FunctionalSkin 分开；预览默认同步", status: "已拆分" },
 ];
 
 const MAPPING_ROWS = [
@@ -49,9 +76,9 @@ const MAPPING_ROWS = [
     group: "顶导航",
     figma: "背景渐变",
     handle: "theme-top-background / getThemeTopBackground()",
-    value: "绿：#0F9670 -> #0D826D",
-    status: "绿肤 ready",
-    action: "蓝、黄等主题按同一槽位补值",
+    value: "12 套主题渐变",
+    status: "12 套 ready",
+    action: "组件按当前 Navigation Theme 消费",
   },
   {
     key: "top-role-bg",
@@ -157,9 +184,9 @@ const MAPPING_ROWS = [
     group: "侧导航",
     figma: "默认背景渐变",
     handle: "theme-side-background / getThemeSideBackground()",
-    value: "#FAFCFC -> #F0F7F6",
-    status: "绿肤 ready",
-    action: "蓝、黄等主题按同一槽位补值",
+    value: "12 套主题渐变",
+    status: "12 套 ready",
+    action: "组件按当前 Navigation Theme 消费",
   },
   {
     key: "side-catalog-bg",
@@ -202,8 +229,8 @@ const MAPPING_ROWS = [
     group: "标题栏",
     figma: "背景",
     handle: "theme-title-background",
-    value: "#F5FAFA",
-    status: "已 ready",
+    value: "12 套标题栏背景",
+    status: "12 套 ready",
     action: "组件接入",
   },
   {
@@ -211,8 +238,8 @@ const MAPPING_ROWS = [
     group: "页面",
     figma: "页面主题背景",
     handle: "body-background",
-    value: "#F5FAFA",
-    status: "已 ready",
+    value: "12 套页面背景",
+    status: "12 套 ready",
     action: "组件接入",
   },
   {
@@ -220,18 +247,18 @@ const MAPPING_ROWS = [
     group: "换肤",
     figma: "Navigation Theme 映射",
     handle: "NavigationTheme",
-    value: "绿肤完整；功能色主题独立",
-    status: "绿肤 ready",
-    action: "读到蓝、黄 Figma 色板后补完整矩阵",
+    value: "12 套导航 + 7 组功能色映射",
+    status: "12 套 ready",
+    action: "组件阶段继续改读 getNavigationColorToken",
   },
 ];
 
 const ISSUE_ROWS = [
-  { key: "independent", issue: "导航主题与功能色主题独立", status: "NavigationTheme 已从 FunctionalSkin 拆开", next: "新增主题时保持独立配置" },
-  { key: "skin", issue: "蓝、黄等导航主题矩阵", status: "绿肤已 ready", next: "取得完整 Figma 色板后按同一槽位录入" },
-  { key: "gradient", issue: "顶导航 / 侧导航渐变 Token", status: "绿肤已入库并有 helper", next: "组件实现时直接消费" },
-  { key: "active-diff", issue: "Figma 与代码 component-active 存在 1 个 hex 差异", status: "记录差异，不直接修正", next: "换肤映射阶段确认来源" },
-  { key: "mapping", issue: "Figma -> Token 映射表", status: "神策绿已完成", next: "每套新增导航主题复用本表" },
+  { key: "independent", issue: "导航主题与功能色主题独立", status: "已拆分；预览设置默认同步", next: "产品需要时再暴露分控" },
+  { key: "skin", issue: "12 套导航主题矩阵", status: "12 套已 ready", next: "组件继续接入主题参数" },
+  { key: "gradient", issue: "顶导航 / 侧导航渐变 Token", status: "12 套已入库并有 helper", next: "组件继续消费当前 theme 参数" },
+  { key: "active-diff", issue: "Figma 与代码 component-active 存在 1 个 hex 差异", status: "记录差异，不直接修正", next: "跟现有 token #008C65" },
+  { key: "mapping", issue: "Figma -> Token 映射表", status: "12 套已完成", next: "组件继续按槽位验收" },
 ];
 
 function BoundaryTable() {
@@ -262,6 +289,19 @@ function GroupTable() {
 
 function TokenSampleBoard() {
   const token = getPreviewTokens();
+  const navigationTheme = useNavigationTheme();
+  const navigation = getNavigationTheme(navigationTheme);
+
+  const samples = TOKEN_SAMPLE_META.map((item) => {
+    let background: string;
+    if (item.key === "top-bg") background = getThemeTopBackground(navigationTheme);
+    else if (item.key === "side-bg") background = getThemeSideBackground(navigationTheme);
+    else if (item.key === "title-bg") background = navigation.title.background;
+    else if (item.key === "body-bg") background = navigation.page.background;
+    else if (item.key === "side-text-active") background = getNavigationColorToken(item.handle, navigationTheme);
+    else background = getColorToken(item.handle);
+    return { ...item, background };
+  });
 
   return (
     <div
@@ -271,8 +311,8 @@ function TokenSampleBoard() {
         gap: token.marginMD,
       }}
     >
-      {TOKEN_SAMPLE_ROWS.map((item) => {
-        const color = item.background ?? getColorToken(item.handle);
+      {samples.map((item) => {
+        const color = item.background;
 
         return (
           <div
@@ -288,15 +328,72 @@ function TokenSampleBoard() {
               <div
                 style={{
                   height: 48,
-                  borderRadius: token.borderRadius,
-                  border: `1px solid ${token.colorBorderSecondary}`,
+                  borderRadius: token.borderRadiusSM,
                   background: color,
+                  border: `1px solid ${token.colorBorderSecondary}`,
                 }}
               />
               <Text strong>{item.name}</Text>
               <Text code>{item.handle}</Text>
               <Text type="secondary">{item.note}</Text>
+              <Text type="secondary">当前主题：{NAVIGATION_THEME_LABELS[navigationTheme]}</Text>
             </Space>
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
+function ThemeSpecificationBoard() {
+  const token = getPreviewTokens();
+
+  return (
+    <div style={{ display: "grid", gap: token.marginMD }}>
+      {NAVIGATION_THEME_KEYS.map((theme) => {
+        const navigation = getNavigationTheme(theme);
+        const accent = getNavigationAccent(theme);
+        const slots = [
+          { key: "top", label: "顶导背景", background: getThemeTopBackground(theme) },
+          { key: "atmosphere", label: "氛围层", background: `${getThemeTopAtmosphere(theme)}, ${getThemeTopBackground(theme)}` },
+          { key: "side", label: "侧导背景", background: getThemeSideBackground(theme) },
+          { key: "title", label: "标题栏背景", background: navigation.title.background },
+          { key: "page", label: "页面背景", background: navigation.page.background },
+          { key: "solid", label: "品牌实色", background: accent.solid },
+          { key: "subtle", label: "品牌浅底", background: accent.subtle },
+        ];
+
+        return (
+          <div
+            key={theme}
+            style={{
+              padding: token.paddingMD,
+              border: `1px solid ${token.colorBorderSecondary}`,
+              borderRadius: token.borderRadius,
+              background: token.colorBgContainer,
+            }}
+          >
+            <Space style={{ marginBottom: token.marginSM }}>
+              <Text strong>{NAVIGATION_THEME_LABELS[theme]}</Text>
+              <Text code>{theme}</Text>
+              <Tag color="success">12 套规格</Tag>
+              <Text type="secondary">功能色：{FUNCTIONAL_THEME_BY_NAVIGATION[theme]}</Text>
+            </Space>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))", gap: token.marginSM }}>
+              {slots.map((slot) => (
+                <div key={slot.key}>
+                  <div
+                    style={{
+                      height: 40,
+                      borderRadius: token.borderRadiusSM,
+                      border: `1px solid ${token.colorBorderSecondary}`,
+                      background: slot.background,
+                    }}
+                  />
+                  <Text type="secondary" style={{ fontSize: token.fontSizeSM }}>{slot.label}</Text>
+                </div>
+              ))}
+            </div>
           </div>
         );
       })}
@@ -369,15 +466,15 @@ function NavigationColorSpecimen() {
           导航颜色口子
         </Title>
         <Text type="secondary">
-          这里展示产品壳主题的边界、神策绿基线、Figma 到 Token 映射和后续换肤缺口；结构与交互规则仍归导航组件页。
+          这里展示产品壳主题的边界、12 套正式颜色槽位、Figma 到 Token 映射和当前主题样张；结构与交互规则仍归导航组件页。
         </Text>
       </div>
 
       <Alert
         type="info"
         showIcon
-        message="神策绿产品壳主题已入库"
-        description="顶导、侧导、标题栏、页面背景和导航状态色已进入同一套 Navigation Theme。蓝、黄等主题需补完整 Figma 色板；结构、状态和收纳规则请看导航组件页。"
+        message="12 套产品壳主题已入库"
+        description="顶导、侧导、标题栏、页面背景和导航状态色已进入同一套 Navigation Theme。功能色另由 Functional Skin 管理；预览设置可独立切换两条链路。"
       />
 
       <section>
@@ -393,6 +490,16 @@ function NavigationColorSpecimen() {
       <section>
         <Title level={5}>已有代码方向样张</Title>
         <TokenSampleBoard />
+      </section>
+
+      <section>
+        <Title level={5}>12 套正式主题规格</Title>
+        <Text type="secondary">
+          每套产品壳主题必须同时具备七个槽位。氛围层统一复用三层叠层结构，子夜黑是常规主题，不代表暗色模式；功能色按照换肤映射独立维护。
+        </Text>
+        <div style={{ marginTop: 12 }}>
+          <ThemeSpecificationBoard />
+        </div>
       </section>
 
       <section>
@@ -414,7 +521,7 @@ function NavigationColorSpecimen() {
         type="warning"
         showIcon
         message="导航渐变是产品壳主题 Token，不是功能色"
-        description="getThemeTopBackground() 和 getThemeSideBackground() 只读取 NavigationTheme；它们不再跟随功能色切换。"
+        description="getThemeTopBackground(theme) / getThemeSideBackground(theme) 只读 NavigationTheme。功能色与导航主题是两条独立主题线，可组合验证。"
       />
 
       <section>

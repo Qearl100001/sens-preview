@@ -1,12 +1,17 @@
 import type { CSSProperties, HTMLAttributes, InputHTMLAttributes, MouseEvent, ReactNode } from "react";
 import { useId, useState } from "react";
-import { buildActiveRingShadow, getColorToken, tokenRgba } from "../design-system/color-utils";
+import { getColorToken, tokenRgba } from "../design-system/color-utils";
 import { getDividerColor, getDividerHairlineWidth } from "../design-system/divider";
+import { buildFunctionalActiveRingShadow, functionalCssVar } from "../design-system/functional-skin";
 import { getTypographyToken } from "../design-system/typography";
 import { getUnitToken } from "../design-system/unit";
 import "./radio.css";
 
 export interface SensRadioProps extends Omit<InputHTMLAttributes<HTMLInputElement>, "children" | "type"> {
+  /**
+   * Visible label content. When omitted, provide aria-label or aria-labelledby
+   * so the native radio still has an accessible name.
+   */
   children?: ReactNode;
   description?: ReactNode;
   icon?: ReactNode;
@@ -26,12 +31,12 @@ function buildRadioTokenVars(): CSSProperties {
     "--sens-radio-border-width": px(getDividerHairlineWidth()),
     "--sens-radio-bg": getColorToken("white"),
     "--sens-radio-border": getDividerColor("deep", "transparent"),
-    "--sens-radio-hover-border": getColorToken("component-primary"),
-    "--sens-radio-active-border": getColorToken("component-active"),
-    "--sens-radio-active-shadow": buildActiveRingShadow("component-active-shadow"),
-    "--sens-radio-checked-bg": getColorToken("component-primary"),
-    "--sens-radio-checked-hover-bg": getColorToken("component-hover"),
-    "--sens-radio-checked-active-bg": getColorToken("component-active"),
+    "--sens-radio-hover-border": functionalCssVar("--sens-skin-primary", "component-primary"),
+    "--sens-radio-active-border": functionalCssVar("--sens-skin-active", "component-active"),
+    "--sens-radio-active-shadow": buildFunctionalActiveRingShadow(),
+    "--sens-radio-checked-bg": functionalCssVar("--sens-skin-primary", "component-primary"),
+    "--sens-radio-checked-hover-bg": functionalCssVar("--sens-skin-hover", "component-hover"),
+    "--sens-radio-checked-active-bg": functionalCssVar("--sens-skin-active", "component-active"),
     "--sens-radio-mark": getColorToken("white"),
     "--sens-radio-mark-disabled": getColorToken("icon-color-transparent-disable"),
     "--sens-radio-disabled-bg": tokenRgba("background-transparent-grey-hover", 0.06),
@@ -100,6 +105,7 @@ export function SensRadio({
         defaultChecked={defaultChecked}
         disabled={disabled}
         readOnly={readOnly}
+        aria-readonly={readOnly ? "true" : undefined}
         onClick={handleClick}
         onChange={readOnly ? undefined : onChange}
       />

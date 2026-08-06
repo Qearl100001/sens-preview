@@ -97,27 +97,56 @@
   line-height: var(--sens-section-title-product-small-title-line);
 }
 
-.sens-section-title-description {
+.sens-section-title-description,
+.sens-section-title-optional {
   flex: 0 1 auto;
   min-width: 0;
   overflow: hidden;
   color: var(--sens-section-title-sub-text);
-  font-size: var(--sens-section-title-description-size);
-  font-weight: var(--sens-section-title-small-title-weight);
-  line-height: var(--sens-section-title-description-line);
+  font-weight: var(--sens-section-title-meta-weight);
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+/* 辅助文案：font-size/s · line-height/s · regular */
+.sens-section-title-description {
+  font-size: var(--sens-section-title-description-size);
+  line-height: var(--sens-section-title-description-line);
+}
+
+/* 选填：与标题同档字号/行高，细体 regular（Figma 大 16/24、小 14/22） */
+.sens-section-title--general.sens-section-title--large .sens-section-title-optional,
+.sens-section-title--productLine.sens-section-title--small .sens-section-title-optional {
+  font-size: var(--sens-section-title-large-title-size);
+  line-height: var(--sens-section-title-large-title-line);
+}
+
+.sens-section-title--general.sens-section-title--small .sens-section-title-optional {
+  font-size: var(--sens-section-title-small-title-size);
+  line-height: var(--sens-section-title-small-title-line);
+}
+
+.sens-section-title--productLine.sens-section-title--large .sens-section-title-optional {
+  font-size: var(--sens-section-title-product-large-title-size);
+  line-height: var(--sens-section-title-product-large-title-line);
 }
 
 .sens-section-title-help {
   color: var(--sens-section-title-icon);
   line-height: 0;
+  cursor: var(--sens-cursor-default);
+  outline: none;
+}
+
+.sens-section-title-help:focus-visible {
+  border-radius: var(--sens-section-title-radius);
+  box-shadow: 0 0 0 2px var(--sens-section-title-accent);
 }
 
 .sens-section-title-actions {
   flex: 0 0 auto;
   gap: var(--sens-section-title-actions-gap);
-  margin-left: var(--sens-section-title-actions-offset);
+  margin-left: var(--sens-section-title-actions-min-gap);
 }
 
 .sens-section-title-accent {
@@ -147,6 +176,12 @@
 
 .sens-section-title-demo-card {
   padding: var(--sens-section-title-preview-card-padding);
+}
+
+.sens-section-title-demo-samples {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sens-section-title-preview-card-gap);
 }
 
 .sens-section-title-demo-label,

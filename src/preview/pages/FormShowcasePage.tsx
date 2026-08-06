@@ -187,6 +187,8 @@ function FormDemo() {
       <SensForm layout={layout}>
         <SensFormItem
           label="规则名称"
+          controlId="rule-name"
+          name="ruleName"
           required
           description="名称用于识别当前规则，建议保持业务语义清晰。"
           error={showError ? "请输入规则名称" : undefined}
@@ -199,10 +201,17 @@ function FormDemo() {
             style={{ width: "100%" }}
           />
         </SensFormItem>
-        <SensFormItem label="执行次数" controlExtra="次">
+        <SensFormItem label="执行次数" controlId="execution-count" name="executionCount" controlExtra="次">
           <SensInputNumber defaultValue={10} style={{ width: "100%" }} />
         </SensFormItem>
-        <SensFormItem label="推送范围" labelHelp="选择用户生效范围" optional="(选填)" description="表单内的单选组直接复用基础单选组件。">
+        <SensFormItem
+          label="推送范围"
+          controlId="push-scope"
+          name="pushScope"
+          labelHelp="选择用户生效范围"
+          optional="(选填)"
+          description="表单内的单选组直接复用基础单选组件。"
+        >
           <SensRadioGroup
             value={radioValue}
             onChange={setRadioValue}
@@ -213,7 +222,12 @@ function FormDemo() {
             ]}
           />
         </SensFormItem>
-        <SensFormItem label="可见模块" description="表单内的复选组直接复用基础复选框组件。">
+        <SensFormItem
+          label="可见模块"
+          controlId="visible-modules"
+          name="visibleModules"
+          description="表单内的复选组直接复用基础复选框组件。"
+        >
           <SensCheckboxGroup
             value={checkboxValue}
             onChange={setCheckboxValue}

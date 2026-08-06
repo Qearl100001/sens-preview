@@ -14,6 +14,7 @@ import tokens from "../../../design-system/tokens.resolved.json";
 import shadowDocSource from "../../../../docs/foundations/shadow.md?raw";
 import { BasicStylePageLayout } from "./BasicStylePageLayout";
 import { getPreviewTokens } from "../../previewTokens";
+import { getTypographyToken } from "../../../design-system/typography";
 
 const { Text, Title } = Typography;
 
@@ -124,7 +125,7 @@ function ShadowScaleBoard() {
             <Text strong>{item.level}</Text>
             <Text>{item.label}</Text>
             <Text type="secondary">{item.usage}</Text>
-            <Text code style={{ fontSize: 11, wordBreak: "break-all" }}>
+            <Text code style={{ fontSize: getTypographyToken("font-size/s"), wordBreak: "break-all" }}>
               {shadowTokens[`${item.level}/down`]}
             </Text>
           </Space>

@@ -48,10 +48,10 @@ const RADIUS_SCALE: RadiusScaleItem[] = [
   },
   {
     key: "xl",
-    name: "大页面外圆角",
+    name: "产品壳与大页面外圆角",
     tokenName: "radius/xl",
     value: u["radius/xl"],
-    usage: "大页面外圆角、页面与导航衔接处、抽屉外圆角",
+    usage: "产品壳标题栏 / 内容面板上方外角、大页面与抽屉外圆角",
   },
   {
     key: "circular",
@@ -66,7 +66,8 @@ const SCENE_ROWS = [
   { key: "form", scene: "Input / Select / Button", tokenName: "radius/m", value: u["radius/m"], note: "常规基础组件" },
   { key: "table", scene: "TableShell 外边缘", tokenName: "radius/l", value: u["radius/l"], note: "表格外圆角是 6px" },
   { key: "card", scene: "Card / EntryCard 边缘", tokenName: "radius/l", value: u["radius/l"], note: "卡片规则后续单独补充" },
-  { key: "page", scene: "大页面外圆角", tokenName: "radius/xl", value: u["radius/xl"], note: "页面与导航衔接处" },
+  { key: "product-shell", scene: "产品壳标题栏与内容面板", tokenName: "radius/xl", value: u["radius/xl"], note: "无侧导页面的标题栏内容面板左右上角；右侧内容面板与导航衔接处" },
+  { key: "page", scene: "大页面外圆角", tokenName: "radius/xl", value: u["radius/xl"], note: "整页外层容器" },
   { key: "drawer", scene: "Drawer 外圆角", tokenName: "radius/xl", value: u["radius/xl"], note: "Drawer 阶段校准" },
   { key: "fab", scene: "FAB / 胶囊", tokenName: "radius/circular", value: u["radius/circular"], note: "圆形或胶囊场景" },
 ];

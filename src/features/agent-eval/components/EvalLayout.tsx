@@ -3,6 +3,7 @@ import { getColorToken, tokenRgba } from "../../../design-system/color-utils";
 import { getDividerBorder } from "../../../design-system/divider";
 import { getTypographyToken } from "../../../design-system/typography";
 import tokens from "../../../design-system/tokens.resolved.json";
+import { functionalCssVar } from "../../../design-system/functional-skin";
 
 const u = tokens.unit as Record<string, number>;
 
@@ -124,7 +125,7 @@ export function EvalSectionTitle({ title, subtitle, actions }: EvalSectionTitleP
             width: 3,
             height: 18,
             borderRadius: u["radius/s"],
-            background: getColorToken("component-primary"),
+            background: functionalCssVar("--sens-skin-primary", "component-primary"),
             flexShrink: 0,
             marginTop: subtitle ? (getTypographyToken("line-height/l") - 18) / 2 : undefined,
           }}

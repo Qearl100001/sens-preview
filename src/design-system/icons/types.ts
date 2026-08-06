@@ -1,6 +1,9 @@
 import type { CSSProperties } from "react";
+import type { FigmaIconName } from "./figma-icon-names";
+import type { FilledIconName } from "./filled-icon-names";
+import type { ColorfulIconName } from "./colorful-icon-names";
 
-/** 第一批已入库自定义 SVG 名称 */
+/** 项目已入库的 Sens 图标名称；包括历史资产、Figma 线性资产和面性资产 */
 export type IconName =
   | "error-diamond"
   | "feedback-info"
@@ -46,14 +49,29 @@ export type IconName =
   | "side-nav-expand"
   | "side-nav-collapse"
   | "side-nav-unpin"
-  | "side-nav-pin";
+  | "side-nav-pin"
+  | FigmaIconName
+  | FilledIconName
+  | ColorfulIconName;
+
+export type IconVariant = "linear" | "filled" | "colorful";
 
 export type IconCategory =
   | "operational"
   | "status"
   | "navigation"
   | "input-assist"
-  | "component-internal";
+  | "component-internal"
+  | "edit"
+  | "object"
+  | "symbol"
+  | "direction"
+  | "brand"
+  | "chart"
+  | "functional"
+  | "file"
+  | "business"
+  | "colorful-functional";
 
 /** registry 记录的图标使用场景，尺寸与颜色由场景决定，非图标本体默认值 */
 export interface IconUsageScene {
@@ -75,7 +93,9 @@ export interface IconAssetMeta {
   viewBox: string;
   category: IconCategory;
   /** 中文备注，方便设计与研发检索 */
-  labelZh: string;
+  labelZh?: string;
+  /** Figma 中的原始名称，仅用于资产追溯，不作为消费方 API */
+  figmaName?: string;
   /** SVG 路径是否使用 currentColor */
   currentColor: boolean;
   /** 是否包含 opacity 分层或双色路径 */
@@ -112,6 +132,8 @@ export interface RegistryIconRenderProps {
 
 export interface SensIconProps {
   name: IconName;
+  /** 图标风格；默认使用线性图标，面性图标通过 filled 明确选择 */
+  variant?: IconVariant;
   /** 显式像素尺寸；与 sizeToken 二选一，size 优先 */
   size?: number;
   /** 来自 size/icon/* token 的尺寸 */

@@ -10,6 +10,10 @@ export interface DesignSystemDocProps {
   source: string;
 }
 
+function normalizeMarkdownBreakTags(source: string) {
+  return source.replace(/<br\s*\/?>/gi, "  ");
+}
+
 export function DesignSystemDoc({ source }: DesignSystemDocProps) {
   const token = getPreviewTokens();
 
@@ -142,7 +146,7 @@ export function DesignSystemDoc({ source }: DesignSystemDocProps) {
   return (
     <div style={{ maxWidth: "100%" }}>
       <ReactMarkdown remarkPlugins={[remarkGfm]} components={components}>
-        {source}
+        {normalizeMarkdownBreakTags(source)}
       </ReactMarkdown>
     </div>
   );

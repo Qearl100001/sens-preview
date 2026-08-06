@@ -2,15 +2,17 @@ import { useState, type CSSProperties } from "react";
 import {
   buildActiveRingShadow,
   buildShadowD3,
-  getColorByPath,
   getColorToken,
   tokenRgba,
 } from "../../design-system/color-utils";
+import { sensCursorValue } from "../../design-system/cursors";
 import { getDividerBorder, getDividerHairlineWidth } from "../../design-system/divider";
 import { getTypographyToken } from "../../design-system/typography";
 import tokens from "../../design-system/tokens.resolved.json";
+import { SensTag } from "../../ui";
 import { DataSourceLogo } from "./DataSourceLogo";
 import type { DataSourceCardSpec, DataSourceCountUnit } from "./dataSourceTypes";
+import { functionalCssVar, buildFunctionalActiveRingShadow } from "../../design-system/functional-skin";
 
 const u = tokens.unit as Record<string, number>;
 const LOGO_SIZE = u["spacing/6x"] * 2;
@@ -19,28 +21,6 @@ const STATUS_DOT_SIZE = u["size/mini"] - 2;
 function formatCountLabel(count: number, unit: DataSourceCountUnit): string {
   const noun = unit === "applications" ? "应用" : "连接";
   return `${count} 个${noun}`;
-}
-
-function BetaTag({ muted }: { muted?: boolean }) {
-  return (
-    <span
-      style={{
-        flexShrink: 0,
-        height: 20,
-        paddingInline: 6,
-        borderRadius: u["radius/circular"],
-        background: getColorByPath("定制色/标签/山水蓝/背景/01_默认"),
-        color: muted
-          ? tokenRgba("text-color-transparent-disable", 0.3)
-          : tokenRgba("text-color-transparent", 0.9),
-        fontSize: getTypographyToken("font-size/s"),
-        lineHeight: `${getTypographyToken("line-height/s")}px`,
-        fontWeight: getTypographyToken("font-weight/regular"),
-      }}
-    >
-      beta
-    </span>
-  );
 }
 
 function ConnectionStatusRow({ card, muted }: { card: DataSourceCardSpec; muted?: boolean }) {
@@ -129,8 +109,8 @@ export function DataSourceEntryCard({ card, onClick }: DataSourceEntryCardProps)
   let background = isDisabled ? getColorToken("background-grey") : getColorToken("white");
 
   if (!isDisabled && pressed) {
-    border = `${getDividerHairlineWidth()}px solid ${getColorToken("component-active")}`;
-    boxShadow = buildActiveRingShadow("component-active-shadow");
+    border = `${getDividerHairlineWidth()}px solid ${functionalCssVar("--sens-skin-active", "component-active")}`;
+    boxShadow = buildFunctionalActiveRingShadow();
   } else if (hovered) {
     boxShadow = buildShadowD3();
   }
@@ -143,7 +123,7 @@ export function DataSourceEntryCard({ card, onClick }: DataSourceEntryCardProps)
     borderRadius: u["radius/l"],
     background,
     textAlign: "left",
-    cursor: isDisabled ? "not-allowed" : "pointer",
+    cursor: isDisabled ? sensCursorValue("not-allowed") : sensCursorValue("pointer"),
     transition: "border-color 0.2s, box-shadow 0.2s, background 0.2s, color 0.2s",
     boxShadow,
     boxSizing: "border-box",
@@ -194,7 +174,11 @@ export function DataSourceEntryCard({ card, onClick }: DataSourceEntryCardProps)
           >
             {card.name}
           </span>
-          {card.beta ? <BetaTag muted={isDisabled} /> : null}
+          {card.beta ? (
+            <SensTag variant="multicolor" color="cyan" size="small" disabled={isDisabled}>
+              beta
+            </SensTag>
+          ) : null}
         </div>
         <ConnectionStatusRow card={card} muted={isDisabled} />
       </div>

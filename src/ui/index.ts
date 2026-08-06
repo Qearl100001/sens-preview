@@ -37,6 +37,8 @@ export type {
 } from "./SensRadio";
 export { SensForm, SensFormItem, SensFormActions } from "./SensForm";
 export type { SensFormProps, SensFormItemProps, SensFormActionsProps, SensFormLabelAlign, SensFormLayout } from "./SensForm";
+export { SensActionArea } from "./SensActionArea";
+export type { SensActionAreaPlacement, SensActionAreaProps } from "./SensActionArea";
 export { SensSectionTitle } from "./SensSectionTitle";
 export type { SensSectionTitleProps, SensSectionTitleSize, SensSectionTitleVariant } from "./SensSectionTitle";
 export { StatusBadge } from "./StatusBadge";
@@ -58,6 +60,7 @@ export type { IconProps as FieldIconProps } from "./FieldIcons";
 export { useSensAllowClear, useSensSearchFieldProps, useSensSearchPrefix, useSensSelectProps, useSensSelectSuffixProps, useSensSelectTriggerProps, useSensSelectTriggerSuffixProps, SensSelectSuffix, SensSelectTriggerArrow } from "./fieldIconProps";
 export { useSensIconTokens } from "./useSensIconTokens";
 export { SensButton, SensDropdownButton, SensMoreButton, ButtonStatesPreview } from "./SensButton";
+export type { SensButtonRef } from "./SensButton";
 export { SensButtonActionMenu } from "./SensButtonActionMenu";
 export type { SensButtonActionMenuProps } from "./SensButtonActionMenu";
 export type {
@@ -132,6 +135,10 @@ export type {
 } from "./SensTabs";
 export { SensBadge, BadgeStatesPreview } from "./SensBadge";
 export type { SensBadgeProps, SensBadgeVariant, SensWeakBadgeState, SensWeakBadgeSurface, SensStatusTone } from "./SensBadge";
+export { SensCard } from "./SensCard";
+export type { SensCardProps, SensCardVariant } from "./SensCard";
+export { SensEntryCard } from "./SensEntryCard";
+export type { SensEntryCardProps, SensEntryCardSize } from "./SensEntryCard";
 export {
   SensTag,
   TagTypesPreview,
@@ -148,9 +155,40 @@ export type {
   TagInteractiveState,
   TagCloseState,
 } from "./SensTag";
-export { SensMessage, MessageTypesPreview, MESSAGE_TYPE_LABEL } from "./SensMessage";
-export type { SensMessageProps, MessageType } from "./SensMessage";
+export { SensMessage, SensMessageLink, MessageTypesPreview, MESSAGE_TYPE_LABEL } from "./SensMessage";
+export type { SensMessageProps, SensMessageLinkProps, MessageType } from "./SensMessage";
+export { SensMessageProvider, useSensMessage } from "./SensMessageRuntime";
+export type {
+  SensMessageApi,
+  SensMessageClose,
+  SensMessageDuration,
+  SensMessageOpenOptions,
+  SensMessageProviderProps,
+  SensMessageShortcutOptions,
+} from "./SensMessageRuntime";
 export { SensAlert, AlertTypesPreview, ALERT_TYPE_LABEL } from "./SensAlert";
+export {
+  buildSensTipsTokenVars,
+  SensTips,
+  TipsStatesPreview,
+  SENS_TIPS_ARROW_CROSS_SIZE,
+  SENS_TIPS_ARROW_DEPTH,
+  SENS_TIPS_ARROW_EDGE_GAP,
+  SENS_TIPS_ARROW_EDGE_INSET_BLOCK,
+  SENS_TIPS_ARROW_EDGE_INSET_INLINE,
+  SENS_TIPS_ARROW_EDGE_SLOT_BLOCK,
+  SENS_TIPS_ARROW_EDGE_SLOT_INLINE,
+  SENS_TIPS_ENTER_DELAY_MS,
+  SENS_TIPS_FLIP_ORDER,
+  SENS_TIPS_LEAVE_GRACE_MS,
+  SENS_TIPS_MAX_LINES,
+  SENS_TIPS_MAX_WIDTH,
+  SENS_TIPS_OFFSET,
+  SENS_TIPS_SCROLLBAR_SIZE,
+  SENS_TIPS_WIDE_TRIGGER,
+  SENS_TIPS_Z_INDEX,
+} from "./SensTips";
+export type { SensTipsProps, SensTipsPlacement, SensTipsAlign } from "./SensTips";
 export type { SensAlertProps, AlertType } from "./SensAlert";
 export { SensTitleBar, SENS_TITLE_BAR_BACK_HIT_SIZE, SENS_TITLE_BAR_HEIGHT } from "./SensTitleBar";
 export type { SensTitleBarProps } from "./SensTitleBar";
@@ -160,8 +198,30 @@ export { SensPageTitleBar, SENS_PAGE_TITLE_BAR_HEIGHT } from "./SensPageTitleBar
 export type { SensPageTitleBarProps } from "./SensPageTitleBar";
 export { SensTopNavigation } from "./SensTopNavigation";
 export type { SensTopNavigationItem, SensTopNavigationProps } from "./SensTopNavigation";
-export { SensDrawer, SENS_DRAWER_WIDTH } from "./SensDrawer";
+export { ProductShellSideNavigation } from "./ProductShellSideNavigation";
+export type {
+  ProductShellSideNavigationGroup,
+  ProductShellSideNavigationMode,
+  ProductShellSideNavigationProps,
+} from "./ProductShellSideNavigation";
+export {
+  SensDrawer,
+  SENS_DRAWER_WIDTH,
+  SENS_DRAWER_WIDTH_RATIO,
+  SENS_DRAWER_VIEWPORT_MIN,
+  SENS_DRAWER_VIEWPORT_MAX,
+  SENS_DRAWER_Z_INDEX,
+  SENS_DRAWER_MOTION_DURATION_MS,
+  SENS_DRAWER_MOTION_EASING,
+} from "./SensDrawer";
 export type { SensDrawerProps, SensDrawerSize } from "./SensDrawer";
+export {
+  SENS_CURSORS,
+  SENS_CURSOR_PRIMARY,
+  SENS_CURSOR_MOVE,
+  sensCursorValue,
+} from "../design-system/cursors";
+export type { SensCursorName, SensCursorDef } from "../design-system/cursors";
 export { SensInput, InputStatesPreview, useSensInputHeightStyle, InsideErrorSuffix, InputHelpRow } from "./SensInput";
 export type {
   SensInputProps,

@@ -33,6 +33,7 @@
 | 无 loading type | 加载仅属于轻提示 | 2026-07-10 |
 | 常规色 | 图标 `link-color`；浅底 `link-light-background`；浅描边 `link-light-outline` | 2026-07-10 |
 | P0 实现 | 组件 + 预览页；关闭细交互 / 尺寸定稿仍待补 | 2026-07-10 |
+| 默认宽 | 通栏 `width: 100%`（与灰底标题同；不写死 400） | 2026-07-30 |
 
 ## 语义场景 × token
 
@@ -68,7 +69,7 @@ type SensAlertProps = {
   type?: AlertType;           // 默认 default
   description?: React.ReactNode; // 辅助文案
   closable?: boolean;
-  link?: React.ReactNode;     // 链接按钮区（预览用 SensButton tone="link"）
+  link?: React.ReactNode;     // 链接槽；推荐 SensMessageLink（与轻提示一致）
   onClose?: () => void;
   children?: React.ReactNode; // 标题
 };
@@ -79,7 +80,7 @@ type SensAlertProps = {
 | `type` | 四语义之一（无 `loading`） |
 | `description` | 辅助文案；有则双行结构 |
 | `closable` | 显示关闭 |
-| `link` | 链接按钮区 |
+| `link` | 右侧链接；**用 `SensMessageLink`**，不用 `SensButton tone="link" size="small"` |
 | `onClose` | 关闭回调 |
 | `children` | 标题 |
 
@@ -96,9 +97,17 @@ type SensAlertProps = {
 | 圆角 | 4 | `radius/m` |
 | 水平 padding | 12 | `spacing/horizontal/3x` |
 | 图标与文案 gap | 4 | `spacing/1x` |
-| 默认宽（样张） | 400 | 业务可覆写；是否默认宽 To Confirm |
+| 文案与链接 gap | 16 | `spacing/horizontal/4x`（与轻提示同，`FeedbackLinkSlot`） |
+| 链接按钮 | 14 / 22，padding 0 | `SensMessageLink`（与轻提示同规格） |
+| 默认宽 | **通栏** `width: 100%` | 撑满内容区，与灰底标题同；**不**写死 400；业务可用 `style`/`className` 收窄 |
 
-无辅助：整体高度 + 垂直居中。有辅助：公式 pad + hug；**不**新增 5/7 spacing 档。
+无辅助：整体高度 + 垂直居中。有辅助：公式 pad + hug；链接 / 关闭与**标题行**对齐（不相对整条垂直居中）；**不**新增 5/7 spacing 档。
+
+## 放置
+
+- 页内条，常见于**页面 / 区块标题下方**、表格或筛选等业务内容**上方**。
+- 与灰底标题同为通栏：宽度跟随内容区，不设固定样张宽。
+- 场景依据：复合表格专档 · [提示信息位置 `706:33692`](https://www.figma.com/design/6IvghX6MDshOlaJ48xBMDc/Sens.Design_%E5%A4%8D%E5%90%88%E8%A1%A8%E6%A0%BC-v2.1_20221118?node-id=706-33692&m=dev)（警告宽 = 内容区宽，高 36）。
 
 ## 与相邻组件边界
 
@@ -113,12 +122,12 @@ type SensAlertProps = {
 - [x] 常规色：`link-color` / `link-light-background` / `link-light-outline`
 - [x] P0：`SensAlert` + `/components/alert` + 侧栏「警告」
 - [x] 辅助文案色 `@0.58`；字号/行高 `font-size/s` / `line-height/s`
-- [ ] 关闭悬停/点击警告红
+- [x] 关闭悬停/点击警告红：默认 `icon-color-transparent`；悬停 `warning-color`；点击 `warning-color-active`
 - [x] 关闭资产：`SensIcon name="close"`
 - [x] 状态图标：`feedback-info` / `feedback-complete` / `feedback-warning` / `feedback-error`
-- [ ] 链接按钮细交互（现由调用方传入 `SensButton`）
+- [x] 链接按钮：与轻提示同用 `SensMessageLink`（14/22）；有辅助时与标题行对齐
 - [x] 尺寸：单行 `size/component-height/l`；有辅助公式 pad + hug；标题↔辅助 `spacing/1x`
-- [ ] 默认宽 400 To Confirm
+- [x] 默认宽：通栏 `width: 100%`（与标题同；Figma `706:33692`）
 - [ ] 抽取专档定义/原则正文（按需）
 
 ## 代码入口

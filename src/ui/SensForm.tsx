@@ -1,9 +1,10 @@
-import type { CSSProperties, HTMLAttributes, ReactNode } from "react";
+import { Children, cloneElement, Fragment, isValidElement, useId, type CSSProperties, type HTMLAttributes, type ReactElement, type ReactNode } from "react";
 import { getColorToken, tokenRgba } from "../design-system/color-utils";
 import { getDividerColor, getDividerHairlineWidth } from "../design-system/divider";
 import { SensIcon } from "../design-system/icons";
 import { getTypographyToken } from "../design-system/typography";
 import { getUnitToken } from "../design-system/unit";
+import { SensTips } from "./SensTips";
 import "./form.css";
 
 export type SensFormLayout = "vertical" | "horizontal";
@@ -16,6 +17,10 @@ export interface SensFormProps extends HTMLAttributes<HTMLDivElement> {
 
 export interface SensFormItemProps extends HTMLAttributes<HTMLDivElement> {
   label?: ReactNode;
+  /** DOM id used to associate the label and field. Generated when omitted for a direct control child. */
+  controlId?: string;
+  /** Submission key forwarded to a direct control child; do not derive it from the visible label. */
+  name?: string;
   required?: boolean;
   optional?: ReactNode;
   labelHelp?: ReactNode;
@@ -90,6 +95,35 @@ function shouldShowLabelTooltip(label: ReactNode): boolean {
   return typeof label === "string" && Array.from(label).length > 8;
 }
 
+type FormControlElement = ReactElement<Record<string, unknown>>;
+
+function mergeAriaIds(...values: Array<unknown>): string | undefined {
+  const ids = values.flatMap((value) => (typeof value === "string" ? value.split(/\s+/) : []));
+  const merged = Array.from(new Set(ids.filter(Boolean)));
+  return merged.length > 0 ? merged.join(" ") : undefined;
+}
+
+function isDirectControlElement(value: ReactNode): value is FormControlElement {
+  return isValidElement(value) && value.type !== Fragment;
+}
+
+function getElementTypeName(element: FormControlElement): string | undefined {
+  if (typeof element.type === "string") return element.type;
+  const type = element.type as { displayName?: string; name?: string };
+  return type.displayName ?? type.name;
+}
+
+function isGroupControl(element: FormControlElement): boolean {
+  const role = element.props.role;
+  if (role === "group" || role === "radiogroup") return true;
+  return /(?:Radio|Checkbox)Group$/.test(getElementTypeName(element) ?? "");
+}
+
+function getControlId(element: FormControlElement | undefined, fallback: string): string {
+  const elementId = element?.props.id;
+  return typeof elementId === "string" && elementId.length > 0 ? elementId : fallback;
+}
+
 export function SensForm({
   layout = "vertical",
   labelWidth,
@@ -111,6 +145,8 @@ export function SensForm({
 
 export function SensFormItem({
   label,
+  controlId,
+  name,
   required = false,
   optional,
   labelHelp,
@@ -140,23 +176,50 @@ export function SensFormItem({
       <div className="sens-form-item-description">{description}</div>
     ) : null;
   const hasMeta = metaNode != null || counter != null;
+  const generatedId = useId().replace(/:/g, "");
+  const directChild = Children.count(children) === 1 && isDirectControlElement(children) ? children : undefined;
+  const resolvedControlId = getControlId(directChild, controlId ?? `sens-form-control-${generatedId}`);
+  const labelId = label != null ? `${resolvedControlId}-label` : undefined;
+  const metaId = metaNode != null || counter != null ? `${resolvedControlId}-meta` : undefined;
+  const groupControl = directChild ? isGroupControl(directChild) : false;
+  const enhancedChild = directChild
+    ? cloneElement(directChild, {
+        id: directChild.props.id ?? resolvedControlId,
+        name: directChild.props.name ?? name,
+        "aria-labelledby": groupControl
+          ? mergeAriaIds(directChild.props["aria-labelledby"], labelId)
+          : directChild.props["aria-labelledby"],
+        "aria-describedby": mergeAriaIds(directChild.props["aria-describedby"], metaId),
+        "aria-required": required ? "true" : directChild.props["aria-required"],
+      })
+    : children;
   const labelTextTitle = typeof label === "string" && shouldShowLabelTooltip(label) ? label : undefined;
   const labelHelpTitle = typeof labelHelp === "string" ? labelHelp : undefined;
 
   const labelNode =
     label != null ? (
-      <div className="sens-form-item-label-row">
-        <span className="sens-form-item-label-text" title={labelTextTitle}>
-          {label}
-        </span>
+      <label className="sens-form-item-label-row" id={labelId} htmlFor={!groupControl ? resolvedControlId : undefined}>
+        {labelTextTitle ? (
+          <SensTips title={labelTextTitle} placement="top">
+            <span className="sens-form-item-label-text">{label}</span>
+          </SensTips>
+        ) : (
+          <span className="sens-form-item-label-text">{label}</span>
+        )}
         {labelHelp != null ? (
-          <span className="sens-form-item-label-help" aria-label={labelHelpTitle ?? "帮助说明"} title={labelHelpTitle}>
-            <SensIcon name="help" sizeToken="size/icon/m" color="currentColor" />
-          </span>
+          <SensTips title={labelHelp} placement="top">
+            <span
+              className="sens-form-item-label-help sens-cursor-default"
+              tabIndex={0}
+              aria-label={labelHelpTitle ?? "帮助说明"}
+            >
+              <SensIcon name="help" sizeToken="size/icon/m" color="currentColor" />
+            </span>
+          </SensTips>
         ) : null}
         {labelExtra != null ? <span className="sens-form-item-label-extra">{labelExtra}</span> : null}
         {optional != null ? <span className="sens-form-item-optional">{optional}</span> : null}
-      </div>
+      </label>
     ) : null;
 
   return (
@@ -175,11 +238,11 @@ export function SensFormItem({
       <div className="sens-form-item-label">{labelNode}</div>
       <div className="sens-form-item-control">
         <div className="sens-form-item-field">
-          {children}
+          {enhancedChild}
           {controlExtra != null ? <span className="sens-form-item-control-extra">{controlExtra}</span> : null}
         </div>
         {hasMeta ? (
-          <div className="sens-form-item-meta-row">
+          <div className="sens-form-item-meta-row" id={metaId}>
             <div className="sens-form-item-meta-content">{metaNode}</div>
             {counter != null ? <div className="sens-form-item-counter">{counter}</div> : null}
           </div>

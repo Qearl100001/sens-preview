@@ -2,10 +2,11 @@
 
 > 由多项 Foundation 组合而成的基础容器规则，不定义业务卡片的信息架构。
 > 成熟度：Pilot
-> 实现：Missing
+> 实现：Ready
 > 验证：Pending
 > 来源：Figma `Sens.Design_卡片 v2.1_20230320`、Color、Spacing、Radius、Size、Typography、Shadow Foundation
-> 预览：`/basic-styles/card`
+> Foundation 数值预览：`/basic-styles/card`
+> 基础组件预览：`/components/card`
 
 ## 1. 定位
 
@@ -24,6 +25,7 @@ Color / Spacing / Radius / Size / Typography / Shadow
 本轮优先收敛：
 
 - 自由容器卡片：描边卡片、色块卡片。
+- 通用卡片状态样张：default / hover / pressed / selected / selected hover / disabled / disabled hover。
 - 标题区组合示例：用于说明 Card 可以承载标题区和内容区。
 - Card 基础交互：自由卡片和网格视图卡片共用 default / hover / pressed。
 - Card 异常与不可用状态：disabled / disabled hover / error 适用于所有 Card 类型。
@@ -31,9 +33,9 @@ Color / Spacing / Radius / Size / Typography / Shadow
 
 本轮暂不展开：
 
-- EntryCard / DataSourceCard。
+- DataSourceCard 与其他业务卡片；入口型卡片本轮单独落地为 `SensEntryCard`。
 - 排序、拖拽、复杂操作区。
-- 真实 `SensCard` API。
+- DataSourceCard 等业务卡片 API。
 
 ## 3. Figma 样张记录
 
@@ -41,13 +43,31 @@ Color / Spacing / Radius / Size / Typography / Shadow
 |---|---|---|
 | `1335:26192` | 自由容器卡片 | 描边 / 色块两种基础样式 |
 | `1335:26193` | 序列关系型卡片 | 标题区 + 内容区组合示例 |
-| `1335:26939` | 子组件标题区 | 标题区图标组合（drag / down / rename） |
+| `1335:26939` | 子组件标题区 | 标题区图标组合（drag / rename） |
 | `1335:26176` | 自由容器卡片标题文字 | 样张标题文字参考 |
 | `2117:66120` | Card 禁用 | 所有 Card 类型的 disabled 状态 |
 | `2117:66121` | Card 禁用悬停 | 所有 Card 类型的 disabled hover 状态 |
 | `2117:66577` | Card 报错 | 所有 Card 类型的 error 状态 |
 
 `1335:26192` 是本轮最主要的依据。它展示了 Card 容器本体，而不是业务卡片。
+
+### 4.4 通用卡片状态样张
+
+通用卡片不新增独立组件，直接复用 `SensCard` 展示最小容器状态。Figma 节点如下：
+
+| Figma 节点 | 状态 | 当前用途 |
+|---|---|---|
+| `8905:33610` | 默认 | 白底、浅描边 |
+| `8905:33611` | 悬停 | D3 向下投影 |
+| `8905:33612` | 点击 | active 描边和激活外环 |
+| `8905:33613` | 选中 | active 描边 |
+| `8905:33614` | 选中悬停 | active 描边和 D3 向下投影 |
+| `8905:33615` | 禁用 | 中性浅底和浅描边 |
+| `8905:33616` | 禁用悬停 | 中性浅底、浅描边和 D3 向下投影 |
+
+该组样张使用 `spacing/3x = 12px` 内边距、`radius/l = 6px` 圆角，以及 Figma 样张中的 168px 内容占位高度。12px 和 168px 仅用于 Preview 对照，不新增全局 token；Card 的正式操作栏高度保留为 40px。
+
+“选中”只表达宿主传入的状态，不自动等同于业务选择。真实选择型卡片仍需由宿主组合 `SensCheckbox` 和选择语义。
 
 ## 4. 自由容器卡片
 
@@ -71,12 +91,28 @@ Card 不限制固定宽高：
 | 使用点 | 设计语义 / Figma 变量 | Token 组合 / Handle | 数值 | 代码落地 | 状态 |
 |---|---|---|---:|---|---|
 | Card padding | Spacing Foundation | `spacing/4x` | 16 | `unit["spacing/4x"]` | 已映射 |
-| Card 圆角 | Radius Foundation | `radius/l` | 6 | `unit["radius/l"]` | 已映射 |
+| Card 圆角 | Radius Foundation · 见下 §4.3 | `radius/l` | 6 | `unit["radius/l"]` / `getUnitToken("radius/l")` | 已映射 |
 | 描边 | `中性色/线/02_描边 @outline-color-transparent` | `outline-color-transparent @12%` | `rgba(0,21,64,0.12)` | `tokenRgba("outline-color-transparent", 0.12)` | 已映射 |
 | 色块背景 | `中性色/背景/03_灰背景 @background-transparent-grey` | `background-transparent-grey @4%` | `rgba(0,34,102,0.04)` | `tokenRgba("background-transparent-grey", 0.04)` | 已映射 |
 | 内容占位 | `基础色板/兰花紫/02` | `基础色板/兰花紫/02` | `#E7E0FF` | `getColorByPath("基础色板/兰花紫/02")` | 仅样张 |
 
 紫色占位块只用于展示内容承载区域，不属于 Card 容器 token，也不代表业务内容必须使用兰花紫。
+
+### 4.3 圆角来源说明（卡片专档）
+
+> 仓库内**无**独立卡片 PDF 附件；圆角以 Figma 卡片专档为准，并回写 Radius Foundation。
+
+| 项 | 内容 |
+|---|---|
+| 专档 | Figma `Sens.Design_卡片 v2.1_20230320` |
+| 主样张 | `1335:26192` 自由容器卡片（描边 / 色块） |
+| 圆角数值 | **6px** |
+| Radius token | `radius/l`（与表格外边缘、部分容器同档） |
+| 消费方式 | `getUnitToken("radius/l")` / `unit["radius/l"]`；禁止业务硬写 `6` / `8` / `12` |
+| 与 EntryCard | 入口卡 / DataSourceCard **候选同档** `radius/l`；业务分支 API 未定前不另开圆角档 |
+| PDF | 若后续补入纸质/PDF 说明，须与本表 6px / `radius/l` 交叉核对后再改 token |
+
+数值样张见 `/basic-styles/card` 与 `/basic-styles/radius`。
 
 ## 5. 标题区组合示例
 
@@ -88,9 +124,12 @@ Card 不限制固定宽高：
 |---|---|---|---:|---|---|
 | 标题 | Typography 四级标题 | `font-size/m + line-height/m + font-weight/medium` | `14 / 22 / 500` | `getTypographyToken(...)` | 已入库并由 helper 承接 |
 | 操作文案 | Typography 正文内容 | `font-size/m + line-height/m + font-weight/regular` | `14 / 22 / 400` | `getTypographyToken(...)` | 已入库并由 helper 承接 |
-| 标题区图标 | Size Foundation | `size/icon/m` | 16 | `SensIcon` + `size/icon/m` | 已映射 |
+| 标题区拖拽手柄 | Button / Icon Foundation | `linkWeak` + `icon-color-transparent` + `size/icon/m` + `cursor/move` | 16 | `SensButton tone="linkWeak"` + `SensIcon` | 已映射 |
 | 标题区高度 | Figma 样张 | 组件组合尺寸 | 36 | 当前仅样张 | 待确认是否进入组件规则 |
 | 分割线 | `中性色/线/03_浅分割线 @divideline-color-transparent-light` | `divideline-color-transparent-light @8%` | `rgba(0,21,64,0.08)` | `tokenRgba("divideline-color-transparent-light", 0.08)` | 已映射 |
+| 内容区与操作区分割线间距 | Spacing Foundation | `spacing/3x` | 12 | 父级 `gap` | 已映射 |
+
+标题区拖拽手柄默认使用 `icon-color-transparent`，hover / active 遵循链接按钮的蓝色规则；图标与标题文字在同一行内居中对齐；标题区不保留额外的下箭头。操作区分割线通过通栏布局铺满卡片宽度，内容区与分割线之间使用 `spacing/3x`，不新增独立间距值。真实拖拽排序由业务宿主实现，本组合示例只展示承载方式。
 
 ## 6. Typography 状态说明
 
@@ -127,14 +166,23 @@ Card 基础交互规则适用于自由卡片和网格视图卡片。两者是结
 - 普通自由卡片和网格视图卡片不定义 selected / 激活状态。
 - `selected / checked` 只属于带 checkbox 的选择型卡片。
 
+操作外露型卡片是上述普通交互卡片的明确例外：
+
+- 卡片只能承载打开、编辑和更多等操作，不提供选中语义。
+- 卡片保留 hover 的 `shadow/D3/down`，不定义 pressed 状态，不使用 `component-active` 描边或功能色激活环。
+- 实现使用 `SensCard interactive pressable={false}`；操作 1、操作 2 和底部“更多”使用弱化链接按钮，默认文字为 `text-color-transparent`，标准文字规格为 14 / 22 / 400。
+- 卡片宽度由外部布局、栅格和页面容器决定，操作外露型场景不设置固定最大宽度；操作栏高度为 40px，上下内边距为 9px。
+- 禁用状态矩阵中的操作 1、操作 2 和“更多”使用真实 `SensButton disabled` / `SensButtonActionMenu disabled`，不使用静态文本模拟禁用状态。
+
 选择型卡片激活态：
 
 | 状态 | 背景 | 描边 | 投影 | 适用场景 | 来源 |
 |---|---|---|---|---|---|
 | unchecked | `white` | `divider/color/outline/transparent` | 无 | 带 checkbox 的选择卡片未选中 | 推导自默认态 |
-| checked | `component-active-background` | `component-active` | 无 | 带 checkbox 的选择卡片已选中 | Figma `2121:65389` |
+| checked | `component-active-background` | `component-active` | `shadow/active-ring/functional` | 带 Checkbox 的选择卡片已选中 | Figma `1335:17615` |
+| checked hover | `component-active-background` | `component-active` | `shadow/D3/down` | 带 Checkbox 的选择卡片已选中且悬停 | Figma `1335:17635` |
 
-选择型卡片 checked 不使用投影。它通过浅绿背景和 active 绿描边表达激活，不把普通 Card 变成 selected 容器。
+选择型卡片 checked 使用 active 外环表达激活；悬停时切换为与网格视图卡片一致的 D3 向下投影。它通过浅绿背景和 active 绿描边表达选择，不把普通 Card 变成 selected 容器。选择框复用 `SensCheckbox` 的 control-only 视觉；操作区默认使用 `linkWeak`，每个按钮只在自身 hover / active 时使用 `link-color`，下拉菜单打开时对应触发器保持链接色，其他按钮不被连带高亮。底部“更多”和右上角更多图标均可点击打开链接菜单。标题区中的图标 + 文字操作也使用同一个链接按钮，图标继承链接色。
 
 异常与不可用状态适用于所有 Card 类型。自由卡片、网格视图卡片、选择型卡片都继承同一套容器状态规则，区别只在内部结构是否有标题区、分割线、操作区或 checkbox。
 
@@ -162,14 +210,14 @@ Card 基础交互规则适用于自由卡片和网格视图卡片。两者是结
 
 | 组件 | 职责 | 当前状态 |
 |---|---|---|
-| `SensCard` | 基础容器，承接 padding / radius / border / background / shadow | 待定 |
+| `SensCard` | 基础容器，承接 padding / radius / border / background / shadow | 已实现 |
 | `SensCardTitle` | 标题区结构，承接标题、图标、操作 | 待定 |
 | `SensCardGrid` | 卡片列表布局、列数、gap、响应式 | 待定 |
-| `SensEntryCard` | 入口型卡片，用于数据源、应用、模板等入口 | 待定 |
+| `SensEntryCard` | 入口型卡片，用于项目设置、功能和模板等入口 | Pilot / 已实现，待浏览器验收 |
 
 ## 9. 待补
 
-- Icon Foundation 已承接 Card 标题区与报错图标；EntryCard / DataSourceCard 仍待后续。
+- Icon Foundation 已承接 Card 标题区与报错图标；EntryCard 已独立落地，DataSourceCard 仍待后续。
 - 标题区高度 36 是否需要进入组件规则。
 - disabled 状态是否需要统一穿透到内部表单、按钮、菜单等子组件，需要在真实组件 API 阶段确认。
-- EntryCard / DataSourceCard 是否继承 Card，或单独定义业务分支。
+- DataSourceCard 是否继承 Card，或单独定义业务分支。

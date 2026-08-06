@@ -1,8 +1,8 @@
 import { useState, type ReactNode } from "react";
-import { ReadOutlined } from "@ant-design/icons";
 import { Button, Card, Drawer, Grid, Layout, Space, Typography } from "antd";
 import { ComponentDocPanel } from "./ComponentDocPanel";
 import { getPreviewTokens } from "./previewTokens";
+import { SensIcon } from "../design-system/icons";
 
 const { Title } = Typography;
 const { Content } = Layout;
@@ -86,7 +86,7 @@ export function ComponentShowcaseLayout({
         <>
           <Button
             type="primary"
-            icon={<ReadOutlined />}
+            icon={<SensIcon name="page" sizeToken="size/icon/m" colorRole="inherit" />}
             aria-label="打开规范文档"
             onClick={() => setDocDrawerOpen(true)}
             style={{

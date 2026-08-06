@@ -2,8 +2,15 @@ import { useEffect, useState } from "react";
 import { Alert, Card, Space, Table, Tag, Typography } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import { getColorToken, tokenRgba, buildShadowD4 } from "../../design-system/color-utils";
+import { sensCursorValue } from "../../design-system/cursors";
 import { SensIcon, type IconName } from "../../design-system/icons";
-import { getThemeTopAtmosphere, getThemeTopBackground, type NavigationTheme } from "../../design-system/navigation-color";
+import { useNavigationTheme } from "../../design-system/appearance";
+import {
+  getNavigationColorToken,
+  getThemePageBackground,
+  getThemeTopAtmosphere,
+  getThemeTopBackground,
+} from "../../design-system/navigation-color";
 import tokens from "../../design-system/tokens.resolved.json";
 import { ComponentShowcaseLayout } from "../ComponentShowcaseLayout";
 import { getPreviewTokens } from "../previewTokens";
@@ -25,10 +32,11 @@ const topNavigationDesignDoc = `
 
 ## 2. 结构
 
-- 顶部导航容器：\`180px\`
+- 顶部导航实际结构：\`82px\`
 - 上导航：\`36px\`，承载 logo、项目切换、工具 icon、账号角色
 - 下导航：\`46px\`，承载功能入口、主导航项、更多
-- 页面过渡层：导航效果的一部分，可使用 \`Navigation Color helper\` 承接
+- 顶导氛围层：设计稿需要时延展至 \`180px\`，只作为背景层，不推移正文
+- 侧导与右侧内容面板从顶部 \`82px\` 开始叠在氛围层上；Overlay 侧导才临时覆盖内容面板
 
 ## 3. 组件拆分
 
@@ -84,6 +92,7 @@ const topNavigationDevDoc = `
 
 - 顶导航基础背景和氛围叠层分别通过 \`getThemeTopBackground()\`、\`getThemeTopAtmosphere()\` 承接。
 - helper 表达的是“导航效果可复用的承载方式”，不是强制每个导航都用同一套渐变。
+- 设计稿需要时由 \`atmosphere\` 显式开启氛围层；实际导航高度仍是 \`82px\`，页面正文不能因为 \`180px\` 视觉底板而下推。
 - 侧导航 / 标题栏 / 页面背景仍继续由 \`Navigation Color\` 统一映射。
 - 导航图标使用 \`SensIcon\` 注册图标，SVG 必须是 \`currentColor\`，调用处按场景传 \`theme-top-text*\` 或 \`theme-top-funcMenu-icon*\`。
 - 产品壳浮层同时只允许打开一个；点击对应入口切换，选择菜单项或点击其他入口后关闭当前浮层。
@@ -96,7 +105,9 @@ const topNavigationDevDoc = `
 `;
 
 const structureRows = [
-  { key: "container", item: "顶部导航容器", value: "180px", owner: "TopNavigation", source: "组件结构常量" },
+  { key: "container", item: "顶部导航实际结构", value: "82px", owner: "TopNavigation", source: "组件结构常量" },
+  { key: "atmosphere", item: "顶导氛围底板", value: "180px", owner: "TopNavigation + Layout", source: "设计需要时显式开启，不占正文流" },
+  { key: "workspace", item: "侧导 / 内容面板起点", value: "顶部 82px", owner: "Layout", source: "叠在顶导氛围层上" },
   { key: "top", item: "上导航", value: "36px", owner: "TopNavigation", source: "组件结构常量" },
   { key: "bottom", item: "下导航", value: "46px", owner: "TopNavigation", source: "组件结构常量" },
   { key: "entry", item: "功能入口热区", value: "32 × 32", owner: "TopNavigation", source: "组件结构常量" },
@@ -257,6 +268,8 @@ export interface SensTopNavigationItem {
 export interface SensTopNavigationProps {
   /** 业务页面嵌入时只渲染产品壳导航，不渲染组件说明和演示占位内容。 */
   embedded?: boolean;
+  /** 是否在导航下方保留产品壳氛围渐变；嵌入页面默认关闭，由业务场景显式开启。 */
+  atmosphere?: boolean;
   activeNavLabel?: string;
   items?: SensTopNavigationItem[];
 }
@@ -264,6 +277,7 @@ export interface SensTopNavigationProps {
 /** 顶部导航的真实实现；展示页与业务样板间共用同一产品壳。 */
 export function SensTopNavigation({
   embedded = false,
+  atmosphere = !embedded,
   activeNavLabel: initialActiveNavLabel = "数据看板",
   items,
 }: SensTopNavigationProps) {
@@ -282,17 +296,19 @@ export function SensTopNavigation({
   const [activeUtilityIcon, setActiveUtilityIcon] = useState<IconName | null>(null);
   const [isFunctionEntryHovered, setIsFunctionEntryHovered] = useState(false);
   const [hoveredNavLabel, setHoveredNavLabel] = useState<string | null>(null);
-  const navigationTheme: NavigationTheme = "green";
+  const navigationTheme = useNavigationTheme();
+  /** 顶导下衬底：body-background（非标题栏 handle） */
+  const pageBackground = getThemePageBackground(navigationTheme);
   const navRadius = u["radius/xl"] ?? token.borderRadius;
   const topText = getColorToken("theme-top-text");
   const panelText = getColorToken("theme-top-funcMenu-text");
   const panelStroke = getColorToken("theme-top-line-dack");
   const panelDivider = getColorToken("theme-top-line-light");
-  const activeBg = getColorToken("theme-top-funcMenu-background-active");
-  const activeText = getColorToken("theme-top-funcMenu-text-active");
-  const functionMenuHoverText = getColorToken("theme-top-funcMenu-text-hover");
+  const activeBg = getNavigationColorToken("theme-top-funcMenu-background-active", navigationTheme);
+  const activeText = getNavigationColorToken("theme-top-funcMenu-text-active", navigationTheme);
+  const functionMenuHoverText = getNavigationColorToken("theme-top-funcMenu-text-hover", navigationTheme);
   const menuLineOutlined = getColorToken("theme-top-menuLine-outlined");
-  const menuLineActive = getColorToken("theme-top-menuLine-active");
+  const menuLineActive = getNavigationColorToken("theme-top-menuLine-active", navigationTheme);
   const topTextActive = getColorToken("theme-top-text-active");
   const topTextHover = getColorToken("theme-top-text-hover");
   const topIconHover = getColorToken("theme-top-icon-hover");
@@ -300,10 +316,10 @@ export function SensTopNavigation({
   const topIconColor = topText;
   const projectText = getColorToken("theme-top-proMenu-text");
   const projectTextHover = getColorToken("theme-top-proMenu-text-hover");
-  const projectTextActive = getColorToken("theme-top-proMenu-text-active");
+  const projectTextActive = getNavigationColorToken("theme-top-proMenu-text-active", navigationTheme);
   const projectHoverBg = getColorToken("theme-top-proMenu-background-hover");
-  const projectActiveBg = getColorToken("theme-top-proMenu-background-active");
-  const functionMenuHoverBg = getColorToken("theme-top-funcMenu-background-hover");
+  const projectActiveBg = getNavigationColorToken("theme-top-proMenu-background-active", navigationTheme);
+  const functionMenuHoverBg = getNavigationColorToken("theme-top-funcMenu-background-hover", navigationTheme);
 
   const canvasWidth = 1280;
   const defaultNavItems: SensTopNavigationItem[] = [
@@ -392,7 +408,7 @@ export function SensTopNavigation({
     border: outlineColor ? `1px solid ${selected ? selectedOutlineColor ?? outlineColor : outlineColor}` : 0,
     background: selected ? selectedBackground : hoveredMenuItem === key ? hoverBackground : "transparent",
     color: selected ? selectedColor : hoveredMenuItem === key ? hoverColor : color,
-    cursor: "pointer",
+    cursor: sensCursorValue("pointer"),
     fontWeight: selected ? 600 : 400,
     textAlign: "left" as const,
     justifyContent,
@@ -426,7 +442,7 @@ export function SensTopNavigation({
         <div
           data-top-navigation-canvas
           style={{
-            width: canvasWidth,
+            width: "100%",
             minWidth: canvasWidth,
             borderRadius: embedded ? 0 : navRadius,
             overflow: "hidden",
@@ -438,12 +454,12 @@ export function SensTopNavigation({
           <div
             style={{
               position: "relative",
-              height: embedded ? 82 : 180,
+              height: atmosphere ? 180 : 82,
               padding: 0,
               background: getThemeTopBackground(navigationTheme),
             }}
           >
-            {!embedded ? (
+            {atmosphere ? (
               <div
               style={{
                 position: "absolute",
@@ -515,7 +531,7 @@ export function SensTopNavigation({
                         display: "flex",
                         alignItems: "center",
                         gap: u["spacing/1․5x"],
-                        cursor: "pointer",
+                        cursor: sensCursorValue("pointer"),
                         whiteSpace: "nowrap",
                       }}
                     >
@@ -601,7 +617,7 @@ export function SensTopNavigation({
                           borderRadius: u["radius/m"],
                           background: iconBackground,
                           color: iconColor,
-                          cursor: "pointer",
+                          cursor: sensCursorValue("pointer"),
                         }}
                       >
                         <NavigationIcon name={item.icon} label={item.label} color="currentColor" />
@@ -626,7 +642,7 @@ export function SensTopNavigation({
                         display: "flex",
                         alignItems: "center",
                         gap: u["spacing/2․5x"],
-                        cursor: "pointer",
+                        cursor: sensCursorValue("pointer"),
                       }}
                     >
                       <span style={{ color: topText, fontWeight: 600, whiteSpace: "nowrap" }}>卓越</span>
@@ -696,7 +712,7 @@ export function SensTopNavigation({
                       placeItems: "center",
                       flexShrink: 0,
                       color: isFunctionEntryHovered ? topTextHover : topIconColor,
-                      cursor: "pointer",
+                      cursor: sensCursorValue("pointer"),
                     }}
                   >
                     <NavigationIcon name="nav-product-navigation" label="产品导航" color="currentColor" size={18} />
@@ -746,7 +762,7 @@ export function SensTopNavigation({
                             gap: u["spacing/1․5x"],
                             color: itemColor,
                             background: "transparent",
-                            cursor: "pointer",
+                            cursor: sensCursorValue("pointer"),
                             fontWeight: isActive ? 600 : 400,
                             flexShrink: 0,
                             whiteSpace: "nowrap",
@@ -823,7 +839,7 @@ export function SensTopNavigation({
               </div>
             </div>
 
-            {!embedded ? (
+            {atmosphere ? (
               <div
               style={{
                 position: "absolute",
@@ -831,7 +847,7 @@ export function SensTopNavigation({
                 right: 0,
                 bottom: 0,
                 height: 98,
-                background: `linear-gradient(180deg, ${tokenRgba("theme-title-background", 0)} 0%, ${getColorToken("theme-title-background")} 100%)`,
+                background: `linear-gradient(180deg, transparent 0%, ${pageBackground} 100%)`,
               }}
               />
             ) : null}
@@ -843,7 +859,7 @@ export function SensTopNavigation({
             style={{
               height: 128,
               padding: "22px 24px",
-              background: getColorToken("theme-title-background"),
+              background: pageBackground,
               display: "flex",
               alignItems: "flex-start",
               gap: 16,

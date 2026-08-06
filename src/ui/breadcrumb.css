@@ -1,0 +1,78 @@
+.sens-breadcrumb {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: var(--sens-breadcrumb-gap);
+  color: var(--sens-breadcrumb-text);
+  font-size: var(--sens-breadcrumb-font-size);
+  line-height: var(--sens-breadcrumb-line-height);
+  font-weight: var(--sens-breadcrumb-font-weight);
+}
+
+.sens-breadcrumb-item {
+  min-width: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sens-breadcrumb-gap);
+}
+
+.sens-breadcrumb-separator {
+  color: var(--sens-breadcrumb-text);
+}
+
+.sens-breadcrumb-link,
+.sens-breadcrumb-ellipsis-trigger {
+  appearance: none;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  background: transparent;
+  color: var(--sens-breadcrumb-text);
+  font: inherit;
+  line-height: inherit;
+  cursor: var(--sens-cursor-pointer);
+  white-space: nowrap;
+}
+
+.sens-breadcrumb-link {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 160px;
+}
+
+.sens-breadcrumb-ellipsis-trigger {
+  display: inline-flex;
+  align-items: center;
+  line-height: 0;
+}
+
+.sens-breadcrumb-link:hover,
+.sens-breadcrumb-link.sens-breadcrumb-link--hover,
+.sens-breadcrumb-ellipsis-trigger:hover,
+.sens-breadcrumb-ellipsis-trigger.sens-breadcrumb-link--hover {
+  color: var(--sens-breadcrumb-hover);
+}
+
+.sens-breadcrumb-link:active,
+.sens-breadcrumb-link.sens-breadcrumb-link--active,
+.sens-breadcrumb-ellipsis-trigger:active,
+.sens-breadcrumb-ellipsis-trigger.sens-breadcrumb-link--active {
+  color: var(--sens-breadcrumb-active);
+}
+
+.sens-breadcrumb-link:focus-visible,
+.sens-breadcrumb-ellipsis-trigger:focus-visible {
+  outline: 2px solid var(--sens-breadcrumb-hover);
+  outline-offset: 2px;
+  border-radius: var(--sens-breadcrumb-focus-radius);
+}
+
+/* 当前项与祖先默认同色；不可点、无悬停变色 */
+.sens-breadcrumb-plain,
+.sens-breadcrumb-current {
+  color: var(--sens-breadcrumb-text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 160px;
+}

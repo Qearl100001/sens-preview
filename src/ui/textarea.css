@@ -13,7 +13,14 @@
   min-height: var(--sens-textarea-min-height);
 }
 
+/* allowClear 的 affix 预留区不应改变原生 textarea 的拖拽锚点；图标留白由 textarea 自身 padding 承担。 */
+.sens-textarea.ant-input-textarea-affix-wrapper.ant-input-textarea-allow-clear {
+  padding-inline-end: 0 !important;
+}
+
 .sens-textarea.ant-input-textarea-affix-wrapper > textarea.ant-input {
+  flex: 1 1 auto;
+  width: 100%;
   padding-block: var(--sens-textarea-padding-block);
   padding-inline: var(--sens-textarea-padding-inline);
   line-height: var(--sens-textarea-line-height);
@@ -25,6 +32,14 @@
 .sens-textarea.ant-input-sm,
 .sens-textarea.ant-input-textarea-affix-wrapper.ant-input-affix-wrapper-sm > textarea.ant-input {
   line-height: var(--sens-textarea-line-height-sm);
+}
+
+/* antd 的 disabled 生成器复用 colorBorder；SensD 禁用边框单独为 8% 浅分割线。 */
+.sens-textarea.ant-input-outlined.ant-input-disabled,
+.sens-textarea.ant-input-textarea-affix-wrapper.ant-input-affix-wrapper-disabled,
+.sens-textarea.ant-input-outlined.ant-input-disabled:hover,
+.sens-textarea.ant-input-textarea-affix-wrapper.ant-input-affix-wrapper-disabled:hover {
+  border-color: var(--sens-input-disabled-border) !important;
 }
 
 .sens-textarea.ant-input-textarea-affix-wrapper.ant-input-affix-wrapper-sm {
@@ -56,6 +71,21 @@
   .sens-textarea.ant-input-textarea-affix-wrapper
   > textarea.ant-input {
   padding-inline-end: var(--sens-textarea-inside-warning-reserve);
+}
+
+/* 字数统计是文本域内部的 Sens 辅助信息，不直接采用 antd 默认排版。 */
+.sens-textarea .ant-input-data-count {
+  color: var(--sens-input-suffix-count-color);
+  font-size: var(--sens-input-help-font-size);
+  line-height: var(--sens-input-help-line-height);
+}
+
+.sens-textarea-count-current-over {
+  color: var(--sens-input-error-color);
+}
+
+.sens-textarea-count-limit {
+  color: var(--sens-input-suffix-count-color);
 }
 
 .sens-textarea-inside-warning-icon {
@@ -100,7 +130,7 @@
   box-shadow: none !important;
   background-color: var(--sens-input-readonly-bg) !important;
   color: var(--sens-input-readonly-text);
-  cursor: default;
+  cursor: var(--sens-cursor-default);
   resize: none;
 }
 
@@ -128,7 +158,7 @@
   box-shadow: none !important;
   background: transparent !important;
   color: var(--sens-input-readonly-text);
-  cursor: default;
+  cursor: var(--sens-cursor-default);
   resize: none;
 }
 
@@ -163,15 +193,15 @@
   display: block;
   white-space: pre-wrap;
   word-break: break-word;
-  font-size: 14px;
-  line-height: 22px;
+  font-size: var(--sens-input-font-size);
+  line-height: var(--sens-input-line-height);
   color: var(--sens-input-readonly-text);
   padding-inline-end: var(--sens-textarea-inside-warning-reserve, 0);
 }
 
 .sens-textarea-readonly-plain-text-sm {
-  font-size: 12px;
-  line-height: 18px;
+  font-size: var(--sens-input-font-size-sm);
+  line-height: var(--sens-input-line-height-sm);
 }
 
 .sens-textarea-readonly-plain-block .sens-textarea-inside-warning-icon {

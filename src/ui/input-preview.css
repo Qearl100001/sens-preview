@@ -15,10 +15,10 @@
 .sens-input-matrix-title {
   display: block;
   margin-bottom: var(--sens-input-matrix-space-2x);
-  font-size: 12px;
-  line-height: 18px;
-  color: var(--ant-color-text-secondary);
-  font-weight: 500;
+  font-size: var(--sens-input-matrix-font-size);
+  line-height: var(--sens-input-matrix-line-height);
+  color: var(--sens-input-matrix-label-color);
+  font-weight: var(--sens-input-matrix-title-weight);
 }
 
 .sens-input-matrix-states {
@@ -37,9 +37,9 @@
 .sens-input-matrix-label {
   display: block;
   margin-bottom: var(--sens-input-matrix-space-2x);
-  font-size: 12px;
-  line-height: 18px;
-  color: var(--ant-color-text-secondary);
+  font-size: var(--sens-input-matrix-font-size);
+  line-height: var(--sens-input-matrix-line-height);
+  color: var(--sens-input-matrix-label-color);
 }
 
 .sens-input-matrix-preview--hover .sens-input.ant-input-outlined:not(.ant-input-disabled),

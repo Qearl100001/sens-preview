@@ -58,7 +58,7 @@
   padding: 0;
   border: none;
   background: none;
-  cursor: pointer;
+  cursor: var(--sens-cursor-pointer);
   /* Figma 8116:29008 · 链接按钮 + left 804:81 默认 icon-color */
   color: var(--sens-search-icon-muted);
   flex-shrink: 0;
@@ -112,14 +112,36 @@
   flex-shrink: 0;
 }
 
-/* 创建：复用 SensButton tone=linkWeak；此处仅锁简约行内排版 */
-.sens-search-minimal-field-create .sens-search-minimal-create-action.ant-btn {
+/* 创建：链接按钮语义；默认 text-color-transparent，悬停/点击走链接色 */
+.sens-search-minimal-create-action {
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
   height: auto;
   min-height: 0;
+  margin: 0;
   padding: 0;
+  border: none;
+  background: none;
+  color: var(--sens-search-create-color);
   font-size: 14px;
   line-height: var(--sens-search-line-height, 22px);
   white-space: nowrap;
+  cursor: var(--sens-cursor-pointer);
+  flex-shrink: 0;
+}
+
+.sens-search-minimal-create-action:hover:not(:disabled) {
+  color: var(--sens-search-link-color);
+}
+
+.sens-search-minimal-create-action:active:not(:disabled) {
+  color: var(--sens-search-link-active-color);
+}
+
+.sens-search-minimal-create-action:disabled {
+  cursor: var(--sens-cursor-not-allowed);
+  opacity: 0.3;
 }
 
 /* 浮层通栏：外容器 100% */
@@ -147,6 +169,7 @@
 
 .sens-search-field.ant-input-affix-wrapper > input.ant-input {
   line-height: var(--sens-search-line-height, 22px);
+  cursor: var(--sens-cursor-text);
 }
 
 .sens-search-trigger.ant-input-search .ant-input-affix-wrapper {
@@ -157,6 +180,51 @@
 
 .sens-search-trigger.ant-input-search .ant-input-affix-wrapper > input.ant-input {
   line-height: var(--sens-search-line-height, 22px);
+  cursor: var(--sens-cursor-text);
+}
+
+.sens-search-field.ant-input-affix-wrapper > input.ant-input::placeholder,
+.sens-search-trigger.ant-input-search .ant-input-affix-wrapper > input.ant-input::placeholder,
+.sens-search-minimal-field .ant-input-affix-wrapper > input.ant-input::placeholder {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.sens-search-minimal-field .ant-input-affix-wrapper > input.ant-input {
+  cursor: var(--sens-cursor-text);
+}
+
+.sens-search-placeholder-measure {
+  display: inline-flex;
+  max-width: 100%;
+  vertical-align: middle;
+}
+
+.sens-search-placeholder-measure .sens-search-field,
+.sens-search-placeholder-measure .sens-search-trigger,
+.sens-search-placeholder-measure .sens-search-minimal-input {
+  width: 100%;
+}
+
+/*
+ * Compact 带分类：Tips / 测量层作为 Compact 子项时，保持输入区定宽与接缝几何
+ *（输入框自身仍用既有 border-radius / margin-inline-start:-1px）。
+ */
+.sens-search-category--default > .sens-tips-trigger,
+.sens-search-category--default > .sens-search-placeholder-measure,
+.sens-search-trigger-category > .sens-tips-trigger,
+.sens-search-trigger-category > .sens-search-placeholder-measure {
+  display: inline-flex;
+  flex: 0 0 auto;
+  max-width: none;
+  vertical-align: top;
+}
+
+.sens-search-category--default > .sens-tips-trigger > .sens-search-placeholder-measure,
+.sens-search-trigger-category > .sens-tips-trigger > .sens-search-placeholder-measure {
+  display: inline-flex;
+  max-width: none;
 }
 
 
@@ -171,18 +239,34 @@
   margin-inline-end: var(--sens-search-gap) !important;
 }
 
-/* 清空：颜色走自定义图标；间距仅触达 antd 容器 */
+/* 清空：始终「浅灰圆 + 灰叉」（CloseCircleIcon 圆 30%）；悬停只换 color */
 .sens-search-field .ant-input-clear-icon,
 .sens-search-trigger .ant-input-clear-icon,
-.sens-search-minimal-field .ant-input-clear-icon {
+.sens-search-minimal-field .ant-input-clear-icon,
+.sens-search-category--default .ant-input-clear-icon,
+.sens-search-category--minimal .ant-input-clear-icon,
+.sens-search-trigger-category .ant-input-clear-icon {
   margin-inline-start: var(--sens-search-gap);
   color: var(--sens-search-icon-muted);
+  cursor: var(--sens-cursor-pointer);
 }
 
 .sens-search-field .ant-input-clear-icon:hover,
 .sens-search-trigger .ant-input-clear-icon:hover,
-.sens-search-minimal-field .ant-input-clear-icon:hover {
-  color: var(--sens-search-icon-hover);
+.sens-search-minimal-field .ant-input-clear-icon:hover,
+.sens-search-category--default .ant-input-clear-icon:hover,
+.sens-search-category--minimal .ant-input-clear-icon:hover,
+.sens-search-trigger-category .ant-input-clear-icon:hover {
+  color: var(--sens-search-clear-hover);
+}
+
+.sens-search-field .ant-input-clear-icon:active,
+.sens-search-trigger .ant-input-clear-icon:active,
+.sens-search-minimal-field .ant-input-clear-icon:active,
+.sens-search-category--default .ant-input-clear-icon:active,
+.sens-search-category--minimal .ant-input-clear-icon:active,
+.sens-search-trigger-category .ant-input-clear-icon:active {
+  color: var(--sens-search-icon-muted);
 }
 
 /* 触发型：白底描边按钮 + 功能色态（Figma 1574:12626–1574:12852；antd 无对应主题项） */

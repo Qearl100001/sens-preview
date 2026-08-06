@@ -4,33 +4,31 @@
 
 抽屉标题栏 `SensTitleBar` 暴露在 `src/ui`：
 
-- `title`：标题内容
+- `title`：标题内容（与页面标题栏一致，渲染为 `role="heading" aria-level={1}`）
 - `onBack`：传入后显示返回图标
 - `actions`：右侧操作区
+- `titleId`：可选；挂在标题节点上，供抽屉等 `aria-labelledby`（`SensDrawer` 打开时会自动注入）
 
 页面标题栏 `SensPageTitleBar` 暴露在 `src/ui`：
 
 - `variant`：`landing` / `drilldown`；不传时会按是否有面包屑或返回入口推断，业务页建议显式传入
-- `title`：页面标题
+- `title`：页面标题（渲染为 `role="heading" aria-level={1}`；可选 `titleId`）
 - `description`：辅助说明文案；传入后标题栏高度从 `size/component-height/title-bar` 切换为 `size/component-height/title-bar-with-description`
 - `breadcrumbItems`：面包屑项目
 - `breadcrumbEllipsis`：是否展示省略态
 - `onBack`：传入后显示弱化返回图标按钮
 - `actions`：右侧操作区
+- `titleId`：可选；挂在标题节点
 
-面包屑 `SensBreadcrumb` 暴露在 `src/ui`：
-
-- `items`：面包屑项目，最后一项为当前页
-- `ellipsis`：显示首项 / 省略 / 当前页
-
-> `SensBreadcrumb` 当前归属本篇：仅定义标题栏内的普通态 / 省略态面包屑。独立于标题栏的面包屑场景尚未收录，届时再拆出专属文档。
+面包屑规则见 `breadcrumb.md`（`SensBreadcrumb`）。本篇只约定标题栏如何透传 `breadcrumbItems` / `breadcrumbEllipsis` 与组合布局。
 
 ## 落地要求
 
 - `landing` 用于落地页 / 一级页面标题区，背景必须使用 `white`。
-- `drilldown` 用于下钻页 / 带面包屑或返回的标题区，背景必须使用 `theme-title-background`。
+- `drilldown` 用于下钻页 / 带面包屑或返回的标题区，背景必须使用导航 token `theme-title-background`（实现：`navigationCssVar("--sens-nav-title-bg", "theme-title-background")`，禁止裸 `getColorToken`）。
 - 高度只有两档：无辅助文案走 `size/component-height/title-bar = 72`；有 `description` 辅助文案走 `size/component-height/title-bar-with-description = 94`。
-- 右侧操作必须始终和大标题行对齐；面包屑和辅助文案都不参与按钮对齐。
+- 右侧操作：无面包屑时与大标题行垂直居中对齐；有面包屑时距顶 `spacing/5x`（20px），不与标题行 flex 居中绑定。
+- 抽屉标题栏高度与页面无说明档相同，走 `size/component-height/title-bar`（`SENS_TITLE_BAR_HEIGHT`）。
 - 标题字体必须使用 typography token 组合，不允许在业务里硬写 `20px / 30px / 600`。
 - 辅助文案必须使用 typography token 组合，不允许在业务里硬写 `12px / 18px / 400`。
 - 抽屉返回入口必须复用 `SensButton tone="linkWeak"` 纯图标，默认中性、悬停/点击进入链接色，图标颜色继承 `currentColor`。
@@ -45,5 +43,6 @@
 ## 当前边界
 
 - 当前只实现页面标题栏下钻区，不实现顶部导航。
-- 面包屑只实现普通态 / 省略态，不实现下拉型折叠。
+- 面包屑形态 / 省略态 / 颜色 → `breadcrumb.md`；本篇不重复定义。
 - 标题栏高度已进入 `size/component-height/title-bar` / `title-bar-with-description`；返回图标尺寸使用 `size/icon/l = 22`，返回热区使用 `spacing/6x = 24`，左侧图标贴边间距使用 `spacing/0․5x = 2`。
+- 已删除无引用的废弃包装 `DrilldownTitleBar`；业务请直接用 `SensPageTitleBar`。

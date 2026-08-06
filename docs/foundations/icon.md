@@ -2,9 +2,9 @@
 
 > 图标资产、命名、尺寸关系、颜色语义与消费边界的规则源。
 > 成熟度：Pilot
-> 实现：Partial
-> 验证：Pending
-> 来源：Figma `校准版//Sens.Design_图标 v2.1_20230328`、`src/design-system/icons/registry.tsx`、`size.md`、`color.md`
+> 实现：Implemented · Figma 线性、面性与彩色功能图标已入库
+> 验证：Pending · 宿主组件交互仍需逐项验收
+> 来源：Figma `设计系统 v2.1（神策绿）`、`src/design-system/icons/registry.tsx`、`size.md`、`color.md`
 > 预览：`/basic-styles/icon`
 
 ## 1. 定位
@@ -37,14 +37,14 @@ Icon asset
 
 | 层级 | 作用 | 第一阶段落点 |
 |---|---|---|
-| Asset Layer | 记录图标资产本身 | `src/design-system/icons/registry.tsx`（后续） |
+| Asset Layer | 记录图标资产本身 | `public/icons/`、`public/icons/filled/` + Figma manifests |
 | Usage Layer | 定义尺寸、颜色、状态规则 | 本文档 |
-| Render Layer | 统一渲染 `<SensIcon />` | `src/design-system/icons/Icon.tsx`（后续） |
+| Render Layer | 统一渲染 `<SensIcon />` | `src/design-system/icons/Icon.tsx` |
 | Token Mapping Layer | 映射 size / color token | `types.ts` / `Icon.tsx`（后续） |
-| Preview Layer | HTML 可视化验收 | `/basic-styles/icon`（后续） |
+| Preview Layer | HTML 可视化验收 | `/basic-styles/icon` |
 | Migration Layer | 逐组件迁移计划 | 本文档先记录 |
 
-第一阶段只做“入库 + 文档 + 样张”，不一次性替换现有组件。
+当前阶段完成“入库 + 文档 + 样张”。业务宿主中的 antd 图标和历史图标按组件批次迁移，不在本轮批量改动。
 
 ## 4. 图标使用原则
 
@@ -67,15 +67,22 @@ Icon asset
 | 输入辅助图标 | 输入框、搜索、选择器辅助 | `search`、`chevron-down`（Select 箭头）、`close-circle`（Select 清空） |
 | 组件内部图标 | 只服务特定组件内部结构 | `stepper-up`、`stepper-down` |
 
+Figma 线性资产另外按设计稿分为：编辑、操作、对象、符号、方向、品牌标识、图表、功能、文件格式和业务用语。分类用于样张检索，不改变图标在宿主组件中的交互归属。
+
+面性资产沿用相同的分类体系，当前来自 9 个 Figma 分组，共 74 个节点。线性与面性可以使用相同的语义名称，但通过 `SensIcon` 的 `variant` 明确选择，不在同一风格内静默覆盖。
+
 ## 6. 命名规范
 
 - 使用 kebab-case。
+- Figma 原始名称统一转换为 kebab-case；保留原始语义，不按视觉形状重新命名。
 - 优先使用语义名称，不按视觉形状随意命名。
 - 方向型图标使用方向后缀：`chevron-down`、`chevron-up`、`chevron-left`。
 - 组件专属图标可带组件语义：`select-check`、`stepper-up`、`stepper-down`。
 - 场景别名不单独入库：同一 SVG 在不同组件里可有过渡 wrapper（如 `SelectClearIcon` → `close-circle`），usage 记在资产条目或组件文档，registry 只保留一份资产 name。
 - 不使用 Figma 图层名里的临时描述作为最终 name。
 - 图标创建为组件后，应补中文备注名称，方便设计和研发检索。
+- 同名资产不得静默覆盖；当前 `newchat` 的第二个节点登记为 `newchat-2`。
+- 线性与面性允许共享语义名称；同一名称的不同风格通过 `variant="linear"` / `variant="filled"` 区分。
 
 ## 7. 图标与文字尺寸关系
 
@@ -91,11 +98,14 @@ Icon asset
 | 场景 | 当前尺寸 | 说明 |
 |---|---:|---|
 | InputNumber stepper | 10px | 组件内部特殊尺寸，不是 stepper 图标本体默认尺寸 |
+| 面性 InputNumber 上下箭头 | 12px | Figma 面性资产中的 `up-number-input` / `down-number-input` |
 | 表单警告 | 14px | 跟随 12px 辅助提示关系 |
 | Select / Button / Search 常规图标 | 16px | 跟随 14px 常规控件文字 |
 | 跟文字走的图标 | inherit / 1em | 允许继承外层文字尺寸和颜色 |
 
 图标本体不绑定默认 size。`size/icon/s = 14`、`size/icon/m = 16` 等只在使用场景里被选择。
+
+`/basic-styles/icon` 样张提供 16px、20px、22px 三档切换。16px 是默认验收尺寸，20px 和 22px 用于检查放大后的视觉重量与清晰度，不代表所有组件都应改用大尺寸。
 
 ## 8. 颜色规则
 
@@ -132,7 +142,28 @@ Icon asset
 
 状态型图标不能随意当操作型图标复用，除非对应组件文档明确允许。
 
-## 11. 已入库图标资产草稿
+### 10.1 交互验收归属
+
+Icon Foundation 只验收图标资产、尺寸、颜色语义和命名，不单独为所有图标建立点击状态矩阵。图标是否可点击、可拖拽，以及 `hover / active / disabled / focus` 的具体表现，由承载它的宿主组件验收：
+
+- `more`、`chevron-down`、`rename`：由 Button、Dropdown、Select、Tabs 或 Card 等宿主验收。
+- `drag-vertical`：由 Card、Tabs 等拖拽宿主验收。
+- `checkbox-check`、`warning-filled`：作为状态型图标验收，不默认建立点击交互。
+- 图标基础样张只展示 registry 资产，不把宿主交互误记为 Icon Foundation 的缺口。
+
+## 11. 已入库图标资产
+
+当前已从 Figma 10 组线性图标节点导入 340 个 SVG symbol，规范化后为 339 个唯一名称；另从 9 组面性图标节点导入 74 个 SVG symbol，并从 Figma「功能-彩色风格（106）」节点实际读取并导入 99 个彩色功能组件。线性、面性和彩色功能分别维护资产目录和 manifest，使用方统一通过 `SensIcon` 调用，不能直接依赖 antd 图标或字符图标。画板标题中的“106”与当前节点可读取的 99 个子组件不一致，本项目以实际可读取资产为准。
+
+### 11.1 图标风格
+
+| 风格 | `SensIcon` 用法 | 规则 |
+|---|---|---|
+| 线性 | 默认，或 `variant="linear"` | 适合常规操作、导航和辅助图标；继续作为默认风格 |
+| 面性 | `variant="filled"` | 作为独立图标集合展示和消费；适合需要更强识别度或状态强调的场景 |
+| 彩色功能 | `variant="colorful"` | 来自 Figma「功能-彩色风格」；保留多色资产，主要用于入口型卡片和业务功能入口 |
+
+图标预览页在「数值样张」内分为「线性图标」「面性图标」和「彩色功能图标」三个 Tab。线性与面性图标提供 16px / 20px / 22px 尺寸切换；彩色功能图标固定展示 48px，不参与这组三档切换。彩色功能图标保留 Figma 资产中的多色关系，不接受 `colorRole` 改色；宿主交互仍由入口卡片等组件负责。
 
 | 入库名 | 原组件名 | 来源文件 | viewBox | 当前使用场景 | 场景尺寸 | 场景颜色 | 是否可复用其他尺寸 |
 |---|---|---|---|---|---|---|---|
@@ -152,6 +183,7 @@ Icon asset
 | `editor-add` | `EditorAddIcon` | `src/ui/FieldIcons.tsx` | `0 0 16 16` | 新建 / 添加按钮 | 16 | inherit | 是 |
 | `drag-vertical` | `DragVerticalIcon` | `src/ui/FieldIcons.tsx` | `0 0 16 16` | Card 标题区拖拽把手 | 16 | subtle / currentColor | 是 |
 | `more` | `MoreIcon` | `src/ui/FieldIcons.tsx` | `0 0 16 16` | 更多按钮 | 16 | subtle / currentColor | 是 |
+| 彩色功能图标 | Figma 彩色功能组件 | `public/icons/colorful/` | `0 0 48 48` | SensEntryCard 彩色业务入口 | 48；大号入口使用 60px 布局位居中承载 | Figma 多色资产 | 否，按固定 48px 规则使用 |
 | `search` | `SearchIcon` | `src/ui/SearchIcon.tsx` | `0 0 16 16` | Search / Input 搜索前缀、搜索按钮 | 16 | subtle / currentColor | 是 |
 | `side-nav-down` | `SideNavDownIcon` | `src/ui/FieldIcons.tsx` | `0 0 14 14` | 产品壳侧导二级模块收起 | 14 | theme-side-icon / currentColor | 否 |
 | `side-nav-up` | `SideNavUpIcon` | `src/ui/FieldIcons.tsx` | `0 0 14 14` | 产品壳侧导二级模块展开 | 14 | theme-side-icon / currentColor | 否 |
@@ -160,31 +192,31 @@ Icon asset
 | `side-nav-unpin` | `SideNavUnpinIcon` | `src/ui/FieldIcons.tsx` | `0 0 16 16` | 产品壳侧导锁定入口 | 16 | theme-side-icon / currentColor | 否 |
 | `side-nav-pin` | `SideNavPinIcon` | `src/ui/FieldIcons.tsx` | `0 0 12.2838 12.2838` | 产品壳侧导锁定图标状态 | 16 | theme-side-icon-active / currentColor | 否 |
 
-第一批只收当前项目自定义 SVG，不碰 antd 图标。`SelectArrowIcon` / `SelectClearIcon` 为过渡 wrapper，分别指向 `chevron-down` / `close-circle`，不单独入库。`close`（Figma 805:58）已入库，替换原 Tag/Message/Alert 手写小叉子。
+已有 Sens 图标的语义、场景和宿主规则继续保留；Figma 新资产在 registry 中统一使用 `currentColor`，具体尺寸和颜色仍由场景决定。`SelectArrowIcon` / `SelectClearIcon` 为过渡 wrapper，分别指向 `chevron-down` / `close-circle`，不单独入库。
 
 ## 12. 外部 antd 图标
 
-第一阶段不迁移，只记录：
+目前仍存在的 antd 图标使用点只做迁移清单记录；后续不再新增：
 
 | 图标 | 当前用途 | 决策 |
 |---|---|---|
-| `LoadingOutlined` | Button / Dropdown / FAB loading | 外部依赖，待决策 |
-| `ReadOutlined` | 文档入口 | 外部依赖，待决策 |
-| `ArrowLeftOutlined` | 返回 | 外部依赖，待决策 |
-| `InfoCircleOutlined` | 提示 | 外部依赖，待决策 |
+| `LoadingOutlined` | Button / Dropdown / FAB loading | 待替换为 Sens 图标 |
+| `ReadOutlined` | 文档入口 | 待替换为 Sens 图标 |
+| `ArrowLeftOutlined` | 返回 | 待替换为 Sens 图标 |
+| `InfoCircleOutlined` | 提示 | 待替换为 Sens 图标 |
 
-## 13. 临时字符图标
+## 13. 字符图标迁移结果
 
-Card 临时字符图标迁移状态：
+当前项目样张和已收录的 Card 组合示例已使用 registry 图标，不再把以下字符作为真实图标实现：
 
-| 字符 | 当前语义 | 处理 |
+| 原字符语义 | registry 图标 | 交互归属 |
 |---|---|---|
-| `•••` | more | ✅已替换为 `more` |
-| `⌄` | down | ✅已替换为 `chevron-down` |
-| `✓` | checkbox-check | ✅已替换为 `check` |
-| `!` | warning | ✅已替换为 `warning-filled` |
-| `::` | drag | ✅已替换为 `drag-vertical` |
-| `✎` | edit / rename | ✅已替换为 `rename`（Figma 标题区用 rename） |
+| more | `more` | Button / Dropdown / Tabs 宿主 |
+| down | `chevron-down` | Select / Dropdown / Button 宿主 |
+| checkbox-check | `checkbox-check` | Checkbox / Card 状态 |
+| warning | `warning-filled` | Card / 状态提示 |
+| drag | `drag-vertical` | Card / Tabs 拖拽宿主 |
+| edit / rename | `rename` | Card 标题区宿主 |
 
 demo 标题里的 `▼` / `▲` 属于文案说明，暂不入库。
 
@@ -227,9 +259,7 @@ demo 标题里的 `▼` / `▲` 属于文案说明，暂不入库。
 
 ## 17. 后续替换计划
 
-1. Card：替换 `•••` / `⌄` / `✓` / `!` / `::` / `✎`。
-2. Button：替换 `MoreIcon`、`ChevronDownIcon`、`ChevronUpIcon`、`EditorAddIcon`。
-3. Input / TextArea / InputNumber：替换 `ErrorDiamondIcon`、`StepperUpIcon`、`StepperDownIcon`。
-4. Select / Dropdown：替换 `SelectCheckIcon`、`SelectClearIcon`、`ChevronDownIcon`、`ChevronUpIcon`。
-5. Search：替换 `SearchIcon`、`ChevronLeftIcon`、clear icon。
-6. antd 外部图标是否迁移单独决策。
+1. Button、Select、Dropdown、Tabs、Card 等宿主分别验收其消费的 registry 图标和交互状态。
+2. Input / TextArea / InputNumber：继续验收 `ErrorDiamondIcon`、`StepperUpIcon`、`StepperDownIcon` 的场景尺寸和状态承载。
+3. Search：继续验收 `SearchIcon`、`ChevronLeftIcon` 和 clear icon 的宿主交互。
+4. 按宿主组件逐步替换剩余 antd 图标；新增代码不得继续引入 antd 图标。

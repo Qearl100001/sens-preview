@@ -1,15 +1,14 @@
 import type { CSSProperties, ReactNode } from "react";
-import { Badge, type BadgeProps } from "antd";
+import { Badge } from "antd";
 import { tokenRgba } from "../design-system/color-utils";
 import tokens from "../design-system/tokens.resolved.json";
 import { getTypographyToken } from "../design-system/typography";
 import { getUnitToken } from "../design-system/unit";
 import "./badge.css";
+import { functionalCssVar } from "../design-system/functional-skin";
 
 const c = tokens.color as Record<string, string>;
 const BADGE_FONT_SIZE_SM = getTypographyToken("font-size/s");
-
-type AntdStatus = NonNullable<BadgeProps["status"]>;
 
 export type SensBadgeVariant = "count" | "status" | "weakCount";
 export type SensWeakBadgeState = "default" | "active" | "disabled";
@@ -17,12 +16,13 @@ export type SensWeakBadgeState = "default" | "active" | "disabled";
 export type SensWeakBadgeSurface = "transparent" | "solid";
 export type SensStatusTone = "error" | "warning" | "success" | "processing" | "default" | "midnight";
 
-const STATUS_TO_ANTD: Record<Exclude<SensStatusTone, "midnight">, AntdStatus> = {
-  error: "error",
-  warning: "warning",
-  success: "success",
-  processing: "processing",
-  default: "default",
+const STATUS_DOT_COLOR_TOKEN: Record<SensStatusTone, string> = {
+  error: "warning-color",
+  warning: "info-color",
+  success: "success-color",
+  processing: "link-color",
+  default: "icon-color-transparent",
+  midnight: "icon-color-transparent",
 };
 
 function resolveWeakSurface(
@@ -33,7 +33,7 @@ function resolveWeakSurface(
   return hasChildren ? "solid" : "transparent";
 }
 
-function weakBadgeVars(surface: SensWeakBadgeSurface, colorPrimary: string): CSSProperties {
+function weakBadgeVars(surface: SensWeakBadgeSurface, componentPrimary: string): CSSProperties {
   const neutralBg =
     surface === "solid"
       ? c["background-01"]
@@ -42,8 +42,8 @@ function weakBadgeVars(surface: SensWeakBadgeSurface, colorPrimary: string): CSS
   return {
     "--sens-badge-weak-bg-default": neutralBg,
     "--sens-badge-weak-text-default": tokenRgba("text-article-color-transparent", 0.58),
-    "--sens-badge-weak-bg-active": c["component-light-background"],
-    "--sens-badge-weak-text-active": colorPrimary,
+    "--sens-badge-weak-bg-active": functionalCssVar("--sens-skin-light-bg", "component-light-background"),
+    "--sens-badge-weak-text-active": componentPrimary,
     "--sens-badge-weak-bg-disabled": neutralBg,
     "--sens-badge-weak-text-disabled": tokenRgba("text-color-transparent-disable", 0.3),
     "--sens-badge-weak-height": `${getUnitToken("size/xxs")}px`,
@@ -53,7 +53,7 @@ function weakBadgeVars(surface: SensWeakBadgeSurface, colorPrimary: string): CSS
     "--sens-badge-weak-radius-compact": `${getUnitToken("radius/xl")}px`,
     "--sens-badge-weak-radius-overflow": `${getUnitToken("spacing/2x")}px`,
     "--sens-badge-text-default": c["text-color"],
-    "--sens-badge-text-active": colorPrimary,
+    "--sens-badge-text-active": componentPrimary,
     "--sens-badge-text-disabled": c["text-color-disable"],
   } as CSSProperties;
 }
@@ -68,14 +68,15 @@ function statusDotVars(color: string): CSSProperties {
   return {
     "--sens-badge-dot-size": `${getUnitToken("size/mini")}px`,
     "--sens-badge-dot-color": color,
+    "--sens-badge-status-text": c["text-color"],
   } as CSSProperties;
 }
 
-function MidnightStatusBadge({ text }: { text?: ReactNode }) {
-  const dotVars = statusDotVars(c["icon-color-transparent"]);
+function SensStatusDotBadge({ status, text }: { status: SensStatusTone; text?: ReactNode }) {
+  const dotVars = statusDotVars(c[STATUS_DOT_COLOR_TOKEN[status]]);
 
   return (
-    <span className="sens-badge-status sens-badge-status--midnight" style={dotVars}>
+    <span className={`sens-badge-status sens-badge-status--${status}`} style={dotVars}>
       <span className="sens-badge-status-dot" aria-hidden />
       {text ? <span className="sens-badge-status-text">{text}</span> : null}
     </span>
@@ -95,15 +96,18 @@ function useCountBadgeVars(): CSSProperties {
   } as CSSProperties;
 }
 
-function useBadgePreviewPanelVars(colorPrimary: string): CSSProperties {
+function useBadgePreviewPanelVars(componentPrimary: string): CSSProperties {
   return {
     "--sens-badge-preview-panel-bg": c.white,
     "--sens-badge-preview-panel-radius": `${getUnitToken("radius/xl")}px`,
     "--sens-badge-preview-panel-width": "486px",
     "--sens-badge-preview-panel-height": "860px",
     "--sens-badge-preview-panel-padding": `${getUnitToken("spacing/4x")}px`,
+    "--sens-badge-section-title-radius": `${getUnitToken("radius/l")}px`,
+    /** 样张区块原 8px 为游离值；收敛到 radius/l（与 Card / 表格外缘同档） */
+    "--sens-badge-section-body-radius": `${getUnitToken("radius/l")}px`,
     "--sens-badge-text-default": c["text-color"],
-    "--sens-badge-text-active": colorPrimary,
+    "--sens-badge-text-active": componentPrimary,
     "--sens-badge-title-border": c["warning-color"],
     "--sens-badge-panel-border": c["link-light-outline"],
   } as CSSProperties;
@@ -126,8 +130,8 @@ export interface SensBadgeProps {
 
 /**
  * 徽标封装：
- * - count：常规数字徽标（红底白字，沿用 antd 语义）
- * - status：状态徽标（含子夜黑 midnight 扩展）
+ * - count：常规数字徽标（红底白字，antd 只承载宿主定位）
+ * - status：状态徽标（Sens 自绘点，不消费 antd status 色）
  * - weakCount：弱化型数字徽标（灰/绿系，常用于 tab 辅助计数）
  */
 export function SensBadge({
@@ -143,17 +147,14 @@ export function SensBadge({
   weakState = "default",
   weakSurface,
 }: SensBadgeProps) {
-  const colorPrimary = c["component-primary"];
+  const componentPrimary = functionalCssVar("--sens-skin-primary", "component-primary");
   const displayCount = resolveDisplayCount(count, overflowCount);
   const shouldRenderCount = Boolean(dot) || showZero || (typeof count === "number" && count > 0);
   const isOverflowLike = displayCount.length > 1;
   const resolvedWeakSurface = resolveWeakSurface(weakSurface, Boolean(children));
 
   if (variant === "status") {
-    if (status === "midnight") {
-      return <MidnightStatusBadge text={text} />;
-    }
-    return <Badge status={STATUS_TO_ANTD[status]} text={text} />;
+    return <SensStatusDotBadge status={status} text={text} />;
   }
 
   if (variant === "weakCount") {
@@ -166,7 +167,7 @@ export function SensBadge({
         ].join(" ")}
         style={
           {
-            ...weakBadgeVars(resolvedWeakSurface, colorPrimary),
+            ...weakBadgeVars(resolvedWeakSurface, componentPrimary),
             "--sens-badge-weak-font-size": `${BADGE_FONT_SIZE_SM}px`,
             "--sens-badge-weak-line-height": `${getUnitToken("size/xxs") + getUnitToken("spacing/0.5x")}px`,
           } as CSSProperties
@@ -226,7 +227,7 @@ export function SensBadge({
 
 export function BadgeStatesPreview() {
   return (
-    <div className="sens-badge-preview-panel" style={useBadgePreviewPanelVars(c["component-primary"])}>
+    <div className="sens-badge-preview-panel" style={useBadgePreviewPanelVars(functionalCssVar("--sens-skin-primary", "component-primary"))}>
       <div className="sens-badge-section">
         <div className="sens-badge-section-title">徽标 / 基础徽标</div>
         <div className="sens-badge-section-body sens-badge-section-body--basic">

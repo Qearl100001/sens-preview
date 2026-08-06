@@ -84,7 +84,7 @@ Spacing 不负责所有尺寸。
 - 数据源卡片内 padding：候选 `spacing/4x`，后续 DataSourceCard / Card 阶段确认。
 - 表格信息区高度：40px，作为表格组件规格，不直接当作普通 spacing。
 - 表格单元格 padding 和行高：进入 TableShell / Table 组件阶段单独确认。
-- 抽屉 body / footer padding：不能直接依赖 antd `paddingLG`，做 Drawer 时映射到 SensD spacing。
+- 抽屉 body / footer padding：映射 SensD `spacing/4x`（上 16）+ `spacing/6x`（左右下 24）；**禁止**依赖 antd `paddingLG`。规则以 `components/base/drawer.md` 为准。
 - 表单项间距、label 与控件关系、错误提示距离：以 `components/base/form.md` 为唯一展开维护源；本篇只引用，不重复定义。
 
 ## 7. 当前问题与处理策略
@@ -94,7 +94,6 @@ Spacing 不负责所有尺寸。
 | 代码里存在硬写 padding / gap / margin | 按组件清单化收敛，不做全仓批量替换 | 组件维护时 |
 | antd spacing token 未完全映射 SensD | 先记录规则，不手改生成文件 | 做 spacing helper / 组件 helper 时处理 |
 | 表格有 11px / 6px 这类公式值 | 暂不升为全局 token | Table 组件阶段 |
-| 抽屉 padding 仍依赖 antd token | 暂不改代码 | Drawer 组件阶段 |
 | 表格单元格 padding 文档与实现待核对 | 不作为 Spacing Foundation v0.9 阻塞项 | Table 组件收口 |
 | 间距 PDF 还没逐页结构化 | 先补核心规则 | 后续按模块细化 |
 
@@ -115,4 +114,4 @@ Spacing 不负责所有尺寸。
 - 表单专属间距由 `components/base/form.md` 维护；卡片、Table、Drawer 等专属间距由对应组件规则维护。
 - v0.9 不新增 `page.padding`、`card.padding`、`form.itemGap` 等 semantic spacing token。
 - v0.9 不做全仓 padding / margin / gap 批量替换；组件进入维护时按本篇与 `conventions.md` 逐项收敛。
-- 间距 PDF 的逐页结构化、Drawer 间距和 Table 单元格 padding 作为后续组件阶段任务。
+- 间距 PDF 的逐页结构化、Table 单元格 padding 作为后续组件阶段任务。抽屉 body padding 已收口，见 `components/base/drawer.md`。

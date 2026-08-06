@@ -6,6 +6,7 @@
  * 未在 seed 中声明、由 antd 算法派生的项（如 borderRadiusLG）按当前派生结果写死数值。
  */
 import { getColorToken } from "../design-system/color-utils";
+import { functionalCssVar } from "../design-system/functional-skin";
 import { getTypographyToken } from "../design-system/typography";
 import { getUnitToken } from "../design-system/unit";
 
@@ -65,8 +66,8 @@ export function getPreviewTokens(): PreviewTokens {
   const spacing6 = getUnitToken("spacing/6x");
 
   cached = {
-    colorPrimary: getColorToken("component-primary"),
-    colorPrimaryBg: getColorToken("component-light-background"),
+    colorPrimary: functionalCssVar("--sens-skin-primary", "component-primary"),
+    colorPrimaryBg: functionalCssVar("--sens-skin-light-bg", "component-light-background"),
     colorLink: getColorToken("link-color"),
     colorText: getColorToken("text-color"),
     colorTextSecondary: getColorToken("text-sub-color"),

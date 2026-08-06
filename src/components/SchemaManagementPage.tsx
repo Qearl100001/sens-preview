@@ -10,10 +10,12 @@ import {
   Table,
   Typography,
 } from "antd";
-import { ArrowLeftOutlined } from "@ant-design/icons";
 import { EditorAddIcon, useSensAllowClear, useSensSearchFieldProps, useSensSelectSuffixProps } from "../ui";
-import { buildAntdTheme } from "../design-system/theme";
 import { tokenRgba } from "../design-system/color-utils";
+import { functionalCssVar } from "../design-system/functional-skin";
+import { SensIcon } from "../design-system/icons";
+import { navigationCssVar } from "../design-system/navigation-color";
+import { buildAntdTheme } from "../design-system/theme";
 import tokens from "../design-system/tokens.resolved.json";
 
 const { Text } = Typography;
@@ -71,8 +73,8 @@ type SchemaPalette = {
 
 function getSchemaPalette(): SchemaPalette {
   return {
-    pageBg: c["body-background"],
-    titleBg: c["theme-title-background"],
+    pageBg: navigationCssVar("--sens-nav-page-bg", "body-background"),
+    titleBg: navigationCssVar("--sens-nav-title-bg", "theme-title-background"),
     contentBg: c.white,
     border: c["outline-color"],
     textPrimary: tokenRgba("text-color-transparent", 0.9),
@@ -103,10 +105,10 @@ function buildSchemaTheme(): ThemeConfig {
       },
       Pagination: {
         itemSize: 32,
-        itemActiveBg: c["component-primary"],
+        itemActiveBg: functionalCssVar("--sens-skin-primary", "component-primary"),
         colorBgContainer: p.contentBg,
         colorText: p.textPrimary,
-        colorPrimary: c["component-primary"],
+        colorPrimary: functionalCssVar("--sens-skin-primary", "component-primary"),
       },
       Input: {
         colorBgContainer: p.contentBg,
@@ -121,7 +123,7 @@ function buildSchemaTheme(): ThemeConfig {
         colorTextPlaceholder: p.textPlaceholder,
       },
       Button: {
-        colorPrimary: c["component-primary"],
+        colorPrimary: functionalCssVar("--sens-skin-primary", "component-primary"),
       },
     },
   };
@@ -291,7 +293,7 @@ export default function SchemaManagementPage({ embedded = false }: SchemaManagem
             <div style={{ display: "flex", alignItems: "center", gap: 2, paddingLeft: 2 }}>
               <Button
                 type="text"
-                icon={<ArrowLeftOutlined style={{ fontSize: 14, color: palette.icon }} />}
+                icon={<SensIcon name="back-navigate" size={14} colorRole="inherit" />}
                 style={{ width: 22, height: 22, padding: 0, color: palette.icon }}
               />
               <Text strong style={{ fontSize: 20, lineHeight: "30px", color: palette.textPrimary }}>

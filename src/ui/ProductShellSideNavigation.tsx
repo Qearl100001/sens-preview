@@ -1,10 +1,12 @@
 import { useState } from "react";
-import { Tooltip } from "antd";
+import { useNavigationTheme } from "../design-system/appearance";
 import { buildShadow, getColorToken } from "../design-system/color-utils";
+import { sensCursorValue } from "../design-system/cursors";
 import { SensIcon, type IconName } from "../design-system/icons";
-import { getThemeSideBackground } from "../design-system/navigation-color";
+import { getNavigationColorToken, getThemeSideBackground } from "../design-system/navigation-color";
 import { getTypographyToken } from "../design-system/typography";
 import tokens from "../design-system/tokens.resolved.json";
+import { SensTips } from "./SensTips";
 
 const u = tokens.unit as Record<string, number>;
 
@@ -37,6 +39,8 @@ export interface ProductShellSideNavigationProps {
   mode?: ProductShellSideNavigationMode;
   onModeChange?: (mode: ProductShellSideNavigationMode) => void;
   productName?: string;
+  /** 无层级的页面目录；传入后不渲染分组标题和展开控件。 */
+  items?: string[];
   groups?: ProductShellSideNavigationGroup[];
   activeItem?: string;
   onActiveItemChange?: (item: string) => void;
@@ -62,7 +66,7 @@ function SideNavigationIconButton({
   const color = isHovered || isPressed ? activeColor : defaultColor;
 
   return (
-    <Tooltip title={tooltip} placement="right">
+    <SensTips title={tooltip} placement="right">
       <button
         type="button"
         aria-label={label}
@@ -86,12 +90,12 @@ function SideNavigationIconButton({
           borderRadius: u["radius/m"],
           background: "transparent",
           color,
-          cursor: "pointer",
+          cursor: sensCursorValue("pointer"),
         }}
       >
         <SensIcon name={icon} size={icon === "side-nav-collapse" || icon === "side-nav-expand" ? 18 : 16} color="currentColor" />
       </button>
-    </Tooltip>
+    </SensTips>
   );
 }
 
@@ -102,6 +106,7 @@ export function ProductShellSideNavigation({
   mode: controlledMode,
   onModeChange,
   productName = "数据融合",
+  items,
   groups = DEFAULT_GROUPS,
   activeItem: controlledActiveItem,
   onActiveItemChange,
@@ -118,15 +123,16 @@ export function ProductShellSideNavigation({
   const activeItem = controlledActiveItem ?? internalActiveItem;
   const isNormal = mode === "normal";
   const isOverlay = mode === "overlay";
+  const navigationTheme = useNavigationTheme();
   const sideText = getColorToken("theme-side-text");
   const sideSubText = getColorToken("theme-side-subText");
-  const sideTextActive = getColorToken("theme-side-text-active");
+  const sideTextActive = getNavigationColorToken("theme-side-text-active", navigationTheme);
   const sideIcon = getColorToken("theme-side-icon");
   const sideSubIcon = getColorToken("theme-side-subIcon");
-  const sideIconActive = getColorToken("theme-side-icon-active");
+  const sideIconActive = getNavigationColorToken("theme-side-icon-active", navigationTheme);
   const sideHoverBackground = getColorToken("theme-side-background-hover");
   const sideClickBackground = getColorToken("theme-side-background-click");
-  const sideActiveBackground = getColorToken("theme-side-background-active");
+  const sideActiveBackground = getNavigationColorToken("theme-side-background-active", navigationTheme);
 
   const updateMode = (nextMode: ProductShellSideNavigationMode) => {
     if (controlledMode == null) setInternalMode(nextMode);
@@ -147,6 +153,7 @@ export function ProductShellSideNavigation({
       <aside
         aria-label="产品壳侧导航，紧凑态"
         data-side-navigation-mode="normal"
+        onMouseEnter={() => updateMode("overlay")}
         style={{
           width: PRODUCT_SHELL_SIDE_NAV_COLLAPSED_WIDTH,
           flex: `0 0 ${PRODUCT_SHELL_SIDE_NAV_COLLAPSED_WIDTH}px`,
@@ -154,7 +161,7 @@ export function ProductShellSideNavigation({
           display: "flex",
           justifyContent: "center",
           paddingTop: u["spacing/3x"],
-          background: getThemeSideBackground(),
+          background: getThemeSideBackground(navigationTheme),
           borderTopLeftRadius: u["radius/xl"],
           overflow: "hidden",
         }}
@@ -188,7 +195,7 @@ export function ProductShellSideNavigation({
         alignSelf: "stretch",
         display: "flex",
         flexDirection: "column",
-        background: getThemeSideBackground(),
+        background: getThemeSideBackground(navigationTheme),
         borderTopLeftRadius: u["radius/xl"],
         // Only a floating side navigation owns a right-facing shadow.
         boxShadow: isOverlay ? buildShadow("D4", "right") : undefined,
@@ -230,7 +237,50 @@ export function ProductShellSideNavigation({
       </div>
 
       <div style={{ display: "flex", flexDirection: "column", gap: u["spacing/4x"], overflowY: "auto", paddingBottom: u["spacing/6x"] }}>
-        {groups.map((group) => {
+        {items != null
+          ? items.map((item) => {
+              const itemInteractionKey = `flat-item-${item}`;
+              const isActive = item === activeItem;
+              const itemBackground = isActive
+                ? sideActiveBackground
+                : pressedKey === itemInteractionKey
+                  ? sideClickBackground
+                  : hoveredKey === itemInteractionKey
+                    ? sideHoverBackground
+                    : "transparent";
+
+              return (
+                <button
+                  key={item}
+                  type="button"
+                  aria-current={isActive ? "page" : undefined}
+                  onClick={() => updateActiveItem(item)}
+                  onMouseEnter={() => setHoveredKey(itemInteractionKey)}
+                  onMouseLeave={() => setHoveredKey(undefined)}
+                  onMouseDown={() => setPressedKey(itemInteractionKey)}
+                  onMouseUp={() => setPressedKey(undefined)}
+                  style={{
+                    width: `calc(100% - ${u["spacing/4x"]}px)`,
+                    height: SIDE_NAV_ITEM_HEIGHT,
+                    marginInline: u["spacing/2x"],
+                    padding: `7px ${u["spacing/3x"]}px`,
+                    display: "flex",
+                    alignItems: "center",
+                    border: 0,
+                    borderRadius: u["radius/m"],
+                    background: itemBackground,
+                    color: isActive ? sideTextActive : sideText,
+                    cursor: sensCursorValue("pointer"),
+                    textAlign: "left",
+                  }}
+                >
+                  <span style={{ overflow: "hidden", fontSize: getTypographyToken("font-size/m"), lineHeight: `${getTypographyToken("line-height/m")}px`, fontWeight: isActive ? getTypographyToken("font-weight/medium") : getTypographyToken("font-weight/regular"), whiteSpace: "nowrap", textOverflow: "ellipsis" }}>
+                    {item}
+                  </span>
+                </button>
+              );
+            })
+          : groups.map((group) => {
           const isOpen = openGroupKeys.includes(group.key);
           const hasActiveChild = group.items.includes(activeItem);
           const groupInteractionKey = `group-${group.key}`;
@@ -263,7 +313,7 @@ export function ProductShellSideNavigation({
                   borderRadius: u["radius/m"],
                   background: groupBackground,
                   color: hasActiveChild ? sideTextActive : sideSubText,
-                  cursor: "pointer",
+                  cursor: sensCursorValue("pointer"),
                   textAlign: "left",
                 }}
               >
@@ -307,7 +357,7 @@ export function ProductShellSideNavigation({
                           borderRadius: u["radius/m"],
                           background: itemBackground,
                           color: isActive ? sideTextActive : sideText,
-                          cursor: "pointer",
+                          cursor: sensCursorValue("pointer"),
                           textAlign: "left",
                         }}
                       >

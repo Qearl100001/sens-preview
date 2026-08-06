@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useMemo, useState, type CSSProperties } from "react";
 import { Divider, Flex, Segmented, Space, Switch, Typography } from "antd";
 import { useTranslation } from "react-i18next";
 import buttonDesignDoc from "../../design-system/components/base/button.design.md?raw";
@@ -8,9 +8,13 @@ import {
   FabGroupStatesPreview,
   FabVerticalGroupStatesPreview,
   IconDefaultIcon,
+  SensActionArea,
   SensButton,
+  SensButtonActionMenu,
   SensDropdownButton,
   SensFabGroup,
+  SensMoreButton,
+  SensTips,
   type SensButtonVariant,
   type SensFabGroupItem,
   type SensFabVerticalGroupItem,
@@ -34,8 +38,11 @@ const VARIANT_OPTIONS: { value: SensButtonVariant; label: string }[] = [
   { value: "link", label: "链接" },
   { value: "linkWeak", label: "弱化链接" },
   { value: "dangerSecondary", label: "警告二级" },
+  { value: "dangerSecondaryWeak", label: "风险二级（hover 警告）" },
   { value: "dangerTertiary", label: "警告三级" },
+  { value: "dangerTertiaryWeak", label: "风险三级（hover 警告）" },
   { value: "dangerLink", label: "警告链接" },
+  { value: "dangerLinkEmphasis", label: "风险链接强调" },
   { value: "dangerLinkWeak", label: "弱化警告链接" },
   { value: "dashed", label: "虚线" },
 ];
@@ -66,6 +73,152 @@ const MORE_MENU_DEMO_ITEMS = [
   { key: "sync", label: "同步", variant: "link" as const, loading: true },
 ];
 
+const MORE_AGGREGATION_ITEMS = [
+  { key: "blank", label: "创建空白画布", variant: "default" as const },
+  { key: "template", label: "使用模板创建", variant: "default" as const },
+];
+
+const TABLE_DROPDOWN_ITEMS = [
+  { key: "download", label: "下载", variant: "link" as const },
+  { key: "copy", label: "复制", variant: "link" as const },
+  { key: "delete", label: "删除", variant: "danger" as const },
+];
+
+function ActionAreaDemo() {
+  const token = getPreviewTokens();
+  const panelStyle: CSSProperties = {
+    border: `${token.lineWidth}px solid ${token.colorBorderSecondary}`,
+    borderRadius: token.borderRadiusLG,
+    padding: token.padding,
+    background: token.colorBgContainer,
+  };
+  const mutedPanelStyle: CSSProperties = {
+    ...panelStyle,
+    background: token.colorFillQuaternary,
+  };
+
+  return (
+    <Space direction="vertical" size="middle" style={{ width: "100%" }}>
+      <Text strong>操作区 / Action Area 验收样张</Text>
+
+      <div style={panelStyle}>
+        <Flex align="center" justify="space-between" gap={token.margin} wrap>
+          <Space direction="vertical" size={0}>
+            <Text strong>页面标题</Text>
+            <Text type="secondary">标题右侧操作区：弱操作在左，主操作在右</Text>
+          </Space>
+          <SensActionArea placement="header">
+            <SensButton tone="tertiary">查看记录</SensButton>
+            <SensButton tone="secondary">保存草稿</SensButton>
+            <SensButton tone="primary">发布</SensButton>
+          </SensActionArea>
+        </Flex>
+      </div>
+
+      <Flex gap={token.margin} wrap>
+        <div style={{ ...panelStyle, flex: "1 1 320px" }}>
+          <Space direction="vertical" size="small" style={{ width: "100%" }}>
+            <Text strong>实用尺寸 / 大尺寸 32</Text>
+            <Text type="secondary">页面、抽屉、对话框等空间充裕场景</Text>
+            <SensActionArea placement="footer">
+              <SensButton tone="tertiary">取消</SensButton>
+              <SensButton tone="secondary">保存草稿</SensButton>
+              <SensButton tone="primary">提交</SensButton>
+            </SensActionArea>
+          </Space>
+        </div>
+        <div style={{ ...panelStyle, flex: "1 1 320px" }}>
+          <Space direction="vertical" size="small" style={{ width: "100%" }}>
+            <Text strong>实用尺寸 / 小尺寸 24</Text>
+            <Text type="secondary">Popover、Dropdown 底部等空间有限场景</Text>
+            <SensActionArea placement="footer" style={{ gap: token.marginSM }}>
+              <SensButton tone="tertiary" size="small">
+                取消
+              </SensButton>
+              <SensButton tone="secondary" size="small">
+                二级按钮
+              </SensButton>
+              <SensButton tone="primary" size="small">
+                一级按钮
+              </SensButton>
+            </SensActionArea>
+          </Space>
+        </div>
+      </Flex>
+
+      <div style={mutedPanelStyle}>
+        <Flex vertical gap={token.margin}>
+          <Text strong>对话框底部操作区</Text>
+          <Text type="secondary">不同宿主位置不同，但优先级仍保持：三级 → 二级 → 一级</Text>
+          <SensActionArea placement="footer">
+            <SensButton tone="tertiary">取消</SensButton>
+            <SensButton tone="secondary">上一步</SensButton>
+            <SensButton tone="primary">确认提交</SensButton>
+          </SensActionArea>
+        </Flex>
+      </div>
+
+      <div style={panelStyle}>
+        <Flex vertical gap={token.marginSM}>
+          <Text strong>大量操作 / 收纳规则</Text>
+          <Flex align="center" justify="space-between" gap={token.margin} wrap>
+            <Text type="secondary">常规按钮 ≥5：同级高相关操作收进「更多」</Text>
+            <SensActionArea placement="header">
+              <SensButtonActionMenu items={MORE_AGGREGATION_ITEMS} tone="secondary" trigger={["hover"]}>
+                <SensMoreButton tone="secondary">创建计划</SensMoreButton>
+              </SensButtonActionMenu>
+              <SensButton tone="secondary">导入</SensButton>
+              <SensButton tone="primary">新建</SensButton>
+            </SensActionArea>
+          </Flex>
+          <Flex align="center" justify="space-between" gap={token.margin} wrap>
+            <Text type="secondary">表格操作列 ≥4：用链接按钮 + 下拉收起</Text>
+            <SensActionArea placement="header">
+              <SensButton tone="link">编辑</SensButton>
+              <SensButton tone="linkWeak">复制</SensButton>
+              <SensDropdownButton items={TABLE_DROPDOWN_ITEMS}>更多</SensDropdownButton>
+            </SensActionArea>
+          </Flex>
+        </Flex>
+      </div>
+
+      <Flex gap={token.margin} wrap>
+        <div style={{ ...panelStyle, flex: "1 1 280px" }}>
+          <Space direction="vertical" size="small">
+            <Text strong>虚线原位添加</Text>
+            <Text type="secondary">必须有位置引导，图标必选且在文字左侧</Text>
+            <SensButton tone="dashed">添加账号信息</SensButton>
+          </Space>
+        </div>
+        <div style={{ ...panelStyle, flex: "1 1 320px" }}>
+          <Space direction="vertical" size="small">
+            <Text strong>警告场景</Text>
+            <Text type="secondary">挽留默认红；其他风险默认不红，hover 才红</Text>
+            <Space wrap>
+              <SensButton tone="dangerSecondary">确认删除</SensButton>
+              <SensButton tone="dangerSecondaryWeak">移除成员</SensButton>
+              <SensButton tone="dangerLinkWeak">解绑</SensButton>
+            </Space>
+          </Space>
+        </div>
+        <div style={{ ...panelStyle, flex: "1 1 260px" }}>
+          <Space direction="vertical" size="small">
+            <Text strong>悬浮按钮 + Tips</Text>
+            <Text type="secondary">FAB 必须解释操作含义</Text>
+            <SensActionArea placement="floating">
+              <SensTips title="回到顶部" placement="left">
+                <span>
+                  <SensButton fab tone="secondary" icon={<IconDefaultIcon />} aria-label="回到顶部" />
+                </span>
+              </SensTips>
+            </SensActionArea>
+          </Space>
+        </div>
+      </Flex>
+    </Space>
+  );
+}
+
 function buildHorizontalFabItems(
   contentType: FabContentType,
   count: FabSegmentCount,
@@ -76,17 +229,19 @@ function buildHorizontalFabItems(
   const showIcon = contentType === "icon" || contentType === "iconText";
   const showLabel = contentType !== "icon";
 
-  return Array.from({ length: count }, () => ({
+  return Array.from({ length: count }, (_, index) => ({
     label: showLabel ? buttonLabel : undefined,
     icon: showIcon ? <IconDefaultIcon /> : undefined,
+    ariaLabel: showLabel ? undefined : `${buttonLabel}${index + 1}`,
     disabled,
     loading,
   }));
 }
 
 function buildVerticalFabItems(count: FabSegmentCount): SensFabVerticalGroupItem[] {
-  return Array.from({ length: count }, () => ({
+  return Array.from({ length: count }, (_, index) => ({
     icon: <IconDefaultIcon />,
+    ariaLabel: `竖向 FAB 第${index + 1}段`,
   }));
 }
 
@@ -124,6 +279,7 @@ function FabDemoPreview({
         disabled={disabled}
         loading={loading}
         icon={showIcon ? <IconDefaultIcon /> : undefined}
+        aria-label={showLabel ? undefined : actionLabel}
       >
         {showLabel ? actionLabel : null}
       </SensButton>
@@ -256,10 +412,15 @@ function ButtonDemo() {
   const [dropdownLoading, setDropdownLoading] = useState(false);
 
   const actionLabel = t("组件库.sensd-button-action-button", { defaultValue: "按钮" });
+  const addLabel = t("组件库.sensd-button-action-add", { defaultValue: "添加" });
   const moreLabel = t("组件库.sensd-button-action-more", { defaultValue: "更多" });
 
   return (
     <Space direction="vertical" size="large" style={{ width: "100%" }}>
+      <ActionAreaDemo />
+
+      <Divider style={{ margin: 0 }} />
+
       <Flex wrap gap={token.marginMD} align="flex-end">
         <Space direction="vertical" size={4}>
           <Text type="secondary">变体</Text>
@@ -316,6 +477,27 @@ function ButtonDemo() {
           {actionLabel}
         </SensButton>
         <Text type="secondary">鼠标悬停 / 点击查看 hover、active</Text>
+      </Space>
+
+      <Space direction="vertical" size="small" style={{ width: "100%" }}>
+        <Text strong>Figma 验收样张</Text>
+        <Space size="large" wrap align="center">
+          <SensButton tone="dashed" size={size === "small" ? "small" : undefined}>
+            {addLabel}
+          </SensButton>
+          <SensMoreButton tone="secondary" size={size === "small" ? "small" : undefined}>
+            {moreLabel}
+          </SensMoreButton>
+          <SensButton tone="tertiary" size={size === "small" ? "small" : undefined}>
+            {actionLabel}
+          </SensButton>
+          <SensButton fab tone="primary">
+            {actionLabel}
+          </SensButton>
+          <SensButton fab tone="secondary" icon={<IconDefaultIcon />}>
+            {actionLabel}
+          </SensButton>
+        </Space>
       </Space>
 
       <Divider style={{ margin: 0 }} />

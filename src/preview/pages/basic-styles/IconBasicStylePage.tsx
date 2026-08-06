@@ -1,24 +1,26 @@
-import {
-  ArrowLeftOutlined,
-  InfoCircleOutlined,
-  LoadingOutlined,
-  ReadOutlined,
-} from "@ant-design/icons";
-import { Alert, Space, Table, Tag, Typography } from "antd";
+import { LoadingOutlined } from "@ant-design/icons";
+import { Alert, Segmented, Space, Table, Tabs, Tag, Typography } from "antd";
+import { useState } from "react";
 import type { ColumnsType } from "antd/es/table";
 import iconDocSource from "../../../../docs/foundations/icon.md?raw";
 import tokens from "../../../design-system/tokens.resolved.json";
 import {
   ICON_NAMES,
   ICON_REGISTRY,
+  FILLED_ICON_NAMES,
+  FILLED_ICON_REGISTRY,
+  COLORFUL_ICON_NAMES,
+  COLORFUL_ICON_REGISTRY,
   SensIcon,
-  getIconSizeToken,
   resolveIconColor,
   type IconColorRole,
+  type IconRegistryEntry,
   type IconName,
+  type IconVariant,
 } from "../../../design-system/icons";
 import { BasicStylePageLayout } from "./BasicStylePageLayout";
 import { getPreviewTokens } from "../../previewTokens";
+import { getTypographyToken } from "../../../design-system/typography";
 
 const { Text, Title } = Typography;
 
@@ -30,6 +32,16 @@ const CATEGORY_LABEL: Record<(typeof ICON_REGISTRY)[IconName]["category"], strin
   navigation: "导航型",
   "input-assist": "输入辅助",
   "component-internal": "组件内部",
+  edit: "编辑",
+  object: "对象",
+  symbol: "符号",
+  direction: "方向",
+  brand: "品牌标识",
+  chart: "图表",
+  functional: "功能",
+  file: "文件格式",
+  business: "业务用语",
+  "colorful-functional": "彩色功能图标",
 };
 
 const ICON_TEXT_SIZE_ROWS = [
@@ -58,19 +70,7 @@ const COLOR_ROLES: { role: IconColorRole; tokenRef: string }[] = [
 ];
 
 const ANTD_ICON_ROWS = [
-  { key: "loading", icon: "LoadingOutlined", usage: "Button / Dropdown / FAB loading", decision: "外部依赖，待决策" },
-  { key: "read", icon: "ReadOutlined", usage: "文档入口", decision: "外部依赖，待决策" },
-  { key: "arrow-left", icon: "ArrowLeftOutlined", usage: "返回", decision: "外部依赖，待决策" },
-  { key: "info", icon: "InfoCircleOutlined", usage: "提示", decision: "外部依赖，待决策" },
-];
-
-const TEMP_CHAR_ROWS = [
-  { key: "more", char: "•••", semantic: "more", action: "替换为 more" },
-  { key: "down", char: "⌄", semantic: "down", action: "替换为 chevron-down" },
-  { key: "check", char: "✓", semantic: "checkbox-check", action: "复用或新增 checkbox-check" },
-  { key: "warning", char: "!", semantic: "warning", action: "复用或新增 warning" },
-  { key: "drag", char: "::", semantic: "drag", action: "需要新增 drag" },
-  { key: "edit", char: "✎", semantic: "edit", action: "需要新增 edit" },
+  { key: "loading", icon: "LoadingOutlined", usage: "Button / Dropdown / FAB loading", decision: "待替换为 SensIcon" },
 ];
 
 const ILLUSTRATION_ROWS = [
@@ -80,25 +80,24 @@ const ILLUSTRATION_ROWS = [
   { key: "antd-empty", asset: "Empty.PRESENTED_IMAGE_SIMPLE", note: "antd 空态，不进入 Icon registry" },
 ];
 
-function resolvePreviewSize(name: IconName): number {
-  const entry = ICON_REGISTRY[name];
-  const typical = entry.usageScenes[0]?.typicalSizes[0];
-  if (typical != null) {
-    return typical;
-  }
-  return getIconSizeToken("size/icon/m");
-}
-
-function resolvePreviewColorRole(name: IconName): IconColorRole {
-  const entry = ICON_REGISTRY[name];
+function resolvePreviewColorRole(entry: IconRegistryEntry): IconColorRole {
   return entry.usageScenes[0]?.typicalColorRoles[0] ?? "inherit";
 }
 
-function RegisteredIconCard({ name }: { name: IconName }) {
+function RegisteredIconCard({
+  name,
+  previewSize,
+  variant,
+  registry,
+}: {
+  name: IconName;
+  previewSize: number;
+  variant: IconVariant;
+  registry: Record<string, IconRegistryEntry>;
+}) {
   const token = getPreviewTokens();
-  const entry = ICON_REGISTRY[name];
-  const previewSize = resolvePreviewSize(name);
-  const previewColorRole = resolvePreviewColorRole(name);
+  const entry = registry[name];
+  const previewColorRole = resolvePreviewColorRole(entry);
 
   return (
     <div
@@ -120,7 +119,7 @@ function RegisteredIconCard({ name }: { name: IconName }) {
             borderRadius: token.borderRadius,
           }}
         >
-          <SensIcon name={name} size={previewSize} colorRole={previewColorRole} />
+          <SensIcon name={name} variant={variant} size={previewSize} colorRole={previewColorRole} />
         </div>
 
         <Space wrap size={[4, 4]}>
@@ -131,17 +130,14 @@ function RegisteredIconCard({ name }: { name: IconName }) {
           {entry.dualTone ? <Tag color="processing">dualTone</Tag> : null}
         </Space>
 
-        <Text type="secondary">{entry.labelZh}</Text>
-        <Text type="secondary" style={{ fontSize: 12 }}>
-          {entry.sourceComponent} · {entry.viewBox}
-        </Text>
+        <Text type="secondary">{entry.labelZh ?? "中文语义待补充"}</Text>
 
         {entry.usageScenes.length > 0 ? (
           <Space direction="vertical" size={4} style={{ width: "100%" }}>
             {entry.usageScenes.map((scene) => (
               <div key={scene.scene}>
-                <Text style={{ fontSize: 12 }}>{scene.scene}</Text>
-                <Text type="secondary" style={{ fontSize: 12, display: "block" }}>
+                <Text style={{ fontSize: getTypographyToken("font-size/s") }}>{scene.scene}</Text>
+                <Text type="secondary" style={{ fontSize: getTypographyToken("font-size/s"), display: "block" }}>
                   场景尺寸 {scene.typicalSizes.join(" / ")}px · 场景颜色 {scene.typicalColorRoles.join(" / ")} ·{" "}
                   {scene.reusableAtOtherSizes ? "可复用其他尺寸" : "优先固定场景尺寸"}
                 </Text>
@@ -150,6 +146,33 @@ function RegisteredIconCard({ name }: { name: IconName }) {
           </Space>
         ) : null}
       </Space>
+    </div>
+  );
+}
+
+function IconGallery({
+  names,
+  registry,
+  variant,
+  previewSize,
+}: {
+  names: readonly IconName[];
+  registry: Record<string, IconRegistryEntry>;
+  variant: IconVariant;
+  previewSize: number;
+}) {
+  return (
+    <div
+      style={{
+        display: "grid",
+        gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
+        gap: 16,
+        marginTop: 16,
+      }}
+    >
+      {names.map((name) => (
+        <RegisteredIconCard key={name} name={name} previewSize={previewSize} variant={variant} registry={registry} />
+      ))}
     </div>
   );
 }
@@ -186,7 +209,7 @@ function ColorRolePreview() {
               </Text>
               <Text
                 type="secondary"
-                style={{ fontSize: 12, color: isInverse ? token.colorBgContainer : undefined }}
+                style={{ fontSize: getTypographyToken("font-size/s"), color: isInverse ? token.colorBgContainer : undefined }}
               >
                 {tokenRef}
               </Text>
@@ -205,9 +228,6 @@ function AntdIconPreview({ iconKey }: { iconKey: string }) {
 
   const iconMap = {
     loading: <LoadingOutlined spin style={{ fontSize: iconSize, color: iconColor }} />,
-    read: <ReadOutlined style={{ fontSize: iconSize, color: iconColor }} />,
-    "arrow-left": <ArrowLeftOutlined style={{ fontSize: iconSize, color: iconColor }} />,
-    info: <InfoCircleOutlined style={{ fontSize: iconSize, color: iconColor }} />,
   } as const;
 
   return (
@@ -228,6 +248,9 @@ function AntdIconPreview({ iconKey }: { iconKey: string }) {
 }
 
 function IconSpecimen() {
+  const [iconSize, setIconSize] = useState<16 | 20 | 22>(16);
+  const [iconVariant, setIconVariant] = useState<IconVariant>("linear");
+  const isColorful = iconVariant === "colorful";
   const iconTextColumns: ColumnsType<(typeof ICON_TEXT_SIZE_ROWS)[number]> = [
     { title: "文字字号", dataIndex: "textSize", key: "textSize", width: 100, render: (v: number) => `${v}px` },
     { title: "图标尺寸", dataIndex: "iconSize", key: "iconSize", width: 100, render: (v: number) => `${v}px` },
@@ -259,18 +282,6 @@ function IconSpecimen() {
     },
   ];
 
-  const tempCharColumns: ColumnsType<(typeof TEMP_CHAR_ROWS)[number]> = [
-    {
-      title: "字符",
-      dataIndex: "char",
-      key: "char",
-      width: 80,
-      render: (value: string) => <Text code style={{ fontSize: 16 }}>{value}</Text>,
-    },
-    { title: "当前语义", dataIndex: "semantic", key: "semantic", width: 160 },
-    { title: "处理", dataIndex: "action", key: "action" },
-  ];
-
   const illustrationColumns: ColumnsType<(typeof ILLUSTRATION_ROWS)[number]> = [
     { title: "资产", dataIndex: "asset", key: "asset", width: 280 },
     { title: "说明", dataIndex: "note", key: "note" },
@@ -283,7 +294,7 @@ function IconSpecimen() {
           图标数值样张
         </Title>
         <Text type="secondary">
-          展示已入库自定义 SVG（{ICON_NAMES.length} 个）、尺寸与颜色 token 关系、外部 antd 图标边界、临时字符图标和插画边界。
+          展示已入库 Sens 图标（线性 {ICON_NAMES.length} 个、面性 {FILLED_ICON_NAMES.length} 个、彩色功能 {COLORFUL_ICON_NAMES.length} 个）、分类、中文语义、尺寸关系、颜色 token 边界和迁移结果。
         </Text>
       </div>
 
@@ -291,22 +302,60 @@ function IconSpecimen() {
         type="info"
         showIcon
         message="registry 只记录图标资产，不绑定唯一默认尺寸和颜色"
-        description="下方样张中的尺寸与颜色均标注为「场景尺寸 / 场景颜色」，由使用场景决定，不是图标本体默认值。"
+        description="线性与面性图标提供 16px、20px、22px 三档对照；彩色功能图标按功能资产规则固定为 48px。"
       />
 
       <section>
-        <Title level={5}>已入库图标（SensIcon）</Title>
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))",
-            gap: 16,
-          }}
-        >
-          {ICON_NAMES.map((name) => (
-            <RegisteredIconCard key={name} name={name} />
-          ))}
-        </div>
+        <Space align="center" style={{ width: "100%", justifyContent: "space-between" }}>
+          <Title level={5} style={{ margin: 0 }}>
+            已入库图标（SensIcon）
+          </Title>
+          {isColorful ? (
+            <Tag color="processing">彩色功能图标 · 固定 48px</Tag>
+          ) : (
+            <Segmented
+              aria-label="图标预览尺寸"
+              value={iconSize}
+              options={[16, 20, 22].map((size) => ({ label: `${size}px`, value: size }))}
+              onChange={(value) => setIconSize(value as 16 | 20 | 22)}
+            />
+          )}
+        </Space>
+        <Tabs
+          activeKey={iconVariant}
+          onChange={(key) => setIconVariant(key as IconVariant)}
+          items={[
+            {
+              key: "linear",
+              label: "线性图标",
+              children: <IconGallery names={ICON_NAMES} registry={ICON_REGISTRY} variant="linear" previewSize={iconSize} />,
+            },
+            {
+              key: "filled",
+              label: "面性图标",
+              children: (
+                <IconGallery
+                  names={FILLED_ICON_NAMES}
+                  registry={FILLED_ICON_REGISTRY}
+                  variant="filled"
+                  previewSize={iconSize}
+                />
+              ),
+            },
+            {
+              key: "colorful",
+              label: "彩色功能图标",
+              children: (
+                <IconGallery
+                  names={COLORFUL_ICON_NAMES}
+                  registry={COLORFUL_ICON_REGISTRY}
+                  variant="colorful"
+                  previewSize={u["size/xxl"]}
+                />
+              ),
+            },
+          ]}
+        />
       </section>
 
       <section>
@@ -330,20 +379,10 @@ function IconSpecimen() {
           <Alert
             type="warning"
             showIcon
-            message="第一阶段不迁移 antd 图标"
-            description="以下图标仍作为外部依赖使用，仅在此记录边界与当前用途，待后续单独决策是否迁移。"
+            message="antd 图标逐步迁移到 SensIcon"
+            description="以下是当前仍存在的外部 antd 图标使用点；线性与面性图标已完成资产入库，宿主组件后续按组件批次替换。"
           />
           <Table columns={antdColumns} dataSource={ANTD_ICON_ROWS} pagination={false} size="small" />
-        </Space>
-      </section>
-
-      <section>
-        <Space direction="vertical" size="middle" style={{ width: "100%" }}>
-          <Title level={5} style={{ margin: 0 }}>
-            临时字符图标（待替换）
-          </Title>
-          <Text type="secondary">Card 等页面仍使用字符模拟图标，第二阶段迁移时替换为 registry 图标。</Text>
-          <Table columns={tempCharColumns} dataSource={TEMP_CHAR_ROWS} pagination={false} size="small" />
         </Space>
       </section>
 

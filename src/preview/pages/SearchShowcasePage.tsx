@@ -23,6 +23,7 @@ type SearchDemoVariant =
   | "category"
   | "trigger"
   | "trigger-category"
+  | "minimal-category"
   | "minimal-create";
 
 const VARIANT_OPTIONS: { value: SearchDemoVariant; label: string }[] = [
@@ -30,10 +31,14 @@ const VARIANT_OPTIONS: { value: SearchDemoVariant; label: string }[] = [
   { value: "category", label: "复合搜索（实时型 + 分类）" },
   { value: "trigger", label: "触发型搜索" },
   { value: "trigger-category", label: "触发型 + 分类" },
+  { value: "minimal-category", label: "简约 · 带分类" },
   { value: "minimal-create", label: "简约搜索 + 创建" },
 ];
 
 const SUPPORTS_VISUAL_VARIANT = new Set<SearchDemoVariant>(["realtime", "category"]);
+
+/** 验收占位符截断 + SensTips：定宽 200 下故意写长 */
+const LONG_PLACEHOLDER = "搜索用户名称/用户ID/手机号/邮箱地址";
 
 function SearchDemoInstance({
   variant,
@@ -46,13 +51,15 @@ function SearchDemoInstance({
 }) {
   switch (variant) {
     case "realtime":
-      return <SearchInput visualVariant={visualVariant} />;
+      return <SearchInput visualVariant={visualVariant} placeholder={LONG_PLACEHOLDER} />;
     case "category":
-      return <CategorySearchInput visualVariant={visualVariant} />;
+      return <CategorySearchInput visualVariant={visualVariant} placeholder={LONG_PLACEHOLDER} />;
     case "trigger":
       return <SearchTriggerInput />;
     case "trigger-category":
       return <CategorySearchTriggerInput />;
+    case "minimal-category":
+      return <CategorySearchInput visualVariant="minimal" placeholder={LONG_PLACEHOLDER} />;
     case "minimal-create":
       return <MinimalSearchWithCreate showCreate={showCreate} onCreate={() => undefined} />;
     default:
@@ -104,7 +111,10 @@ function SearchDemo() {
 
       <Space size="large" wrap align="center">
         <SearchDemoInstance variant={variant} visualVariant={visualVariant} showCreate={showCreate} />
-        <Text type="secondary">悬停 / 聚焦 / 输入查看各态；简约有输入时出现返回与清空</Text>
+        <Text type="secondary">
+          悬停 / 聚焦 / 输入查看各态；简约有输入时出现返回与清空。基础 / 分类 Demo
+          用长占位符验收截断 + SensTips。命中高亮见「下拉菜单」浮层，不在本 Demo。
+        </Text>
       </Space>
     </Space>
   );

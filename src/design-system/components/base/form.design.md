@@ -68,6 +68,8 @@
 - 字符限制 `counter` 不独占底部一行，需与辅助信息或报错信息共用 meta 行并在右侧展示。
 - 横向表单标题文字超过 8 个中文字才省略；帮助图标和选填文案不参与省略，标题省略时 hover 展示完整 tips。
 - 表单操作区默认与表单项标题左侧对齐，不与控件列左侧对齐。
+- 表单项语义闭环：单个直接控件通过 `controlId` 与标题 `label[for]` 关联，选择组通过 `aria-labelledby` 关联；`name` 作为字段提交名由 `SensFormItem` 传入控件，不从标题文案推导。
+- 辅助说明、报错和字符限制统一挂在表单项 meta 节点，并通过 `aria-describedby` 关联控件；复杂联动结构由调用方显式标注主控件，不由 Form 猜测。
 
 ## 设计边界
 
@@ -91,4 +93,5 @@
 | 报错信息槽 | 已按 Figma `65:26672` / `65:26474` 录入辅助信息与报错替换关系 | Ready |
 | 控件最大宽度 / counter 行内展示 / 标题省略 tips | 已写入 `form.md` 并落到 `SensForm` | Ready |
 | 操作区对齐 | 默认与标题左侧对齐，已更新 `/components/form` Demo | Ready |
+| 表单项 label / name / meta 关联 | `controlId`、`name`、`label[for]` / `aria-labelledby` / `aria-describedby` 已接入 `SensFormItem`，复杂联动保留显式标注边界 | Ready |
 | 表单样板间分类 | 已收录带表格、联动、卡片表单；步骤、锚点、模态仍按前置组件拆分 | Ready |

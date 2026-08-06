@@ -117,11 +117,20 @@
 - 标题内容顺序固定为：标题文案 -> 帮助图标 -> 选填文案。
 - 必填项不显示视觉标识；不要在标题前加红色星号。
 - 选填项使用文案展示，推荐写作 `(选填)`。
-- 帮助图标使用 `SensIcon name="help"`，尺寸 `size/icon/m`，颜色来自 `icon-color-transparent`。
+- 帮助图标使用 `SensIcon name="help"`，尺寸 `size/icon/m`，颜色来自 `icon-color-transparent`；仅悬停出说明、不可点时用 `--sens-cursor-default`（禁止 `help` / `pointer`，见 `docs/foundations/cursor.md` §4.1）。
 - 标题文案使用四级标题样式：`text-color-transparent` @90% + `font-size/m` + `line-height/m` + `font-weight/medium`。
 - 选填文案使用 `text-sub-color-transparent` @58% + `font-size/m` + `line-height/m` + `font-weight/regular`，并和标题保持同一行高。
 - 左右布局中表单项标题文字超过 8 个中文字时才省略；标题文字最大宽度为 112px，由 `font-size/m * 8` 推导。出现省略时，悬停展示完整标题 tips；Tooltip 基础组件未录入前，先用原生 `title` 承接。
 - 帮助图标、`(选填)` 和标题附加信息不允许折行，也不参与标题文字省略。
+
+## 语义关联与 name
+
+- `SensFormItem.controlId` 是标题与控件之间的 DOM 关联 id；未显式传入时，单个直接控件会生成稳定 id。
+- `SensFormItem.name` 是字段提交名，直接传给 Input、InputNumber、TextArea、Select、RadioGroup 或 CheckboxGroup；不要从可见标题自动推导，避免换文案后破坏数据契约。
+- 单个直接控件使用 `label[for]` 关联标题；Radio / Checkbox 组使用表单项标题行的 `aria-labelledby`。
+- 表单项的辅助说明、报错和字符限制共用 meta 节点，并通过 `aria-describedby` 关联到直接控件；报错仍使用 `role="alert"`。
+- 复杂联动表单如果 children 是外层容器或多个控件，Form 不猜测主控件；调用方必须为实际控件显式提供 `id`、`name` 和必要的 ARIA 关联。
+- 当前 `SensForm` 是布局与语义骨架，不承担原生 `<form>` 提交；真正的提交行为由业务表单层决定。
 
 ## 左右布局标题对齐
 

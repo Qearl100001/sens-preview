@@ -1,6 +1,6 @@
 {
   "$schema": "sens.foundation.navigation-theme.v1",
-  "$description": "产品壳导航主题补充源。Figma 当前颜色变量不输出渐变值，因此顶导与侧导背景在此按 Figma 色板节点 2194:54928 录入。新增导航主题时必须补齐同一组槽位。",
+  "$description": "产品壳导航主题补充源。渐变与氛围层按 Figma 换肤表录入；主题色与功能色独立维护。当前共 12 套常规浅色主题：神策绿、冰绽蓝、原野黄、青柠绿、沙丘金、旭日红、极光绿、山水蓝、兰花紫、波光紫、云霞粉、子夜黑。",
   "theme": {
     "green": {
       "top": {
@@ -20,7 +20,7 @@
         },
         "atmosphere": {
           "$type": "gradient-stack",
-          "$description": "顶导航的氛围叠层。它独立于基础背景渐变，作为产品壳主题的一部分随换肤变化。当前绿肤值从已确认预览构成收口；后续其他产品壳主题必须补齐同一槽位。",
+          "$description": "顶导航氛围叠层；蓝肤复用同结构（白叠层 + 中性底线），随基础渐变换肤。",
           "$extensions": {
             "sens": { "handle": "theme-top-atmosphere" }
           },
@@ -79,8 +79,272 @@
       "page": {
         "background": {
           "$type": "color",
-          "$value": "#F5FAFA"
+          "$value": "#F2F7F7"
         }
+      },
+      "accent": {
+        "solid": {
+          "$type": "color",
+          "$description": "导航品牌实色（选中字/图标/短线）",
+          "$value": "{基础色板.神策绿.10}"
+        },
+        "subtle": {
+          "$type": "color",
+          "$description": "导航品牌浅底（选中/悬停菜单底 @0.1）",
+          "$value": {
+            "hex": "#00B280",
+            "alpha": 0.1
+          }
+        }
+      },
+      "handles": {
+        "$description": "绿肤品牌态走 Color.json 默认 handle；此表留空，消费时回落 getColorToken。"
+      }
+    },
+    "blue": {
+      "top": {
+        "background": {
+          "$type": "gradient",
+          "$extensions": {
+            "sens": { "handle": "theme-top-background" }
+          },
+          "$value": {
+            "type": "linear",
+            "angle": 135,
+            "stops": [
+              { "color": "#3B78C9", "position": 0 },
+              { "color": "#305BB0", "position": 100 }
+            ]
+          }
+        },
+        "atmosphere": {
+          "$type": "gradient-stack",
+          "$description": "蓝表未单列氛围层；复用绿肤叠层结构，叠在蓝色基础渐变上。",
+          "$extensions": {
+            "sens": { "handle": "theme-top-atmosphere" }
+          },
+          "$value": {
+            "layers": [
+              {
+                "type": "radial",
+                "geometry": "circle at 18% 62%",
+                "stops": [
+                  { "color": "{中性色.白.01 @white}", "alpha": 0.14, "position": 0 },
+                  { "color": "transparent", "position": 34 }
+                ]
+              },
+              {
+                "type": "radial",
+                "geometry": "circle at 82% -8%",
+                "stops": [
+                  { "color": "{中性色.白.01 @white}", "alpha": 0.12, "position": 0 },
+                  { "color": "transparent", "position": 42 }
+                ]
+              },
+              {
+                "type": "linear",
+                "geometry": "180deg",
+                "stops": [
+                  { "color": "transparent", "position": 0 },
+                  { "color": "{主题色.顶导航.线.01_深 @theme-top-line-dack}", "alpha": 0.12, "position": 100 }
+                ]
+              }
+            ]
+          }
+        }
+      },
+      "side": {
+        "background": {
+          "$type": "gradient",
+          "$extensions": {
+            "sens": { "handle": "theme-side-background" }
+          },
+          "$value": {
+            "type": "linear",
+            "angle": 180,
+            "stops": [
+              { "color": "#FAFBFC", "position": 0 },
+              { "color": "#F0F2F7", "position": 100 }
+            ]
+          }
+        }
+      },
+      "title": {
+        "background": {
+          "$type": "color",
+          "$value": "#F5F7FA"
+        }
+      },
+      "page": {
+        "background": {
+          "$type": "color",
+          "$value": "#F5F7FA"
+        }
+      },
+      "accent": {
+        "solid": {
+          "$type": "color",
+          "$description": "Figma 207:54681 冰绽蓝导航强调实色",
+          "$value": "{基础色板.冰绽蓝.10}"
+        },
+        "subtle": {
+          "$type": "color",
+          "$description": "Figma 207:54681 导航选中/悬停浅底 rgba(49,112,235,0.1)",
+          "$value": {
+            "hex": "#3170EB",
+            "alpha": 0.1
+          }
+        }
+      },
+      "handles": {
+        "theme-top-funcMenu-background-hover": {
+          "$type": "color",
+          "$value": { "hex": "#3170EB", "alpha": 0.1 }
+        },
+        "theme-top-funcMenu-background-active": {
+          "$type": "color",
+          "$value": { "hex": "#3170EB", "alpha": 0.1 }
+        },
+        "theme-top-funcMenu-text-hover": {
+          "$type": "color",
+          "$value": "{基础色板.冰绽蓝.10}"
+        },
+        "theme-top-funcMenu-text-active": {
+          "$type": "color",
+          "$value": "{基础色板.冰绽蓝.10}"
+        },
+        "theme-top-funcMenu-icon-hover": {
+          "$type": "color",
+          "$value": "{基础色板.冰绽蓝.10}"
+        },
+        "theme-top-funcMenu-icon-active": {
+          "$type": "color",
+          "$value": "{基础色板.冰绽蓝.10}"
+        },
+        "theme-top-proMenu-background-active": {
+          "$type": "color",
+          "$value": { "hex": "#3170EB", "alpha": 0.1 }
+        },
+        "theme-top-proMenu-text-active": {
+          "$type": "color",
+          "$value": "{基础色板.冰绽蓝.10}"
+        },
+        "theme-top-menuLine-active": {
+          "$type": "color",
+          "$value": "{基础色板.冰绽蓝.10}"
+        },
+        "theme-side-background-active": {
+          "$type": "color",
+          "$value": { "hex": "#3170EB", "alpha": 0.1 }
+        },
+        "theme-side-text-active": {
+          "$type": "color",
+          "$value": "{基础色板.冰绽蓝.10}"
+        },
+        "theme-side-icon-active": {
+          "$type": "color",
+          "$value": "{基础色板.冰绽蓝.10}"
+        },
+        "theme-title-background": {
+          "$type": "color",
+          "$value": "#F5F7FA"
+        },
+        "body-background": {
+          "$type": "color",
+          "$value": "#F5F7FA"
+        }
+      }
+    },
+    "wildYellow": {
+      "top": {
+        "background": { "$type": "gradient", "$value": { "type": "linear", "angle": 135, "stops": [{ "color": "#F0C400", "position": 0 }, { "color": "#F0AC00", "position": 100 }] } },
+        "atmosphere": { "$type": "gradient-stack", "$value": { "layers": [{ "type": "radial", "geometry": "circle at 18% 62%", "stops": [{ "color": "{中性色.白.01 @white}", "alpha": 0.14, "position": 0 }, { "color": "transparent", "position": 34 }] }, { "type": "radial", "geometry": "circle at 82% -8%", "stops": [{ "color": "{中性色.白.01 @white}", "alpha": 0.12, "position": 0 }, { "color": "transparent", "position": 42 }] }, { "type": "linear", "geometry": "180deg", "stops": [{ "color": "transparent", "position": 0 }, { "color": "{主题色.顶导航.线.01_深 @theme-top-line-dack}", "alpha": 0.12, "position": 100 }] }] } }
+      },
+      "side": { "background": { "$type": "gradient", "$value": { "type": "linear", "angle": 180, "stops": [{ "color": "#FCFCFA", "position": 0 }, { "color": "#F7F6F2", "position": 100 }] } } },
+      "title": { "background": { "$type": "color", "$value": "#FAF8F5" } },
+      "page": { "background": { "$type": "color", "$value": "#FAF8F5" } },
+      "accent": { "solid": { "$type": "color", "$value": "#EA9B02" }, "subtle": { "$type": "color", "$value": { "hex": "#FAB300", "alpha": 0.12 } } },
+      "handles": {
+        "theme-top-funcMenu-background-hover": { "$type": "color", "$value": { "hex": "#FAB300", "alpha": 0.12 } }, "theme-top-funcMenu-background-active": { "$type": "color", "$value": { "hex": "#FAB300", "alpha": 0.12 } },
+        "theme-top-funcMenu-text-hover": { "$type": "color", "$value": "#EA9B02" }, "theme-top-funcMenu-text-active": { "$type": "color", "$value": "#EA9B02" }, "theme-top-funcMenu-icon-hover": { "$type": "color", "$value": "#EA9B02" }, "theme-top-funcMenu-icon-active": { "$type": "color", "$value": "#EA9B02" },
+        "theme-top-proMenu-background-active": { "$type": "color", "$value": { "hex": "#FAB300", "alpha": 0.12 } }, "theme-top-proMenu-text-active": { "$type": "color", "$value": "#EA9B02" }, "theme-top-menuLine-active": { "$type": "color", "$value": "#EA9B02" },
+        "theme-side-background-active": { "$type": "color", "$value": { "hex": "#FAB300", "alpha": 0.12 } }, "theme-side-text-active": { "$type": "color", "$value": "#EA9B02" }, "theme-side-icon-active": { "$type": "color", "$value": "#EA9B02" },
+        "theme-title-background": { "$type": "color", "$value": "#FAF8F5" }, "body-background": { "$type": "color", "$value": "#FAF8F5" }
+      }
+    },
+    "limeGreen": {
+      "top": { "background": { "$type": "gradient", "$value": { "type": "linear", "angle": 135, "stops": [{ "color": "#99CC00", "position": 0 }, { "color": "#76B500", "position": 100 }] } }, "atmosphere": { "$type": "gradient-stack", "$value": { "layers": [{ "type": "radial", "geometry": "circle at 18% 62%", "stops": [{ "color": "{中性色.白.01 @white}", "alpha": 0.14, "position": 0 }, { "color": "transparent", "position": 34 }] }, { "type": "radial", "geometry": "circle at 82% -8%", "stops": [{ "color": "{中性色.白.01 @white}", "alpha": 0.12, "position": 0 }, { "color": "transparent", "position": 42 }] }, { "type": "linear", "geometry": "180deg", "stops": [{ "color": "transparent", "position": 0 }, { "color": "{主题色.顶导航.线.01_深 @theme-top-line-dack}", "alpha": 0.12, "position": 100 }] }] } } },
+      "side": { "background": { "$type": "gradient", "$value": { "type": "linear", "angle": 180, "stops": [{ "color": "#FCFCFA", "position": 0 }, { "color": "#F6F7F2", "position": 100 }] } } }, "title": { "background": { "$type": "color", "$value": "#F9FAF5" } }, "page": { "background": { "$type": "color", "$value": "#F9FAF5" } },
+      "accent": { "solid": { "$type": "color", "$value": "#88B500" }, "subtle": { "$type": "color", "$value": { "hex": "#99CC00", "alpha": 0.12 } } },
+      "handles": {
+        "theme-top-funcMenu-background-hover": { "$type": "color", "$value": { "hex": "#99CC00", "alpha": 0.12 } }, "theme-top-funcMenu-background-active": { "$type": "color", "$value": { "hex": "#99CC00", "alpha": 0.12 } },
+        "theme-top-funcMenu-text-hover": { "$type": "color", "$value": "#88B500" }, "theme-top-funcMenu-text-active": { "$type": "color", "$value": "#88B500" }, "theme-top-funcMenu-icon-hover": { "$type": "color", "$value": "#88B500" }, "theme-top-funcMenu-icon-active": { "$type": "color", "$value": "#88B500" },
+        "theme-top-proMenu-background-active": { "$type": "color", "$value": { "hex": "#99CC00", "alpha": 0.12 } }, "theme-top-proMenu-text-active": { "$type": "color", "$value": "#88B500" }, "theme-top-menuLine-active": { "$type": "color", "$value": "#88B500" }, "theme-side-background-active": { "$type": "color", "$value": { "hex": "#99CC00", "alpha": 0.12 } }, "theme-side-text-active": { "$type": "color", "$value": "#88B500" }, "theme-side-icon-active": { "$type": "color", "$value": "#88B500" },
+        "theme-title-background": { "$type": "color", "$value": "#F9FAF5" }, "body-background": { "$type": "color", "$value": "#F9FAF5" }
+      }
+    },
+    "duneGold": {
+      "top": { "background": { "$type": "gradient", "$value": { "type": "linear", "angle": 135, "stops": [{ "color": "#E0860F", "position": 0 }, { "color": "#D4690C", "position": 100 }] } }, "atmosphere": { "$type": "gradient-stack", "$value": { "layers": [{ "type": "radial", "geometry": "circle at 18% 62%", "stops": [{ "color": "{中性色.白.01 @white}", "alpha": 0.14, "position": 0 }, { "color": "transparent", "position": 34 }] }, { "type": "radial", "geometry": "circle at 82% -8%", "stops": [{ "color": "{中性色.白.01 @white}", "alpha": 0.12, "position": 0 }, { "color": "transparent", "position": 42 }] }, { "type": "linear", "geometry": "180deg", "stops": [{ "color": "transparent", "position": 0 }, { "color": "{主题色.顶导航.线.01_深 @theme-top-line-dack}", "alpha": 0.12, "position": 100 }] }] } } },
+      "side": { "background": { "$type": "gradient", "$value": { "type": "linear", "angle": 180, "stops": [{ "color": "#FCFBFA", "position": 0 }, { "color": "#F7F3F0", "position": 100 }] } } }, "title": { "background": { "$type": "color", "$value": "#FAF8F5" } }, "page": { "background": { "$type": "color", "$value": "#FAF8F5" } },
+      "accent": { "solid": { "$type": "color", "$value": "#F57D14" }, "subtle": { "$type": "color", "$value": { "hex": "#F57D14", "alpha": 0.1 } } },
+      "handles": {
+        "theme-top-funcMenu-background-hover": { "$type": "color", "$value": { "hex": "#F57D14", "alpha": 0.1 } }, "theme-top-funcMenu-background-active": { "$type": "color", "$value": { "hex": "#F57D14", "alpha": 0.1 } }, "theme-top-funcMenu-text-hover": { "$type": "color", "$value": "#F57D14" }, "theme-top-funcMenu-text-active": { "$type": "color", "$value": "#F57D14" }, "theme-top-funcMenu-icon-hover": { "$type": "color", "$value": "#F57D14" }, "theme-top-funcMenu-icon-active": { "$type": "color", "$value": "#F57D14" }, "theme-top-proMenu-background-active": { "$type": "color", "$value": { "hex": "#F57D14", "alpha": 0.1 } }, "theme-top-proMenu-text-active": { "$type": "color", "$value": "#F57D14" }, "theme-top-menuLine-active": { "$type": "color", "$value": "#F57D14" }, "theme-side-background-active": { "$type": "color", "$value": { "hex": "#F57D14", "alpha": 0.1 } }, "theme-side-text-active": { "$type": "color", "$value": "#F57D14" }, "theme-side-icon-active": { "$type": "color", "$value": "#F57D14" }, "theme-title-background": { "$type": "color", "$value": "#FAF8F5" }, "body-background": { "$type": "color", "$value": "#FAF8F5" }
+      }
+    },
+    "sunriseRed": {
+      "top": { "background": { "$type": "gradient", "$value": { "type": "linear", "angle": 135, "stops": [{ "color": "#CC4F41", "position": 0 }, { "color": "#B23D3D", "position": 100 }] } }, "atmosphere": { "$type": "gradient-stack", "$value": { "layers": [{ "type": "radial", "geometry": "circle at 18% 62%", "stops": [{ "color": "{中性色.白.01 @white}", "alpha": 0.14, "position": 0 }, { "color": "transparent", "position": 34 }] }, { "type": "radial", "geometry": "circle at 82% -8%", "stops": [{ "color": "{中性色.白.01 @white}", "alpha": 0.12, "position": 0 }, { "color": "transparent", "position": 42 }] }, { "type": "linear", "geometry": "180deg", "stops": [{ "color": "transparent", "position": 0 }, { "color": "{主题色.顶导航.线.01_深 @theme-top-line-dack}", "alpha": 0.12, "position": 100 }] }] } } },
+      "side": { "background": { "$type": "gradient", "$value": { "type": "linear", "angle": 180, "stops": [{ "color": "#FCFAFA", "position": 0 }, { "color": "#F7F2F2", "position": 100 }] } } }, "title": { "background": { "$type": "color", "$value": "#FAF8F8" } }, "page": { "background": { "$type": "color", "$value": "#FAF8F8" } },
+      "accent": { "solid": { "$type": "color", "$value": "#E54545" }, "subtle": { "$type": "color", "$value": { "hex": "#E54545", "alpha": 0.1 } } },
+      "handles": {
+        "theme-top-funcMenu-background-hover": { "$type": "color", "$value": { "hex": "#E54545", "alpha": 0.1 } }, "theme-top-funcMenu-background-active": { "$type": "color", "$value": { "hex": "#E54545", "alpha": 0.1 } }, "theme-top-funcMenu-text-hover": { "$type": "color", "$value": "#E54545" }, "theme-top-funcMenu-text-active": { "$type": "color", "$value": "#E54545" }, "theme-top-funcMenu-icon-hover": { "$type": "color", "$value": "#E54545" }, "theme-top-funcMenu-icon-active": { "$type": "color", "$value": "#E54545" }, "theme-top-proMenu-background-active": { "$type": "color", "$value": { "hex": "#E54545", "alpha": 0.1 } }, "theme-top-proMenu-text-active": { "$type": "color", "$value": "#E54545" }, "theme-top-menuLine-active": { "$type": "color", "$value": "#E54545" }, "theme-side-background-active": { "$type": "color", "$value": { "hex": "#E54545", "alpha": 0.1 } }, "theme-side-text-active": { "$type": "color", "$value": "#E54545" }, "theme-side-icon-active": { "$type": "color", "$value": "#E54545" }, "theme-title-background": { "$type": "color", "$value": "#FAF8F8" }, "body-background": { "$type": "color", "$value": "#FAF8F8" }
+      }
+    },
+    "auroraGreen": {
+      "top": { "background": { "$type": "gradient", "$value": { "type": "linear", "angle": 135, "stops": [{ "color": "#4F9931", "position": 0 }, { "color": "#3D852D", "position": 100 }] } }, "atmosphere": { "$type": "gradient-stack", "$value": { "layers": [{ "type": "radial", "geometry": "circle at 18% 62%", "stops": [{ "color": "{中性色.白.01 @white}", "alpha": 0.14, "position": 0 }, { "color": "transparent", "position": 34 }] }, { "type": "radial", "geometry": "circle at 82% -8%", "stops": [{ "color": "{中性色.白.01 @white}", "alpha": 0.12, "position": 0 }, { "color": "transparent", "position": 42 }] }, { "type": "linear", "geometry": "180deg", "stops": [{ "color": "transparent", "position": 0 }, { "color": "{主题色.顶导航.线.01_深 @theme-top-line-dack}", "alpha": 0.12, "position": 100 }] }] } } },
+      "side": { "background": { "$type": "gradient", "$value": { "type": "linear", "angle": 180, "stops": [{ "color": "#FBFCFA", "position": 0 }, { "color": "#F3F7F2", "position": 100 }] } } }, "title": { "background": { "$type": "color", "$value": "#F9FAF5" } }, "page": { "background": { "$type": "color", "$value": "#F9FAF5" } },
+      "accent": { "solid": { "$type": "color", "$value": "#5CB838" }, "subtle": { "$type": "color", "$value": { "hex": "#5CB838", "alpha": 0.1 } } },
+      "handles": {
+        "theme-top-funcMenu-background-hover": { "$type": "color", "$value": { "hex": "#5CB838", "alpha": 0.1 } }, "theme-top-funcMenu-background-active": { "$type": "color", "$value": { "hex": "#5CB838", "alpha": 0.1 } }, "theme-top-funcMenu-text-hover": { "$type": "color", "$value": "#5CB838" }, "theme-top-funcMenu-text-active": { "$type": "color", "$value": "#5CB838" }, "theme-top-funcMenu-icon-hover": { "$type": "color", "$value": "#5CB838" }, "theme-top-funcMenu-icon-active": { "$type": "color", "$value": "#5CB838" }, "theme-top-proMenu-background-active": { "$type": "color", "$value": { "hex": "#5CB838", "alpha": 0.1 } }, "theme-top-proMenu-text-active": { "$type": "color", "$value": "#5CB838" }, "theme-top-menuLine-active": { "$type": "color", "$value": "#5CB838" }, "theme-side-background-active": { "$type": "color", "$value": { "hex": "#5CB838", "alpha": 0.1 } }, "theme-side-text-active": { "$type": "color", "$value": "#5CB838" }, "theme-side-icon-active": { "$type": "color", "$value": "#5CB838" }, "theme-title-background": { "$type": "color", "$value": "#F9FAF5" }, "body-background": { "$type": "color", "$value": "#F9FAF5" }
+      }
+    },
+    "landscapeBlue": {
+      "top": { "background": { "$type": "gradient", "$value": { "type": "linear", "angle": 135, "stops": [{ "color": "#119ABF", "position": 0 }, { "color": "#0D77A8", "position": 100 }] } }, "atmosphere": { "$type": "gradient-stack", "$value": { "layers": [{ "type": "radial", "geometry": "circle at 18% 62%", "stops": [{ "color": "{中性色.白.01 @white}", "alpha": 0.14, "position": 0 }, { "color": "transparent", "position": 34 }] }, { "type": "radial", "geometry": "circle at 82% -8%", "stops": [{ "color": "{中性色.白.01 @white}", "alpha": 0.12, "position": 0 }, { "color": "transparent", "position": 42 }] }, { "type": "linear", "geometry": "180deg", "stops": [{ "color": "transparent", "position": 0 }, { "color": "{主题色.顶导航.线.01_深 @theme-top-line-dack}", "alpha": 0.12, "position": 100 }] }] } } },
+      "side": { "background": { "$type": "gradient", "$value": { "type": "linear", "angle": 180, "stops": [{ "color": "#FAFCFC", "position": 0 }, { "color": "#F0F5F7", "position": 100 }] } } }, "title": { "background": { "$type": "color", "$value": "#F5F9FA" } }, "page": { "background": { "$type": "color", "$value": "#F5F9FA" } },
+      "accent": { "solid": { "$type": "color", "$value": "#15ACD6" }, "subtle": { "$type": "color", "$value": { "hex": "#15ACD6", "alpha": 0.1 } } },
+      "handles": {
+        "theme-top-funcMenu-background-hover": { "$type": "color", "$value": { "hex": "#15ACD6", "alpha": 0.1 } }, "theme-top-funcMenu-background-active": { "$type": "color", "$value": { "hex": "#15ACD6", "alpha": 0.1 } }, "theme-top-funcMenu-text-hover": { "$type": "color", "$value": "#15ACD6" }, "theme-top-funcMenu-text-active": { "$type": "color", "$value": "#15ACD6" }, "theme-top-funcMenu-icon-hover": { "$type": "color", "$value": "#15ACD6" }, "theme-top-funcMenu-icon-active": { "$type": "color", "$value": "#15ACD6" }, "theme-top-proMenu-background-active": { "$type": "color", "$value": { "hex": "#15ACD6", "alpha": 0.1 } }, "theme-top-proMenu-text-active": { "$type": "color", "$value": "#15ACD6" }, "theme-top-menuLine-active": { "$type": "color", "$value": "#15ACD6" }, "theme-side-background-active": { "$type": "color", "$value": { "hex": "#15ACD6", "alpha": 0.1 } }, "theme-side-text-active": { "$type": "color", "$value": "#15ACD6" }, "theme-side-icon-active": { "$type": "color", "$value": "#15ACD6" }, "theme-title-background": { "$type": "color", "$value": "#F5F9FA" }, "body-background": { "$type": "color", "$value": "#F5F9FA" }
+      }
+    },
+    "orchidPurple": {
+      "top": { "background": { "$type": "gradient", "$value": { "type": "linear", "angle": 135, "stops": [{ "color": "#7E58D1", "position": 0 }, { "color": "#5F46B8", "position": 100 }] } }, "atmosphere": { "$type": "gradient-stack", "$value": { "layers": [{ "type": "radial", "geometry": "circle at 18% 62%", "stops": [{ "color": "{中性色.白.01 @white}", "alpha": 0.14, "position": 0 }, { "color": "transparent", "position": 34 }] }, { "type": "radial", "geometry": "circle at 82% -8%", "stops": [{ "color": "{中性色.白.01 @white}", "alpha": 0.12, "position": 0 }, { "color": "transparent", "position": 42 }] }, { "type": "linear", "geometry": "180deg", "stops": [{ "color": "transparent", "position": 0 }, { "color": "{主题色.顶导航.线.01_深 @theme-top-line-dack}", "alpha": 0.12, "position": 100 }] }] } } },
+      "side": { "background": { "$type": "gradient", "$value": { "type": "linear", "angle": 180, "stops": [{ "color": "#FBFAFC", "position": 0 }, { "color": "#F2F0F7", "position": 100 }] } } }, "title": { "background": { "$type": "color", "$value": "#F6F5FA" } }, "page": { "background": { "$type": "color", "$value": "#F6F5FA" } },
+      "accent": { "solid": { "$type": "color", "$value": "#7554EB" }, "subtle": { "$type": "color", "$value": { "hex": "#7554EB", "alpha": 0.1 } } },
+      "handles": {
+        "theme-top-funcMenu-background-hover": { "$type": "color", "$value": { "hex": "#7554EB", "alpha": 0.1 } }, "theme-top-funcMenu-background-active": { "$type": "color", "$value": { "hex": "#7554EB", "alpha": 0.1 } }, "theme-top-funcMenu-text-hover": { "$type": "color", "$value": "#7554EB" }, "theme-top-funcMenu-text-active": { "$type": "color", "$value": "#7554EB" }, "theme-top-funcMenu-icon-hover": { "$type": "color", "$value": "#7554EB" }, "theme-top-funcMenu-icon-active": { "$type": "color", "$value": "#7554EB" }, "theme-top-proMenu-background-active": { "$type": "color", "$value": { "hex": "#7554EB", "alpha": 0.1 } }, "theme-top-proMenu-text-active": { "$type": "color", "$value": "#7554EB" }, "theme-top-menuLine-active": { "$type": "color", "$value": "#7554EB" }, "theme-side-background-active": { "$type": "color", "$value": { "hex": "#7554EB", "alpha": 0.1 } }, "theme-side-text-active": { "$type": "color", "$value": "#7554EB" }, "theme-side-icon-active": { "$type": "color", "$value": "#7554EB" }, "theme-title-background": { "$type": "color", "$value": "#F6F5FA" }, "body-background": { "$type": "color", "$value": "#F6F5FA" }
+      }
+    },
+    "wavePurple": {
+      "top": { "background": { "$type": "gradient", "$value": { "type": "linear", "angle": 135, "stops": [{ "color": "#A947BF", "position": 0 }, { "color": "#8939A8", "position": 100 }] } }, "atmosphere": { "$type": "gradient-stack", "$value": { "layers": [{ "type": "radial", "geometry": "circle at 18% 62%", "stops": [{ "color": "{中性色.白.01 @white}", "alpha": 0.14, "position": 0 }, { "color": "transparent", "position": 34 }] }, { "type": "radial", "geometry": "circle at 82% -8%", "stops": [{ "color": "{中性色.白.01 @white}", "alpha": 0.12, "position": 0 }, { "color": "transparent", "position": 42 }] }, { "type": "linear", "geometry": "180deg", "stops": [{ "color": "transparent", "position": 0 }, { "color": "{主题色.顶导航.线.01_深 @theme-top-line-dack}", "alpha": 0.12, "position": 100 }] }] } } },
+      "side": { "background": { "$type": "gradient", "$value": { "type": "linear", "angle": 180, "stops": [{ "color": "#FCFAFC", "position": 0 }, { "color": "#F5F0F7", "position": 100 }] } } }, "title": { "background": { "$type": "color", "$value": "#F8F5FA" } }, "page": { "background": { "$type": "color", "$value": "#F8F5FA" } },
+      "accent": { "solid": { "$type": "color", "$value": "#AE43D9" }, "subtle": { "$type": "color", "$value": { "hex": "#AE43D9", "alpha": 0.1 } } },
+      "handles": {
+        "theme-top-funcMenu-background-hover": { "$type": "color", "$value": { "hex": "#AE43D9", "alpha": 0.1 } }, "theme-top-funcMenu-background-active": { "$type": "color", "$value": { "hex": "#AE43D9", "alpha": 0.1 } }, "theme-top-funcMenu-text-hover": { "$type": "color", "$value": "#AE43D9" }, "theme-top-funcMenu-text-active": { "$type": "color", "$value": "#AE43D9" }, "theme-top-funcMenu-icon-hover": { "$type": "color", "$value": "#AE43D9" }, "theme-top-funcMenu-icon-active": { "$type": "color", "$value": "#AE43D9" }, "theme-top-proMenu-background-active": { "$type": "color", "$value": { "hex": "#AE43D9", "alpha": 0.1 } }, "theme-top-proMenu-text-active": { "$type": "color", "$value": "#AE43D9" }, "theme-top-menuLine-active": { "$type": "color", "$value": "#AE43D9" }, "theme-side-background-active": { "$type": "color", "$value": { "hex": "#AE43D9", "alpha": 0.1 } }, "theme-side-text-active": { "$type": "color", "$value": "#AE43D9" }, "theme-side-icon-active": { "$type": "color", "$value": "#AE43D9" }, "theme-title-background": { "$type": "color", "$value": "#F8F5FA" }, "body-background": { "$type": "color", "$value": "#F8F5FA" }
+      }
+    },
+    "cloudPink": {
+      "top": { "background": { "$type": "gradient", "$value": { "type": "linear", "angle": 135, "stops": [{ "color": "#D63A8E", "position": 0 }, { "color": "#BD2E6C", "position": 100 }] } }, "atmosphere": { "$type": "gradient-stack", "$value": { "layers": [{ "type": "radial", "geometry": "circle at 18% 62%", "stops": [{ "color": "{中性色.白.01 @white}", "alpha": 0.14, "position": 0 }, { "color": "transparent", "position": 34 }] }, { "type": "radial", "geometry": "circle at 82% -8%", "stops": [{ "color": "{中性色.白.01 @white}", "alpha": 0.12, "position": 0 }, { "color": "transparent", "position": 42 }] }, { "type": "linear", "geometry": "180deg", "stops": [{ "color": "transparent", "position": 0 }, { "color": "{主题色.顶导航.线.01_深 @theme-top-line-dack}", "alpha": 0.12, "position": 100 }] }] } } },
+      "side": { "background": { "$type": "gradient", "$value": { "type": "linear", "angle": 180, "stops": [{ "color": "#FCFAFB", "position": 0 }, { "color": "#F7F2F5", "position": 100 }] } } }, "title": { "background": { "$type": "color", "$value": "#FAF7F9" } }, "page": { "background": { "$type": "color", "$value": "#FAF7F9" } },
+      "accent": { "solid": { "$type": "color", "$value": "#E5459A" }, "subtle": { "$type": "color", "$value": { "hex": "#E5459A", "alpha": 0.1 } } },
+      "handles": {
+        "theme-top-funcMenu-background-hover": { "$type": "color", "$value": { "hex": "#E5459A", "alpha": 0.1 } }, "theme-top-funcMenu-background-active": { "$type": "color", "$value": { "hex": "#E5459A", "alpha": 0.1 } }, "theme-top-funcMenu-text-hover": { "$type": "color", "$value": "#E5459A" }, "theme-top-funcMenu-text-active": { "$type": "color", "$value": "#E5459A" }, "theme-top-funcMenu-icon-hover": { "$type": "color", "$value": "#E5459A" }, "theme-top-funcMenu-icon-active": { "$type": "color", "$value": "#E5459A" }, "theme-top-proMenu-background-active": { "$type": "color", "$value": { "hex": "#E5459A", "alpha": 0.1 } }, "theme-top-proMenu-text-active": { "$type": "color", "$value": "#E5459A" }, "theme-top-menuLine-active": { "$type": "color", "$value": "#E5459A" }, "theme-side-background-active": { "$type": "color", "$value": { "hex": "#E5459A", "alpha": 0.1 } }, "theme-side-text-active": { "$type": "color", "$value": "#E5459A" }, "theme-side-icon-active": { "$type": "color", "$value": "#E5459A" }, "theme-title-background": { "$type": "color", "$value": "#FAF7F9" }, "body-background": { "$type": "color", "$value": "#FAF7F9" }
+      }
+    },
+    "midnightBlack": {
+      "top": { "background": { "$type": "gradient", "$value": { "type": "linear", "angle": 135, "stops": [{ "color": "#48505E", "position": 0 }, { "color": "#2E333C", "position": 100 }] } }, "atmosphere": { "$type": "gradient-stack", "$value": { "layers": [{ "type": "radial", "geometry": "circle at 18% 62%", "stops": [{ "color": "{中性色.白.01 @white}", "alpha": 0.14, "position": 0 }, { "color": "transparent", "position": 34 }] }, { "type": "radial", "geometry": "circle at 82% -8%", "stops": [{ "color": "{中性色.白.01 @white}", "alpha": 0.12, "position": 0 }, { "color": "transparent", "position": 42 }] }, { "type": "linear", "geometry": "180deg", "stops": [{ "color": "transparent", "position": 0 }, { "color": "{主题色.顶导航.线.01_深 @theme-top-line-dack}", "alpha": 0.12, "position": 100 }] }] } } },
+      "side": { "background": { "$type": "gradient", "$value": { "type": "linear", "angle": 180, "stops": [{ "color": "#F9FAFC", "position": 0 }, { "color": "#F2F4F7", "position": 100 }] } } }, "title": { "background": { "$type": "color", "$value": "#F5F6F9" } }, "page": { "background": { "$type": "color", "$value": "#F5F6F9" } },
+      "accent": { "solid": { "$type": "color", "$value": "#00B280" }, "subtle": { "$type": "color", "$value": { "hex": "#00B280", "alpha": 0.1 } } },
+      "handles": {
+        "theme-top-funcMenu-background-hover": { "$type": "color", "$value": { "hex": "#00B280", "alpha": 0.1 } }, "theme-top-funcMenu-background-active": { "$type": "color", "$value": { "hex": "#00B280", "alpha": 0.1 } }, "theme-top-funcMenu-text-hover": { "$type": "color", "$value": "#00B280" }, "theme-top-funcMenu-text-active": { "$type": "color", "$value": "#00B280" }, "theme-top-funcMenu-icon-hover": { "$type": "color", "$value": "#00B280" }, "theme-top-funcMenu-icon-active": { "$type": "color", "$value": "#00B280" }, "theme-top-proMenu-background-active": { "$type": "color", "$value": { "hex": "#00B280", "alpha": 0.1 } }, "theme-top-proMenu-text-active": { "$type": "color", "$value": "#00B280" }, "theme-top-menuLine-active": { "$type": "color", "$value": "#00B280" }, "theme-side-background-active": { "$type": "color", "$value": { "hex": "#00B280", "alpha": 0.1 } }, "theme-side-text-active": { "$type": "color", "$value": "#00B280" }, "theme-side-icon-active": { "$type": "color", "$value": "#00B280" }, "theme-title-background": { "$type": "color", "$value": "#F5F6F9" }, "body-background": { "$type": "color", "$value": "#F5F6F9" }
       }
     }
   }

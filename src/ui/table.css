@@ -131,7 +131,7 @@
   padding: 0;
   margin: 0;
   color: var(--sens-table-link-color);
-  cursor: pointer;
+  cursor: var(--sens-cursor-pointer);
   font: inherit;
   font-size: var(--sens-table-link-font-size);
   line-height: var(--sens-table-link-line-height);
@@ -147,7 +147,7 @@
 
 .sens-table-link-button:disabled {
   color: var(--sens-table-link-disabled-color);
-  cursor: not-allowed;
+  cursor: var(--sens-cursor-not-allowed);
 }
 
 .sens-table-actions {

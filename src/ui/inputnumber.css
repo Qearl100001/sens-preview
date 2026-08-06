@@ -97,7 +97,7 @@
   box-shadow: none !important;
   background-color: var(--sens-input-readonly-bg) !important;
   color: var(--sens-input-readonly-text);
-  cursor: default;
+  cursor: var(--sens-cursor-default);
 }
 
 .sens-inputnumber-readonly-filled.ant-input-number-outlined:hover,
@@ -110,7 +110,7 @@
 .sens-inputnumber-readonly-filled .ant-input-number-input {
   color: var(--sens-input-readonly-text);
   background: transparent;
-  cursor: default;
+  cursor: var(--sens-cursor-default);
 }
 
 .sens-inputnumber-readonly-filled.sens-inputnumber-readonly-warning.ant-input-number-outlined,
@@ -128,7 +128,7 @@
   box-shadow: none !important;
   background: transparent !important;
   color: var(--sens-input-readonly-text);
-  cursor: default;
+  cursor: var(--sens-cursor-default);
 }
 
 .sens-inputnumber-readonly-plain .ant-input-number-input {

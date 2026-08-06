@@ -13,6 +13,30 @@ Color 负责统一基础色板、语义 color handle、antd theme token、组件
 
 后续页面和组件不应该硬编码 hex / rgba，也不应该直接引用基础色板路径。业务实现必须优先使用语义 token、antd token 或 color helper。
 
+## 2.1 基础色板与色阶
+
+基础色板是设计源、审计源和换肤映射源，不是组件代码的直接消费层。当前基础色板包括 12 个主题色阶，以及子夜黑和象牙白中性色阶：
+
+- 旭日红、沙丘金、原野黄、青柠绿、极光绿、神策绿。
+- 山水蓝、冰绽蓝、兰花紫、波光紫、云霞粉、子夜黑。
+- 象牙白作为浅色中性色阶，与子夜黑共同承接文本、边框和背景的中性关系。
+
+彩色主题统一使用 16 阶，10 阶为基准色；子夜黑使用 12 阶，象牙白使用 8 阶。色彩定义以 HSB 为模型：深色区域保持色相、提高饱和度并降低明度；浅色区域保持色相、降低饱和度并提高明度。
+
+基础色阶的默认角色映射如下：
+
+| 角色 | 默认色阶 | 说明 |
+|---|---:|---|
+| 默认 | 10 | 默认品牌或功能表达 |
+| 悬停 | 8 | 功能性 hover |
+| 点击 | 12 | active / pressed |
+| 禁用 | 6 | 功能色禁用态 |
+| 禁用悬停 | 5 | 禁用控件的 hover 反馈 |
+| 选中背景 | 衍生色 | 根据基准色生成浅色承载 |
+| 浅色背景 | 01 或衍生色 | 标签、选中项和功能浅底 |
+
+基础色板样张必须能看到完整色阶、基准色角色和至少一组文字对比度示例。组件仍然只引用语义 handle；基础色板路径只允许出现在基础样张、换肤映射和审计代码中。
+
 ## 2. 四层关系
 
 ```text
@@ -36,11 +60,11 @@ Color 负责统一基础色板、语义 color handle、antd theme token、组件
 | `src/design-system/tokens.resolved.json` | 当前已解析 token 值 | 生成物，不能手改 |
 | `src/design-system/theme.ts` | antd theme token 与 components token | 生成物，不能手改 |
 | `src/design-system/color-utils.ts` | `getColorToken` / `tokenRgba` / shadow helper | 可作为业务和组件取色入口 |
-| `src/design-system/functional-skin.ts` | 局部功能色换肤映射 | 仅局部消费；全局 antd theme 仍使用绿色基线 |
+| `src/design-system/functional-skin.ts` | 功能色换肤映射 | 7 组功能色运行时映射；组件逐个完成消费验收 |
 
 ## 4. 功能色
 
-功能色是未来可换肤的部分，当前 TikTok case 先按绿色功能色验收。
+功能色是可换肤的部分；默认以神策绿作为基线，其他功能色由换肤预览和组件验收逐步确认。
 
 | 语义 | handle | 当前值 | antd |
 |---|---|---:|---|
@@ -56,27 +80,26 @@ Color 负责统一基础色板、语义 color handle、antd theme token、组件
 
 使用规则：
 
-- 主按钮、选中态、聚焦边框、功能性 hover 使用功能色。
+- 主按钮、功能性选中态、普通功能控件的聚焦边框、功能性 hover 使用功能色。
 - 链接按钮、表格操作列、帮助文档链接不能用功能色冒充，必须使用链接状态色。
-- v0.9 的全局 antd theme 固定为绿色基线；蓝肤仅作为局部 Functional Skin 预览，不作为页面或组件默认验收目标。
+- 成功、提醒、上涨、下跌和不变是被动语义，不能因为组件可点击就自动套用功能色的 Hover / Active 映射；如果它们承载在可交互控件中，按控件职责选择功能色、链接色或危险操作色。
+- v0.9 默认以神策绿作为功能色基线；运行时已支持 7 组 Functional Skin，组件是否完整消费仍以逐组件浏览器验收为准。
 
 ## 5. 状态色
 
 状态色不随功能色换肤变化。
 
-| 语义 | handle | 当前值 | antd |
-|---|---|---:|---|
-| 链接 | `link-color` | `#3170EB` | `colorLink` / `colorInfo` |
-| 链接 hover | `link-hover-color` | `#598CF0` | `colorLinkHover` |
-| 链接 active | `link-active-color` | `#1F53B8` | `colorLinkActive` |
-| 成功 | `success-color` | `#5CB838` | `colorSuccess` |
-| 提醒黄 | `info-color` | `#FAB300` | `colorWarning` |
-| 警告红 | `warning-color` | `#E54545` | `colorError` |
-| 警告 hover | `warning-color-hover` | `#EB6767` | `colorErrorHover` |
-| 警告 active | `warning-color-active` | `#B22B2B` | `colorErrorActive` |
-| 涨 | `rise-color` | 见 `color-semantics.md` | 业务层 handle |
-| 跌 | `fall-color` | 见 `color-semantics.md` | 业务层 handle |
-| 不变 | `flat-color` | 见 `color-semantics.md` | 业务层 handle |
+| 语义 | handle | 当前值 | 默认 | Hover | Active / Pressed | antd |
+|---|---|---:|---|---|---|---|
+| 链接 | `link-color` | `#3170EB` | `link-color` | `link-hover-color` | `link-active-color` | `colorLink` / `colorInfo` |
+| 成功 | `success-color` | `#5CB838` | `success-color` | 通常无 | 通常无 | `colorSuccess` |
+| 提醒黄 | `info-color` | `#FAB300` | `info-color` | 通常无 | 通常无 | `colorWarning` |
+| 警告红 | `warning-color` | `#E54545` | `warning-color` | `warning-color-hover` | `warning-color-active` | `colorError` |
+| 错误 | 复用警告红 | `#E54545` | `warning-color` | 被动错误通常无 | 被动错误通常无 | `colorError` |
+| 危险操作 | 复用警告红 | `#E54545` | `warning-color` | `warning-color-hover` | `warning-color-active` | `colorError` / `Button danger` |
+| 涨 | `rise-color` | 见 `color-semantics.md` | `rise-color` | 无 | 无 | 业务层 handle |
+| 跌 | `fall-color` | 见 `color-semantics.md` | `fall-color` | 无 | 无 | 业务层 handle |
+| 不变 | `flat-color` | 见 `color-semantics.md` | `flat-color` | 无 | 无 | 业务层 handle |
 
 重要约束：
 
@@ -85,6 +108,32 @@ Color 负责统一基础色板、语义 color handle、antd theme token、组件
 - 这两个语义和 antd 英文名存在交叉，不能因为看起来不一致就纠正。
 - 删除、危险确认、错误态使用警告红，不使用链接蓝。
 - 表格操作、普通跳转、帮助文档使用链接蓝，不使用功能绿。
+
+### 5.1 交互状态归属
+
+“默认 / Hover / Active”必须先判断颜色家族，再判断组件是否具有对应交互状态：
+
+| 颜色家族 | 默认 | Hover | Active / Pressed | 聚焦外环 / 激活投影 |
+|---|---|---|---|---|
+| 功能色 | `component-primary` | `component-hover` | `component-active` | `component-active-shadow` |
+| 链接色 | `link-color` | `link-hover-color` | `link-active-color` | 使用链接 active 指示；不回退成绿色功能投影 |
+| 警告 / 危险 | `warning-color` | `warning-color-hover` | `warning-color-active` | `warning-color-active-shadow` |
+| 被动状态 / 数据语义 | 各自默认色 | 无 | 无 | 不自动产生交互投影 |
+
+聚焦外环用于键盘 `focus-visible`，激活投影用于按下或激活反馈。两者可以共享同一语义投影源和 alpha（当前通常为 20%），但触发时机和验收目标不同。普通功能色使用 `component-active-shadow`，警告 / 危险使用 `warning-color-active-shadow`。
+
+当前没有独立的 `link-focus-shadow` handle：纯文字链接使用 `link-active-color` 的文字或下划线指示；链接若被承载为按钮或输入式控件，必须保持蓝色语义的 focus 指示，不能回退到绿色功能色外环。是否新增独立链接投影 token，另按组件验收结果决定。
+
+### 5.2 Figma 组件应用矩阵
+
+Figma「定制色_v2.1」节点定义的是语义颜色的组件应用层，不是基础色阶或全局交互状态层。它覆盖 Badge、Switch、标签 / 叠加标签、标签 / 多彩标签等组件，并进一步区分：
+
+- 背景默认、悬停、点击、禁用、禁用悬停。
+- 文字与图标的默认、悬停、点击。
+- 多彩标签的不同语义色背景和文字组合。
+- 这些定制语义色是否跟随换肤。
+
+该 Figma 表格右侧“跟随换肤功能改变”对这些定制色标记为“否”。因此，组件应用矩阵必须保留在颜色基础和对应组件文档中；`docs/design-system.md` 只需要规定颜色家族和边界，不需要复制整张明细表。组件实现时应引用本 Foundation 的语义 handle，并在组件文档中记录自己的状态映射。
 
 ## 6. 中性色
 
@@ -158,13 +207,13 @@ tokenRgba("outline-color-transparent", 0.08)
 
 | 问题 | 当前处理 | 建议时机 |
 |---|---|---|
-| 全局功能色换肤未完成 | 先记录，不纳入 TikTok 两周主验收 | 单独立项，尽早排期 |
+| 组件级功能色换肤验收未完成 | 主题层已具备，组件仍需逐个确认 | 按组件验收轮次推进 |
 | 导航主题色系统独立 | 已记录来源和差异，不混入普通 Color Foundation | 做产品壳 / 导航前优先整理映射表 |
 | `theme.ts` 内有大量 hex | 生成文件正常现状，不能手改 | 找到 token 源或重建生成链路后处理 |
 | 组件内仍有 fallback hex / rgba | 不在 Color Foundation 阶段批量改 | 进入对应组件时逐个解决 |
 | `.ant-*` 覆盖和 `!important` 较多 | 不一刀切删除 | 单组件验收时说明必要性或替换为 token / props |
 | TikTok 导航占位存在渐变硬编码 | 导航后置，只记录 | 做产品壳 / 导航时处理 |
-| 基础色板完整样张缺失 | 暂不影响 TikTok case | Foundation 展示页阶段补 |
+| 基础色板完整样张 | 已补入 `/basic-styles/color` | 持续按 Figma 色板维护 |
 
 ## 13. 单组件颜色验收
 
@@ -181,7 +230,7 @@ tokenRgba("outline-color-transparent", 0.08)
 ## 14. 待补
 
 - 建立 Color token / helper 的代码侧准入方案。
-- 尽早处理全局换肤方案，避免后续组件重复返工。
-- 为导航主题色建立独立映射表，避免产品壳 / 导航继续硬编码渐变和主题色。
+- ✅ 全局换肤绿/蓝：矩阵 + Appearance Context + 组件 `functionalCssVar` 接线（阶段 1–3）；黄肤与分控切换后置。
+- ✅ 为导航主题色建立独立映射表（`navigation-theme.json` green/blue + `getNavigationColorToken`）。
 - 在组件清单阶段优先审计 TikTok 必需组件的颜色来源。
-- 后续补色彩样张页，用于人工验收基础色、语义色、透明度和换肤差异。
+- 持续维护色彩样张页，用于人工验收基础色、语义色、透明度、对比度和换肤差异。

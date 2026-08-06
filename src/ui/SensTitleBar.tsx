@@ -1,16 +1,18 @@
 import type { CSSProperties, ReactNode } from "react";
-import { getColorToken, tokenRgba } from "../design-system/color-utils";
+import { tokenRgba } from "../design-system/color-utils";
 import { SensIcon } from "../design-system/icons";
+import { navigationCssVar } from "../design-system/navigation-color";
 import { getTypographyToken } from "../design-system/typography";
 import { getUnitToken } from "../design-system/unit";
 import { SensButton } from "./SensButton";
 
-export const SENS_TITLE_BAR_HEIGHT = 72;
+export const SENS_TITLE_BAR_HEIGHT = getUnitToken("size/component-height/title-bar");
 export const SENS_TITLE_BAR_BACK_HIT_SIZE = getUnitToken("spacing/6x");
 
 const titleBarTokens = {
   height: SENS_TITLE_BAR_HEIGHT,
-  background: getColorToken("theme-title-background"),
+  /** 导航换肤：theme-title-background → --sens-nav-title-bg */
+  background: navigationCssVar("--sens-nav-title-bg", "theme-title-background"),
   text: tokenRgba("text-color-transparent", 0.9),
   paddingRight: getUnitToken("spacing/6x"),
   contentPaddingLeft: getUnitToken("spacing/0.5x"),
@@ -29,6 +31,8 @@ export interface SensTitleBarProps {
   className?: string;
   style?: CSSProperties;
   titleStyle?: CSSProperties;
+  /** 供抽屉等 dialog 挂 `aria-labelledby`；由 SensDrawer 注入时可省略 */
+  titleId?: string;
 }
 
 /** 标题栏 / 面包屑场景的标题区：背景跟随导航换肤 token。 */
@@ -39,6 +43,7 @@ export function SensTitleBar({
   className,
   style,
   titleStyle,
+  titleId,
 }: SensTitleBarProps) {
   return (
     <div
@@ -82,6 +87,9 @@ export function SensTitleBar({
         ) : null}
 
         <div
+          id={titleId}
+          role="heading"
+          aria-level={1}
           style={{
             minWidth: 0,
             overflow: "hidden",

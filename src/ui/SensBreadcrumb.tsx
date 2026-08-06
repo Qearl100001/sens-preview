@@ -1,9 +1,16 @@
 import { useState, type CSSProperties, type ReactNode } from "react";
+import { Dropdown } from "antd";
 import tokens from "../design-system/tokens.resolved.json";
 import { getColorToken, tokenRgba } from "../design-system/color-utils";
+import { SensIcon } from "../design-system/icons";
 import { getTypographyToken } from "../design-system/typography";
+import { SensDropdownMenu, useSensDropdownMenuStyle } from "./SensDropdownMenu";
+import { SensDropdownMenuItem } from "./SensDropdownMenuItem";
+import "./breadcrumb.css";
 
 const u = tokens.unit as Record<string, number>;
+
+const ELLIPSIS_KEY = "__ellipsis__";
 
 export interface SensBreadcrumbItem {
   key: string;
@@ -18,21 +25,25 @@ export interface SensBreadcrumbProps {
   style?: CSSProperties;
 }
 
+/** 全路径默认同色（含当前项）；可点祖先 / more 悬停、点击对齐 linkWeak */
 const breadcrumbTokens = {
   text: tokenRgba("text-sub-color-transparent", 0.58),
-  current: tokenRgba("text-color-transparent", 0.9),
   hover: getColorToken("link-color"),
   active: getColorToken("link-active-color"),
-  separator: tokenRgba("text-sub-color-transparent", 0.58),
   gap: u["spacing/1x"],
   fontSize: getTypographyToken("font-size/s"),
   lineHeight: getTypographyToken("line-height/s"),
   fontWeight: getTypographyToken("font-weight/regular"),
 };
 
+function getHiddenItems(items: SensBreadcrumbItem[]): SensBreadcrumbItem[] {
+  if (items.length <= 2) return [];
+  return items.slice(1, -1);
+}
+
 function getVisibleItems(items: SensBreadcrumbItem[], ellipsis: boolean): SensBreadcrumbItem[] {
   if (!ellipsis || items.length <= 2) return items;
-  return [items[0], { key: "__ellipsis__", label: "..." }, items[items.length - 1]];
+  return [items[0], { key: ELLIPSIS_KEY, label: null }, items[items.length - 1]];
 }
 
 function BreadcrumbLink({
@@ -42,26 +53,13 @@ function BreadcrumbLink({
   item: SensBreadcrumbItem;
   current: boolean;
 }) {
-  const [state, setState] = useState<"default" | "hover" | "active">("default");
   const interactive = Boolean(item.onClick) && !current;
-  const color = current
-    ? breadcrumbTokens.current
-    : state === "active"
-      ? breadcrumbTokens.active
-      : state === "hover"
-        ? breadcrumbTokens.hover
-        : breadcrumbTokens.text;
 
-  if (!interactive) {
+  if (current || !interactive) {
     return (
       <span
-        style={{
-          color,
-          whiteSpace: "nowrap",
-          overflow: "hidden",
-          textOverflow: "ellipsis",
-          maxWidth: 160,
-        }}
+        className={current ? "sens-breadcrumb-current" : "sens-breadcrumb-plain"}
+        {...(current ? { "aria-current": "page" as const } : {})}
       >
         {item.label}
       </span>
@@ -69,65 +67,78 @@ function BreadcrumbLink({
   }
 
   return (
-    <button
-      type="button"
-      onClick={item.onClick}
-      onMouseEnter={() => setState("hover")}
-      onMouseLeave={() => setState("default")}
-      onMouseDown={() => setState("active")}
-      onMouseUp={() => setState("hover")}
-      onFocus={() => setState("hover")}
-      onBlur={() => setState("default")}
-      style={{
-        border: 0,
-        padding: 0,
-        margin: 0,
-        background: "transparent",
-        color,
-        font: "inherit",
-        lineHeight: "inherit",
-        cursor: "pointer",
-        whiteSpace: "nowrap",
-      }}
-    >
+    <button type="button" className="sens-breadcrumb-link" onClick={item.onClick}>
       {item.label}
     </button>
   );
 }
 
+function BreadcrumbEllipsis({ hiddenItems }: { hiddenItems: SensBreadcrumbItem[] }) {
+  const [open, setOpen] = useState(false);
+  const menuStyle = useSensDropdownMenuStyle();
+
+  return (
+    <Dropdown
+      trigger={["click"]}
+      open={open}
+      onOpenChange={setOpen}
+      popupRender={() => (
+        <SensDropdownMenu>
+          {hiddenItems.map((item) => (
+            <SensDropdownMenuItem
+              key={item.key}
+              onClick={() => {
+                item.onClick?.();
+                setOpen(false);
+              }}
+            >
+              {item.label}
+            </SensDropdownMenuItem>
+          ))}
+        </SensDropdownMenu>
+      )}
+      overlayClassName="sens-dropdown-menu-overlay"
+      overlayStyle={menuStyle}
+    >
+      <button type="button" className="sens-breadcrumb-ellipsis-trigger" aria-label="更多层级" aria-expanded={open}>
+        <SensIcon name="more" sizeToken="size/icon/s" color="currentColor" />
+      </button>
+    </Dropdown>
+  );
+}
+
 export function SensBreadcrumb({ items, ellipsis = false, className, style }: SensBreadcrumbProps) {
   const visibleItems = getVisibleItems(items, ellipsis);
+  const hiddenItems = ellipsis ? getHiddenItems(items) : [];
+  const cssVars = {
+    "--sens-breadcrumb-text": breadcrumbTokens.text,
+    "--sens-breadcrumb-hover": breadcrumbTokens.hover,
+    "--sens-breadcrumb-active": breadcrumbTokens.active,
+    "--sens-breadcrumb-gap": `${breadcrumbTokens.gap}px`,
+    "--sens-breadcrumb-font-size": `${breadcrumbTokens.fontSize}px`,
+    "--sens-breadcrumb-line-height": `${breadcrumbTokens.lineHeight}px`,
+    "--sens-breadcrumb-font-weight": String(breadcrumbTokens.fontWeight),
+    /** focus 环圆角：无 2px token，取最近档 radius/s */
+    "--sens-breadcrumb-focus-radius": `${u["radius/s"]}px`,
+  } as CSSProperties;
 
   return (
     <nav
-      className={className}
+      className={["sens-breadcrumb", className].filter(Boolean).join(" ")}
       aria-label="面包屑"
-      style={{
-        minWidth: 0,
-        display: "flex",
-        alignItems: "center",
-        gap: breadcrumbTokens.gap,
-        color: breadcrumbTokens.text,
-        fontSize: breadcrumbTokens.fontSize,
-        lineHeight: `${breadcrumbTokens.lineHeight}px`,
-        fontWeight: breadcrumbTokens.fontWeight,
-        ...style,
-      }}
+      style={{ ...cssVars, ...style }}
     >
       {visibleItems.map((item, index) => {
         const current = index === visibleItems.length - 1;
+        const isEllipsis = item.key === ELLIPSIS_KEY;
         return (
-          <span
-            key={item.key}
-            style={{
-              minWidth: 0,
-              display: "inline-flex",
-              alignItems: "center",
-              gap: breadcrumbTokens.gap,
-            }}
-          >
-            {index > 0 ? <span style={{ color: breadcrumbTokens.separator }}>/</span> : null}
-            <BreadcrumbLink item={item} current={current} />
+          <span key={item.key} className="sens-breadcrumb-item">
+            {index > 0 ? <span className="sens-breadcrumb-separator">/</span> : null}
+            {isEllipsis ? (
+              <BreadcrumbEllipsis hiddenItems={hiddenItems} />
+            ) : (
+              <BreadcrumbLink item={item} current={current} />
+            )}
           </span>
         );
       })}

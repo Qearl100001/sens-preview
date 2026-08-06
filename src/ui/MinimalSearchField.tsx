@@ -10,7 +10,7 @@ import {
 import { useTranslation } from "react-i18next";
 import { ChevronLeftIcon } from "./FieldIcons";
 import { useSensAllowClear, useSensSearchPrefix } from "./fieldIconProps";
-import { SensButton } from "./SensButton";
+import { SearchPlaceholderTip } from "./SearchPlaceholderTip";
 import { useSearchRootStyle } from "./searchTokens";
 import { useMinimalSearchValue } from "./useMinimalSearchValue";
 
@@ -19,12 +19,13 @@ const I18N_NS = "组件库";
 export type MinimalSearchLineTone = "default" | "primary" | "active";
 
 export interface MinimalSearchFieldProps
-  extends Omit<InputProps, "prefix" | "allowClear" | "variant" | "width" | "size"> {
+  extends Omit<InputProps, "prefix" | "allowClear" | "variant" | "width" | "size" | "disabled"> {
   width?: number | string;
   /** 右侧「创建」链接；默认 false */
   showCreate?: boolean;
   createLabel?: string;
   onCreate?: () => void;
+  /** 仅禁用「创建」；搜索本身无禁用态 */
   createDisabled?: boolean;
   onBack?: () => void;
   showBackWhenFilled?: boolean;
@@ -75,7 +76,6 @@ export function MinimalSearchField({
   showBackWhenFilled = true,
   className,
   style,
-  disabled,
   placeholder,
   value,
   defaultValue,
@@ -194,7 +194,6 @@ export function MinimalSearchField({
               type="button"
               className="sens-search-minimal-back"
               onClick={resetValue}
-              disabled={disabled}
               aria-label={backLabel}
             >
               <ChevronLeftIcon className="sens-search-minimal-back-icon" />
@@ -204,19 +203,20 @@ export function MinimalSearchField({
         ) : null}
 
         <div className="sens-search-minimal-input-wrap">
-          <Input
-            allowClear={allowClear}
-            variant="borderless"
-            prefix={<SearchPrefixIcon />}
-            placeholder={resolvedPlaceholder}
-            disabled={disabled}
-            value={currentValue}
-            onChange={handleChange}
-            onFocus={handleFocus}
-            onBlur={handleBlur}
-            className="sens-search-field sens-search-minimal-input"
-            {...rest}
-          />
+          <SearchPlaceholderTip placeholder={resolvedPlaceholder} hasValue={hasValue}>
+            <Input
+              allowClear={allowClear}
+              variant="borderless"
+              prefix={<SearchPrefixIcon />}
+              placeholder={resolvedPlaceholder}
+              value={currentValue}
+              onChange={handleChange}
+              onFocus={handleFocus}
+              onBlur={handleBlur}
+              className="sens-search-field sens-search-minimal-input"
+              {...rest}
+            />
+          </SearchPlaceholderTip>
         </div>
       </div>
 
@@ -229,14 +229,14 @@ export function MinimalSearchField({
           onMouseUp={handleCreateMouseUp}
         >
           <span className="sens-search-minimal-vdivider sens-search-minimal-create-vdivider" aria-hidden />
-          <SensButton
-            tone="linkWeak"
-            className="sens-search-minimal-create-action"
+          <button
+            type="button"
+            className="sens-cursor-pointer sens-search-minimal-create-action"
             onClick={onCreate}
-            disabled={disabled || createDisabled}
+            disabled={createDisabled}
           >
             {resolvedCreateLabel}
-          </SensButton>
+          </button>
         </div>
       ) : null}
     </div>

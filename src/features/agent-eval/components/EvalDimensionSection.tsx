@@ -8,6 +8,7 @@ import { TableShell } from "../../../ui";
 import type { EvalEvaluatorRow, EvalFormulaSpec } from "../evalDashboardTypes";
 import { EvalDimensionCell, EvalStatusPill } from "./EvalBadges";
 import { EvalPanel, EvalSectionTitle } from "./EvalLayout";
+import { functionalCssVar } from "../../../design-system/functional-skin";
 
 const u = tokens.unit as Record<string, number>;
 
@@ -67,7 +68,7 @@ export function EvalChartLegend({
 }) {
   return (
     <div style={{ display: "flex", gap: u["spacing/4x"], fontSize: getTypographyToken("font-size/s"), flexWrap: "wrap" }}>
-      <LegendLine color={getColorToken("component-primary")} dashed={false} label={currentLabel} />
+      <LegendLine color={functionalCssVar("--sens-skin-primary", "component-primary")} dashed={false} label={currentLabel} />
       <LegendLine color={tokenRgba("text-sub-color-transparent", 0.58)} dashed label={baselineLabel} />
       {targetLabel ? (
         <LegendLine color={getColorToken("warning-color")} dashed label={targetLabel} />

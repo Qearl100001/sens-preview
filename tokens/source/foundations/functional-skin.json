@@ -1,0 +1,172 @@
+{
+  "$schema": "sens.foundation.functional-skin.v1",
+  "$description": "功能色换肤矩阵。导航品牌主题与功能色独立维护；旭日红、原野黄、沙丘金、云霞粉使用冰绽蓝功能色，避免品牌色承担成功、警告等操作语义。不收录链接 / 状态色。",
+  "skin": {
+    "green": {
+      "primary": {
+        "$type": "color",
+        "$value": "{功能色.01_默认 @component-primary}"
+      },
+      "hover": {
+        "$type": "color",
+        "$value": "{功能色.02_悬停 @component-hover}"
+      },
+      "active": {
+        "$type": "color",
+        "$value": "{功能色.03_点击 @component-active}"
+      },
+      "disable": {
+        "$type": "color",
+        "$value": "{功能色.04_禁用 @component-disable}"
+      },
+      "disableHover": {
+        "$type": "color",
+        "$value": "{功能色.05_禁用悬停 @component-disable-hover}"
+      },
+      "activeBackground": {
+        "$type": "color",
+        "$value": "{功能色.06_选中背景默认 @component-active-background}"
+      },
+      "activeHoverBackground": {
+        "$type": "color",
+        "$value": "{功能色.07_选中背景悬停 @component-active-hover-background}"
+      },
+      "activeClickBackground": {
+        "$type": "color",
+        "$value": "{功能色.08_选中背景点击 @component-active-click-background}"
+      },
+      "activeShadow": {
+        "$type": "color",
+        "$value": "{功能色.09_点击投影 @component-active-shadow}"
+      },
+      "lightBackground": {
+        "$type": "color",
+        "$value": "{功能色.10_浅色背景 @component-light-background}"
+      }
+    },
+    "blue": {
+      "primary": {
+        "$type": "color",
+        "$value": "{基础色板.冰绽蓝.10}"
+      },
+      "hover": {
+        "$type": "color",
+        "$value": "{基础色板.冰绽蓝.08}"
+      },
+      "active": {
+        "$type": "color",
+        "$value": "{基础色板.冰绽蓝.12}"
+      },
+      "disable": {
+        "$type": "color",
+        "$value": "{基础色板.冰绽蓝.06}"
+      },
+      "disableHover": {
+        "$type": "color",
+        "$value": "{基础色板.冰绽蓝.05}"
+      },
+      "activeBackground": {
+        "$type": "color",
+        "$description": "Figma 207:54681 功能色 06_选中背景默认；非色板阶",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [0.9294117647, 0.9490196078, 0.9882352941],
+          "alpha": 1,
+          "hex": "#EDF2FC"
+        }
+      },
+      "activeHoverBackground": {
+        "$type": "color",
+        "$description": "Figma 207:54681 功能色 07_选中背景悬停；非色板阶",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [0.9607843137, 0.9725490196, 1],
+          "alpha": 1,
+          "hex": "#F5F8FF"
+        }
+      },
+      "activeClickBackground": {
+        "$type": "color",
+        "$description": "Figma 207:54681 功能色 08_选中背景点击；非色板阶",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [0.9019607843, 0.9294117647, 0.9803921569],
+          "alpha": 1,
+          "hex": "#E6EDFA"
+        }
+      },
+      "activeShadow": {
+        "$type": "color",
+        "$description": "Figma 207:54681 功能色 09_点击投影 = 冰绽蓝/10 @ 0.2",
+        "$value": {
+          "hex": "#3170EB",
+          "alpha": 0.2
+        }
+      },
+      "lightBackground": {
+        "$type": "color",
+        "$value": "{基础色板.冰绽蓝.01}"
+      }
+    },
+    "limeGreen": {
+      "primary": { "$type": "color", "$value": { "hex": "#99CC00" } },
+      "hover": { "$type": "color", "$value": { "hex": "#ABD62B" } },
+      "active": { "$type": "color", "$value": { "hex": "#779E00" } },
+      "disable": { "$type": "color", "$value": { "hex": "#BFE05A" } },
+      "disableHover": { "$type": "color", "$value": { "hex": "#C9E573" } },
+      "activeBackground": { "$type": "color", "$value": { "hex": "#F6FAE8" } },
+      "activeHoverBackground": { "$type": "color", "$value": { "hex": "#F9FCF0" } },
+      "activeClickBackground": { "$type": "color", "$value": { "hex": "#F2F7E1" } },
+      "activeShadow": { "$type": "color", "$value": { "hex": "#99CC00", "alpha": 0.22 } },
+      "lightBackground": { "$type": "color", "$value": { "hex": "#F4FAE1" } }
+    },
+    "auroraGreen": {
+      "primary": { "$type": "color", "$value": { "hex": "#5CB838" } },
+      "hover": { "$type": "color", "$value": { "hex": "#77C758" } },
+      "active": { "$type": "color", "$value": { "hex": "#418F22" } },
+      "disable": { "$type": "color", "$value": { "hex": "#96D67C" } },
+      "disableHover": { "$type": "color", "$value": { "hex": "#A6DE90" } },
+      "activeBackground": { "$type": "color", "$value": { "hex": "#EEF7EB" } },
+      "activeHoverBackground": { "$type": "color", "$value": { "hex": "#F5FAF2" } },
+      "activeClickBackground": { "$type": "color", "$value": { "hex": "#E9F5E4" } },
+      "activeShadow": { "$type": "color", "$value": { "hex": "#5CB838", "alpha": 0.2 } },
+      "lightBackground": { "$type": "color", "$value": { "hex": "#EDFAE8" } }
+    },
+    "landscapeBlue": {
+      "primary": { "$type": "color", "$value": { "hex": "#15ACD6" } },
+      "hover": { "$type": "color", "$value": { "hex": "#3FBDE0" } },
+      "active": { "$type": "color", "$value": { "hex": "#0D87A8" } },
+      "disable": { "$type": "color", "$value": { "hex": "#6BCDE8" } },
+      "disableHover": { "$type": "color", "$value": { "hex": "#82D6ED" } },
+      "activeBackground": { "$type": "color", "$value": { "hex": "#EBF7FA" } },
+      "activeHoverBackground": { "$type": "color", "$value": { "hex": "#F2FAFC" } },
+      "activeClickBackground": { "$type": "color", "$value": { "hex": "#E4F3F7" } },
+      "activeShadow": { "$type": "color", "$value": { "hex": "#15ACD6", "alpha": 0.2 } },
+      "lightBackground": { "$type": "color", "$value": { "hex": "#E6F7FC" } }
+    },
+    "orchidPurple": {
+      "primary": { "$type": "color", "$value": { "hex": "#7554EB" } },
+      "hover": { "$type": "color", "$value": { "hex": "#9075F0" } },
+      "active": { "$type": "color", "$value": { "hex": "#5033B8" } },
+      "disable": { "$type": "color", "$value": { "hex": "#AC98F5" } },
+      "disableHover": { "$type": "color", "$value": { "hex": "#B9A8F7" } },
+      "activeBackground": { "$type": "color", "$value": { "hex": "#F3F0FC" } },
+      "activeHoverBackground": { "$type": "color", "$value": { "hex": "#F9F7FF" } },
+      "activeClickBackground": { "$type": "color", "$value": { "hex": "#ECE8FA" } },
+      "activeShadow": { "$type": "color", "$value": { "hex": "#7554EB", "alpha": 0.2 } },
+      "lightBackground": { "$type": "color", "$value": { "hex": "#F2EFFF" } }
+    },
+    "wavePurple": {
+      "primary": { "$type": "color", "$value": { "hex": "#AE43D9" } },
+      "hover": { "$type": "color", "$value": { "hex": "#BD65E0" } },
+      "active": { "$type": "color", "$value": { "hex": "#8428A8" } },
+      "disable": { "$type": "color", "$value": { "hex": "#CD89E8" } },
+      "disableHover": { "$type": "color", "$value": { "hex": "#D69DED" } },
+      "activeBackground": { "$type": "color", "$value": { "hex": "#F7F0FA" } },
+      "activeHoverBackground": { "$type": "color", "$value": { "hex": "#FBF7FC" } },
+      "activeClickBackground": { "$type": "color", "$value": { "hex": "#F3E9F7" } },
+      "activeShadow": { "$type": "color", "$value": { "hex": "#AE43D9", "alpha": 0.2 } },
+      "lightBackground": { "$type": "color", "$value": { "hex": "#F6EBFB" } }
+    }
+  }
+}

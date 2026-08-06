@@ -240,6 +240,12 @@ export function TemplateLibraryPage() {
               status: "首轮收录",
               href: "/templates/sdh-editable-table",
             },
+            {
+              title: "项目设置 / 入口卡片场景",
+              description: "基于 SensEntryCard，承接项目设置中的安全、资源和模板入口。",
+              status: "首轮收录",
+              href: "/templates/card/entry-settings",
+            },
           ],
         },
         {
@@ -297,6 +303,12 @@ export function CaseLibraryPage() {
               description: "把设计环节 AI 化的工作方式、边界和阶段成果组织为对齐材料。",
               status: "已有预览",
               href: "/cases/ai-design-stage-ppt",
+            },
+            {
+              title: "SDH 特征分群创建",
+              description: "实体筛选特征模板应用态：单选/多选、不限、展示设置与仅看已配置。",
+              status: "首轮预览",
+              href: "/cases/sdh-feature-segment-create",
             },
           ],
         },

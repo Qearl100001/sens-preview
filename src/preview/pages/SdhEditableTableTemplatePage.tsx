@@ -232,6 +232,7 @@ function buildTemplateVars(): CSSProperties {
     "--dimension-table-width": "1392px",
     "--dimension-preview-warning": getColorToken("warning-color"),
     "--sdh-template-shell-bg": tokenRgba("background-transparent-grey", 0.04),
+    "--sdh-template-content-radius": px(getUnitToken("radius/xl")),
   } as CSSProperties;
 }
 
@@ -569,43 +570,47 @@ export default function SdhEditableTableTemplatePage() {
 
   return (
     <main className="sdh-template-page" style={buildTemplateVars()}>
-      <SensTopNavigation embedded activeNavLabel={scenario.navActive} items={PRODUCT_NAV_ITEMS} />
-      <SensPageTitleBar
-        variant="drilldown"
-        title={scenario.pageTitle}
-        breadcrumbItems={scenario.pageMeta.split(" / ").map((label, index) => ({ key: `${index}-${label}`, label }))}
-        onBack={() => window.history.back()}
-        actions={
-          <div className="sdh-template-product-actions">
-            <SensButton tone="secondary">{isDimensionScenario ? "放弃" : "取消"}</SensButton>
-            {isDimensionScenario ? <SensButton tone="secondary">提交并分配权限</SensButton> : null}
-            <SensButton tone="primary">提交</SensButton>
-          </div>
-        }
-      />
+      <div className="sdh-template-page__navigation-layer">
+        <SensTopNavigation embedded atmosphere activeNavLabel={scenario.navActive} items={PRODUCT_NAV_ITEMS} />
+      </div>
+      <div className="sdh-template-page__workspace">
+        <SensPageTitleBar
+          variant="drilldown"
+          title={scenario.pageTitle}
+          breadcrumbItems={scenario.pageMeta.split(" / ").map((label, index) => ({ key: `${index}-${label}`, label }))}
+          onBack={() => window.history.back()}
+          actions={
+            <div className="sdh-template-product-actions">
+              <SensButton tone="secondary">{isDimensionScenario ? "放弃" : "取消"}</SensButton>
+              {isDimensionScenario ? <SensButton tone="secondary">提交并分配权限</SensButton> : null}
+              <SensButton tone="primary">提交</SensButton>
+            </div>
+          }
+        />
 
-      <div className={`sdh-template-product-body${isDimensionScenario ? " sdh-template-product-body--single" : ""}`}>
-        <main className="sdh-template-product-content">
-          {isDimensionScenario ? (
-            <DimensionEventPropertyTable />
-          ) : (
-            <>
-              <ScenarioBaseInfo scenario={scenario} />
-              <section className="form-templates-table-block">
-                <SensSectionTitle title={scenario.sectionTitle} description={scenario.sectionDescription} />
-                <EditableScenarioTable key={scenario.key} scenario={scenario} />
-              </section>
-              <div className="form-templates-rule">{scenario.rule}</div>
-            </>
+        <div className={`sdh-template-product-body${isDimensionScenario ? " sdh-template-product-body--single" : ""}`}>
+          <main className="sdh-template-product-content">
+            {isDimensionScenario ? (
+              <DimensionEventPropertyTable />
+            ) : (
+              <>
+                <ScenarioBaseInfo scenario={scenario} />
+                <section className="form-templates-table-block">
+                  <SensSectionTitle title={scenario.sectionTitle} description={scenario.sectionDescription} />
+                  <EditableScenarioTable key={scenario.key} scenario={scenario} />
+                </section>
+                <div className="form-templates-rule">{scenario.rule}</div>
+              </>
+            )}
+          </main>
+          {isDimensionScenario ? null : (
+            <aside className="sdh-template-anchor-missing" aria-label="锚点组件缺口">
+              <span>Anchor / Missing</span>
+              <strong>锚点导航待补</strong>
+              <p>锚点组件完成后，这里接入真实页面滚动定位；本轮不伪造锚点交互。</p>
+            </aside>
           )}
-        </main>
-        {isDimensionScenario ? null : (
-          <aside className="sdh-template-anchor-missing" aria-label="锚点组件缺口">
-            <span>Anchor / Missing</span>
-            <strong>锚点导航待补</strong>
-            <p>锚点组件完成后，这里接入真实页面滚动定位；本轮不伪造锚点交互。</p>
-          </aside>
-        )}
+        </div>
       </div>
     </main>
   );

@@ -278,12 +278,37 @@
 }
 
 .sdh-template-page {
+  /* 产品壳实际结构为 82px，氛围层延展至 180px 但不占正文流。 */
+  --sdh-template-top-navigation-height: 82px;
+  --sdh-template-top-atmosphere-height: 180px;
+
+  position: relative;
+  box-sizing: border-box;
   display: flex;
   min-width: 1280px;
   min-height: 100%;
+  padding-top: var(--sdh-template-top-navigation-height);
   flex-direction: column;
   align-items: stretch;
   background: var(--sdh-template-shell-bg);
+}
+
+.sdh-template-page__navigation-layer {
+  position: absolute;
+  inset: 0 0 auto;
+  z-index: 0;
+  height: var(--sdh-template-top-atmosphere-height);
+}
+
+.sdh-template-page__workspace {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  min-height: calc(100vh - var(--sdh-template-top-navigation-height));
+  flex: 1;
+  flex-direction: column;
+  overflow: hidden;
+  border-radius: var(--sdh-template-content-radius) var(--sdh-template-content-radius) 0 0;
 }
 
 .sdh-template-product-actions {
@@ -358,7 +383,8 @@
 }
 
 .editable-table {
-  width: var(--editable-table-width);
+  width: 100%;
+  min-width: var(--editable-table-width);
   table-layout: fixed;
   border-spacing: 0;
   border-collapse: separate;
@@ -462,7 +488,8 @@
 }
 
 .dimension-table {
-  width: var(--dimension-table-width);
+  width: 100%;
+  min-width: var(--dimension-table-width);
 }
 
 .dimension-table__preview,

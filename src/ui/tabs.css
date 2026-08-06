@@ -1,8 +1,9 @@
 .sens-tabs-matrix-head {
   margin-bottom: var(--sens-tabs-space-2x);
-  font-size: 12px;
-  line-height: 18px;
-  color: var(--ant-color-text-secondary);
+  font-size: var(--sens-tabs-preview-font-size);
+  line-height: var(--sens-tabs-preview-line-height);
+  color: var(--sens-tabs-preview-text);
+  font-weight: var(--sens-tabs-preview-font-weight);
 }
 
 .sens-tabs-matrix-row + .sens-tabs-matrix-row {
@@ -12,10 +13,10 @@
 .sens-tabs-matrix-title {
   display: block;
   margin-bottom: var(--sens-tabs-space-2x);
-  font-size: 12px;
-  line-height: 18px;
-  color: var(--ant-color-text-secondary);
-  font-weight: 500;
+  font-size: var(--sens-tabs-preview-font-size);
+  line-height: var(--sens-tabs-preview-line-height);
+  color: var(--sens-tabs-preview-text);
+  font-weight: var(--sens-tabs-preview-title-weight);
 }
 
 .sens-tabs-matrix-states {
@@ -27,16 +28,17 @@
 }
 
 .sens-tabs-matrix-cell {
-  width: 132px;
+  width: var(--sens-tabs-matrix-cell-width);
   flex: 0 0 auto;
 }
 
 .sens-tabs-matrix-label {
   display: block;
   margin-bottom: var(--sens-tabs-space-2x);
-  font-size: 12px;
-  line-height: 18px;
-  color: var(--ant-color-text-secondary);
+  font-size: var(--sens-tabs-preview-font-size);
+  line-height: var(--sens-tabs-preview-line-height);
+  color: var(--sens-tabs-preview-text);
+  font-weight: var(--sens-tabs-preview-font-weight);
 }
 
 .sens-tabs-pill-label {
@@ -44,7 +46,7 @@
   display: inline-flex;
   align-items: center;
   /* 中文在 line-height=盒高 时光学偏上；收紧行高交给父级 flex 居中 */
-  line-height: 1;
+  line-height: var(--sens-pill-label-line-height);
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -57,33 +59,33 @@
   width: fit-content;
   max-width: 100%;
   overflow-x: auto;
-  padding: var(--sens-pill-track-padding, 4px);
-  border-radius: var(--sens-pill-track-radius, 6px);
-  background: var(--sens-pill-track-bg, rgba(0, 21, 64, 0.04));
+  padding: var(--sens-pill-track-padding);
+  border-radius: var(--sens-pill-track-radius);
+  background: var(--sens-pill-track-bg);
 }
 
 .sens-pill-tabs-track {
   display: inline-flex;
   width: max-content;
-  gap: var(--sens-pill-item-gap, 4px);
+  gap: var(--sens-pill-item-gap);
 }
 
 .sens-pill-tab {
   appearance: none;
   border: 1px solid transparent;
   margin: 0;
-  padding: 0 var(--sens-pill-item-padding-inline, 12px);
-  border-radius: var(--sens-pill-item-radius, 4px);
-  height: var(--sens-pill-item-height, 28px);
-  min-height: var(--sens-pill-item-height, 28px);
+  padding: 0 var(--sens-pill-item-padding-inline);
+  border-radius: var(--sens-pill-item-radius);
+  height: var(--sens-pill-item-height);
+  min-height: var(--sens-pill-item-min-height);
   flex: 0 0 auto;
   box-sizing: border-box;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 4px;
-  background: var(--sens-pill-item-bg, transparent);
-  cursor: pointer;
+  gap: var(--sens-tabs-label-gap);
+  background: var(--sens-pill-item-bg);
+  cursor: var(--sens-cursor-pointer);
   font: inherit;
   color: inherit;
   transition: background-color 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
@@ -100,8 +102,9 @@
   justify-content: center;
   box-sizing: border-box;
   min-height: 100%;
-  font-size: var(--sens-pill-item-font-size, 14px);
-  color: var(--sens-pill-item-color, rgba(8, 18, 38, 0.58));
+  font-size: var(--sens-pill-item-font-size);
+  font-weight: var(--sens-pill-item-font-weight);
+  color: var(--sens-pill-item-color);
   transition: color 0.15s ease;
 }
 
@@ -110,13 +113,14 @@
 }
 
 .sens-pill-tab--active {
-  background: var(--sens-pill-item-selected-bg, #fff);
-  border-color: var(--sens-pill-item-selected-border-color, transparent);
+  background: var(--sens-pill-item-selected-bg);
+  border-color: var(--sens-pill-item-selected-border-color);
   box-shadow: var(--sens-pill-selected-shadow);
 }
 
 .sens-pill-tab--active .sens-tabs-pill-label {
-  color: var(--sens-pill-item-selected-color, #00b280);
+  color: var(--sens-pill-item-selected-color);
+  font-weight: var(--sens-pill-item-selected-font-weight);
 }
 
 .sens-pill-tab:not(.sens-pill-tab--active):not(:disabled):hover {
@@ -136,12 +140,12 @@
 }
 
 .sens-pill-tab--active:hover .sens-tabs-pill-label {
-  color: var(--sens-pill-selected-hover-color, #27c296);
+  color: var(--sens-pill-selected-hover-color);
 }
 
 .sens-pill-tab:disabled {
   background: var(--sens-pill-item-disabled-bg) !important;
-  cursor: default;
+  cursor: var(--sens-cursor-default);
 }
 
 .sens-pill-tab:disabled .sens-tabs-pill-label {
@@ -158,12 +162,12 @@
 
 .sens-pill-tab:not(.sens-pill-tab--active):not(:disabled):hover .sens-tabs-counter-badge,
 .sens-pill-tab:not(.sens-pill-tab--active):not(:disabled):active .sens-tabs-counter-badge {
-  background: var(--sens-tabs-badge-active-bg, #e1faf3);
-  color: var(--sens-tabs-badge-active-text, #00b280);
+  background: var(--sens-tabs-badge-active-bg);
+  color: var(--sens-tabs-badge-active-text);
 }
 
 .sens-pill-tab:disabled .sens-tabs-counter-badge {
-  background: var(--sens-tabs-badge-bg, rgba(0, 21, 64, 0.08));
+  background: var(--sens-tabs-badge-bg);
   color: var(--sens-pill-item-disabled-color) !important;
 }
 
@@ -181,16 +185,18 @@
  * 内容区距 nav：spacing/4x = 16
  */
 .sens-basic-tabs {
-  --sens-basic-tabs-content-gap: 16px;
-  --sens-basic-tabs-active-weight: 600;
-  --sens-basic-tabs-text: var(--sens-basic-tabs-text-token, inherit);
-  --sens-basic-tabs-hover: var(--sens-basic-tabs-hover-token, #00b280);
-  --sens-basic-tabs-click: var(--sens-basic-tabs-click-token, #008c65);
-  --sens-basic-tabs-selected: var(--sens-basic-tabs-selected-token, #00b280);
+  --sens-basic-tabs-text: var(--sens-basic-tabs-text-token);
+  --sens-basic-tabs-hover: var(--sens-basic-tabs-hover-token);
+  --sens-basic-tabs-click: var(--sens-basic-tabs-click-token);
+  --sens-basic-tabs-selected: var(--sens-basic-tabs-selected-token);
 }
 
 .sens-basic-tabs > .ant-tabs-nav {
-  margin: 0 0 var(--sens-basic-tabs-content-gap, 16px) 0 !important;
+  margin: 0 0 var(--sens-basic-tabs-content-gap) 0 !important;
+}
+
+.sens-basic-tabs > .ant-tabs-nav::before {
+  border-bottom-color: var(--sens-basic-tabs-border-token);
 }
 
 /* barOnly：内容自管，nav 不再占 16 间距 */
@@ -199,11 +205,11 @@
 }
 
 .sens-basic-tabs .ant-tabs-tab + .ant-tabs-tab {
-  margin-left: 24px;
+  margin-left: var(--sens-basic-tabs-gutter);
 }
 
 .sens-basic-tabs .ant-tabs-tab .ant-tabs-tab-btn {
-  font-weight: 400;
+  font-weight: var(--sens-basic-tabs-regular-weight);
   color: var(--sens-basic-tabs-text);
   transition: color 0.15s ease;
 }
@@ -217,8 +223,12 @@
 }
 
 .sens-basic-tabs .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
-  font-weight: var(--sens-basic-tabs-active-weight, 600) !important;
+  font-weight: var(--sens-basic-tabs-active-weight) !important;
   color: var(--sens-basic-tabs-selected) !important;
+}
+
+.sens-basic-tabs .ant-tabs-tab.ant-tabs-tab-disabled .ant-tabs-tab-btn {
+  color: var(--sens-basic-tabs-disabled-token);
 }
 
 .sens-basic-tabs .ant-tabs-ink-bar {
@@ -228,60 +238,113 @@
 /* 悬停/点击：徽标同步进功能色浅底（Figma 3695:20693 / 20695） */
 .sens-basic-tabs .ant-tabs-tab:hover:not(.ant-tabs-tab-disabled) .sens-tabs-counter-badge,
 .sens-basic-tabs .ant-tabs-tab:active:not(.ant-tabs-tab-disabled) .sens-tabs-counter-badge {
-  background: var(--sens-tabs-badge-active-bg, #e1faf3);
-  color: var(--sens-tabs-badge-active-text, #00b280);
+  background: var(--sens-tabs-badge-active-bg);
+  color: var(--sens-tabs-badge-active-text);
 }
 
 .sens-basic-tabs-large .ant-tabs-tab .ant-tabs-tab-btn {
-  font-size: 16px;
-  line-height: 24px;
+  font-size: var(--sens-basic-tabs-font-size-large);
+  line-height: var(--sens-basic-tabs-line-height-large);
 }
 
 .sens-basic-tabs-small .ant-tabs-tab {
   margin: 0;
-  padding: 0 0 4px;
+  padding: 0 0 var(--sens-basic-tabs-small-padding-bottom);
 }
 
 .sens-basic-tabs-small .ant-tabs-tab .ant-tabs-tab-btn {
-  font-size: 14px;
-  line-height: 22px;
-  font-weight: 400;
+  font-size: var(--sens-basic-tabs-font-size-small);
+  line-height: var(--sens-basic-tabs-line-height-small);
+  font-weight: var(--sens-basic-tabs-regular-weight);
 }
 
 .sens-basic-tabs-small .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
-  font-weight: var(--sens-basic-tabs-active-weight, 600) !important;
+  font-weight: var(--sens-basic-tabs-active-weight) !important;
 }
 
 .sens-basic-tabs-small .ant-tabs-ink-bar {
-  height: 2px;
+  height: var(--sens-basic-tabs-ink-height);
+}
+
+/* 状态矩阵只展示状态快照，不触发 antd 的自动溢出 More/省略按钮。 */
+.sens-basic-tabs-snapshot {
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 40px;
+  overflow: hidden;
+}
+
+.sens-basic-tabs-snapshot-nav {
+  display: flex;
+  align-items: flex-end;
+  width: max-content;
+  min-width: 100%;
+  border-bottom: 1px solid var(--sens-basic-tabs-border-token);
+}
+
+.sens-basic-tabs-snapshot-tab {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  flex: 0 0 auto;
+  min-width: 0;
+  height: var(--sens-basic-tabs-height-large);
+  margin-left: var(--sens-basic-tabs-gutter);
+  padding: 0;
+  white-space: nowrap;
+  font-size: var(--sens-basic-tabs-font-size-large);
+  line-height: var(--sens-basic-tabs-line-height-large);
+}
+
+.sens-basic-tabs-snapshot-tab:first-child {
+  margin-left: 0;
+}
+
+.sens-basic-tabs-snapshot-small .sens-basic-tabs-snapshot-tab {
+  height: var(--sens-basic-tabs-height-small);
+  font-size: var(--sens-basic-tabs-font-size-small);
+  line-height: var(--sens-basic-tabs-line-height-small);
+}
+
+.sens-basic-tabs-snapshot-tab-active::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: -1px;
+  left: 0;
+  height: var(--sens-basic-tabs-ink-height);
+  background: var(--sens-basic-tabs-selected-token);
+}
+
+.sens-basic-tabs-snapshot-tab-disabled {
+  cursor: var(--sens-cursor-not-allowed);
 }
 
 .sens-tabs-label-with-badge {
   display: inline-flex;
   align-items: center;
-  gap: 4px;
+  gap: var(--sens-tabs-label-gap);
 }
 
 .sens-tabs-counter-badge {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-width: 16px;
-  height: 16px;
-  padding: 0 2px;
-  border-radius: 10px;
-  font-size: 12px;
-  line-height: 18px;
-  font-weight: 400;
-  background: var(--sens-tabs-badge-bg, rgba(0, 21, 64, 0.08));
-  color: var(--sens-tabs-badge-text, rgba(8, 18, 38, 0.58));
+  min-width: var(--sens-tabs-badge-size);
+  height: var(--sens-tabs-badge-size);
+  padding: 0 var(--sens-tabs-badge-padding-inline);
+  border-radius: var(--sens-tabs-badge-radius);
+  font-size: var(--sens-tabs-badge-font-size);
+  line-height: var(--sens-tabs-badge-line-height);
+  font-weight: var(--sens-tabs-badge-font-weight);
+  background: var(--sens-tabs-badge-bg);
+  color: var(--sens-tabs-badge-text);
 }
 
 .ant-tabs-tab-active .sens-tabs-counter-badge,
-.ant-segmented-item-selected .sens-tabs-counter-badge,
 .sens-pill-tab--active .sens-tabs-counter-badge {
-  background: var(--sens-tabs-badge-active-bg, #e1faf3);
-  color: var(--sens-tabs-badge-active-text, #00b280);
+  background: var(--sens-tabs-badge-active-bg);
+  color: var(--sens-tabs-badge-active-text);
 }
 
 .sens-tabs-preview-pill {
@@ -294,26 +357,26 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 4px;
-  max-width: 112px;
+  gap: var(--sens-tabs-label-gap);
+  max-width: var(--sens-tabs-pill-max-width);
   box-sizing: border-box;
-  line-height: 1;
+  line-height: var(--sens-pill-label-line-height);
 }
 
 .sens-pill-tab-snapshot-large {
-  padding: 0 12px;
-  border-radius: 4px;
-  height: 28px;
-  min-height: 28px;
-  font-size: 14px;
+  padding: 0 var(--sens-pill-item-padding-inline);
+  border-radius: var(--sens-pill-item-radius);
+  height: var(--sens-pill-item-height);
+  min-height: var(--sens-pill-item-min-height);
+  font-size: var(--sens-pill-item-font-size);
 }
 
 .sens-pill-tab-snapshot-small {
-  padding: 0 10px;
-  border-radius: 3px; /* radius/s · 对齐 Figma 3831:13908 */
-  height: 24px;
-  min-height: 24px;
-  font-size: 12px;
+  padding: 0 var(--sens-pill-item-padding-inline);
+  border-radius: var(--sens-pill-item-radius);
+  height: var(--sens-pill-item-height);
+  min-height: var(--sens-pill-item-min-height);
+  font-size: var(--sens-pill-item-font-size);
 }
 
 /* 演示区尺寸 Segmented（大/小）同样光学居中 */
@@ -321,7 +384,7 @@
   display: flex !important;
   align-items: center !important;
   justify-content: center;
-  line-height: 1 !important;
+  line-height: var(--sens-pill-label-line-height) !important;
 }
 
 .sens-tabs-strip-section {
@@ -333,43 +396,100 @@
   flex-direction: column;
   gap: var(--sens-tabs-space-5x);
   border: 1px dashed;
-  border-radius: 8px;
+  border-radius: var(--sens-tabs-strip-panel-radius);
   padding: var(--sens-tabs-space-5x);
 }
 
 .sens-tabs-strip-row {
   display: grid;
-  grid-template-columns: 140px 1fr;
+  grid-template-columns: var(--sens-tabs-strip-label-width) 1fr;
   gap: var(--sens-tabs-space-5x);
   align-items: start;
 }
 
 .sens-tabs-strip-control-label {
-  font-size: 12px;
-  line-height: 18px;
-  color: var(--ant-color-text-secondary);
+  font-size: var(--sens-tabs-preview-font-size);
+  line-height: var(--sens-tabs-preview-line-height);
+  color: var(--sens-tabs-preview-text);
+  font-weight: var(--sens-tabs-preview-font-weight);
 }
 
 .sens-tabs-strip-track {
   display: flex;
-  gap: var(--sens-pill-item-gap, 4px);
+  gap: var(--sens-pill-item-gap);
   overflow-x: auto;
   padding-bottom: var(--sens-tabs-space-2x);
 }
 
-/* 预览板专用：页签关闭钮悬停色（token 经单元格 CSS 变量注入，不进真实组件） */
-.sens-tabs-preview-card-hover-delete .ant-tabs-tab-remove {
-  color: var(--sens-tabs-preview-remove-hover, var(--sens-card-tab-remove-hover)) !important;
-  opacity: 1 !important;
+/* 卡片矩阵同样只展示五种声明状态；More 箭头和下拉菜单只属于真实 Demo。 */
+.sens-card-tabs-snapshot {
+  box-sizing: border-box;
+  width: 100%;
+  min-height: var(--sens-card-tab-height);
+  overflow: hidden;
 }
 
-.sens-tabs-preview-card-hover-title .ant-tabs-tab:not(.ant-tabs-tab-active) .ant-tabs-tab-remove,
-.sens-tabs-preview-card-hover-delete .ant-tabs-tab:not(.ant-tabs-tab-active) .ant-tabs-tab-remove {
-  opacity: 1 !important;
+.sens-card-tabs-snapshot-nav {
+  display: flex;
+  align-items: flex-end;
+  width: max-content;
+  min-width: 100%;
+  overflow: hidden;
+  border-bottom: 1px solid var(--sens-card-tab-border);
 }
 
-.sens-tabs-preview-card-default-idle .ant-tabs-tab:not(.ant-tabs-tab-active) .ant-tabs-tab-remove {
-  opacity: 0 !important;
+.sens-card-tabs-snapshot-tab {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  box-sizing: border-box;
+  height: var(--sens-card-tab-height);
+  margin-left: var(--sens-card-tab-gap);
+  padding: var(--sens-card-tab-padding-block) var(--sens-card-tab-padding-inline);
+  background: var(--sens-card-tab-bg-default);
+  border: 1px solid transparent;
+  border-radius: var(--sens-card-tab-radius) var(--sens-card-tab-radius) 0 0;
+  color: var(--sens-card-tab-text-default);
+  font-size: var(--sens-card-tab-font-size);
+  line-height: var(--sens-card-tab-line-height);
+  font-weight: var(--sens-card-tab-font-weight);
+  white-space: nowrap;
+}
+
+.sens-card-tabs-snapshot-tab:first-child {
+  margin-left: 0;
+}
+
+.sens-card-tabs-snapshot-tab-active {
+  position: relative;
+  z-index: 1;
+  background: var(--sens-card-tab-bg-active);
+  border-color: var(--sens-card-tab-border);
+  border-bottom-color: var(--sens-card-tab-bg-active);
+  color: var(--sens-card-tab-text-active);
+  font-weight: var(--sens-card-tab-active-font-weight);
+}
+
+.sens-card-tabs-snapshot-label {
+  display: inline-flex;
+  align-items: center;
+  line-height: var(--sens-card-tab-label-line-height);
+}
+
+.sens-card-tabs-snapshot-remove {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--sens-card-tab-icon-size);
+  height: var(--sens-card-tab-icon-size);
+  margin-left: var(--sens-card-tab-gap);
+  color: var(--sens-card-tab-remove);
+}
+
+.sens-card-tabs-snapshot-remove svg {
+  width: var(--sens-card-tab-icon-size);
+  height: var(--sens-card-tab-icon-size);
 }
 
 /*
@@ -380,25 +500,25 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  height: var(--sens-card-tab-height, 32px) !important;
-  padding: var(--sens-card-tab-padding-block, 6px) var(--sens-card-tab-padding-inline, 12px) !important;
+  height: var(--sens-card-tab-height) !important;
+  padding: var(--sens-card-tab-padding-block) var(--sens-card-tab-padding-inline) !important;
   margin: 0 !important;
   background: var(--sens-card-tab-bg-default) !important;
   border: 1px solid transparent !important;
-  border-radius: var(--sens-card-tab-radius, 4px) var(--sens-card-tab-radius, 4px) 0 0 !important;
+  border-radius: var(--sens-card-tab-radius) var(--sens-card-tab-radius) 0 0 !important;
   transition: color 0.15s ease, background 0.15s ease, border-color 0.15s ease;
 }
 
 .sens-card-tabs.ant-tabs-card > .ant-tabs-nav .ant-tabs-tab + .ant-tabs-tab {
-  margin-left: var(--sens-card-tab-gap, 4px) !important;
+  margin-left: var(--sens-card-tab-gap) !important;
 }
 
 .sens-card-tabs.ant-tabs-card > .ant-tabs-nav .ant-tabs-tab .ant-tabs-tab-btn {
   display: inline-flex;
   align-items: center;
-  line-height: 1 !important;
-  font-size: var(--sens-card-tab-font-size, 14px) !important;
-  font-weight: 400;
+  line-height: var(--sens-card-tab-label-line-height) !important;
+  font-size: var(--sens-card-tab-font-size) !important;
+  font-weight: var(--sens-card-tab-font-weight);
   color: var(--sens-card-tab-text-default) !important;
 }
 
@@ -416,7 +536,7 @@
 }
 
 .sens-card-tabs.ant-tabs-card > .ant-tabs-nav .ant-tabs-tab-active .ant-tabs-tab-btn {
-  font-weight: 500;
+  font-weight: var(--sens-card-tab-active-font-weight);
   color: var(--sens-card-tab-text-active) !important;
 }
 
@@ -425,10 +545,10 @@
 }
 
 .sens-card-tabs.ant-tabs-card > .ant-tabs-nav .ant-tabs-tab-remove {
-  margin-left: var(--sens-card-tab-gap, 4px) !important;
+  margin-left: var(--sens-card-tab-gap) !important;
   margin-right: 0 !important;
-  width: var(--sens-card-tab-icon-size, 16px) !important;
-  height: var(--sens-card-tab-icon-size, 16px) !important;
+  width: var(--sens-card-tab-icon-size) !important;
+  height: var(--sens-card-tab-icon-size) !important;
   padding: 0 !important;
   display: inline-flex !important;
   align-items: center;
@@ -440,9 +560,9 @@
 
 .sens-card-tabs.ant-tabs-card > .ant-tabs-nav .ant-tabs-tab-remove .anticon,
 .sens-card-tabs.ant-tabs-card > .ant-tabs-nav .ant-tabs-tab-remove svg {
-  width: var(--sens-card-tab-icon-size, 16px) !important;
-  height: var(--sens-card-tab-icon-size, 16px) !important;
-  font-size: var(--sens-card-tab-icon-size, 16px) !important;
+  width: var(--sens-card-tab-icon-size) !important;
+  height: var(--sens-card-tab-icon-size) !important;
+  font-size: var(--sens-card-tab-icon-size) !important;
   flex-shrink: 0;
 }
 
@@ -492,8 +612,8 @@
   border-top: 0 !important;
   border-top-width: 0 !important;
   border-top-style: none !important;
-  border-radius: 0 var(--sens-card-tab-panel-radius, 6px) var(--sens-card-tab-panel-radius, 6px)
-    var(--sens-card-tab-panel-radius, 6px) !important;
+  border-radius: 0 var(--sens-card-tab-panel-radius) var(--sens-card-tab-panel-radius)
+    var(--sens-card-tab-panel-radius) !important;
   margin-top: 0 !important;
 }
 
@@ -502,29 +622,45 @@
 }
 
 .sens-card-tabs .sens-card-tabs-panel-body {
-  padding: var(--sens-card-tab-panel-padding, 16px);
+  padding: var(--sens-card-tab-panel-padding);
   color: var(--sens-card-tab-panel-text);
-  font-size: var(--sens-card-tab-font-size, 14px);
-  line-height: var(--sens-card-tab-line-height, 22px);
-  font-weight: 400;
+  font-size: var(--sens-card-tab-font-size);
+  line-height: var(--sens-card-tab-line-height);
+  font-weight: var(--sens-card-tab-font-weight);
 }
 
 .sens-card-tabs.ant-tabs-card > .ant-tabs-nav {
   margin-bottom: 0 !important;
+  /* 页签底边贴齐内容卡顶线（缝合 0）；勿被加号 min-height 顶出空隙 */
+  align-items: flex-end !important;
+  min-height: var(--sens-card-tab-height);
+}
+
+.sens-card-tabs.ant-tabs-card > .ant-tabs-nav .ant-tabs-nav-wrap,
+.sens-card-tabs.ant-tabs-card > .ant-tabs-nav .ant-tabs-nav-list,
+.sens-card-tabs.ant-tabs-card > .ant-tabs-nav .ant-tabs-nav-operations {
+  align-items: flex-end !important;
+  height: auto !important;
+  min-height: 0 !important;
 }
 
 /* 加号：弱化链接色链；点击后不因 :focus 残留蓝色（SensD link-hover-color） */
 .sens-card-tabs.ant-tabs > .ant-tabs-nav .ant-tabs-nav-add,
 .sens-card-tabs.ant-tabs > div > .ant-tabs-nav .ant-tabs-nav-add {
-  height: var(--sens-card-tab-height, 32px) !important;
-  margin: 0 0 0 var(--sens-card-tab-add-gap, 8px) !important;
+  /* antd 默认 min-height:40px 会把 nav 撑高，页签底边与内容卡之间露出缝 */
+  height: var(--sens-card-tab-height) !important;
+  min-height: var(--sens-card-tab-height) !important;
+  margin: 0 0 0 var(--sens-card-tab-add-gap) !important;
   padding: 0 !important;
-  min-width: var(--sens-card-tab-icon-size, 16px) !important;
+  min-width: var(--sens-card-tab-icon-size) !important;
   background: transparent !important;
   border: none !important;
   box-shadow: none !important;
   color: var(--sens-card-tab-add) !important;
   outline: none !important;
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
 }
 
 .sens-card-tabs.ant-tabs > .ant-tabs-nav .ant-tabs-nav-add:hover,
@@ -559,9 +695,9 @@
 
 .sens-card-tabs .ant-tabs-nav-add .anticon,
 .sens-card-tabs .ant-tabs-nav-add svg {
-  width: var(--sens-card-tab-icon-size, 16px);
-  height: var(--sens-card-tab-icon-size, 16px);
-  font-size: var(--sens-card-tab-icon-size, 16px);
+  width: var(--sens-card-tab-icon-size);
+  height: var(--sens-card-tab-icon-size);
+  font-size: var(--sens-card-tab-icon-size);
   color: currentColor;
 }
 
@@ -574,16 +710,20 @@
 /* 更多：Figma 804:78 down / 804:79 up；默认灰向下，展开绿向上（由 moreOpen 驱动 icon，不靠 aria-expanded） */
 .sens-card-tabs .ant-tabs-nav-more {
   position: relative !important;
-  height: var(--sens-card-tab-height, 32px) !important;
-  margin: 0 0 0 var(--sens-card-tab-gap, 4px) !important;
+  height: var(--sens-card-tab-height) !important;
+  min-height: var(--sens-card-tab-height) !important;
+  margin: 0 0 0 var(--sens-card-tab-gap) !important;
   padding: 0 !important;
-  min-width: var(--sens-card-tab-icon-size, 16px) !important;
+  min-width: var(--sens-card-tab-icon-size) !important;
   background: transparent !important;
   border: none !important;
   box-shadow: none !important;
   color: var(--sens-card-tab-add) !important;
   outline: none !important;
   overflow: visible;
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
 }
 
 .sens-card-tabs .ant-tabs-nav-more:hover {
@@ -613,8 +753,8 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: var(--sens-card-tab-icon-size, 16px);
-  height: var(--sens-card-tab-icon-size, 16px);
+  width: var(--sens-card-tab-icon-size);
+  height: var(--sens-card-tab-icon-size);
 }
 
 .sens-card-tabs-more-icons .sens-card-tabs-more-down,
@@ -623,8 +763,8 @@
 }
 
 .sens-card-tabs-more-icons svg {
-  width: var(--sens-card-tab-icon-size, 16px);
-  height: var(--sens-card-tab-icon-size, 16px);
+  width: var(--sens-card-tab-icon-size);
+  height: var(--sens-card-tab-icon-size);
 }
 
 /* 拖拽排序：悬停可拖与拖中均用 SensD move（1145:160 四向箭头），不用 grab/grabbing */
@@ -670,15 +810,15 @@
 .sens-card-tabs-dropdown .sens-card-tabs-dropdown-list {
   box-sizing: border-box;
   /* Figma 5521:5449「1单行」：固定 188px（无对应 unit token；勿与 InputNumber controlWidth 混用） */
-  width: var(--sens-card-tabs-dropdown-width, 188px);
-  min-width: var(--sens-card-tabs-dropdown-width, 188px);
-  max-width: var(--sens-card-tabs-dropdown-width, 188px);
+  width: var(--sens-card-tabs-dropdown-width);
+  min-width: var(--sens-card-tabs-dropdown-width);
+  max-width: var(--sens-card-tabs-dropdown-width);
   margin: 0;
-  padding-block-start: var(--sens-dropdown-menu-padding-block-start, 6px);
-  padding-block-end: var(--sens-dropdown-menu-padding-block-end, 10px);
+  padding-block-start: var(--sens-dropdown-menu-padding-block-start);
+  padding-block-end: var(--sens-dropdown-menu-padding-block-end);
   padding-inline: 0;
-  background: var(--sens-dropdown-menu-bg, #fff);
-  border-radius: var(--sens-dropdown-menu-radius, 4px);
+  background: var(--sens-dropdown-menu-bg);
+  border-radius: var(--sens-dropdown-menu-radius);
   box-shadow: var(--sens-dropdown-menu-shadow) !important;
   list-style: none;
   border: none !important;
@@ -692,14 +832,14 @@
   align-items: center;
   box-sizing: border-box;
   width: 100%;
-  min-height: var(--sens-dropdown-menu-item-height, 34px);
+  min-height: var(--sens-dropdown-menu-item-height);
   margin: 0 !important;
-  padding-block: var(--sens-dropdown-menu-item-padding-block, 6px) !important;
-  padding-inline: var(--sens-dropdown-menu-item-padding-inline, 12px) !important;
+  padding-block: var(--sens-dropdown-menu-item-padding-block) !important;
+  padding-inline: var(--sens-dropdown-menu-item-padding-inline) !important;
   border-radius: 0 !important;
-  background: var(--sens-dropdown-menu-item-bg, #fff) !important;
+  background: var(--sens-dropdown-menu-item-bg) !important;
   color: var(--sens-card-tabs-dropdown-item-color-default, var(--sens-dropdown-menu-item-color-default)) !important;
-  cursor: pointer;
+  cursor: var(--sens-cursor-pointer);
 }
 
 .sens-card-tabs-dropdown .sens-card-tabs-dropdown-list {
@@ -711,7 +851,7 @@
   border: none;
   font: inherit;
   text-align: left;
-  gap: 8px;
+  gap: var(--sens-card-tabs-dropdown-item-gap);
 }
 
 .sens-card-tabs-dropdown .sens-card-tabs-dropdown-item-label {
@@ -761,7 +901,7 @@
 .sens-card-tabs-dropdown .sens-card-tabs-dropdown-item-selected {
   background: var(--sens-card-tabs-dropdown-item-selected-bg) !important;
   color: var(--sens-card-tabs-dropdown-item-color-default, var(--sens-dropdown-menu-item-color-default)) !important;
-  font-weight: var(--sens-card-tabs-dropdown-item-selected-font-weight, 600);
+  font-weight: var(--sens-card-tabs-dropdown-item-selected-font-weight);
 }
 
 .sens-card-tabs-dropdown .ant-dropdown-menu-item-selected:hover,
@@ -782,8 +922,8 @@
   display: inline-block;
   background: var(--sens-card-tab-select-bg);
   color: var(--sens-card-tab-select-text) !important;
-  line-height: var(--sens-card-tab-line-height, 22px);
-  font-weight: 500;
+  line-height: var(--sens-card-tab-line-height);
+  font-weight: var(--sens-card-tab-active-font-weight);
 }
 
 /* 标题槽：编辑态锁宽，input 铺满槽宽，页签整体不因进入编辑变宽 */
@@ -814,14 +954,9 @@
   background: transparent !important;
   box-shadow: none !important;
   font: inherit;
-  font-size: var(--sens-card-tab-font-size, 14px) !important;
-  font-weight: 500;
-  line-height: var(--sens-card-tab-line-height, 22px);
+  font-size: var(--sens-card-tab-font-size) !important;
+  font-weight: var(--sens-card-tab-active-font-weight);
+  line-height: var(--sens-card-tab-line-height);
   color: var(--sens-card-tab-edit-text) !important;
   caret-color: var(--sens-card-tab-edit-text);
-}
-
-.sens-tabs-preview-card-editing .ant-tabs-tab:not(.ant-tabs-tab-active) .ant-tabs-tab-remove,
-.sens-tabs-preview-card-editing .ant-tabs-tab-active .ant-tabs-tab-remove {
-  opacity: 1 !important;
 }

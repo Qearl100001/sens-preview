@@ -1,0 +1,400 @@
+.sens-tips-trigger {
+  position: relative;
+  display: inline-flex;
+  max-width: 100%;
+  vertical-align: middle;
+}
+
+.sens-tips-popup {
+  box-sizing: border-box;
+  z-index: var(--sens-tips-z-index);
+  display: flex;
+  width: max-content;
+  pointer-events: auto;
+  user-select: text;
+  color: var(--sens-tips-color);
+  font-size: var(--sens-tips-font-size);
+  line-height: var(--sens-tips-line-height);
+}
+
+.sens-tips-popup--portal {
+  position: fixed;
+}
+
+.sens-tips-popup--anchored {
+  position: absolute;
+}
+
+/* —— anchored：尖端对准触发源中心 —— */
+.sens-tips-popup--anchored.sens-tips-popup--top {
+  bottom: calc(100% + var(--sens-tips-gap));
+  left: 50%;
+}
+
+.sens-tips-popup--anchored.sens-tips-popup--top.sens-tips-popup--align-center {
+  transform: translateX(-50%);
+}
+
+.sens-tips-popup--anchored.sens-tips-popup--top.sens-tips-popup--align-start {
+  transform: translateX(calc(-1 * var(--sens-tips-arrow-edge-inset-inline)));
+}
+
+.sens-tips-popup--anchored.sens-tips-popup--top.sens-tips-popup--align-end {
+  transform: translateX(calc(-100% + var(--sens-tips-arrow-edge-inset-inline)));
+}
+
+.sens-tips-popup--anchored.sens-tips-popup--bottom {
+  top: calc(100% + var(--sens-tips-gap));
+  left: 50%;
+}
+
+.sens-tips-popup--anchored.sens-tips-popup--bottom.sens-tips-popup--align-center {
+  transform: translateX(-50%);
+}
+
+.sens-tips-popup--anchored.sens-tips-popup--bottom.sens-tips-popup--align-start {
+  transform: translateX(calc(-1 * var(--sens-tips-arrow-edge-inset-inline)));
+}
+
+.sens-tips-popup--anchored.sens-tips-popup--bottom.sens-tips-popup--align-end {
+  transform: translateX(calc(-100% + var(--sens-tips-arrow-edge-inset-inline)));
+}
+
+.sens-tips-popup--anchored.sens-tips-popup--left {
+  top: 50%;
+  right: calc(100% + var(--sens-tips-gap));
+}
+
+.sens-tips-popup--anchored.sens-tips-popup--left.sens-tips-popup--align-center {
+  transform: translateY(-50%);
+}
+
+.sens-tips-popup--anchored.sens-tips-popup--left.sens-tips-popup--align-start {
+  transform: translateY(calc(-1 * var(--sens-tips-arrow-edge-inset-block)));
+}
+
+.sens-tips-popup--anchored.sens-tips-popup--left.sens-tips-popup--align-end {
+  transform: translateY(calc(-100% + var(--sens-tips-arrow-edge-inset-block)));
+}
+
+.sens-tips-popup--anchored.sens-tips-popup--right {
+  top: 50%;
+  left: calc(100% + var(--sens-tips-gap));
+}
+
+.sens-tips-popup--anchored.sens-tips-popup--right.sens-tips-popup--align-center {
+  transform: translateY(-50%);
+}
+
+.sens-tips-popup--anchored.sens-tips-popup--right.sens-tips-popup--align-start {
+  transform: translateY(calc(-1 * var(--sens-tips-arrow-edge-inset-block)));
+}
+
+.sens-tips-popup--anchored.sens-tips-popup--right.sens-tips-popup--align-end {
+  transform: translateY(calc(-100% + var(--sens-tips-arrow-edge-inset-block)));
+}
+
+/* —— 主方向 flex —— */
+.sens-tips-popup--top {
+  flex-direction: column;
+}
+
+.sens-tips-popup--bottom {
+  flex-direction: column-reverse;
+}
+
+.sens-tips-popup--left {
+  flex-direction: row;
+}
+
+.sens-tips-popup--right {
+  flex-direction: row-reverse;
+}
+
+.sens-tips-popup--top.sens-tips-popup--align-center,
+.sens-tips-popup--bottom.sens-tips-popup--align-center {
+  align-items: center;
+}
+
+.sens-tips-popup--top.sens-tips-popup--align-start,
+.sens-tips-popup--bottom.sens-tips-popup--align-start {
+  align-items: flex-start;
+}
+
+.sens-tips-popup--top.sens-tips-popup--align-end,
+.sens-tips-popup--bottom.sens-tips-popup--align-end {
+  align-items: flex-end;
+}
+
+.sens-tips-popup--left.sens-tips-popup--align-center,
+.sens-tips-popup--right.sens-tips-popup--align-center {
+  align-items: center;
+}
+
+.sens-tips-popup--left.sens-tips-popup--align-start,
+.sens-tips-popup--right.sens-tips-popup--align-start {
+  align-items: flex-start;
+}
+
+.sens-tips-popup--left.sens-tips-popup--align-end,
+.sens-tips-popup--right.sens-tips-popup--align-end {
+  align-items: flex-end;
+}
+
+.sens-tips-content {
+  box-sizing: border-box;
+  width: max-content;
+  max-width: var(--sens-tips-max-width);
+  max-height: calc(
+    (var(--sens-tips-max-lines) * var(--sens-tips-line-height)) +
+      (2 * var(--sens-tips-padding-block))
+  );
+  overflow-x: hidden;
+  overflow-y: auto;
+  padding: var(--sens-tips-padding-block) var(--sens-tips-padding-inline);
+  border-radius: var(--sens-tips-radius);
+  background: var(--sens-tips-bg);
+  writing-mode: horizontal-tb;
+  word-break: break-word;
+  white-space: pre-wrap;
+  scrollbar-width: thin;
+  scrollbar-color: var(--sens-tips-scrollbar-thumb) transparent;
+}
+
+.sens-tips-content::-webkit-scrollbar {
+  width: var(--sens-tips-scrollbar-size);
+}
+
+.sens-tips-content::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.sens-tips-content::-webkit-scrollbar-thumb {
+  background: var(--sens-tips-scrollbar-thumb);
+  border-radius: var(--sens-tips-scrollbar-radius);
+}
+
+.sens-tips-arrow {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--sens-tips-bg);
+  line-height: 0;
+}
+
+/* 尖端盒：布局尺寸 = 旋转后视觉尺寸，避免 transform 不占流导致尖端偏移 */
+.sens-tips-arrow-tip {
+  position: relative;
+  flex: 0 0 auto;
+  display: block;
+  overflow: visible;
+}
+
+.sens-tips-arrow--top .sens-tips-arrow-tip,
+.sens-tips-arrow--bottom .sens-tips-arrow-tip {
+  width: var(--sens-tips-arrow-cross);
+  height: var(--sens-tips-arrow-depth);
+}
+
+.sens-tips-arrow--left .sens-tips-arrow-tip,
+.sens-tips-arrow--right .sens-tips-arrow-tip {
+  width: var(--sens-tips-arrow-depth);
+  height: var(--sens-tips-arrow-cross);
+}
+
+.sens-tips-arrow--top,
+.sens-tips-arrow--bottom {
+  width: var(--sens-tips-arrow-cross);
+  height: var(--sens-tips-arrow-depth);
+}
+
+.sens-tips-arrow--left,
+.sens-tips-arrow--right {
+  width: var(--sens-tips-arrow-depth);
+  height: var(--sens-tips-arrow-cross);
+}
+
+/* 上下边对齐：28 宽槽，尖端盒居中（两侧各 6）→ 尖端距边 14 */
+.sens-tips-arrow--top.sens-tips-arrow--align-start,
+.sens-tips-arrow--top.sens-tips-arrow--align-end,
+.sens-tips-arrow--bottom.sens-tips-arrow--align-start,
+.sens-tips-arrow--bottom.sens-tips-arrow--align-end {
+  width: var(--sens-tips-arrow-edge-slot-inline);
+  justify-content: center;
+}
+
+/* 左右边对齐：22 高槽；角侧留 6，避免与气泡顶/底连成一体 → 尖端距边 14 */
+.sens-tips-arrow--left.sens-tips-arrow--align-start,
+.sens-tips-arrow--right.sens-tips-arrow--align-start {
+  box-sizing: border-box;
+  height: var(--sens-tips-arrow-edge-slot-block);
+  align-items: flex-start;
+  padding-block-start: var(--sens-tips-arrow-edge-gap);
+}
+
+.sens-tips-arrow--left.sens-tips-arrow--align-end,
+.sens-tips-arrow--right.sens-tips-arrow--align-end {
+  box-sizing: border-box;
+  height: var(--sens-tips-arrow-edge-slot-block);
+  align-items: flex-end;
+  padding-block-end: var(--sens-tips-arrow-edge-gap);
+}
+
+.sens-tips-arrow-svg {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  display: block;
+}
+
+.sens-tips-arrow--top .sens-tips-arrow-svg {
+  width: var(--sens-tips-arrow-cross);
+  height: var(--sens-tips-arrow-depth);
+  transform: translate(-50%, -50%);
+}
+
+.sens-tips-arrow--bottom .sens-tips-arrow-svg {
+  width: var(--sens-tips-arrow-cross);
+  height: var(--sens-tips-arrow-depth);
+  transform: translate(-50%, -50%) rotate(180deg);
+}
+
+.sens-tips-arrow--left .sens-tips-arrow-svg {
+  width: var(--sens-tips-arrow-cross);
+  height: var(--sens-tips-arrow-depth);
+  transform: translate(-50%, -50%) rotate(-90deg);
+}
+
+.sens-tips-arrow--right .sens-tips-arrow-svg {
+  width: var(--sens-tips-arrow-cross);
+  height: var(--sens-tips-arrow-depth);
+  transform: translate(-50%, -50%) rotate(90deg);
+}
+
+.sens-tips-matrix {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(160px, 1fr));
+  gap: var(--sens-tips-demo-matrix-row-gap) var(--sens-tips-demo-matrix-col-gap);
+  padding: var(--sens-tips-demo-gap-xl) var(--sens-tips-demo-trigger-padding-inline);
+  overflow: visible;
+}
+
+.sens-tips-matrix-cell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sens-tips-demo-gap-m);
+  min-height: 140px;
+  justify-content: center;
+  overflow: visible;
+  padding: var(--sens-tips-demo-gap-xl) var(--sens-tips-demo-gap-l);
+}
+
+.sens-tips-matrix-trigger {
+  padding: var(--sens-tips-demo-trigger-padding-block) var(--sens-tips-demo-trigger-padding-inline);
+}
+
+.sens-tips-matrix-label {
+  color: var(--sens-tips-demo-label-color);
+  font-size: var(--sens-tips-demo-label-size);
+  line-height: var(--sens-tips-demo-label-line);
+}
+
+.sens-tips-demo {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sens-tips-demo-gap-xl);
+  width: 100%;
+}
+
+.sens-tips-demo-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: var(--sens-tips-demo-gap-l);
+}
+
+.sens-tips-demo-field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sens-tips-demo-gap-s);
+}
+
+.sens-tips-demo-label {
+  color: var(--sens-tips-demo-label-color);
+  font-size: var(--sens-tips-demo-label-size);
+  line-height: var(--sens-tips-demo-label-line);
+}
+
+.sens-tips-demo-stage {
+  display: flex;
+  min-height: 120px;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--sens-tips-demo-gap-xl);
+  padding: var(--sens-tips-demo-gap-xl);
+}
+
+.sens-tips-demo-help-trigger,
+.sens-tips-demo-disabled-trigger {
+  display: inline-flex;
+  line-height: 0;
+}
+
+.sens-tips-demo-ellipsis {
+  display: inline-block;
+  max-width: 120px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.sens-tips-demo-wide-trigger {
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 320px;
+  max-width: 100%;
+  padding: var(--sens-tips-demo-trigger-padding-block)
+    var(--sens-tips-demo-trigger-padding-inline);
+  border: 1px solid var(--sens-tips-demo-label-color);
+  border-radius: var(--sens-tips-radius);
+  background: transparent;
+  color: var(--sens-tips-demo-label-color);
+  font-size: var(--sens-tips-demo-label-size);
+  line-height: var(--sens-tips-demo-label-line);
+  text-align: center;
+  cursor: var(--sens-cursor-default);
+}
+
+.sens-tips-demo-edge-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--sens-tips-demo-gap-m);
+  padding-inline: var(--sens-tips-demo-gap-xl);
+}
+
+.sens-tips-demo-edge-trigger {
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--sens-tips-demo-trigger-padding-block)
+    var(--sens-tips-demo-trigger-padding-inline);
+  border: 1px solid var(--sens-tips-demo-label-color);
+  border-radius: var(--sens-tips-radius);
+  background: transparent;
+  color: var(--sens-tips-demo-label-color);
+  font-size: var(--sens-tips-demo-label-size);
+  line-height: var(--sens-tips-demo-label-line);
+  cursor: var(--sens-cursor-default);
+}
+
+.sens-tips-demo-note {
+  color: var(--sens-tips-demo-label-color);
+  font-size: var(--sens-tips-font-size);
+  line-height: var(--sens-tips-line-height);
+}

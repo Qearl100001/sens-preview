@@ -1,4 +1,5 @@
 import { tokenRgba } from "../../design-system/color-utils";
+import { sensCursorValue } from "../../design-system/cursors";
 import { getTypographyToken } from "../../design-system/typography";
 import tokens from "../../design-system/tokens.resolved.json";
 import { LinkButton } from "../../ui";
@@ -34,7 +35,7 @@ export function ConnectionTableActions({ status, actions, onAction }: Connection
               fontSize: getTypographyToken("font-size/m"),
               lineHeight: `${getTypographyToken("line-height/m")}px`,
               color: tokenRgba("text-color-transparent-disable", 0.3),
-              cursor: "not-allowed",
+              cursor: sensCursorValue("not-allowed"),
             }}
           >
             {label}

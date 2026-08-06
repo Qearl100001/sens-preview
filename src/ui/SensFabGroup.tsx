@@ -1,20 +1,16 @@
-import { useEffect, useLayoutEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
+import { useState, type CSSProperties, type MouseEventHandler, type ReactNode } from "react";
 import { LoadingOutlined } from "@ant-design/icons";
-import { Button, type ButtonProps } from "antd";
 import { useTranslation } from "react-i18next";
 import { buildShadowD4 } from "../design-system/color-utils";
 import tokens from "../design-system/tokens.resolved.json";
 import { formatButtonText } from "./SensButton";
 import { IconDefaultIcon } from "./FieldIcons";
 import {
-  applyFabPreviewSecondaryColor,
-  applyFabVerticalPreviewIconColor,
-  buildFabGroupSegmentAntdProps,
-  buildFabVerticalGroupSegmentAntdProps,
   FAB_GROUP_PADDING_INNER,
   FAB_GROUP_PADDING_OUTER,
   FAB_ICON_SIZE_PX,
   FAB_RADIUS,
+  FAB_PREVIEW_STATE_COLOR,
   fabColorTokens as c,
   fabUnitTokens as u,
   getFabGroupSegmentBorderRadius,
@@ -25,6 +21,7 @@ import {
   getFabCssVars,
   getFabPrimaryBorderStyle,
   getFabSecondaryCssVars,
+  getFabSnapshotStyleForState,
   getFabVerticalGroupSegmentBaseStyle,
   getFabVerticalGroupSegmentPreviewStyle,
   getFabVerticalIconColor,
@@ -35,18 +32,23 @@ import {
   type FabVerticalPreviewState,
 } from "./fabShared";
 import "./fab-group.css";
+import { functionalCssVar } from "../design-system/functional-skin";
 
 export interface SensFabGroupItem {
   label?: ReactNode;
   icon?: ReactNode;
-  onClick?: ButtonProps["onClick"];
+  /** 纯图标段的可访问名称；未提供可见 label 时必须提供。 */
+  ariaLabel?: string;
+  onClick?: MouseEventHandler<HTMLButtonElement>;
   disabled?: boolean;
   loading?: boolean;
 }
 
 export interface SensFabVerticalGroupItem {
   icon: ReactNode;
-  onClick?: ButtonProps["onClick"];
+  /** 竖向纯图标段的可访问名称。 */
+  ariaLabel?: string;
+  onClick?: MouseEventHandler<HTMLButtonElement>;
 }
 
 export type SensFabGroupProps =
@@ -71,17 +73,9 @@ interface FabVerticalGroupSegmentProps {
 }
 
 function FabVerticalGroupSegment({ item, index, count }: FabVerticalGroupSegmentProps) {
-  const buttonRef = useRef<HTMLButtonElement | HTMLAnchorElement>(null);
   const [isHovered, setIsHovered] = useState(false);
   const [isPressed, setIsPressed] = useState(false);
   const position = getFabGroupSegmentPosition(index, count);
-  const antdProps = buildFabVerticalGroupSegmentAntdProps();
-
-  useEffect(() => {
-    const el = buttonRef.current;
-    if (!el) return;
-    el.style.setProperty("color", getFabVerticalIconColor(isHovered, isPressed), "important");
-  }, [isHovered, isPressed]);
 
   const handleMouseEnter = () => setIsHovered(true);
   const handleMouseLeave = () => {
@@ -89,20 +83,10 @@ function FabVerticalGroupSegment({ item, index, count }: FabVerticalGroupSegment
     setIsPressed(false);
   };
 
-  const segmentStyle: CSSProperties = getFabVerticalGroupSegmentBaseStyle(index, count);
-
-  const buttonNode = (
-    <Button
-      ref={buttonRef}
-      {...antdProps}
-      icon={item.icon}
-      onClick={item.onClick}
-      className={[antdProps.className, `sens-fab-group-segment--${position}`].filter(Boolean).join(" ")}
-      style={segmentStyle}
-    >
-      {null}
-    </Button>
-  );
+  const segmentStyle: CSSProperties = {
+    ...getFabVerticalGroupSegmentBaseStyle(index, count),
+    color: getFabVerticalIconColor(isHovered, isPressed),
+  };
 
   return (
     <span
@@ -110,12 +94,55 @@ function FabVerticalGroupSegment({ item, index, count }: FabVerticalGroupSegment
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       onMouseOver={() => setIsHovered(true)}
-      onMouseDown={() => setIsPressed(true)}
-      onMouseUp={() => setIsPressed(false)}
     >
-      {buttonNode}
+      <button
+        type="button"
+        aria-label={item.ariaLabel}
+        onClick={item.onClick}
+        className={buildFabGroupSegmentClassName("secondary", position, "sens-fab-group-segment--vertical")}
+        style={segmentStyle}
+        onMouseDown={() => setIsPressed(true)}
+        onMouseUp={() => setIsPressed(false)}
+        onBlur={() => setIsPressed(false)}
+        onKeyDown={(event) => {
+          if (event.key === "Enter" || event.key === " ") setIsPressed(true);
+        }}
+        onKeyUp={(event) => {
+          if (event.key === "Enter" || event.key === " ") setIsPressed(false);
+        }}
+      >
+        {renderFabGroupSegmentIcon(item.icon)}
+      </button>
     </span>
   );
+}
+
+function buildFabGroupSegmentClassName(
+  tone: FabTone,
+  position: ReturnType<typeof getFabGroupSegmentPosition>,
+  extraClassName?: string,
+) {
+  return [
+    "sens-fab-group-segment",
+    `sens-fab-group-segment--${tone}`,
+    `sens-fab-group-segment--${position}`,
+    extraClassName,
+  ]
+    .filter(Boolean)
+    .join(" ");
+}
+
+function renderFabGroupSegmentIcon(icon?: ReactNode) {
+  if (!icon) return null;
+  return <span className="sens-fab-group-segment-icon">{icon}</span>;
+}
+
+function getFabLiveSegmentState(isLoading: boolean, isDisabled: boolean, isPressed: boolean, isHovered: boolean) {
+  if (isLoading) return "loading";
+  if (isDisabled) return "disabled";
+  if (isPressed) return "active";
+  if (isHovered) return "hover";
+  return "default";
 }
 
 function renderFabGroupCountWarning(count: number) {
@@ -189,32 +216,15 @@ interface FabGroupSegmentProps {
 }
 
 function FabGroupSegment({ tone, item, index, count }: FabGroupSegmentProps) {
-  const buttonRef = useRef<HTMLButtonElement | HTMLAnchorElement>(null);
   const [isHovered, setIsHovered] = useState(false);
   const [isPressed, setIsPressed] = useState(false);
   const isLoading = !!item.loading;
   const isDisabled = item.disabled || isLoading;
   const position = getFabGroupSegmentPosition(index, count);
   const borderRadius = getFabGroupSegmentBorderRadius("horizontal", index, count);
-  const antdProps = buildFabGroupSegmentAntdProps(tone);
   const hasIcon = Boolean(item.icon) || isLoading;
   const cellContent = formatButtonText(item.label, { tone, hasIcon });
-
-  useEffect(() => {
-    if (tone !== "secondary") return;
-    const el = buttonRef.current;
-    if (!el) return;
-    if (isDisabled) {
-      el.style.removeProperty("color");
-      return;
-    }
-    const color = isPressed
-      ? c["component-active"]
-      : isHovered
-        ? c["component-hover"]
-        : c["text-color-transparent"];
-    el.style.setProperty("color", color, "important");
-  }, [tone, isHovered, isPressed, isDisabled]);
+  const liveState = getFabLiveSegmentState(isLoading, !!item.disabled, isPressed, isHovered);
 
   const handleMouseEnter = () => setIsHovered(true);
   const handleMouseLeave = () => {
@@ -225,6 +235,7 @@ function FabGroupSegment({ tone, item, index, count }: FabGroupSegmentProps) {
   const segmentStyle: CSSProperties = {
     boxShadow: "none",
     borderRadius,
+    ...getFabSnapshotStyleForState(tone, liveState, toFabStyleToken()),
     ...getFabGroupSegmentCrossAxisStyle("horizontal", cellContent, item.icon, isLoading),
     ...getFabGroupSegmentPaddingStyle("horizontal", index, count, cellContent, item.icon, isLoading),
     ...(tone === "primary" ? getFabPrimaryBorderStyle() : {}),
@@ -232,28 +243,35 @@ function FabGroupSegment({ tone, item, index, count }: FabGroupSegmentProps) {
       ? {
           ...getFabSecondaryCssVars(),
           backgroundColor: c.white,
+          color: FAB_PREVIEW_STATE_COLOR[liveState],
         }
       : {}),
   };
 
   const buttonNode = (
-    <Button
-      ref={buttonRef}
-      {...antdProps}
-      icon={isLoading ? undefined : item.icon}
-      iconPosition="start"
-      loading={item.loading}
+    <button
+      type="button"
+      aria-label={item.ariaLabel}
       disabled={isDisabled}
+      aria-busy={isLoading ? true : undefined}
       onClick={item.onClick}
-      className={[antdProps.className, `sens-fab-group-segment--${position}`].filter(Boolean).join(" ")}
+      className={buildFabGroupSegmentClassName(tone, position)}
       style={segmentStyle}
       onMouseEnter={tone === "secondary" ? undefined : handleMouseEnter}
       onMouseLeave={tone === "secondary" ? undefined : handleMouseLeave}
       onMouseDown={tone === "secondary" ? undefined : () => setIsPressed(true)}
       onMouseUp={tone === "secondary" ? undefined : () => setIsPressed(false)}
+      onBlur={() => setIsPressed(false)}
+      onKeyDown={(event) => {
+        if (event.key === "Enter" || event.key === " ") setIsPressed(true);
+      }}
+      onKeyUp={(event) => {
+        if (event.key === "Enter" || event.key === " ") setIsPressed(false);
+      }}
     >
+      {renderFabGroupSegmentIcon(isLoading ? <LoadingOutlined spin /> : item.icon)}
       {cellContent}
-    </Button>
+    </button>
   );
 
   if (tone === "secondary") {
@@ -286,9 +304,9 @@ function toFabStyleToken(): FabStyleToken {
   }
 
   return {
-    primary: c["component-primary"],
-    primaryHover: c["component-hover"],
-    primaryActive: c["component-active"],
+    primary: functionalCssVar("--sens-skin-primary", "component-primary"),
+    primaryHover: functionalCssVar("--sens-skin-hover", "component-hover"),
+    primaryActive: functionalCssVar("--sens-skin-active", "component-active"),
     bgContainer: c.white,
     disabledBg: hexToRgba(c["outline-color-transparent"], 0.06),
     disabledBorder: hexToRgba(c["outline-color-transparent"], 0.08),
@@ -318,27 +336,19 @@ function FabGroupPreviewSegment({
   icon,
   styleToken,
 }: FabGroupPreviewSegmentProps) {
-  const buttonRef = useRef<HTMLButtonElement | HTMLAnchorElement>(null);
-  const antdProps = buildFabGroupSegmentAntdProps(tone);
   const position = getFabGroupSegmentPosition(index, count);
   const hasIcon = Boolean(icon);
   const cellContent = formatButtonText(label, { tone, hasIcon });
   const isLoadingState = state === "loading" || state === "loadingHover";
   const previewContent = isLoadingState ? null : label;
 
-  useLayoutEffect(() => {
-    if (tone === "secondary") {
-      applyFabPreviewSecondaryColor(buttonRef.current, state);
-    }
-  });
-
   return (
-    <Button
-      {...antdProps}
-      ref={buttonRef}
-      icon={isLoadingState ? <LoadingOutlined spin /> : icon}
-      iconPosition="start"
-      className={[antdProps.className, `sens-fab-group-segment--${position}`].filter(Boolean).join(" ")}
+    <button
+      type="button"
+      disabled={state === "disabled" || state === "disabledHover" || isLoadingState}
+      aria-busy={isLoadingState ? true : undefined}
+      aria-label={label == null ? `FAB ${tone === "primary" ? "一级" : "二级"} 第${index + 1}段` : undefined}
+      className={buildFabGroupSegmentClassName(tone, position)}
       style={{
         ...(tone === "secondary" ? getFabSecondaryCssVars() : {}),
         ...getFabGroupSegmentPreviewStyle(
@@ -351,10 +361,12 @@ function FabGroupPreviewSegment({
           isLoadingState ? <LoadingOutlined spin /> : icon,
           isLoadingState,
         ),
+        ...(tone === "secondary" ? { color: FAB_PREVIEW_STATE_COLOR[state] } : {}),
       }}
     >
+      {renderFabGroupSegmentIcon(isLoadingState ? <LoadingOutlined spin /> : icon)}
       {cellContent}
-    </Button>
+    </button>
   );
 }
 
@@ -415,24 +427,17 @@ interface FabVerticalGroupPreviewSegmentProps {
 }
 
 function FabVerticalGroupPreviewSegment({ state, index, count }: FabVerticalGroupPreviewSegmentProps) {
-  const buttonRef = useRef<HTMLButtonElement | HTMLAnchorElement>(null);
-  const antdProps = buildFabVerticalGroupSegmentAntdProps();
   const position = getFabGroupSegmentPosition(index, count);
 
-  useLayoutEffect(() => {
-    applyFabVerticalPreviewIconColor(buttonRef.current, state);
-  });
-
   return (
-    <Button
-      {...antdProps}
-      ref={buttonRef}
-      icon={fabVerticalPreviewIcon()}
-      className={[antdProps.className, `sens-fab-group-segment--${position}`].filter(Boolean).join(" ")}
+    <button
+      type="button"
+      aria-label={`竖向 FAB 第${index + 1}段`}
+      className={buildFabGroupSegmentClassName("secondary", position, "sens-fab-group-segment--vertical")}
       style={getFabVerticalGroupSegmentPreviewStyle(state, index, count)}
     >
-      {null}
-    </Button>
+      {renderFabGroupSegmentIcon(fabVerticalPreviewIcon())}
+    </button>
   );
 }
 

@@ -2,12 +2,12 @@
 
 > SensD 鼠标指针**使用规则** + 系统光标消费方式。
 > 成熟度：Pilot
-> 实现：Partial
-> 验证：Pending
+> 实现：Partial（`--sens-cursor-*` / registry 已齐；`SensTag` / Tips Demo / 搜索输入·清空已收敛变量；antd 默认控件若语义已对可不重复覆盖）
+> 验证：Verified（`/basic-styles/cursor` 数值样张主验 8 态 + 页签拖拽 `move`；grab 场景 Demo / 全仓消费后置）
 > 规则来源：《Sens.Design_鼠标指针 v2.1》`0bp7bkM0yiz8oVQm1XTsHj` / `1301:6804`
 > 形态参考：Figma `IBBF40Lst6uPPJf70pi0bh`（示意；**不**作为运行时位图）
 > 实现入口：`src/ui/cursors.css` · `src/design-system/cursors.ts`
-> 预览：`/basic-styles/cursor`
+> 预览 / **验收入口**：`/basic-styles/cursor` → 默认「数值样张」（悬停热区看系统光标；PNG 仅示意）
 
 > **易混**：`src/design-system/how-cursor-works.md` 是 **Cursor AI** 工作说明，不是鼠标光标文档。
 
@@ -70,6 +70,17 @@ SensD 规则语义
 | 页签标签页拖拽排序（`SensEditableCardTabs`） | **系统 `move`** | `grab` / `grabbing` |
 | 画布 / 地图平移 | `grab` → `grabbing` | 与页签「换位」混用 |
 
+**本轮边界**：`grab` / `grabbing` 仅在样张热区可悬停验收；**无**画布/地图真实场景 Demo，待业务接入后再补，不在本轮造假 Demo。
+
+## 4.1 使用场景：默认 vs 可点击
+
+| 场景 | 应用态 | 禁止 | 说明 |
+|---|---|---|---|
+| 仅悬停出 Tips / 说明、**不可点击**（如标题帮助 icon） | **`default`**（`--sens-cursor-default`） | `pointer`、`help` | 指针仍处待执行态；悬停不改变「可点」语义 |
+| 可点击对象（按钮、链接、可点标签等） | **`pointer`**（`--sens-cursor-pointer`） | 用 `default` 冒充可点 | 标示可点击交互 |
+
+对照：Figma 主验「默认指针」`1123:157` / 「可点击」`1123:160`；组件实现示例：`SensSectionTitle` 帮助热区、`SensForm` 标题帮助（`.sens-form-item-label-help`）。
+
 ## 5. 热区原则（规则稿）
 
 - 交互热区应足够大，避免「只有像素级可点」。
@@ -78,14 +89,20 @@ SensD 规则语义
 
 ## 6. 消费方式
 
+组件样式**禁止**硬写 `cursor: pointer|default|not-allowed|help` 等关键字；必须走变量或 helper：
+
 ```css
 .my-draggable {
   cursor: var(--sens-cursor-move); /* = move */
 }
+.my-clickable {
+  cursor: var(--sens-cursor-pointer);
+}
 ```
 
 ```ts
-import { sensCursorValue, SENS_CURSOR_MOVE } from "../design-system/cursors";
+import { sensCursorValue, SENS_CURSOR_MOVE } from "../../ui";
+// 或直接：import { … } from "../design-system/cursors";
 
 style={{ cursor: sensCursorValue("move") }} // "move"
 // 或 className={SENS_CURSOR_MOVE.className}
@@ -95,4 +112,7 @@ style={{ cursor: sensCursorValue("move") }} // "move"
 
 - 系统光标外形随 OS / 浏览器，与 Figma 示意不完全一致；**语义**以 SensD 规则为准。
 - `vertical-text` 等在部分环境支持较弱，可能回退为相近态。
-- 走查：`/basic-styles/cursor`；页签对照：`/components/tabs`。
+- **验收**：打开 `/basic-styles/cursor` 的「数值样张」悬停热区；页签对照 `/components/tabs`。不要以设计说明 Tab 或 PNG 示意当作光标已验。
+- `grab` / `grabbing` 真实场景 Demo 待画布/地图业务。
+- `src/ui` / `src/features` / `src/preview` **禁止**硬写光标关键字（走 `--sens-cursor-*` / `sensCursorValue`）；`SensTag`、Tips Demo、搜索输入/清空已对齐。
+- `copy` 与 `no-drop` 的 Figma 参考同为 `1119:2856`（规则稿移动次要态同帧），已核对非笔误。

@@ -3,8 +3,8 @@
 > 固定尺寸、图标尺寸、组件高度与组件专属尺寸的规则源。
 > 成熟度：Pilot
 > 实现：Partial
-> 验证：Pending
-> 来源：`tokens/source/figma/unit.json`、`tokens.resolved.json`、已实现组件文档
+> 验证：Verified
+> 来源：`tokens/source/figma/unit.json`、`tokens.resolved.json`、Figma `15525:48769`、已实现组件文档
 > 预览：`/basic-styles/size`
 
 ## 1. 定位
@@ -70,7 +70,7 @@ Icon / Logo 仍需要后续单独做图标库规则。Size Foundation 只记录�
 
 待确认：
 
-- 若后续设计明确“小输入框 = 28px”，不要复用 `spacing/7x`。建议新增输入类专属高度，例如 `size/component-height/input-sm = 28`，或在确认它适用于多个组件后再提升为通用 component height 档位。
+- 小输入框已确认使用 `size/component-height/s = 24px`，对应 `SensInput size="small"` 和 Figma `15525:48769`；不采用 28px，也不复用 `spacing/7x` 作为输入框高度。
 - 标题栏高度虽然进入 `size/component-height/*`，但仍属于组件专属尺寸，不建议反推回基础 `size/*` 档位。
 
 ## 5. Tag 尺寸（Figma 4.2 / 4.3 已核对）
@@ -125,7 +125,7 @@ Logo 大小会随业务线调整，`size/xxl = 48` 只作为当前样张候选�
 
 ## 8. 待补
 
-- 确认小输入框 `28px` 是否为输入类专属高度，并补对应 token / helper 方案。
+- 已在数值样张中展示标题栏 `72px / 94px`，并保留 Figma `15525:48769` 的小输入框 `24px` 实例。
 - 后续建立 Icon Foundation / 图标库规则，承接图标资产、图标尺寸、颜色和状态。
 - Tag 组件阶段将 `tag/height/*`、`tag/padding-*`、`tag/max-width/*`、`tag/close/*` 等专属项转为组件 token。
 - 检查已有组件中散落的 `height` / `width` / icon size 是否可收敛到 Size Foundation。

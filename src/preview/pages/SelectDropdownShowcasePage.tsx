@@ -3,7 +3,7 @@ import { useOutletContext } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import dropdownMenuDesignDoc from "../../design-system/components/base/dropdown-menu.design.md?raw";
 import dropdownMenuDevDoc from "../../design-system/components/base/dropdown-menu.md?raw";
-import type { FunctionalSkin } from "../../design-system/functional-skin";
+import type { PreviewOutletContext } from "../previewOutletContext";
 import {
   DropdownMenuStatesPreview,
 } from "../../ui";
@@ -41,10 +41,6 @@ const SEARCH_DEMO_OPTIONS = [
     searchText: "chongqing chong qing cq",
   },
 ];
-
-type PreviewOutletContext = {
-  skin: FunctionalSkin;
-};
 
 function SelectDropdownDemo() {
   const { skin } = useOutletContext<PreviewOutletContext>();

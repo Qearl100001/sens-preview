@@ -13,7 +13,7 @@ import {
   resolveFeedbackIconColor,
   type AlertType,
 } from "./feedbackShared";
-import { SensButton } from "./SensButton";
+import { SensMessageLink } from "./SensMessage";
 
 export type { AlertType } from "./feedbackShared";
 export { ALERT_TYPE_LABEL } from "./feedbackShared";
@@ -88,8 +88,8 @@ export function SensAlert({
           </span>
         ) : null}
       </div>
-      <FeedbackLinkSlot>{link}</FeedbackLinkSlot>
-      {closable ? <FeedbackCloseButton onClose={onClose} /> : null}
+      <FeedbackLinkSlot alignWithTitleRow={hasDescription}>{link}</FeedbackLinkSlot>
+      {closable ? <FeedbackCloseButton onClose={onClose} alignWithTitleRow={hasDescription} /> : null}
     </div>
   );
 }
@@ -100,13 +100,14 @@ const MATRIX_TYPES: AlertType[] = ["default", "success", "info", "warning"];
 export function AlertTypesPreview() {
   const { Text } = Typography;
   return (
-    <Space direction="vertical" size="large" style={{ width: "100%", maxWidth: 480 }}>
+    <Space direction="vertical" size="large" style={{ width: "100%" }}>
       {(
         [
           { key: "基础", description: false, closable: false, link: false },
           { key: "辅助文案", description: true, closable: false, link: false },
           { key: "可关闭", description: false, closable: true, link: false },
           { key: "带链接", description: false, closable: false, link: true },
+          { key: "辅助 + 链接", description: true, closable: false, link: true },
         ] as const
       ).map((row) => (
         <Space key={row.key} direction="vertical" size="small" style={{ width: "100%" }}>
@@ -118,13 +119,7 @@ export function AlertTypesPreview() {
                 type={type}
                 closable={row.closable}
                 description={row.description ? "这是辅助说明文案，用于补充标题信息。" : undefined}
-                link={
-                  row.link ? (
-                    <SensButton tone="link" size="small">
-                      查看详情
-                    </SensButton>
-                  ) : undefined
-                }
+                link={row.link ? <SensMessageLink>查看详情</SensMessageLink> : undefined}
               >
                 {ALERT_TYPE_LABEL[type]}提示标题
               </SensAlert>

@@ -3,11 +3,13 @@ import { Alert, Space, Table, Tag, Typography } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import layoutDocSource from "../../../../docs/foundations/layout.md?raw";
 import { buildShadow, getColorToken, tokenRgba } from "../../../design-system/color-utils";
+import { sensCursorValue } from "../../../design-system/cursors";
 import { getDividerColor, getDividerHairlineWidth } from "../../../design-system/divider";
 import { getThemeTopBackground } from "../../../design-system/navigation-color";
 import { getTypographyToken } from "../../../design-system/typography";
 import { getUnitToken } from "../../../design-system/unit";
 import { BasicStylePageLayout } from "./BasicStylePageLayout";
+import { functionalCssVar } from "../../../design-system/functional-skin";
 
 const { Text, Title } = Typography;
 
@@ -182,13 +184,13 @@ function LeftPanelBehaviorBoard() {
             style={{
               height: px(getUnitToken("size/component-height/m")),
               paddingInline: px(layoutTokens.cardPadding),
-              border: `${layoutTokens.dividerWidth}px solid ${mode === value ? getColorToken("component-primary") : layoutColors.border}`,
+              border: `${layoutTokens.dividerWidth}px solid ${mode === value ? functionalCssVar("--sens-skin-primary", "component-primary") : layoutColors.border}`,
               borderRadius: px(layoutTokens.innerRadius),
               background: mode === value ? tokenRgba("component-active-background", 1) : layoutColors.surface,
-              color: mode === value ? getColorToken("component-active") : layoutColors.text,
+              color: mode === value ? functionalCssVar("--sens-skin-active", "component-active") : layoutColors.text,
               fontSize: px(layoutTokens.bodySize),
               lineHeight: px(layoutTokens.bodyLine),
-              cursor: "pointer",
+              cursor: sensCursorValue("pointer"),
             }}
           >
             {label}
@@ -227,13 +229,13 @@ function ScrollChromeBoard() {
             style={{
               height: px(getUnitToken("size/component-height/m")),
               paddingInline: px(layoutTokens.cardPadding),
-              border: `${layoutTokens.dividerWidth}px solid ${chromeState === value ? getColorToken("component-primary") : layoutColors.border}`,
+              border: `${layoutTokens.dividerWidth}px solid ${chromeState === value ? functionalCssVar("--sens-skin-primary", "component-primary") : layoutColors.border}`,
               borderRadius: px(layoutTokens.innerRadius),
               background: chromeState === value ? tokenRgba("component-active-background", 1) : layoutColors.surface,
-              color: chromeState === value ? getColorToken("component-active") : layoutColors.text,
+              color: chromeState === value ? functionalCssVar("--sens-skin-active", "component-active") : layoutColors.text,
               fontSize: px(layoutTokens.bodySize),
               lineHeight: px(layoutTokens.bodyLine),
-              cursor: "pointer",
+              cursor: sensCursorValue("pointer"),
             }}
           >
             {label}

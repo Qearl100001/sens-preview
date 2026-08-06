@@ -2,6 +2,7 @@ import type { CSSProperties, ReactNode } from "react";
 import type { ButtonProps } from "antd";
 import { buildShadowD3, buildShadowD4, SHADOW_NONE } from "../design-system/color-utils";
 import tokens from "../design-system/tokens.resolved.json";
+import { functionalCssVar } from "../design-system/functional-skin";
 
 const c = tokens.color as Record<string, string>;
 const u = tokens.unit as Record<string, number>;
@@ -16,6 +17,7 @@ export const FAB_COMPONENT_HEIGHT_PX = u["size/component-height/l"];
 export const FAB_COMPONENT_HEIGHT = `${FAB_COMPONENT_HEIGHT_PX}px`;
 export const FAB_GROUP_PADDING_OUTER = u["spacing/horizontal/5x"];
 export const FAB_GROUP_PADDING_INNER = u[SP_H_2_5_KEY];
+export const FAB_SEGMENT_ICON_GAP = u["spacing/horizontal/1x"];
 /** 竖向组合段内图标：size/icon/m（Figma 16×16） */
 export const FAB_ICON_SIZE_PX = u["size/icon/m"];
 export const FAB_ICON_SIZE = `${FAB_ICON_SIZE_PX}px`;
@@ -74,23 +76,6 @@ export function buildFabToneProps(tone: FabTone): ButtonProps {
   return { color: "default", variant: "text", className: "sens-btn-fab sens-btn-fab-secondary" };
 }
 
-/** 组合 FAB 分段：独立 class，不带 per-button D4 */
-export function buildFabGroupSegmentAntdProps(tone: FabTone): ButtonProps {
-  if (tone === "primary") {
-    return { color: "primary", variant: "solid", className: "sens-fab-group-segment sens-fab-group-segment--primary" };
-  }
-  return { color: "default", variant: "text", className: "sens-fab-group-segment sens-fab-group-segment--secondary" };
-}
-
-/** 竖向组合 FAB 分段：锁 secondary 结构 + 竖向配色作用域 */
-export function buildFabVerticalGroupSegmentAntdProps(): ButtonProps {
-  return {
-    color: "default",
-    variant: "text",
-    className: "sens-fab-group-segment sens-fab-group-segment--secondary sens-fab-group-segment--vertical",
-  };
-}
-
 export function getFabGroupSegmentPosition(index: number, count: number): FabGroupSegmentPosition {
   if (index === 0) return "first";
   if (index === count - 1) return "last";
@@ -133,8 +118,8 @@ export interface FabGroupSegmentPaddingVertical {
 }
 
 /**
- * 横向组合分段 padding：必须用 `paddingInline` 压 antd 主题 `paddingInline:12`，
- * 只设 paddingLeft/Right 会被盖回。竖向仍走 top/bottom/left/right。
+ * 横向组合分段 padding：使用 `paddingInline` 表达左右分段规则。
+ * 竖向走 top/bottom/left/right。
  * icon-only 与文字/图文共用外20/内10 分段规则（`isFabIconOnly` 仅用于识别形态，不改 padding 数值）。
  */
 export function getFabGroupSegmentPaddingStyle(
@@ -227,6 +212,10 @@ export function getFabCssVars(): CSSProperties {
   return {
     "--sens-fab-height": FAB_COMPONENT_HEIGHT,
     "--sens-fab-icon-size": FAB_ICON_SIZE,
+    "--sens-fab-segment-icon-gap": `${FAB_SEGMENT_ICON_GAP}px`,
+    "--sens-fab-preview-border": c["divideline-color-transparent-light"],
+    "--sens-fab-preview-text-secondary": c["text-color-transparent"],
+    "--sens-fab-preview-text-tertiary": c["text-color-transparent-disable"],
   } as CSSProperties;
 }
 
@@ -252,7 +241,7 @@ export function getFabCrossAxisStyle(
   };
 }
 
-/** 横向组合 FAB 分段固定交叉轴高度；纯图标段须 `width:auto` 解开 antd `icon-only` 定宽，否则 padding 20/10 无法撑开 */
+/** 横向组合 FAB 分段固定交叉轴高度；纯图标段通过 padding 20/10 撑开宽度。 */
 export function getFabGroupSegmentCrossAxisStyle(
   direction: FabGroupDirection = "horizontal",
   content?: ReactNode,
@@ -306,8 +295,8 @@ function hexToRgba(hex: string, alpha: number): string {
 export function getFabSecondaryCssVars(): CSSProperties {
   return {
     "--sens-btn-fab-secondary-text": c["text-color-transparent"],
-    "--sens-btn-fab-secondary-text-hover": c["component-hover"],
-    "--sens-btn-fab-secondary-text-active": c["component-active"],
+    "--sens-btn-fab-secondary-text-hover": functionalCssVar("--sens-skin-hover", "component-hover"),
+    "--sens-btn-fab-secondary-text-active": functionalCssVar("--sens-skin-active", "component-active"),
     "--sens-btn-fab-secondary-text-disabled": hexToRgba(c["text-color-transparent-disable"], 0.3),
     "--sens-btn-fab-secondary-text-disabled-hover": hexToRgba(c["text-color-transparent-disable"], 0.24),
     "--sens-btn-fab-secondary-bg": c.white,
@@ -319,8 +308,8 @@ export function getFabSecondaryCssVars(): CSSProperties {
 export function getFabVerticalIconCssVars(): CSSProperties {
   return {
     "--sens-fab-vertical-icon-default": c["icon-color-transparent"],
-    "--sens-fab-vertical-icon-hover": c["component-primary"],
-    "--sens-fab-vertical-icon-active": c["component-active"],
+    "--sens-fab-vertical-icon-hover": functionalCssVar("--sens-skin-primary", "component-primary"),
+    "--sens-fab-vertical-icon-active": functionalCssVar("--sens-skin-active", "component-active"),
     "--sens-fab-vertical-bg": c.white,
     "--sens-fab-group-vertical-bg": c.white,
   } as CSSProperties;
@@ -330,20 +319,14 @@ export type FabVerticalPreviewState = "default" | "hover" | "active";
 
 export const FAB_VERTICAL_PREVIEW_ICON_COLOR: Record<FabVerticalPreviewState, string> = {
   default: c["icon-color-transparent"],
-  hover: c["component-primary"],
-  active: c["component-active"],
+  hover: functionalCssVar("--sens-skin-primary", "component-primary"),
+  active: functionalCssVar("--sens-skin-active", "component-active"),
 };
 
 export function getFabVerticalIconColor(isHovered: boolean, isPressed: boolean): string {
-  if (isPressed) return c["component-active"];
-  if (isHovered) return c["component-primary"];
+  if (isPressed) return functionalCssVar("--sens-skin-active", "component-active");
+  if (isHovered) return functionalCssVar("--sens-skin-primary", "component-primary");
   return c["icon-color-transparent"];
-}
-
-export function applyFabVerticalPreviewIconColor(node: HTMLElement | null, state: FabVerticalPreviewState) {
-  const color = FAB_VERTICAL_PREVIEW_ICON_COLOR[state];
-  if (!node || !color) return;
-  node.style.setProperty("color", color, "important");
 }
 
 export function getFabVerticalGroupSegmentBaseStyle(index: number, count: number): CSSProperties {
@@ -431,19 +414,13 @@ export function getFabDisabledSnapshotStyle(tone: FabTone, t: FabStyleToken): CS
 
 export const FAB_PREVIEW_STATE_COLOR: Partial<Record<FabPreviewState, string>> = {
   default: c["text-color-transparent"],
-  hover: c["component-hover"],
-  active: c["component-active"],
+  hover: functionalCssVar("--sens-skin-hover", "component-hover"),
+  active: functionalCssVar("--sens-skin-active", "component-active"),
   disabled: hexToRgba(c["text-color-transparent-disable"], 0.3),
   loading: hexToRgba(c["text-color-transparent-disable"], 0.3),
   disabledHover: hexToRgba(c["text-color-transparent-disable"], 0.24),
   loadingHover: hexToRgba(c["text-color-transparent-disable"], 0.24),
 };
-
-export function applyFabPreviewSecondaryColor(node: HTMLElement | null, state: FabPreviewState) {
-  const color = FAB_PREVIEW_STATE_COLOR[state];
-  if (!node || !color) return;
-  node.style.setProperty("color", color, "important");
-}
 
 export function getFabSnapshotStyleForState(
   tone: FabTone,

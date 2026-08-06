@@ -22,6 +22,7 @@ import {
 import "./input-preview.css";
 import "./inputnumber.css";
 import "./inputnumber-preview.css";
+import { functionalCssVar } from "../design-system/functional-skin";
 
 const u = tokens.unit as Record<string, number>;
 const I18N_NS = "组件库";
@@ -63,8 +64,8 @@ export function useSensInputNumberStyle(size?: InputNumberProps["size"]): CSSPro
     "--sens-inputnumber-handler-bg": getColorToken("white"),
     "--sens-inputnumber-handler-border-color": tokenRgba("divideline-color-transparent-dack", 0.16),
     "--sens-inputnumber-handler-default-color": getColorToken("icon-color-transparent"),
-    "--sens-inputnumber-handler-hover-color": getColorToken("component-primary"),
-    "--sens-inputnumber-handler-active-color": getColorToken("component-active"),
+    "--sens-inputnumber-handler-hover-color": functionalCssVar("--sens-skin-primary", "component-primary"),
+    "--sens-inputnumber-handler-active-color": functionalCssVar("--sens-skin-active", "component-active"),
     "--sens-inputnumber-handler-disabled-color": tokenRgba("icon-color-transparent-disable", 0.3),
     "--sens-inputnumber-handler-disabled-hover-color": tokenRgba(
       "icon-color-transparent-disable-hover",
@@ -75,7 +76,7 @@ export function useSensInputNumberStyle(size?: InputNumberProps["size"]): CSSPro
     "--sens-inputnumber-inside-warning-edge-hover": `${stepperVisibleEdge}px`,
     "--sens-inputnumber-inside-warning-reserve": `${edgeInset + iconSize}px`,
     "--sens-inputnumber-inside-warning-reserve-hover": `${stepperVisibleEdge + iconSize}px`,
-    "--sens-inputnumber-active-shadow": `0 0 0 2px ${tokenRgba("component-active-shadow", 0.2)}`,
+    "--sens-inputnumber-active-shadow": `0 0 0 2px ${functionalCssVar("--sens-skin-active-shadow", "component-active-shadow")}`,
   } as CSSProperties;
 }
 
@@ -350,9 +351,9 @@ interface InputNumberPreviewStyleToken {
 
 function getInputNumberPreviewStyleToken(): InputNumberPreviewStyleToken {
   return {
-    hoverBorderColor: getColorToken("component-primary"),
-    activeBorderColor: getColorToken("component-active"),
-    activeShadow: `0 0 0 2px ${tokenRgba("component-active-shadow", 0.2)}`,
+    hoverBorderColor: functionalCssVar("--sens-skin-primary", "component-primary"),
+    activeBorderColor: functionalCssVar("--sens-skin-active", "component-active"),
+    activeShadow: `0 0 0 2px ${functionalCssVar("--sens-skin-active-shadow", "component-active-shadow")}`,
     colorBorderDisabledHover: tokenRgba("line-color-transparent", 0.06),
     colorBgContainerDisabledHover: tokenRgba("background-transparent-grey", 0.04),
     colorErrorHover: getColorToken("warning-color-hover"),

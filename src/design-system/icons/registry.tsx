@@ -46,13 +46,18 @@ import {
   WarningFilledIcon,
 } from "../../ui/FieldIcons";
 import { SearchIcon } from "../../ui/SearchIcon";
-import type { IconAssetMeta, IconName, RegistryIconRenderProps } from "./types";
+import { FIGMA_ICON_REGISTRY } from "./figma-icons";
+import { FIGMA_FILLED_ICON_REGISTRY } from "./filled-icons";
+import { COLORFUL_ICON_REGISTRY } from "./colorful-icons";
+import { COLORFUL_ICON_NAMES, type ColorfulIconName } from "./colorful-icon-names";
+import type { FilledIconName } from "./filled-icon-names";
+import type { IconAssetMeta, IconName, IconVariant, RegistryIconRenderProps } from "./types";
 
 export interface IconRegistryEntry extends IconAssetMeta {
   Component: ComponentType<RegistryIconRenderProps>;
 }
 
-export const ICON_REGISTRY: Record<IconName, IconRegistryEntry> = {
+const LEGACY_ICON_REGISTRY: Record<string, IconRegistryEntry> = {
   "error-diamond": {
     name: "error-diamond",
     sourceComponent: "ErrorDiamondIcon",
@@ -918,12 +923,28 @@ export const ICON_REGISTRY: Record<IconName, IconRegistryEntry> = {
   },
 };
 
-export const ICON_NAMES = Object.keys(ICON_REGISTRY) as IconName[];
+/** Figma 线性图标优先覆盖同名历史手写资产；未迁移的历史 Sens 图标继续保留。 */
+export const ICON_REGISTRY: Record<IconName, IconRegistryEntry> = {
+  ...LEGACY_ICON_REGISTRY,
+  ...FIGMA_ICON_REGISTRY,
+} as Record<IconName, IconRegistryEntry>;
 
-export function getIconRegistryEntry(name: IconName): IconRegistryEntry {
+export const ICON_NAMES = Object.keys(ICON_REGISTRY) as IconName[];
+export const FILLED_ICON_REGISTRY: Record<FilledIconName, IconRegistryEntry> = FIGMA_FILLED_ICON_REGISTRY;
+export { FILLED_ICON_NAMES } from "./filled-icon-names";
+export { COLORFUL_ICON_NAMES } from "./colorful-icon-names";
+export { COLORFUL_ICON_REGISTRY };
+
+export function getIconRegistryEntry(name: IconName, variant: IconVariant = "linear"): IconRegistryEntry {
+  if (variant === "filled") {
+    return FILLED_ICON_REGISTRY[name as FilledIconName];
+  }
+  if (variant === "colorful") {
+    return COLORFUL_ICON_REGISTRY[name as ColorfulIconName];
+  }
   return ICON_REGISTRY[name];
 }
 
 export function isIconName(value: string): value is IconName {
-  return value in ICON_REGISTRY;
+  return value in ICON_REGISTRY || value in FILLED_ICON_REGISTRY || value in COLORFUL_ICON_REGISTRY;
 }

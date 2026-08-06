@@ -1,4 +1,4 @@
-import type { CSSProperties, MouseEvent, ReactNode } from "react";
+import type { CSSProperties, KeyboardEvent, MouseEvent, ReactNode } from "react";
 import { LoadingOutlined } from "@ant-design/icons";
 import { useTranslation } from "react-i18next";
 import "./dropdown-menu.css";
@@ -27,7 +27,7 @@ export interface SensDropdownMenuItemProps {
   variant?: SensDropdownMenuItemVariant;
   disabled?: boolean;
   loading?: boolean;
-  onClick?: (event: MouseEvent<HTMLDivElement>) => void;
+  onClick?: (event: MouseEvent<HTMLDivElement> | KeyboardEvent<HTMLDivElement>) => void;
   children: ReactNode;
   className?: string;
   style?: CSSProperties;
@@ -56,6 +56,13 @@ export function SensDropdownMenuItem({
     onClick?.(event);
   };
 
+  const handleKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
+    if (isNonInteractive) return;
+    if (event.key !== "Enter" && event.key !== " ") return;
+    event.preventDefault();
+    onClick?.(event);
+  };
+
   const loadingText = t(`${I18N_NS}.sensd-selectPanel-loadingText`, { defaultValue: "加载中" });
 
   const itemClassName = [
@@ -73,9 +80,11 @@ export function SensDropdownMenuItem({
       role="menuitem"
       aria-disabled={isNonInteractive || undefined}
       aria-busy={loading || undefined}
+      tabIndex={isNonInteractive ? -1 : 0}
       className={itemClassName}
       style={style}
       onClick={handleClick}
+      onKeyDown={handleKeyDown}
     >
       {loading ? (
         <span className="sens-dropdown-menu-item-loading">

@@ -26,7 +26,7 @@
 | `grid.md` | `20` 栏、`12` 栏和局部容器排布 | Pilot · Partial · Pending |
 | `size.md` | 固定尺寸、图标尺寸、组件高度、组件专属尺寸候选 | Pilot · Partial · Pending |
 | `icon.md` | 图标资产、命名、尺寸关系、颜色语义和消费规则 | Pilot · Partial · Pending |
-| `cursor.md` | SensD 鼠标态位图、hotspot、拖拽用 move 的映射 | Pilot · Partial · Pending |
+| `cursor.md` | SensD 鼠标规则与系统光标关键字；示意 PNG 不参与运行时；拖拽换位用 `move` | Pilot · Partial · Verified |
 | `radius.md` | 圆角 scale 和使用场景 | Pilot · Partial · Pending |
 | `shadow.md` | 投影层级、D1-D4、卡片阴影 | Pilot · Implemented · Pending |
 | `divider.md` | 分割线宽度、层级、透明度与消费 helper | Pilot · Implemented · Pending |

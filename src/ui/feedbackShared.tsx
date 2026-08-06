@@ -1,6 +1,7 @@
-import type { CSSProperties, ReactNode } from "react";
+import { useState, type CSSProperties, type ReactNode } from "react";
 import { LoadingOutlined } from "@ant-design/icons";
 import { buildShadowD4, getColorToken, tokenRgba } from "../design-system/color-utils";
+import { sensCursorValue } from "../design-system/cursors";
 import { SensIcon } from "../design-system/icons";
 import type { IconName } from "../design-system/icons";
 import { getTypographyToken } from "../design-system/typography";
@@ -85,6 +86,7 @@ export function feedbackLayoutTokens() {
     radius: getUnitToken("radius/m"),
     padInline: getUnitToken("spacing/horizontal/3x"),
     gap: getUnitToken("spacing/1x"),
+    messageTextToLinkGap: getUnitToken("spacing/horizontal/4x"),
     /** 轻提示单行整体高 32 */
     messageHeight,
     /** 警告单行整体高 36；有辅助时不锁高，复用由此推导的 pad */
@@ -116,7 +118,11 @@ export function feedbackDescriptionColor(): string {
   return tokenRgba("text-sub-color-transparent", 0.58);
 }
 
-export function feedbackCloseColor(): string {
+export type FeedbackCloseState = "default" | "hover" | "active";
+
+export function feedbackCloseColor(state: FeedbackCloseState = "default"): string {
+  if (state === "hover") return getColorToken("warning-color");
+  if (state === "active") return getColorToken("warning-color-active");
   return getColorToken("icon-color-transparent");
 }
 
@@ -196,34 +202,71 @@ export type FeedbackCloseButtonProps = {
   label?: string;
 };
 
-export function FeedbackCloseButton({ onClose, label = "关闭" }: FeedbackCloseButtonProps) {
+export function FeedbackCloseButton({
+  onClose,
+  label = "关闭",
+  alignWithTitleRow = false,
+}: FeedbackCloseButtonProps & { alignWithTitleRow?: boolean }) {
   const t = feedbackLayoutTokens();
+  const [state, setState] = useState<FeedbackCloseState>("default");
   return (
     <button
       type="button"
       aria-label={label}
       onClick={onClose}
+      onMouseEnter={() => setState("hover")}
+      onMouseLeave={() => setState("default")}
+      onMouseDown={() => setState("active")}
+      onMouseUp={() => setState("hover")}
+      onFocus={() => setState("hover")}
+      onBlur={() => setState("default")}
+      onKeyDown={(event) => {
+        if (event.key === "Enter" || event.key === " ") setState("active");
+      }}
+      onKeyUp={(event) => {
+        if (event.key === "Enter" || event.key === " ") setState("hover");
+      }}
       style={{
         display: "inline-flex",
         alignItems: "center",
         justifyContent: "center",
         margin: 0,
+        marginTop: alignWithTitleRow ? Math.max(0, (t.lineHeight - t.iconSize) / 2) : 0,
         padding: 0,
         border: "none",
         background: "transparent",
-        cursor: "pointer",
+        cursor: sensCursorValue("pointer"),
         flexShrink: 0,
         lineHeight: 0,
       }}
     >
-      <SensIcon name="close" size={t.iconSize} color={feedbackCloseColor()} />
+      <SensIcon name="close" size={t.iconSize} color={feedbackCloseColor(state)} />
     </button>
   );
 }
 
-export function FeedbackLinkSlot({ children }: { children?: ReactNode }) {
+export function FeedbackLinkSlot({
+  children,
+  alignWithTitleRow = false,
+}: {
+  children?: ReactNode;
+  /** 有辅助文案时与标题行顶对齐（链接高 = line-height/m，无需再偏移） */
+  alignWithTitleRow?: boolean;
+}) {
   if (children == null || children === false) return null;
+  const t = feedbackLayoutTokens();
   return (
-    <span style={{ flexShrink: 0, display: "inline-flex", alignItems: "center" }}>{children}</span>
+    <span
+      style={{
+        flexShrink: 0,
+        display: "inline-flex",
+        alignItems: "center",
+        alignSelf: alignWithTitleRow ? "flex-start" : undefined,
+        height: alignWithTitleRow ? t.lineHeight : undefined,
+        marginInlineStart: Math.max(0, t.messageTextToLinkGap - t.gap),
+      }}
+    >
+      {children}
+    </span>
   );
 }

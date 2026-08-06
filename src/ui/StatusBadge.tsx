@@ -1,5 +1,6 @@
 import { Space } from "antd";
 import { getColorToken } from "../design-system/color-utils";
+import { getTypographyToken } from "../design-system/typography";
 
 export type RunStatus = "running" | "stopped" | "failed";
 
@@ -35,7 +36,13 @@ export function StatusBadge({ status }: StatusBadgeProps) {
           flexShrink: 0,
         }}
       />
-      <span style={{ fontSize: 14, lineHeight: "22px", color: getColorToken("text-color") }}>
+      <span
+        style={{
+          fontSize: getTypographyToken("font-size/m"),
+          lineHeight: `${getTypographyToken("line-height/m")}px`,
+          color: getColorToken("text-color"),
+        }}
+      >
         {STATUS_LABEL[status]}
       </span>
     </Space>

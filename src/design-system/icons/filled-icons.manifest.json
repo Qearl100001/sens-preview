@@ -1,0 +1,668 @@
+[
+  {
+    "nodeId": "5257:17890",
+    "figmaName": "view-single",
+    "name": "view-single",
+    "width": 16,
+    "height": 16,
+    "category": "operational",
+    "categoryZh": "操作型"
+  },
+  {
+    "nodeId": "5257:17897",
+    "figmaName": "view-double",
+    "name": "view-double",
+    "width": 16,
+    "height": 16,
+    "category": "operational",
+    "categoryZh": "操作型"
+  },
+  {
+    "nodeId": "15542:52635",
+    "figmaName": "collect",
+    "name": "collect",
+    "width": 16,
+    "height": 16,
+    "category": "operational",
+    "categoryZh": "操作型"
+  },
+  {
+    "nodeId": "15963:56140",
+    "figmaName": "like",
+    "name": "like",
+    "width": 16,
+    "height": 16,
+    "category": "operational",
+    "categoryZh": "操作型"
+  },
+  {
+    "nodeId": "15963:56141",
+    "figmaName": "thumbs-up",
+    "name": "thumbs-up",
+    "width": 16,
+    "height": 16,
+    "category": "operational",
+    "categoryZh": "操作型"
+  },
+  {
+    "nodeId": "19719:2562",
+    "figmaName": "visual-view",
+    "name": "visual-view",
+    "width": 16,
+    "height": 16,
+    "category": "operational",
+    "categoryZh": "操作型"
+  },
+  {
+    "nodeId": "23479:8965",
+    "figmaName": "markers",
+    "name": "markers",
+    "width": 16,
+    "height": 16,
+    "category": "operational",
+    "categoryZh": "操作型"
+  },
+  {
+    "nodeId": "11094:34681",
+    "figmaName": "feedback",
+    "name": "feedback",
+    "width": 16,
+    "height": 16,
+    "category": "object",
+    "categoryZh": "对象"
+  },
+  {
+    "nodeId": "1499:5474",
+    "figmaName": "help",
+    "name": "help",
+    "width": 16,
+    "height": 16,
+    "category": "symbol",
+    "categoryZh": "符号"
+  },
+  {
+    "nodeId": "1499:5473",
+    "figmaName": "info",
+    "name": "info",
+    "width": 16,
+    "height": 16,
+    "category": "symbol",
+    "categoryZh": "符号"
+  },
+  {
+    "nodeId": "1499:5470",
+    "figmaName": "complete",
+    "name": "complete",
+    "width": 16,
+    "height": 16,
+    "category": "symbol",
+    "categoryZh": "符号"
+  },
+  {
+    "nodeId": "1499:5471",
+    "figmaName": "warning",
+    "name": "warning",
+    "width": 16,
+    "height": 16,
+    "category": "symbol",
+    "categoryZh": "符号"
+  },
+  {
+    "nodeId": "1499:5472",
+    "figmaName": "error",
+    "name": "error",
+    "width": 16,
+    "height": 16,
+    "category": "symbol",
+    "categoryZh": "符号"
+  },
+  {
+    "nodeId": "1430:4796",
+    "figmaName": "close-circle",
+    "name": "close-circle",
+    "width": 16,
+    "height": 16,
+    "category": "symbol",
+    "categoryZh": "符号"
+  },
+  {
+    "nodeId": "9445:33028",
+    "figmaName": "add-bold",
+    "name": "add-bold",
+    "width": 16,
+    "height": 16,
+    "category": "symbol",
+    "categoryZh": "符号"
+  },
+  {
+    "nodeId": "13384:35887",
+    "figmaName": "fail",
+    "name": "fail",
+    "width": 16,
+    "height": 16,
+    "category": "symbol",
+    "categoryZh": "符号"
+  },
+  {
+    "nodeId": "19970:2079",
+    "figmaName": "authorized",
+    "name": "authorized",
+    "width": 16,
+    "height": 16,
+    "category": "symbol",
+    "categoryZh": "符号"
+  },
+  {
+    "nodeId": "21124:2216",
+    "figmaName": "add",
+    "name": "add",
+    "width": 16,
+    "height": 16,
+    "category": "symbol",
+    "categoryZh": "符号"
+  },
+  {
+    "nodeId": "804:79",
+    "figmaName": "up",
+    "name": "up",
+    "width": 16,
+    "height": 16,
+    "category": "direction",
+    "categoryZh": "方向"
+  },
+  {
+    "nodeId": "804:78",
+    "figmaName": "down",
+    "name": "down",
+    "width": 16,
+    "height": 16,
+    "category": "direction",
+    "categoryZh": "方向"
+  },
+  {
+    "nodeId": "804:77",
+    "figmaName": "left",
+    "name": "left",
+    "width": 16,
+    "height": 16,
+    "category": "direction",
+    "categoryZh": "方向"
+  },
+  {
+    "nodeId": "804:76",
+    "figmaName": "right",
+    "name": "right",
+    "width": 16,
+    "height": 16,
+    "category": "direction",
+    "categoryZh": "方向"
+  },
+  {
+    "nodeId": "2073:10916",
+    "figmaName": "sort-up",
+    "name": "sort-up",
+    "width": 16,
+    "height": 16,
+    "category": "direction",
+    "categoryZh": "方向"
+  },
+  {
+    "nodeId": "3783:16415",
+    "figmaName": "sort-down",
+    "name": "sort-down",
+    "width": 16,
+    "height": 16,
+    "category": "direction",
+    "categoryZh": "方向"
+  },
+  {
+    "nodeId": "2535:10560",
+    "figmaName": "up-number-input",
+    "name": "up-number-input",
+    "width": 12,
+    "height": 12,
+    "category": "direction",
+    "categoryZh": "方向"
+  },
+  {
+    "nodeId": "2535:10559",
+    "figmaName": "down-number-input",
+    "name": "down-number-input",
+    "width": 12,
+    "height": 12,
+    "category": "direction",
+    "categoryZh": "方向"
+  },
+  {
+    "nodeId": "3844:15245",
+    "figmaName": "up-mini",
+    "name": "up-mini",
+    "width": 16,
+    "height": 16,
+    "category": "direction",
+    "categoryZh": "方向"
+  },
+  {
+    "nodeId": "3844:15250",
+    "figmaName": "down-mini",
+    "name": "down-mini",
+    "width": 16,
+    "height": 16,
+    "category": "direction",
+    "categoryZh": "方向"
+  },
+  {
+    "nodeId": "9565:33318",
+    "figmaName": "rise",
+    "name": "rise",
+    "width": 16,
+    "height": 16,
+    "category": "direction",
+    "categoryZh": "方向"
+  },
+  {
+    "nodeId": "9565:33319",
+    "figmaName": "decline",
+    "name": "decline",
+    "width": 16,
+    "height": 16,
+    "category": "direction",
+    "categoryZh": "方向"
+  },
+  {
+    "nodeId": "25293:3416",
+    "figmaName": "arrow-right",
+    "name": "arrow-right",
+    "width": 16,
+    "height": 16,
+    "category": "direction",
+    "categoryZh": "方向"
+  },
+  {
+    "nodeId": "7576:28036",
+    "figmaName": "apple-ios",
+    "name": "apple-ios",
+    "width": 16,
+    "height": 16,
+    "category": "brand",
+    "categoryZh": "品牌标识"
+  },
+  {
+    "nodeId": "19367:78900",
+    "figmaName": "windows",
+    "name": "windows",
+    "width": 16,
+    "height": 16,
+    "category": "brand",
+    "categoryZh": "品牌标识"
+  },
+  {
+    "nodeId": "19367:78901",
+    "figmaName": "operating-system",
+    "name": "operating-system",
+    "width": 16,
+    "height": 16,
+    "category": "brand",
+    "categoryZh": "品牌标识"
+  },
+  {
+    "nodeId": "19367:78902",
+    "figmaName": "mac-os",
+    "name": "mac-os",
+    "width": 16,
+    "height": 16,
+    "category": "brand",
+    "categoryZh": "品牌标识"
+  },
+  {
+    "nodeId": "19367:78903",
+    "figmaName": "android",
+    "name": "android",
+    "width": 16,
+    "height": 16,
+    "category": "brand",
+    "categoryZh": "品牌标识"
+  },
+  {
+    "nodeId": "24986:2839",
+    "figmaName": "harmony-os",
+    "name": "harmony-os",
+    "width": 16,
+    "height": 16,
+    "category": "brand",
+    "categoryZh": "品牌标识"
+  },
+  {
+    "nodeId": "1846:6487",
+    "figmaName": "stack-chart",
+    "name": "stack-chart",
+    "width": 16,
+    "height": 16,
+    "category": "chart",
+    "categoryZh": "图表"
+  },
+  {
+    "nodeId": "8137:28448",
+    "figmaName": "chart-loop",
+    "name": "chart-loop",
+    "width": 16,
+    "height": 16,
+    "category": "chart",
+    "categoryZh": "图表"
+  },
+  {
+    "nodeId": "8137:28451",
+    "figmaName": "chart-pie",
+    "name": "chart-pie",
+    "width": 16,
+    "height": 16,
+    "category": "chart",
+    "categoryZh": "图表"
+  },
+  {
+    "nodeId": "803:283",
+    "figmaName": "product-navigation",
+    "name": "product-navigation",
+    "width": 16,
+    "height": 16,
+    "category": "functional",
+    "categoryZh": "功能"
+  },
+  {
+    "nodeId": "19862:2055",
+    "figmaName": "announcement",
+    "name": "announcement",
+    "width": 16,
+    "height": 16,
+    "category": "functional",
+    "categoryZh": "功能"
+  },
+  {
+    "nodeId": "23542:2492",
+    "figmaName": "control-group",
+    "name": "control-group",
+    "width": 16,
+    "height": 16,
+    "category": "functional",
+    "categoryZh": "功能"
+  },
+  {
+    "nodeId": "803:202",
+    "figmaName": "file",
+    "name": "file",
+    "width": 16,
+    "height": 16,
+    "category": "file",
+    "categoryZh": "文件格式"
+  },
+  {
+    "nodeId": "13442:36001",
+    "figmaName": "database",
+    "name": "database",
+    "width": 16,
+    "height": 16,
+    "category": "file",
+    "categoryZh": "文件格式"
+  },
+  {
+    "nodeId": "13442:36002",
+    "figmaName": "data-connection",
+    "name": "data-connection",
+    "width": 16,
+    "height": 16,
+    "category": "file",
+    "categoryZh": "文件格式"
+  },
+  {
+    "nodeId": "13442:36003",
+    "figmaName": "table-database",
+    "name": "table-database",
+    "width": 16,
+    "height": 16,
+    "category": "file",
+    "categoryZh": "文件格式"
+  },
+  {
+    "nodeId": "13442:36004",
+    "figmaName": "table-excel",
+    "name": "table-excel",
+    "width": 16,
+    "height": 16,
+    "category": "file",
+    "categoryZh": "文件格式"
+  },
+  {
+    "nodeId": "12505:39213",
+    "figmaName": "analysis-event",
+    "name": "analysis-event",
+    "width": 16,
+    "height": 16,
+    "category": "business",
+    "categoryZh": "业务用语"
+  },
+  {
+    "nodeId": "12505:39214",
+    "figmaName": "analysis-funnel",
+    "name": "analysis-funnel",
+    "width": 16,
+    "height": 16,
+    "category": "business",
+    "categoryZh": "业务用语"
+  },
+  {
+    "nodeId": "12505:39220",
+    "figmaName": "analysis-retention",
+    "name": "analysis-retention",
+    "width": 16,
+    "height": 16,
+    "category": "business",
+    "categoryZh": "业务用语"
+  },
+  {
+    "nodeId": "12505:39221",
+    "figmaName": "analysis-distribution",
+    "name": "analysis-distribution",
+    "width": 16,
+    "height": 16,
+    "category": "business",
+    "categoryZh": "业务用语"
+  },
+  {
+    "nodeId": "12505:39222",
+    "figmaName": "analysis-interval",
+    "name": "analysis-interval",
+    "width": 16,
+    "height": 16,
+    "category": "business",
+    "categoryZh": "业务用语"
+  },
+  {
+    "nodeId": "12505:39223",
+    "figmaName": "analysis-user-path",
+    "name": "analysis-user-path",
+    "width": 16,
+    "height": 16,
+    "category": "business",
+    "categoryZh": "业务用语"
+  },
+  {
+    "nodeId": "12505:39224",
+    "figmaName": "analysis-ltv",
+    "name": "analysis-ltv",
+    "width": 16,
+    "height": 16,
+    "category": "business",
+    "categoryZh": "业务用语"
+  },
+  {
+    "nodeId": "12505:39225",
+    "figmaName": "analysis-attribution",
+    "name": "analysis-attribution",
+    "width": 16,
+    "height": 16,
+    "category": "business",
+    "categoryZh": "业务用语"
+  },
+  {
+    "nodeId": "12505:39226",
+    "figmaName": "analysis-web-page-thermal",
+    "name": "analysis-web-page-thermal",
+    "width": 16,
+    "height": 16,
+    "category": "business",
+    "categoryZh": "业务用语"
+  },
+  {
+    "nodeId": "12505:39229",
+    "figmaName": "analysis-app-click",
+    "name": "analysis-app-click",
+    "width": 16,
+    "height": 16,
+    "category": "business",
+    "categoryZh": "业务用语"
+  },
+  {
+    "nodeId": "12505:39230",
+    "figmaName": "analysis-session",
+    "name": "analysis-session",
+    "width": 16,
+    "height": 16,
+    "category": "business",
+    "categoryZh": "业务用语"
+  },
+  {
+    "nodeId": "12505:39231",
+    "figmaName": "portrait-user-group",
+    "name": "portrait-user-group",
+    "width": 16,
+    "height": 16,
+    "category": "business",
+    "categoryZh": "业务用语"
+  },
+  {
+    "nodeId": "12505:39232",
+    "figmaName": "analysis-property",
+    "name": "analysis-property",
+    "width": 16,
+    "height": 16,
+    "category": "business",
+    "categoryZh": "业务用语"
+  },
+  {
+    "nodeId": "12505:39239",
+    "figmaName": "query-custom",
+    "name": "query-custom",
+    "width": 16,
+    "height": 16,
+    "category": "business",
+    "categoryZh": "业务用语"
+  },
+  {
+    "nodeId": "12505:39240",
+    "figmaName": "analysis-customize-service",
+    "name": "analysis-customize-service",
+    "width": 16,
+    "height": 16,
+    "category": "business",
+    "categoryZh": "业务用语"
+  },
+  {
+    "nodeId": "12505:39241",
+    "figmaName": "overview",
+    "name": "overview",
+    "width": 16,
+    "height": 16,
+    "category": "business",
+    "categoryZh": "业务用语"
+  },
+  {
+    "nodeId": "12505:39242",
+    "figmaName": "bookmark",
+    "name": "bookmark",
+    "width": 16,
+    "height": 16,
+    "category": "business",
+    "categoryZh": "业务用语"
+  },
+  {
+    "nodeId": "12505:39647",
+    "figmaName": "analysis-intelligent-early-warning",
+    "name": "analysis-intelligent-early-warning",
+    "width": 16,
+    "height": 16,
+    "category": "business",
+    "categoryZh": "业务用语"
+  },
+  {
+    "nodeId": "19136:78720",
+    "figmaName": "user-profiling",
+    "name": "user-profiling",
+    "width": 16,
+    "height": 16,
+    "category": "business",
+    "categoryZh": "业务用语"
+  },
+  {
+    "nodeId": "19384:78907",
+    "figmaName": "rfm",
+    "name": "rfm",
+    "width": 16,
+    "height": 16,
+    "category": "business",
+    "categoryZh": "业务用语"
+  },
+  {
+    "nodeId": "22150:27955",
+    "figmaName": "data-table",
+    "name": "data-table",
+    "width": 16,
+    "height": 16,
+    "category": "business",
+    "categoryZh": "业务用语"
+  },
+  {
+    "nodeId": "22150:27954",
+    "figmaName": "unified-dimension-aggregation",
+    "name": "unified-dimension-aggregation",
+    "width": 16,
+    "height": 16,
+    "category": "business",
+    "categoryZh": "业务用语"
+  },
+  {
+    "nodeId": "22150:27953",
+    "figmaName": "splicing-model-horizontal",
+    "name": "splicing-model-horizontal",
+    "width": 16,
+    "height": 16,
+    "category": "business",
+    "categoryZh": "业务用语"
+  },
+  {
+    "nodeId": "22150:27952",
+    "figmaName": "splicing-model-vertical",
+    "name": "splicing-model-vertical",
+    "width": 16,
+    "height": 16,
+    "category": "business",
+    "categoryZh": "业务用语"
+  },
+  {
+    "nodeId": "23956:2660",
+    "figmaName": "datatable",
+    "name": "datatable",
+    "width": 16,
+    "height": 16,
+    "category": "business",
+    "categoryZh": "业务用语"
+  },
+  {
+    "nodeId": "25137:2853",
+    "figmaName": "user-behavior-sequence",
+    "name": "user-behavior-sequence",
+    "width": 16,
+    "height": 16,
+    "category": "business",
+    "categoryZh": "业务用语"
+  }
+]

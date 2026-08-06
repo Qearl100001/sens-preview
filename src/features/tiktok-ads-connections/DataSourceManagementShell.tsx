@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
+import { useNavigationTheme } from "../../design-system/appearance";
 import { buildShadow, getColorToken } from "../../design-system/color-utils";
-import { getThemeSideBackground } from "../../design-system/navigation-color";
+import { getNavigationColorToken, getThemeSideBackground } from "../../design-system/navigation-color";
 import { getTypographyToken } from "../../design-system/typography";
 import tokens from "../../design-system/tokens.resolved.json";
 import { ProductShellPlaceholder } from "./ProductShellPlaceholder";
@@ -24,17 +25,18 @@ const SIDE_NAV_GROUPS = [
 ] as const;
 
 function SideNavPlaceholder() {
+  const navigationTheme = useNavigationTheme();
   const sideText = getColorToken("theme-side-text");
   const sideSubText = getColorToken("theme-side-subText");
-  const sideActiveText = getColorToken("theme-side-text-active");
-  const sideActiveBg = getColorToken("theme-side-background-active");
+  const sideActiveText = getNavigationColorToken("theme-side-text-active", navigationTheme);
+  const sideActiveBg = getNavigationColorToken("theme-side-background-active", navigationTheme);
 
   return (
     <aside
       style={{
         width: DATA_SOURCE_SIDE_NAV_WIDTH,
         flexShrink: 0,
-        background: getThemeSideBackground(),
+        background: getThemeSideBackground(navigationTheme),
         paddingBottom: u["spacing/6x"],
         borderTopLeftRadius: u["radius/xl"],
         overflow: "hidden",
@@ -119,6 +121,7 @@ export function DataSourceManagementShell({
   children,
   showSideNav = true,
 }: DataSourceManagementShellProps) {
+  const navigationTheme = useNavigationTheme();
   return (
     <div style={{ minHeight: "100vh", display: "flex", flexDirection: "column" }}>
       <ProductShellPlaceholder />
@@ -127,7 +130,7 @@ export function DataSourceManagementShell({
           flex: 1,
           display: "flex",
           minHeight: 0,
-          background: getColorToken("body-background"),
+          background: getNavigationColorToken("body-background", navigationTheme),
           borderTopLeftRadius: u["radius/xl"],
           borderTopRightRadius: u["radius/xl"],
           overflow: "hidden",

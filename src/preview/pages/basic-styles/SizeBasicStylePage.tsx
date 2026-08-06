@@ -4,6 +4,7 @@ import tokens from "../../../design-system/tokens.resolved.json";
 import sizeDocSource from "../../../../docs/foundations/size.md?raw";
 import { BasicStylePageLayout } from "./BasicStylePageLayout";
 import { getPreviewTokens } from "../../previewTokens";
+import { SensInput } from "../../../ui";
 
 const { Text, Title } = Typography;
 
@@ -48,6 +49,8 @@ const COMPONENT_HEIGHT_ROWS = [
   { key: "xl", tokenName: "size/component-height/xl", value: u["size/component-height/xl"], usage: "表格信息区、较大信息区候选" },
   { key: "xxl", tokenName: "size/component-height/xxl", value: u["size/component-height/xxl"], usage: "大尺寸组件候选" },
   { key: "xxxl", tokenName: "size/component-height/xxxl", value: u["size/component-height/xxxl"], usage: "表格行高" },
+  { key: "title-bar", tokenName: "size/component-height/title-bar", value: u["size/component-height/title-bar"], usage: "页面标题栏默认高度" },
+  { key: "title-bar-with-description", tokenName: "size/component-height/title-bar-with-description", value: u["size/component-height/title-bar-with-description"], usage: "页面标题栏带辅助文案高度" },
 ];
 
 const TAG_SIZE_ROWS = [
@@ -71,7 +74,7 @@ const CARD_SIZE_ROWS = [
   { key: "table-row", scene: "表格行高", tokenName: "size/component-height/xxxl", value: u["size/component-height/xxxl"], note: "Table 行高候选" },
 ];
 
-function SizeScaleBoard({ items }: { items: SizeScaleItem[] }) {
+function SizeScaleBoard({ items, mode = "square" }: { items: SizeScaleItem[]; mode?: "square" | "height" }) {
   const token = getPreviewTokens();
 
   return (
@@ -95,11 +98,11 @@ function SizeScaleBoard({ items }: { items: SizeScaleItem[] }) {
           <Space direction="vertical" size="small" style={{ width: "100%" }}>
             <Space style={{ width: "100%", justifyContent: "space-between" }}>
               <Text strong>{item.tokenName}</Text>
-              <Text code>{item.value}px</Text>
+              <Text code style={{ flexShrink: 0, whiteSpace: "nowrap" }}>{item.value}px</Text>
             </Space>
             <div
               style={{
-                height: 64,
+                minHeight: mode === "height" ? Math.max(64, item.value + 16) : 64,
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
@@ -109,7 +112,7 @@ function SizeScaleBoard({ items }: { items: SizeScaleItem[] }) {
             >
               <div
                 style={{
-                  width: item.value,
+                  width: mode === "height" ? "100%" : item.value,
                   height: item.value,
                   borderRadius: token.borderRadiusSM,
                   background: token.colorPrimary,
@@ -120,6 +123,30 @@ function SizeScaleBoard({ items }: { items: SizeScaleItem[] }) {
           </Space>
         </div>
       ))}
+    </div>
+  );
+}
+
+function SmallInputPreview() {
+  const token = getPreviewTokens();
+
+  return (
+    <div
+      style={{
+        display: "inline-flex",
+        flexDirection: "column",
+        gap: u["spacing/vertical/1x"],
+        padding: token.paddingMD,
+        border: `1px solid ${token.colorBorderSecondary}`,
+        borderRadius: token.borderRadius,
+        background: token.colorBgContainer,
+      }}
+    >
+      <Text strong>Figma 15525:48769 · 小输入框</Text>
+      <SensInput size="small" placeholder="请输入" style={{ width: 200 }} />
+      <Text type="secondary" style={{ fontSize: typo["font-size/s"], lineHeight: `${typo["line-height/s"]}px` }}>
+        24px 高度 · 12px / 18px · 10px 左右 padding
+      </Text>
     </div>
   );
 }
@@ -192,7 +219,12 @@ function SizeSpecimen() {
 
       <section>
         <Title level={5}>Component Height</Title>
-        <SizeScaleBoard items={COMPONENT_HEIGHT_ROWS} />
+        <SizeScaleBoard items={COMPONENT_HEIGHT_ROWS} mode="height" />
+      </section>
+
+      <section>
+        <Title level={5}>小输入框尺寸样张</Title>
+        <SmallInputPreview />
       </section>
 
       <section>
@@ -214,7 +246,7 @@ function SizeSpecimen() {
         type="warning"
         showIcon
         message="不要用 spacing 代替 size"
-        description="例如 28px 即使等于 spacing/7x，也不能直接拿来作为输入框高度；需要新增组件高度 token 或组件专属尺寸规则。"
+        description="小输入框已确认使用 24px；即使 28px 等于 spacing/7x，也不能拿 spacing 代替组件高度。"
       />
     </Space>
   );

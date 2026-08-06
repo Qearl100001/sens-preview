@@ -1,5 +1,6 @@
+import { useNavigationTheme } from "../../design-system/appearance";
 import { getColorToken } from "../../design-system/color-utils";
-import { getThemeTopBackground } from "../../design-system/navigation-color";
+import { getNavigationColorToken, getThemeTopBackground } from "../../design-system/navigation-color";
 import { getTypographyToken } from "../../design-system/typography";
 import tokens from "../../design-system/tokens.resolved.json";
 
@@ -17,18 +18,19 @@ const NAV_ITEMS = [
 /** 产品壳可见高度（与白卡片衔接） */
 const SHELL_VISIBLE_HEIGHT = 82;
 
-const shellTextStyle = {
-  color: getColorToken("theme-top-text"),
-  fontSize: getTypographyToken("font-size/m"),
-  lineHeight: `${getTypographyToken("line-height/m")}px`,
-} as const;
-
 export function ProductShellPlaceholder() {
+  const navigationTheme = useNavigationTheme();
+  const shellTextStyle = {
+    color: getColorToken("theme-top-text"),
+    fontSize: getTypographyToken("font-size/m"),
+    lineHeight: `${getTypographyToken("line-height/m")}px`,
+  } as const;
+
   return (
     <header
       style={{
         height: SHELL_VISIBLE_HEIGHT,
-        background: getThemeTopBackground("green"),
+        background: getThemeTopBackground(navigationTheme),
         flexShrink: 0,
         position: "relative",
         overflow: "hidden",
@@ -79,7 +81,9 @@ export function ProductShellPlaceholder() {
                 fontWeight: isActive
                   ? getTypographyToken("font-weight/semibold")
                   : getTypographyToken("font-weight/regular"),
-                background: isActive ? getColorToken("theme-top-proMenu-background-active") : undefined,
+                background: isActive
+                  ? getNavigationColorToken("theme-top-proMenu-background-active", navigationTheme)
+                  : undefined,
               }}
             >
               {item}

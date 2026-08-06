@@ -3,7 +3,7 @@ import { useOutletContext } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import selectDesignDoc from "../../design-system/components/base/select.design.md?raw";
 import selectDevDoc from "../../design-system/components/base/select.md?raw";
-import type { FunctionalSkin } from "../../design-system/functional-skin";
+import type { PreviewOutletContext } from "../previewOutletContext";
 import {
   SELECT_DROPDOWN_DEMO_WIDTH,
   SelectTriggerStatesPreview,
@@ -19,10 +19,6 @@ const DEMO_OPTIONS = [
   { value: "b", label: "选项 B" },
   { value: "c", label: "选项 C" },
 ];
-
-type PreviewOutletContext = {
-  skin: FunctionalSkin;
-};
 
 function SelectDemo() {
   const { skin } = useOutletContext<PreviewOutletContext>();

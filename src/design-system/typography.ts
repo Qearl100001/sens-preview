@@ -2,6 +2,9 @@ import tokens from "./tokens.resolved.json";
 
 const generatedTypography = (tokens.typography ?? {}) as Record<string, number>;
 
+export const SENS_FONT_FAMILY =
+  '-apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"';
+
 export const TYPOGRAPHY_TOKEN_NAMES = [
   "font-size/s",
   "font-size/m",

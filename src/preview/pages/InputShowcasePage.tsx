@@ -15,6 +15,7 @@ function InputDemo() {
   const [disabled, setDisabled] = useState(false);
   const [warningPlacement, setWarningPlacement] = useState<"" | "inside" | "outside">("");
   const [readOnlyVariant, setReadOnlyVariant] = useState<"" | "filled" | "plain">("");
+  const [clearDemoValue, setClearDemoValue] = useState("已输入");
 
   const placeholder = t(`${I18N_NS}.sensd-input-placeholder`, { defaultValue: "请输入" });
   const isReadOnly = readOnlyVariant !== "";
@@ -85,7 +86,33 @@ function InputDemo() {
         defaultValue={isReadOnly && warningPlacement ? "已输入" : undefined}
         style={{ width: 200, minWidth: 128, maxWidth: 600 }}
       />
-      <Text type="secondary">悬停 / 聚焦请用鼠标交互；框内警告悬停菱形图标看 Tooltip</Text>
+      <Text type="secondary">悬停 / 聚焦请用鼠标交互；框内警告悬停菱形图标看 SensTips</Text>
+      <Space direction="vertical" size="small" style={{ width: "100%" }}>
+        <Text strong>数字限制 + 框内报错</Text>
+        <SensInput
+          data-testid="input-count-warning-demo"
+          defaultValue="已录入内容"
+          warningPlacement="inside"
+          warningMessage="出错提示信息"
+          suffix={<span className="sens-input-suffix-count">0/100</span>}
+          style={{ width: 240, minWidth: 128, maxWidth: 600 }}
+        />
+        <Text type="secondary">右侧顺序：报错菱形 → 数字限制</Text>
+      </Space>
+      <Space direction="vertical" size="small" style={{ width: "100%" }}>
+        <Text strong>清空验收</Text>
+        <SensInput
+          data-testid="input-clear-warning-demo"
+          value={clearDemoValue}
+          onChange={(event) => setClearDemoValue(event.target.value)}
+          allowClear
+          warningPlacement="inside"
+          warningMessage="警告文案"
+          help="警告文案"
+          style={{ width: 200, minWidth: 128, maxWidth: 600 }}
+        />
+        <Text type="secondary">已输入 + 框内警告；悬停或聚焦后点击左侧清空图标</Text>
+      </Space>
     </Space>
   );
 }

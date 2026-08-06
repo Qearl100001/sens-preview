@@ -2,7 +2,8 @@ import { useState } from "react";
 import { Alert, Segmented, Space, Table, Tag, Typography } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import { buildShadow, getColorToken } from "../../design-system/color-utils";
-import { getThemeSideBackground, getThemeTopBackground } from "../../design-system/navigation-color";
+import { useNavigationTheme } from "../../design-system/appearance";
+import { getNavigationColorToken, getThemeSideBackground, getThemeTopBackground } from "../../design-system/navigation-color";
 import tokens from "../../design-system/tokens.resolved.json";
 import {
   PRODUCT_SHELL_SIDE_NAV_COLLAPSED_WIDTH,
@@ -27,9 +28,9 @@ const structureRows = [
 ];
 
 const behaviorRows = [
-  { key: "normal", state: "Normal", trigger: "默认 / 点击收起", navigation: "30px 紧凑态；仅图标 hover 显示“展开”", content: "内容面板左侧 D4" },
-  { key: "overlay", state: "Overlay", trigger: "点击紧凑态展开图标", navigation: "临时展开为 220px，右侧 D4 投影", content: "不变，侧导覆盖内容，不加左投影" },
-  { key: "docked", state: "Docked", trigger: "点击锁定入口", navigation: "固定 220px，无自身投影", content: "使用剩余宽度，内容面板左侧 D4" },
+  { key: "normal", state: "Normal", trigger: "默认 / 点击收起或离开 Overlay", navigation: "30px 紧凑态；整区 hover 进入 Overlay", content: "内容面板左侧 D2" },
+  { key: "overlay", state: "Overlay", trigger: "鼠标进入紧凑态整区", navigation: "临时展开为 220px，右侧 D4 投影", content: "不变，侧导覆盖内容，不加左投影" },
+  { key: "docked", state: "Docked", trigger: "点击锁定入口", navigation: "固定 220px，无自身投影", content: "使用剩余宽度，内容面板左侧 D2" },
 ];
 
 const tokenRows = [
@@ -37,14 +38,14 @@ const tokenRows = [
   { key: "catalog", element: "目录背景", handle: "theme-side-background-hover/click/active" },
   { key: "text", element: "目录文字", handle: "theme-side-text / subText / text-active" },
   { key: "icon", element: "导航图标", handle: "theme-side-icon / subIcon / icon-active" },
-  { key: "content-shadow", element: "Normal / Docked 内容面板左侧投影", handle: 'buildShadow("D4", "left")' },
+  { key: "content-shadow", element: "Normal / Docked 内容面板左侧投影", handle: 'buildShadow("D2", "left")' },
   { key: "overlay-shadow", element: "未锁定 Overlay 右侧投影", handle: 'buildShadow("D4", "right")' },
 ];
 
 const stateRuleRows = [
   { key: "group", element: "二级模块 / 更多推荐", defaultState: "仅展开或收起：文字与图标保持中性", selectedState: "直接三级项选中：文字、箭头与链接图标使用 theme-side-*-active" },
-  { key: "shell-toggle", element: "产品壳展开 / 收起", defaultState: "Normal 整区 hover 不展开；图标 hover 显示“展开”", selectedState: "点击图标进入 Overlay；按钮 hover / 按下使用 theme-side-icon-active；Docked 提示“收起”" },
-  { key: "overlay-shadow", element: "侧导航与内容面板投影", defaultState: "Normal / Docked：内容面板使用左向 D4，侧导本身无阴影", selectedState: "Overlay：侧导使用右向 D4，内容面板不加左投影" },
+  { key: "shell-toggle", element: "产品壳展开 / 收起", defaultState: "Normal 整区 hover 进入 Overlay；展开图标保留提示与键盘 / 点击入口", selectedState: "Overlay 点击锁定进入 Docked；按钮 hover / 按下使用 theme-side-icon-active；Docked 提示“收起”" },
+  { key: "overlay-shadow", element: "侧导航与内容面板投影", defaultState: "Normal / Docked：内容面板使用左向 D2，侧导本身无阴影", selectedState: "Overlay：侧导使用右向 D4，内容面板不加左投影" },
 ];
 
 const structureColumns: ColumnsType<(typeof structureRows)[number]> = [
@@ -93,17 +94,19 @@ function ContentPlaceholder() {
 
 function SideNavigationDemo() {
   const token = getPreviewTokens();
+  const navigationTheme = useNavigationTheme();
   const [mode, setMode] = useState<ProductShellSideNavigationMode>("normal");
   const [activeItem, setActiveItem] = useState("数据源管理");
   const canvasWidth = 1280;
+  const pageBg = getNavigationColorToken("body-background", navigationTheme);
 
   return (
     <Space direction="vertical" size="middle" style={{ width: "100%" }}>
       <Alert
         type="info"
         showIcon
-        message="先点展开，再试锁定"
-        description="紧凑态整区悬停不会展开；悬停展开图标会显示“展开”，点击后临时 Overlay 展开并带右侧 D4 投影。点右上锁定入口后进入 Docked。"
+        message="悬停展开，再试锁定"
+        description="鼠标进入紧凑态整区会临时 Overlay 展开并带右侧 D4 投影；展开图标保留“展开”提示与键盘 / 点击入口。点右上锁定入口后进入 Docked。预览换肤会驱动顶/侧导背景。"
       />
       <Segmented
         value={mode}
@@ -122,13 +125,13 @@ function SideNavigationDemo() {
             overflow: "hidden",
             border: `${token.lineWidth}px solid ${token.colorBorderSecondary}`,
             borderRadius: u["radius/xl"],
-            background: getColorToken("body-background"),
+            background: pageBg,
           }}
         >
-          <div style={{ height: 82, paddingInline: u["spacing/4x"], display: "flex", alignItems: "center", color: getColorToken("theme-top-text"), background: getThemeTopBackground() }}>
+          <div style={{ height: 82, paddingInline: u["spacing/4x"], display: "flex", alignItems: "center", color: getColorToken("theme-top-text"), background: getThemeTopBackground(navigationTheme) }}>
             <Text strong style={{ color: "inherit" }}>产品壳顶部导航</Text>
           </div>
-          <div style={{ position: "relative", display: "flex", minHeight: 500, background: getColorToken("body-background") }}>
+          <div style={{ position: "relative", display: "flex", minHeight: 500, background: pageBg }}>
             <ProductShellSideNavigation mode={mode} onModeChange={setMode} activeItem={activeItem} onActiveItemChange={setActiveItem} />
             <main
               style={{
@@ -137,7 +140,7 @@ function SideNavigationDemo() {
                 padding: u["spacing/6x"],
                 background: getColorToken("white"),
                 borderTopRightRadius: u["radius/xl"],
-                boxShadow: mode === "overlay" ? undefined : buildShadow("D4", "left"),
+                boxShadow: mode === "overlay" ? undefined : buildShadow("D2", "left"),
                 position: "relative",
                 zIndex: 1,
               }}

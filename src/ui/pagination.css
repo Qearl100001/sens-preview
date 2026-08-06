@@ -318,12 +318,12 @@
   border: 0;
   border-radius: var(--sens-pagination-item-radius);
   box-shadow: none;
-  cursor: pointer;
+  cursor: var(--sens-cursor-pointer);
 }
 
 .sens-pagination-simple .sens-pagination-simple-arrow[aria-disabled="true"] {
   color: var(--sens-pagination-arrow-icon-disabled-color);
-  cursor: not-allowed;
+  cursor: var(--sens-cursor-not-allowed);
 }
 
 .sens-pagination-simple .sens-pagination-simple-input {

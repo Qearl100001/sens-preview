@@ -1,5 +1,6 @@
 import type { EvalDimensionTone } from "../evalDashboardTypes";
 import { getColorToken, tokenRgba } from "../../../design-system/color-utils";
+import { getUnitToken } from "../../../design-system/unit";
 import { SensBadge } from "../../../ui";
 import { getDimensionColor, getDimensionColorRgba } from "../evalDimensionColors";
 
@@ -40,7 +41,7 @@ export function EvalDimensionCell({
           fontSize: 10,
           fontWeight: 700,
           padding: "1px 7px",
-          borderRadius: 10,
+          borderRadius: getUnitToken("radius/xl"),
           background: getDimensionColorRgba(tone, 0.12),
           color,
         }}
@@ -76,7 +77,7 @@ export function EvalScoreChip({ score }: { score: number }) {
         fontSize: 12,
         fontWeight: 700,
         padding: "1px 6px",
-        borderRadius: 4,
+        borderRadius: getUnitToken("radius/m"),
         background: tokenRgba("background-transparent-grey", 0.04),
         color,
       }}

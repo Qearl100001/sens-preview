@@ -3,7 +3,7 @@
 > 组件状态反馈、浮层、卡片层级与抽屉投影的规则源。
 > 成熟度：Pilot
 > 实现：Implemented
-> 验证：Pending
+> 验证：Verified
 > 来源：Figma `Sens.Design 投影 v2.1 20230313`、`tokens/source/foundations/shadow.json`、`color-utils.ts`
 > 预览：`/basic-styles/shadow`
 

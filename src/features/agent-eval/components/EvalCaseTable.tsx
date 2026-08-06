@@ -8,6 +8,7 @@ import type { EvalCaseRecord, EvalChangeType } from "../evalDashboardTypes";
 import { EvalScoreChip } from "./EvalBadges";
 import { EvalCaseDetailDrawer } from "./EvalCaseDetailDrawer";
 import { EvalSectionTitle } from "./EvalLayout";
+import { functionalCssVar } from "../../../design-system/functional-skin";
 
 const u = tokens.unit as Record<string, number>;
 
@@ -37,7 +38,7 @@ export function EvalCaseTable({ cases }: { cases: EvalCaseRecord[] }) {
           style={{
             fontFamily: "ui-monospace, SFMono-Regular, Menlo, monospace",
             fontSize: 12,
-            color: getColorToken("component-primary"),
+            color: functionalCssVar("--sens-skin-primary", "component-primary"),
           }}
         >
           {value}

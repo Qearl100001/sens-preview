@@ -10,6 +10,7 @@
 - 某个像素 antd 主题确实做不到时，才加**一条窄作用域**覆盖并写注释；不要成片覆盖。
 - 如果需要重写 `hover`、`active`、`focus`、键盘、溢出、浮层、编辑或拖拽等核心交互，应暂停继续覆盖，重新评估自持交互壳或混合承载。
 - 颜色永远从 SensD token / helper 取，不硬编码 hex。
+- 鼠标指针消费 `docs/foundations/cursor.md`：必须用 `var(--sens-cursor-*)`、`.sens-cursor-*` 或 `sensCursorValue()` / `SENS_CURSOR_MOVE`；**禁止**在组件、业务 features、预览页 CSS/TSX 硬写 `cursor: pointer|default|not-allowed|help`。禁止用 `help` 冒充「仅说明不可点」；页签换位用 `move`，画布平移用 `grab`/`grabbing`。
 
 ### 无描边写法（判据：要不要保留那 1px 盒模型）
 - **保留盒模型 / 与邻居对齐**（实心按钮、FAB、组合分段等 antd `Button` 仍占 1px 边框位）：用 `border-color: transparent`；**各态都设**（含 `hover` / `active` / `disabled` / `loading`），**不动 `border-width`**。在**原处**改色，勿另加一条竞争 CSS 盖回去。

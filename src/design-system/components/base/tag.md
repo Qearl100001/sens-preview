@@ -1,6 +1,6 @@
 # 设计系统 skill · 基础组件：标签 Tag
 
-> **状态：多色交互态已接。** `SensTag` + `/components/tag`；彩色为固定色板、不换肤；Tips、业务 beta 替换、移除细态仍待补。
+> **状态：多色交互态、移除细态、内部帮助 / 警告热区已接。** `SensTag` + `/components/tag`；彩色为固定色板、不换肤；叠加标签为纯展示；内部提示统一消费 `SensTips`。
 > 设计语义与取舍以本文为准。
 > 与 **徽标 Badge**（`badge.md`）不是同一组件：Badge 是角标/数字/状态点；Tag 是内容标记与可操作标签。
 
@@ -34,6 +34,9 @@
 | 状态五语义 | `status` 固定五值；圆点状态色、文案中性色；仅进行中外描边；无 clickable / closable / disabled | 2026-07-10 |
 | 多色交互 | 仅 `clickable` 切悬停/点击；接 `背景/02|03` + `文字&图标`；中性可点悬停/点击走冰绽蓝；彩色不换肤 | 2026-07-10 |
 | 移除图标 | 独立热区；默认 `icon-color-transparent`；悬停 `warning-color`；点击 `warning-color-active`；禁用走 icon disable α | 2026-07-10 |
+| 内部热区 | 帮助 / 警告是标签内部独立热区，不新增“报错标签”类型；`clickable` 标签中不触发主点击 | 2026-07-30 |
+| 叠加标签边界 | `variant="overlay"` 为纯展示，不消费图标 / 帮助 / 警告 / 禁用 / 加载 / 点击 / 移除 | 2026-07-30 |
+| 加载态 | Tag 暂不提供 `loading`；不能用刷新图标替代加载图标，未来需 SensD 正式加载图标与规则后再评估 | 2026-07-30 |
 
 ## 尺寸与间距（Figma 4.2 / 4.3）
 
@@ -63,18 +66,31 @@
 
 - **大**：需要标签文字为 14px 的场景。
 - **小**：需要标签文字为 12px；同级其他元素为 12px；前置为标题、标签作辅助信息。
-- **文案过长**：默认按上表 max-width（可视情况调整）；显示不全用「…」，悬停用 Tips 展示全文（P0 用原生 `title`）。
+- **文案过长**：默认按上表 max-width（可视情况调整）；显示不全用「…」，悬停用 Tips 展示全文。
 
 ## 多色 / 操作交互色（固定色板 · 不换肤）
 
-仅 `clickable && !disabled` 时切换；纯展示、仅可移除保持默认。默认文案一律 `tokenRgba("text-color-transparent", 0.9)`；默认前导图标 `icon-color-transparent`。
+仅 `clickable && !disabled` 时切换；纯展示、仅可移除保持默认。默认文案一律 `tokenRgba("text-color-transparent", 0.9)`；默认前导图标 `icon-color-transparent`。禁用态不允许用整颗 `opacity` 变淡，必须按文字 / 图标 token 单独处理。
 
-| `color` | 默认底 | 悬停 | 点击 |
-|---|---|---|---|
-| 六色 | `定制色/标签/{色}/背景/01_默认` | `…/02_悬停` + `…/文字&图标/01_悬停` | `…/03_点击` + `…/文字&图标/02_点击` |
-| `neutral` | `background-01-transparent` @0.08 | **冰绽蓝** `02` + `01_悬停` | **冰绽蓝** `03` + `02_点击` |
+| `color` | 默认 | 悬停 | 点击 | 禁用 | 禁用悬停 |
+|---|---|---|---|---|---|
+| 六色 | `定制色/标签/{色}/背景/01_默认` + 主文字 | `…/02_悬停` + `…/文字&图标/01_悬停` | `…/03_点击` + `…/文字&图标/02_点击` | `…/背景/01_默认` + `text-color-transparent-disable` | `…/背景/02_悬停` + `text-color-transparent-disable-hover` |
+| `neutral` | `background-01-transparent` @0.08 + 主文字 | **冰绽蓝** `02` + `01_悬停` | **冰绽蓝** `03` + `02_点击` | `background-01-transparent` @0.08 + `text-color-transparent-disable` | **冰绽蓝** `02` + `text-color-transparent-disable-hover` |
 
-预览板用 `previewState="default"|"hover"|"active"` 静态套色，不伪造真实伪类。
+预览板用 `previewState="default"|"hover"|"active"|"disabled"|"disabledHover"` 静态套色，不伪造真实伪类。
+
+## 内部热区 / 警告图标
+
+来自 Figma 交互画板：多色 / 操作标签可以有独立热区，文字、帮助、警告分别承接不同提示含义。这里不新增“报错标签”类型，而是在同一个 `SensTag` 上用 props 表达。
+
+| 能力 | props | 行为 |
+|---|---|---|
+| 帮助说明 | `helpMessage` | 显示 `SensIcon name="help"`；hover / focus 展示 `SensTips`；独立热区；不触发标签主点击；禁用标签中仍保持 `icon-color-transparent` |
+| 警告 / 报错 | `errorMessage` | 显示 `SensIcon name="feedback-error"`；hover / focus 展示 `SensTips`；颜色走 `warning-color`；独立热区；不触发标签主点击 |
+
+帮助 / 警告和长文案均使用 `SensTips`，不使用浏览器原生 `title`，也不再使用 antd Tooltip 视觉层。保留 `helpMessage` / `errorMessage` 语义，由 Tag 决定热区和图标状态，由 Tips 决定浮层视觉与出现/消失。
+
+`variant="status"` 或 `variant="overlay"` 时忽略 `helpMessage` / `errorMessage`。
 
 ## 移除图标色（独立热区 · design token）
 
@@ -88,7 +104,7 @@
 | 禁用 | `tokenRgba("icon-color-transparent-disable", 0.4)` |
 | 禁用悬停 | `tokenRgba("icon-color-transparent-disable-hover", 0.3)` |
 
-预览板用 `previewCloseState`。加载 / 加载悬停本轮未接。
+预览板用 `previewCloseState`。
 
 ## 状态标签语义（固定 · design token）
 
@@ -101,8 +117,10 @@
 | `invalid` | 失效 | `text-color-disable` | 无 |
 
 - **文案色**：`large` → `tokenRgba("text-color-transparent", 0.9)`（中性色/文字/01_主要）；`small` → `tokenRgba("text-sub-color-transparent", 0.58)`（中性色/文字/03_辅助）
+- **高度**：状态标签也跟随 `size` 高度，`large = 24`、`small = 20`；圆点与文案在固定高度内垂直居中。
 - 圆点 / 文案均经 `getColorToken` / `tokenRgba`，禁止硬写 hex
 - `variant="status"` 时忽略 `color` / `clickable` / `closable` / `disabled` / `icon` / `extra`
+- `variant="overlay"` 时忽略 `color` / `clickable` / `closable` / `disabled` / `icon` / `extra` / `helpMessage` / `errorMessage`
 
 padding / max-width 中 max-width 仍为组件专属数字；其余尺寸已挂 `unit.json` 通用 token。不手改生成物。
 
@@ -137,13 +155,15 @@ type SensTagProps = {
   color?: TagColor;       // 非 status
   status?: TagStatus;     // 仅 status，默认 success
   size?: TagSize;
-  clickable?: boolean;    // status 忽略
-  closable?: boolean;     // status 忽略
-  icon?: React.ReactNode; // status 忽略
+  clickable?: boolean;    // status / overlay 忽略
+  closable?: boolean;     // status / overlay 忽略
+  icon?: React.ReactNode; // status / overlay 忽略
   extra?: React.ReactNode;
+  helpMessage?: React.ReactNode;  // status / overlay 忽略；帮助图标热区
+  errorMessage?: React.ReactNode; // status / overlay 忽略；警告 / 报错图标热区
   onClick?: () => void;
   onClose?: () => void;
-  disabled?: boolean;     // status 忽略
+  disabled?: boolean;     // status / overlay 忽略
   children?: React.ReactNode;
 };
 ```
@@ -156,10 +176,12 @@ type SensTagProps = {
 | `color` | 多色色系 | status 勿用 |
 | `status` | 五语义 | 仅 `variant="status"`；色固定 |
 | `size` | `large` \| `small` | 默认 `large` |
-| `clickable` | 整颗可点 | status 无；与 `closable` 可组合 → 3.4 / 3.6 |
-| `closable` | 显示关闭并触发 `onClose` | status 无；对应 3.5 / 3.6 |
-| `icon` / `extra` | 前导图标 / 帮助等 | status 不用 |
-| `disabled` | 禁用 | status 无 |
+| `clickable` | 整颗可点 | status / overlay 无；与 `closable` 可组合 → 3.4 / 3.6 |
+| `closable` | 显示关闭并触发 `onClose` | status / overlay 无；对应 3.5 / 3.6 |
+| `icon` / `extra` | 前导图标 / 补充内容 | status / overlay 不用 |
+| `disabled` | 禁用 | status / overlay 无；多色禁用不使用整颗 opacity |
+| `helpMessage` | 帮助图标热区 | status / overlay 无；真实 Tips 浮层待统一组件 |
+| `errorMessage` | 警告 / 报错图标热区 | status / overlay 无；不是独立“报错标签”类型 |
 
 ## 与 Badge 的边界
 
@@ -169,14 +191,14 @@ type SensTagProps = {
 | 典型位置 | 卡片标题旁、列表字段、输入框内 | 导航项、Tab、按钮角上 |
 | 组件 | `SensTag` | `SensBadge` |
 
-业务 beta（如数据源入口卡）语义上属 **多色标签**（山水蓝），当前仍为页面内联实现，待替换。
+业务 beta（如数据源入口卡）语义上属 **多色标签**（山水蓝），应使用 `SensTag variant="multicolor" color="cyan" size="small"`，不在业务页面内联样式。
 
 ## 色彩（仅登记）
 
 | 分组 | 现状 | ready |
 |---|---|---|
 | 叠加标签 | `@tag-default-background` + 0.65 透明 | Half Ready |
-| 多色系（含悬停/点击） | `定制色/标签/{色系}/背景/01|02|03` + `文字&图标/01|02`，`getColorByPath`；固定色板 | Ready（固定，无 handle） |
+| 多色系（含悬停/点击/禁用） | `定制色/标签/{色系}/背景/01|02|03` + `文字&图标/01|02`；禁用文字 / 图标走 `text-color-transparent-disable(-hover)`；固定色板 | Ready（固定，无 handle） |
 | 中性底 / 可点交互 | 默认 `background-01-transparent` @0.08；可点悬停/点击走冰绽蓝 path | Ready（固定） |
 | 状态五语义 | 圆点状态色；文案中性；进行中外描边 `link-color` @0.2 | Ready（固定） |
 | 是否参与功能色换肤 | **彩色 / 中性标签不换肤**；状态不换肤；叠加 To Confirm | 否（彩色已确认） |
@@ -188,12 +210,14 @@ type SensTagProps = {
 - [x] 核对 Figma **4.2 尺寸**、**4.3 间距**，写入 `size` 枚举
 - [x] P0：实现 `SensTag` + 预览页 `/components/tag` + 侧栏「标签」
 - [x] 状态五语义固定色；无点击/移除/禁用；Demo 切换语义
-- [x] 多色交互：`背景/02|03` + `文字&图标`；中性可点走冰绽蓝；预览静态矩阵；彩色不换肤
-- [x] 移除图标交互：默认 / 悬停警告红 / 点击深红 / 禁用细态（大+小）；资产 `SensIcon name="close"`；加载态未接
+- [x] 多色交互：`背景/02|03` + `文字&图标`；中性可点走冰绽蓝；禁用 / 禁用悬停按 Figma token，不整颗 opacity；预览静态矩阵；彩色不换肤
+- [x] 叠加标签边界：纯展示，不消费图标 / 帮助 / 警告 / 禁用 / 加载 / 点击 / 移除
+- [x] 移除图标交互：默认 / 悬停警告红 / 点击深红 / 禁用细态（大+小）；资产 `SensIcon name="close"`
+- [x] 内部热区：`helpMessage` / `errorMessage` 图标与点击阻断；真实 `SensTips` 浮层已接入
+- [x] 替换 `DataSourceEntryCard` 内联 beta
+- [ ] Tag 加载态：暂不提供；不能用刷新图标替代加载图标，等 SensD 正式加载规则后再评估
 - [ ] 抽取 **一、定义 / 二、原则** 正文进本文
-- [ ] 加载态（标签体 / 移除图标）
-- [ ] 替换 `DataSourceEntryCard` 内联 beta
-- [ ] Tips 超长文案（替代原生 `title`）
+- [x] Tips 承载：帮助 / 警告图标 hover / focus 展示 `SensTips`；长文案不再使用原生 `title` 或 antd Tooltip
 
 ## 代码入口
 

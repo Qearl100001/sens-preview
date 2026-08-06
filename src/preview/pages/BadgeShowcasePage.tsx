@@ -94,7 +94,7 @@ function BadgeDemo() {
           <Text type="secondary">挂载对象</Text>
           <Space>
             <Switch checked={showAnchor} onChange={setShowAnchor} />
-            <Text>附着到按钮</Text>
+            <Text>附着到按钮（业务推荐）</Text>
           </Space>
         </Space>
       </Space>
@@ -113,7 +113,9 @@ function BadgeDemo() {
             {showAnchor ? <SensButton tone="secondary">业务入口</SensButton> : undefined}
           </SensBadge>
         )}
-        <Text type="secondary">切换数量、弱化态和语义色，查看真实徽标表现</Text>
+        <Text type="secondary">
+          切换数量、弱化态和语义色，查看真实徽标表现；关闭挂载仅用于规格验收，业务中徽标应依附宿主组件。
+        </Text>
       </Space>
     </Space>
   );

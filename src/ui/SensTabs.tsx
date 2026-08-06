@@ -8,19 +8,21 @@ import type {
   SetStateAction,
 } from "react";
 import { useEffect, useMemo, useRef, useState } from "react";
-import { Tabs, Tooltip, type TabsProps } from "antd";
+import { Tabs, type TabsProps } from "antd";
 import { createPortal } from "react-dom";
 import { SELECT_CHECK_ICON_SIZE, SelectCheckIcon } from "./FieldIcons";
 import { SensBadge } from "./SensBadge";
+import { SensTips } from "./SensTips";
 import { useTranslation } from "react-i18next";
 import { buildShadowD1, getColorToken, tokenRgba } from "../design-system/color-utils";
 import { SensIcon } from "../design-system/icons";
 import { getTypographyToken } from "../design-system/typography";
 import tokens from "../design-system/tokens.resolved.json";
 import { getUnitToken } from "../design-system/unit";
+import { getFunctionalColors, functionalCssVar } from "../design-system/functional-skin";
+import { useSensAppearance } from "../design-system/appearance";
 import { useSensDropdownMenuStyle } from "./SensDropdownMenu";
 import { useAnchoredOverflowMenu } from "./useAnchoredOverflowMenu";
-import "./cursors.css";
 import "./tabs.css";
 
 const u = tokens.unit as Record<string, number>;
@@ -83,9 +85,9 @@ interface PreviewStyleToken {
 /** 预览矩阵色：对齐 Figma 胶囊态色（直读 design token handle） */
 function getPreviewStyleToken(): PreviewStyleToken {
   return {
-    primary: getColorToken("component-primary"),
-    primaryHover: getColorToken("component-hover"),
-    primaryActive: getColorToken("component-active"),
+    primary: functionalCssVar("--sens-skin-primary", "component-primary"),
+    primaryHover: functionalCssVar("--sens-skin-hover", "component-hover"),
+    primaryActive: functionalCssVar("--sens-skin-active", "component-active"),
     text: getColorToken("text-sub-color-transparent"),
     textDisabled: getColorToken("text-color-transparent-disable"),
     textDisabledHover: getColorToken("text-color-transparent-disable-hover"),
@@ -100,8 +102,8 @@ function getPreviewStyleToken(): PreviewStyleToken {
     iconHover: getColorToken("text-color"),
     badgeBg: tokenRgba("background-transparent-grey", 0.08),
     badgeText: getColorToken("text-sub-color-transparent"),
-    badgeActiveBg: getColorToken("component-light-background"),
-    badgeActiveText: getColorToken("component-primary"),
+    badgeActiveBg: functionalCssVar("--sens-skin-light-bg", "component-light-background"),
+    badgeActiveText: functionalCssVar("--sens-skin-primary", "component-primary"),
     stripPanelBorder: tokenRgba("outline-color-transparent", 0.35),
   };
 }
@@ -111,7 +113,15 @@ function useTabsPreviewVars(): CSSProperties {
     "--sens-tabs-space-2x": `${u["spacing/2x"]}px`,
     "--sens-tabs-space-5x": `${u["spacing/5x"]}px`,
     "--sens-tabs-space-6x": `${u["spacing/6x"]}px`,
+    "--sens-tabs-preview-font-size": `${getTypographyToken("font-size/s")}px`,
+    "--sens-tabs-preview-line-height": `${getTypographyToken("line-height/s")}px`,
+    "--sens-tabs-preview-font-weight": String(getTypographyToken("font-weight/regular")),
+    "--sens-tabs-preview-title-weight": String(getTypographyToken("font-weight/medium")),
+    "--sens-tabs-preview-text": getColorToken("text-sub-color"),
+    "--sens-tabs-matrix-cell-width": "132px",
     "--sens-tabs-pill-max-width": "112px",
+    "--sens-tabs-strip-panel-radius": "8px",
+    "--sens-tabs-strip-label-width": "140px",
   } as CSSProperties;
 }
 
@@ -128,27 +138,37 @@ function getPillStructureVars(size: SensTabSize): CSSProperties {
       isSmall ? "spacing/horizontal/2․5x" : "spacing/horizontal/3x",
     )}px`,
     "--sens-pill-item-font-size": `${getTypographyToken(isSmall ? "font-size/s" : "font-size/m")}px`,
+    "--sens-pill-item-font-weight": String(getTypographyToken("font-weight/regular")),
+    "--sens-pill-item-selected-font-weight": String(getTypographyToken("font-weight/medium")),
+    "--sens-pill-label-line-height": "1",
     "--sens-pill-item-height": `${isSmall ? 24 : 28}px`,
     "--sens-pill-item-min-height": `${isSmall ? 24 : 28}px`,
     "--sens-pill-item-bg": "transparent",
     "--sens-pill-item-color": getColorToken("text-sub-color-transparent"),
     "--sens-pill-item-hover-bg": "transparent",
     "--sens-pill-item-click-bg": "transparent",
-    "--sens-pill-item-hover-color": getColorToken("component-primary"),
-    "--sens-pill-item-click-color": getColorToken("component-active"),
+    "--sens-pill-item-hover-color": functionalCssVar("--sens-skin-primary", "component-primary"),
+    "--sens-pill-item-click-color": functionalCssVar("--sens-skin-active", "component-active"),
     "--sens-pill-item-selected-bg": getColorToken("white"),
-    "--sens-pill-item-selected-color": getColorToken("component-primary"),
+    "--sens-pill-item-selected-color": functionalCssVar("--sens-skin-primary", "component-primary"),
     "--sens-pill-item-selected-border-color": tokenRgba("outline-color-transparent", 0.06),
     "--sens-pill-item-disabled-bg": "transparent",
     "--sens-pill-item-disabled-hover-bg": "transparent",
     "--sens-pill-item-disabled-color": getColorToken("text-color-transparent-disable"),
     "--sens-pill-item-disabled-hover-color": getColorToken("text-color-transparent-disable-hover"),
-    "--sens-pill-selected-hover-color": getColorToken("component-hover"),
+    "--sens-pill-selected-hover-color": functionalCssVar("--sens-skin-hover", "component-hover"),
     "--sens-pill-selected-shadow": buildShadowD1(),
     "--sens-tabs-badge-bg": tokenRgba("background-transparent-grey", 0.08),
     "--sens-tabs-badge-text": getColorToken("text-sub-color-transparent"),
-    "--sens-tabs-badge-active-bg": getColorToken("component-light-background"),
-    "--sens-tabs-badge-active-text": getColorToken("component-primary"),
+    "--sens-tabs-badge-active-bg": functionalCssVar("--sens-skin-light-bg", "component-light-background"),
+    "--sens-tabs-badge-active-text": functionalCssVar("--sens-skin-primary", "component-primary"),
+    "--sens-tabs-badge-size": `${getUnitToken("size/xxs")}px`,
+    "--sens-tabs-badge-padding-inline": `${getUnitToken("spacing/0.5x")}px`,
+    "--sens-tabs-badge-radius": `${getUnitToken("radius/xl")}px`,
+    "--sens-tabs-badge-font-size": `${getTypographyToken("font-size/s")}px`,
+    "--sens-tabs-badge-line-height": `${getTypographyToken("line-height/s")}px`,
+    "--sens-tabs-badge-font-weight": String(getTypographyToken("font-weight/regular")),
+    "--sens-tabs-label-gap": `${getUnitToken("spacing/1x")}px`,
   } as CSSProperties;
 }
 
@@ -162,16 +182,19 @@ function getCardTabsVars(): CSSProperties {
     "--sens-card-tab-gap": `${getUnitToken("spacing/1x")}px`,
     "--sens-card-tab-font-size": `${getTypographyToken("font-size/m")}px`,
     "--sens-card-tab-line-height": `${getTypographyToken("line-height/m")}px`,
+    "--sens-card-tab-label-line-height": "1",
+    "--sens-card-tab-font-weight": String(getTypographyToken("font-weight/regular")),
+    "--sens-card-tab-active-font-weight": String(getTypographyToken("font-weight/medium")),
     "--sens-card-tab-icon-size": `${getUnitToken("size/icon/m")}px`,
     "--sens-card-tab-bg-default": getColorToken("background-transparent-grey"),
     "--sens-card-tab-bg-active": getColorToken("white"),
     "--sens-card-tab-border": getColorToken("outline-color-transparent"),
     "--sens-card-tab-text-default": getColorToken("text-sub-color-transparent"),
-    "--sens-card-tab-text-hover": getColorToken("component-primary"),
-    "--sens-card-tab-text-active": getColorToken("component-primary"),
-    "--sens-card-tab-text-active-hover": getColorToken("component-hover"),
+    "--sens-card-tab-text-hover": functionalCssVar("--sens-skin-primary", "component-primary"),
+    "--sens-card-tab-text-active": functionalCssVar("--sens-skin-primary", "component-primary"),
+    "--sens-card-tab-text-active-hover": functionalCssVar("--sens-skin-hover", "component-hover"),
     /* Figma 6354:27070 编辑前：选区绿底白字 */
-    "--sens-card-tab-select-bg": getColorToken("component-primary"),
+    "--sens-card-tab-select-bg": functionalCssVar("--sens-skin-primary", "component-primary"),
     "--sens-card-tab-select-text": getColorToken("white"),
     /* Figma 6354:27099 编辑中：大段正文色可输入 */
     "--sens-card-tab-edit-text": getColorToken("text-article-color"),
@@ -194,9 +217,9 @@ function getCardTabsVars(): CSSProperties {
 function ellipsisLabel(text: string, maxChars = 8): ReactNode {
   if (text.length <= maxChars) return text;
   return (
-    <Tooltip title={text}>
+    <SensTips title={text} placement="top">
       <span>{`${text.slice(0, maxChars)}...`}</span>
-    </Tooltip>
+    </SensTips>
   );
 }
 
@@ -232,16 +255,138 @@ function getBasicTabLabelStyle(
 function getBasicTabsVars(): CSSProperties {
   return {
     "--sens-basic-tabs-content-gap": `${getUnitToken("spacing/4x")}px`,
+    "--sens-basic-tabs-gutter": `${getUnitToken("spacing/6x")}px`,
+    "--sens-basic-tabs-small-padding-bottom": `${getUnitToken("spacing/1x")}px`,
+    "--sens-basic-tabs-ink-height": `${getUnitToken("spacing/0.5x")}px`,
+    "--sens-basic-tabs-height-large": `${getUnitToken("size/component-height/m")}px`,
+    "--sens-basic-tabs-height-small": "26px",
+    "--sens-basic-tabs-font-size-large": `${getTypographyToken("font-size/l")}px`,
+    "--sens-basic-tabs-line-height-large": `${getTypographyToken("line-height/l")}px`,
+    "--sens-basic-tabs-font-size-small": `${getTypographyToken("font-size/m")}px`,
+    "--sens-basic-tabs-line-height-small": `${getTypographyToken("line-height/m")}px`,
+    "--sens-basic-tabs-regular-weight": String(getTypographyToken("font-weight/regular")),
     "--sens-basic-tabs-active-weight": String(getTypographyToken("font-weight/semibold")),
     "--sens-basic-tabs-text-token": getColorToken("text-color"),
-    "--sens-basic-tabs-hover-token": getColorToken("component-primary"),
-    "--sens-basic-tabs-click-token": getColorToken("component-active"),
-    "--sens-basic-tabs-selected-token": getColorToken("component-primary"),
+    "--sens-basic-tabs-disabled-token": getColorToken("text-color-disable"),
+    "--sens-basic-tabs-hover-token": functionalCssVar("--sens-skin-primary", "component-primary"),
+    "--sens-basic-tabs-click-token": functionalCssVar("--sens-skin-active", "component-active"),
+    "--sens-basic-tabs-selected-token": functionalCssVar("--sens-skin-primary", "component-primary"),
+    "--sens-basic-tabs-border-token": getColorToken("outline-color-transparent"),
     "--sens-tabs-badge-bg": tokenRgba("background-transparent-grey", 0.08),
     "--sens-tabs-badge-text": getColorToken("text-sub-color-transparent"),
-    "--sens-tabs-badge-active-bg": getColorToken("component-light-background"),
-    "--sens-tabs-badge-active-text": getColorToken("component-primary"),
+    "--sens-tabs-badge-active-bg": functionalCssVar("--sens-skin-light-bg", "component-light-background"),
+    "--sens-tabs-badge-active-text": functionalCssVar("--sens-skin-primary", "component-primary"),
+    "--sens-tabs-badge-size": `${getUnitToken("size/xxs")}px`,
+    "--sens-tabs-badge-padding-inline": `${getUnitToken("spacing/0.5x")}px`,
+    "--sens-tabs-badge-radius": `${getUnitToken("radius/xl")}px`,
+    "--sens-tabs-badge-font-size": `${getTypographyToken("font-size/s")}px`,
+    "--sens-tabs-badge-line-height": `${getTypographyToken("line-height/s")}px`,
+    "--sens-tabs-badge-font-weight": String(getTypographyToken("font-weight/regular")),
+    "--sens-tabs-label-gap": `${getUnitToken("spacing/1x")}px`,
   } as CSSProperties;
+}
+
+function BasicTabsMatrixSnapshot({
+  size,
+  state,
+  withBadge,
+  styleToken,
+  tabLabel,
+}: {
+  size: SensTabSize;
+  state: BasicPreviewState;
+  withBadge: boolean;
+  styleToken: PreviewStyleToken;
+  tabLabel: string;
+}) {
+  const targetActive = state === "active" || state === "activeHover";
+  const targetDisabled = state === "disabled" || state === "disabledHover";
+  const otherLabel = <span style={getBasicTabLabelStyle("default", !targetActive, styleToken)}>标签一</span>;
+  const targetLabel = (
+    <span style={getBasicTabLabelStyle(state, targetActive, styleToken)}>{tabLabel}</span>
+  );
+
+  return (
+    <div
+      className={[
+        "sens-basic-tabs-snapshot",
+        size === "small" ? "sens-basic-tabs-snapshot-small" : "sens-basic-tabs-snapshot-large",
+      ].join(" ")}
+      style={getBasicTabsVars()}
+    >
+      <div className="sens-basic-tabs-snapshot-nav">
+        <div className={["sens-basic-tabs-snapshot-tab", !targetActive ? "sens-basic-tabs-snapshot-tab-active" : ""].filter(Boolean).join(" ")}>{otherLabel}</div>
+        <div
+          className={[
+            "sens-basic-tabs-snapshot-tab",
+            targetActive ? "sens-basic-tabs-snapshot-tab-active" : "",
+            targetDisabled ? "sens-basic-tabs-snapshot-tab-disabled" : "",
+          ]
+            .filter(Boolean)
+            .join(" ")}
+        >
+          {withOptionalBadge(targetLabel, withBadge)}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function CardTabsMatrixSnapshot({
+  state,
+  isCurrent,
+  styleToken,
+  tabLabel,
+}: {
+  state: CardPreviewState;
+  isCurrent: boolean;
+  styleToken: PreviewStyleToken;
+  tabLabel: string;
+}) {
+  const activeKey = isCurrent ? "target" : "other";
+  const targetTitleColor = isCurrent
+    ? styleToken.primary
+    : state === "hoverTitle" || state === "hoverDelete"
+      ? styleToken.primary
+      : styleToken.text;
+  const targetIsEditing = state === "editing";
+  const targetIsSelectedBeforeEdit = state === "beforeEdit";
+  const targetRemoveColor = state === "hoverDelete" ? getColorToken("warning-color") : undefined;
+
+  const renderTab = (key: "other" | "target", label: ReactNode) => {
+    const active = key === activeKey;
+    const showRemove = active || key === "target" && (state === "hoverTitle" || state === "hoverDelete" || targetIsEditing);
+    return (
+      <div className={["sens-card-tabs-snapshot-tab", active ? "sens-card-tabs-snapshot-tab-active" : ""].filter(Boolean).join(" ")}>
+        <span className="sens-card-tabs-snapshot-label">{label}</span>
+        {showRemove ? (
+          <span className="sens-card-tabs-snapshot-remove" style={targetRemoveColor ? { color: targetRemoveColor } : undefined} aria-hidden>
+            <SensIcon name="close" sizeToken="size/icon/m" colorRole="inherit" />
+          </span>
+        ) : null}
+      </div>
+    );
+  };
+
+  return (
+    <div className="sens-card-tabs-snapshot" style={getCardTabsVars()}>
+      <div className="sens-card-tabs-snapshot-nav">
+        {renderTab("other", <span style={{ color: activeKey === "other" ? styleToken.primary : styleToken.text }}>标签一</span>)}
+        {renderTab(
+          "target",
+          targetIsEditing ? (
+            <span className="sens-card-tab-label-slot" style={{ width: `${tabLabel.length}em` }}>
+              <span className="sens-card-tab-edit-input">{tabLabel}</span>
+            </span>
+          ) : targetIsSelectedBeforeEdit ? (
+            <span className="sens-card-tab-title-select">{tabLabel}</span>
+          ) : (
+            <span style={{ color: targetTitleColor }}>{tabLabel}</span>
+          ),
+        )}
+      </div>
+    </div>
+  );
 }
 
 interface PillSnapshotStyle {
@@ -253,6 +398,7 @@ interface PillSnapshotStyle {
 
 function getPillTrackSnapshotStyle(size: SensTabSize, styleToken: PreviewStyleToken): CSSProperties {
   return {
+    ...getPillStructureVars(size),
     backgroundColor: styleToken.pillTrackBg,
     padding: `${getUnitToken("spacing/1x")}px`,
     borderRadius: `${size === "small" ? 5 : getUnitToken("radius/l")}px`,
@@ -267,7 +413,7 @@ function getPillSnapshotStyle(state: BasicPreviewState, styleToken: PreviewStyle
 
   const labelStyle: CSSProperties = {
     color: styleToken.text,
-    fontWeight: selected ? 500 : 400,
+    fontWeight: getTypographyToken(selected ? "font-weight/medium" : "font-weight/regular"),
   };
 
   if (selected) {
@@ -517,6 +663,8 @@ export function SensEditableCardTabs({
   defaultMoreOpen = false,
 }: SensEditableCardTabsProps = {}) {
   const { t } = useTranslation();
+  const { functionalSkin } = useSensAppearance();
+  const functionalColors = getFunctionalColors(functionalSkin);
   const dropdownMenuStyle = useSensDropdownMenuStyle();
   const rootRef = useRef<HTMLDivElement | null>(null);
   const fallbackItems = useMemo<EditableTabItem[]>(
@@ -800,19 +948,28 @@ export function SensEditableCardTabs({
           ) : isPreEdit ? (
             <span className="sens-card-tab-title-select">{displayTitle}</span>
           ) : (
-            <Tooltip
+            <SensTips
               title={tipTitle}
+              placement="top"
               open={draggingKey ? false : tipKey === item.key}
-              onOpenChange={(open) => {
-                if (draggingKey) return;
-                setTipKey(open ? item.key : null);
-              }}
             >
               <span
                 ref={(node) => {
                   labelRefs.current[item.key] = node;
                 }}
                 className="sens-card-tab-label"
+                onMouseEnter={() => {
+                  if (!draggingKey) setTipKey(item.key);
+                }}
+                onMouseLeave={() => {
+                  if (!draggingKey) setTipKey(null);
+                }}
+                onFocus={() => {
+                  if (!draggingKey) setTipKey(item.key);
+                }}
+                onBlur={() => {
+                  if (!draggingKey) setTipKey(null);
+                }}
                 onPointerDown={(e) => onLabelPointerDown(item.key, e)}
                 onDoubleClick={(e) => {
                   e.stopPropagation();
@@ -821,7 +978,7 @@ export function SensEditableCardTabs({
               >
                 {displayTitle}
               </span>
-            </Tooltip>
+            </SensTips>
           )}
         </span>
       ),
@@ -861,12 +1018,13 @@ export function SensEditableCardTabs({
                 right: morePopupPos.right,
                 left: "auto",
                 "--sens-card-tabs-dropdown-width": "188px",
+                "--sens-card-tabs-dropdown-item-gap": `${getUnitToken("spacing/2x")}px`,
                 "--sens-card-tabs-dropdown-item-color-default": getColorToken("text-color"),
                 "--sens-card-tabs-dropdown-item-hover-bg": tokenRgba("background-transparent-grey-hover", 0.06),
                 "--sens-card-tabs-dropdown-item-active-bg": tokenRgba("background-01-transparent", 0.08),
-                "--sens-card-tabs-dropdown-item-selected-bg": getColorToken("component-active-background"),
-                "--sens-card-tabs-dropdown-item-selected-hover-bg": getColorToken("component-active-hover-background"),
-                "--sens-card-tabs-dropdown-item-selected-active-bg": getColorToken("component-active-click-background"),
+                "--sens-card-tabs-dropdown-item-selected-bg": functionalColors.activeBackground,
+                "--sens-card-tabs-dropdown-item-selected-hover-bg": functionalColors.activeHoverBackground,
+                "--sens-card-tabs-dropdown-item-selected-active-bg": functionalColors.activeClickBackground,
                 "--sens-card-tabs-dropdown-item-check-color": getColorToken("icon-color-transparent"),
                 "--sens-card-tabs-dropdown-item-selected-font-weight": String(getTypographyToken("font-weight/semibold")),
               } as CSSProperties
@@ -1099,28 +1257,22 @@ interface BasicPreviewRowProps {
 
 function BasicPreviewRow({ title, size, withBadge, styleToken, tabLabel }: BasicPreviewRowProps) {
   const states: BasicPreviewState[] = ["default", "hover", "click", "active", "activeHover", "disabled", "disabledHover"];
-  const tabSize = size === "small" ? "small" : "middle";
 
   return (
     <div className="sens-tabs-matrix-row">
       <span className="sens-tabs-matrix-title">{title}</span>
       <div className="sens-tabs-matrix-states">
         {states.map((state) => {
-          const isTargetActive = state === "active" || state === "activeHover";
-          const labelNode = withOptionalBadge(<span style={getBasicTabLabelStyle(state, isTargetActive, styleToken)}>{tabLabel}</span>, withBadge);
           return (
             <div key={state} className="sens-tabs-matrix-cell">
               <span className="sens-tabs-matrix-label">{BASIC_PREVIEW_STATE_LABELS[state]}</span>
               <div className="sens-tabs-preview">
-                <Tabs
-                  className={["sens-basic-tabs", size === "small" ? "sens-basic-tabs-small" : "sens-basic-tabs-large"].join(" ")}
-                  style={getBasicTabsVars()}
-                  size={tabSize}
-                  activeKey={isTargetActive ? "target" : "other"}
-                  items={[
-                    { key: "other", label: ellipsisLabel("标签一"), children: null },
-                    { key: "target", label: labelNode, children: null, disabled: state === "disabled" || state === "disabledHover" },
-                  ]}
+                <BasicTabsMatrixSnapshot
+                  size={size}
+                  state={state}
+                  withBadge={withBadge}
+                  styleToken={styleToken}
+                  tabLabel={tabLabel}
                 />
               </div>
             </div>
@@ -1219,82 +1371,17 @@ interface CardPreviewRowProps {
 
 function CardPreviewRow({ title, isCurrent, styleToken, tabLabel }: CardPreviewRowProps) {
   const states: CardPreviewState[] = ["default", "hoverTitle", "hoverDelete", "beforeEdit", "editing"];
-  const activeKey = isCurrent ? "target" : "other";
-  const cardVars = getCardTabsVars();
-  const warningRemove = getColorToken("warning-color");
 
   return (
     <div className="sens-tabs-matrix-row">
       <span className="sens-tabs-matrix-title">{title}</span>
       <div className="sens-tabs-matrix-states">
         {states.map((state) => {
-          let titleColor: string | undefined;
-          if (isCurrent) {
-            if (state === "hoverTitle") titleColor = styleToken.primaryHover;
-            else titleColor = styleToken.primary;
-          } else {
-            if (state === "hoverTitle" || state === "hoverDelete") titleColor = styleToken.primary;
-            else titleColor = styleToken.text;
-          }
-          const titleStyle: CSSProperties | undefined = titleColor ? { color: titleColor } : undefined;
-          let label: ReactNode;
-          if (state === "beforeEdit") {
-            /* Figma 6354:27070 · 编辑前：标题选区 component-primary 底 + white 字 */
-            label = <span className="sens-card-tab-title-select">{tabLabel}</span>;
-          } else if (state === "editing") {
-            /* Figma 6354:27099 · 编辑中：可输入，text-article-color；槽宽锁与文案同宽 */
-            label = (
-              <span className="sens-card-tab-label-slot" style={{ width: `${tabLabel.length}em` }}>
-                <input
-                  className="sens-card-tab-edit-input"
-                  defaultValue={tabLabel}
-                  aria-label={CARD_PREVIEW_STATE_LABELS.editing}
-                  onClick={(e) => e.stopPropagation()}
-                  onMouseDown={(e) => e.stopPropagation()}
-                />
-              </span>
-            );
-          } else {
-            label = <span style={titleStyle}>{ellipsisLabel(tabLabel)}</span>;
-          }
-          const previewClass = [
-            "sens-tabs-preview",
-            "sens-card-tabs",
-            state === "hoverDelete" ? "sens-tabs-preview-card-hover-delete" : "",
-            state === "hoverTitle" ? "sens-tabs-preview-card-hover-title" : "",
-            state === "default" && !isCurrent ? "sens-tabs-preview-card-default-idle" : "",
-            state === "beforeEdit" || state === "editing" ? "sens-tabs-preview-card-editing" : "",
-          ]
-            .filter(Boolean)
-            .join(" ");
           return (
-            <div
-              key={state}
-              className="sens-tabs-matrix-cell"
-              style={
-                state === "hoverDelete"
-                  ? ({ ...cardVars, "--sens-tabs-preview-remove-hover": warningRemove } as CSSProperties)
-                  : cardVars
-              }
-            >
+            <div key={state} className="sens-tabs-matrix-cell">
               <span className="sens-tabs-matrix-label">{CARD_PREVIEW_STATE_LABELS[state]}</span>
-              <div className={previewClass}>
-                <Tabs
-                  type="editable-card"
-                  hideAdd
-                  removeIcon={<SensIcon name="close" sizeToken="size/icon/m" colorRole="inherit" />}
-                  more={{
-                    icon: <CardTabsMoreIcon open={false} />,
-                    trigger: ["click"],
-                    placement: "bottomRight",
-                    getPopupContainer: () => document.body,
-                  }}
-                  activeKey={activeKey}
-                  items={[
-                    { key: "other", label: ellipsisLabel("标签一"), children: null },
-                    { key: "target", label, children: null, closable: true },
-                  ]}
-                />
+              <div className="sens-tabs-preview">
+                <CardTabsMatrixSnapshot state={state} isCurrent={isCurrent} styleToken={styleToken} tabLabel={tabLabel} />
               </div>
             </div>
           );

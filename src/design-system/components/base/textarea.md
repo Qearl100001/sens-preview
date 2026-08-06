@@ -27,7 +27,7 @@
 | 只读两档 + 只读+警告（无红框 / 浅红底） | `input.md` §antd 映射 |
 | 框外 help 行结构 | `input.md` §警告图标与间距 |
 | 透明色派生 | `tokenRgba(handle, α)`；**禁止**手写 `rgba(...)` 字面量 |
-| 禁用边框 8% 未落地（antd 限制） | `input.md` §背景 脚注 |
+| 禁用边框 | textarea.css 窄作用域覆盖为 Sens 禁用边框变量（8% 浅分割线）；预览板的禁用悬停仍只在静态样张使用 token |
 | 清空 / 重置行为原则 | `input.md` §清空 / 重置 + `input.design.md` |
 
 **主题接线**：`Input.TextArea` 与 `Input` **共享** `components.Input`（`build-tokens.mjs` 已生成，`theme.ts` 已接）。**本轮不重接颜色 token**，只处理多行专有项。
@@ -64,6 +64,7 @@ minHeight = 4.5 × lineHeight(22) + paddingBlock×2(5×2) + border×2
 
 - 内容超出默认高度时出现**纵向滚动**；`autoSize` 默认**不开启**（除非业务显式传入）。
 - **`resize: vertical`**：允许用户拖拽改高（与 antd 默认一致，**不要** `resize: none`）。
+- 启用 `allowClear` 时，affix wrapper 不额外压缩右侧宽度；原生 textarea 必须填满外框，让拖拽柄贴在外框右下角，清空 / 计数 / 警告图标的留白由内部 padding 和绝对定位承担。
 
 ### 内边距（文本域专有，单行 `paddingBlock=0` 不适用）
 
@@ -85,6 +86,7 @@ minHeight = 4.5 × lineHeight(22) + paddingBlock×2(5×2) + border×2
 - **不是**单行 Input suffix 的「整框垂直居中」。
 - 图标尺寸 / 颜色 / 与文字间距仍走 `input.md` §警告图标与间距（大 16、小 14、`spacing/horizontal/1x`）。
 - 实现：`textarea.css` 覆盖 antd TextArea affix-wrapper suffix 默认 `top:0; bottom:0; align-items:center`。
+- 框内警告图标通过键盘聚焦查看 Tooltip；鼠标点击不显示浏览器默认 focus outline，避免把焦点轮廓误认为图标投影。
 
 ### 警告聚焦光晕（组件层修补）
 
@@ -103,11 +105,29 @@ antd `initComponentToken` 会用 `colorErrorOutline` 盖掉 `components.Input.er
 | 能力 | antd `showCount` / `count` prop，**本轮透传** |
 | 默认 | **不默认开启**；表单需字数限制时由业务传入 `showCount` |
 | 位置 | antd 默认：框内右下角（`ant-input-data-count`） |
-| 字色 | 先用全局 **`colorTextDescription`**；稿面后续有独立 handle 再补 token |
+| 字色与排版 | 使用 Sens 辅助信息 token：text-sub-color-transparent @ 58%、font-size/s、line-height/s；不直接把 antd 默认排版当设计来源 |
 | 超限 | antd `out-of-range` → `colorError`（与警告红一致） |
 | 与 help 分工 | **限制信息**用 `showCount`；**校验错误**用框外 `help` 或框内菱形，不混用 |
 
-**层叠**（`showCount` + `allowClear` + 框内警告）：三者同在 affix 区时，间距与 z-index 在 `textarea.css` 按 §3.2 稿面还原；清空图标 antd 默认 **右上**（`insetBlockStart: paddingXS`），与单行「清空偏左」描述不一致时**以文本域稿面为准**。
+**层叠**（showCount + allowClear + 框内警告）：三者同在 affix 区时，字数统计在右下、清空图标沿用 Sens 清空 helper、警告菱形在右上首行；间距与 z-index 在 textarea.css 按 §3.2 稿面还原。清空图标位置与单行规则不同，**以文本域稿面为准**。
+
+基础 TextArea 不自动测量错误文案长度，也不自动切换框内 / 框外错误。错误文案的隐藏、Tooltip、完整展示或多行换行由 SensFormItem 根据表单列宽决定。
+
+### Figma 超限策略
+
+来源：Figma node 2516:23958。
+
+- **允许继续输入**：不设置 maxLength，使用 count.max 作为计数上限；超限时框体进入错误态，框外展示校验错误，计数显示为“当前数字（错误色） + /最大值（中性色）”。
+- **截断不报错**：设置 maxLength；达到上限后浏览器阻止继续输入，计数保持中性色，框体不进入错误态。
+- 两种策略的数字都属于文本域框内右下角的计数槽，不放到表单框外。
+
+### 可访问性与真实 Demo 验收
+
+- 框内警告图标提供“警告：{文案}”可访问名称，并可通过键盘聚焦查看 Tooltip。
+- 框外 help 生成稳定 id，并通过 aria-describedby 关联文本域；真实错误行按需使用 role="alert"。
+- 状态矩阵中的框外帮助不进入 live region，避免静态样张重复播报。
+- allowClear 默认关闭；启用时使用 useSensAllowClear() 的 Sens 清空图标。
+- 展示页包含“字数统计 + 清空 + 框内警告”真实组合验收场景。
 
 ## antd 映射
 
@@ -151,13 +171,13 @@ antd `initComponentToken` 会用 `colorErrorOutline` 盖掉 `components.Input.er
 - 框内标记：红框 + 右上菱形，无下方 help。
 - 还原时**按稿分组并排**，不拍平、不合并、不砍列。
 
-> Figma node id 待设计稿标注后补入本文。
+> 当前矩阵已落地为 TextAreaStatesPreview；文本域专有稿面来源为 Figma node 2516:23958。
 
 ## 工程落点（实现轮）
 
 ```
-src/ui/SensTextArea.tsx        # SensTextArea + TextAreaStatesPreview（矩阵可后置）
-src/ui/textarea.css            # 4.5 行 minHeight、padding 5/12、右上警告、聚焦光晕；禁单行锁高
+src/ui/SensTextArea.tsx        # SensTextArea + TextAreaStatesPreview（3 × 7 × 2）
+src/ui/textarea.css            # 4.5 行 minHeight、padding 5/12、右上警告、聚焦光晕、禁用边框；禁单行锁高
 src/ui/index.ts
 ```
 

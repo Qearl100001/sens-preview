@@ -5,7 +5,7 @@ import {
   ALERT_TYPE_LABEL,
   AlertTypesPreview,
   SensAlert,
-  SensButton,
+  SensMessageLink,
   type AlertType,
 } from "../../ui";
 import { ComponentShowcaseLayout } from "../ComponentShowcaseLayout";
@@ -62,7 +62,7 @@ function AlertDemo() {
         </Space>
       </Space>
 
-      <Space direction="vertical" size="small" style={{ width: "100%", maxWidth: 480 }}>
+      <Space direction="vertical" size="small" style={{ width: "100%" }}>
         <SensAlert
           type={type}
           closable={closable}
@@ -70,17 +70,13 @@ function AlertDemo() {
           description={
             withDescription ? "这是辅助说明文案，用于补充标题信息。" : undefined
           }
-          link={
-            withLink ? (
-              <SensButton tone="link" size="small">
-                查看详情
-              </SensButton>
-            ) : undefined
-          }
+          link={withLink ? <SensMessageLink>查看详情</SensMessageLink> : undefined}
         >
           {ALERT_TYPE_LABEL[type]}提示标题
         </SensAlert>
-        <Text type="secondary">浅底 + 浅描边；常规走链接色链；关闭后可恢复</Text>
+        <Text type="secondary">
+          通栏（width 100%，与标题同）；浅底 + 浅描边；链接用 SensMessageLink（14/22）；关闭后可恢复
+        </Text>
       </Space>
     </Space>
   );

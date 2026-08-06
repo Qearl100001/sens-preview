@@ -27,7 +27,7 @@
 /* 可用行：行 + 文案区均 pointer（portaled 浮层与静态面板同一套后代选择器） */
 .sens-dropdown-menu .sens-dropdown-menu-item:not(.sens-dropdown-menu-item--disabled):not(.sens-dropdown-menu-item--loading),
 .sens-dropdown-menu .sens-dropdown-menu-item:not(.sens-dropdown-menu-item--disabled):not(.sens-dropdown-menu-item--loading) .sens-dropdown-menu-item-label {
-  cursor: pointer;
+  cursor: var(--sens-cursor-pointer);
 }
 
 .sens-dropdown-menu .sens-dropdown-menu-item-label {
@@ -87,13 +87,13 @@
 .sens-dropdown-menu .sens-dropdown-menu-item--disabled,
 .sens-dropdown-menu .sens-dropdown-menu-item--disabled .sens-dropdown-menu-item-label {
   color: var(--sens-dropdown-menu-item-color-disabled) !important;
-  cursor: not-allowed;
+  cursor: var(--sens-cursor-not-allowed);
 }
 
 .sens-dropdown-menu .sens-dropdown-menu-item--disabled:hover {
   background-color: var(--sens-dropdown-menu-item-hover-bg) !important;
   color: var(--sens-dropdown-menu-item-color-disabled) !important;
-  cursor: not-allowed;
+  cursor: var(--sens-cursor-not-allowed);
 }
 
 /* 加载：跨 variant 一致置灰 + 转圈，不可点 */
@@ -104,7 +104,7 @@
 .sens-dropdown-menu .sens-dropdown-menu-item--loading .sens-dropdown-menu-item-loading,
 .sens-dropdown-menu .sens-dropdown-menu-item--loading .sens-dropdown-menu-item-loading-icon {
   color: var(--sens-dropdown-menu-item-color-loading) !important;
-  cursor: not-allowed;
+  cursor: var(--sens-cursor-not-allowed);
 }
 
 .sens-dropdown-menu .sens-dropdown-menu-item--loading .sens-dropdown-menu-item-loading {
@@ -130,5 +130,5 @@
 .sens-dropdown-menu .sens-dropdown-menu-item--loading.sens-dropdown-menu-item--danger:hover {
   background-color: var(--sens-dropdown-menu-item-hover-bg);
   color: var(--sens-dropdown-menu-item-color-loading) !important;
-  cursor: not-allowed;
+  cursor: var(--sens-cursor-not-allowed);
 }

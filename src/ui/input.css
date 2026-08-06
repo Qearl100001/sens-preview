@@ -30,14 +30,14 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: var(--sens-input-help-gap, 4px);
+  gap: var(--sens-input-help-gap);
   width: 100%;
 }
 
 .sens-input-help {
   display: flex;
   align-items: flex-start;
-  gap: var(--sens-input-icon-gap, 4px);
+  gap: var(--sens-input-icon-gap);
   color: var(--sens-input-error-color);
 }
 
@@ -45,16 +45,24 @@
   display: flex;
   flex-shrink: 0;
   align-items: center;
-  padding-block: 2px;
+  padding-block: var(--sens-input-help-icon-inset);
 }
 
 .sens-input-help-text {
-  font-size: 12px;
-  line-height: 18px;
+  font-size: var(--sens-input-help-font-size);
+  line-height: var(--sens-input-help-line-height);
 }
 
 .sens-input-error-icon {
   color: var(--sens-input-error-color);
+}
+
+/* antd 的 disabled 生成器复用 colorBorder；SensD 禁用边框单独为 8% 浅分割线。 */
+.sens-input.ant-input-outlined.ant-input-disabled,
+.sens-input.ant-input-affix-wrapper.ant-input-affix-wrapper-disabled,
+.sens-input.ant-input-outlined.ant-input-disabled:hover,
+.sens-input.ant-input-affix-wrapper.ant-input-affix-wrapper-disabled:hover {
+  border-color: var(--sens-input-disabled-border) !important;
 }
 
 /* 警告态聚焦外环：antd initComponentToken 用 colorErrorOutline 盖掉 components.Input.errorActiveShadow */
@@ -71,11 +79,24 @@
   line-height: 0;
 }
 
+/* Tooltip 触发器仍可键盘聚焦；鼠标点击不额外显示浏览器默认轮廓。 */
+.sens-input-error-suffix:focus:not(:focus-visible) {
+  outline: none;
+}
+
 /* 清空偏左、报错偏右（input.md · spacing/1x） */
 .sens-input-suffix-group {
   display: inline-flex;
   align-items: center;
-  gap: var(--sens-input-icon-gap, 4px);
+  gap: var(--sens-input-icon-gap);
+}
+
+/* 框内报错先于数字限制等自定义 suffix；顺序为“报错 → 数字”。 */
+.sens-input-suffix-count {
+  color: var(--sens-input-suffix-count-color);
+  font-size: var(--sens-input-help-font-size);
+  line-height: var(--sens-input-help-line-height);
+  white-space: nowrap;
 }
 
 /* 只读有背景（Figma 只读_背景 · 15525:49211）：灰底、无边框、无 hover/聚焦 */
@@ -85,7 +106,7 @@
   box-shadow: none !important;
   background-color: var(--sens-input-readonly-bg) !important;
   color: var(--sens-input-readonly-text);
-  cursor: default;
+  cursor: var(--sens-cursor-default);
 }
 
 .sens-input-readonly-filled.ant-input-outlined:hover,
@@ -113,7 +134,7 @@
   box-shadow: none !important;
   background: transparent !important;
   color: var(--sens-input-readonly-text);
-  cursor: default;
+  cursor: var(--sens-cursor-default);
 }
 
 .sens-input-readonly-plain.ant-input-affix-wrapper > input.ant-input {
@@ -149,7 +170,7 @@
 .sens-input-readonly-plain-inline {
   display: inline-flex;
   align-items: center;
-  gap: var(--sens-input-icon-gap, 4px);
+  gap: var(--sens-input-icon-gap);
   width: 100%;
   color: var(--sens-input-readonly-text);
 }
@@ -158,12 +179,12 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  font-size: 14px;
-  line-height: 22px;
+  font-size: var(--sens-input-font-size);
+  line-height: var(--sens-input-line-height);
   color: var(--sens-input-readonly-text);
 }
 
 .sens-input-readonly-plain-text-sm {
-  font-size: 12px;
-  line-height: 18px;
+  font-size: var(--sens-input-font-size-sm);
+  line-height: var(--sens-input-line-height-sm);
 }

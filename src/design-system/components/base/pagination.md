@@ -34,16 +34,16 @@
 |---|---|---|
 | `showTotal` | `本页显示第 n-m 条` | 简版下默认隐藏 |
 | `showSizeChanger` | 常规 true / 简版 false | 每页条数 |
-| `showQuickJumper` | 常规 true / 简版 false | 跳页 |
+| `showQuickJumper` | 未传时：常规且总页 **>10** 为 true，否则 false；简版 false | 跳页；显式传入可覆盖 |
 | `pageSizeOptions` | `10 / 20 / 50 / 100` | 每页条数选项 |
 
 ## 常规场景
 | 场景 | 页码规则 | 数量控制 | 快速跳转 |
 |---|---|---|---|
-| 总页数 ≤ 10 / 无数量控制 | 单屏范围内显示全部页码 | 不展示 | 一般不提供 |
-| 总页数 ≤ 10 / 有数量控制 | 单屏范围内显示全部页码 | 展示 | 一般不提供 |
-| 总页数 > 10 / 无数量控制 | 使用折叠页码 | 不展示 | 建议提供 |
-| 总页数 > 10 / 有数量控制 | 使用折叠页码 | 展示 | 建议提供 |
+| 总页数 ≤ 10 / 无数量控制 | 单屏范围内显示全部页码 | 不展示 | **默认不提供** |
+| 总页数 ≤ 10 / 有数量控制 | 单屏范围内显示全部页码 | 展示 | **默认不提供** |
+| 总页数 > 10 / 无数量控制 | 使用折叠页码 | 不展示 | **默认提供** |
+| 总页数 > 10 / 有数量控制 | 使用折叠页码 | 展示 | **默认提供** |
 
 ## 行为规则
 - 点击页码后更新当前页。
@@ -64,6 +64,7 @@
 - 每页条数选择器使用 SensD Select 触发框与 `SensSelectDropdown` 浮层 token；只展示页数选项，不展示搜索输入。
 - 每页条数选择器默认自适应内容宽度；不要给分页器内选择器固定宽度。
 - 跳页输入使用 SensD Input；输入合法页码后跳转，非法输入清空。
+- `showQuickJumper` 未显式传入时：总页数 **≤10** 默认不展示跳页，**>10** 默认展示；业务可显式覆盖。
 - 每页条数改变后的页码重置策略由业务状态管理决定。
 
 ## 与表格组合
@@ -118,7 +119,7 @@
 src/ui/SensPagination.tsx
 src/ui/pagination.css
 src/ui/index.ts
-src/preview/pages/TableShowcasePage.tsx
+src/preview/pages/PaginationShowcasePage.tsx
 src/design-system/components/base/pagination.md
 src/design-system/components/base/pagination.design.md
 ```

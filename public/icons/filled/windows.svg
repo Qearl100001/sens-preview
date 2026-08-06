@@ -1,0 +1,12 @@
+<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+<g id="windows">
+<g id="2" opacity="0.5">
+<path d="M1.33325 3.33333V7.66666H6.66659V2.53333L1.33325 3.33333Z" fill="currentColor"/>
+<path d="M1.33325 8.33332V12.6667L6.66659 13.4667V8.33332H1.33325Z" fill="currentColor"/>
+</g>
+<g id="1">
+<path d="M14.6668 7.66671V1.33337L7.3335 2.43337V7.66671H14.6668Z" fill="currentColor"/>
+<path d="M14.6668 14.6667V8.33337H7.3335V13.5667L14.6668 14.6667Z" fill="currentColor"/>
+</g>
+</g>
+</svg>

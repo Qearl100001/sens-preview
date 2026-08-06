@@ -1,6 +1,6 @@
 import type { CSSProperties, ReactNode } from "react";
 import type { TableProps } from "antd";
-import { Table, Tooltip } from "antd";
+import { Table } from "antd";
 import { getColorToken } from "../design-system/color-utils";
 import { getDividerBorder, getDividerColor, getDividerHairlineWidth } from "../design-system/divider";
 import { getTypographyToken } from "../design-system/typography";
@@ -9,6 +9,7 @@ import { EMPTY_STATE_ILLUSTRATIONS, type NonPageEmptyIllustrationKey } from "./E
 import { SensButton, type SensButtonVariant } from "./SensButton";
 import { SensButtonActionMenu } from "./SensButtonActionMenu";
 import type { SensDropdownMenuItemConfig } from "./SensDropdownMenuItem";
+import { SensTips } from "./SensTips";
 import "./table.css";
 
 export interface TableActionItem {
@@ -314,12 +315,12 @@ export interface TableEllipsisProps {
   children: ReactNode;
 }
 
-/** 表格长文本：省略显示，hover 时使用系统 Tooltip 展示完整内容。 */
+/** 表格长文本：省略显示，hover 时使用 SensTips 展示完整内容。 */
 export function TableEllipsis({ children }: TableEllipsisProps) {
   return (
-    <Tooltip title={children} placement="top">
+    <SensTips title={children} placement="top">
       <span className="sens-table-ellipsis">{children}</span>
-    </Tooltip>
+    </SensTips>
   );
 }
 

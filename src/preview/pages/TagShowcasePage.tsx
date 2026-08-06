@@ -53,13 +53,16 @@ function TagDemo() {
   const [clickable, setClickable] = useState(false);
   const [closable, setClosable] = useState(false);
   const [withIcon, setWithIcon] = useState(false);
+  const [withHelp, setWithHelp] = useState(false);
+  const [withError, setWithError] = useState(false);
   const [disabled, setDisabled] = useState(false);
   const [clicks, setClicks] = useState(0);
   const [closed, setClosed] = useState(false);
 
   const isStatus = variant === "status";
+  const isMulticolor = variant === "multicolor";
 
-  if (closed && !isStatus) {
+  if (closed && isMulticolor) {
     return (
       <Space direction="vertical" size="middle">
         <Text type="secondary">标签已移除</Text>
@@ -88,17 +91,17 @@ function TagDemo() {
             <Text type="secondary">语义</Text>
             <ShowcaseSelect value={status} onChange={setStatus} options={STATUS_OPTIONS} style={{ width: 140 }} />
           </Space>
-        ) : (
+        ) : isMulticolor ? (
           <Space direction="vertical" size={4}>
             <Text type="secondary">色系</Text>
             <ShowcaseSelect value={color} onChange={setColor} options={COLOR_OPTIONS} style={{ width: 140 }} />
           </Space>
-        )}
+        ) : null}
         <Space direction="vertical" size={4}>
           <Text type="secondary">尺寸</Text>
           <ShowcaseSelect value={size} onChange={setSize} options={SIZE_OPTIONS} style={{ width: 100 }} />
         </Space>
-        {!isStatus ? (
+        {isMulticolor ? (
           <>
             <Space direction="vertical" size={4}>
               <Text type="secondary">可点击</Text>
@@ -113,6 +116,14 @@ function TagDemo() {
               <Switch checked={withIcon} onChange={setWithIcon} />
             </Space>
             <Space direction="vertical" size={4}>
+              <Text type="secondary">帮助</Text>
+              <Switch checked={withHelp} onChange={setWithHelp} />
+            </Space>
+            <Space direction="vertical" size={4}>
+              <Text type="secondary">警告</Text>
+              <Switch checked={withError} onChange={setWithError} />
+            </Space>
+            <Space direction="vertical" size={4}>
               <Text type="secondary">禁用</Text>
               <Switch checked={disabled} onChange={setDisabled} />
             </Space>
@@ -123,12 +134,6 @@ function TagDemo() {
       <Space direction="vertical" size="small">
         <div
           style={{
-            padding: variant === "overlay" ? 24 : 0,
-            background:
-              variant === "overlay"
-                ? "linear-gradient(135deg, #1a3a5c 0%, #0d1b2a 100%)"
-                : undefined,
-            borderRadius: 8,
             display: "inline-flex",
           }}
         >
@@ -141,21 +146,25 @@ function TagDemo() {
               variant={variant}
               color={color}
               size={size}
-              clickable={clickable}
-              closable={closable}
-              disabled={disabled}
-              icon={withIcon ? <IconDefaultIcon /> : undefined}
+              clickable={isMulticolor ? clickable : false}
+              closable={isMulticolor ? closable : false}
+              disabled={isMulticolor ? disabled : false}
+              icon={isMulticolor && withIcon ? <IconDefaultIcon /> : undefined}
+              helpMessage={isMulticolor && withHelp ? "帮助说明" : undefined}
+              errorMessage={isMulticolor && withError ? "警告信息" : undefined}
               onClick={() => setClicks((n) => n + 1)}
               onClose={() => setClosed(true)}
             >
-              标签文案
+              {variant === "overlay" ? "叠加标签" : "标签文案"}
             </SensTag>
           )}
         </div>
         <Text type="secondary">
           {isStatus
             ? "状态标签：文案中性色、圆点状态色；仅进行中有外描边；无点击 / 移除 / 禁用"
-            : clickable
+            : variant === "overlay"
+              ? "叠加标签：纯展示，不接图标 / 帮助 / 警告 / 禁用 / 加载"
+              : clickable
               ? `点击次数 ${clicks}；悬停/点击切色（中性可点走冰绽蓝）`
               : "切换属性查看真实标签；可移除会从演示中拿掉"}
         </Text>

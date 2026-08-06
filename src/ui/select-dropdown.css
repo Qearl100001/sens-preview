@@ -105,13 +105,13 @@
 .sens-select-dropdown .ant-select-item-option-disabled {
   background-color: var(--ant-color-bg-container, #fff) !important;
   color: var(--sens-select-option-disabled-color) !important;
-  cursor: not-allowed;
+  cursor: var(--sens-cursor-not-allowed);
 }
 
 .sens-select-dropdown .ant-select-item-option-disabled:hover {
   background-color: var(--sens-select-option-hover-bg) !important;
   color: var(--sens-select-option-disabled-hover-color) !important;
-  cursor: not-allowed;
+  cursor: var(--sens-cursor-not-allowed);
 }
 
 .sens-select-dropdown .ant-select-item-option-disabled:active,

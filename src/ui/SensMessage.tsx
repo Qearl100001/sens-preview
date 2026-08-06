@@ -1,5 +1,7 @@
-import type { CSSProperties, ReactNode } from "react";
+import { useState, type CSSProperties, type ReactNode } from "react";
 import { Space, Typography } from "antd";
+import { getColorToken } from "../design-system/color-utils";
+import { sensCursorValue } from "../design-system/cursors";
 import {
   FeedbackCloseButton,
   FeedbackLinkSlot,
@@ -12,7 +14,6 @@ import {
   resolveFeedbackIconColor,
   type MessageType,
 } from "./feedbackShared";
-import { SensButton } from "./SensButton";
 
 export type { MessageType } from "./feedbackShared";
 export { MESSAGE_TYPE_LABEL } from "./feedbackShared";
@@ -26,6 +27,82 @@ export type SensMessageProps = {
   className?: string;
   style?: CSSProperties;
 };
+
+export type SensMessageLinkProps = {
+  children?: ReactNode;
+  href?: string;
+  onClick?: () => void;
+  className?: string;
+  style?: CSSProperties;
+  "aria-label"?: string;
+};
+
+function resolveMessageLinkColor(state: "default" | "hover" | "active") {
+  if (state === "hover") return getColorToken("link-hover-color");
+  if (state === "active") return getColorToken("link-active-color");
+  return getColorToken("link-color");
+}
+
+/**
+ * 轻提示内的链接按钮（常规）：Figma 1363:11431。
+ * 纯文字 14/22，0 padding；不是 antd Button / 三级按钮。
+ */
+export function SensMessageLink({
+  children,
+  href,
+  onClick,
+  className,
+  style,
+  "aria-label": ariaLabel,
+}: SensMessageLinkProps) {
+  const t = feedbackLayoutTokens();
+  const [state, setState] = useState<"default" | "hover" | "active">("default");
+  const linkStyle: CSSProperties = {
+    display: "inline-flex",
+    alignItems: "center",
+    justifyContent: "center",
+    boxSizing: "border-box",
+    height: t.lineHeight,
+    margin: 0,
+    padding: 0,
+    border: "none",
+    background: "transparent",
+    color: resolveMessageLinkColor(state),
+    font: "inherit",
+    fontSize: t.fontSize,
+    lineHeight: `${t.lineHeight}px`,
+    textDecoration: "none",
+    whiteSpace: "nowrap",
+    cursor: sensCursorValue("pointer"),
+    ...style,
+  };
+
+  const interactiveProps = {
+    className,
+    style: linkStyle,
+    "aria-label": ariaLabel,
+    onMouseEnter: () => setState("hover" as const),
+    onMouseLeave: () => setState("default" as const),
+    onMouseDown: () => setState("active" as const),
+    onMouseUp: () => setState("hover" as const),
+    onFocus: () => setState("hover" as const),
+    onBlur: () => setState("default" as const),
+  };
+
+  if (href) {
+    return (
+      <a href={href} onClick={onClick} {...interactiveProps}>
+        {children}
+      </a>
+    );
+  }
+
+  return (
+    <button type="button" onClick={onClick} {...interactiveProps}>
+      {children}
+    </button>
+  );
+}
 
 /**
  * 轻提示 Message：白底 + D4↓ 浮层短反馈。
@@ -87,9 +164,7 @@ export function MessageTypesPreview() {
                 closable={row === "可关闭"}
                 link={
                   row === "带链接" ? (
-                    <SensButton tone="link" size="small">
-                      查看详情
-                    </SensButton>
+                    <SensMessageLink>查看详情</SensMessageLink>
                   ) : undefined
                 }
               >

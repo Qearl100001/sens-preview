@@ -1,22 +1,17 @@
 import { Alert, Space, Table, Tag, Typography } from "antd";
 import type { ColumnsType } from "antd/es/table";
-import { useOutletContext } from "react-router-dom";
+import { useSensAppearance } from "../../../design-system/appearance";
 import { getColorToken } from "../../../design-system/color-utils";
-import type { FunctionalSkin } from "../../../design-system/functional-skin";
-import { getFunctionalColors } from "../../../design-system/functional-skin";
-import { getThemeTopBackground } from "../../../design-system/navigation-color";
+import { FUNCTIONAL_SKIN_LABELS, getFunctionalColors } from "../../../design-system/functional-skin";
+import { getThemeTopBackground, NAVIGATION_THEME_LABELS } from "../../../design-system/navigation-color";
 import themeSkinningDocSource from "../../../../docs/foundations/theme-skinning.md?raw";
 import { BasicStylePageLayout } from "./BasicStylePageLayout";
 import { getPreviewTokens } from "../../previewTokens";
 
 const { Text, Title } = Typography;
 
-interface PreviewOutletContext {
-  skin: FunctionalSkin;
-}
-
 type ThemeTrack = "Navigation Theme" | "Functional Color Theme";
-type ThemeStatus = "已拆分" | "部分 ready" | "绿肤 ready" | "待补矩阵" | "默认不参与";
+type ThemeStatus = "已拆分" | "部分 ready" | "绿肤 ready" | "绿/蓝 ready" | "12 套 ready" | "7 组 ready" | "待补矩阵" | "默认不参与";
 
 const THEME_MODEL_ROWS = [
   {
@@ -26,7 +21,7 @@ const THEME_MODEL_ROWS = [
     config: "独立选择",
     example: "导航可以是绿色、蓝色或黄色，不要求跟随功能色",
     owner: "Navigation Color",
-    status: "绿肤 ready",
+    status: "12 套 ready",
   },
   {
     key: "functional",
@@ -35,7 +30,7 @@ const THEME_MODEL_ROWS = [
     config: "独立选择",
     example: "功能色可以自由选择一套配置，如绿色导航 + 蓝色功能色",
     owner: "Color / Functional Color",
-    status: "部分 ready",
+    status: "7 组 ready",
   },
 ] satisfies Array<{
   key: string;
@@ -92,7 +87,7 @@ const COMPONENT_MAPPING_ROWS = [
     theme: "Navigation Theme",
     token: "getThemeTopBackground() / theme-top-*",
     status: "部分 ready",
-    next: "后续蓝、黄等导航主题按同一组槽位补齐",
+    next: "12 套主题已按同一组槽位录入",
   },
   {
     key: "button",
@@ -100,7 +95,7 @@ const COMPONENT_MAPPING_ROWS = [
     theme: "Functional Color Theme",
     token: "component-primary / component-hover / component-active",
     status: "部分 ready",
-    next: "补完整功能色配置矩阵和组件验收表",
+    next: "组件继续逐项完成真实交互验收",
   },
   {
     key: "link",
@@ -184,10 +179,10 @@ const FUNCTIONAL_COLOR_MAPPING_ROWS = [
     group: "功能色 · 主操作",
     figma: "05_禁用悬停 @component-disable-hover",
     semantic: "主色 disable hover",
-    token: "component-disable-hover；getFunctionalColors 未收录",
+    token: "component-disable-hover；getFunctionalColors().disableHover",
     skinning: "是",
-    ready: "Half Ready",
-    note: "是否纳入 Functional ColorSet",
+    ready: "Ready",
+    note: "已进 functionalSkin 矩阵；组件接线阶段 3",
   },
   {
     key: "active-bg",
@@ -224,20 +219,20 @@ const FUNCTIONAL_COLOR_MAPPING_ROWS = [
     group: "功能色 · 选中 / 投影 / 浅底",
     figma: "09_点击投影 @component-active-shadow",
     semantic: "active ring 源色",
-    token: "component-active-shadow + buildActiveRingShadow / tokenRgba",
+    token: "getFunctionalColors().activeShadow；绿 component-active-shadow",
     skinning: "是",
-    ready: "Half Ready",
-    note: "resolved 只存 hex，α 在 helper；ColorSet 未收录",
+    ready: "Ready",
+    note: "蓝肤为冰绽蓝/10 @0.2；组件接线阶段 3",
   },
   {
     key: "light-bg",
     group: "功能色 · 选中 / 投影 / 浅底",
     figma: "10_浅色背景 @component-light-background",
     semantic: "浅功能底",
-    token: "component-light-background",
+    token: "getFunctionalColors().lightBackground",
     skinning: "是",
-    ready: "Half Ready",
-    note: "getFunctionalColors 未收录；antd 无直接映射",
+    ready: "Ready",
+    note: "蓝肤=冰绽蓝/01；antd 无直接映射",
   },
   {
     key: "link",
@@ -364,22 +359,22 @@ const MAPPING_SUMMARY_ROWS = [
   {
     key: "ready",
     status: "Ready",
-    items: "主操作 01–03；选中背景 06–08；链接 5 档 handle；便签 tooltip-background；多数状态色 handle",
+    items: "功能色 01–10 已录入 7 组；导航主题已录入 12 套；链接、便签和状态色仍按原规则独立维护",
   },
   {
     key: "half",
     status: "Half Ready",
-    items: "disable 链；点击投影；浅色背景；开关关态；叠加标签；getFunctionalColors 不完整",
+    items: "组件尚未普遍消费 getFunctionalColors(skin)",
   },
   {
     key: "missing",
     status: "Missing",
-    items: "开关开态独立 token；彩色标签语义 handle；第二套功能色主题完整语义层",
+    items: "组件级换肤接线与真实浏览器验收",
   },
   {
     key: "confirm",
     status: "To Confirm",
-    items: "链接是否换肤；状态色；开关关态；彩色标签 / 便签；#008C64 vs #008C65",
+    items: "链接是否换肤；状态色；开关关态；便签；#008C64 vs #008C65（现跟 token）",
   },
 ];
 
@@ -387,16 +382,16 @@ const GAP_ROWS = [
   {
     key: "functional-matrix",
     item: "Functional Color Token Mapping",
-    current: "§12 映射表已落库；To Confirm 项待设计收口",
-    action: "确认链接 / 开关开态 / 标签 / 便签后再扩展 ColorSet",
+    current: "functionalSkin 7 组 × 01–10 已生成",
+    action: "阶段 2–3：Context + 组件改读 getFunctionalColors(skin)",
     priority: "高",
   },
   {
     key: "nav-matrix",
     item: "Navigation Theme 完整矩阵",
-    current: "顶导航已有 helper 方向，侧导航 / 标题栏仍不完整",
-    action: "继续补 Navigation Color 映射表与渐变 helper",
-    priority: "高",
+    current: "12 套渐变、背景、accent、品牌 handles 已录入",
+    action: "组件继续改读 getNavigationColorToken(theme)",
+    priority: "中",
   },
   {
     key: "component-map",
@@ -553,26 +548,17 @@ function MappingSummaryTable() {
 
 function ThemeCombinationSpecimen() {
   const token = getPreviewTokens();
-  const functionalGreen = getFunctionalColors("green");
-  const functionalBlue = getFunctionalColors("blue");
   const combinations = [
-    {
-      key: "green-green",
-      title: "组合 A",
-      nav: "绿色导航主题",
-      func: "绿色功能色",
-      navBg: getThemeTopBackground("green"),
-      funcColor: functionalGreen.primary,
-    },
-    {
-      key: "green-blue",
-      title: "组合 B",
-      nav: "绿色导航主题",
-      func: "蓝色功能色",
-      navBg: getThemeTopBackground("green"),
-      funcColor: functionalBlue.primary,
-    },
-  ];
+    ["green", "green"], ["blue", "blue"], ["wildYellow", "blue"], ["limeGreen", "limeGreen"],
+    ["duneGold", "blue"], ["sunriseRed", "blue"], ["auroraGreen", "auroraGreen"], ["landscapeBlue", "landscapeBlue"],
+    ["orchidPurple", "orchidPurple"], ["wavePurple", "wavePurple"], ["cloudPink", "blue"], ["midnightBlack", "green"],
+  ].map(([theme, functional]) => ({
+    key: `${theme}-${functional}`,
+    nav: NAVIGATION_THEME_LABELS[theme as keyof typeof NAVIGATION_THEME_LABELS],
+    func: FUNCTIONAL_SKIN_LABELS[functional as keyof typeof FUNCTIONAL_SKIN_LABELS],
+    navBg: getThemeTopBackground(theme as keyof typeof NAVIGATION_THEME_LABELS),
+    funcColor: getFunctionalColors(functional as keyof typeof FUNCTIONAL_SKIN_LABELS).primary,
+  }));
 
   return (
     <div
@@ -609,8 +595,8 @@ function ThemeCombinationSpecimen() {
           </div>
           <div style={{ padding: token.paddingMD }}>
             <Space direction="vertical" size="small" style={{ width: "100%" }}>
-              <Text strong>{item.title}</Text>
-              <Text type="secondary">{item.func}</Text>
+              <Text strong>{item.nav}主题</Text>
+              <Text type="secondary">功能色：{item.func}</Text>
               <div
                 style={{
                   height: 36,
@@ -635,8 +621,9 @@ function ThemeCombinationSpecimen() {
 
 function CurrentFunctionalSkinCard() {
   const token = getPreviewTokens();
-  const { skin } = useOutletContext<PreviewOutletContext>();
-  const functional = getFunctionalColors(skin);
+  const { functionalSkin, navigationTheme } = useSensAppearance();
+  const functional = getFunctionalColors(functionalSkin);
+  const navBg = getThemeTopBackground(navigationTheme);
 
   return (
     <div
@@ -648,9 +635,10 @@ function CurrentFunctionalSkinCard() {
       }}
     >
       <Space direction="vertical" size="small" style={{ width: "100%" }}>
-        <Text type="secondary">当前顶部切换器只切功能色，不切导航主题</Text>
+        <Text type="secondary">预览设置已拆分 Functional Skin 与 Navigation Theme，可独立验证 2×2 组合。</Text>
         <Space wrap>
-          <Tag color="processing">Functional Skin: {skin}</Tag>
+          <Tag color="processing">Functional Skin: {FUNCTIONAL_SKIN_LABELS[functionalSkin]}</Tag>
+          <Tag color="processing">Navigation Theme: {NAVIGATION_THEME_LABELS[navigationTheme]}</Tag>
           <Text code>{functional.primary}</Text>
         </Space>
         <div
@@ -666,6 +654,20 @@ function CurrentFunctionalSkinCard() {
           }}
         >
           当前功能色预览
+        </div>
+        <div
+          style={{
+            height: 40,
+            borderRadius: token.borderRadius,
+            background: navBg,
+            color: getColorToken("theme-top-text-active"),
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            fontWeight: token.fontWeightStrong,
+          }}
+        >
+          当前导航顶导背景
         </div>
       </Space>
     </div>

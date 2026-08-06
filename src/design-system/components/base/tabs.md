@@ -1,6 +1,6 @@
 # 设计系统 skill · 基础组件：标签页 Tabs
 
-> 基础层；基础标签页和页签标签页仍基于 antd 宿主，胶囊标签页改为自持交互壳；不要硬编码颜色。
+> 基础层；基础标签页和页签标签页仍部分使用 antd 宿主承接布局 / 行为，但全部视觉值直接消费 Sens token；胶囊标签页为自持交互壳。
 > 设计选型与交互原则见 `tabs.design.md`；本文只写实现映射与和 antd 不同的点。
 
 ## 通则
@@ -11,16 +11,16 @@
 
 ## 三类组件与 antd 映射
 
-| 类型 | 组件 | antd |
-|---|---|---|
-| 基础标签页 | `SensBasicTabs` | `<Tabs items={…} />`（line）|
-| 页签标签页 | `SensEditableCardTabs` | `<Tabs type="editable-card" onEdit={…} />` |
-| 胶囊标签页 | `SensPillTabs` | 自持 button 组（独立使用，不与其他 Tabs 混搭层级）|
+| 类型 | 组件 | 结构 / 行为宿主 | 视觉值来源 |
+|---|---|---|---|
+| 基础标签页 | `SensBasicTabs` | antd `<Tabs items={…} />`（line）| `getColorToken` / `getTypographyToken` / `getUnitToken` → `--sens-basic-tabs-*` |
+| 页签标签页 | `SensEditableCardTabs` | antd `<Tabs type="editable-card" onEdit={…} />` + 项目自持交互 | Sens helper → `--sens-card-tab-*` |
+| 胶囊标签页 | `SensPillTabs` | 自持 button 组（独立使用，不与其他 Tabs 混搭层级）| Sens helper → `--sens-pill-*` |
 
 ## SensBasicTabs
 - `size?: "large" \| "small"`，默认 `large`。
 - `withBadge?: boolean`：第二项标题可配数字徽标（`6`）演示徽标组合；默认灰底灰字，选中态切换为浅绿底绿字。
-- 选中态：绿字 + 底部 ink bar（主题 `Tabs` token）。
+- 选中态：绿字 + 底部 ink bar；颜色、字重、字号、行高、间距和分割线均由 `getBasicTabsVars()` 直接注入 Sens CSS 变量，不经过 antd `components.Tabs` 映射。
 
 ## SensEditableCardTabs
 - 内置增删页签；**至少保留 1 个**页签（删到最后一个时不再删）。
@@ -54,19 +54,21 @@
 - 页签：默认、悬停标题、悬停删除、编辑前、编辑中 × 当前项 True/False。
 - 实现：`TabsStatesPreview`（`src/ui/SensTabs.tsx`），伪类态仅存在于预览板。
 
-## 主题 token（同源 handle）
+## 视觉 token（直接消费）
 | 语义 | 典型 handle |
 |---|---|
 | 选中文字 / ink | `component-primary`（功能色变量，**随换肤**） |
 | hover 绿 | `component-hover`（功能色变量，**随换肤**） |
 | 点击绿 | `component-active`（功能色变量，**随换肤**） |
-| 胶囊选中底 | `white`（`colorBgContainer`） |
+| 胶囊选中底 | `white` |
 | 胶囊选中投影 | `默认投影（向下）/D1` |
 | 删除 hover 红 | `warning-color` |
 
-**功能色取色约束（基础 / 胶囊标签页）：**
-- 选中、悬停、点击三类绿色均走**主题变量**（`component-primary` / `component-hover` / `component-active`），不写死 hex，不写状态色；换肤时随 `theme.ts` 联动。
-- 基础 / 页签标签页可继续复用 antd 主题映射；胶囊标签页优先直读 design token handle，自持交互结构，不再绑定 `Segmented` 运行时类名。
+**消费约束：**
+- 选中、悬停、点击三类绿色均直读 `component-primary` / `component-hover` / `component-active`，不写死 hex，不通过 antd 运行时变量中转。
+- 字号、行高、字重必须来自 Typography token；可表达的圆角必须来自 `radius/*`。Figma 独有且暂无基础 token 的结构值，只能在 `SensTabs.tsx` 中以具名组件常量 / CSS 变量承接。
+- `build-tokens.mjs` 与生成的 `theme.ts` 不再提供 `components.Tabs`。antd 在基础 / 页签标签页中只保留结构和行为职责，不是视觉 token 的消费桥。
+- `TabsStatesPreview` 使用项目自持快照结构与 `--sens-*`，不得读取 `--ant-*`。展示页中的尺寸切换控件仍可独立使用 antd Segmented，但不构成 Tabs 样张的视觉来源。
 
 ## 代码入口
 ```
@@ -81,7 +83,7 @@ src/ui/index.ts
 
 Tabs 表面上只是几种标签样式，实际包含三套不同复杂度的交互模型：
 
-- 基础标签页与 antd 默认模型接近，适合继续使用主题和 props 承载。
+- 基础标签页与 antd 默认模型接近，适合继续使用其 DOM 和行为；视觉值由 Sens 变量承载。
 - 页签标签页包含增删、编辑、拖拽、键盘、溢出和内容区缝合，属于高交互组件。
 - 胶囊标签页视觉简单，但背景归属和各状态规则与 antd Segmented 明显不同。
 
@@ -102,13 +104,21 @@ Tabs 表面上只是几种标签样式，实际包含三套不同复杂度的交
 | 胶囊项出现多余 hover / disabled 背景 | Segmented 默认状态与 Figma 不同 | 去掉 Segmented，改为自持 button 组 |
 | 灰底被拆成多个小块 | 把轨道背景误认为单项背景 | 灰底归整条标签带；未选中各态单项透明，只有选中项为白底 |
 | 灰色轨道延伸到内容后方 | 外层 block 和内层最小宽度强制铺满 | 外层内容自适应，内层使用 max-content，超出容器后再滚动 |
-| 换肤后状态色可能失效 | 直接依赖固定值或 antd 运行时 token | 统一使用 SensD handle / helper 作为设计来源 |
+| 换肤后状态色可能失效 | 直接依赖固定值或 antd 运行时 token | 统一使用 SensD handle / helper 直接注入组件 CSS 变量 |
 
 ### 形成的承载边界
 
-- `SensLineTabs`：继续使用 antd Tabs，项目负责 token 和轻量结构封装。
+- `SensLineTabs`：继续使用 antd Tabs 的 DOM / 行为，项目直接负责全部视觉 token 和轻量结构封装。
 - `SensPillTabs`：自持按钮条，项目负责全部状态和背景结构。
 - `SensEditableCardTabs`：当前为混合承载；rc-tabs 负责基础布局和可见项计算，项目负责编辑、拖拽、键盘、More 菜单及定位。
+
+### 视觉 Token 与宿主边界
+
+- antd 可以承接基础 DOM、布局或行为，但 Tabs 的颜色、字体、间距、圆角和投影必须直接消费 Sens token。
+- 不再通过 `components.Tabs` 或 `--ant-*` 变量中转视觉值。
+- 状态矩阵使用项目自持快照结构，避免第三方组件的溢出逻辑和默认状态干扰样张。
+- `.ant-*` 选择器只用于当前仍保留的宿主结构；它们不是视觉 token 来源，但属于需要持续监控的结构耦合。
+- 当前 Line Tabs 和 Editable Card Tabs 尚未完全移除 antd 宿主，不能描述为“完全去 antd”。
 
 ### 后续遇到类似问题时
 

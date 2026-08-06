@@ -1,8 +1,10 @@
 import { useState, type CSSProperties, type MouseEvent, type ReactNode } from "react";
 import { getColorByPath, getColorToken, hexToRgba, tokenRgba } from "../design-system/color-utils";
+import { sensCursorValue } from "../design-system/cursors";
 import { SensIcon } from "../design-system/icons";
 import { getTypographyToken } from "../design-system/typography";
 import { getUnitToken } from "../design-system/unit";
+import { SensTips } from "./SensTips";
 
 export type TagVariant = "multicolor" | "overlay" | "status";
 export type TagColor =
@@ -18,8 +20,13 @@ export type TagSize = "large" | "small";
 /** 状态标签五语义；颜色固定，不可用多色色系替换 */
 export type TagStatus = "success" | "processing" | "exception" | "error" | "invalid";
 
-/** 多色/操作标签交互态；仅 clickable 时生效 */
-export type TagInteractiveState = "default" | "hover" | "active";
+/** 多色/操作标签视觉态；disabled / disabledHover 仅多色标签生效 */
+export type TagInteractiveState =
+  | "default"
+  | "hover"
+  | "active"
+  | "disabled"
+  | "disabledHover";
 
 /** 移除图标交互态（热区在关闭钮，与标签体悬停无关） */
 export type TagCloseState = "default" | "hover" | "active" | "disabled" | "disabledHover";
@@ -49,17 +56,21 @@ export type SensTagProps = {
   status?: TagStatus;
   /** 默认 large */
   size?: TagSize;
-  /** status 下忽略 */
+  /** status / overlay 下忽略 */
   clickable?: boolean;
-  /** status 下忽略 */
+  /** status / overlay 下忽略 */
   closable?: boolean;
-  /** status 下忽略 */
+  /** status / overlay 下忽略 */
   icon?: ReactNode;
-  /** status 下忽略 */
+  /** status / overlay 下忽略 */
   extra?: ReactNode;
+  /** status / overlay 下忽略；显示帮助图标热区，使用 SensTips 承载 */
+  helpMessage?: ReactNode;
+  /** status / overlay 下忽略；显示警告 / 报错图标热区，使用 SensTips 承载 */
+  errorMessage?: ReactNode;
   onClick?: () => void;
   onClose?: () => void;
-  /** status 下忽略 */
+  /** status / overlay 下忽略 */
   disabled?: boolean;
   /**
    * 仅预览板静态样张：强制套某交互态 token，不响应真实悬停。
@@ -125,6 +136,8 @@ function sizeSpec(size: TagSize): SizeSpec {
 }
 
 const DEFAULT_LABEL = () => tokenRgba("text-color-transparent", 0.9);
+const DISABLED_LABEL = () => tokenRgba("text-color-transparent-disable", 0.3);
+const DISABLED_HOVER_LABEL = () => tokenRgba("text-color-transparent-disable-hover", 0.24);
 
 function coloredPath(figmaName: string, leaf: string): string {
   return getColorByPath(`定制色/标签/${figmaName}/${leaf}`);
@@ -139,6 +152,7 @@ export function resolveTagInteractiveSurface(
   state: TagInteractiveState,
 ): { background: string; color: string } {
   const defaultLabel = DEFAULT_LABEL();
+  const disabledLabel = state === "disabledHover" ? DISABLED_HOVER_LABEL() : DISABLED_LABEL();
 
   if (color === "neutral") {
     if (state === "default") {
@@ -147,10 +161,19 @@ export function resolveTagInteractiveSurface(
         color: defaultLabel,
       };
     }
-    if (state === "hover") {
+    if (state === "hover" || state === "disabledHover") {
       return {
         background: coloredPath(NEUTRAL_INTERACTIVE_FIGMA, "背景/02_悬停"),
-        color: coloredPath(NEUTRAL_INTERACTIVE_FIGMA, "文字&图标/01_悬停"),
+        color:
+          state === "disabledHover"
+            ? disabledLabel
+            : coloredPath(NEUTRAL_INTERACTIVE_FIGMA, "文字&图标/01_悬停"),
+      };
+    }
+    if (state === "disabled") {
+      return {
+        background: tokenRgba("background-01-transparent", 0.08),
+        color: disabledLabel,
       };
     }
     return {
@@ -166,10 +189,19 @@ export function resolveTagInteractiveSurface(
       color: defaultLabel,
     };
   }
-  if (state === "hover") {
+  if (state === "hover" || state === "disabledHover") {
     return {
       background: coloredPath(figma, "背景/02_悬停"),
-      color: coloredPath(figma, "文字&图标/01_悬停"),
+      color:
+        state === "disabledHover"
+          ? disabledLabel
+          : coloredPath(figma, "文字&图标/01_悬停"),
+    };
+  }
+  if (state === "disabled") {
+    return {
+      background: coloredPath(figma, "背景/01_默认"),
+      color: disabledLabel,
     };
   }
   return {
@@ -210,9 +242,9 @@ export function resolveTagCloseColor(
 }
 
 /**
- * Sens 标签。
  * status：五语义；圆点=状态色、文案=中性色；仅进行中圆点带 link-color @0.2 外描边；无点击/移除/禁用。
  * multicolor：固定色板；仅 clickable 时悬停/点击切 背景/02|03 + 文字&图标；中性可点走冰绽蓝。
+ * overlay：纯展示叠加，不接图标 / 帮助 / 警告 / 点击 / 移除 / 禁用。
  * closable：移除图标独立热区；默认 icon / 悬停 warning / 点击 warning-active；资产 `SensIcon name="close"`。
  */
 export function SensTag({
@@ -224,6 +256,8 @@ export function SensTag({
   closable = false,
   icon,
   extra,
+  helpMessage,
+  errorMessage,
   onClick,
   onClose,
   disabled = false,
@@ -235,10 +269,15 @@ export function SensTag({
 }: SensTagProps) {
   const spec = sizeSpec(size);
   const isStatus = variant === "status";
-  const effectiveClickable = isStatus ? false : clickable;
-  const effectiveClosable = isStatus ? false : closable;
-  const effectiveDisabled = isStatus ? false : disabled;
-  const interactive = effectiveClickable && !effectiveDisabled && previewState === undefined;
+  const isOverlay = variant === "overlay";
+  const supportsOperation = !isStatus && !isOverlay;
+  const effectiveClickable = supportsOperation ? clickable : false;
+  const effectiveClosable = supportsOperation ? closable : false;
+  const effectiveDisabled = supportsOperation ? disabled : false;
+  const actionBlocked = effectiveDisabled;
+  const effectiveHelpMessage = supportsOperation ? helpMessage : undefined;
+  const effectiveErrorMessage = supportsOperation ? errorMessage : undefined;
+  const interactive = effectiveClickable && !actionBlocked && previewState === undefined;
 
   const [hovered, setHovered] = useState(false);
   const [pressed, setPressed] = useState(false);
@@ -247,7 +286,8 @@ export function SensTag({
 
   const liveState: TagInteractiveState = pressed ? "active" : hovered ? "hover" : "default";
   const surfaceState: TagInteractiveState =
-    previewState ?? (interactive ? liveState : "default");
+    previewState ??
+    (effectiveDisabled ? (hovered ? "disabledHover" : "disabled") : interactive ? liveState : "default");
 
   const liveCloseState: TagCloseState = effectiveDisabled
     ? closeHovered
@@ -273,17 +313,19 @@ export function SensTag({
 
   const radius = getUnitToken("radius/s");
   const closeColor = resolveTagCloseColor(closeState, { overlay: variant === "overlay" });
-  /** 预览禁用细态时用 token α，不再叠整颗 opacity，避免双重变淡 */
-  const useRootOpacity =
-    effectiveDisabled && previewCloseState === undefined && previewState === undefined;
+  /** help 图标在禁用标签中也保持主要图标色，不随禁用态变灰 */
+  const assistIconColor = getColorToken("icon-color-transparent");
+  /** error 图标禁用态仍保持 warning 红，对齐 Figma 多色标签禁用样张 */
+  const errorIconColor = getColorToken("warning-color");
 
   const rootStyle: CSSProperties = isStatus
     ? {
         display: "inline-flex",
         alignItems: "center",
         gap: spec.statusGap,
+        height: spec.height,
         maxWidth: "100%",
-        cursor: "default",
+        cursor: sensCursorValue("default"),
         verticalAlign: "middle",
         ...style,
       }
@@ -300,12 +342,11 @@ export function SensTag({
         background: surface.background,
         color: surface.color,
         maxWidth: "100%",
-        opacity: useRootOpacity ? 0.4 : 1,
-        cursor: effectiveDisabled
-          ? "not-allowed"
+        cursor: actionBlocked
+          ? sensCursorValue("not-allowed")
           : interactive || previewState
-            ? "pointer"
-            : "default",
+            ? sensCursorValue("pointer")
+            : sensCursorValue("default"),
         verticalAlign: "middle",
         border: "none",
         ...style,
@@ -331,6 +372,10 @@ export function SensTag({
     event?.stopPropagation();
     if (effectiveDisabled) return;
     onClose?.();
+  };
+
+  const stopAssistEvent = (event: MouseEvent) => {
+    event.stopPropagation();
   };
 
   const label = children ?? (isStatus ? TAG_STATUS_LABEL[status] : undefined);
@@ -369,7 +414,7 @@ export function SensTag({
       <span
         role="button"
         aria-label="移除"
-        tabIndex={effectiveDisabled ? -1 : 0}
+        tabIndex={actionBlocked ? -1 : 0}
         onClick={(event) => handleClose(event)}
         onKeyDown={(event) => {
           if (event.key === "Enter" || event.key === " ") {
@@ -386,7 +431,9 @@ export function SensTag({
           margin: 0,
           border: "none",
           background: "transparent",
-          cursor: effectiveDisabled ? "not-allowed" : "pointer",
+          cursor: actionBlocked
+            ? sensCursorValue("not-allowed")
+            : sensCursorValue("pointer"),
           lineHeight: 0,
           flexShrink: 0,
         }}
@@ -397,7 +444,7 @@ export function SensTag({
       <button
         type="button"
         aria-label="移除"
-        disabled={effectiveDisabled}
+        disabled={actionBlocked}
         onClick={handleClose}
         {...closeMouseHandlers}
         style={{
@@ -408,7 +455,9 @@ export function SensTag({
           margin: 0,
           border: "none",
           background: "transparent",
-          cursor: effectiveDisabled ? "not-allowed" : "pointer",
+          cursor: actionBlocked
+            ? sensCursorValue("not-allowed")
+            : sensCursorValue("pointer"),
           lineHeight: 0,
           flexShrink: 0,
         }}
@@ -417,6 +466,73 @@ export function SensTag({
       </button>
     )
   ) : null;
+
+  const helpNode = effectiveHelpMessage ? (
+    <SensTips title={effectiveHelpMessage} placement="top">
+      <span
+        aria-label={
+          typeof effectiveHelpMessage === "string" ? effectiveHelpMessage : "帮助说明"
+        }
+        role="img"
+        tabIndex={0}
+        onClick={stopAssistEvent}
+        onMouseDown={stopAssistEvent}
+        style={{
+          display: "inline-flex",
+          alignItems: "center",
+          justifyContent: "center",
+          width: spec.icon,
+          height: spec.icon,
+          lineHeight: 0,
+          flexShrink: 0,
+          /* 仅 Tips、不可点 → default（cursor.md §4.1） */
+          cursor: sensCursorValue("default"),
+        }}
+      >
+        <SensIcon name="help" size={spec.icon} color={assistIconColor} />
+      </span>
+    </SensTips>
+  ) : null;
+
+  const errorNode = effectiveErrorMessage ? (
+    <SensTips title={effectiveErrorMessage} placement="top">
+      <span
+        aria-label={
+          typeof effectiveErrorMessage === "string" ? effectiveErrorMessage : "警告信息"
+        }
+        role="img"
+        tabIndex={0}
+        onClick={stopAssistEvent}
+        onMouseDown={stopAssistEvent}
+        style={{
+          display: "inline-flex",
+          alignItems: "center",
+          justifyContent: "center",
+          width: spec.icon,
+          height: spec.icon,
+          lineHeight: 0,
+          flexShrink: 0,
+          cursor: sensCursorValue("default"),
+        }}
+      >
+        <SensIcon name="feedback-error" size={spec.icon} color={errorIconColor} />
+      </span>
+    </SensTips>
+  ) : null;
+
+  const labelNode = labelText ? (
+    <SensTips title={labelText} placement="top">
+      <span style={labelStyle}>
+        {label}
+      </span>
+    </SensTips>
+  ) : (
+    <span
+      style={labelStyle}
+    >
+      {label}
+    </span>
+  );
 
   const content = (
     <>
@@ -433,40 +549,43 @@ export function SensTag({
           }}
         />
       ) : null}
-      {!isStatus && icon ? (
+      {supportsOperation && icon ? (
         <span style={{ display: "inline-flex", flexShrink: 0, width: spec.icon, height: spec.icon }}>
           {icon}
         </span>
       ) : null}
-      <span style={labelStyle} title={labelText}>
-        {label}
-      </span>
-      {!isStatus && extra ? (
+      {labelNode}
+      {supportsOperation && extra ? (
         <span style={{ display: "inline-flex", flexShrink: 0 }}>{extra}</span>
       ) : null}
+      {helpNode}
+      {errorNode}
       {closeNode}
     </>
   );
 
-  const mouseHandlers = interactive
+  const shouldTrackHover = interactive || (effectiveDisabled && previewState === undefined);
+  const mouseHandlers = shouldTrackHover
     ? {
         onMouseEnter: () => setHovered(true),
         onMouseLeave: () => {
           setHovered(false);
           setPressed(false);
         },
-        onMouseDown: () => setPressed(true),
+        onMouseDown: () => {
+          if (interactive) setPressed(true);
+        },
         onMouseUp: () => setPressed(false),
       }
     : undefined;
 
-  if (interactive || (effectiveClickable && previewState !== undefined && !effectiveDisabled)) {
+  if (interactive || (effectiveClickable && previewState !== undefined && !actionBlocked)) {
     return (
       <button
         type="button"
         className={className}
         style={{ ...rootStyle, font: "inherit" }}
-        disabled={effectiveDisabled}
+        disabled={actionBlocked}
         onClick={handleClick}
         {...mouseHandlers}
       >
@@ -488,6 +607,8 @@ const INTERACTIVE_STATES: { state: TagInteractiveState; label: string }[] = [
   { state: "default", label: "默认" },
   { state: "hover", label: "悬停" },
   { state: "active", label: "点击" },
+  { state: "disabled", label: "禁用" },
+  { state: "disabledHover", label: "禁用悬停" },
 ];
 const CLOSE_STATES: { state: TagCloseState; label: string; disabled?: boolean }[] = [
   { state: "default", label: "移除默认" },
@@ -530,7 +651,7 @@ export function TagTypesPreview() {
         ] as const
       ).map((row) => (
         <div key={row.title}>
-          <div style={{ marginBottom: gap, fontSize: 12, opacity: 0.65 }}>{row.title}</div>
+          <div style={{ marginBottom: gap, fontSize: getTypographyToken("font-size/s"), opacity: 0.65 }}>{row.title}</div>
           <div style={{ display: "flex", flexWrap: "wrap", gap, alignItems: "center" }}>
             <SensTag
               variant={row.variant}
@@ -555,7 +676,7 @@ export function TagTypesPreview() {
       ))}
 
       <div>
-        <div style={{ marginBottom: gap, fontSize: 12, opacity: 0.65 }}>
+        <div style={{ marginBottom: gap, fontSize: getTypographyToken("font-size/s"), opacity: 0.65 }}>
           3.3 状态（五语义 · 大 / 小 · 无交互）
         </div>
         <div style={{ display: "flex", flexDirection: "column", gap }}>
@@ -573,37 +694,32 @@ export function TagTypesPreview() {
       </div>
 
       <div>
-        <div style={{ marginBottom: gap, fontSize: 12, opacity: 0.65 }}>
-          多色交互态（可点 · 静态样张 · 中性悬停/点击=冰绽蓝）
+        <div style={{ marginBottom: gap, fontSize: getTypographyToken("font-size/s"), opacity: 0.65 }}>
+          多色交互态（可点 · 禁用不整颗 opacity · 中性悬停/点击=冰绽蓝）
         </div>
         <div style={{ display: "flex", flexDirection: "column", gap: sectionGap }}>
           {ALL_COLORS.map((c) => (
             <div key={c}>
-              <div style={{ marginBottom: gap, fontSize: 12, opacity: 0.55 }}>{c}</div>
+              <div style={{ marginBottom: gap, fontSize: getTypographyToken("font-size/s"), opacity: 0.55 }}>{c}</div>
               <div style={{ display: "flex", flexWrap: "wrap", gap, alignItems: "center" }}>
                 {INTERACTIVE_STATES.map(({ state, label }) => (
                   <div
                     key={state}
                     style={{ display: "flex", flexDirection: "column", gap: 4, alignItems: "flex-start" }}
                   >
-                    <span style={{ fontSize: 11, opacity: 0.5 }}>{label}</span>
+                    <span style={{ fontSize: getTypographyToken("font-size/s"), opacity: 0.5 }}>{label}</span>
                     <SensTag
                       variant="multicolor"
                       color={c}
                       size="large"
                       clickable
                       previewState={state}
+                      disabled={state === "disabled" || state === "disabledHover"}
                     >
                       标签
                     </SensTag>
                   </div>
                 ))}
-                <div style={{ display: "flex", flexDirection: "column", gap: 4, alignItems: "flex-start" }}>
-                  <span style={{ fontSize: 11, opacity: 0.5 }}>禁用</span>
-                  <SensTag variant="multicolor" color={c} size="large" clickable disabled>
-                    标签
-                  </SensTag>
-                </div>
               </div>
             </div>
           ))}
@@ -611,19 +727,19 @@ export function TagTypesPreview() {
       </div>
 
       <div>
-        <div style={{ marginBottom: gap, fontSize: 12, opacity: 0.65 }}>
+        <div style={{ marginBottom: gap, fontSize: getTypographyToken("font-size/s"), opacity: 0.65 }}>
           移除图标态（大 / 小 · 悬停 warning-color · 点击 warning-color-active）
         </div>
         {(["large", "small"] as TagSize[]).map((sz) => (
           <div key={sz} style={{ marginBottom: sectionGap }}>
-            <div style={{ marginBottom: gap, fontSize: 12, opacity: 0.55 }}>{sz}</div>
+            <div style={{ marginBottom: gap, fontSize: getTypographyToken("font-size/s"), opacity: 0.55 }}>{sz}</div>
             <div style={{ display: "flex", flexWrap: "wrap", gap, alignItems: "flex-end" }}>
               {CLOSE_STATES.map(({ state, label, disabled: isDisabled }) => (
                 <div
                   key={state}
                   style={{ display: "flex", flexDirection: "column", gap: 4, alignItems: "flex-start" }}
                 >
-                  <span style={{ fontSize: 11, opacity: 0.5 }}>{label}</span>
+                    <span style={{ fontSize: getTypographyToken("font-size/s"), opacity: 0.5 }}>{label}</span>
                   <SensTag
                     variant="multicolor"
                     color="neutral"
@@ -639,6 +755,41 @@ export function TagTypesPreview() {
             </div>
           </div>
         ))}
+      </div>
+
+      <div>
+        <div style={{ marginBottom: gap, fontSize: getTypographyToken("font-size/s"), opacity: 0.65 }}>
+          内部热区（help · error）
+        </div>
+        <div style={{ display: "flex", flexWrap: "wrap", gap, alignItems: "center" }}>
+          <SensTag
+            variant="multicolor"
+            color="red"
+            size="large"
+            icon={
+              <SensIcon
+                name="icon-default"
+                size={getUnitToken("size/icon/m")}
+                colorRole="inherit"
+              />
+            }
+            helpMessage="帮助说明"
+            errorMessage="警告信息"
+          >
+            标签文案
+          </SensTag>
+          <SensTag
+            variant="multicolor"
+            color="red"
+            size="large"
+            clickable
+            helpMessage="帮助说明"
+            errorMessage="警告信息"
+            previewState="hover"
+          >
+            可点标签
+          </SensTag>
+        </div>
       </div>
     </div>
   );

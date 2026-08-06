@@ -1,5 +1,6 @@
-import { Input, Tooltip, type InputProps } from "antd";
+import { Input, type InputProps } from "antd";
 import type { CSSProperties, ReactNode } from "react";
+import { useId } from "react";
 import { useTranslation } from "react-i18next";
 import { getColorToken, tokenRgba } from "../design-system/color-utils";
 import tokens from "../design-system/tokens.resolved.json";
@@ -9,18 +10,22 @@ import {
   INPUT_ERROR_ICON_SIZE_M,
   INPUT_ERROR_ICON_SIZE_S,
 } from "./FieldIcons";
+import { useSensAllowClear } from "./fieldIconProps";
+import { SensTips } from "./SensTips";
 import "./input.css";
 import "./input-preview.css";
+import { functionalCssVar } from "../design-system/functional-skin";
 
 const typography = tokens.typography as Record<string, number>;
 const u = tokens.unit as Record<string, number>;
 const I18N_NS = "组件库";
 
-/** 大：14px 字 + 行高 22（与 antd getLineHeight(14) 行盒一致） */
-const INPUT_LINE_HEIGHT = 22;
+/** 大：typography/line-height/m（与 antd getLineHeight(14) 行盒一致） */
+const INPUT_LINE_HEIGHT = typography["line-height/m"];
 /** 小：typography/line-height/s */
-const INPUT_LINE_HEIGHT_SM = typography["line-height/s"] ?? 18;
+const INPUT_LINE_HEIGHT_SM = typography["line-height/s"];
 const INPUT_HELP_GAP = u["spacing/horizontal/1x"];
+const INPUT_HELP_ICON_INSET = u["spacing/0․5x"];
 
 export type SensInputWarningPlacement = "inside" | "outside";
 export type SensInputReadOnlyVariant = "filled" | "plain";
@@ -37,6 +42,13 @@ export function useSensInputHeightStyle(): CSSProperties {
     "--sens-input-height-sm": `${u["size/component-height/s"]}px`,
     "--sens-input-line-height": `${INPUT_LINE_HEIGHT}px`,
     "--sens-input-line-height-sm": `${INPUT_LINE_HEIGHT_SM}px`,
+    "--sens-input-font-size": `${typography["font-size/m"]}px`,
+    "--sens-input-font-size-sm": `${typography["font-size/s"]}px`,
+    "--sens-input-help-font-size": `${typography["font-size/s"]}px`,
+    "--sens-input-help-line-height": `${typography["line-height/s"]}px`,
+    "--sens-input-help-icon-inset": `${INPUT_HELP_ICON_INSET}px`,
+    "--sens-input-suffix-count-color": tokenRgba("text-sub-color-transparent", 0.58),
+    "--sens-input-disabled-border": tokenRgba("divideline-color-transparent-light", 0.08),
     "--sens-input-error-color": getColorToken("warning-color"),
     "--sens-input-error-active-shadow": `0 0 0 2px ${tokenRgba("warning-color-active-shadow", 0.2)}`,
     "--sens-input-help-gap": `${INPUT_HELP_GAP}px`,
@@ -50,10 +62,12 @@ export function useSensInputHeightStyle(): CSSProperties {
 export interface SensInputProps extends InputProps {
   /** 框内 / 框外警告；可编辑态自动 `status="error"`，只读态走浅红底/纯文本（无红框） */
   warningPlacement?: SensInputWarningPlacement;
-  /** 框外警告文案；框内时兼作 Tooltip 默认文案 */
+  /** 框外警告文案；框内时兼作 SensTips 默认文案 */
   help?: ReactNode;
-  /** 框内悬停图标时的 Tooltip；缺省用 `help` */
+  /** 框内悬停图标时的 SensTips；缺省用 `help` */
   warningMessage?: ReactNode;
+  /** 预览矩阵内部使用：静态样张不进入 live region */
+  helpLive?: boolean;
   /** 只读有背景 `filled`（Figma 只读_背景）/ 只读无背景 `plain`（只读_字段）；设后自动 `readOnly` */
   readOnlyVariant?: SensInputReadOnlyVariant;
 }
@@ -66,20 +80,26 @@ export function InsideErrorSuffix({
   message?: ReactNode;
 }) {
   const iconSize = size === "small" ? INPUT_ERROR_ICON_SIZE_S : INPUT_ERROR_ICON_SIZE_M;
+  const label = typeof message === "string" && message.trim() ? `警告：${message}` : "警告";
   const icon = (
-    <span className="sens-input-error-suffix" tabIndex={message ? 0 : undefined}>
+    <span
+      className="sens-input-error-suffix"
+      role="img"
+      aria-label={label}
+      tabIndex={message ? 0 : undefined}
+    >
       <ErrorDiamondIcon size={iconSize} className="sens-input-error-icon" />
     </span>
   );
 
   if (message == null || message === "") return icon;
 
-  return <Tooltip title={message}>{icon}</Tooltip>;
+  return <SensTips title={message}>{icon}</SensTips>;
 }
 
-export function InputHelpRow({ help }: { help: ReactNode }) {
+export function InputHelpRow({ help, id, live = true }: { help: ReactNode; id?: string; live?: boolean }) {
   return (
-    <div className="sens-input-help" role="alert">
+    <div className="sens-input-help" id={id} role={live ? "alert" : undefined}>
       <span className="sens-input-help-icon">
         <ErrorDiamondIcon size={INPUT_ERROR_HELP_ICON_SIZE} className="sens-input-error-icon" />
       </span>
@@ -110,14 +130,19 @@ export function SensInput({
   warningPlacement,
   help,
   warningMessage,
+  helpLive = true,
   readOnly: readOnlyProp,
   readOnlyVariant,
+  id: idProp,
+  allowClear: allowClearProp,
+  ["aria-describedby"]: ariaDescribedByProp,
   value,
   defaultValue,
   placeholder,
   ...props
 }: SensInputProps) {
   const { t } = useTranslation();
+  const generatedId = useId();
   const heightStyle = useSensInputHeightStyle();
   const readOnly = readOnlyProp ?? Boolean(readOnlyVariant);
   const unsetLabel = t(`${I18N_NS}.sensd-input-unset`, { defaultValue: "未设置" });
@@ -126,6 +151,17 @@ export function SensInput({
   const resolvedDefaultValue = showUnset ? undefined : defaultValue;
   const resolvedPlaceholder = readOnlyVariant ? undefined : placeholder;
   const readOnlyText = resolveReadOnlyText(showUnset, unsetLabel, value, defaultValue);
+  const inputId = idProp ?? generatedId;
+  const hasOutsideHelp = warningPlacement === "outside" && help != null && help !== "";
+  const helpId = hasOutsideHelp ? `${inputId}-help` : undefined;
+  const describedBy = [ariaDescribedByProp, helpId].filter(Boolean).join(" ") || undefined;
+  const sensAllowClear = useSensAllowClear();
+  const allowClear =
+    allowClearProp === true
+      ? sensAllowClear
+      : allowClearProp && typeof allowClearProp === "object"
+        ? { ...allowClearProp, clearIcon: allowClearProp.clearIcon ?? sensAllowClear.clearIcon }
+        : allowClearProp;
 
   const isWarning = warningPlacement === "inside" || warningPlacement === "outside";
   const isReadOnlyWarning = Boolean(readOnlyVariant && isWarning);
@@ -163,7 +199,7 @@ export function SensInput({
       return (
         <div className={fieldClassName} style={mergedStyle}>
           <span className={plainTextClass}>{readOnlyText}</span>
-          <InputHelpRow help={help} />
+          <InputHelpRow help={help} id={helpId} live={helpLive} />
         </div>
       );
     }
@@ -180,8 +216,8 @@ export function SensInput({
   const mergedSuffix =
     insideSuffix && suffix ? (
       <span className="sens-input-suffix-group">
-        {suffix}
         {insideSuffix}
+        {suffix}
       </span>
     ) : (
       insideSuffix ?? suffix
@@ -190,11 +226,14 @@ export function SensInput({
   const input = (
     <Input
       className={mergedClassName}
+      id={inputId}
       style={mergedStyle}
       size={size}
       status={status}
       variant={variant}
       suffix={mergedSuffix}
+      allowClear={allowClear}
+      aria-describedby={describedBy}
       readOnly={readOnly}
       value={resolvedValue}
       defaultValue={resolvedDefaultValue}
@@ -210,7 +249,7 @@ export function SensInput({
   return (
     <div className={["sens-input-field", className].filter(Boolean).join(" ")} style={mergedStyle}>
       {input}
-      <InputHelpRow help={help} />
+      <InputHelpRow help={help} id={helpId} live={helpLive} />
     </div>
   );
 }
@@ -290,9 +329,9 @@ interface InputPreviewStyleToken {
 
 function getInputPreviewStyleToken(): InputPreviewStyleToken {
   return {
-    hoverBorderColor: getColorToken("component-primary"),
-    activeBorderColor: getColorToken("component-active"),
-    activeShadow: `0 0 0 2px ${tokenRgba("component-active-shadow", 0.2)}`,
+    hoverBorderColor: functionalCssVar("--sens-skin-primary", "component-primary"),
+    activeBorderColor: functionalCssVar("--sens-skin-active", "component-active"),
+    activeShadow: `0 0 0 2px ${functionalCssVar("--sens-skin-active-shadow", "component-active-shadow")}`,
     colorBorderDisabledHover: tokenRgba("line-color-transparent", 0.06),
     colorBgContainerDisabledHover: tokenRgba("background-transparent-grey", 0.04),
     colorErrorHover: getColorToken("warning-color-hover"),
@@ -323,6 +362,10 @@ function useInputMatrixPreviewVars(): CSSProperties {
     "--sens-input-matrix-space-5x": `${u["spacing/5x"]}px`,
     "--sens-input-matrix-space-6x": `${u["spacing/6x"]}px`,
     "--sens-input-matrix-cell-width": `${INPUT_MATRIX_CELL_WIDTH}px`,
+    "--sens-input-matrix-font-size": `${typography["font-size/s"]}px`,
+    "--sens-input-matrix-line-height": `${typography["line-height/s"]}px`,
+    "--sens-input-matrix-label-color": getColorToken("text-sub-color"),
+    "--sens-input-matrix-title-weight": String(typography["font-weight/medium"]),
   } as CSSProperties;
 }
 
@@ -344,6 +387,7 @@ function buildPreviewInputProps(
     placeholder,
     size: undefined,
     style: { width: INPUT_MATRIX_FIELD_WIDTH, minWidth: 128, maxWidth: 600 },
+    helpLive: false,
     defaultValue: content === "filled" ? filledValue : undefined,
   };
 

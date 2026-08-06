@@ -27,7 +27,7 @@
 | `conventions.md` | 实现约定：用 token+props 驱动、不写 CSS 盖 `ant-*`、真实状态用 props、组件层 vs 预览板层 |
 | `icons.md` | 全局图标规范：按角色取色、图标-文字间距、状态、搜索特例 |
 | `color-semantics.md` | 功能色 / 状态色 / 基础色板三层；antd 故意交叉映射；链接禁止 primary |
-| `functional-skin.ts` | 预览换肤：绿/蓝功能色预设（读 token，非硬编码） |
+| `functional-skin.ts` | 预览换肤：7 组功能色预设（读 token，非硬编码） |
 | `color-utils.ts` | `tokenRgba(handle, alpha)` — 业务层从语义 handle 取透明色 |
 | `color-audit-report.md` | 颜色硬编码审计清单（只报告、待人工确认） |
 | `review-checklist.md` | 组件优化/验收检查单：6 条逐项核对 + 顺序 + 两条红线 + 代码级硬编码遗留清单 |
@@ -53,19 +53,28 @@
 | `components/base/search.md` · `select.md` · `select-dropdown.md` · `dropdown-menu.md` | 搜索与选择 | 触发框、选项面板、搜索和动作菜单边界 |
 | `components/base/checkbox.md` · `radio.md` | 选择控件 | 控件尺寸、组选项、辅助说明与联动边界 |
 | `components/base/form.md` · `title.md` | 表单与区块标题 | 表单布局、分组树、灰底标题和内容对齐 |
+| `components/base/card.md` · `entry-card.md` | 卡片与入口卡片 | 自由容器、业务卡片与导航型入口卡片的边界 |
 | `components/base/table.md` · `pagination.md` | 基础表格与分页 | 单元格、信息区、分页器和基础 Table 边界 |
 | `components/base/tabs.md` · `badge.md` · `tag.md` | 导航与信息标记 | Tabs、徽标、标签的状态和规格 |
-| `components/base/title-bar.md` · `drawer.md` | 标题栏与抽屉 | 页面 / 抽屉标题、返回、右侧操作与抽屉结构 |
+| `components/base/message.md` · `alert.md` · `tips.md` | 反馈与说明 | 轻提示、警告、便签（常规 Tips 为 Sens 自持浮层） |
+| `components/base/title-bar.md` · `breadcrumb.md` · `drawer.md` | 标题栏、面包屑与抽屉 | 页面 / 抽屉标题、返回、面包屑、右侧操作与抽屉结构 |
 | `components/base/top-navigation.md` | 顶部导航 | 产品壳主导航、专属浮层与 Navigation Color 关系 |
 | `components/composite/form.md` | 复合表单 | 带表格、联动、卡片三类跨组件表单模式 |
 | `components/composite/table.md` | 复合表格 | 筛选区、录入型表格、树表和嵌套 / 交叉表的组合边界 |
 | `components/composite/side-navigation.md` | 侧边导航 | 产品壳侧导结构、状态和页面关系 |
 
+### 样板间规则
+
+| 路径 | 样板间 | 规则重点 |
+|---|---|---|
+| `templates/card/README.md` | 卡片样板间 | 以完整页面为还原单位，使用真实组件、Token 和页面交互验收 |
+| `templates/sdh/editable-table.md` | SDH 录入型表格 | 真实业务页面、页面骨架与录入流程的组合边界 |
+
 ### 文档策略
 
 - `.md` 是实现规则：token、组件 API / antd 映射、状态和验收入口。
 - `.design.md` 是可选的设计评审说明：选型、使用场景、推荐与禁止；不存在不表示组件缺失。
-- `SensBreadcrumb` 当前归属 `components/base/title-bar.md`：只承接标题栏内普通态 / 省略态面包屑。出现独立于标题栏的面包屑场景后，再拆出 `breadcrumb.md`。
+- `SensBreadcrumb` 规则在 `components/base/breadcrumb.md`；标题栏只组合透传，不重复定义面包屑形态。
 - 复合组件默认维护单篇 `.md`；只有存在独立设计评审材料时才增加 `.design.md`。
 
 ### 唯一规则源

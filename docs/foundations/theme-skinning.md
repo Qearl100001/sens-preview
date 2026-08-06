@@ -165,11 +165,14 @@ src/design-system/i18n/*.json
 
 | 入口 | 作用 | 换肤完整度 |
 |---|---|---|
-| `getColorToken(handle)` | 读语义 handle，保留 Figma 原始透明度 | Ready |
+| `getColorToken(handle)` | 读语义 handle，保留 Figma 原始透明度 | Ready（绿基线；不随蓝肤切换） |
 | `tokenRgba(handle, α)` | 从 RGB 基色派生新的透明度，仅用于效果层 | Ready |
-| `getColorByPath(path)` | 读基础色板 / 无 handle 路径 | Half Ready（蓝肤预览在用） |
-| `getFunctionalColors(skin)` | 绿 / 蓝局部预览 | Half Ready（只覆盖主操作 + 选中背景） |
-| `getThemeTopBackground(theme)` / `getThemeSideBackground(theme)` | 顶导 / 侧导渐变 | `Product Shell Theme` 的导航子系统（当前绿肤 Ready） |
+| `getColorByPath(path)` | 读基础色板 / 无 handle 路径 | Ready（蓝肤主阶仍可审计用） |
+| `getFunctionalColors(skin)` | 7 组功能色 01–10 | Ready（源：`foundations/functional-skin.json`） |
+| `getThemeTopBackground(theme)` / `getThemeSideBackground(theme)` | 顶导 / 侧导渐变 | Ready（`green` / `blue`） |
+| `getNavigationAccent(theme)` / `getNavigationColorToken(handle, theme)` | 导航品牌实色 / 品牌态 handle | Ready |
+| `SensAppearanceProvider` / `useSensAppearance` | 预览可独立选择 12 套导航主题与 7 组功能色；注入 `--sens-skin-*` / `--sens-nav-*` | Ready |
+| `buildAntdThemeForSkin(skin)` | 用 SensD 功能色灌入 antd `colorPrimary*` | Ready（承接层，非色源） |
 
 ## 13. Functional Color Token Mapping
 
@@ -255,10 +258,10 @@ src/design-system/i18n/*.json
 
 | 状态 | 条目 |
 |---|---|
-| Ready | 主操作 01–03；选中背景 06–08；链接 5 档 handle 本身；便签 `tooltip-background`；多数状态色 handle |
-| Half Ready | disable / disable-hover；点击投影；浅色背景；开关关态 5 档（换肤归属待确认）；叠加标签；`getFunctionalColors` 矩阵不完整；antd 对 disable / 浅底映射不全 |
-| Missing | 开关「开」态独立 token；第二套功能色主题（蓝 / 黄）的完整语义层（现靠色板 path 临时拼） |
-| To Confirm | 链接是否算功能色换肤；状态色是否永远不换肤；开关关态是否算中性；叠加标签 / 便签是否进 Functional；`#008C64` vs `#008C65` |
+| Ready | 主操作 01–05；选中背景 06–08；点击投影 09；浅色背景 10（绿 handle + 蓝 `functionalSkin`）；链接 5 档 handle 本身；便签 `tooltip-background`；多数状态色 handle |
+| Half Ready | 开关关态 5 档（换肤归属待确认）；叠加标签；antd 对 disable / 浅底映射不全；组件尚未普遍消费 `getFunctionalColors(skin)` |
+| Missing | 开关「开」态独立 token；组件级换肤接线与真实浏览器验收 |
+| To Confirm | 链接是否算功能色换肤；状态色是否永远不换肤；开关关态是否算中性；叠加标签 / 便签是否进 Functional；绿表点击 `#008C64` vs token `#008C65`（现跟 token） |
 
 ## 14. 与 Navigation Color 的边界
 
@@ -266,16 +269,18 @@ src/design-system/i18n/*.json
 
 | 已有 | 缺口（仍属 Navigation） |
 |---|---|
-| `navigationTheme.green`、`theme-top-*`、`theme-side-*`、`theme-title-background`、`body-background` | 蓝、黄等 `Product Shell Theme` 导航子系统的完整 Figma 换肤矩阵 |
+| `navigationTheme.<theme>`、accent、品牌 handles、`theme-top-*` / `theme-side-*` | 12 套导航主题已录入；组件继续改读 `getNavigationColorToken(theme)` |
 | 侧导目录状态底 `theme-side-background-hover/click/active` | 侧导组件结构、导航图标全态与产品壳交互规则 |
 
-两套可独立组合（例如黄导航 + 蓝功能色）。当前代码**还做不到完整组合**，规则与映射先沉淀在本页与 `/basic-styles/theme-skinning`。
+两套可独立组合（例如旭日红导航 + 冰绽蓝功能色）。当前运行时已支持 12 套导航主题与 7 组功能色；组件接线和浏览器验收继续按组件推进。
 
 ## 15. 当前待补
 
-- ✅ Functional Color Token Mapping 表已落库（§13）；确认 To Confirm 项后再决定是否补源 / 重跑生成。
-- 补蓝、黄等 `Product Shell Theme` 导航子系统的完整换肤矩阵；新主题必须复用现有产品壳槽位。
+- ✅ Functional Color Token Mapping 表已落库（§13）。
+- ✅ 换肤矩阵：12 套导航主题、7 组功能色 01–10 已进 `navigation-theme.json` / `functional-skin.json` 并生成。
+- ✅ 运行时：`SensAppearanceProvider` 可独立选择两条主题线；`buildAntdThemeForSkin`；顶/侧导展示页读 Context。
+- ✅ 阶段 3：Sens* 主链与业务壳用 `functionalCssVar` / `getNavigationColorToken`；链接与状态色不跟肤。
 - 建立组件换肤映射表：组件 → 使用主题 → token / helper → Ready / Half Ready / Missing / To Confirm。
 - 确认状态色是否允许跟随功能色主题变化；当前默认不跟随。
-- 确认链接、开关开态、便签三类 To Confirm 后再扩展 `getFunctionalColors`（彩色标签已确认不换肤）。
+- 确认链接、开关关态、便签三类 To Confirm（彩色标签已确认不换肤）。
 - **禁止**手改 `tokens.resolved.json` / `theme.ts`；要改就改 `tokens/source` + 重跑 `build-tokens.mjs`。
