@@ -56,6 +56,7 @@ function buildCheckboxTokenVars(): CSSProperties {
     "--sens-checkbox-line-height": px(getTypographyToken("line-height/m")),
     "--sens-checkbox-description-font-size": px(getTypographyToken("font-size/s")),
     "--sens-checkbox-description-line-height": px(getTypographyToken("line-height/s")),
+    "--sens-checkbox-matrix-title-weight": getTypographyToken("font-weight/medium"),
     "--sens-checkbox-description-gap": px(getUnitToken("spacing/vertical/1x")),
     "--sens-checkbox-option-height": px(getUnitToken("size/component-height/m")),
     "--sens-checkbox-group-column-gap": px(getUnitToken("spacing/horizontal/6x")),

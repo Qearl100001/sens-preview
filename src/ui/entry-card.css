@@ -62,8 +62,16 @@
 .sens-entry-card__description {
   color: var(--sens-entry-card-description-color);
   font-size: var(--sens-entry-card-description-size);
-  font-weight: 400;
+  font-weight: var(--sens-entry-card-description-weight);
   line-height: var(--sens-entry-card-description-line);
+}
+
+/* SensTips 外壳默认 inline；入口卡辅助文案需占满剩余宽度才能正确省略。 */
+.sens-entry-card__description-tip.sens-tips-trigger {
+  display: block;
+  min-width: 0;
+  width: 100%;
+  max-width: 100%;
 }
 
 .sens-entry-card[aria-disabled="true"] .sens-entry-card__title,

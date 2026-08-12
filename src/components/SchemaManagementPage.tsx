@@ -17,9 +17,17 @@ import { SensIcon } from "../design-system/icons";
 import { navigationCssVar } from "../design-system/navigation-color";
 import { buildAntdTheme } from "../design-system/theme";
 import tokens from "../design-system/tokens.resolved.json";
+import { getTypographyToken } from "../design-system/typography";
 
 const { Text } = Typography;
 const c = tokens.color as Record<string, string>;
+
+const FONT_SIZE_S = getTypographyToken("font-size/s");
+const FONT_SIZE_M = getTypographyToken("font-size/m");
+const FONT_SIZE_XXL = getTypographyToken("font-size/xxl");
+const LINE_HEIGHT_M = getTypographyToken("line-height/m");
+const LINE_HEIGHT_XXL = getTypographyToken("line-height/xxl");
+const FONT_WEIGHT_MEDIUM = getTypographyToken("font-weight/medium");
 
 export interface SchemaRecord {
   key: string;
@@ -132,9 +140,9 @@ function buildSchemaTheme(): ThemeConfig {
 function ActionLinks() {
   const linkStyle: CSSProperties = {
     padding: 0,
-    height: 22,
-    fontSize: 14,
-    lineHeight: "22px",
+    height: LINE_HEIGHT_M,
+    fontSize: FONT_SIZE_M,
+    lineHeight: `${LINE_HEIGHT_M}px`,
   };
   return (
     <Space size={16}>
@@ -159,8 +167,8 @@ export default function SchemaManagementPage({ embedded = false }: SchemaManagem
 
   const headerCellStyle: CSSProperties = {
     background: palette.tableHeaderBg,
-    fontWeight: 500,
-    fontSize: 14,
+    fontWeight: FONT_WEIGHT_MEDIUM,
+    fontSize: FONT_SIZE_M,
     color: palette.textPrimary,
     padding: "17px 16px",
     borderBottom: `1px solid ${palette.tableDivider}`,
@@ -168,7 +176,7 @@ export default function SchemaManagementPage({ embedded = false }: SchemaManagem
 
   const bodyCellStyle: CSSProperties = {
     background: palette.tableRowBg,
-    fontSize: 14,
+    fontSize: FONT_SIZE_M,
     color: palette.textPrimary,
     padding: "17px 16px",
     borderBottom: `1px solid ${palette.tableDivider}`,
@@ -185,7 +193,7 @@ export default function SchemaManagementPage({ embedded = false }: SchemaManagem
         onHeaderCell: () => ({ style: headerCellStyle }),
         onCell: () => ({ style: bodyCellStyle }),
         render: (text: string) => (
-          <Text style={{ fontSize: 14, color: palette.textPrimary, wordBreak: "break-word" }}>{text}</Text>
+          <Text style={{ fontSize: FONT_SIZE_M, color: palette.textPrimary, wordBreak: "break-word" }}>{text}</Text>
         ),
       },
       {
@@ -213,7 +221,7 @@ export default function SchemaManagementPage({ embedded = false }: SchemaManagem
         onHeaderCell: () => ({ style: headerCellStyle }),
         onCell: () => ({ style: bodyCellStyle }),
         render: (text: string) => (
-          <Text style={{ fontSize: 14, color: palette.textPrimary, wordBreak: "break-word" }}>{text}</Text>
+          <Text style={{ fontSize: FONT_SIZE_M, color: palette.textPrimary, wordBreak: "break-word" }}>{text}</Text>
         ),
       },
       {
@@ -285,8 +293,8 @@ export default function SchemaManagementPage({ embedded = false }: SchemaManagem
             <Breadcrumb
               separator="/"
               items={[
-                { title: <span style={{ fontSize: 12, color: palette.textSecondary }}>数据源管理</span> },
-                { title: <span style={{ fontSize: 12, color: palette.textSecondary }}>Schema 管理</span> },
+                { title: <span style={{ fontSize: FONT_SIZE_S, color: palette.textSecondary }}>数据源管理</span> },
+                { title: <span style={{ fontSize: FONT_SIZE_S, color: palette.textSecondary }}>Schema 管理</span> },
               ]}
               style={{ marginBottom: 2 }}
             />
@@ -296,7 +304,7 @@ export default function SchemaManagementPage({ embedded = false }: SchemaManagem
                 icon={<SensIcon name="back-navigate" size={14} colorRole="inherit" />}
                 style={{ width: 22, height: 22, padding: 0, color: palette.icon }}
               />
-              <Text strong style={{ fontSize: 20, lineHeight: "30px", color: palette.textPrimary }}>
+              <Text strong style={{ fontSize: FONT_SIZE_XXL, lineHeight: `${LINE_HEIGHT_XXL}px`, color: palette.textPrimary }}>
                 Schema 管理
               </Text>
             </div>
@@ -323,15 +331,15 @@ export default function SchemaManagementPage({ embedded = false }: SchemaManagem
               {...searchFieldProps}
             />
             <Space size={8}>
-              <Text strong style={{ fontSize: 14, color: palette.textPrimary }}>数据源</Text>
+              <Text strong style={{ fontSize: FONT_SIZE_M, color: palette.textPrimary }}>数据源</Text>
               <Select {...selectSuffixProps} placeholder="请选择" style={{ width: 148 }} allowClear={allowClear} options={[]} />
             </Space>
             <Space size={8}>
-              <Text strong style={{ fontSize: 14, color: palette.textPrimary }}>数据连接状态</Text>
+              <Text strong style={{ fontSize: FONT_SIZE_M, color: palette.textPrimary }}>数据连接状态</Text>
               <Select {...selectSuffixProps} placeholder="请选择" style={{ width: 148 }} allowClear={allowClear} options={[]} />
             </Space>
             <Space size={8}>
-              <Text strong style={{ fontSize: 14, color: palette.textPrimary }}>创建人</Text>
+              <Text strong style={{ fontSize: FONT_SIZE_M, color: palette.textPrimary }}>创建人</Text>
               <Select {...selectSuffixProps} placeholder="请选择" style={{ width: 148 }} allowClear={allowClear} options={[]} />
             </Space>
           </Space>
@@ -347,7 +355,7 @@ export default function SchemaManagementPage({ embedded = false }: SchemaManagem
               style={{
                 height: 40,
                 padding: "11px 16px",
-                fontSize: 12,
+                fontSize: FONT_SIZE_S,
                 color: palette.textSecondary,
                 background: palette.contentBg,
                 borderBottom: `1px solid ${palette.infoBarBorder}`,
@@ -368,7 +376,7 @@ export default function SchemaManagementPage({ embedded = false }: SchemaManagem
                 showSizeChanger: true,
                 showQuickJumper: true,
                 showTotal: (_, range) => (
-                  <span style={{ fontSize: 12, color: palette.textSecondary }}>
+                  <span style={{ fontSize: FONT_SIZE_S, color: palette.textSecondary }}>
                     本页显示第 {range[0]}-{range[1]} 条
                   </span>
                 ),

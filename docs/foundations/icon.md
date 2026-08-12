@@ -153,9 +153,27 @@ Icon Foundation 只验收图标资产、尺寸、颜色语义和命名，不单�
 
 ## 11. 已入库图标资产
 
-当前已从 Figma 10 组线性图标节点导入 340 个 SVG symbol，规范化后为 339 个唯一名称；另从 9 组面性图标节点导入 74 个 SVG symbol，并从 Figma「功能-彩色风格（106）」节点实际读取并导入 99 个彩色功能组件。线性、面性和彩色功能分别维护资产目录和 manifest，使用方统一通过 `SensIcon` 调用，不能直接依赖 antd 图标或字符图标。画板标题中的“106”与当前节点可读取的 99 个子组件不一致，本项目以实际可读取资产为准。
+当前已从 Figma 10 组线性图标节点导入 340 个 SVG symbol，规范化后为 339 个唯一名称；另从 9 组面性图标节点导入 74 个 SVG symbol，并从 Figma「功能-彩色风格（106）」节点实际读取并导入 99 个彩色功能组件。另有 Product Shell 侧导专用双色导航功能图标（`side-nav-*` / `sbp-*` / `sa-*` / `sf-*` 等）单独归入样张「导航功能图标」Tab。线性、面性、彩色功能与导航功能分别维护样张归属；使用方统一通过 `SensIcon` 调用，不能直接依赖 antd 图标或字符图标。画板标题中的“106”与当前节点可读取的 99 个子组件不一致，本项目以实际可读取资产为准。
 
-### 11.1 图标风格
+### 11.1 样张 Tab 录入标准（必守）
+
+`/basic-styles/icon`「已入库图标」按 Tab 分开展示。入库时必须先判定样张归属；**侧导专用资产不得进入「线性图标」Tab**。
+
+| 样张 Tab | 录入条件 | 场景尺寸 | 示例 |
+|---|---|---|---|
+| 线性图标 | 通用线性资产；可多尺寸对照；**排除** Product Shell 侧导专用图标 | 16 / 20 / 22 | `more`、`search`、`chevron-*`、顶导工具条 `nav-*` |
+| 面性图标 | Figma 面性集合 | 16 / 20 / 22 | `analysis-event` 等面性业务图标 |
+| 彩色功能图标 | Figma「功能-彩色风格」多色资产 | 固定 48px | 入口卡片业务彩标 |
+| 导航功能图标 | Product Shell **侧导专用**：控制件 + 单层/二级/分析虚拟层/产品域业务图标；本体 `currentColor`（可 dualTone），由侧导注入状态色 | 固定 20px 场景 | `side-nav-*`、`sbp-*`、`sa-*`、`sf-*`、`sdh-*`、`scrm-*`、`sat-*` 等 |
+
+规则：
+
+- 样张归属 ≠ `SensIcon` 的 `variant` 名：侧导资产技术上多为 `variant="linear"`，但样张只进「导航功能图标」。
+- 新增侧导图标：写入 registry + 挂到「导航功能图标」分组；线性 Tab 自动排除（按分组名或 usageScenes 以 `Product Shell Side Navigation` 开头）。
+- 顶导交互/工具图标（如 `nav-help`、`nav-down`）进「线性图标」，不进「导航功能图标」。
+- 分析落地页面性图标可同时在「面性图标」与「导航功能图标」出现（资产属面性，场景属侧导）；侧导线性/双色业务图标则只在「导航功能图标」。
+
+### 11.2 图标风格
 
 | 风格 | `SensIcon` 用法 | 规则 |
 |---|---|---|
@@ -163,7 +181,7 @@ Icon Foundation 只验收图标资产、尺寸、颜色语义和命名，不单�
 | 面性 | `variant="filled"` | 作为独立图标集合展示和消费；适合需要更强识别度或状态强调的场景 |
 | 彩色功能 | `variant="colorful"` | 来自 Figma「功能-彩色风格」；保留多色资产，主要用于入口型卡片和业务功能入口 |
 
-图标预览页在「数值样张」内分为「线性图标」「面性图标」和「彩色功能图标」三个 Tab。线性与面性图标提供 16px / 20px / 22px 尺寸切换；彩色功能图标固定展示 48px，不参与这组三档切换。彩色功能图标保留 Figma 资产中的多色关系，不接受 `colorRole` 改色；宿主交互仍由入口卡片等组件负责。
+图标预览页在「数值样张」内分为「线性图标」「面性图标」「彩色功能图标」和「导航功能图标」四个 Tab。线性与面性图标提供 16px / 20px / 22px 尺寸切换；彩色功能图标固定展示 48px；导航功能图标按侧导场景固定 20px。彩色功能图标保留 Figma 资产中的多色关系，不接受 `colorRole` 改色；宿主交互仍由入口卡片等组件负责。
 
 | 入库名 | 原组件名 | 来源文件 | viewBox | 当前使用场景 | 场景尺寸 | 场景颜色 | 是否可复用其他尺寸 |
 |---|---|---|---|---|---|---|---|
@@ -188,9 +206,13 @@ Icon Foundation 只验收图标资产、尺寸、颜色语义和命名，不单�
 | `side-nav-down` | `SideNavDownIcon` | `src/ui/FieldIcons.tsx` | `0 0 14 14` | 产品壳侧导二级模块收起 | 14 | theme-side-icon / currentColor | 否 |
 | `side-nav-up` | `SideNavUpIcon` | `src/ui/FieldIcons.tsx` | `0 0 14 14` | 产品壳侧导二级模块展开 | 14 | theme-side-icon / currentColor | 否 |
 | `side-nav-link` | `SideNavLinkIcon` | `src/ui/FieldIcons.tsx` | `0 0 16 16` | 产品壳侧导更多推荐 | 16 | theme-side-subIcon / currentColor | 否 |
-| `side-nav-collapse` | `SideNavCollapseIcon` | `src/ui/FieldIcons.tsx` | `0 0 18 18` | 产品壳侧导锁定态收起 | 18 | theme-side-icon / currentColor | 否 |
-| `side-nav-unpin` | `SideNavUnpinIcon` | `src/ui/FieldIcons.tsx` | `0 0 16 16` | 产品壳侧导锁定入口 | 16 | theme-side-icon / currentColor | 否 |
-| `side-nav-pin` | `SideNavPinIcon` | `src/ui/FieldIcons.tsx` | `0 0 12.2838 12.2838` | 产品壳侧导锁定图标状态 | 16 | theme-side-icon-active / currentColor | 否 |
+| `side-nav-expand` | `SideNavExpandIcon` | `src/ui/FieldIcons.tsx` | `0 0 18 18` | 产品壳侧导标题区紧凑态展开 | 20 | theme-side-icon / currentColor | 否 |
+| `side-nav-collapse` | `SideNavCollapseIcon` | `src/ui/FieldIcons.tsx` | `0 0 18 18` | 产品壳侧导标题区锁定态收起 | 20 | theme-side-icon / currentColor | 否 |
+| `side-nav-unpin` | `SideNavUnpinIcon` | `src/ui/FieldIcons.tsx` | `0 0 16 16` | 产品壳侧导标题区锁定入口 | 20 | theme-side-icon / currentColor | 否 |
+| `side-nav-pin` | `SideNavPinIcon` | `src/ui/FieldIcons.tsx` | `0 0 12.2838 12.2838` | 产品壳侧导标题区锁定图标状态 | 20 | theme-side-icon-active / currentColor | 否 |
+| `sbp-setting` | `SbpSettingSideNavIcon` | `src/ui/FieldIcons.tsx` | `0 0 20 20` | 产品壳单层带图标侧导 / 基本设置 | 20 | theme-side-icon / currentColor | 否 |
+| `sbp-member` | `SbpMemberSideNavIcon` | `src/ui/FieldIcons.tsx` | `0 0 20 20` | 产品壳单层带图标侧导 / 成员管理 | 20 | theme-side-icon / currentColor | 否 |
+| `sbp-role` | `SbpRoleSideNavIcon` | `src/ui/FieldIcons.tsx` | `0 0 20 20` | 产品壳单层带图标侧导 / 角色管理 | 20 | theme-side-icon / currentColor | 否 |
 
 已有 Sens 图标的语义、场景和宿主规则继续保留；Figma 新资产在 registry 中统一使用 `currentColor`，具体尺寸和颜色仍由场景决定。`SelectArrowIcon` / `SelectClearIcon` 为过渡 wrapper，分别指向 `chevron-down` / `close-circle`，不单独入库。
 

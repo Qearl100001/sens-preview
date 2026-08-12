@@ -184,6 +184,12 @@ export function CompositeLibraryPage() {
           description: "先承接已经完成基础组件验证、且能跨业务复用的组合模式。",
           items: [
             {
+              title: "产品壳",
+              description: "组织顶部导航、侧边导航、标题栏、内容区、全局浮层和回到顶部的产品级页面外层规则。",
+              status: "规则已录入",
+              href: "/composite/product-shell",
+            },
+            {
               title: "复合表单",
               description: "带表格、联动和卡片三类表单组合；步骤条、锚点和模态表单等待基础组件补齐。",
               status: "P1 已录入",
@@ -245,6 +251,12 @@ export function TemplateLibraryPage() {
               description: "基于 SensEntryCard，承接项目设置中的安全、资源和模板入口。",
               status: "首轮收录",
               href: "/templates/card/entry-settings",
+            },
+            {
+              title: "产品壳 / 顶导滚动收起",
+              description: "固定高度产品壳：智能运营 + 列表资源位；内容区滚动超过 300px 后顶导（含氛围）收起。",
+              status: "首轮收录",
+              href: "/templates/product-shell",
             },
           ],
         },

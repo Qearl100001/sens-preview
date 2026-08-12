@@ -129,6 +129,16 @@
         ]
       }
     },
+    "8x": {
+      "$type": "number",
+      "$value": 32,
+      "$description": "32px；纵向间距：页面级空态插画到文案等大内容块内间距",
+      "$extensions": {
+        "sens": {
+          "source": "Sens.Design unit scale · spacing/8x · empty-state page stack gap"
+        }
+      }
+    },
     "10x": {
       "$type": "number",
       "$value": 40,
@@ -358,6 +368,16 @@
           "com.figma.scopes": [
             "GAP"
           ]
+        }
+      },
+      "8x": {
+        "$type": "number",
+        "$value": "{spacing.8x}",
+        "$description": "32px；纵向间距：页面级空态插画到文案等",
+        "$extensions": {
+          "sens": {
+            "source": "Sens.Design unit scale · spacing/vertical/8x"
+          }
         }
       },
       "10x": {

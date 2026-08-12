@@ -66,6 +66,24 @@ function SelectDropdownDemo() {
         options={SEARCH_DEMO_OPTIONS}
         defaultValue="2"
       />
+      <div>
+        <Text type="secondary" style={{ display: "block", marginBottom: 8 }}>
+          加载失败打开态（optionsLoadFailed）
+        </Text>
+        <SensSelectDropdown
+          functionalSkin={skin}
+          searchable
+          searchMode="local"
+          placeholder="加载失败"
+          style={{ width: SELECT_DROPDOWN_DEMO_WIDTH }}
+          defaultOpen
+          options={[]}
+          optionsLoadFailed
+          onEmptyAction={() => {
+            /* 预览：刷新回调占位 */
+          }}
+        />
+      </div>
       <Divider style={{ margin: 0 }} />
       <DropdownMenuUsageScenarios />
     </Space>

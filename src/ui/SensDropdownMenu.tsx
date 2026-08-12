@@ -11,6 +11,7 @@ import {
   SENS_TEXT_WARNING_VAR,
 } from "../design-system/text-color-chains";
 import { getUnitToken } from "../design-system/unit";
+import { getTypographyToken } from "../design-system/typography";
 import {
   SensDropdownMenuItem,
   type SensDropdownMenuItemPreviewState,
@@ -65,6 +66,8 @@ export function useSensDropdownMenuStyle(): CSSProperties {
     ...toDropdownMenuDangerColorAliases(),
     "--sens-dropdown-menu-item-color-disabled": getColorToken("text-color-transparent-disable"),
     "--sens-dropdown-menu-item-color-loading": getColorToken("text-color-transparent-disable"),
+    "--sens-dropdown-menu-item-font-size": `${getTypographyToken("font-size/m")}px`,
+    "--sens-dropdown-menu-item-line-height": `${getTypographyToken("line-height/m")}px`,
   } as CSSProperties;
 }
 
@@ -73,6 +76,9 @@ function useDropdownMenuMatrixVars(): CSSProperties {
     "--sens-dropdown-menu-matrix-space-2x": `${getUnitToken("spacing/2x")}px`,
     "--sens-dropdown-menu-matrix-space-6x": `${getUnitToken("spacing/6x")}px`,
     "--sens-dropdown-menu-matrix-cell-width": `${DROPDOWN_MENU_MATRIX_CELL_WIDTH}px`,
+    "--sens-dropdown-menu-matrix-font-size": `${getTypographyToken("font-size/s")}px`,
+    "--sens-dropdown-menu-matrix-line-height": `${getTypographyToken("line-height/s")}px`,
+    "--sens-dropdown-menu-matrix-title-weight": String(getTypographyToken("font-weight/medium")),
   } as CSSProperties;
 }
 

@@ -20,6 +20,7 @@ import {
 } from "../design-system/functional-skin";
 import { getButtonPrimaryBorderColor } from "../design-system/theme";
 import tokens from "../design-system/tokens.resolved.json";
+import { getTypographyToken } from "../design-system/typography";
 import { ChevronDownIcon, ChevronUpIcon, EditorAddIcon, IconDefaultIcon, MoreIcon } from "./FieldIcons";
 import {
   buildFabPreviewCellSnapshot,
@@ -1472,6 +1473,9 @@ function useButtonPreviewVars(): CSSProperties {
     "--sens-btn-space-6x": `${u["spacing/6x"]}px`,
     "--sens-btn-width-trigger": `${u["size/component-height/m"]}px`,
     "--sens-btn-preview-text-secondary": c["text-color-transparent"],
+    "--sens-btn-preview-font-size": `${getTypographyToken("font-size/s")}px`,
+    "--sens-btn-preview-line-height": `${getTypographyToken("line-height/s")}px`,
+    "--sens-btn-preview-title-weight": String(getTypographyToken("font-weight/medium")),
     ...getFabCssVars(),
   } as CSSProperties;
 }

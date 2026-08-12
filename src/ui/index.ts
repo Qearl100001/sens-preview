@@ -1,7 +1,8 @@
-export { TableShell, TableInfoBar, LinkButton, TableEllipsis, TableActions } from "./TableShell";
+export { TableShell, TableInfoBar, TableInfoColumnSettingButton, TableInfoRefreshableSummary, LinkButton, TableEllipsis, TableActions } from "./TableShell";
 export type {
   TableShellProps,
   TableInfoBarProps,
+  TableInfoRefreshableSummaryProps,
   LinkButtonProps,
   TableEllipsisProps,
   TableActionsProps,
@@ -39,6 +40,22 @@ export { SensForm, SensFormItem, SensFormActions } from "./SensForm";
 export type { SensFormProps, SensFormItemProps, SensFormActionsProps, SensFormLabelAlign, SensFormLayout } from "./SensForm";
 export { SensActionArea } from "./SensActionArea";
 export type { SensActionAreaPlacement, SensActionAreaProps } from "./SensActionArea";
+export {
+  SensTopNavigation,
+  FunctionEntryMenuPanel,
+  FUNCTION_MENU_FLAT_SHORT,
+  FUNCTION_MENU_FLAT_WRAP,
+  FUNCTION_MENU_NINE_GRID,
+  FUNCTION_MENU_TWO_LEVEL,
+} from "./SensTopNavigation";
+export type {
+  SensTopNavigationItem,
+  SensTopNavigationUtilityItem,
+  SensTopNavigationProps,
+  FunctionMenuSection,
+  NavDropdownConfig,
+} from "./SensTopNavigation";
+export { navDropdownToSections } from "./SensTopNavigation";
 export { SensSectionTitle } from "./SensSectionTitle";
 export type { SensSectionTitleProps, SensSectionTitleSize, SensSectionTitleVariant } from "./SensSectionTitle";
 export { StatusBadge } from "./StatusBadge";
@@ -196,8 +213,13 @@ export { SensBreadcrumb } from "./SensBreadcrumb";
 export type { SensBreadcrumbItem, SensBreadcrumbProps } from "./SensBreadcrumb";
 export { SensPageTitleBar, SENS_PAGE_TITLE_BAR_HEIGHT } from "./SensPageTitleBar";
 export type { SensPageTitleBarProps } from "./SensPageTitleBar";
-export { SensTopNavigation } from "./SensTopNavigation";
-export type { SensTopNavigationItem, SensTopNavigationProps } from "./SensTopNavigation";
+export {
+  SensTopNavLogo,
+  SENS_TOP_NAV_LOGO_SRC,
+  SENS_TOP_NAV_LOGO_WIDTH,
+  SENS_TOP_NAV_LOGO_HEIGHT,
+} from "./SensTopNavLogo";
+export type { SensTopNavLogoProps } from "./SensTopNavLogo";
 export { ProductShellSideNavigation } from "./ProductShellSideNavigation";
 export type {
   ProductShellSideNavigationGroup,
@@ -310,5 +332,31 @@ export type {
   UseSelectDropdownSearchOptions,
   UseSelectDropdownSearchResult,
 } from "./useSelectDropdownSearch";
-export { EMPTY_STATE_ILLUSTRATIONS } from "./EmptyStateIllustrations";
-export type { NonPageEmptyIllustrationKey } from "./EmptyStateIllustrations";
+export { SensEmptyState } from "./SensEmptyState";
+export type {
+  SensEmptyStateProps,
+  SensEmptyStatePageProps,
+  SensEmptyStateNonPageProps,
+} from "./SensEmptyState";
+export {
+  EMPTY_STATE_PAGE_STACK_GAP,
+  EMPTY_STATE_PAGE_ILLUSTRATION_LARGE,
+  EMPTY_STATE_PAGE_ILLUSTRATION_SMALL,
+  EMPTY_STATE_NON_PAGE_ILLUSTRATION_BASE,
+  EMPTY_STATE_NON_PAGE_ILLUSTRATION_SPECIAL,
+} from "./SensEmptyState";
+export {
+  EMPTY_STATE_ILLUSTRATIONS,
+  PAGE_EMPTY_ILLUSTRATIONS,
+  NON_PAGE_EMPTY_ILLUSTRATIONS,
+  NON_PAGE_EMPTY_ILLUSTRATIONS_SPECIAL,
+  resolveEmptyStateIllustration,
+} from "./EmptyStateIllustrations";
+export type {
+  NonPageEmptyIllustrationKey,
+  PageEmptyType,
+  NonPageEmptyType,
+  EmptyStateScope,
+  PageEmptySize,
+  NonPageEmptySize,
+} from "./EmptyStateIllustrations";

@@ -57,7 +57,7 @@
 /* 已选中：默认 / 悬停 / 点击 */
 .sens-select-dropdown .ant-select-item-option-selected:not(.ant-select-item-option-disabled) {
   background-color: var(--sens-select-option-selected-bg) !important;
-  font-weight: 600;
+  font-weight: var(--sens-select-option-selected-weight);
 }
 
 .sens-select-dropdown .ant-select-item-option-selected:not(.ant-select-item-option-disabled):hover {
@@ -128,7 +128,7 @@
 
 .sens-select-dropdown .ant-select-item-option-disabled.ant-select-item-option-selected {
   background-color: var(--ant-color-bg-container, #fff) !important;
-  font-weight: 400;
+  font-weight: var(--sens-select-option-regular-weight);
   color: var(--sens-select-option-disabled-color) !important;
 }
 
@@ -174,8 +174,8 @@
   padding-block-start: var(--sens-select-dropdown-stats-padding-block-start, 6px);
   /* 统计 → 首条选项：0px */
   padding-block-end: 0;
-  font-size: 12px;
-  line-height: 18px;
+  font-size: var(--sens-select-dropdown-font-size-s);
+  line-height: var(--sens-select-dropdown-line-height-s);
   color: var(--sens-select-dropdown-stats-color);
 }
 
@@ -189,8 +189,8 @@
 }
 
 .sens-select-dropdown-loading-text {
-  font-size: 12px;
-  line-height: 18px;
+  font-size: var(--sens-select-dropdown-font-size-s);
+  line-height: var(--sens-select-dropdown-line-height-s);
 }
 
 /* R2 · 空态（Figma 非页面级 · 特殊尺寸） */
@@ -222,16 +222,16 @@
 
 .sens-select-dropdown-empty-title {
   margin: 0;
-  font-size: 14px;
-  line-height: 22px;
+  font-size: var(--sens-select-dropdown-font-size-m);
+  line-height: var(--sens-select-dropdown-line-height-m);
   color: var(--ant-color-text);
   word-break: break-word;
 }
 
 .sens-select-dropdown-empty-desc {
   margin: 0;
-  font-size: 12px;
-  line-height: 18px;
+  font-size: var(--sens-select-dropdown-font-size-s);
+  line-height: var(--sens-select-dropdown-line-height-s);
   color: var(--sens-select-dropdown-empty-desc-color, var(--sens-select-dropdown-stats-color));
   word-break: break-word;
 }
@@ -245,8 +245,8 @@
 }
 
 .sens-select-dropdown-empty-action.ant-btn {
-  font-size: 12px;
-  line-height: 18px;
+  font-size: var(--sens-select-dropdown-font-size-s);
+  line-height: var(--sens-select-dropdown-line-height-s);
 }
 
 .sens-select-dropdown--searchable .ant-select-item-empty {

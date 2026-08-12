@@ -9,6 +9,7 @@ import {
   type FunctionalSkin,
 } from "../design-system/functional-skin";
 import { getUnitToken } from "../design-system/unit";
+import { getTypographyToken } from "../design-system/typography";
 import { useSensSelectTriggerProps } from "./fieldIconProps";
 import {
   SELECT_CHECK_ICON_SIZE,
@@ -112,6 +113,12 @@ export function useSensSelectDropdownStyle(skin: FunctionalSkin = "green"): CSSP
     "--sens-select-popup-padding-block-end": `${spacing.popupPaddingBlockEnd}px`,
     "--sens-select-option-padding-inline": `${spacing.optionPaddingInline}px`,
     "--sens-select-option-padding-block": `${spacing.optionPaddingBlock}px`,
+    "--sens-select-option-selected-weight": String(getTypographyToken("font-weight/semibold")),
+    "--sens-select-option-regular-weight": String(getTypographyToken("font-weight/regular")),
+    "--sens-select-dropdown-font-size-s": `${getTypographyToken("font-size/s")}px`,
+    "--sens-select-dropdown-line-height-s": `${getTypographyToken("line-height/s")}px`,
+    "--sens-select-dropdown-font-size-m": `${getTypographyToken("font-size/m")}px`,
+    "--sens-select-dropdown-line-height-m": `${getTypographyToken("line-height/m")}px`,
   /** 统计「共 n 条」· 中性色/文字/03_辅助 @text-sub-color-transparent @58% */
     "--sens-select-dropdown-stats-color": tokenRgba("text-sub-color-transparent", 0.58),
     /** 空态辅助文案 · 同上 */
@@ -127,6 +134,9 @@ function useSelectDropdownMatrixVars(): CSSProperties {
     "--sens-select-matrix-space-6x": `${getUnitToken("spacing/6x")}px`,
     "--sens-select-matrix-cell-width": `${SELECT_DROPDOWN_MATRIX_CELL_WIDTH}px`,
     "--sens-select-content-matrix-cell-width": `${SELECT_DROPDOWN_CONTENT_MATRIX_CELL_WIDTH}px`,
+    "--sens-select-matrix-font-size": `${getTypographyToken("font-size/s")}px`,
+    "--sens-select-matrix-line-height": `${getTypographyToken("line-height/s")}px`,
+    "--sens-select-matrix-title-weight": String(getTypographyToken("font-weight/medium")),
   } as CSSProperties;
 }
 
@@ -814,6 +824,9 @@ function useSelectTriggerMatrixPreviewVars(): CSSProperties {
     "--sens-select-matrix-space-2x": `${getUnitToken("spacing/2x")}px`,
     "--sens-select-matrix-space-6x": `${getUnitToken("spacing/6x")}px`,
     "--sens-select-trigger-matrix-cell-width": `${SELECT_TRIGGER_MATRIX_CELL_WIDTH}px`,
+    "--sens-select-matrix-font-size": `${getTypographyToken("font-size/s")}px`,
+    "--sens-select-matrix-line-height": `${getTypographyToken("line-height/s")}px`,
+    "--sens-select-matrix-title-weight": String(getTypographyToken("font-weight/medium")),
   } as CSSProperties;
 }
 

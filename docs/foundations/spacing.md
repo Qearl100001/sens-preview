@@ -30,6 +30,7 @@ Spacing 负责统一页面、组件、表单、表格、卡片、弹层里的间
 | `spacing/5x` | 20 |
 | `spacing/6x` | 24 |
 | `spacing/7x` | 28 |
+| `spacing/8x` | 32 |
 | `spacing/10x` | 40 |
 
 当前 `tokens.resolved.json` 已有水平 / 垂直 spacing：
@@ -65,6 +66,7 @@ Spacing 不负责所有尺寸。
 | 输入类组件水平内距 | `spacing/horizontal/3x` | 12 | Input / Select 等基础组件常用 |
 | 卡片 / 区块常规内距 | `spacing/4x` | 16 | 卡片、信息区、内容块候选 |
 | 页面内容左右内距 | `spacing/6x` | 24 | 页面主内容区 |
+| 页面级空态插画→文案 | `spacing/8x` / `spacing/vertical/8x` | 32 | 页面级 Empty State 等大内容块内间距 |
 | 表格信息区高度 | `size/component-height/xl` 或组件规格 | 40 | 作为表格组件规格，不作为普通 spacing |
 | 大区块间距 | `spacing/10x` | 40 | 大模块之间的纵向距离 |
 

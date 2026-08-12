@@ -58,9 +58,9 @@
   padding: 8px 16px;
   border: 1px solid var(--sens-badge-title-border);
   border-radius: var(--sens-badge-section-title-radius);
-  font-size: 14px;
-  line-height: 22px;
-  font-weight: 600;
+  font-size: var(--sens-badge-section-font-size);
+  line-height: var(--sens-badge-section-line-height);
+  font-weight: var(--sens-badge-section-font-weight);
   color: var(--sens-badge-text-default);
 }
 
@@ -174,7 +174,7 @@
 }
 
 .sens-badge-status-text {
-  font-size: 14px;
-  line-height: 22px;
+  font-size: var(--sens-badge-status-font-size);
+  line-height: var(--sens-badge-status-line-height);
   color: var(--sens-badge-status-text);
 }

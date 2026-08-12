@@ -267,7 +267,7 @@
 
 .sens-checkbox-matrix-title {
   color: var(--sens-checkbox-text);
-  font-weight: 500;
+  font-weight: var(--sens-checkbox-matrix-title-weight);
 }
 
 .sens-checkbox-matrix-cell {

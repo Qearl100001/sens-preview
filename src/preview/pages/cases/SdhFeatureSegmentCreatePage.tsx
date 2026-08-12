@@ -16,8 +16,10 @@ import {
   SensRadioGroup,
   SensSectionTitle,
   SensSelectDropdown,
-  SensTopNavigation,
   useSensMessage,
+} from "../../../ui";
+import {
+  SensTopNavigation,
   type SensTopNavigationItem,
 } from "../../../ui";
 import "./sdh-feature-segment-create.css";

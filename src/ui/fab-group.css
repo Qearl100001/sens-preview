@@ -88,10 +88,10 @@
 .sens-fab-group-section-title {
   display: block;
   margin-bottom: var(--sens-fab-group-space-2x, 8px);
-  font-size: 12px;
-  line-height: 18px;
+  font-size: var(--sens-fab-preview-font-size);
+  line-height: var(--sens-fab-preview-line-height);
   color: var(--sens-fab-preview-text-secondary);
-  font-weight: 500;
+  font-weight: var(--sens-fab-preview-title-weight);
 }
 
 .sens-fab-group-preview-row + .sens-fab-group-preview-row {
@@ -101,10 +101,10 @@
 .sens-fab-group-preview-row-title {
   display: block;
   margin-bottom: var(--sens-fab-group-space-2x, 8px);
-  font-size: 12px;
-  line-height: 18px;
+  font-size: var(--sens-fab-preview-font-size);
+  line-height: var(--sens-fab-preview-line-height);
   color: var(--sens-fab-preview-text-secondary);
-  font-weight: 500;
+  font-weight: var(--sens-fab-preview-title-weight);
 }
 
 .sens-fab-group-preview-cells {
@@ -117,8 +117,8 @@
 .sens-fab-group-preview-cell-label {
   display: block;
   margin-bottom: 4px;
-  font-size: 12px;
-  line-height: 18px;
+  font-size: var(--sens-fab-preview-font-size);
+  line-height: var(--sens-fab-preview-line-height);
   color: var(--sens-fab-preview-text-tertiary);
 }
 

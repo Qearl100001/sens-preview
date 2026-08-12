@@ -2,6 +2,7 @@ import type { CSSProperties, ReactNode } from "react";
 import type { ButtonProps } from "antd";
 import { buildShadowD3, buildShadowD4, SHADOW_NONE } from "../design-system/color-utils";
 import tokens from "../design-system/tokens.resolved.json";
+import { getTypographyToken } from "../design-system/typography";
 import { functionalCssVar } from "../design-system/functional-skin";
 
 const c = tokens.color as Record<string, string>;
@@ -216,6 +217,9 @@ export function getFabCssVars(): CSSProperties {
     "--sens-fab-preview-border": c["divideline-color-transparent-light"],
     "--sens-fab-preview-text-secondary": c["text-color-transparent"],
     "--sens-fab-preview-text-tertiary": c["text-color-transparent-disable"],
+    "--sens-fab-preview-font-size": `${getTypographyToken("font-size/s")}px`,
+    "--sens-fab-preview-line-height": `${getTypographyToken("line-height/s")}px`,
+    "--sens-fab-preview-title-weight": String(getTypographyToken("font-weight/medium")),
   } as CSSProperties;
 }
 

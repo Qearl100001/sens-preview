@@ -1,15 +1,14 @@
 import type { CSSProperties } from "react";
-import { buildShadowD3, getColorToken, tokenRgba } from "../design-system/color-utils";
+import { buildShadowD3, getColorToken } from "../design-system/color-utils";
 import { getDividerColor } from "../design-system/divider";
 import tokens from "../design-system/tokens.resolved.json";
+import { getTypographyToken } from "../design-system/typography";
 import { useSensIconTokens } from "./useSensIconTokens";
 import { functionalCssVar } from "../design-system/functional-skin";
 
 const u = tokens.unit as Record<string, number>;
 /** 输入框字段边框：与 Input / Select 触发框同源（Divider deep transparent） */
 const INPUT_FIELD_BORDER = getDividerColor("deep", "transparent");
-/** 大：14px 字 + 行高 22（与 SensInput / Figma 813:276 一致） */
-const SEARCH_LINE_HEIGHT = 22;
 
 export function useSearchTokens() {
   const icons = useSensIconTokens();
@@ -47,7 +46,11 @@ export function useSearchTokens() {
       "--sens-search-divider-color": INPUT_FIELD_BORDER,
       "--sens-search-radius": `${u["radius/m"]}px`,
       "--sens-search-control-height": `${u["size/component-height/m"]}px`,
-      "--sens-search-line-height": `${SEARCH_LINE_HEIGHT}px`,
+      "--sens-search-font-size": `${getTypographyToken("font-size/m")}px`,
+      "--sens-search-line-height": `${getTypographyToken("line-height/m")}px`,
+      "--sens-search-preview-font-size": `${getTypographyToken("font-size/s")}px`,
+      "--sens-search-preview-line-height": `${getTypographyToken("line-height/s")}px`,
+      "--sens-search-preview-title-weight": String(getTypographyToken("font-weight/medium")),
       "--sens-search-link-color": getColorToken("link-color"),
       "--sens-search-link-active-color": getColorToken("link-active-color"),
       /** 创建链接按钮默认：中性色/文字/01_主要 */

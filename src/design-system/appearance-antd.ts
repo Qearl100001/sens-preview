@@ -1,11 +1,11 @@
 import type { ThemeConfig } from "antd";
 import { getFunctionalColors, type FunctionalSkin } from "./functional-skin";
 import { buildAntdTheme } from "./theme";
-import { SENS_FONT_FAMILY } from "./typography";
 
 /**
  * 用当前 Functional Skin 的 SensD 色覆盖 antd 承接层主色。
  * 设计来源仍是 SensD；antd 只被灌入，不当色板。
+ * 字体由 buildAntdTheme 统一灌入 SENS_FONT_FAMILY，此处不再重复写。
  * Sens* 组件优先用 functionalCssVar(--sens-skin-*)；本函数覆盖仍走 antd 主色的承接层。
  */
 export function buildAntdThemeForSkin(
@@ -18,7 +18,6 @@ export function buildAntdThemeForSkin(
     ...base,
     token: {
       ...base.token,
-      fontFamily: SENS_FONT_FAMILY,
       colorPrimary: functional.primary,
       colorPrimaryHover: functional.hover,
       colorPrimaryActive: functional.active,

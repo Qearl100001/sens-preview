@@ -33,8 +33,8 @@
 .sens-dropdown-menu .sens-dropdown-menu-item-label {
   flex: 1 1 auto;
   min-width: 0;
-  font-size: 14px;
-  line-height: 22px;
+  font-size: var(--sens-dropdown-menu-item-font-size);
+  line-height: var(--sens-dropdown-menu-item-line-height);
   cursor: inherit;
 }
 
@@ -113,14 +113,14 @@
   gap: var(--sens-dropdown-menu-item-loading-gap, 8px);
   flex: 1 1 auto;
   min-width: 0;
-  font-size: 14px;
-  line-height: 22px;
+  font-size: var(--sens-dropdown-menu-item-font-size);
+  line-height: var(--sens-dropdown-menu-item-line-height);
   color: inherit;
 }
 
 .sens-dropdown-menu .sens-dropdown-menu-item--loading .sens-dropdown-menu-item-loading-icon {
   flex: none;
-  font-size: 14px;
+  font-size: var(--sens-dropdown-menu-item-font-size);
   color: inherit;
 }
 

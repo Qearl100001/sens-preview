@@ -69,6 +69,8 @@ function statusDotVars(color: string): CSSProperties {
     "--sens-badge-dot-size": `${getUnitToken("size/mini")}px`,
     "--sens-badge-dot-color": color,
     "--sens-badge-status-text": c["text-color"],
+    "--sens-badge-status-font-size": `${getTypographyToken("font-size/m")}px`,
+    "--sens-badge-status-line-height": `${getTypographyToken("line-height/m")}px`,
   } as CSSProperties;
 }
 
@@ -106,6 +108,9 @@ function useBadgePreviewPanelVars(componentPrimary: string): CSSProperties {
     "--sens-badge-section-title-radius": `${getUnitToken("radius/l")}px`,
     /** 样张区块原 8px 为游离值；收敛到 radius/l（与 Card / 表格外缘同档） */
     "--sens-badge-section-body-radius": `${getUnitToken("radius/l")}px`,
+    "--sens-badge-section-font-size": `${getTypographyToken("font-size/m")}px`,
+    "--sens-badge-section-line-height": `${getTypographyToken("line-height/m")}px`,
+    "--sens-badge-section-font-weight": String(getTypographyToken("font-weight/semibold")),
     "--sens-badge-text-default": c["text-color"],
     "--sens-badge-text-active": componentPrimary,
     "--sens-badge-title-border": c["warning-color"],

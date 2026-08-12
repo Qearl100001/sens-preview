@@ -1,13 +1,10 @@
-import { Button } from "antd";
 import { useTranslation } from "react-i18next";
-import { getColorToken } from "../design-system/color-utils";
-import { EMPTY_STATE_ILLUSTRATIONS } from "./EmptyStateIllustrations";
-import "./select-dropdown.css";
+import { SensEmptyState } from "./SensEmptyState";
+import type { NonPageEmptyType } from "./EmptyStateIllustrations";
 
 const I18N_NS = "组件库";
-const LINK_COLOR = getColorToken("link-color");
 
-export type SelectDropdownEmptyType = "noResult" | "loadFailed" | "noData";
+export type SelectDropdownEmptyType = Extract<NonPageEmptyType, "noResult" | "loadFailed" | "noData">;
 
 export interface SelectDropdownEmptyProps {
   type: SelectDropdownEmptyType;
@@ -17,7 +14,7 @@ export interface SelectDropdownEmptyProps {
 }
 
 /**
- * 浮层空态薄封装。未来内部可替换为 <SensEmptyState scope="non-page" size="special" />，
+ * 浮层空态薄封装。内部消费 `<SensEmptyState scope="non-page" size="special" />`，
  * 对外 type / onAction 保持不变。
  */
 export function SelectDropdownEmpty({ type, onAction, className }: SelectDropdownEmptyProps) {
@@ -25,66 +22,46 @@ export function SelectDropdownEmpty({ type, onAction, className }: SelectDropdow
   const label = (key: string, defaultValue: string) =>
     t(`${I18N_NS}.${key}`, { defaultValue });
 
-  const titleKey: Record<SelectDropdownEmptyType, string> = {
-    noResult: "sensd-selectPanel-noResult",
-    loadFailed: "sensd-selectPanel-loadFailed",
-    noData: "sensd-selectPanel-noData",
-  };
+  const title = label(
+    type === "noResult"
+      ? "sensd-selectPanel-noResult"
+      : type === "loadFailed"
+        ? "sensd-selectPanel-loadFailed"
+        : "sensd-selectPanel-noData",
+    type === "noResult" ? "搜索无结果" : type === "loadFailed" ? "加载失败" : "暂无数据",
+  );
 
-  const titleDefault: Record<SelectDropdownEmptyType, string> = {
-    noResult: "搜索无结果",
-    loadFailed: "加载失败",
-    noData: "暂无数据",
-  };
-
-  const rootClass = ["sens-select-dropdown-empty", className].filter(Boolean).join(" ");
+  if (type === "noResult") {
+    return (
+      <SensEmptyState
+        scope="non-page"
+        type="noResult"
+        size="special"
+        className={className}
+        title={title}
+        description={label("sensd-selectPanel-noResultDesc", "未找到结果，请重新输入")}
+      />
+    );
+  }
 
   return (
-    <div className={rootClass}>
-      <img
-        className="sens-select-dropdown-empty-illustration"
-        src={EMPTY_STATE_ILLUSTRATIONS[type]}
-        alt=""
-        width={50}
-        height={50}
-        draggable={false}
-      />
-      <div className="sens-select-dropdown-empty-text">
-        <p className="sens-select-dropdown-empty-title">{label(titleKey[type], titleDefault[type])}</p>
-        {type === "noResult" ? (
-          <p className="sens-select-dropdown-empty-desc">
-            {label("sensd-selectPanel-noResultDesc", "未找到结果，请重新输入")}
-          </p>
-        ) : null}
-        {type === "loadFailed" ? (
-          <p className="sens-select-dropdown-empty-desc sens-select-dropdown-empty-desc--action">
-            <span>{label("sensd-selectPanel-loadFailedDesc", "数据加载失败，请")}</span>
-            <Button
-              type="link"
-              size="small"
-              className="sens-select-dropdown-empty-action"
-              style={{ color: LINK_COLOR, padding: 0, height: "auto" }}
-              onClick={onAction}
-            >
-              {label("sensd-selectPanel-refresh", "刷新")}
-            </Button>
-          </p>
-        ) : null}
-        {type === "noData" ? (
-          <p className="sens-select-dropdown-empty-desc sens-select-dropdown-empty-desc--action">
-            <span>{label("sensd-selectPanel-noDataDesc", "暂无数据，请")}</span>
-            <Button
-              type="link"
-              size="small"
-              className="sens-select-dropdown-empty-action"
-              style={{ color: LINK_COLOR, padding: 0, height: "auto" }}
-              onClick={onAction}
-            >
-              {label("sensd-selectPanel-add", "添加")}
-            </Button>
-          </p>
-        ) : null}
-      </div>
-    </div>
+    <SensEmptyState
+      scope="non-page"
+      type={type}
+      size="special"
+      className={className}
+      title={title}
+      descriptionPrefix={
+        type === "loadFailed"
+          ? label("sensd-selectPanel-loadFailedDesc", "数据加载失败，请")
+          : label("sensd-selectPanel-noDataDesc", "暂无数据，请")
+      }
+      actionLabel={
+        type === "loadFailed"
+          ? label("sensd-selectPanel-refresh", "刷新")
+          : label("sensd-selectPanel-add", "添加")
+      }
+      onAction={onAction}
+    />
   );
 }

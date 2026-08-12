@@ -6,10 +6,10 @@
 .sens-btn-matrix-title {
   display: block;
   margin-bottom: var(--sens-btn-space-2x);
-  font-size: 12px;
-  line-height: 18px;
+  font-size: var(--sens-btn-preview-font-size);
+  line-height: var(--sens-btn-preview-line-height);
   color: var(--sens-btn-preview-text-secondary);
-  font-weight: 500;
+  font-weight: var(--sens-btn-preview-title-weight);
 }
 
 .sens-btn-matrix-states {
@@ -27,8 +27,8 @@
 .sens-btn-matrix-label {
   display: block;
   margin-bottom: var(--sens-btn-space-2x);
-  font-size: 12px;
-  line-height: 18px;
+  font-size: var(--sens-btn-preview-font-size);
+  line-height: var(--sens-btn-preview-line-height);
   color: var(--sens-btn-preview-text-secondary);
 }
 

@@ -25,6 +25,7 @@ export const BASIC_STYLE_NAV = [
   { key: "/basic-styles/grid", label: "栅格" },
   { key: "/basic-styles/size", label: "尺寸" },
   { key: "/basic-styles/icon", label: "图标" },
+  { key: "/basic-styles/empty-state", label: "异常状态" },
   { key: "/basic-styles/cursor", label: "鼠标" },
   { key: "/basic-styles/radius", label: "圆角" },
   { key: "/basic-styles/shadow", label: "投影" },
@@ -160,6 +161,7 @@ function getSectionMenuItems(section: ProductSection) {
   if (section === "composite") {
     return [
       { key: "/composite", label: "复合组件概览" },
+      { key: "/composite/product-shell", label: "产品壳" },
       { key: "/composite/form", label: "复合表单" },
       { key: "/composite/table", label: "复合表格" },
     ];
@@ -178,6 +180,7 @@ function getSectionMenuItems(section: ProductSection) {
         ],
       },
       { key: "/templates/card/entry-settings", label: "入口卡片" },
+      { key: "/templates/product-shell", label: "产品壳" },
     ];
   }
 
@@ -206,11 +209,15 @@ function getSelectedMenuKey(section: ProductSection, pathname: string) {
   }
 
   if (section === "composite") {
-    return ["/composite", "/composite/form", "/composite/table"].includes(pathname) ? pathname : SECTION_META.composite.href;
+    return ["/composite", "/composite/product-shell", "/composite/form", "/composite/table"].includes(pathname)
+      ? pathname
+      : SECTION_META.composite.href;
   }
 
   if (section === "templates") {
-    return pathname.startsWith("/templates/sdh-editable-table/") || pathname === "/templates/card/entry-settings"
+    return pathname.startsWith("/templates/sdh-editable-table/") ||
+      pathname === "/templates/card/entry-settings" ||
+      pathname === "/templates/product-shell"
       ? pathname
       : pathname === "/templates"
         ? pathname
@@ -245,6 +252,8 @@ export function PreviewShell({ headerExtra }: PreviewShellProps) {
 
   const isComponentPage = location.pathname.startsWith("/components/");
   const isBasicStylePage = location.pathname.startsWith("/basic-styles/");
+  /** 固定高度产品壳样板间：预览 Content 不滚，只由壳内内容区滚动。 */
+  const isFixedHeightTemplate = location.pathname === "/templates/product-shell";
   const section = getProductSection(location.pathname);
   const sectionMeta = SECTION_META[section];
   const sectionMenuItems = getSectionMenuItems(section);
@@ -370,7 +379,7 @@ export function PreviewShell({ headerExtra }: PreviewShellProps) {
           style={{
             flex: 1,
             minHeight: 0,
-            overflow: isComponentPage || isBasicStylePage ? "hidden" : "auto",
+            overflow: isComponentPage || isBasicStylePage || isFixedHeightTemplate ? "hidden" : "auto",
             padding: 0,
           }}
         >

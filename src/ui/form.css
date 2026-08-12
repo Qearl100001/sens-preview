@@ -213,7 +213,7 @@
 
 .sens-form-rule-card-title {
   color: var(--sens-form-text);
-  font-weight: 500;
+  font-weight: var(--sens-form-label-font-weight);
 }
 
 .sens-form-rule-card-text {
@@ -236,7 +236,7 @@
 
 .sens-form-spacing-value {
   color: var(--sens-form-text);
-  font-weight: 500;
+  font-weight: var(--sens-form-label-font-weight);
 }
 
 .sens-form-spacing-rule {

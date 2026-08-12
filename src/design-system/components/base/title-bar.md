@@ -39,6 +39,8 @@
 - 有面包屑（72px / 94px）时走固定布局：面包屑距顶 `breadcrumbVerticalInset`（11px，由栏高减去内容区后平分推导）；面包屑到标题 `spacing/0․5x`（2px）；返回图标与一级标题同在 `line-height/xxl`（30px）标题行内垂直居中（icon 顶边距顶 35px）；面包屑、一级标题、辅助文案从返回热区后同一条竖线起始；有辅助文案时标题到辅助文案 `spacing/1x`（4px）；右侧操作距标题栏顶 `spacing/5x`（20px），不与标题行 flex 居中绑定；底部留白同 `breadcrumbVerticalInset`。
 - 右侧操作推荐使用 `SensButton`，按钮自身状态由按钮组件负责。
 - 顶部导航不属于 `SensPageTitleBar`，不要塞进同一个组件。
+- 在 Product Shell 页面里，标题栏属于右侧内容面板的页头层；它不决定顶部导航或侧边导航选中态，组合关系见 `../composite/product-shell.md`。
+- 当标题栏作为产品壳内容面板上沿并叠放在顶导氛围层之上时，内容面板 / 标题栏上方圆角使用 `radius/xl = 10px`；该圆角属于产品壳面板场景，不新增标题栏局部圆角值，也不加到顶部导航本体。
 
 ## 当前边界
 

@@ -296,7 +296,7 @@
 .sdh-template-page__navigation-layer {
   position: absolute;
   inset: 0 0 auto;
-  z-index: 0;
+  /* 氛围底板在内容面板下；顶导交互层由 SensTopNavigation 自身抬升。 */
   height: var(--sdh-template-top-atmosphere-height);
 }
 

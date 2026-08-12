@@ -105,6 +105,6 @@ Typography 预览页已补：`/basic-styles/typography` 当前用于展示字体
 
 - Typography 预览页是字号、行高、字重的验收基准。
 - 既有组件和页面中的硬编码字号、行高、字重按组件逐步迁移；v0.9 不要求全仓清零。
-- `font-family` 作为全局规则维护，当前不新增字体族 token。
+- `font-family` 作为全局规则维护，当前不新增字体族 token；唯一常量 `SENS_FONT_FAMILY`，经 `applySensFontFamilyToDocument`（`html/body/#root`）与 `buildAntdTheme`（antd 承接层）统一灌入，不依赖 antd seed 默认字体。
 - 不新增语义 Typography helper；当前以原子 token 与本篇组合表作为唯一口径。
 - 后续校验二级标题、超大标题在真实页面中的使用边界，避免企业应用页面局部字号过大。

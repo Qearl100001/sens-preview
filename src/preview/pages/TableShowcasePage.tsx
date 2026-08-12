@@ -4,13 +4,30 @@ import { Segmented, Space } from "antd";
 import tableDesignDoc from "../../design-system/components/base/table.design.md?raw";
 import tableDevDoc from "../../design-system/components/base/table.md?raw";
 import { getColorToken } from "../../design-system/color-utils";
-import { SensIcon } from "../../design-system/icons";
 import { getTypographyToken } from "../../design-system/typography";
 import { getUnitToken } from "../../design-system/unit";
-import { LinkButton, SensButton, StatusBadge, TableActions, TableEllipsis, TableShell, type RunStatus } from "../../ui";
+import {
+  LinkButton,
+  SensButton,
+  StatusBadge,
+  TableActions,
+  TableEllipsis,
+  TableInfoColumnSettingButton,
+  TableInfoRefreshableSummary,
+  TableShell,
+  type RunStatus,
+} from "../../ui";
 import { ComponentShowcaseLayout } from "../ComponentShowcaseLayout";
 
-type TableDemoState = "normal" | "filtered" | "selected" | "noData" | "noResult" | "loadFailed" | "loading";
+type TableDemoState =
+  | "normal"
+  | "updated"
+  | "filtered"
+  | "selected"
+  | "noData"
+  | "noResult"
+  | "loadFailed"
+  | "loading";
 
 interface DataRecord {
   key: string;
@@ -60,6 +77,8 @@ const TABLE_ROWS: DataRecord[] = [
   },
 ];
 
+const DEMO_UPDATED_AT = "2022-10-31 20:33:22";
+
 const previewSubtextStyle = {
   color: getColorToken("text-sub-color"),
   fontSize: `${getTypographyToken("font-size/s")}px`,
@@ -69,26 +88,13 @@ const previewSubtextStyle = {
 const previewTitleStyle = {
   color: getColorToken("text-color"),
   fontSize: `${getTypographyToken("font-size/m")}px`,
-  fontWeight: 600,
+  fontWeight: getTypographyToken("font-weight/semibold"),
   lineHeight: `${getTypographyToken("line-height/m")}px`,
 };
 
 const previewSectionGap = getUnitToken("spacing/4x");
 const previewControlGap = getUnitToken("spacing/2x");
 const previewItemGap = getUnitToken("spacing/1x");
-
-function TableInfoExtra() {
-  return (
-    <Space size={previewControlGap}>
-      <SensButton size="small" tone="tertiary" icon={<SensIcon name="reload" sizeToken="size/icon/m" color="currentColor" />}>
-        刷新
-      </SensButton>
-      <SensButton size="small" tone="tertiary" icon={<SensIcon name="setting" sizeToken="size/icon/m" color="currentColor" />}>
-        设置
-      </SensButton>
-    </Space>
-  );
-}
 
 function useTableColumns(): TableColumnsType<DataRecord> {
   return useMemo(
@@ -164,14 +170,16 @@ function useTableColumns(): TableColumnsType<DataRecord> {
 }
 
 function TableDemo() {
-  const [state, setState] = useState<TableDemoState>("normal");
+  const [state, setState] = useState<TableDemoState>("updated");
   const columns = useTableColumns();
   const isSelected = state === "selected";
+  const isUpdated = state === "updated";
   const isNoData = state === "noData";
   const isNoResult = state === "noResult";
   const isLoadFailed = state === "loadFailed";
   const isLoading = state === "loading";
   const isEmpty = isNoData || isNoResult || isLoadFailed;
+  const showSetting = !isEmpty;
 
   return (
     <Space direction="vertical" size={previewSectionGap} style={{ width: "100%" }}>
@@ -183,6 +191,7 @@ function TableDemo() {
             onChange={(v) => setState(v as TableDemoState)}
             options={[
               { label: "常规", value: "normal" },
+              { label: "数据更新", value: "updated" },
               { label: "筛选计数", value: "filtered" },
               { label: "批量操作", value: "selected" },
               { label: "无数据", value: "noData" },
@@ -198,7 +207,12 @@ function TableDemo() {
         total={isEmpty ? 0 : 1000}
         foundTotal={state === "filtered" || isSelected ? 1000 : undefined}
         selectedCount={isSelected ? 9 : 0}
-        infoExtra={<TableInfoExtra />}
+        infoContent={
+          isUpdated ? (
+            <TableInfoRefreshableSummary total={1000} updatedAt={DEMO_UPDATED_AT} />
+          ) : undefined
+        }
+        infoExtra={showSetting ? <TableInfoColumnSettingButton /> : undefined}
         infoActions={
           isSelected
             ? [
@@ -226,7 +240,9 @@ function TableDemo() {
         pagination={false}
       />
 
-      <span style={previewSubtextStyle}>分页器已作为独立基础组件收录；筛选表格后续会组合 TableShell、筛选区与 Pagination。</span>
+      <span style={previewSubtextStyle}>
+        信息区：刷新跟「数据更新于」文案（linkWeak）；列设置仅齿轮 icon-only。分页器为独立基础组件；筛选区归属复合表格。
+      </span>
     </Space>
   );
 }
@@ -241,6 +257,21 @@ function TableAuditBoard() {
         <div style={{ marginTop: getUnitToken("spacing/2x") }}>
           <TableShell<DataRecord>
             total={1000}
+            infoExtra={<TableInfoColumnSettingButton />}
+            rowKey="key"
+            columns={columns}
+            dataSource={TABLE_ROWS}
+            scroll={{ x: 1280 }}
+          />
+        </div>
+      </div>
+      <div>
+        <span style={previewTitleStyle}>数据更新可刷新：文案后 reload + 右侧 setting</span>
+        <div style={{ marginTop: getUnitToken("spacing/2x") }}>
+          <TableShell<DataRecord>
+            total={1000}
+            infoContent={<TableInfoRefreshableSummary total={1000} updatedAt={DEMO_UPDATED_AT} />}
+            infoExtra={<TableInfoColumnSettingButton />}
             rowKey="key"
             columns={columns}
             dataSource={TABLE_ROWS}
@@ -255,7 +286,7 @@ function TableAuditBoard() {
             total={1000}
             foundTotal={1000}
             selectedCount={9}
-            infoExtra={<TableInfoExtra />}
+            infoExtra={<TableInfoColumnSettingButton />}
             infoActions={[
               { key: "hide", label: "隐藏" },
               { key: "show", label: "显示" },

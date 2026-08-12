@@ -31,6 +31,8 @@
 ```tsx
 <TableShell
   total={1000}
+  infoContent={<TableInfoRefreshableSummary total={1000} updatedAt="2022-10-31 20:33:22" />}
+  infoExtra={<TableInfoColumnSettingButton />}
   rowKey="key"
   columns={columns}
   dataSource={rows}
@@ -51,7 +53,7 @@
     { key: "delete", label: "删除" },
     { key: "cancel", label: "取消选择", tone: "tertiary" },
   ]}
-  infoExtra={<ColumnSettingButton />}
+  infoExtra={<TableInfoColumnSettingButton />}
   rowSelection={{ selectedRowKeys }}
   columns={columns}
   dataSource={rows}
@@ -72,7 +74,7 @@
 
 信息区固定高度 40px，左右 padding 16px，底部分割线走 `divider/color/light/solid`。
 批量操作不使用链接。常规动作默认 `secondary`，弱操作如「取消选择」使用 `tone: "tertiary"`。
-刷新 icon 使用 SensD icon registry 的 `reload`；设置 icon 使用 `setting`。真实刷新请求与列设置面板不在基础表格里实现，进入后续「筛选表格」复合组件。
+刷新 icon 使用 SensD icon registry 的 `reload`；设置 icon 使用 `setting`。样张复用 `TableInfoRefreshableSummary`（文案后刷新）与 `TableInfoColumnSettingButton`（右侧 icon-only）。真实刷新请求与列设置面板不在基础表格里实现，进入后续「筛选表格」复合组件。
 
 ### 信息区场景
 
@@ -118,7 +120,9 @@
 | `noResult` | 筛选无结果 |
 | `loadFailed` | 加载失败 |
 
-空态插图来自 `src/assets/empty-state/non-page/`，通过 `EMPTY_STATE_ILLUSTRATIONS` 映射。
+空态消费 `<SensEmptyState scope="non-page" size="base" />`；`emptyState` 映射 `noData` / `noResult` / `loadFailed`。表格壳保留区域 `padding` / `min-height`，插画与字阶由 Empty State Foundation 承接。
+
+自定义 `emptyDescription` 时作为标题单行展示（兼容旧 API）；`emptyAction` 进入 `actions` 槽。
 
 ## Token 映射
 | 视觉语义 | SensD token / handle | antd alias / 组件消费 | 状态 |
@@ -143,7 +147,7 @@
 | 单元格行高 | `size/component-height/xxxl` | `--sens-table-row-height` | Ready |
 | 信息区字号 / 行高 | `font-size/s` / `line-height/s` | `--sens-table-info-font-size` / `--sens-table-info-line-height` | Ready |
 | 操作字号 / 行高 | `font-size/m` / `line-height/m` | `--sens-table-link-font-size` / `--sens-table-link-line-height` | Ready |
-| 空态区域尺寸 | `size/component-height/xxxl` + `spacing/2x` 推导 | `--sens-table-empty-*` | Ready，推导值 |
+| 空态区域 | `SensEmptyState` non-page base + 壳 `padding` / `min-height` | `.sens-table-empty` | Ready |
 | 信息区刷新 icon | Figma `803:278` | `SensIcon name="reload"` | Ready |
 | 信息区右侧 setting icon | Figma `1650:7139` | `SensIcon name="setting"` | Ready |
 | 加载 GIF | Figma 资产 | 表格 loading | Missing，暂不录入 |
@@ -163,3 +167,5 @@ src/preview/pages/TableShowcasePage.tsx
 src/design-system/components/base/table.md
 src/design-system/components/base/table.design.md
 ```
+
+信息区入口组件：`TableInfoRefreshableSummary`、`TableInfoColumnSettingButton`（与复合筛选表格样张共用）。

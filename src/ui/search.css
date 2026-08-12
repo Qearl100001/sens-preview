@@ -124,7 +124,7 @@
   border: none;
   background: none;
   color: var(--sens-search-create-color);
-  font-size: 14px;
+  font-size: var(--sens-search-font-size);
   line-height: var(--sens-search-line-height, 22px);
   white-space: nowrap;
   cursor: var(--sens-cursor-pointer);

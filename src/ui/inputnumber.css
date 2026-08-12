@@ -150,14 +150,14 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  font-size: 14px;
-  line-height: 22px;
+  font-size: var(--sens-input-font-size);
+  line-height: var(--sens-input-line-height);
   color: var(--sens-input-readonly-text);
 }
 
 .sens-inputnumber-readonly-plain-text-sm {
-  font-size: 12px;
-  line-height: 18px;
+  font-size: var(--sens-input-font-size-sm);
+  line-height: var(--sens-input-line-height-sm);
 }
 
 /* 框内警告：Figma 17471:64477 默认距右 spacing/3x；17471:64485 hover 步进器 + spacing/1x 间距 */

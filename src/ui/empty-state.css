@@ -1,0 +1,65 @@
+.sens-empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  gap: var(--sens-empty-stack-gap);
+  padding: var(--sens-empty-padding);
+  text-align: center;
+}
+
+.sens-empty-state-illustration {
+  display: block;
+  flex-shrink: 0;
+  object-fit: contain;
+  user-select: none;
+}
+
+.sens-empty-state-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sens-empty-text-gap);
+  min-width: 0;
+  max-width: 100%;
+}
+
+.sens-empty-state-title {
+  margin: 0;
+  color: var(--sens-empty-title-color);
+  font-size: var(--sens-empty-title-size);
+  font-weight: var(--sens-empty-title-weight);
+  line-height: var(--sens-empty-title-line);
+  word-break: break-word;
+}
+
+.sens-empty-state-desc {
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sens-empty-inline-gap);
+  color: var(--sens-empty-desc-color);
+  font-size: var(--sens-empty-desc-size);
+  font-weight: var(--sens-empty-desc-weight);
+  line-height: var(--sens-empty-desc-line);
+  word-break: break-word;
+}
+
+.sens-empty-state-action.ant-btn {
+  height: auto;
+  padding: 0;
+  color: var(--sens-empty-link-color);
+  font-size: inherit;
+  line-height: inherit;
+}
+
+.sens-empty-state-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sens-empty-inline-gap);
+}

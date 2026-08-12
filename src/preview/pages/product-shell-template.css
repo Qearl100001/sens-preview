@@ -1,0 +1,264 @@
+.product-shell-template {
+  /* 产品壳固定规格：结构高 82px；氛围延展 180px，不占正文流。 */
+  --shell-nav-structural-height: 82px;
+  --shell-nav-atmosphere-height: 180px;
+  --shell-nav-flow-height: var(--shell-nav-structural-height);
+
+  position: relative;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0;
+  min-width: 1280px;
+  /* 不在壳根裁切：顶导浮层需可溢出到侧导/内容之上（layout §2.2 / product-shell §2）。 */
+  overflow: visible;
+  padding-top: var(--shell-nav-flow-height);
+  background: var(--shell-page-background);
+  color: var(--shell-text);
+  transition: padding-top 0.2s ease;
+}
+
+.product-shell-template--collapsed {
+  --shell-nav-flow-height: 0px;
+}
+
+.product-shell-template__navigation-layer {
+  position: absolute;
+  inset: 0 0 auto;
+  height: var(--shell-nav-atmosphere-height);
+  /* 不设 z-index / 默认不用 transform：氛围垫在侧导与内容下；顶导浮层 z-index 可冒泡压住内容（同入口卡片样板间）。 */
+  transition: transform 0.2s ease;
+}
+
+.product-shell-template--collapsed .product-shell-template__navigation-layer {
+  transform: translateY(calc(-1 * var(--shell-nav-structural-height)));
+  pointer-events: none;
+}
+
+.product-shell-template__workspace {
+  /* 层级 1+：侧导与内容叠在氛围层之上 */
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: var(--shell-side-width, 220px) minmax(0, 1fr);
+  flex: 1;
+  min-height: 0;
+  background: transparent;
+}
+
+.product-shell-template__content {
+  /* 层级 2：右侧内容面板在 Normal/Docked 侧导之上（左向 D2） */
+  grid-column: 2;
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+  background: var(--shell-surface);
+  border-top-right-radius: var(--shell-content-radius);
+  box-shadow: var(--shell-content-shadow);
+}
+
+.product-shell-template__title-bar {
+  flex-shrink: 0;
+  z-index: 1;
+  background: var(--shell-surface);
+  box-shadow: none;
+  transition: box-shadow 0.15s ease;
+}
+
+.product-shell-template__title-bar--elevated {
+  box-shadow: var(--shell-title-bar-shadow);
+}
+
+.product-shell-template__scroll {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+}
+
+.product-shell-template__toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--shell-section-gap);
+  /* Layout T 型：标题栏与首个工具区间距 0px */
+  padding: 0 var(--shell-content-padding) 0;
+}
+
+.product-shell-template__card-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--shell-card-gap);
+  padding: var(--shell-section-gap) var(--shell-content-padding) var(--shell-page-padding);
+}
+
+/* Figma 3709:3196 · 列表资源位卡片（样板间专属结构，复用 Sens 按钮/标签/徽标） */
+.product-shell-placement-card {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: var(--shell-card-inner-gap);
+  width: 100%;
+  padding: var(--shell-card-padding);
+  border: var(--shell-divider-width) solid var(--shell-card-border);
+  border-radius: var(--shell-card-radius);
+  background: var(--shell-surface);
+}
+
+.product-shell-placement-card__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--shell-card-inner-gap);
+  min-width: 0;
+}
+
+.product-shell-placement-card__title-group {
+  display: flex;
+  align-items: center;
+  gap: var(--shell-card-inner-gap);
+  min-width: 0;
+}
+
+.product-shell-placement-card__title {
+  margin: 0;
+  color: var(--shell-text);
+  font-size: var(--shell-card-title-size);
+  font-weight: var(--shell-card-title-weight);
+  line-height: var(--shell-card-title-line);
+  white-space: nowrap;
+}
+
+.product-shell-placement-card__tags {
+  display: flex;
+  align-items: center;
+  gap: var(--shell-tag-gap);
+  min-width: 0;
+}
+
+.product-shell-placement-card__tag-link {
+  color: var(--shell-link);
+}
+
+.product-shell-placement-card__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--shell-action-gap);
+  flex-shrink: 0;
+}
+
+.product-shell-placement-card__body {
+  display: flex;
+  align-items: center;
+  gap: var(--shell-card-inner-gap);
+  width: 100%;
+  box-sizing: border-box;
+  padding: var(--shell-card-padding);
+  border-radius: var(--shell-card-body-radius);
+  background: var(--shell-muted-surface);
+}
+
+.product-shell-placement-card__fields {
+  display: flex;
+  flex: 1;
+  gap: var(--shell-card-inner-gap);
+  min-width: 0;
+}
+
+.product-shell-placement-card__field {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--shell-field-gap);
+  min-width: 0;
+}
+
+.product-shell-placement-card__label,
+.product-shell-placement-card__value,
+.product-shell-placement-card__metric {
+  margin: 0;
+  font-size: var(--shell-card-body-size);
+  font-weight: var(--shell-card-body-weight);
+  line-height: var(--shell-card-body-line);
+}
+
+.product-shell-placement-card__label {
+  color: var(--shell-sub-text);
+}
+
+.product-shell-placement-card__value {
+  color: var(--shell-article-text);
+}
+
+.product-shell-placement-card__value--emphasis {
+  color: var(--shell-text);
+}
+
+.product-shell-placement-card__label-row {
+  display: flex;
+  align-items: center;
+  gap: var(--shell-field-gap);
+  min-width: 0;
+}
+
+.product-shell-placement-card__help {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  height: var(--shell-card-body-line);
+  color: var(--shell-icon);
+  line-height: 0;
+}
+
+.product-shell-placement-card__value-row {
+  display: flex;
+  align-items: center;
+  gap: var(--shell-field-gap);
+  min-width: 0;
+}
+
+.product-shell-placement-card__metrics {
+  display: flex;
+  flex-direction: column;
+  gap: var(--shell-field-gap);
+  flex-shrink: 0;
+  width: var(--shell-metrics-width);
+  max-width: 100%;
+}
+
+.product-shell-placement-card__metric-row {
+  display: flex;
+  align-items: center;
+  gap: var(--shell-field-gap);
+  min-width: 0;
+}
+
+.product-shell-placement-card__metric {
+  color: var(--shell-article-text);
+  white-space: nowrap;
+}
+
+.product-shell-placement-card__sep {
+  width: 1px;
+  height: 12px;
+  flex-shrink: 0;
+  background: var(--shell-sep);
+}
+
+.product-shell-template__pagination {
+  display: flex;
+  justify-content: flex-end;
+  padding: 0 var(--shell-content-padding) var(--shell-page-padding);
+}
+
+.product-shell-template__back-top {
+  position: absolute;
+  right: var(--shell-back-top-inset);
+  bottom: var(--shell-back-top-inset);
+  z-index: 2;
+}

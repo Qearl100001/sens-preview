@@ -21,10 +21,10 @@
 .sens-select-trigger-matrix-title {
   display: block;
   margin-bottom: var(--sens-select-matrix-space-2x, 8px);
-  font-size: 12px;
-  line-height: 18px;
+  font-size: var(--sens-select-matrix-font-size);
+  line-height: var(--sens-select-matrix-line-height);
   color: var(--ant-color-text-secondary);
-  font-weight: 500;
+  font-weight: var(--sens-select-matrix-title-weight);
 }
 
 .sens-select-trigger-matrix-states {
@@ -43,8 +43,8 @@
 .sens-select-trigger-matrix-label {
   display: block;
   margin-bottom: var(--sens-select-matrix-space-2x, 8px);
-  font-size: 12px;
-  line-height: 18px;
+  font-size: var(--sens-select-matrix-font-size);
+  line-height: var(--sens-select-matrix-line-height);
   color: var(--ant-color-text-secondary);
 }
 

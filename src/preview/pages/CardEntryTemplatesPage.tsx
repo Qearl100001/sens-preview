@@ -9,11 +9,21 @@ import {
   SensButton,
   SensEntryCard,
   ProductShellSideNavigation,
+  SensMessageProvider,
+  SensPageTitleBar,
   SensSectionTitle,
-  SensTopNavigation,
+  useSensMessage,
   type ProductShellSideNavigationMode,
+} from "../../ui";
+import {
+  SensTopNavigation,
   type SensTopNavigationItem,
 } from "../../ui";
+import {
+  PRODUCT_SHELL_SIDE_NAV_EXPANDED_WIDTH,
+  PRODUCT_SHELL_SIDE_NAV_ICON_COLLAPSED_WIDTH,
+  type ProductShellSideNavigationItem,
+} from "../../ui/ProductShellSideNavigation";
 import "./card-entry-templates.css";
 
 interface EntrySceneItem {
@@ -27,6 +37,9 @@ interface EntrySceneGroup {
   title: string;
   items: EntrySceneItem[];
 }
+
+/** 复制到剪贴板的版本信息文案（与 package.json version 对齐）。 */
+const VERSION_COPY_TEXT = "sens-preview@0.1.0";
 
 const PRODUCT_NAV_ITEMS: SensTopNavigationItem[] = [
   { label: "概览" },
@@ -42,7 +55,11 @@ const PRODUCT_NAV_ITEMS: SensTopNavigationItem[] = [
   { label: "项目设置", arrow: true },
 ];
 
-const SIDE_NAV_ITEMS = ["基本设置", "成员管理", "角色管理"];
+const SIDE_NAV_ITEMS: ProductShellSideNavigationItem[] = [
+  { key: "basic", label: "基本设置", icon: "sbp-setting" },
+  { key: "member", label: "成员管理", icon: "sbp-member" },
+  { key: "role", label: "角色管理", icon: "sbp-role" },
+];
 
 const ENTRY_SCENE_GROUPS: EntrySceneGroup[] = [
   {
@@ -87,7 +104,8 @@ const ENTRY_SCENE_GROUPS: EntrySceneGroup[] = [
         key: "touch-channel",
         icon: "webhook-setting",
         title: "企业内部触达通道配置",
-        description: "对应的文案信息对应的文案信息",
+        description:
+          "用于配置企业内部触达通道与回调地址，辅助说明过长时应单行省略，悬停后通过 SensTips 展示完整文案以便核对",
       },
       {
         key: "analysis-model",
@@ -158,42 +176,79 @@ function buildTemplateStyle(): CSSProperties {
     "--entry-template-card-gap": `${getUnitToken("spacing/horizontal/4x")}px`,
     "--entry-template-title-size": `${getTypographyToken("font-size/xxl")}px`,
     "--entry-template-title-line": `${getTypographyToken("line-height/xxl")}px`,
+    "--entry-template-title-weight": getTypographyToken("font-weight/semibold"),
     "--entry-template-heading-size": `${getTypographyToken("font-size/m")}px`,
     "--entry-template-heading-line": `${getTypographyToken("line-height/m")}px`,
     "--entry-template-stats-label-size": `${getTypographyToken("font-size/m")}px`,
     "--entry-template-stats-label-line": `${getTypographyToken("line-height/m")}px`,
     "--entry-template-stats-label-weight": getTypographyToken("font-weight/medium"),
     "--entry-template-stats-value-size": `${getTypographyToken("font-size/m")}px`,
-    "--entry-template-stats-value-line": "20px",
+    "--entry-template-stats-value-line": `${getTypographyToken("line-height/m")}px`,
     "--entry-template-stats-value-weight": getTypographyToken("font-weight/regular"),
   } as CSSProperties;
 }
 
-function SceneEntryCard({ item, selected, onSelect }: { item: EntrySceneItem; selected: boolean; onSelect: () => void }) {
+async function writeClipboardText(text: string): Promise<void> {
+  if (navigator.clipboard?.writeText) {
+    await navigator.clipboard.writeText(text);
+    return;
+  }
+
+  const textarea = document.createElement("textarea");
+  textarea.value = text;
+  textarea.setAttribute("readonly", "");
+  textarea.style.position = "fixed";
+  textarea.style.opacity = "0";
+  document.body.appendChild(textarea);
+  textarea.select();
+  const ok = document.execCommand("copy");
+  document.body.removeChild(textarea);
+  if (!ok) {
+    throw new Error("clipboard unavailable");
+  }
+}
+
+function SceneEntryCard({ item, onActivate }: { item: EntrySceneItem; onActivate: () => void }) {
   return (
     <SensEntryCard
       icon={<SensIcon name={item.icon} variant="colorful" size={getUnitToken("size/xxl")} />}
       title={item.title}
       description={item.description}
       size="small"
-      selected={selected}
-      onClick={onSelect}
-      aria-current={selected ? "page" : undefined}
+      onClick={onActivate}
+      onDoubleClick={onActivate}
       aria-label={`${item.title}：${item.description}`}
     />
   );
 }
 
-export default function CardEntryTemplatesPage() {
+function CardEntryTemplatesContent() {
+  const message = useSensMessage();
   const [activeSideItem, setActiveSideItem] = useState("基本设置");
   const [sideNavigationMode, setSideNavigationMode] = useState<ProductShellSideNavigationMode>("docked");
-  const [activeCardKey, setActiveCardKey] = useState<string | null>(null);
-  const [copyStatus, setCopyStatus] = useState("");
+  const [copying, setCopying] = useState(false);
   const templateStyle = {
     ...buildTemplateStyle(),
-    "--entry-template-side-width": `${sideNavigationMode === "docked" ? 220 : 30}px`,
+    "--entry-template-side-width": `${sideNavigationMode === "docked" ? PRODUCT_SHELL_SIDE_NAV_EXPANDED_WIDTH : PRODUCT_SHELL_SIDE_NAV_ICON_COLLAPSED_WIDTH}px`,
     "--entry-template-content-shadow": sideNavigationMode === "overlay" ? "none" : buildShadow("D2", "left"),
   } as CSSProperties;
+
+  async function handleCopyVersion() {
+    if (copying) return;
+    setCopying(true);
+    try {
+      await writeClipboardText(VERSION_COPY_TEXT);
+      message.success("版本信息已复制");
+    } catch {
+      message.warning("无法复制版本信息，请手动复制");
+    } finally {
+      setCopying(false);
+    }
+  }
+
+  function handleEntryActivate(item: EntrySceneItem) {
+    message.info(`进入「${item.title}」`);
+  }
 
   return (
     <main className="card-entry-template" style={templateStyle}>
@@ -210,25 +265,28 @@ export default function CardEntryTemplatesPage() {
           onActiveItemChange={setActiveSideItem}
         />
 
-        <section className="card-entry-template__content" aria-labelledby="entry-template-heading">
-          <header className="card-entry-template__page-heading">
-            <h1 id="entry-template-heading">基本设置</h1>
-            <SensButton
-              tone="secondary"
-              onClick={() => setCopyStatus("版本信息已复制")}
-            >
-              复制版本信息
-            </SensButton>
-          </header>
+        <section className="card-entry-template__content" aria-label="基本设置">
+          {/* Figma「页面标题栏」：落地页白底，不是灰底 SensSectionTitle。 */}
+          <SensPageTitleBar
+            variant="landing"
+            title="基本设置"
+            titleId="entry-template-heading"
+            actions={
+              <SensButton tone="secondary" loading={copying} onClick={() => void handleCopyVersion()}>
+                复制版本信息
+              </SensButton>
+            }
+          />
 
           <div className="card-entry-template__body">
             <section className="card-entry-template__project-summary" aria-label="项目信息">
+              {/* Figma「标题」灰底分组标题：仅分组用 SensSectionTitle。 */}
               <SensSectionTitle
                 title="测试项目"
                 size="large"
                 description={
                   <span className="card-entry-template__project-title-icon" aria-label="可重命名项目">
-                    <SensIcon name="rename" size={16} color="currentColor" />
+                    <SensIcon name="rename" sizeToken="size/icon/m" color="currentColor" />
                   </span>
                 }
               />
@@ -240,7 +298,6 @@ export default function CardEntryTemplatesPage() {
                   </div>
                 ))}
               </div>
-              <span className="card-entry-template__copy-status" aria-live="polite">{copyStatus}</span>
             </section>
 
             <div className="card-entry-template__groups">
@@ -249,12 +306,7 @@ export default function CardEntryTemplatesPage() {
                   <SensSectionTitle id={`entry-group-${group.title}`} title={group.title} size="large" />
                   <div className="card-entry-template__grid">
                     {group.items.map((item) => (
-                      <SceneEntryCard
-                        key={item.key}
-                        item={item}
-                        selected={item.key === activeCardKey}
-                        onSelect={() => setActiveCardKey(item.key)}
-                      />
+                      <SceneEntryCard key={item.key} item={item} onActivate={() => handleEntryActivate(item)} />
                     ))}
                   </div>
                 </section>
@@ -264,5 +316,13 @@ export default function CardEntryTemplatesPage() {
         </section>
       </div>
     </main>
+  );
+}
+
+export default function CardEntryTemplatesPage() {
+  return (
+    <SensMessageProvider>
+      <CardEntryTemplatesContent />
+    </SensMessageProvider>
   );
 }

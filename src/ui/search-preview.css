@@ -76,18 +76,18 @@
 .sens-search-preview-label {
   display: block;
   margin-bottom: var(--sens-search-space-2x);
-  font-size: 12px;
-  line-height: 18px;
+  font-size: var(--sens-search-preview-font-size);
+  line-height: var(--sens-search-preview-line-height);
   color: var(--sens-search-label-color);
 }
 
 .sens-search-preview-section-title {
   display: block;
   margin: 0 0 var(--sens-search-space-3x);
-  font-size: 12px;
-  line-height: 18px;
+  font-size: var(--sens-search-preview-font-size);
+  line-height: var(--sens-search-preview-line-height);
   color: var(--sens-search-label-color);
-  font-weight: 500;
+  font-weight: var(--sens-search-preview-title-weight);
 }
 
 .sens-search-preview-section + .sens-search-preview-section {
@@ -103,9 +103,9 @@
 .sens-search-matrix-variant-title {
   display: block;
   margin-bottom: var(--sens-search-space-2x);
-  font-size: 12px;
-  line-height: 18px;
-  font-weight: 500;
+  font-size: var(--sens-search-preview-font-size);
+  line-height: var(--sens-search-preview-line-height);
+  font-weight: var(--sens-search-preview-title-weight);
   color: var(--sens-search-label-color);
 }
 

@@ -1,0 +1,11 @@
+/* 项目切换列表：保留滚动，隐藏系统滚动条 */
+[data-project-switcher-list] {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+[data-project-switcher-list]::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  display: none;
+}

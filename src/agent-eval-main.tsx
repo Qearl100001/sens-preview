@@ -4,8 +4,11 @@ import { ConfigProvider } from "antd";
 import zhCN from "antd/locale/zh_CN";
 import EvalDashboardPage from "./features/agent-eval/EvalDashboardPage";
 import { buildAntdTheme } from "./design-system/theme";
+import { applySensFontFamilyToDocument } from "./design-system/typography";
 import "./ui/button.css";
 import "./ui/fab-group.css";
+
+applySensFontFamilyToDocument();
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>

@@ -59,6 +59,7 @@
 | `components/base/message.md` · `alert.md` · `tips.md` | 反馈与说明 | 轻提示、警告、便签（常规 Tips 为 Sens 自持浮层） |
 | `components/base/title-bar.md` · `breadcrumb.md` · `drawer.md` | 标题栏、面包屑与抽屉 | 页面 / 抽屉标题、返回、面包屑、右侧操作与抽屉结构 |
 | `components/base/top-navigation.md` | 顶部导航 | 产品壳主导航、专属浮层与 Navigation Color 关系 |
+| `components/composite/product-shell.md` | 产品壳 | 顶部导航、侧边导航、标题栏、内容面板、浮层和回到顶部的组合关系 |
 | `components/composite/form.md` | 复合表单 | 带表格、联动、卡片三类跨组件表单模式 |
 | `components/composite/table.md` | 复合表格 | 筛选区、录入型表格、树表和嵌套 / 交叉表的组合边界 |
 | `components/composite/side-navigation.md` | 侧边导航 | 产品壳侧导结构、状态和页面关系 |

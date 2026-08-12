@@ -164,23 +164,11 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: var(--sens-table-empty-gap);
 }
 
-.sens-table-empty-image {
-  width: var(--sens-table-empty-image-size);
-  height: var(--sens-table-empty-image-size);
-  object-fit: contain;
-}
-
-.sens-table-empty-text {
-  color: var(--sens-table-info-color);
-  font-size: var(--sens-table-info-font-size);
-  line-height: var(--sens-table-info-line-height);
-}
-
-.sens-table-empty-action {
-  margin-top: var(--sens-table-empty-action-margin-top);
+/* 空态视觉由 SensEmptyState 承接；表格壳只负责区域 padding / min-height */
+.sens-table-empty-state.sens-empty-state {
+  padding: 0;
 }
 
 .sens-table-footer {

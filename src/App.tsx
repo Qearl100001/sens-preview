@@ -50,6 +50,9 @@ const LayoutBasicStylePage = lazy(() => import("./preview/pages/basic-styles/Lay
 const GridBasicStylePage = lazy(() => import("./preview/pages/basic-styles/GridBasicStylePage"));
 const SizeBasicStylePage = lazy(() => import("./preview/pages/basic-styles/SizeBasicStylePage"));
 const IconBasicStylePage = lazy(() => import("./preview/pages/basic-styles/IconBasicStylePage"));
+const EmptyStateBasicStylePage = lazy(
+  () => import("./preview/pages/basic-styles/EmptyStateBasicStylePage"),
+);
 const CursorBasicStylePage = lazy(() => import("./preview/pages/basic-styles/CursorBasicStylePage"));
 const RadiusBasicStylePage = lazy(() => import("./preview/pages/basic-styles/RadiusBasicStylePage"));
 const ShadowBasicStylePage = lazy(() => import("./preview/pages/basic-styles/ShadowBasicStylePage"));
@@ -84,8 +87,10 @@ const PaginationShowcasePage = lazy(() => import("./preview/pages/PaginationShow
 
 const FormTemplatesPage = lazy(() => import("./preview/pages/FormTemplatesPage"));
 const CompositeTablePage = lazy(() => import("./preview/pages/CompositeTablePage"));
+const ProductShellCompositePage = lazy(() => import("./preview/pages/ProductShellCompositePage"));
 const SdhEditableTableTemplatePage = lazy(() => import("./preview/pages/SdhEditableTableTemplatePage"));
 const CardEntryTemplatesPage = lazy(() => import("./preview/pages/CardEntryTemplatesPage"));
+const ProductShellTemplatePage = lazy(() => import("./preview/pages/ProductShellTemplatePage"));
 const ChangelogPage = lazy(() => import("./preview/pages/ChangelogPage"));
 const AiDesignStagePresentationPage = lazy(() => import("./preview/pages/AiDesignStagePresentationPage"));
 const SdhFeatureSegmentCreatePage = lazy(
@@ -132,7 +137,7 @@ export default function App() {
         button={{ autoInsertSpace: false }}
         wave={{ disabled: true }}
       >
-        <BrowserRouter>
+        <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
           <Routes>
             <Route element={<PreviewShell />}>
               <Route element={<LazyOutlet />}>
@@ -148,6 +153,7 @@ export default function App() {
                 <Route path="basic-styles/grid" element={<GridBasicStylePage />} />
                 <Route path="basic-styles/size" element={<SizeBasicStylePage />} />
                 <Route path="basic-styles/icon" element={<IconBasicStylePage />} />
+                <Route path="basic-styles/empty-state" element={<EmptyStateBasicStylePage />} />
                 <Route path="basic-styles/cursor" element={<CursorBasicStylePage />} />
                 <Route path="basic-styles/radius" element={<RadiusBasicStylePage />} />
                 <Route path="basic-styles/shadow" element={<ShadowBasicStylePage />} />
@@ -181,6 +187,7 @@ export default function App() {
                 <Route path="composite" element={<CompositeLibraryPage />} />
                 <Route path="composite/form" element={<FormTemplatesPage />} />
                 <Route path="composite/table" element={<CompositeTablePage />} />
+                <Route path="composite/product-shell" element={<ProductShellCompositePage />} />
                 <Route path="templates" element={<TemplateLibraryPage />} />
                 <Route
                   path="templates/sdh-editable-table"
@@ -188,6 +195,7 @@ export default function App() {
                 />
                 <Route path="templates/sdh-editable-table/:scenarioKey" element={<SdhEditableTableTemplatePage />} />
                 <Route path="templates/card/entry-settings" element={<CardEntryTemplatesPage />} />
+                <Route path="templates/product-shell" element={<ProductShellTemplatePage />} />
                 <Route path="cases" element={<CaseLibraryPage />} />
                 <Route path="cases/data-source-connection" element={<DataSourceConnectionDemoPage />} />
                 <Route path="cases/tiktok-ads-connections" element={<TikTokAdsConnectionsPage />} />

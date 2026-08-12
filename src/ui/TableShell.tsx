@@ -2,13 +2,15 @@ import type { CSSProperties, ReactNode } from "react";
 import type { TableProps } from "antd";
 import { Table } from "antd";
 import { getColorToken } from "../design-system/color-utils";
+import { SensIcon } from "../design-system/icons";
 import { getDividerBorder, getDividerColor, getDividerHairlineWidth } from "../design-system/divider";
 import { getTypographyToken } from "../design-system/typography";
 import { getUnitToken } from "../design-system/unit";
-import { EMPTY_STATE_ILLUSTRATIONS, type NonPageEmptyIllustrationKey } from "./EmptyStateIllustrations";
+import type { NonPageEmptyIllustrationKey } from "./EmptyStateIllustrations";
 import { SensButton, type SensButtonVariant } from "./SensButton";
 import { SensButtonActionMenu } from "./SensButtonActionMenu";
 import type { SensDropdownMenuItemConfig } from "./SensDropdownMenuItem";
+import { SensEmptyState } from "./SensEmptyState";
 import { SensTips } from "./SensTips";
 import "./table.css";
 
@@ -123,10 +125,7 @@ function buildTableTokenVars(): CSSProperties {
     "--sens-table-link-line-height": px(getTypographyToken("line-height/m")),
     "--sens-table-empty-padding-block": px(getUnitToken("size/component-height/m")),
     "--sens-table-empty-padding-inline": px(getUnitToken("spacing/horizontal/4x")),
-    "--sens-table-empty-gap": px(emptyGap),
-    "--sens-table-empty-action-margin-top": px(getUnitToken("spacing/1x")),
     "--sens-table-empty-min-height": px(rowHeight * 3 + emptyGap),
-    "--sens-table-empty-image-size": px(rowHeight * 2 + emptyGap),
   } as CSSProperties;
 }
 
@@ -180,24 +179,79 @@ export function TableInfoBar({
   );
 }
 
+/** 信息区右侧列设置：icon-only 小号弱化链接，不展示「设置」文案（table.md） */
+export function TableInfoColumnSettingButton() {
+  return (
+    <SensButton
+      aria-label="列设置"
+      size="small"
+      tone="linkWeak"
+      icon={<SensIcon name="setting" size={14} color="currentColor" />}
+    />
+  );
+}
+
+export interface TableInfoRefreshableSummaryProps {
+  /** 计数文案前缀默认「共」；筛选结果传「已找到」 */
+  prefix?: "共" | "已找到";
+  total: number;
+  /** 展示为 yyyy-mm-dd hh:mm:ss */
+  updatedAt: string;
+  onRefresh?: () => void;
+}
+
+/**
+ * 数据更新可刷新：文案后紧跟 reload 弱化链接按钮；与列设置（infoExtra）分离。
+ */
+export function TableInfoRefreshableSummary({
+  prefix = "共",
+  total,
+  updatedAt,
+  onRefresh,
+}: TableInfoRefreshableSummaryProps) {
+  return (
+    <>
+      <span>
+        {prefix} {formatTableCount(total)} 条，数据更新于 {updatedAt}
+      </span>
+      <SensButton
+        aria-label="刷新数据"
+        size="small"
+        tone="linkWeak"
+        icon={<SensIcon name="reload" sizeToken="size/icon/m" color="currentColor" />}
+        onClick={onRefresh}
+      />
+    </>
+  );
+}
+
 interface TableEmptyStateProps {
   type?: NonPageEmptyIllustrationKey;
   description?: ReactNode;
   action?: ReactNode;
 }
 
-const TABLE_EMPTY_DESCRIPTION: Record<NonPageEmptyIllustrationKey, string> = {
+const TABLE_EMPTY_TITLE: Record<NonPageEmptyIllustrationKey, string> = {
   noData: "暂无数据",
-  noResult: "暂无搜索结果",
-  loadFailed: "数据加载失败，请重试",
+  noResult: "暂无结果",
+  loadFailed: "加载失败",
 };
 
 function TableEmptyState({ type = "noData", description, action }: TableEmptyStateProps) {
+  const hasCustomDescription = description !== undefined;
   return (
     <div className="sens-table-empty">
-      <img src={EMPTY_STATE_ILLUSTRATIONS[type]} alt="" className="sens-table-empty-image" />
-      <span className="sens-table-empty-text">{description ?? TABLE_EMPTY_DESCRIPTION[type]}</span>
-      {action ? <div className="sens-table-empty-action">{action}</div> : null}
+      <SensEmptyState
+        scope="non-page"
+        type={type}
+        size="base"
+        className="sens-table-empty-state"
+        style={{ padding: 0 }}
+        {...(hasCustomDescription
+          ? { title: description, description: null }
+          : { title: TABLE_EMPTY_TITLE[type], description: null })}
+        actions={action}
+      />
     </div>
   );
 }

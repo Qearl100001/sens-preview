@@ -10,6 +10,8 @@ import {
   SensPagination,
   SensSelectDropdown,
   SensTableFilterBar,
+  TableInfoColumnSettingButton,
+  TableInfoRefreshableSummary,
   TableShell,
   type SensTableFilterField,
 } from "../../ui";
@@ -126,31 +128,6 @@ const editableRows = [
   { key: "3", type: "string", required: "yes", rule: "添加选项", hint: "" },
 ];
 
-function TableInfoSettingAction() {
-  return (
-    <SensButton
-      aria-label="列设置"
-      size="small"
-      tone="linkWeak"
-      icon={<SensIcon name="setting" size={14} color="currentColor" />}
-    />
-  );
-}
-
-function RefreshableInfoContent() {
-  return (
-    <>
-      <span>共 1,000 条，数据更新于 2022-10-31 20:33:22</span>
-      <SensButton
-        aria-label="刷新数据"
-        size="small"
-        tone="linkWeak"
-        icon={<SensIcon name="reload" sizeToken="size/icon/m" color="currentColor" />}
-      />
-    </>
-  );
-}
-
 function TablePaginationFooter({ page, onChange }: { page: number; onChange: (page: number) => void }) {
   return (
     <>
@@ -195,8 +172,8 @@ function FilterTableDemo() {
       />
       <TableShell
         total={1000}
-        infoContent={<RefreshableInfoContent />}
-        infoExtra={<TableInfoSettingAction />}
+        infoContent={<TableInfoRefreshableSummary total={1000} updatedAt="2022-10-31 20:33:22" />}
+        infoExtra={<TableInfoColumnSettingButton />}
         rowKey="key"
         columns={demoColumns}
         dataSource={demoRows}
@@ -369,7 +346,7 @@ export default function CompositeTablePage() {
 
         <TableShell
           total={roadmapRows.length}
-          infoExtra={<TableInfoSettingAction />}
+          infoExtra={<TableInfoColumnSettingButton />}
           rowKey="key"
           columns={roadmapColumns}
           dataSource={roadmapRows}

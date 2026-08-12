@@ -1,8 +1,13 @@
-import type { CSSProperties, KeyboardEvent, ReactNode } from "react";
+import {
+  type CSSProperties,
+  type KeyboardEvent,
+  type ReactNode,
+} from "react";
 import { getColorToken, tokenRgba } from "../design-system/color-utils";
 import { getTypographyToken } from "../design-system/typography";
 import { getUnitToken } from "../design-system/unit";
 import { SensCard, type SensCardProps } from "./SensCard";
+import { SensTips } from "./SensTips";
 import "./entry-card.css";
 
 export type SensEntryCardSize = "large" | "small";
@@ -39,11 +44,21 @@ function buildEntryCardStyle(size: SensEntryCardSize, style?: CSSProperties): Se
     "--sens-entry-card-title-weight": `${getTypographyToken(size === "large" ? "font-weight/semibold" : "font-weight/medium")}`,
     "--sens-entry-card-description-size": `${getTypographyToken("font-size/s")}px`,
     "--sens-entry-card-description-line": `${getTypographyToken("line-height/s")}px`,
+    "--sens-entry-card-description-weight": `${getTypographyToken("font-weight/regular")}`,
     "--sens-entry-card-title-color": tokenRgba("text-color-transparent", 0.9),
     "--sens-entry-card-description-color": tokenRgba("text-sub-color-transparent", 0.58),
     "--sens-entry-card-icon-color": getColorToken("icon-color-transparent"),
     ...style,
   } as SensEntryCardStyle;
+}
+
+/** 辅助文案单行省略；悬停由 SensTips 展示完整内容。 */
+function EntryCardDescription({ description }: { description: ReactNode }) {
+  return (
+    <SensTips title={description} placement="top" align="center" className="sens-entry-card__description-tip">
+      <span className="sens-entry-card__description">{description}</span>
+    </SensTips>
+  );
 }
 
 export function SensEntryCard({
@@ -88,7 +103,7 @@ export function SensEntryCard({
       </span>
       <span className="sens-entry-card__text">
         <span className="sens-entry-card__title">{title}</span>
-        <span className="sens-entry-card__description">{description}</span>
+        <EntryCardDescription description={description} />
       </span>
     </SensCard>
   );

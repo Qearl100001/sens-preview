@@ -1,5 +1,6 @@
 // 由 build-tokens.mjs 自动生成，请勿手改。重新从 Figma 导出后重跑脚本。
 import { theme as antdTheme, type ThemeConfig } from "antd";
+import { SENS_FONT_FAMILY } from "./typography";
 
 const token = {
   "colorPrimary": "#00B280",
@@ -211,10 +212,11 @@ export function getButtonPrimaryBorderColor(): string {
   return buttonPrimaryBorderColor;
 }
 
+/** Sens 字体栈灌入 antd 承接层；勿依赖 antd seed 默认字体。 */
 export function buildAntdTheme(mode: "light" | "dark" = "light"): ThemeConfig {
   return {
     algorithm: mode === "dark" ? antdTheme.darkAlgorithm : antdTheme.defaultAlgorithm,
-    token: { ...token },
+    token: { ...token, fontFamily: SENS_FONT_FAMILY },
     components: {
       ...components,
       Button: buttonComponentForAntd,

@@ -11,8 +11,8 @@ import {
   SensPageTitleBar,
   SensSectionTitle,
   SensSelectDropdown,
-  SensTopNavigation,
 } from "../../ui";
+import { SensTopNavigation } from "../../ui";
 import "./form-templates.css";
 
 interface EditableScenarioRow {
@@ -563,7 +563,7 @@ function DimensionEventPropertyTable() {
   );
 }
 
-export default function SdhEditableTableTemplatePage() {
+function SdhEditableTableTemplateContent() {
   const { scenarioKey } = useParams<{ scenarioKey: string }>();
   const scenario = scenarios.find((item) => item.key === scenarioKey) ?? scenarios[0];
   const isDimensionScenario = scenario.variant === "dimension";
@@ -579,13 +579,13 @@ export default function SdhEditableTableTemplatePage() {
           title={scenario.pageTitle}
           breadcrumbItems={scenario.pageMeta.split(" / ").map((label, index) => ({ key: `${index}-${label}`, label }))}
           onBack={() => window.history.back()}
-          actions={
+          actions={(
             <div className="sdh-template-product-actions">
               <SensButton tone="secondary">{isDimensionScenario ? "放弃" : "取消"}</SensButton>
               {isDimensionScenario ? <SensButton tone="secondary">提交并分配权限</SensButton> : null}
               <SensButton tone="primary">提交</SensButton>
             </div>
-          }
+          )}
         />
 
         <div className={`sdh-template-product-body${isDimensionScenario ? " sdh-template-product-body--single" : ""}`}>
@@ -614,4 +614,8 @@ export default function SdhEditableTableTemplatePage() {
       </div>
     </main>
   );
+}
+
+export default function SdhEditableTableTemplatePage() {
+  return <SdhEditableTableTemplateContent />;
 }

@@ -54,6 +54,7 @@ function buildRadioTokenVars(): CSSProperties {
     "--sens-radio-line-height": px(getTypographyToken("line-height/m")),
     "--sens-radio-description-font-size": px(getTypographyToken("font-size/s")),
     "--sens-radio-description-line-height": px(getTypographyToken("line-height/s")),
+    "--sens-radio-matrix-title-weight": getTypographyToken("font-weight/medium"),
     "--sens-radio-description-gap": px(getUnitToken("spacing/vertical/1x")),
     "--sens-radio-option-height": px(getUnitToken("size/component-height/m")),
     "--sens-radio-group-column-gap": px(getUnitToken("spacing/horizontal/6x")),

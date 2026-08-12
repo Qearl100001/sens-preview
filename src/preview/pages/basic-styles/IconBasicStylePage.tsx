@@ -12,6 +12,7 @@ import {
   COLORFUL_ICON_NAMES,
   COLORFUL_ICON_REGISTRY,
   SensIcon,
+  getIconRegistryEntry,
   resolveIconColor,
   type IconColorRole,
   type IconRegistryEntry,
@@ -74,11 +75,155 @@ const ANTD_ICON_ROWS = [
 ];
 
 const ILLUSTRATION_ROWS = [
-  { key: "load-failed", asset: "load-failed-small.png", note: "空态插画，不进入 Icon registry" },
-  { key: "no-data", asset: "no-data-small.png", note: "空态插画，不进入 Icon registry" },
-  { key: "no-result", asset: "no-result-small.png", note: "空态插画，不进入 Icon registry" },
+  { key: "page", asset: "empty-state/page/*.png", note: "页面级空态插画，见 /basic-styles/empty-state" },
+  { key: "non-page", asset: "empty-state/non-page/*.png", note: "非页面级空态插画，不进入 Icon registry" },
   { key: "antd-empty", asset: "Empty.PRESENTED_IMAGE_SIMPLE", note: "antd 空态，不进入 Icon registry" },
 ];
+
+type IconLibraryTab = IconVariant | "navigation-function";
+
+/**
+ * 导航功能图标分组：样张主展示在「导航功能图标」Tab。
+ * 其中 variant=linear 的侧导资产不得再出现在「线性图标」Tab（见 docs/foundations/icon.md 样张 Tab 录入标准）。
+ */
+const NAVIGATION_FUNCTION_ICON_GROUPS: {
+  title: string;
+  description: string;
+  icons: { name: IconName; variant: IconVariant; usage: string }[];
+}[] = [
+  {
+    title: "侧导控制",
+    description: "用于侧边导航展开、收起、锁定、二级模块开合与推荐入口。",
+    icons: [
+      { name: "side-nav-expand", variant: "linear", usage: "紧凑态展开" },
+      { name: "side-nav-collapse", variant: "linear", usage: "锁定态收起" },
+      { name: "side-nav-unpin", variant: "linear", usage: "悬停展开后锁定" },
+      { name: "side-nav-pin", variant: "linear", usage: "锁定状态" },
+      { name: "side-nav-down", variant: "linear", usage: "二级模块收起" },
+      { name: "side-nav-up", variant: "linear", usage: "二级模块展开" },
+      { name: "side-nav-link", variant: "linear", usage: "更多推荐" },
+    ],
+  },
+  {
+    title: "单层带图标 / 项目设置与平台",
+    description: "用于只有一层功能项的项目设置、审批与平台类侧边导航。",
+    icons: [
+      { name: "sbp-setting", variant: "linear", usage: "基本设置" },
+      { name: "sbp-member", variant: "linear", usage: "成员管理" },
+      { name: "sbp-role", variant: "linear", usage: "角色管理" },
+      { name: "sbp-approval-todo", variant: "linear", usage: "待办" },
+      { name: "sbp-approval-finish", variant: "linear", usage: "已办" },
+      { name: "sbp-approval-initiate", variant: "linear", usage: "已发起" },
+      { name: "sbp-approval-data-manage", variant: "linear", usage: "审批数据管理" },
+      { name: "sbp-approval-setting", variant: "linear", usage: "审批配置" },
+      { name: "sbp-approval-switch", variant: "linear", usage: "审批开关" },
+      { name: "sbp-workload-query-task", variant: "linear", usage: "查询任务" },
+      { name: "sbp-workload-biz-assets", variant: "linear", usage: "业务资源" },
+      { name: "sbp-overview", variant: "linear", usage: "全局信息" },
+      { name: "sbp-security-setting", variant: "linear", usage: "平台设置" },
+      { name: "sbp-email-manage", variant: "linear", usage: "发件箱管理" },
+      { name: "sbp-operation-log", variant: "linear", usage: "操作日志" },
+    ],
+  },
+  {
+    title: "二级带图标 / 数据接入",
+    description: "用于数据接入类虚拟二级分组；三级落地页不带图标。",
+    icons: [
+      { name: "sdi-warehousing-data-ingestion", variant: "linear", usage: "埋点数据接入" },
+      { name: "sdh-warehousing-general-data-ingestion", variant: "linear", usage: "通用数据接入" },
+      { name: "sdg-warehousing", variant: "linear", usage: "数据接入" },
+      { name: "sdh-data-model-table-manage", variant: "linear", usage: "数据表" },
+      { name: "sdh-data-model-user-entity-manage", variant: "linear", usage: "元数据管理" },
+      { name: "sdh-entity-conf", variant: "linear", usage: "实体配置" },
+      { name: "sdg-dataquality", variant: "linear", usage: "数据质量" },
+    ],
+  },
+  {
+    title: "分析专属虚拟层级",
+    description: "仅用于分析大功能；虚拟层级带侧导专用图标。",
+    icons: [
+      { name: "sa-behavioranalysis", variant: "linear", usage: "行为分析" },
+      { name: "sa-useranalysis", variant: "linear", usage: "用户分析" },
+      { name: "sa-businessanalysis", variant: "linear", usage: "经营分析" },
+      { name: "sa-other", variant: "linear", usage: "其他" },
+      { name: "sa-test-list", variant: "linear", usage: "试验列表" },
+      { name: "sa-test-ceng", variant: "linear", usage: "试验层" },
+      { name: "sa-debugging-equipment", variant: "linear", usage: "调试设备管理" },
+      { name: "sa-test-indicator", variant: "linear", usage: "试验指标管理" },
+      { name: "sa-report", variant: "linear", usage: "报表" },
+      { name: "sa-dashboard", variant: "linear", usage: "概览" },
+      { name: "sa-dataset", variant: "linear", usage: "业务集市" },
+      { name: "sa-management", variant: "linear", usage: "管理中心" },
+    ],
+  },
+  {
+    title: "智能运营 / SF",
+    description: "智能运营产品壳侧导二级分组图标。",
+    icons: [
+      { name: "sf-active-marketing", variant: "linear", usage: "营销策略" },
+      { name: "sf-section", variant: "linear", usage: "资源位运营" },
+      { name: "sf-wechat", variant: "linear", usage: "微信互动配置" },
+      { name: "sf-scene", variant: "linear", usage: "场景赋能" },
+    ],
+  },
+  {
+    title: "SCRM / 内容 / 广告 / 兜底",
+    description: "SCRM、内容中台、广告分析侧导与默认兜底图标。",
+    icons: [
+      { name: "scrm-marketing-tasks", variant: "linear", usage: "营销任务" },
+      { name: "scrm-work-notify", variant: "linear", usage: "工作提醒" },
+      { name: "scrm-customer-management", variant: "linear", usage: "客户管理" },
+      { name: "scrm-marketing-customer", variant: "linear", usage: "营销获客" },
+      { name: "scrm-community-operation", variant: "linear", usage: "社群运营" },
+      { name: "scrm-material-management", variant: "linear", usage: "素材管理" },
+      { name: "scms-center", variant: "linear", usage: "内容中心" },
+      { name: "scms-setting", variant: "linear", usage: "内容配置" },
+      { name: "sat-dashboard", variant: "linear", usage: "概览" },
+      { name: "sat-report", variant: "linear", usage: "报表" },
+      { name: "sat-ad-promote", variant: "linear", usage: "推广" },
+      { name: "sat-ad-assets", variant: "linear", usage: "资产" },
+      { name: "sat-ad-management-config", variant: "linear", usage: "管理与配置" },
+      { name: "sat-tools", variant: "linear", usage: "工具" },
+      { name: "default", variant: "linear", usage: "默认图标" },
+      { name: "default-2", variant: "linear", usage: "默认图标 2" },
+      { name: "default-3", variant: "linear", usage: "默认图标 3" },
+    ],
+  },
+  {
+    title: "分析专属落地页",
+    description: "分析具体功能项复用面性业务图标，收起后只展示二级图标。",
+    icons: [
+      { name: "analysis-event", variant: "filled", usage: "事件分析" },
+      { name: "analysis-retention", variant: "filled", usage: "留存分析" },
+      { name: "analysis-funnel", variant: "filled", usage: "漏斗分析" },
+      { name: "analysis-distribution", variant: "filled", usage: "分布分析" },
+      { name: "analysis-ltv", variant: "filled", usage: "LTV 分析" },
+      { name: "analysis-session", variant: "filled", usage: "Session 分析" },
+      { name: "analysis-user-path", variant: "filled", usage: "用户路径分析" },
+      { name: "analysis-web-page-thermal", variant: "filled", usage: "网页热力分析" },
+      { name: "analysis-app-click", variant: "filled", usage: "App 点击分析" },
+      { name: "analysis-interval", variant: "filled", usage: "间隔分析" },
+      { name: "analysis-attribution", variant: "filled", usage: "归因分析" },
+      { name: "portrait-user-group", variant: "filled", usage: "用户群画像" },
+      { name: "analysis-property", variant: "filled", usage: "属性分析" },
+      { name: "query-custom", variant: "filled", usage: "自定义查询" },
+      { name: "bookmark", variant: "filled", usage: "书签" },
+    ],
+  },
+];
+
+/** 侧导专用线性资产：只在「导航功能图标」Tab 展示，线性 Tab 排除 */
+const NAVIGATION_FUNCTION_LINEAR_NAMES = new Set(
+  NAVIGATION_FUNCTION_ICON_GROUPS.flatMap((group) =>
+    group.icons.filter((icon) => icon.variant === "linear").map((icon) => icon.name),
+  ),
+);
+
+const LINEAR_GALLERY_ICON_NAMES = ICON_NAMES.filter((name) => {
+  if (NAVIGATION_FUNCTION_LINEAR_NAMES.has(name)) return false;
+  const scenes = ICON_REGISTRY[name]?.usageScenes ?? [];
+  return !scenes.some((scene) => scene.scene.startsWith("Product Shell Side Navigation"));
+});
 
 function resolvePreviewColorRole(entry: IconRegistryEntry): IconColorRole {
   return entry.usageScenes[0]?.typicalColorRoles[0] ?? "inherit";
@@ -177,6 +322,83 @@ function IconGallery({
   );
 }
 
+function NavigationFunctionIconGallery() {
+  const token = getPreviewTokens();
+  const navigationIconSize = u["size/icon/l"];
+
+  return (
+    <Space direction="vertical" size="middle" style={{ width: "100%", marginTop: token.marginMD }}>
+      <Alert
+        type="info"
+        showIcon
+        message="导航功能图标是侧边导航专用资产"
+        description="图标本体仍使用 currentColor，不在 SVG 里写死颜色；实际消费时由 ProductShellSideNavigation 注入侧导状态色：默认 theme-side-icon、虚拟层级 theme-side-subIcon、选中 / 激活 theme-side-icon-active。图标库仅按侧导场景固定展示 20px。"
+      />
+
+      {NAVIGATION_FUNCTION_ICON_GROUPS.map((group) => (
+        <section key={group.title}>
+          <Space direction="vertical" size="small" style={{ width: "100%" }}>
+            <div>
+              <Title level={5} style={{ margin: 0 }}>
+                {group.title}
+              </Title>
+              <Text type="secondary">{group.description}</Text>
+            </div>
+
+            <div
+              style={{
+                display: "grid",
+                gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
+                gap: token.marginMD,
+              }}
+            >
+              {group.icons.map(({ name, variant, usage }) => {
+                const entry = getIconRegistryEntry(name, variant);
+
+                return (
+                  <div
+                    key={`${group.title}-${name}`}
+                    style={{
+                      padding: token.paddingMD,
+                      border: `1px solid ${token.colorBorderSecondary}`,
+                      borderRadius: token.borderRadius,
+                      background: token.colorBgContainer,
+                    }}
+                  >
+                    <Space direction="vertical" size="small" style={{ width: "100%" }}>
+                      <div
+                        style={{
+                          height: u["size/xxl"],
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          color: resolveIconColor("subtle"),
+                          background: token.colorFillAlter,
+                          borderRadius: token.borderRadius,
+                        }}
+                      >
+                        <SensIcon name={name} variant={variant} size={navigationIconSize} color="currentColor" />
+                      </div>
+                      <Space wrap size={[4, 4]}>
+                        <Text strong code>
+                          {name}
+                        </Text>
+                        <Tag>{entry?.labelZh ?? usage}</Tag>
+                        <Tag color="processing">20px</Tag>
+                      </Space>
+                      <Text type="secondary">{usage}</Text>
+                    </Space>
+                  </div>
+                );
+              })}
+            </div>
+          </Space>
+        </section>
+      ))}
+    </Space>
+  );
+}
+
 function ColorRolePreview() {
   const token = getPreviewTokens();
 
@@ -249,8 +471,9 @@ function AntdIconPreview({ iconKey }: { iconKey: string }) {
 
 function IconSpecimen() {
   const [iconSize, setIconSize] = useState<16 | 20 | 22>(16);
-  const [iconVariant, setIconVariant] = useState<IconVariant>("linear");
+  const [iconVariant, setIconVariant] = useState<IconLibraryTab>("linear");
   const isColorful = iconVariant === "colorful";
+  const isNavigationFunction = iconVariant === "navigation-function";
   const iconTextColumns: ColumnsType<(typeof ICON_TEXT_SIZE_ROWS)[number]> = [
     { title: "文字字号", dataIndex: "textSize", key: "textSize", width: 100, render: (v: number) => `${v}px` },
     { title: "图标尺寸", dataIndex: "iconSize", key: "iconSize", width: 100, render: (v: number) => `${v}px` },
@@ -294,7 +517,10 @@ function IconSpecimen() {
           图标数值样张
         </Title>
         <Text type="secondary">
-          展示已入库 Sens 图标（线性 {ICON_NAMES.length} 个、面性 {FILLED_ICON_NAMES.length} 个、彩色功能 {COLORFUL_ICON_NAMES.length} 个）、分类、中文语义、尺寸关系、颜色 token 边界和迁移结果。
+          展示已入库 Sens 图标（线性 {LINEAR_GALLERY_ICON_NAMES.length} 个、面性 {FILLED_ICON_NAMES.length}{" "}
+          个、彩色功能 {COLORFUL_ICON_NAMES.length} 个、导航功能 {NAVIGATION_FUNCTION_LINEAR_NAMES.size}{" "}
+          个侧导线性资产）、分类、中文语义、尺寸关系、颜色 token 边界和迁移结果。侧导专用图标只在「导航功能图标」Tab
+          展示，不进入线性 Tab。
         </Text>
       </div>
 
@@ -302,7 +528,7 @@ function IconSpecimen() {
         type="info"
         showIcon
         message="registry 只记录图标资产，不绑定唯一默认尺寸和颜色"
-        description="线性与面性图标提供 16px、20px、22px 三档对照；彩色功能图标按功能资产规则固定为 48px。"
+        description="线性与面性图标提供 16px、20px、22px 三档对照；彩色功能图标按功能资产规则固定为 48px；导航功能图标（侧导专用）固定按 20px 场景展示。录入归属见 foundations/icon 样张 Tab 标准。"
       />
 
       <section>
@@ -310,7 +536,9 @@ function IconSpecimen() {
           <Title level={5} style={{ margin: 0 }}>
             已入库图标（SensIcon）
           </Title>
-          {isColorful ? (
+          {isNavigationFunction ? (
+            <Tag color="processing">导航功能图标 · 侧导专用 20px</Tag>
+          ) : isColorful ? (
             <Tag color="processing">彩色功能图标 · 固定 48px</Tag>
           ) : (
             <Segmented
@@ -323,12 +551,19 @@ function IconSpecimen() {
         </Space>
         <Tabs
           activeKey={iconVariant}
-          onChange={(key) => setIconVariant(key as IconVariant)}
+          onChange={(key) => setIconVariant(key as IconLibraryTab)}
           items={[
             {
               key: "linear",
               label: "线性图标",
-              children: <IconGallery names={ICON_NAMES} registry={ICON_REGISTRY} variant="linear" previewSize={iconSize} />,
+              children: (
+                <IconGallery
+                  names={LINEAR_GALLERY_ICON_NAMES}
+                  registry={ICON_REGISTRY}
+                  variant="linear"
+                  previewSize={iconSize}
+                />
+              ),
             },
             {
               key: "filled",
@@ -353,6 +588,11 @@ function IconSpecimen() {
                   previewSize={u["size/xxl"]}
                 />
               ),
+            },
+            {
+              key: "navigation-function",
+              label: "导航功能图标",
+              children: <NavigationFunctionIconGallery />,
             },
           ]}
         />

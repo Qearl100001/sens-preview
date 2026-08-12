@@ -231,7 +231,7 @@
 
 .sens-radio-matrix-title {
   color: var(--sens-radio-text);
-  font-weight: 500;
+  font-weight: var(--sens-radio-matrix-title-weight);
 }
 
 .sens-radio-matrix-cell {

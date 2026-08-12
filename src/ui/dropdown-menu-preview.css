@@ -13,19 +13,19 @@
 .sens-dropdown-menu-matrix-title {
   display: block;
   margin-bottom: var(--sens-dropdown-menu-matrix-space-2x, 8px);
-  font-size: 12px;
-  line-height: 18px;
+  font-size: var(--sens-dropdown-menu-matrix-font-size);
+  line-height: var(--sens-dropdown-menu-matrix-line-height);
   color: var(--ant-color-text-secondary);
-  font-weight: 500;
+  font-weight: var(--sens-dropdown-menu-matrix-title-weight);
 }
 
 .sens-dropdown-menu-matrix-variant-label {
   display: block;
   margin-bottom: var(--sens-dropdown-menu-matrix-space-2x, 8px);
-  font-size: 12px;
-  line-height: 18px;
+  font-size: var(--sens-dropdown-menu-matrix-font-size);
+  line-height: var(--sens-dropdown-menu-matrix-line-height);
   color: var(--ant-color-text-secondary);
-  font-weight: 500;
+  font-weight: var(--sens-dropdown-menu-matrix-title-weight);
 }
 
 .sens-dropdown-menu-matrix-states {
@@ -44,8 +44,8 @@
 .sens-dropdown-menu-matrix-label {
   display: block;
   margin-bottom: var(--sens-dropdown-menu-matrix-space-2x, 8px);
-  font-size: 12px;
-  line-height: 18px;
+  font-size: var(--sens-dropdown-menu-matrix-font-size);
+  line-height: var(--sens-dropdown-menu-matrix-line-height);
   color: var(--ant-color-text-secondary);
 }
 

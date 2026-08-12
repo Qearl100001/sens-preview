@@ -5,6 +5,20 @@ const generatedTypography = (tokens.typography ?? {}) as Record<string, number>;
 export const SENS_FONT_FAMILY =
   '-apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"';
 
+const SENS_FONT_ROOT_STYLE_ID = "sens-font-family-root";
+
+/**
+ * 将 Sens 字体栈挂到 html/body/#root，保证非 antd 节点与文档根继承同一来源。
+ * 字体主权在 Sens；antd 只通过 theme.token.fontFamily 承接，不定义字体。
+ */
+export function applySensFontFamilyToDocument(doc: Document = document): void {
+  if (doc.getElementById(SENS_FONT_ROOT_STYLE_ID)) return;
+  const style = doc.createElement("style");
+  style.id = SENS_FONT_ROOT_STYLE_ID;
+  style.textContent = `html, body, #root { font-family: ${SENS_FONT_FAMILY}; }`;
+  doc.head.appendChild(style);
+}
+
 export const TYPOGRAPHY_TOKEN_NAMES = [
   "font-size/s",
   "font-size/m",

@@ -26,6 +26,7 @@ const SPACING_SCALE: SpacingScaleItem[] = [
   { key: "5x", tokenName: "spacing/5x", value: getUnitToken("spacing/5x"), usage: "中等区块间距" },
   { key: "6x", tokenName: "spacing/6x", value: getUnitToken("spacing/6x"), usage: "页面内容左右内距" },
   { key: "7x", tokenName: "spacing/7x", value: getUnitToken("spacing/7x"), usage: "较大区块间距" },
+  { key: "8x", tokenName: "spacing/8x", value: getUnitToken("spacing/8x"), usage: "页面级空态插画→文案等" },
   { key: "10x", tokenName: "spacing/10x", value: getUnitToken("spacing/10x"), usage: "大模块纵向间距" },
 ];
 
@@ -53,6 +54,7 @@ const VERTICAL_SPACING = [
   { key: "5x", tokenName: "spacing/vertical/5x", value: getUnitToken("spacing/vertical/5x") },
   { key: "6x", tokenName: "spacing/vertical/6x", value: getUnitToken("spacing/vertical/6x") },
   { key: "7x", tokenName: "spacing/vertical/7x", value: getUnitToken("spacing/vertical/7x") },
+  { key: "8x", tokenName: "spacing/vertical/8x", value: getUnitToken("spacing/vertical/8x") },
   { key: "10x", tokenName: "spacing/vertical/10x", value: getUnitToken("spacing/vertical/10x") },
 ];
 
@@ -97,6 +99,13 @@ const SCENE_ROWS = [
     rule: "spacing/6x",
     value: getUnitToken("spacing/6x"),
     note: "页面主内容区",
+  },
+  {
+    key: "empty-stack",
+    scene: "页面级空态插画→文案",
+    rule: "spacing/vertical/8x",
+    value: getUnitToken("spacing/vertical/8x"),
+    note: "Empty State 页面级 stack gap",
   },
   {
     key: "table-height",
