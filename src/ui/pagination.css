@@ -39,11 +39,11 @@
   line-height: var(--sens-pagination-item-size);
 }
 
-.sens-pagination .ant-pagination-item,
-.sens-pagination .ant-pagination-prev,
-.sens-pagination .ant-pagination-next,
-.sens-pagination .ant-pagination-jump-prev,
-.sens-pagination .ant-pagination-jump-next {
+.sens-pagination .sens-pagination-item,
+.sens-pagination .sens-pagination-prev,
+.sens-pagination .sens-pagination-next,
+.sens-pagination .sens-pagination-ellipsis {
+  box-sizing: border-box;
   min-width: var(--sens-pagination-item-size);
   height: var(--sens-pagination-item-size);
   flex-shrink: 0;
@@ -53,11 +53,11 @@
   border-radius: var(--sens-pagination-item-radius);
 }
 
-.sens-pagination .sens-pagination-pages .ant-pagination-next {
+.sens-pagination .sens-pagination-pages .sens-pagination-next {
   margin-inline-end: 0;
 }
 
-.sens-pagination .ant-pagination-item {
+.sens-pagination .sens-pagination-item {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -66,7 +66,7 @@
   border: var(--sens-pagination-divider-width) solid var(--sens-pagination-item-border);
 }
 
-.sens-pagination .ant-pagination-item a {
+.sens-pagination .sens-pagination-item button {
   width: 100%;
   height: 100%;
   display: flex;
@@ -76,8 +76,8 @@
   line-height: var(--sens-pagination-item-size);
 }
 
-.sens-pagination .ant-pagination-prev .ant-pagination-item-link,
-.sens-pagination .ant-pagination-next .ant-pagination-item-link {
+.sens-pagination .sens-pagination-prev .sens-pagination-arrow,
+.sens-pagination .sens-pagination-next .sens-pagination-arrow {
   width: var(--sens-pagination-item-size);
   min-width: var(--sens-pagination-item-size);
   height: var(--sens-pagination-item-size);
@@ -149,8 +149,8 @@
   display: none;
 }
 
-.sens-pagination .ant-pagination-item a,
-.sens-pagination .ant-pagination-item-link {
+.sens-pagination .sens-pagination-item button,
+.sens-pagination .sens-pagination-arrow {
   color: var(--sens-pagination-text-color);
 }
 
@@ -159,17 +159,17 @@
   color: var(--sens-pagination-arrow-icon-color);
 }
 
-.sens-pagination .ant-pagination-item:not(.ant-pagination-item-active):hover,
-.sens-pagination .ant-pagination-prev:not(.ant-pagination-disabled):hover .ant-pagination-item-link,
-.sens-pagination .ant-pagination-next:not(.ant-pagination-disabled):hover .ant-pagination-item-link {
+.sens-pagination .sens-pagination-item:not(.sens-pagination-item-active):hover,
+.sens-pagination .sens-pagination-prev:not(.sens-pagination-disabled):hover .sens-pagination-arrow,
+.sens-pagination .sens-pagination-next:not(.sens-pagination-disabled):hover .sens-pagination-arrow {
   background: var(--sens-pagination-item-hover-bg);
   border-color: var(--sens-pagination-item-hover-border);
   box-shadow: var(--sens-pagination-item-hover-shadow);
 }
 
-.sens-pagination .ant-pagination-item:not(.ant-pagination-item-active):hover a,
-.sens-pagination .ant-pagination-prev:not(.ant-pagination-disabled):hover .ant-pagination-item-link,
-.sens-pagination .ant-pagination-next:not(.ant-pagination-disabled):hover .ant-pagination-item-link {
+.sens-pagination .sens-pagination-item:not(.sens-pagination-item-active):hover button,
+.sens-pagination .sens-pagination-prev:not(.sens-pagination-disabled):hover .sens-pagination-arrow,
+.sens-pagination .sens-pagination-next:not(.sens-pagination-disabled):hover .sens-pagination-arrow {
   color: var(--sens-pagination-item-hover-text);
 }
 
@@ -178,17 +178,17 @@
   color: var(--sens-pagination-arrow-icon-color);
 }
 
-.sens-pagination .ant-pagination-item:not(.ant-pagination-item-active):active,
-.sens-pagination .ant-pagination-prev:not(.ant-pagination-disabled):active .ant-pagination-item-link,
-.sens-pagination .ant-pagination-next:not(.ant-pagination-disabled):active .ant-pagination-item-link {
+.sens-pagination .sens-pagination-item:not(.sens-pagination-item-active):active,
+.sens-pagination .sens-pagination-prev:not(.sens-pagination-disabled):active .sens-pagination-arrow,
+.sens-pagination .sens-pagination-next:not(.sens-pagination-disabled):active .sens-pagination-arrow {
   background: var(--sens-pagination-item-pressed-bg);
   border-color: var(--sens-pagination-item-pressed-border);
   box-shadow: var(--sens-pagination-item-pressed-shadow);
 }
 
-.sens-pagination .ant-pagination-item:not(.ant-pagination-item-active):active a,
-.sens-pagination .ant-pagination-prev:not(.ant-pagination-disabled):active .ant-pagination-item-link,
-.sens-pagination .ant-pagination-next:not(.ant-pagination-disabled):active .ant-pagination-item-link {
+.sens-pagination .sens-pagination-item:not(.sens-pagination-item-active):active button,
+.sens-pagination .sens-pagination-prev:not(.sens-pagination-disabled):active .sens-pagination-arrow,
+.sens-pagination .sens-pagination-next:not(.sens-pagination-disabled):active .sens-pagination-arrow {
   color: var(--sens-pagination-item-pressed-text);
 }
 
@@ -197,21 +197,21 @@
   color: var(--sens-pagination-arrow-icon-color);
 }
 
-.sens-pagination .ant-pagination-item-active {
+.sens-pagination .sens-pagination-item-active {
   background: var(--sens-pagination-item-selected-bg);
   border-color: var(--sens-pagination-item-selected-border);
 }
 
-.sens-pagination .ant-pagination-item-active a {
+.sens-pagination .sens-pagination-item-active button {
   color: var(--sens-pagination-item-selected-text);
 }
 
-.sens-pagination .ant-pagination-item-active:hover {
+.sens-pagination .sens-pagination-item-active:hover {
   background: var(--sens-pagination-item-selected-hover-bg);
   border-color: var(--sens-pagination-item-selected-border);
 }
 
-.sens-pagination .ant-pagination-item-active:hover a {
+.sens-pagination .sens-pagination-item-active:hover button {
   color: var(--sens-pagination-item-selected-text);
 }
 
@@ -278,12 +278,85 @@
   white-space: nowrap;
 }
 
+/* 页数下拉通过 Portal 渲染，显式复用分页器浮层的功能色变量。 */
+.sens-pagination-size-changer-dropdown .ant-select-item-option-selected:not(.ant-select-item-option-disabled) {
+  background-color: var(--sens-select-option-selected-bg) !important;
+}
+
+.sens-pagination-size-changer-dropdown .ant-select-item-option-selected:not(.ant-select-item-option-disabled):hover {
+  background-color: var(--sens-select-option-selected-hover-bg) !important;
+}
+
+.sens-pagination-size-changer-dropdown .sens-select-option-check svg {
+  color: var(--sens-select-option-check-color);
+}
+
 .sens-pagination .ant-pagination-options-quick-jumper {
   display: inline-flex;
   align-items: center;
   gap: var(--sens-pagination-item-gap);
   margin-inline-start: 0;
   color: var(--sens-pagination-text-color);
+}
+
+/* 自绘分页页码区：不依赖 antd Pagination 的外层结构 */
+.sens-pagination .sens-pagination-prev,
+.sens-pagination .sens-pagination-next {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sens-pagination .sens-pagination-item button {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  cursor: var(--sens-cursor-pointer);
+}
+
+.sens-pagination .sens-pagination-item-active {
+  background: var(--sens-pagination-item-selected-bg);
+  border-color: var(--sens-pagination-item-selected-border);
+}
+
+.sens-pagination .sens-pagination-item-active button {
+  color: var(--sens-pagination-item-selected-text);
+}
+
+.sens-pagination .sens-pagination-item:not(.sens-pagination-item-active):hover {
+  background: var(--sens-pagination-item-hover-bg);
+  border-color: var(--sens-pagination-item-hover-border);
+  box-shadow: var(--sens-pagination-item-hover-shadow);
+}
+
+.sens-pagination .sens-pagination-item:not(.sens-pagination-item-active):hover button {
+  color: var(--sens-pagination-item-hover-text);
+}
+
+.sens-pagination .sens-pagination-disabled,
+.sens-pagination .sens-pagination-disabled:hover {
+  cursor: var(--sens-cursor-not-allowed);
+  background: var(--sens-pagination-item-disabled-bg);
+  border-color: var(--sens-pagination-item-disabled-border);
+  box-shadow: none;
+}
+
+.sens-pagination .sens-pagination-disabled .sens-pagination-arrow {
+  color: var(--sens-pagination-arrow-icon-disabled-color);
+}
+
+.sens-pagination .sens-pagination-ellipsis {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--sens-pagination-jump-icon-color);
 }
 
 .sens-pagination .sens-pagination-quick-input {

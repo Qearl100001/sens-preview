@@ -1,4 +1,5 @@
 import type { CSSProperties, ReactNode } from "react";
+import { LoadingOutlined } from "@ant-design/icons";
 import tokens from "../design-system/tokens.resolved.json";
 import { SearchIcon } from "./SearchIcon";
 import {
@@ -51,11 +52,26 @@ export function useSensSelectSuffixProps(extraStyle?: CSSProperties) {
   };
 }
 
+/** 触发框加载：三角换成转圈（Figma 1227:8989）；色走禁用箭头 token */
+export function SensSelectLoadingIcon() {
+  return (
+    <span className="sens-select-loading-icon" aria-hidden>
+      <LoadingOutlined spin />
+    </span>
+  );
+}
+
 /** R3 触发框后缀：箭头在左、框内警告菱形在右（Figma 15474:49040） */
-export function SensSelectTriggerSuffix({ insideWarning }: { insideWarning?: ReactNode }) {
+export function SensSelectTriggerSuffix({
+  insideWarning,
+  loading = false,
+}: {
+  insideWarning?: ReactNode;
+  loading?: boolean;
+}) {
   return (
     <span className="sens-select-trigger-suffix-group">
-      <SensSelectTriggerArrow />
+      {loading ? <SensSelectLoadingIcon /> : <SensSelectTriggerArrow />}
       {insideWarning ? (
         <span className="sens-select-inside-warning-slot">{insideWarning}</span>
       ) : null}
@@ -67,12 +83,13 @@ export function SensSelectTriggerSuffix({ insideWarning }: { insideWarning?: Rea
 export function useSensSelectTriggerSuffixProps(
   extraStyle?: CSSProperties,
   insideWarning?: ReactNode,
+  loading = false,
 ) {
   return {
-    suffixIcon: <SensSelectTriggerSuffix insideWarning={insideWarning} />,
+    suffixIcon: <SensSelectTriggerSuffix insideWarning={insideWarning} loading={loading} />,
     className: [
       "sens-select-trigger",
-      "sens-select-with-trigger-arrow",
+      loading ? "sens-select-loading" : "sens-select-with-trigger-arrow",
       insideWarning ? "sens-select-has-inside-warning" : "",
     ]
       .filter(Boolean)
@@ -86,9 +103,10 @@ export function useSensSelectTriggerProps(
   clearable = false,
   extraStyle?: CSSProperties,
   insideWarning?: ReactNode,
+  loading = false,
 ) {
-  const suffix = useSensSelectTriggerSuffixProps(extraStyle, insideWarning);
-  if (!clearable) return suffix;
+  const suffix = useSensSelectTriggerSuffixProps(extraStyle, insideWarning, loading);
+  if (!clearable || loading) return suffix;
   return {
     ...suffix,
     allowClear: { clearIcon: <SelectClearIcon className="sens-select-clear-icon" /> },

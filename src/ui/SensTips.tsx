@@ -106,6 +106,12 @@ export type SensTipsProps = {
   /** 受控显隐；矩阵静态样张用 `open` */
   open?: boolean;
   defaultOpen?: boolean;
+  /** 外部场景暂时禁止悬停/聚焦触发，并立即关闭已打开的便签 */
+  disabled?: boolean;
+  /** 外部交互区域打开时，禁止触发器触发并立即关闭已打开的非受控便签 */
+  suppressTriggerOpen?: boolean;
+  /** 外部悬停区域（例如 Select 下拉浮层）仍在当前交互范围内 */
+  keepOpen?: boolean;
   /** 悬停出现延迟，默认 100ms */
   mouseEnterDelay?: number;
   /**
@@ -311,6 +317,9 @@ export function SensTips({
   align = "center",
   open: openProp,
   defaultOpen = false,
+  disabled = false,
+  suppressTriggerOpen = false,
+  keepOpen = false,
   mouseEnterDelay = SENS_TIPS_ENTER_DELAY_MS,
   strategy = "portal",
   autoAdjust = true,
@@ -329,7 +338,11 @@ export function SensTips({
   const [resolvedPlacement, setResolvedPlacement] = useState(placement);
   const [resolvedAlign, setResolvedAlign] = useState(align);
   const isControlled = openProp !== undefined;
-  const open = isControlled ? Boolean(openProp) : uncontrolledOpen;
+  const open = disabled
+    ? false
+    : isControlled
+      ? Boolean(openProp)
+      : uncontrolledOpen || keepOpen;
   const anchored = strategy === "anchored";
   const canAutoAdjust = autoAdjust && !anchored;
 
@@ -382,6 +395,20 @@ export function SensTips({
     },
     [],
   );
+
+  useEffect(() => {
+    if (!disabled) return;
+    clearEnterTimer();
+    clearLeaveTimer();
+    if (!isControlled) setUncontrolledOpen(false);
+  }, [disabled, isControlled]);
+
+  useEffect(() => {
+    if (!suppressTriggerOpen) return;
+    clearEnterTimer();
+    clearLeaveTimer();
+    if (!isControlled) setUncontrolledOpen(false);
+  }, [isControlled, suppressTriggerOpen]);
 
   useEffect(() => {
     if (!open) {
@@ -467,6 +494,7 @@ export function SensTips({
     onMouseEnter?: (event: MouseEvent) => void;
     onMouseLeave?: (event: MouseEvent) => void;
     onMouseMove?: (event: MouseEvent) => void;
+    onMouseDown?: (event: MouseEvent) => void;
     onFocus?: (event: FocusEvent) => void;
     onBlur?: (event: FocusEvent) => void;
     "aria-describedby"?: string;
@@ -490,20 +518,24 @@ export function SensTips({
     onMouseEnter: (event: MouseEvent) => {
       child.props.onMouseEnter?.(event);
       recordPointer(event);
-      if (!isControlled) scheduleOpen();
+      if (!isControlled && !disabled && !suppressTriggerOpen) scheduleOpen();
     },
     onMouseMove: (event: MouseEvent) => {
       child.props.onMouseMove?.(event);
       recordPointer(event);
     },
+    onMouseDown: (event: MouseEvent) => {
+      child.props.onMouseDown?.(event);
+      clearEnterTimer();
+    },
     onMouseLeave: (event: MouseEvent) => {
       child.props.onMouseLeave?.(event);
-      if (!isControlled) scheduleClose();
+      if (!isControlled && !disabled) scheduleClose();
     },
     onFocus: (event: FocusEvent) => {
       child.props.onFocus?.(event);
       pointerRef.current = null;
-      if (!isControlled) scheduleOpen();
+      if (!isControlled && !disabled && !suppressTriggerOpen) scheduleOpen();
     },
     onBlur: (event: FocusEvent) => {
       child.props.onBlur?.(event);

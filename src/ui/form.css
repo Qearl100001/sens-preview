@@ -57,14 +57,9 @@
   line-height: var(--sens-form-label-line-height);
 }
 
-.sens-form--horizontal .sens-form-item-label-row,
-.sens-form-item--horizontal .sens-form-item-label-row {
+.sens-form--horizontal .sens-form-item:not(.sens-form-item--vertical):not(.sens-form-item--label-top) > .sens-form-item-label > .sens-form-item-label-row,
+.sens-form-item--horizontal:not(.sens-form-item--label-top) > .sens-form-item-label > .sens-form-item-label-row {
   min-height: var(--sens-form-control-height);
-}
-
-.sens-form--horizontal .sens-form-item--label-top .sens-form-item-label-row,
-.sens-form-item--horizontal.sens-form-item--label-top .sens-form-item-label-row {
-  min-height: 0;
 }
 
 .sens-form-item-label-text {
@@ -127,8 +122,8 @@
   gap: var(--sens-form-field-gap);
 }
 
-.sens-form--horizontal .sens-form-item--label-top .sens-form-item-field,
-.sens-form-item--horizontal.sens-form-item--label-top .sens-form-item-field {
+.sens-form--horizontal .sens-form-item--label-top > .sens-form-item-control > .sens-form-item-field,
+.sens-form-item--horizontal.sens-form-item--label-top > .sens-form-item-control > .sens-form-item-field {
   align-items: flex-start;
 }
 

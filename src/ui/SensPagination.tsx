@@ -1,9 +1,8 @@
 import { useEffect, useState, type CSSProperties } from "react";
-import { Pagination } from "antd";
 import type { PaginationProps, SelectProps } from "antd";
 import { buildShadowD3, getColorToken, tokenRgba } from "../design-system/color-utils";
 import { getDividerColor, getDividerHairlineWidth } from "../design-system/divider";
-import { buildFunctionalActiveRingShadow, functionalCssVar } from "../design-system/functional-skin";
+import { buildFunctionalActiveRingShadow, functionalCssVar, getFunctionalColors, type FunctionalSkin } from "../design-system/functional-skin";
 import { useSensAppearance } from "../design-system/appearance";
 import { SensIcon } from "../design-system/icons";
 import { getTypographyToken } from "../design-system/typography";
@@ -34,7 +33,7 @@ function PaginationArrowIcon({
       <button
         aria-disabled={disabled}
         aria-label={title}
-        className="ant-pagination-item-link sens-pagination-arrow"
+        className="sens-pagination-arrow"
         type="button"
         tabIndex={-1}
       >
@@ -89,6 +88,13 @@ function getDisplayRange(total: number, current: number, pageSize: number): [num
   return [(current - 1) * pageSize + 1, Math.min(current * pageSize, total)];
 }
 
+function buildPageItems(pageCount: number, current: number): Array<number | "ellipsis"> {
+  if (pageCount <= 7) return Array.from({ length: pageCount }, (_, index) => index + 1);
+  if (current <= 4) return [1, 2, 3, 4, 5, "ellipsis", pageCount];
+  if (current >= pageCount - 3) return [1, "ellipsis", pageCount - 4, pageCount - 3, pageCount - 2, pageCount - 1, pageCount];
+  return [1, "ellipsis", current - 1, current, current + 1, "ellipsis", pageCount];
+}
+
 function getPageSizeOptions(
   pageSizeOptions: SensPaginationProps["pageSizeOptions"],
   currentPageSize: number,
@@ -108,20 +114,23 @@ function px(value: number): string {
   return `${value}px`;
 }
 
-function buildPaginationTokenVars(): CSSProperties {
+function buildPaginationTokenVars(functionalSkin?: FunctionalSkin): CSSProperties {
+  const functional = functionalSkin ? getFunctionalColors(functionalSkin) : undefined;
+  const skinColor = (cssVar: "--sens-skin-primary" | "--sens-skin-hover" | "--sens-skin-active", fallback: "component-primary" | "component-hover" | "component-active") =>
+    functional ? functional[{ "--sens-skin-primary": "primary", "--sens-skin-hover": "hover", "--sens-skin-active": "active" }[cssVar] as "primary" | "hover" | "active"] : functionalCssVar(cssVar, fallback);
   return {
     "--sens-pagination-item-bg": getColorToken("white"),
     "--sens-pagination-item-border": getDividerColor("deep", "transparent"),
     "--sens-pagination-item-hover-bg": getColorToken("white"),
-    "--sens-pagination-item-hover-border": functionalCssVar("--sens-skin-primary", "component-primary"),
-    "--sens-pagination-item-hover-text": functionalCssVar("--sens-skin-primary", "component-primary"),
+    "--sens-pagination-item-hover-border": skinColor("--sens-skin-primary", "component-primary"),
+    "--sens-pagination-item-hover-text": skinColor("--sens-skin-primary", "component-primary"),
     "--sens-pagination-item-hover-shadow": buildShadowD3(),
     "--sens-pagination-item-pressed-bg": getColorToken("white"),
-    "--sens-pagination-item-pressed-border": functionalCssVar("--sens-skin-active", "component-active"),
-    "--sens-pagination-item-pressed-text": functionalCssVar("--sens-skin-active", "component-active"),
-    "--sens-pagination-item-pressed-shadow": buildFunctionalActiveRingShadow(),
-    "--sens-pagination-item-selected-bg": functionalCssVar("--sens-skin-primary", "component-primary"),
-    "--sens-pagination-item-selected-hover-bg": functionalCssVar("--sens-skin-hover", "component-hover"),
+    "--sens-pagination-item-pressed-border": skinColor("--sens-skin-active", "component-active"),
+    "--sens-pagination-item-pressed-text": skinColor("--sens-skin-active", "component-active"),
+    "--sens-pagination-item-pressed-shadow": buildFunctionalActiveRingShadow(functional),
+    "--sens-pagination-item-selected-bg": skinColor("--sens-skin-primary", "component-primary"),
+    "--sens-pagination-item-selected-hover-bg": skinColor("--sens-skin-hover", "component-hover"),
     "--sens-pagination-item-selected-text": getColorToken("white"),
     "--sens-pagination-item-selected-border": getDividerColor("light", "transparent"),
     "--sens-pagination-item-disabled-bg": tokenRgba("background-transparent-grey-hover", 0.06),
@@ -138,9 +147,9 @@ function buildPaginationTokenVars(): CSSProperties {
     "--sens-pagination-text-color": tokenRgba("text-color-transparent", 0.9),
     "--sens-pagination-range-text-color": tokenRgba("text-color-transparent", 0.9),
     "--sens-pagination-border-color": getColorToken("outline-color"),
-    "--sens-pagination-input-hover-border": functionalCssVar("--sens-skin-primary", "component-primary"),
-    "--sens-pagination-input-focus-border": functionalCssVar("--sens-skin-active", "component-active"),
-    "--sens-pagination-input-focus-shadow": buildFunctionalActiveRingShadow(),
+    "--sens-pagination-input-hover-border": skinColor("--sens-skin-primary", "component-primary"),
+    "--sens-pagination-input-focus-border": skinColor("--sens-skin-active", "component-active"),
+    "--sens-pagination-input-focus-shadow": buildFunctionalActiveRingShadow(functional),
     "--sens-pagination-item-size": px(getUnitToken("size/component-height/m")),
     "--sens-pagination-item-size-sm": px(getUnitToken("size/component-height/s")),
     "--sens-pagination-item-radius": px(getUnitToken("radius/m")),
@@ -162,7 +171,17 @@ function usePaginationSizeChangerConfig(
   simple: boolean,
 ): PaginationProps["showSizeChanger"] {
   const { functionalSkin } = useSensAppearance();
-  const triggerStyle = useSensSelectTriggerStyle();
+  const functional = getFunctionalColors(functionalSkin);
+  // 页数选择器的触发器与下拉菜单一样位于浮层 Portal 中，不能依赖外层
+  // AppearanceProvider 的 CSS 变量继承；这里直接注入当前肤色，避免回退成神策绿。
+  const triggerStyle = {
+    ...useSensSelectTriggerStyle(),
+    "--sens-select-hover-border-color": functional.primary,
+    "--sens-select-active-border-color": functional.active,
+    "--sens-select-active-shadow": `0 0 0 2px ${functional.activeShadow}`,
+    "--sens-select-simple-hover-color": functional.primary,
+    "--sens-select-simple-active-color": functional.active,
+  } as CSSProperties;
   const dropdownStyle = useSensSelectDropdownStyle(functionalSkin);
   const triggerProps = useSensSelectTriggerProps(false, triggerStyle);
   const mergedShowSizeChanger = showSizeChanger ?? !simple;
@@ -171,7 +190,11 @@ function usePaginationSizeChangerConfig(
 
   const selectProps: SelectProps =
     typeof mergedShowSizeChanger === "object" ? mergedShowSizeChanger : {};
-  const popupRootClass = mergeClassName("sens-select-dropdown", selectProps.classNames?.popup?.root);
+  const popupRootClass = mergeClassName(
+    "sens-select-dropdown",
+    "sens-pagination-size-changer-dropdown",
+    selectProps.classNames?.popup?.root,
+  );
 
   return {
     ...selectProps,
@@ -192,7 +215,7 @@ function usePaginationSizeChangerConfig(
       ...selectProps.styles,
       popup: {
         ...selectProps.styles?.popup,
-        root: { ...dropdownStyle, ...selectProps.styles?.popup?.root },
+        root: { ...dropdownStyle, zIndex: 1070, ...selectProps.styles?.popup?.root },
       },
     },
     menuItemSelectedIcon: selectProps.menuItemSelectedIcon ?? <PaginationSelectCheckSuffix />,
@@ -223,7 +246,6 @@ export function SensPagination({
   hideOnSinglePage,
   onChange,
   onShowSizeChange,
-  ...rest
 }: SensPaginationProps) {
   const isSimple = Boolean(simple);
   const { functionalSkin } = useSensAppearance();
@@ -312,7 +334,7 @@ export function SensPagination({
     return (
       <div
         className={mergeClassName(paginationClassName, "sens-pagination-simple")}
-        style={{ ...buildPaginationTokenVars(), ...style }}
+        style={{ ...buildPaginationTokenVars(functionalSkin), ...style }}
       >
         <SensTips title={prevDisabled ? "当前已在首页" : "上一页"} placement="top">
           <button
@@ -354,56 +376,33 @@ export function SensPagination({
     );
   }
 
-  const paginationPages =
-    pageCount <= 10 ? (
-      <ul className="ant-pagination sens-pagination-pages">
+  const pageItems = buildPageItems(pageCount, mergedCurrent);
+  const paginationPages = (
+      <ul className="sens-pagination-pages" aria-label="分页">
         <li
-          className={mergeClassName("ant-pagination-prev", mergedCurrent <= 1 || disabled ? "ant-pagination-disabled" : undefined)}
+          className={mergeClassName("sens-pagination-prev", mergedCurrent <= 1 || disabled ? "sens-pagination-disabled" : undefined)}
           onClick={() => handlePageChange(mergedCurrent - 1)}
         >
           <PaginationArrowIcon direction="prev" disabled={mergedCurrent <= 1 || disabled} />
         </li>
-        {Array.from({ length: pageCount }, (_, index) => {
-          const page = index + 1;
-          const active = page === mergedCurrent;
-
-          return (
-            <li
-              className={mergeClassName("ant-pagination-item", active ? "ant-pagination-item-active" : undefined)}
-              key={page}
-              onClick={() => handlePageChange(page)}
-            >
-              <a rel="nofollow">{page}</a>
-            </li>
-          );
-        })}
+        {pageItems.map((item, index) => item === "ellipsis" ? (
+          <li className="sens-pagination-ellipsis" key={`ellipsis-${index}`} aria-hidden="true">…</li>
+        ) : (
+          <li
+            className={mergeClassName("sens-pagination-item", item === mergedCurrent ? "sens-pagination-item-active" : undefined)}
+            key={item}
+            onClick={() => handlePageChange(item)}
+          >
+            <button type="button" aria-current={item === mergedCurrent ? "page" : undefined}>{item}</button>
+          </li>
+        ))}
         <li
-          className={mergeClassName("ant-pagination-next", mergedCurrent >= pageCount || disabled ? "ant-pagination-disabled" : undefined)}
+          className={mergeClassName("sens-pagination-next", mergedCurrent >= pageCount || disabled ? "sens-pagination-disabled" : undefined)}
           onClick={() => handlePageChange(mergedCurrent + 1)}
         >
           <PaginationArrowIcon direction="next" disabled={mergedCurrent >= pageCount || disabled} />
         </li>
       </ul>
-    ) : (
-      <Pagination
-        className="sens-pagination-pages"
-        total={total}
-        current={mergedCurrent}
-        pageSize={mergedPageSize}
-        disabled={disabled}
-        hideOnSinglePage={hideOnSinglePage}
-        onChange={handlePageChange}
-        showTotal={undefined}
-        showSizeChanger={false}
-        showQuickJumper={false}
-        pageSizeOptions={pageSizeOptions}
-        {...rest}
-        showTitle={false}
-        prevIcon={<PaginationArrowIcon direction="prev" disabled={mergedCurrent <= 1 || disabled} />}
-        nextIcon={<PaginationArrowIcon direction="next" disabled={mergedCurrent >= pageCount || disabled} />}
-        jumpPrevIcon={<PaginationJumpIcon direction="prev" />}
-        jumpNextIcon={<PaginationJumpIcon direction="next" />}
-      />
     );
 
   const optionsNode =
@@ -455,7 +454,7 @@ export function SensPagination({
   return (
     <div
       className={paginationClassName}
-      style={{ ...buildPaginationTokenVars(), ...style }}
+      style={{ ...buildPaginationTokenVars(functionalSkin), ...style }}
     >
       {renderTotal(showTotal, total, mergedCurrent, mergedPageSize)}
       {paginationPages}

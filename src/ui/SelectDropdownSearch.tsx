@@ -11,6 +11,7 @@ export function SelectDropdownSearch({
   placeholder,
   className,
   onBack,
+  disablePlaceholderTip,
   ...rest
 }: SelectDropdownSearchProps) {
   const { t } = useTranslation();
@@ -25,6 +26,7 @@ export function SelectDropdownSearch({
         className={["sens-select-dropdown-search-input", className].filter(Boolean).join(" ") || undefined}
         placeholder={resolvedPlaceholder}
         onBack={onBack}
+        disablePlaceholderTip={disablePlaceholderTip}
         {...rest}
       />
     </div>

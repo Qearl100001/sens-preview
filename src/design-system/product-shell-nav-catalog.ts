@@ -8,7 +8,8 @@ import {
 /**
  * Product Shell 域导航目录（顶导 + 侧导唯一 IA 源）。
  * - SensTopNavigation 默认一级项 / 下拉由此派生
- * - `/templates/product-shell` 侧导与顶导同源消费
+ * - `/templates/product-shell/t` 侧导与顶导同源消费
+ * - `/templates/product-shell/vertical` 上下布局下钻页复用顶导 IA（无侧导）
  * 禁止在顶导组件内再硬编码另一套扁平业务菜单。
  */
 

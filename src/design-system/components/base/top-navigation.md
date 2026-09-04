@@ -19,9 +19,9 @@
 
 - 顶部导航是 Product Shell 的上层产品导航；与侧边导航、标题栏、内容面板的组合关系见 `../composite/product-shell.md`。
 - 样板间或真实业务页使用顶导时，应调用 `SensTopNavigation` 或 Product Shell 组合，不得复制一套局部顶导壳。
-- 一级导航项与下拉 IA 的唯一源为 `product-shell-nav-catalog`；基础组件页与 `/templates/product-shell` 共用该目录派生的默认配置，禁止在组件内另写业务扁平菜单。
+- 一级导航项与下拉 IA 的唯一源为 `product-shell-nav-catalog`；基础组件页与 `/templates/product-shell/t` 共用该目录派生的默认配置，禁止在组件内另写业务扁平菜单。
 - 顶部导航决定当前产品 / 项目 / 一级功能域；侧边导航展示当前一级功能域内页面目录；标题栏只表达当前落地页身份。
-- 固定高度产品壳中，内容区滚动超过阈值后顶导（含氛围）可整体收起；规则与验收入口见 `../composite/product-shell.md` §5 与 `/templates/product-shell`。
+- 固定高度产品壳中，内容区滚动超过阈值后顶导（含氛围）可整体收起；规则与验收入口见 `../composite/product-shell.md` §5 与 `/templates/product-shell/t`、`/templates/product-shell/vertical`。
 
 ## 关键规则
 

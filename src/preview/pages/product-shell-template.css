@@ -56,6 +56,7 @@
   flex-direction: column;
   min-width: 0;
   min-height: 0;
+  /* hidden 裁切收起态回到顶部探出右缘的半圆；正文滚动在 __scroll。 */
   overflow: hidden;
   background: var(--shell-surface);
   border-top-right-radius: var(--shell-content-radius);
@@ -205,6 +206,10 @@
   min-width: 0;
 }
 
+.product-shell-placement-card__label-row:has(.product-shell-placement-card__help) {
+  gap: var(--shell-icon-text-gap);
+}
+
 .product-shell-placement-card__help {
   display: inline-flex;
   align-items: center;
@@ -258,7 +263,154 @@
 
 .product-shell-template__back-top {
   position: absolute;
-  right: var(--shell-back-top-inset);
-  bottom: var(--shell-back-top-inset);
   z-index: 2;
+  display: inline-flex;
+  transition:
+    right 240ms cubic-bezier(0.42, 0, 0.58, 1),
+    bottom 240ms cubic-bezier(0.42, 0, 0.58, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .product-shell-template__back-top {
+    transition: none;
+  }
+}
+
+.product-shell-template__back-top--docked {
+  /* right 由脚本设为可视右缘 − 半钮；超出部分被内容面板 overflow:hidden 裁成半圆。 */
+}
+
+/* —— 上下布局（无侧导下钻）：全宽内容列 —— */
+.product-shell-template--vertical .product-shell-template__workspace {
+  display: flex;
+  flex-direction: column;
+  grid-template-columns: none;
+}
+
+.product-shell-template--vertical .product-shell-template__content {
+  grid-column: auto;
+  flex: 1;
+  min-height: 0;
+  border-top-left-radius: var(--shell-content-radius);
+  border-top-right-radius: var(--shell-content-radius);
+  box-shadow: none;
+}
+
+.product-shell-template__form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--shell-section-gap);
+  /* Layout 上下布局：白色正文区上下 16 / 左右 24 */
+  padding: var(--shell-body-padding-block) var(--shell-content-padding);
+  background: var(--shell-surface);
+}
+
+.product-shell-template__form-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--shell-section-gap);
+  min-width: 0;
+}
+
+.product-shell-template__form-body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--shell-section-gap);
+  min-width: 0;
+  /* 灰标题下方同组内容左右 16px，对齐灰条内标题文字 */
+  padding-inline: var(--shell-form-group-padding-inline);
+}
+
+.product-shell-template__form-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--shell-action-gap);
+}
+
+.product-shell-template__title-meta {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--shell-tag-gap);
+}
+
+.product-shell-template__name-field {
+  width: 100%;
+  max-width: var(--shell-control-max-width, 600px);
+  min-width: 0;
+}
+
+/* Figma 3717:10256：左固定框 + 右输入框横向拼成一条 32 栏；勿把 addon 改成 inline-flex 以免打断 antd table 布局 */
+.product-shell-template__name-field .ant-input-group-wrapper,
+.product-shell-template__name-field .ant-input-wrapper.ant-input-group {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: stretch;
+  width: 100%;
+  height: var(--shell-control-height);
+}
+
+.product-shell-template__name-field .ant-input-group-addon {
+  box-sizing: border-box;
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  width: auto;
+  height: var(--shell-control-height);
+  padding: 0 var(--shell-addon-padding-inline);
+  color: var(--shell-text);
+  font-size: var(--shell-card-body-size);
+  line-height: var(--shell-card-body-line);
+  white-space: nowrap;
+  background: var(--shell-surface);
+  border: var(--shell-divider-width) solid var(--shell-input-border);
+  border-right: 0;
+  border-radius: var(--shell-card-body-radius) 0 0 var(--shell-card-body-radius);
+}
+
+.product-shell-template__name-field .ant-input-wrapper.ant-input-group .ant-input {
+  box-sizing: border-box;
+  flex: 1 1 auto;
+  min-width: 0;
+  height: var(--shell-control-height);
+  line-height: var(--shell-card-body-line);
+  border-color: var(--shell-input-border);
+  border-radius: 0 var(--shell-card-body-radius) var(--shell-card-body-radius) 0;
+}
+
+.product-shell-template__form-item--full > .sens-form-item-control {
+  max-width: none;
+}
+
+.product-shell-template__rule-card {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: var(--shell-card-inner-gap);
+  width: 100%;
+  padding: var(--shell-card-padding);
+  border: var(--shell-divider-width) solid var(--shell-card-border);
+  border-radius: var(--shell-card-radius);
+  background: var(--shell-surface);
+}
+
+/* Figma 3717:10282 · 设置规则：通栏普通描边卡 + 链接按钮 */
+.product-shell-template__rule-panel {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: var(--shell-card-padding);
+  border: var(--shell-divider-width) solid var(--shell-card-border);
+  border-radius: var(--shell-card-radius);
+  background: var(--shell-surface);
+}
+
+.product-shell-template__retain-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--shell-field-gap);
+  color: var(--shell-text);
+  font-size: var(--shell-card-body-size);
+  line-height: var(--shell-card-body-line);
 }

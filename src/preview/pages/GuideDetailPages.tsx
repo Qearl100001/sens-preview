@@ -198,6 +198,7 @@ export function AgentRulesGuidePage() {
               <Space wrap size="small">
                 <Tag>价值体验原则</Tag>
                 <Tag>一致性流程规则</Tag>
+                <Tag>文案规范</Tag>
                 <Tag>页面评审清单</Tag>
               </Space>
               <Paragraph type="secondary" style={{ margin: "12px 0 0" }}>

@@ -18,38 +18,72 @@
   line-height: var(--sens-input-line-height);
 }
 
+.sens-select-trigger .ant-select-selection-item {
+  color: var(--sens-select-text-color);
+}
+
+/* antd 单选展开会把已选字改成 placeholder 色；激活态保持已填字色 */
+.sens-select-trigger.ant-select-single.ant-select-open:not(.ant-select-disabled) .ant-select-selection-item,
+.sens-select-trigger.ant-select-single.ant-select-focused:not(.ant-select-disabled) .ant-select-selection-item {
+  color: var(--sens-select-text-color);
+}
+
 .sens-select-trigger.ant-select-sm .ant-select-selection-item,
 .sens-select-trigger.ant-select-sm .ant-select-selection-placeholder {
   line-height: var(--sens-input-line-height-sm);
 }
 
 /* antd Select 对 components.Select.hoverBorderColor 接线不完整；与 Input 同源变量兜底（非 status-error） */
-.sens-select-trigger.ant-select:not(.ant-select-disabled):not(.ant-select-status-error):hover .ant-select-selector,
-.sens-select-trigger.ant-select:not(.ant-select-disabled):not(.ant-select-status-error) .ant-select-selector:hover {
+.sens-select-trigger.ant-select:not(.ant-select-disabled):not(.sens-select-loading):not(
+    .ant-select-status-error
+  ):hover
+  .ant-select-selector,
+.sens-select-trigger.ant-select:not(.ant-select-disabled):not(.sens-select-loading):not(
+    .ant-select-status-error
+  )
+  .ant-select-selector:hover {
   border-color: var(--sens-select-hover-border-color) !important;
 }
 
-.sens-select-trigger.ant-select-focused:not(.ant-select-disabled):not(.ant-select-status-error) .ant-select-selector,
-.sens-select-trigger.ant-select-open:not(.ant-select-disabled):not(.ant-select-status-error) .ant-select-selector {
+.sens-select-trigger.ant-select-focused:not(.ant-select-disabled):not(.sens-select-loading):not(
+    .ant-select-status-error
+  )
+  .ant-select-selector,
+.sens-select-trigger.ant-select-open:not(.ant-select-disabled):not(.sens-select-loading):not(
+    .ant-select-status-error
+  )
+  .ant-select-selector {
   border-color: var(--sens-select-active-border-color) !important;
   box-shadow: var(--sens-select-active-shadow) !important;
 }
 
 /* 框内/框外警告（status-error）：hover/focus 延续 colorError 链，不回落主色绿 */
-.sens-select-trigger.ant-select-outlined.ant-select-status-error:not(.ant-select-disabled):hover .ant-select-selector,
-.sens-select-trigger.ant-select-outlined.ant-select-status-error:not(.ant-select-disabled) .ant-select-selector:hover {
+.sens-select-trigger.ant-select-outlined.ant-select-status-error:not(.ant-select-disabled):not(
+    .sens-select-loading
+  ):hover
+  .ant-select-selector,
+.sens-select-trigger.ant-select-outlined.ant-select-status-error:not(.ant-select-disabled):not(
+    .sens-select-loading
+  )
+  .ant-select-selector:hover {
   border-color: var(--sens-select-error-hover-border-color) !important;
 }
 
-.sens-select-trigger.ant-select-outlined.ant-select-status-error.ant-select-focused:not(.ant-select-disabled) .ant-select-selector,
-.sens-select-trigger.ant-select-outlined.ant-select-status-error.ant-select-open:not(.ant-select-disabled) .ant-select-selector {
+.sens-select-trigger.ant-select-outlined.ant-select-status-error.ant-select-focused:not(
+    .ant-select-disabled
+  ):not(.sens-select-loading)
+  .ant-select-selector,
+.sens-select-trigger.ant-select-outlined.ant-select-status-error.ant-select-open:not(
+    .ant-select-disabled
+  ):not(.sens-select-loading)
+  .ant-select-selector {
   border-color: var(--sens-select-error-active-border-color) !important;
   box-shadow: var(--sens-select-error-active-shadow) !important;
 }
 
 /* placeholder：components.Select.colorTextPlaceholder 兜底 */
 .sens-select-trigger .ant-select-selection-placeholder {
-  color: var(--sens-select-placeholder-color);
+  color: var(--sens-select-placeholder-color) !important;
 }
 
 /* antd 禁用态边框仍走 colorBorder；8% 浅线须组件层覆盖 */
@@ -109,16 +143,67 @@
   color: var(--sens-select-arrow-color-disabled);
 }
 
+.sens-select-loading-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--sens-select-arrow-size, 16px);
+  height: var(--sens-select-arrow-size, 16px);
+  font-size: var(--sens-select-arrow-size, 16px);
+  color: var(--sens-select-arrow-color-disabled);
+}
+
+.sens-select-trigger.sens-select-loading .ant-select-arrow {
+  color: var(--sens-select-arrow-color-disabled);
+}
+
+/* 加载与禁用同一套灰（button.md 团队规则）；三角换成转圈 */
+.sens-select-trigger.sens-select-loading .ant-select-selector {
+  background-color: var(--sens-select-disabled-bg) !important;
+  border-color: var(--sens-select-border-disabled) !important;
+  color: var(--sens-select-disabled-text-color) !important;
+  cursor: var(--sens-cursor-not-allowed, not-allowed);
+}
+
+.sens-select-trigger.sens-select-loading:hover .ant-select-selector,
+.sens-select-trigger.sens-select-loading .ant-select-selector:hover,
+.sens-select-trigger.sens-select-loading.ant-select-focused .ant-select-selector,
+.sens-select-trigger.sens-select-loading.ant-select-open .ant-select-selector {
+  background-color: var(--sens-select-disabled-bg);
+  border-color: var(--sens-select-border-disabled);
+  box-shadow: none;
+}
+
+.sens-select-trigger.sens-select-loading .ant-select-selection-item,
+.sens-select-trigger.sens-select-loading .ant-select-selection-item-content,
+.sens-select-trigger.sens-select-loading .ant-select-selection-placeholder {
+  color: var(--sens-select-disabled-text-color) !important;
+}
+
 /* clearable：hover 时 antd 用清空图标替换箭头（Figma 1430:4796 · icons.md） */
 .sens-select-trigger .ant-select-clear {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  z-index: 2;
   color: var(--sens-select-arrow-color);
+  pointer-events: none;
+  opacity: 0;
+}
+
+.sens-select-trigger:not(.ant-select-disabled):not(.sens-select-loading):hover .ant-select-clear {
+  pointer-events: auto;
+  opacity: 1;
 }
 
 .sens-select-trigger:not(.ant-select-disabled) .ant-select-clear:hover {
   color: var(--sens-select-icon-hover-color);
+}
+
+.sens-select-trigger:not(.ant-select-disabled):not(.sens-select-loading):hover:has(.ant-select-clear)
+  .ant-select-arrow {
+  opacity: 0;
+  pointer-events: none;
 }
 
 /* 框内警告 + 箭头：箭头在左、报错菱形在右，间距 spacing/1x */
@@ -139,21 +224,746 @@
   color: var(--sens-input-error-color);
 }
 
-/* 框外警告：字段 + help 行 */
+/* 框外警告：字段 + help 行。包层跟触发框同宽，help 不反向撑开 */
 .sens-select-trigger-field {
   position: relative;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--sens-input-help-gap, 4px);
+  width: 100%;
+  max-width: 100%;
+  vertical-align: top;
+}
+
+.sens-select-trigger-field--adaptive {
+  width: fit-content;
+  min-width: var(--sens-select-adaptive-min-width, 128px);
+  max-width: var(--sens-select-adaptive-max-width, 600px);
+}
+
+.sens-select-trigger-field .sens-input-help {
+  width: 0;
+  min-width: 100%;
+  box-sizing: border-box;
+}
+
+.sens-select-trigger-field .sens-select-count-host {
   width: 100%;
 }
 
-.sens-select-help {
-  display: flex;
-  align-items: flex-start;
-  gap: var(--sens-input-help-gap, 4px);
-  margin-top: var(--sens-input-help-gap, 4px);
-  color: var(--sens-input-error-color);
+/* 自适应宽：按内容撑开，不被 .ant-select { width: 100% } 吃掉 */
+.sens-select-trigger.sens-select-adaptive.ant-select {
+  width: fit-content;
+  min-width: var(--sens-select-adaptive-min-width, 128px);
+  max-width: var(--sens-select-adaptive-max-width, 600px);
 }
 
-.sens-select-help-text {
-  font-size: var(--sens-input-help-font-size);
-  line-height: var(--sens-input-help-line-height);
+.sens-select-trigger.sens-select-adaptive.ant-select .ant-select-selector {
+  width: max-content;
+  min-width: var(--sens-select-adaptive-min-width, 128px);
+  max-width: var(--sens-select-adaptive-max-width, 600px);
+}
+
+.sens-select-trigger.sens-select-adaptive .ant-select-selection-item,
+.sens-select-trigger.sens-select-adaptive .ant-select-selection-placeholder {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.sens-select-count-host:has(.sens-select-adaptive) {
+  width: fit-content;
+  min-width: var(--sens-select-adaptive-min-width, 128px);
+  max-width: var(--sens-select-adaptive-max-width, 600px);
+}
+
+.sens-select-count-host:has(.sens-select-adaptive) .sens-select-trigger.ant-select {
+  width: fit-content;
+}
+
+/* 禁用已选文字：覆盖 antd colorTextDisabled（rgba(0,0,0,.25)） */
+.sens-select-trigger.ant-select-disabled .ant-select-selector,
+.sens-select-trigger.ant-select-disabled .ant-select-selection-item,
+.sens-select-trigger.ant-select-disabled .ant-select-selection-item-content {
+  color: var(--sens-select-disabled-text-color) !important;
+}
+
+.sens-select-count-host {
+  display: block;
+}
+
+/* 多选确认型：浮层使用草稿值，但触发框只展示已提交值。 */
+.sens-select-count-confirm-host {
+  position: relative;
+  display: block;
+}
+
+.sens-select-count-confirm .ant-select-selection-overflow,
+.sens-select-count-confirm .ant-select-selection-placeholder {
+  visibility: hidden;
+}
+
+.sens-select-count-committed-layer {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  padding-inline: var(--sens-select-padding-inline)
+    calc(var(--sens-select-padding-inline) + var(--sens-select-arrow-size) + var(--sens-select-content-arrow-gap));
+  overflow: hidden;
+  color: var(--sens-select-text-color);
+  line-height: var(--sens-select-line-height);
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.sens-select-count-confirm .ant-select-disabled ~ .sens-select-count-committed-layer,
+.sens-select-count-confirm-host:has(.sens-select-loading) .sens-select-count-committed-layer {
+  color: var(--sens-select-disabled-text-color);
+}
+
+.sens-select-count-host .sens-select-trigger.ant-select {
+  width: 100%;
+}
+
+/* 个数型：锁 32 高单行，不展示 tag / 框内搜索 */
+.sens-select-trigger.sens-select-count.ant-select-multiple .ant-select-selector {
+  height: var(--sens-input-height) !important;
+  align-items: center;
+  flex-wrap: nowrap;
+  /* Figma 15533:51872：左右 spacing/horizontal/3x；antd multiple 默认左 3px 须覆盖 */
+  padding-inline-start: var(--sens-select-padding-inline) !important;
+  padding-inline-end: calc(
+    var(--sens-select-padding-inline) + var(--sens-select-arrow-size) + var(--sens-select-content-arrow-gap)
+  ) !important;
+}
+
+.sens-select-trigger.sens-select-count .ant-select-arrow {
+  inset-inline-end: var(--sens-select-padding-inline);
+}
+
+.sens-select-trigger.sens-select-count .ant-select-selection-overflow {
+  flex-wrap: nowrap;
+  overflow: hidden;
+}
+
+.sens-select-trigger.sens-select-count .ant-select-selection-search {
+  display: none;
+  width: 0 !important;
+  min-width: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow: hidden;
+}
+
+.sens-select-trigger.sens-select-count
+  .ant-select-selection-overflow-item:not(.ant-select-selection-overflow-item-rest):not(
+    .ant-select-selection-overflow-item-suffix
+  ) {
+  display: none;
+}
+
+.sens-select-trigger.sens-select-count .ant-select-selection-item {
+  margin-inline: 0;
+  padding-inline: 0;
+  background: transparent !important;
+  border: none;
+  height: var(--sens-input-line-height);
+  line-height: var(--sens-input-line-height);
+}
+
+.sens-select-trigger.sens-select-count .ant-select-selection-item-content {
+  margin: 0;
+}
+
+.sens-select-trigger .sens-select-count-empty-label,
+.sens-select-count-committed-layer .sens-select-count-empty-label {
+  color: var(--sens-select-placeholder-color) !important;
+}
+
+.sens-select-tags-committed-layer .sens-select-tags-empty-label {
+  color: var(--sens-select-placeholder-color);
+}
+
+.sens-select-trigger.sens-select-count .ant-select-selection-item-remove {
+  display: none;
+}
+
+/* 展示型：框内 SensTag 可移除；默认单行锁 32，放不下用 rest；不支持重置 */
+.sens-select-trigger.sens-select-tags.ant-select-multiple .ant-select-selector {
+  min-height: var(--sens-input-height);
+  height: var(--sens-input-height) !important;
+  max-height: var(--sens-input-height);
+  align-items: center;
+  flex-wrap: nowrap;
+  overflow: hidden;
+  padding-block: calc(
+    (var(--sens-input-height) - var(--sens-select-tag-height, 24px) - 2px) / 2
+  ) !important;
+  padding-inline-start: var(--sens-select-padding-inline) !important;
+  padding-inline-end: calc(
+    var(--sens-select-padding-inline) + var(--sens-select-arrow-size) + var(--sens-select-content-arrow-gap)
+  ) !important;
+}
+
+/* 框内警告：后缀 = 箭头 + 菱形，右侧再留一格 icon + gap，避免 rest/文案顶住菱形 */
+.sens-select-trigger.sens-select-tags.sens-select-has-inside-warning.ant-select-multiple
+  .ant-select-selector,
+.sens-select-trigger.sens-select-count.sens-select-has-inside-warning.ant-select-multiple
+  .ant-select-selector {
+  padding-inline-end: calc(
+    var(--sens-select-padding-inline) + var(--sens-select-arrow-size) + var(--sens-select-content-arrow-gap) +
+      var(--sens-select-arrow-size) + var(--sens-input-icon-gap, 4px)
+  ) !important;
+}
+
+/* 展示型多行：min 32 / max 128，换行后框内滚动。
+ * min-height 须计入 1px×2 描边，否则 padding 4 + tag 24 在 32 边框盒内会 scrollHeight>clientHeight，
+ * 一行/空态也会画出滚条。 */
+.sens-select-trigger.sens-select-tags-wrap.ant-select-multiple .ant-select-selector {
+  height: auto !important;
+  min-height: max(
+    var(--sens-input-height),
+    calc(
+      var(--sens-select-tag-height, 24px) + 2 * var(--sens-select-tags-padding-block, 4px) + 2px
+    )
+  );
+  max-height: var(--sens-select-tags-max-height);
+  align-items: flex-start;
+  flex-wrap: wrap;
+  overflow-x: hidden;
+  overflow-y: auto;
+  scrollbar-gutter: stable;
+  padding-block: var(--sens-select-tags-padding-block) !important;
+  /* 细滚条：去掉系统方头按钮，避免右上/右下圆角被切方 */
+  scrollbar-width: thin;
+  scrollbar-color: var(--sens-select-tags-scrollbar-thumb) transparent;
+}
+
+.sens-select-trigger.sens-select-tags-wrap.ant-select-multiple .ant-select-selector::-webkit-scrollbar {
+  width: var(--sens-select-tags-scrollbar-size, 6px);
+}
+
+.sens-select-trigger.sens-select-tags-wrap.ant-select-multiple .ant-select-selector::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.sens-select-trigger.sens-select-tags-wrap.ant-select-multiple .ant-select-selector::-webkit-scrollbar-thumb {
+  background: var(--sens-select-tags-scrollbar-thumb);
+  border-radius: var(--sens-select-tags-scrollbar-radius, 2px);
+}
+
+.sens-select-trigger.sens-select-tags-wrap.ant-select-multiple .ant-select-selector::-webkit-scrollbar-button {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+/* antd multiple 用 wrap::after 占位（24 + margin 2×2）把单行撑成 28，须去掉边距才能落到 32 */
+.sens-select-trigger.sens-select-tags.ant-select-multiple .ant-select-selector::after,
+.sens-select-trigger.sens-select-tags.ant-select-multiple .ant-select-selection-wrap::after {
+  margin-block: 0 !important;
+  height: var(--sens-select-tag-height, 24px);
+  line-height: var(--sens-select-tag-height, 24px);
+}
+
+.sens-select-trigger.sens-select-tags .ant-select-arrow {
+  inset-inline-end: var(--sens-select-padding-inline);
+  z-index: 1;
+}
+
+/* 多行：箭头钉首行标签中线（Figma `15584:52911` items-start） */
+.sens-select-trigger.sens-select-tags-wrap .ant-select-arrow {
+  top: calc(
+    var(--sens-select-tags-padding-block) +
+      (var(--sens-select-tag-height, 24px) - var(--sens-select-arrow-size)) / 2
+  );
+  margin-top: 0;
+  transform: none !important;
+}
+
+/* 多行未选（仅 placeholder、框高约 32）：箭头仍居中 */
+.sens-select-trigger.sens-select-tags-wrap.ant-select-multiple:has(.ant-select-selection-placeholder)
+  .ant-select-arrow {
+  top: 50%;
+  transform: translateY(-50%) !important;
+}
+
+.sens-select-trigger.sens-select-tags .ant-select-selection-overflow {
+  flex-wrap: nowrap;
+  gap: var(--sens-select-tags-gap, 4px);
+  align-items: center;
+  min-height: var(--sens-select-tag-height, 24px);
+  max-width: 100%;
+  overflow: hidden;
+}
+
+.sens-select-trigger.sens-select-tags-wrap .ant-select-selection-overflow {
+  flex-wrap: wrap;
+  align-content: flex-start;
+  align-items: flex-start;
+  overflow: visible;
+}
+
+.sens-select-trigger.sens-select-tags .ant-select-selection-overflow-item {
+  align-items: center;
+  height: var(--sens-select-tag-height, 24px);
+  line-height: 0;
+}
+
+.sens-select-trigger.sens-select-tags-wrap .ant-select-selection-overflow-item {
+  display: flex;
+}
+
+.sens-select-trigger.sens-select-tags .ant-select-selection-item {
+  margin: 0 !important;
+  padding: 0 !important;
+  background: transparent !important;
+  border: none !important;
+  height: auto !important;
+  line-height: normal !important;
+}
+
+.sens-select-trigger.sens-select-tags .ant-select-selection-item-content {
+  margin: 0;
+  overflow: visible;
+}
+
+.sens-select-trigger.sens-select-tags .ant-select-selection-item-remove {
+  display: none;
+}
+
+.sens-select-trigger.sens-select-tags .ant-select-selection-search {
+  display: none;
+  width: 0 !important;
+  min-width: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow: hidden;
+}
+
+.sens-select-trigger.sens-select-tags .ant-select-selection-overflow-item-suffix {
+  display: none !important;
+}
+
+.sens-select-trigger.sens-select-tags .sens-select-tags-chip,
+.sens-select-tags-confirm-host .sens-select-tags-chip {
+  /* 整颗上限 146；文案省略仍 112（见 label / tips span） */
+  max-width: var(--sens-select-tag-chip-max-width, 146px);
+  min-width: 0;
+  flex-shrink: 0;
+}
+
+.sens-select-trigger.sens-select-tags .sens-select-tags-chip .sens-tips-trigger,
+.sens-select-tags-confirm-host .sens-select-tags-chip .sens-tips-trigger {
+  min-width: 0;
+  max-width: var(--sens-select-tag-label-max-width, 112px);
+  overflow: hidden;
+}
+
+.sens-select-trigger.sens-select-tags .sens-select-tags-chip .sens-tips-trigger > span,
+.sens-select-tags-confirm-host .sens-select-tags-chip .sens-tips-trigger > span {
+  max-width: var(--sens-select-tag-label-max-width, 112px) !important;
+  min-width: 0;
+}
+
+.sens-select-tags-rest {
+  color: var(--sens-select-text-color);
+  font-size: var(--sens-input-font-size);
+  line-height: var(--sens-input-line-height);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.sens-select-trigger.sens-select-tags .ant-select-selection-overflow-item-rest .sens-tips-trigger {
+  display: inline-flex;
+  align-items: center;
+  line-height: var(--sens-input-line-height);
+}
+
+/* rest「…共 N 项」不要再套 antd/SensTag 灰底 */
+.sens-select-trigger.sens-select-tags .ant-select-selection-overflow-item-rest,
+.sens-select-trigger.sens-select-tags .ant-select-selection-overflow-item-rest > span {
+  background: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+  box-shadow: none !important;
+  flex-shrink: 0;
+}
+
+/* 确认展示型：antd 内容隐藏，已提交标签走叠加层（草稿空时也不丢展示） */
+.sens-select-tags-confirm-host {
+  position: relative;
+  display: inline-block;
+  vertical-align: top;
+  max-width: 100%;
+}
+
+.sens-select-tags-confirm-host .ant-select {
+  width: 100%;
+  height: 100%;
+}
+
+.sens-select-tags-confirm-host .ant-select-selector {
+  min-height: 100% !important;
+  height: 100% !important;
+}
+
+.sens-select-trigger.sens-select-tags-confirm .ant-select-selection-overflow,
+.sens-select-trigger.sens-select-tags-confirm .ant-select-selection-placeholder {
+  opacity: 0 !important;
+}
+
+.sens-select-tags-committed-layer {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  padding-inline-start: var(--sens-select-padding-inline, 12px);
+  padding-inline-end: calc(
+    var(--sens-select-padding-inline, 12px) + var(--sens-select-arrow-size, 16px) +
+      var(--sens-select-content-arrow-gap, 4px)
+  );
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* 多行：标签层参与文档流撑高（max 128），Select 绝对铺满；滚动只在标签层 */
+.sens-select-tags-confirm-host--wrap {
+  max-height: var(--sens-select-tags-max-height, 128px);
+}
+
+.sens-select-tags-confirm-host--wrap .ant-select {
+  position: absolute;
+  inset: 0;
+  height: auto !important;
+  min-height: 100%;
+}
+
+/* 确认多行：antd selector 内容已隐藏，禁止再出滚条（否则空态/一行也出现在箭头旁） */
+.sens-select-tags-confirm-host--wrap
+  .sens-select-trigger.sens-select-tags-wrap.ant-select-multiple
+  .ant-select-selector {
+  overflow: hidden !important;
+}
+
+.sens-select-tags-confirm-host--wrap .sens-select-tags-committed-layer {
+  position: relative;
+  inset: auto;
+  align-items: flex-start;
+  box-sizing: border-box;
+  /* 方案 1：四边缩进 1px，露出下层 selector 描边与圆角 */
+  width: calc(100% - 2px);
+  margin: 1px;
+  min-height: calc(var(--sens-input-height, 32px) - 2px);
+  max-height: calc(var(--sens-select-tags-max-height, 128px) - 2px);
+  padding-block: var(--sens-select-tags-padding-block, 4px);
+  padding-inline-start: var(--sens-select-padding-inline, 12px);
+  padding-inline-end: calc(
+    var(--sens-select-padding-inline, 12px) + var(--sens-select-arrow-size, 16px) +
+      var(--sens-select-content-arrow-gap, 4px) + var(--sens-select-tags-scrollbar-arrow-gap)
+  );
+  border-radius: calc(var(--sens-select-trigger-radius, 4px) - 1px);
+  overflow-x: hidden;
+  overflow-y: auto;
+  pointer-events: auto;
+  scrollbar-gutter: stable;
+  /* 细滚条：去掉系统方头按钮，避免右上/右下圆角被切方 */
+  scrollbar-width: thin;
+  scrollbar-color: var(--sens-select-tags-scrollbar-thumb) transparent;
+}
+
+.sens-select-tags-confirm-host--wrap .sens-select-tags-committed-layer::-webkit-scrollbar {
+  width: var(--sens-select-tags-scrollbar-size, 6px);
+}
+
+.sens-select-tags-confirm-host--wrap .sens-select-tags-committed-layer::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.sens-select-tags-confirm-host--wrap .sens-select-tags-committed-layer::-webkit-scrollbar-thumb {
+  background: var(--sens-select-tags-scrollbar-thumb);
+  border-radius: var(--sens-select-tags-scrollbar-radius, 2px);
+}
+
+.sens-select-tags-confirm-host--wrap .sens-select-tags-committed-layer::-webkit-scrollbar-button {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+.sens-select-tags-confirm-host:has(.sens-select-has-inside-warning) .sens-select-tags-committed-layer {
+  padding-inline-end: calc(
+    var(--sens-select-padding-inline, 12px) + var(--sens-select-arrow-size, 16px) +
+      var(--sens-select-content-arrow-gap, 4px) + var(--sens-select-tags-scrollbar-arrow-gap) +
+      var(--sens-select-arrow-size, 16px) + var(--sens-input-icon-gap, 4px)
+  );
+}
+
+.sens-select-tags-committed-layer .sens-select-tags-chip,
+.sens-select-tags-committed-layer .sens-tips-trigger {
+  pointer-events: auto;
+}
+
+.sens-select-tags-committed {
+  display: flex;
+  gap: var(--sens-select-tags-gap, 4px);
+  min-width: 0;
+  max-width: 100%;
+  position: relative;
+}
+
+.sens-select-tags-committed--single {
+  flex-wrap: nowrap;
+  align-items: center;
+  overflow: hidden;
+  width: 100%;
+}
+
+.sens-select-tags-committed-chips {
+  display: inline-flex;
+  flex-wrap: nowrap;
+  gap: var(--sens-select-tags-gap, 4px);
+  flex-shrink: 0;
+  min-width: 0;
+}
+
+.sens-select-tags-committed-measure {
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: inline-flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: var(--sens-select-tags-gap, 4px);
+  visibility: hidden;
+  pointer-events: none;
+  white-space: nowrap;
+  z-index: -1;
+}
+
+.sens-select-tags-committed-measure-chip {
+  display: inline-flex;
+  flex-shrink: 0;
+}
+
+.sens-select-tags-committed--wrap {
+  flex-wrap: wrap;
+  align-content: flex-start;
+  align-items: flex-start;
+  max-height: none;
+  overflow: visible;
+  width: 100%;
+}
+
+.sens-select-trigger.sens-select-tags .ant-select-selection-placeholder {
+  inset-inline-start: 0 !important;
+}
+
+/* 展示型只读_背景：灰底无描边无箭头 */
+.sens-select-readonly-filled {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  gap: var(--sens-input-icon-gap, 4px);
+  min-height: var(--sens-input-height);
+  height: var(--sens-input-height);
+  padding-inline: var(--sens-select-padding-inline, 12px);
+  border: none;
+  border-radius: var(--sens-select-trigger-radius, 4px);
+  background: var(--sens-input-readonly-bg);
+  color: var(--sens-input-readonly-text);
+  font-size: var(--sens-input-font-size);
+  line-height: var(--sens-input-line-height);
+  overflow: hidden;
+  cursor: var(--sens-cursor-default);
+}
+
+.sens-select-readonly-filled.sens-select-readonly-warning {
+  background: var(--sens-input-readonly-warning-bg);
+}
+
+.sens-select-readonly-filled.sens-select-readonly-warning.sens-select-readonly--fixed {
+  justify-content: space-between;
+}
+
+.sens-select-readonly-text {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--sens-input-readonly-text);
+}
+
+.sens-select-readonly-text .sens-tips-trigger {
+  display: block;
+  min-width: 0;
+  max-width: 100%;
+  overflow: hidden;
+}
+
+.sens-select-readonly-text-inner {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* 展示型只读_字段：纯文本；框内警告图标跟在文字后，字色不改红 */
+.sens-select-readonly-plain {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sens-input-icon-gap, 4px);
+  min-height: var(--sens-input-line-height);
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: var(--sens-input-readonly-text);
+  font-size: var(--sens-input-font-size);
+  line-height: var(--sens-input-line-height);
+  cursor: var(--sens-cursor-default);
+}
+
+.sens-select-readonly-plain.sens-select-readonly-warning {
+  color: var(--sens-input-readonly-text);
+}
+
+/* 简约型：无边框，文字+箭头同行，高 22；箭头色跟随文字 */
+.sens-select-trigger.sens-select-simple.ant-select {
+  display: inline-flex;
+  align-items: center;
+  position: relative;
+  width: fit-content;
+  height: var(--sens-select-simple-height);
+  --sens-select-simple-color: var(--sens-select-placeholder-color);
+}
+
+.sens-select-trigger.sens-select-simple.ant-select:has(.ant-select-selection-item):not(
+    .ant-select-disabled
+  ):not(.ant-select-status-error) {
+  --sens-select-simple-color: var(--sens-select-text-color);
+}
+
+.sens-select-trigger.sens-select-simple.ant-select-status-error:not(.ant-select-disabled),
+.sens-select-trigger.sens-select-simple.ant-select-status-error:has(.ant-select-selection-item):not(
+    .ant-select-disabled
+  ) {
+  --sens-select-simple-color: var(--sens-select-error-color);
+}
+
+.sens-select-trigger.sens-select-simple.ant-select-disabled {
+  --sens-select-simple-color: var(--sens-select-disabled-text-color);
+}
+
+.sens-select-trigger.sens-select-simple.ant-select:not(.ant-select-disabled):hover,
+.sens-select-trigger.sens-select-simple.ant-select:has(.ant-select-selection-item):not(
+    .ant-select-disabled
+  ):hover {
+  --sens-select-simple-color: var(--sens-select-simple-hover-color);
+}
+
+.sens-select-trigger.sens-select-simple.ant-select:not(.ant-select-disabled):active,
+.sens-select-trigger.sens-select-simple.ant-select.ant-select-open:not(.ant-select-disabled),
+.sens-select-trigger.sens-select-simple.ant-select.ant-select-focused:not(.ant-select-disabled),
+.sens-select-trigger.sens-select-simple.ant-select.ant-select-open:has(.ant-select-selection-item):not(
+    .ant-select-disabled
+  ),
+.sens-select-trigger.sens-select-simple.ant-select.ant-select-focused:has(.ant-select-selection-item):not(
+    .ant-select-disabled
+  ) {
+  --sens-select-simple-color: var(--sens-select-simple-active-color);
+}
+
+/* 警告链直写 color，避免改写 hover/active 变量时被 inline 主色盖住 */
+.sens-select-trigger.sens-select-simple.ant-select-status-error:not(.ant-select-disabled):not(
+    .ant-select-open
+  ):hover,
+.sens-select-trigger.sens-select-simple.ant-select-status-error:has(.ant-select-selection-item):not(
+    .ant-select-disabled
+  ):not(.ant-select-open):hover {
+  --sens-select-simple-color: var(--sens-select-error-hover-border-color);
+}
+
+/* 警告点击：warning-color-active；激活（打开）仍走 component-active */
+.sens-select-trigger.sens-select-simple.ant-select-status-error:not(.ant-select-disabled):not(
+    .ant-select-open
+  ):active,
+.sens-select-trigger.sens-select-simple.ant-select-status-error:has(.ant-select-selection-item):not(
+    .ant-select-disabled
+  ):not(.ant-select-open):active {
+  --sens-select-simple-color: var(--sens-select-error-active-border-color);
+}
+
+.sens-select-trigger.sens-select-simple.ant-select .ant-select-selector {
+  height: var(--sens-select-simple-height) !important;
+  padding: 0 !important;
+  /* 箭头叠在右侧内边距上，点击穿透到 selector，文字和箭头同一热区 */
+  padding-inline-end: calc(
+    var(--sens-select-arrow-size) + var(--sens-select-content-arrow-gap)
+  ) !important;
+  border: none !important;
+  box-shadow: none !important;
+  background: transparent !important;
+  width: max-content;
+  transition: none !important;
+}
+
+.sens-select-trigger.sens-select-simple.ant-select:not(.ant-select-disabled):hover .ant-select-selector,
+.sens-select-trigger.sens-select-simple.ant-select-focused:not(.ant-select-disabled) .ant-select-selector,
+.sens-select-trigger.sens-select-simple.ant-select-open:not(.ant-select-disabled) .ant-select-selector,
+.sens-select-trigger.sens-select-simple.ant-select-status-error:not(.ant-select-disabled):hover
+  .ant-select-selector,
+.sens-select-trigger.sens-select-simple.ant-select-status-error.ant-select-focused:not(
+    .ant-select-disabled
+  )
+  .ant-select-selector,
+.sens-select-trigger.sens-select-simple.ant-select-status-error.ant-select-open:not(
+    .ant-select-disabled
+  )
+  .ant-select-selector,
+.sens-select-trigger.sens-select-simple.ant-select-disabled .ant-select-selector {
+  border: none !important;
+  box-shadow: none !important;
+  background: transparent !important;
+}
+
+.sens-select-trigger.sens-select-simple .ant-select-selection-item,
+.sens-select-trigger.sens-select-simple .ant-select-selection-placeholder {
+  inset: 0 auto 0 0 !important;
+  padding: 0 !important;
+  line-height: var(--sens-select-simple-height) !important;
+  color: var(--sens-select-simple-color) !important;
+  transition: none !important;
+}
+
+.sens-select-trigger.sens-select-simple.ant-select-single.ant-select-open:not(.ant-select-disabled)
+  .ant-select-selection-item,
+.sens-select-trigger.sens-select-simple.ant-select-single.ant-select-focused:not(
+    .ant-select-disabled
+  )
+  .ant-select-selection-item {
+  color: var(--sens-select-simple-color) !important;
+}
+
+.sens-select-trigger.sens-select-simple .ant-select-selection-search {
+  display: none;
+  width: 0 !important;
+  min-width: 0 !important;
+}
+
+.sens-select-trigger.sens-select-simple.sens-select-with-trigger-arrow .ant-select-arrow,
+.sens-select-trigger.sens-select-simple.sens-select-with-trigger-arrow:not(.ant-select-disabled):hover
+  .ant-select-arrow,
+.ant-select-open.sens-select-trigger.sens-select-simple.sens-select-with-trigger-arrow .ant-select-arrow,
+.sens-select-trigger.sens-select-simple.ant-select-disabled .ant-select-arrow {
+  position: absolute;
+  inset-inline-end: 0;
+  inset-block: 0;
+  margin: 0;
+  height: auto;
+  color: var(--sens-select-simple-color) !important;
+  transition: none !important;
 }

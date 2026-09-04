@@ -51,6 +51,7 @@ export const COMPONENT_NAV = [
   { key: "/components/message", label: "轻提示" },
   { key: "/components/alert", label: "警告" },
   { key: "/components/tips", label: "便签" },
+  { key: "/components/popover", label: "气泡卡片" },
   { key: "/components/title-bar", label: "标题栏" },
   { key: "/components/breadcrumb", label: "面包屑" },
   { key: "/components/top-navigation", label: "顶部导航" },
@@ -58,6 +59,8 @@ export const COMPONENT_NAV = [
   { key: "/components/drawer", label: "抽屉" },
   { key: "/components/table", label: "表格" },
   { key: "/components/pagination", label: "分页器" },
+  { key: "/components/anchor", label: "锚点" },
+  { key: "/components/steps", label: "步骤条" },
   { key: "/components/divider", label: "分割线" },
 ] as const;
 
@@ -145,13 +148,13 @@ function getSectionMenuItems(section: ProductSection) {
         type: "group" as const,
         label: "操作与反馈",
         children: COMPONENT_NAV.filter((item) =>
-          ["/components/button", "/components/drawer", "/components/message", "/components/alert", "/components/tips"].includes(item.key),
+          ["/components/button", "/components/drawer", "/components/message", "/components/alert", "/components/tips", "/components/popover"].includes(item.key),
         ).map((item) => ({ key: item.key, label: item.label })),
       },
       {
         type: "group" as const,
         label: "内容与数据展示",
-        children: COMPONENT_NAV.filter((item) => ["/components/card", "/components/title", "/components/badge", "/components/tag", "/components/table", "/components/pagination", "/components/divider"].includes(item.key)).map(
+          children: COMPONENT_NAV.filter((item) => ["/components/card", "/components/title", "/components/badge", "/components/tag", "/components/table", "/components/pagination", "/components/anchor", "/components/steps", "/components/divider"].includes(item.key)).map(
           (item) => ({ key: item.key, label: item.label }),
         ),
       },
@@ -180,7 +183,14 @@ function getSectionMenuItems(section: ProductSection) {
         ],
       },
       { key: "/templates/card/entry-settings", label: "入口卡片" },
-      { key: "/templates/product-shell", label: "产品壳" },
+      {
+        key: "templates-product-shell",
+        label: "产品壳",
+        children: [
+          { key: "/templates/product-shell/t", label: "T型结构" },
+          { key: "/templates/product-shell/vertical", label: "上下布局" },
+        ],
+      },
     ];
   }
 
@@ -216,8 +226,8 @@ function getSelectedMenuKey(section: ProductSection, pathname: string) {
 
   if (section === "templates") {
     return pathname.startsWith("/templates/sdh-editable-table/") ||
-      pathname === "/templates/card/entry-settings" ||
-      pathname === "/templates/product-shell"
+      pathname.startsWith("/templates/product-shell/") ||
+      pathname === "/templates/card/entry-settings"
       ? pathname
       : pathname === "/templates"
         ? pathname
@@ -252,8 +262,10 @@ export function PreviewShell({ headerExtra }: PreviewShellProps) {
 
   const isComponentPage = location.pathname.startsWith("/components/");
   const isBasicStylePage = location.pathname.startsWith("/basic-styles/");
-  /** 固定高度产品壳样板间：预览 Content 不滚，只由壳内内容区滚动。 */
-  const isFixedHeightTemplate = location.pathname === "/templates/product-shell";
+  /** 固定高度样板间：预览 Content 不滚，只由页内内容区滚动。 */
+  const isFixedHeightTemplate =
+    location.pathname.startsWith("/templates/product-shell/") ||
+    location.pathname.startsWith("/templates/sdh-editable-table/");
   const section = getProductSection(location.pathname);
   const sectionMeta = SECTION_META[section];
   const sectionMenuItems = getSectionMenuItems(section);
@@ -308,8 +320,25 @@ export function PreviewShell({ headerExtra }: PreviewShellProps) {
   );
 
   return (
-    <Layout style={{ height: "100vh", overflow: "auto", background: token.colorBgLayout, fontFamily: SENS_FONT_FAMILY }}>
-      <div style={{ minWidth: PRODUCT_MIN_DESKTOP_WIDTH, minHeight: "100%", display: "flex", flexDirection: "column" }}>
+    <Layout
+      style={{
+        height: "100vh",
+        overflowX: "auto",
+        overflowY: isFixedHeightTemplate ? "hidden" : "auto",
+        background: token.colorBgLayout,
+        fontFamily: SENS_FONT_FAMILY,
+      }}
+    >
+      <div
+        style={{
+          minWidth: PRODUCT_MIN_DESKTOP_WIDTH,
+          display: "flex",
+          flexDirection: "column",
+          ...(isFixedHeightTemplate
+            ? { height: "100%", minHeight: 0, overflow: "hidden" }
+            : { minHeight: "100%" }),
+        }}
+      >
       <Header
         style={{
           flexShrink: 0,
@@ -339,7 +368,13 @@ export function PreviewShell({ headerExtra }: PreviewShellProps) {
           style={{ flex: 1, minWidth: 0, borderBottom: 0, background: "transparent" }}
         />
         <Space size="small" style={{ flexShrink: 0 }}>
-          <Popover title="预览设置" content={previewSettings} trigger="click" placement="bottomRight">
+          <Popover
+            title="预览设置"
+            content={previewSettings}
+            trigger="click"
+            placement="bottomRight"
+            zIndex={2000}
+          >
             <Button type="text" icon={<SettingOutlined />}>
               预览设置
             </Button>
@@ -348,7 +383,15 @@ export function PreviewShell({ headerExtra }: PreviewShellProps) {
         </Space>
       </Header>
 
-      <Layout style={{ minWidth: 0, minHeight: 0, display: "flex", flex: 1 }}>
+      <Layout
+        style={{
+          minWidth: 0,
+          minHeight: 0,
+          display: "flex",
+          flex: 1,
+          overflow: isFixedHeightTemplate ? "hidden" : undefined,
+        }}
+      >
         {showSectionMenu ? (
           <Sider
             width={224}

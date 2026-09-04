@@ -1,0 +1,322 @@
+.sens-anchor {
+  --sens-anchor-text: rgba(8, 18, 38, 0.58);
+  --sens-anchor-primary: var(--sens-skin-primary, #00b280);
+  --sens-anchor-icon-default: rgba(8, 18, 38, 0.58);
+  --sens-anchor-icon-hover: var(--sens-anchor-primary);
+  --sens-anchor-icon-active: var(--sens-anchor-primary);
+  --sens-anchor-hover-bg: rgba(0, 21, 64, 0.06);
+  --sens-anchor-active-bg: rgba(0, 21, 64, 0.08);
+  --sens-anchor-rail: rgba(0, 21, 64, 0.08);
+  display: flex;
+  width: max-content;
+  margin-left: auto;
+  color: var(--sens-anchor-text);
+  font-size: 14px;
+  line-height: 22px;
+}
+
+.sens-anchor-expanded {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0;
+}
+
+.sens-anchor-panel {
+  min-width: 180px;
+  padding: 16px 12px 24px;
+  border-radius: 4px;
+  background: #fff;
+  box-shadow: 0 2px 6px rgba(11, 12, 13, 0.1), 0 4px 20px rgba(11, 12, 13, 0.08);
+}
+
+.sens-anchor-mode-fixed .sens-anchor-panel,
+.sens-anchor-mode-push .sens-anchor-panel {
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  padding-top: 0;
+}
+
+.sens-anchor-mode-popover.sens-anchor-expanded {
+  padding-bottom: 8px;
+  /* 贴白板右缘：仅左侧圆角；选中竖线贴卡片左缘 */
+  border-radius: 6px 0 0 6px;
+  background: #fff;
+  box-shadow: var(--sens-anchor-popover-shadow);
+}
+
+.sens-anchor-mode-popover .sens-anchor-panel {
+  min-width: 180px;
+  /* 无左内边距，保证选中 2px 竖线贴卡片左缘（Figma 16305:56584） */
+  padding: 0 12px 0 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.sens-anchor-list {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 180px;
+}
+
+.sens-anchor-rail {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 2px;
+  background: var(--sens-anchor-rail);
+}
+
+.sens-anchor-item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: calc(100% - 8px);
+  min-height: 36px;
+  margin-left: 8px;
+  padding: 7px 12px 7px calc(12px + var(--sens-anchor-level, 0) * 16px);
+  border: 0;
+  border-radius: 4px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  line-height: 22px;
+  text-align: left;
+  cursor: var(--sens-cursor-pointer, pointer);
+}
+
+.sens-anchor-item:hover:not(:disabled) {
+  background: var(--sens-anchor-hover-bg);
+}
+
+.sens-anchor-item-pressed,
+.sens-anchor-item:active:not(:disabled) {
+  background: var(--sens-anchor-active-bg);
+}
+
+.sens-anchor-item-active,
+.sens-anchor-item-active:hover:not(:disabled),
+.sens-anchor-item-active.sens-anchor-item-pressed {
+  color: var(--sens-anchor-primary);
+  font-weight: 500;
+}
+
+.sens-anchor-item-active:hover:not(:disabled) {
+  background: var(--sens-anchor-hover-bg);
+}
+
+.sens-anchor-preview-hover .sens-anchor-item:not(:disabled),
+.sens-anchor-preview-selected-hover .sens-anchor-item-active:not(:disabled) {
+  background: var(--sens-anchor-hover-bg);
+}
+
+.sens-anchor-preview-pressed .sens-anchor-item:not(:disabled) {
+  background: var(--sens-anchor-active-bg);
+}
+
+.sens-anchor-item-label {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.sens-anchor-active-mark {
+  position: absolute;
+  left: -8px;
+  top: 50%;
+  width: 2px;
+  height: 14px;
+  transform: translateY(-50%);
+  border-radius: 1px;
+  background: var(--sens-anchor-primary);
+}
+
+.sens-anchor-item-disabled {
+  color: rgba(0, 13, 38, 0.3);
+  cursor: var(--sens-cursor-not-allowed, not-allowed);
+}
+
+.sens-anchor-collapse-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  flex: 0 0 40px;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  background: #fff;
+  color: var(--sens-anchor-icon-default);
+  box-shadow: 0 2px 6px rgba(11, 12, 13, 0.1), 0 4px 12px rgba(11, 12, 13, 0.04);
+  cursor: var(--sens-cursor-pointer, pointer);
+}
+
+.sens-anchor-collapse-button > span {
+  width: 16px;
+  height: 16px;
+  flex: 0 0 16px;
+}
+
+.sens-anchor-mode-push .sens-anchor-collapse-button {
+  width: 56px;
+  height: 32px;
+  flex: 0 0 32px;
+  margin-left: 12px;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+/* 收起态：与悬浮一致贴边 24 宽条，去掉 push 展开态的左 margin，避免占位变宽、灰标题变短 */
+.sens-anchor-mode-push.sens-anchor-collapsed .sens-anchor-collapse-button {
+  width: 24px;
+  margin-left: 0;
+  height: auto;
+  min-height: 32px;
+  flex: 0 0 auto;
+  padding: 8px 4px;
+}
+
+.sens-anchor-mode-popover .sens-anchor-collapse-button {
+  box-sizing: border-box;
+  width: auto;
+  height: auto;
+  min-height: 32px;
+  flex: 0 0 auto;
+  margin-left: 0;
+  padding: 8px 20px;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  justify-content: flex-start;
+}
+
+.sens-anchor-collapse-button:hover:not(:disabled) {
+  color: var(--sens-anchor-icon-hover);
+}
+
+.sens-anchor-collapse-button:active:not(:disabled),
+.sens-anchor-collapse-button-pressed {
+  color: var(--sens-anchor-icon-active);
+}
+
+.sens-anchor-collapse-button-floating {
+  order: -1;
+}
+
+.sens-anchor-collapsed {
+  display: flex;
+}
+
+.sens-anchor-collapsed .sens-anchor-collapse-button {
+  width: 24px;
+  height: auto;
+  min-height: 32px;
+  flex: 0 0 auto;
+  padding: 8px 4px;
+  border: 1px solid rgba(0, 21, 64, 0.16);
+  border-right: 0;
+  border-radius: 6px 0 0 6px;
+  background: #fff;
+  box-shadow: none;
+}
+
+.sens-anchor-collapsed .sens-anchor-collapse-button:hover {
+  box-shadow: 0 2px 3px rgba(11, 12, 13, 0.1), 0 4px 6px rgba(11, 12, 13, 0.04);
+}
+
+.sens-anchor-collapsed .sens-anchor-collapse-button:active {
+  box-shadow: 0 2px 3px rgba(11, 12, 13, 0.1), 0 4px 6px rgba(11, 12, 13, 0.04);
+}
+
+.sens-anchor-preview-collapse-hover .sens-anchor-collapse-button {
+  color: var(--sens-anchor-icon-hover);
+  box-shadow: 0 2px 3px rgba(11, 12, 13, 0.1), 0 4px 6px rgba(11, 12, 13, 0.04);
+}
+
+.sens-anchor-preview-collapse-pressed .sens-anchor-collapse-button {
+  color: var(--sens-anchor-icon-active);
+  box-shadow: 0 2px 3px rgba(11, 12, 13, 0.1), 0 4px 6px rgba(11, 12, 13, 0.04);
+}
+
+.sens-anchor-missing {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  width: 180px;
+  min-height: 196px;
+  border-radius: 4px;
+  background: #fff8e5;
+  color: rgba(23, 28, 38, 0.9);
+  font-size: 12px;
+  line-height: 18px;
+}
+
+.sens-anchor-state-matrix {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(150px, 1fr));
+  gap: 16px;
+  align-items: start;
+  width: 100%;
+}
+
+.sens-anchor-demo-align-right,
+.sens-anchor-mode-stage {
+  display: flex;
+  width: 100%;
+  justify-content: flex-end;
+}
+
+.sens-anchor-demo-align-right .sens-anchor {
+  position: relative;
+  right: auto;
+  z-index: auto;
+}
+
+.sens-anchor-mode-stage .sens-anchor,
+.sens-anchor-state-tile .sens-anchor {
+  position: relative;
+  right: auto;
+  z-index: auto;
+}
+
+.sens-anchor-mode-stage {
+  width: 240px;
+}
+
+.sens-anchor-state-tile {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.sens-anchor-state-tile .sens-anchor-expanded {
+  align-items: stretch;
+}
+
+.sens-anchor-state-tile .sens-anchor-panel {
+  min-width: 0;
+  padding: 8px 12px;
+}
+
+.sens-anchor-state-tile .sens-anchor-list,
+.sens-anchor-state-tile .sens-anchor-item {
+  min-width: 0;
+  width: 100%;
+}
+
+.sens-anchor-state-tile .sens-anchor-item {
+  margin-left: 0;
+  padding-left: 16px;
+}
+
+.sens-anchor-state-tile .sens-anchor-collapse-button {
+  display: none;
+}

@@ -1,5 +1,6 @@
 import type { CSSProperties, ReactNode } from "react";
 import { Input, Select, Space, type InputProps, type SelectProps } from "antd";
+import type { SearchProps } from "antd/es/input";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { MinimalSearchField, resolveMinimalSelectorLineTone } from "./MinimalSearchField";
@@ -344,6 +345,7 @@ export function CategorySearchInput({
 
 export interface SearchTriggerInputProps extends Omit<InputProps, "addonAfter" | "size" | "disabled"> {
   width?: number;
+  onSearch?: SearchProps["onSearch"];
 }
 
 /** 触发型搜索：Input.Search，点击按钮 / 回车触发；搜索无禁用态 */
@@ -354,6 +356,7 @@ export function SearchTriggerInput({
   value,
   defaultValue,
   onChange,
+  onSearch,
   ...rest
 }: SearchTriggerInputProps) {
   const allowClear = useSearchAllowClear();
@@ -376,6 +379,7 @@ export function SearchTriggerInput({
           if (value === undefined) setInnerValue(event.target.value);
           onChange?.(event);
         }}
+        onSearch={onSearch}
         style={{ width, ...rootStyle }}
         {...rest}
       />

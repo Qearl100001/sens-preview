@@ -17,9 +17,14 @@ export type {
   SensTableFilterBarProps,
   SensTableFilterField,
   SensTableFilterSelectOption,
+  SensTableFilterSearchMode,
 } from "./SensTableFilterBar";
 export { SensPagination } from "./SensPagination";
 export type { SensPaginationProps } from "./SensPagination";
+export { SensAnchor } from "./SensAnchor";
+export type { SensAnchorItem, SensAnchorProps, SensAnchorExpandTrigger } from "./SensAnchor";
+export { SensSteps } from "./SensSteps";
+export type { SensStepItem, SensStepsProps, SensStepsSize, SensStepStatus } from "./SensSteps";
 export { SensCheckbox, SensCheckboxGroup, CheckboxStatesPreview } from "./SensCheckbox";
 export type {
   SensCheckboxProps,
@@ -206,6 +211,15 @@ export {
   SENS_TIPS_Z_INDEX,
 } from "./SensTips";
 export type { SensTipsProps, SensTipsPlacement, SensTipsAlign } from "./SensTips";
+export { SensPopover } from "./SensPopover";
+export type {
+  SensPopoverAlign,
+  SensPopoverPlacement,
+  SensPopoverProps,
+  SensPopoverSize,
+  SensPopoverStrategy,
+  SensPopoverVariant,
+} from "./SensPopover";
 export type { SensAlertProps, AlertType } from "./SensAlert";
 export { SensTitleBar, SENS_TITLE_BAR_BACK_HIT_SIZE, SENS_TITLE_BAR_HEIGHT } from "./SensTitleBar";
 export type { SensTitleBarProps } from "./SensTitleBar";
@@ -279,35 +293,60 @@ export type {
 export {
   SensSelectDropdown,
   SelectDropdownStatesPreview,
+  SelectMultipleOptionStatesPreview,
   SelectDropdownContentStatesPreview,
   SelectTriggerStatesPreview,
+  SelectCountTriggerStatesPreview,
+  SelectSimpleTriggerStatesPreview,
+  SelectTagsTriggerStatesPreview,
   useSensSelectDropdownStyle,
   useSensSelectTriggerStyle,
   SELECT_OPTION_HEIGHT,
+  SELECT_OPTION_VISIBLE_ROWS,
+  SELECT_LIST_MAX_HEIGHT,
   SELECT_DROPDOWN_DEMO_WIDTH,
   SELECT_TRIGGER_MATRIX_CELL_WIDTH,
+  SELECT_COUNT_MAX,
+  SELECT_MULTIPLE_POPUP_MIN_WIDTH,
+  SELECT_TAGS_MAX_HEIGHT,
+  SELECT_TAG_CHIP_MAX_WIDTH,
+  SELECT_TAG_LABEL_MAX_WIDTH,
 } from "./SensSelectDropdown";
 export type {
   SensSelectDropdownProps,
+  SensSelectDropdownGroupStyle,
   SelectDropdownStatesPreviewProps,
   SelectDropdownContentStatesPreviewProps,
   SelectTriggerStatesPreviewProps,
+  SelectCountTriggerStatesPreviewProps,
+  SelectSimpleTriggerStatesPreviewProps,
+  SelectTagsTriggerStatesPreviewProps,
   SelectDropdownPreviewState,
   SelectDropdownContentPreviewPhase,
   SelectTriggerPreviewState,
+  SensSelectMultiDisplay,
 } from "./SensSelectDropdown";
 export { SelectDropdownSearch } from "./SelectDropdownSearch";
 export type { SelectDropdownSearchProps } from "./SelectDropdownSearch";
 export { SelectDropdownEmpty } from "./SelectDropdownEmpty";
 export type { SelectDropdownEmptyProps, SelectDropdownEmptyType } from "./SelectDropdownEmpty";
+export { SelectDropdownEmptyStatesPreview } from "./SelectDropdownEmptyStatesPreview";
 export { SelectDropdownBody } from "./SelectDropdownBody";
 export type { SelectDropdownBodyProps } from "./SelectDropdownBody";
+export { SelectDropdownLoadMore } from "./SelectDropdownLoadMore";
+export type {
+  SelectDropdownLoadMoreProps,
+  SelectDropdownLoadMoreState,
+} from "./SelectDropdownLoadMore";
 export { SearchHighlight, splitByKeyword } from "./SearchHighlight";
 export type { SearchHighlightProps, HighlightSegment } from "./SearchHighlight";
 export {
   buildOptionSearchIndex,
   buildOptionSearchKeys,
   defaultSelectOptionMatcher,
+  flattenSelectOptions,
+  countSelectOptions,
+  hasSelectOptionGroups,
   getOptionLabel,
   getOptionSearchText,
   matchSelectOptionByKeys,

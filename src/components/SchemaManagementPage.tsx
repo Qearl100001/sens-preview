@@ -10,7 +10,7 @@ import {
   Table,
   Typography,
 } from "antd";
-import { EditorAddIcon, useSensAllowClear, useSensSearchFieldProps, useSensSelectSuffixProps } from "../ui";
+import { EditorAddIcon, SensButton, useSensAllowClear, useSensSearchFieldProps, useSensSelectSuffixProps } from "../ui";
 import { tokenRgba } from "../design-system/color-utils";
 import { functionalCssVar } from "../design-system/functional-skin";
 import { SensIcon } from "../design-system/icons";
@@ -138,17 +138,11 @@ function buildSchemaTheme(): ThemeConfig {
 }
 
 function ActionLinks() {
-  const linkStyle: CSSProperties = {
-    padding: 0,
-    height: LINE_HEIGHT_M,
-    fontSize: FONT_SIZE_M,
-    lineHeight: `${LINE_HEIGHT_M}px`,
-  };
   return (
     <Space size={16}>
-      <Button type="link" style={linkStyle}>查看</Button>
-      <Button type="link" style={linkStyle}>编辑</Button>
-      <Button type="link" style={linkStyle}>删除</Button>
+      <SensButton tone="link">查看</SensButton>
+      <SensButton tone="link">编辑</SensButton>
+      <SensButton tone="link">删除</SensButton>
     </Space>
   );
 }

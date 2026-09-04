@@ -8,17 +8,19 @@
 
 | 本文包含（对照 design ✅） | 本文不包含 |
 |---|---|
-| §二 2.1 搜索条 · §二 2.2 统计区 · §二 2.3 内容模块（选择器浮层选项行） | Select **触发框** → `select.md` |
-| §三 3.1 交互（状态机 / 六面 / 高亮 / 过滤） | 多选、分组、级联、树形（design ⏳） |
+| §二 2.1 搜索条 · §二 2.2 统计区 · §二 2.3 内容模块（单选行 / 多选复选行 / 双行选项 / 带层级分组）· §二 2.4 操作条（全选 + 按钮组） | Select **触发框** → `select.md` |
+| §三 3.1 交互（状态机 / 六面 / 高亮 / 过滤） · §四 4.3 带层级 · §五 5.2 复选收回 | 级联、树形；操作条左侧链接变体 |
 | §四 4.1 常规（两条触发路径） | **统一异常状态组件**（页面级矩阵 — 整体滞后） |
 | §五 5.2 单选收回 | **网络异常** Figma `4381:14801`（归未来异常状态规范） |
 | `SensSelectDropdown` popup + `SensDropdownMenu` 动作菜单 | 修改 `buildAntdTheme` 换肤逻辑 |
+
+> 当前待补：级联下拉菜单（级联/树形多级选择）尚未实现；本轮验收不纳入已完成范围。
 
 ## 通则
 
 - **实现方式遵循 `conventions.md`**：真实组件不伪造 hover/click；预览板静态画矩阵格。
 - **浮层仅单一尺寸**：`optionHeight: **34**`；**无** `size="small"` / `controlHeightSM`。
-- **换肤**：不动 `buildAntdTheme`。选择器浮层已选中三档行底走 `getFunctionalColors(skin)`；**勾选色固定中性图标，不换肤**。
+- **换肤**：不动 `buildAntdTheme`。浮层已选中三档行底走当前 Functional Skin（`useFunctionalSkin()`，可被 `functionalSkin` 覆盖）；未传 prop 不得回退神策绿。**勾选色固定中性图标，不换肤**。
 - **凡本规范没写明的点，agent 沿用 antd 默认**；与 antd 不一样处必须在此写死。
 
 ## 与 search.md 的边界
@@ -84,7 +86,7 @@
 | 色 | `text-sub-color-transparent` @ **58%** → `--sens-select-dropdown-stats-color` |
 | 间距 | 见 §二 2.1 统计间距 |
 
-> 实现侧：`searchable` 时统计恒显；与 design「≥9 条建议出现」差异以 design 为准。
+> 实现侧：`searchable` 时统计恒显；多选是否展示搜索由 `searchable` 显式控制。与 design「≥9 条建议出现」差异以调用方传入值为准。
 
 ### 2.3 内容模块（单选行）✅
 
@@ -116,6 +118,7 @@ Figma `17767:72632`。
 | 项 | 值 |
 |---|---|
 | 行高 | **34px** · `optionHeight: 34`（浮层专有，与触发框 32px 无关） |
+| 列表最大高度 | **9.5 行** · `SELECT_LIST_MAX_HEIGHT` = 34 × 9.5 = **323px**；超出滚动。不含搜索 / 统计 / 操作条 |
 | 尺寸 | **仅单一尺寸**，浮层无大/小两档 |
 | 布局 | **通栏**；文案/勾选行内水平缩进 **12px** |
 | 行内上下内边距 | **6px**（配合 14px/22px 正文凑满 34px） |
@@ -226,9 +229,86 @@ SELECT_OPTION_ROW_TOKENS → components.Select
 
 动作菜单与选择器浮层**共用**行高 34px、内边距 6×12、容器上 6 / 下 10 / 左右 0、D4 投影、未选中 hover 6% / active 8% 灰底数值；动作菜单通过 `useSensDropdownMenuStyle` + `dropdown-menu.css` 独立 scoped 变量实现，**不**挂 `.sens-select-dropdown`。
 
-### 2.4 操作条
+### 2.3.1 双行选项 ✅
 
-设计规格见 `dropdown-menu.design.md` §二 2.4。**未实现**（依赖多选 ⏳）。
+单选和多选都支持在每个选项上提供 `description` 辅助文案。两行内容使用同一条选项行，不拆成第二个菜单项：
+
+| 项 | Token / 实现 |
+|---|---|
+| 主文案 | `font-size/m` = 14px，`line-height/m` = 22px；已选中时使用选中强调字重 |
+| 辅助文案 | `font-size/s` = 12px，`line-height/s` = 18px，颜色 `text-sub-color-transparent` @58% |
+| 两行间距 | `spacing/0.5x` |
+| 行内边距 | 与普通选项一致：左右 `spacing/horizontal/3x` = 12px，上下 `spacing/1.5x` = 6px |
+| 单选已选中 | 继续使用单选右侧选中标记和 `component-active-background` 选中背景 |
+| 多选已选中 | 继续使用左侧 `SensCheckbox`，辅助文案不改变复选交互 |
+
+调用方只需在选项对象中传入 `description`；单选和多选不各自维护一套双行 DOM。辅助文案属于选项内容，不参与搜索关键词高亮。
+
+### 2.3.2 多选复选行 ✅
+
+设计规格见 `dropdown-menu.design.md` §二 2.3；视觉 Figma `17685:60706`。
+
+| 项 | 实现 |
+|---|---|
+| Prop | `mode="multiple"` 或选择器 `multiDisplay="count"`。个数型触发框走选择器；浮层页 Demo 用 `multiDisplay="count"`，不用裸 `mode="multiple"`（会画出 antd 胶囊 tag） |
+| 勾选 | 左侧 `SensCheckbox`（16px、`radius/s`、填充 `component-primary`）；整行可点 |
+| 右侧对勾 | **不出现**（`menuItemSelectedIcon={null}`） |
+| 行底 | 与单选同一套已选中 `component-active-background` 链 |
+| 浮层最小宽 | **320px** · `SELECT_MULTIPLE_POPUP_MIN_WIDTH`；单选不套 |
+| 草稿 | 打开后点选只改草稿；「完成」才 `onChange`；「放弃」/点空白还原 |
+
+icon / 标签 / help / 选项链接本轮不做；增量加载行见 §二 2.3.3。
+
+### 2.3.3 增量加载行 ✅
+
+单选、多选共用浮层底部的异步状态行，每次由调用方追加一页数据（预览按 50 条一页）。
+
+| 状态 | 展示 | 行为 |
+|---|---|---|
+| `more` | 居中「加载更多」链接，34px 高，左右 12px | 点击触发 `onLoadMore` |
+| `loading` | 20px 加载图标 +「加载中」，间距 4px | 禁止重复触发 |
+| `error` | 错误图标 +「加载失败，请」+「重试」链接 | 点击触发 `onLoadMoreRetry` |
+
+多选确认模式下，增量加载行位于选项列表与操作区之间；搜索、统计和操作区规则不变。
+
+### 2.3.4 带层级分组 ✅
+
+设计规格见 `dropdown-menu.design.md` §二 2.3 / §四 4.3。原子 Figma `17691:63738`。
+
+只做在 **下拉浮层**（`SensSelectDropdown`）；选择器页不另做一套。调用方传入 antd OptGroup：`{ label, options: [...] }`。
+
+| 项 | 实现 |
+|---|---|
+| Prop | `groupStyle?: "title" \| "divider"`，默认 `title` |
+| 面性 `title` | `.ant-select-item-group` 通栏灰底条；左右 12 / 上下 6；字 `font-size/s` + `line-height/s`；色 `text-sub-color-transparent` @58%；底 `background-transparent-grey` @4%；单行省略；`pointer-events: none` |
+| 线性 `divider` | 组标题视觉隐藏，组与组之间 1px 通栏线 `getDividerColor("light", "transparent")`；第一组上方无线 |
+| 滚动 | 组标题 / 分割线在可滚动选项列表内，与选项一起滚；搜索 / 统计 / 操作条仍钉在列表外 |
+| 搜索打平 | `query` 非空时 `flattenSelectOptions`，丢掉组标题和分割线，命中项一条列表；高亮复用 `SearchHighlight` |
+| 统计 | 按叶子选项计数，不是按组数 |
+| 虚拟列表 | 展示分组时 `virtual={false}`，避免组标题 / 1px 线与固定 34 行高错位 |
+
+Demo：`/components/select-dropdown` 面性×单选/多选、线性×单选/多选。搜索「我」可验打平（3 条诗句）。
+
+### 2.4 操作条 ✅（全选 + 按钮组）
+
+设计规格见 `dropdown-menu.design.md` §二 2.4。Figma `17691:63201`（复选+按钮组）/ 完整稿 `17728:81940`。
+
+| 项 | Token / 实现 |
+|---|---|
+| 组件 | `SelectDropdownActionBar` |
+| 高度 | `size/component-height/xl` = **40** |
+| 左右 | `spacing/horizontal/3x` = **12** |
+| 布局 | `justify-content: space-between` |
+| 顶部分割 | `getDividerColor("light", "transparent")` · hairline |
+| 全选 | 左侧 `SensCheckbox`；文案 i18n `sensd-selectPanel-selectAll`（「全选」，不照抄稿占位「选项」） |
+| 全选语义 | 针对**当前列表**（搜索时用 `displayOptions`）：未全选 → 并入可选项；已全选 → 从草稿去掉当前可选项；跳过 disabled |
+| 半选 | 勾了一部分 → `indeterminate`；无可选项 → checkbox disabled |
+| 复选↔文案 | `spacing/horizontal/2x` = **8**（`SensCheckbox` `--sens-checkbox-gap`） |
+| 按钮 | 小尺寸 `SensButton`：「放 弃」secondary +「完成 (N)」primary；gap **12** |
+| 文案 | i18n `sensd-select-cancelText` / `sensd-select-okText`；计数半角括号 |
+| 未做 | 左侧链接按钮；全选遇禁用 tips（`sensd-selectPanel-selectAllTip`） |
+
+浮层有操作条时 `padding-block-end: 0`，条贴底。
 
 ---
 
@@ -347,7 +427,7 @@ searchStatus: 'idle' | 'debouncing' | 'searching' | 'done'
 
 点 `SensSelectDropdown` 触发框 → popup → 选项行规格**仅**见 §二 2.3；串联见 `select.md` §串联。
 
-滚动：antd 列表区原生滚动；「9 条半」精确裁切 **🔶 待核**。
+滚动：选项列表 `listHeight` = 9.5 × 34 = **323px**，超出滚动；搜索 / 统计 / 操作条在列表外。
 
 #### 更多按钮 · 动作菜单触发
 
@@ -364,11 +444,13 @@ searchStatus: 'idle' | 'debouncing' | 'searching' | 'done'
 
 **菜单项 variant**
 
-| variant | 字色链 | 行底 |
-|---|---|---|
-| `default` | 中性黑 `text-color` | hover 6% 灰 / active 8% 灰（§二 2.3 未选中数值） |
-| `link` | `--sens-text-link*` → `--sens-dropdown-menu-item-color-link*` | 同上 |
-| `danger` | `--sens-text-warning*` → `--sens-dropdown-menu-item-color-danger*` | 同上 |
+| variant | 字色链 | 行底 | 何时用 |
+|---|---|---|---|
+| `default` | 中性黑 `text-color` | hover 6% 灰 / active 8% 灰（§二 2.3 未选中数值） | 常规动作菜单；悬停「更多 ···」 |
+| `link` | `--sens-text-link*` → `--sens-dropdown-menu-item-color-link*` | 同上 | **表格 / 工具栏溢出「更多」**；卡片等链接菜单行 |
+| `danger` | `--sens-text-warning*` → `--sens-dropdown-menu-item-color-danger*` | 同上 | 删除等风险项 |
+
+表格 / 工具栏溢出：触发器是链接「更多」+ 点击展开（`SensDropdownButton`）；**菜单项用 `link` 蓝字行，与平铺链接操作同色。**
 
 | 状态 | 实现 |
 |---|---|
@@ -377,9 +459,13 @@ searchStatus: 'idle' | 'debouncing' | 'searching' | 'done'
 
 `DropdownMenuStatesPreview` + `dropdown-menu-preview.css`。场景 demo：`DropdownMenuUsageScenarios` / `SelectDropdownShowcasePage`。
 
-### 4.2 级联 · 4.3 带层级 · 4.4 双行 · 4.5 树形
+### 4.2 级联 · 4.5 树形
 
 设计规格见 `dropdown-menu.design.md` §四。**未实现**。
+
+### 4.3 带层级 ✅
+
+设计规格见 `dropdown-menu.design.md` §四 4.3。实现见 §二 2.3.2（`groupStyle` 面性标题 / 线性分割线；搜索打平）。
 
 ---
 
@@ -389,15 +475,17 @@ searchStatus: 'idle' | 'debouncing' | 'searching' | 'done'
 
 设计规格见 `dropdown-menu.design.md` §五 5.1。**未实现**。
 
-### 5.2 收回规则 · 单选 ✅
+### 5.2 收回规则 · 单选 ✅ / 复选 ✅
 
-设计规格见 `dropdown-menu.design.md` §五 5.2（单选 bullet）。
+设计规格见 `dropdown-menu.design.md` §五 5.2。
 
 | 行为 | 实现 |
 |---|---|
-| 选中 / 更改选项 | antd `onChange` → 关浮层 |
+| 单选 · 选中 / 更改选项 | antd `onChange` → 关浮层 |
+| 复选 · 点选 | 只改草稿，浮层保持打开 |
+| 复选 · 「完成」 | 提交草稿 `onChange` 并关浮层 |
+| 复选 · 「放弃」/ 点空白 | 还原打开时的值，不 `onChange` |
 | 关浮层 | `resetSearchOnClose` 默认 `true` → `resetSearch()` |
-| 点空白 | antd 默认关浮层（未选中变更不保存 — antd 受控语义） |
 
 ### 5.3 后端请求 · 5.4 带新建
 
@@ -415,7 +503,7 @@ searchStatus: 'idle' | 'debouncing' | 'searching' | 'done'
 
 | Prop | 默认 | 说明 |
 |---|---|---|
-| `searchable` | `false` | 启用浮层搜索（§二 2.1） |
+| `searchable` | `false` | 启用浮层搜索 + 统计（§二 2.1–2.2）；多选、个数型同样由该值显式控制 |
 | `searchMode` | `'local'` | `'local' \| 'remote'` |
 | `searchDebounce` | `300` | 防抖 ms |
 | `resetSearchOnClose` | `true` | 关浮层重置搜索 |
@@ -423,7 +511,7 @@ searchStatus: 'idle' | 'debouncing' | 'searching' | 'done'
 | `onEmptyAction` | — | 空态链接回调 |
 | `onSearch` | — | remote 用 |
 | `filterMatcher` | — | 覆盖本地匹配 |
-| `functionalSkin` | `'green'` | 已选中行底换肤 |
+| `mode` | — | `'multiple'` 启用复选行 + 操作条 + 最小宽 320 |
 
 完整 props 见 `SensSelectDropdown` 类型定义。
 
@@ -437,7 +525,8 @@ searchStatus: 'idle' | 'debouncing' | 'searching' | 'done'
 | `sensd-selectPanel-noResult` / `noResultDesc` | 无结果 |
 | `sensd-selectPanel-noData` / `noDataDesc` / `add` | 暂无数据 |
 | `sensd-selectPanel-loadFailed` / `loadFailedDesc` / `refresh` | 加载失败 |
-| `sensd-selectPanel-loadingText` | 加载中 |
+| `sensd-select-okText` / `sensd-select-cancelText` | 完成 / 放弃 |
+| `sensd-selectPanel-selectAll` | 操作条全选 |
 | `sensd-dropdown-menu-*` | 动作菜单矩阵 |
 
 ## 工程落点
@@ -446,7 +535,7 @@ searchStatus: 'idle' | 'debouncing' | 'searching' | 'done'
 src/ui/SensSelectDropdown.tsx
 src/ui/SelectDropdownSearch.tsx
 src/ui/SelectDropdownBody.tsx
-src/ui/SelectDropdownEmpty.tsx
+src/ui/SelectDropdownActionBar.tsx
 src/ui/SearchHighlight.tsx
 src/ui/useSelectDropdownSearch.ts
 src/ui/matchSelectOption.ts

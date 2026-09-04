@@ -77,6 +77,7 @@ const TagShowcasePage = lazy(() => import("./preview/pages/TagShowcasePage"));
 const MessageShowcasePage = lazy(() => import("./preview/pages/MessageShowcasePage"));
 const AlertShowcasePage = lazy(() => import("./preview/pages/AlertShowcasePage"));
 const TipsShowcasePage = lazy(() => import("./preview/pages/TipsShowcasePage"));
+const PopoverShowcasePage = lazy(() => import("./preview/pages/PopoverShowcasePage"));
 const TitleBarShowcasePage = lazy(() => import("./preview/pages/TitleBarShowcasePage"));
 const BreadcrumbShowcasePage = lazy(() => import("./preview/pages/BreadcrumbShowcasePage"));
 const TopNavigationShowcasePage = lazy(() => import("./preview/pages/TopNavigationShowcasePage"));
@@ -84,6 +85,8 @@ const SideNavigationShowcasePage = lazy(() => import("./preview/pages/SideNaviga
 const DrawerShowcasePage = lazy(() => import("./preview/pages/DrawerShowcasePage"));
 const TableShowcasePage = lazy(() => import("./preview/pages/TableShowcasePage"));
 const PaginationShowcasePage = lazy(() => import("./preview/pages/PaginationShowcasePage"));
+const AnchorShowcasePage = lazy(() => import("./preview/pages/AnchorShowcasePage"));
+const StepsShowcasePage = lazy(() => import("./preview/pages/StepsShowcasePage"));
 
 const FormTemplatesPage = lazy(() => import("./preview/pages/FormTemplatesPage"));
 const CompositeTablePage = lazy(() => import("./preview/pages/CompositeTablePage"));
@@ -91,6 +94,9 @@ const ProductShellCompositePage = lazy(() => import("./preview/pages/ProductShel
 const SdhEditableTableTemplatePage = lazy(() => import("./preview/pages/SdhEditableTableTemplatePage"));
 const CardEntryTemplatesPage = lazy(() => import("./preview/pages/CardEntryTemplatesPage"));
 const ProductShellTemplatePage = lazy(() => import("./preview/pages/ProductShellTemplatePage"));
+const ProductShellVerticalTemplatePage = lazy(
+  () => import("./preview/pages/ProductShellVerticalTemplatePage"),
+);
 const ChangelogPage = lazy(() => import("./preview/pages/ChangelogPage"));
 const AiDesignStagePresentationPage = lazy(() => import("./preview/pages/AiDesignStagePresentationPage"));
 const SdhFeatureSegmentCreatePage = lazy(
@@ -176,6 +182,7 @@ export default function App() {
                 <Route path="components/message" element={<MessageShowcasePage />} />
                 <Route path="components/alert" element={<AlertShowcasePage />} />
                 <Route path="components/tips" element={<TipsShowcasePage />} />
+                <Route path="components/popover" element={<PopoverShowcasePage />} />
                 <Route path="components/title-bar" element={<TitleBarShowcasePage />} />
                 <Route path="components/breadcrumb" element={<BreadcrumbShowcasePage />} />
                 <Route path="components/top-navigation" element={<TopNavigationShowcasePage />} />
@@ -183,6 +190,8 @@ export default function App() {
                 <Route path="components/drawer" element={<DrawerShowcasePage />} />
                 <Route path="components/table" element={<TableShowcasePage />} />
                 <Route path="components/pagination" element={<PaginationShowcasePage />} />
+                <Route path="components/anchor" element={<AnchorShowcasePage />} />
+                <Route path="components/steps" element={<StepsShowcasePage />} />
                 <Route path="components/divider" element={<DividerBasicStylePage />} />
                 <Route path="composite" element={<CompositeLibraryPage />} />
                 <Route path="composite/form" element={<FormTemplatesPage />} />
@@ -195,7 +204,15 @@ export default function App() {
                 />
                 <Route path="templates/sdh-editable-table/:scenarioKey" element={<SdhEditableTableTemplatePage />} />
                 <Route path="templates/card/entry-settings" element={<CardEntryTemplatesPage />} />
-                <Route path="templates/product-shell" element={<ProductShellTemplatePage />} />
+                <Route
+                  path="templates/product-shell"
+                  element={<Navigate to="/templates/product-shell/t" replace />}
+                />
+                <Route path="templates/product-shell/t" element={<ProductShellTemplatePage />} />
+                <Route
+                  path="templates/product-shell/vertical"
+                  element={<ProductShellVerticalTemplatePage />}
+                />
                 <Route path="cases" element={<CaseLibraryPage />} />
                 <Route path="cases/data-source-connection" element={<DataSourceConnectionDemoPage />} />
                 <Route path="cases/tiktok-ads-connections" element={<TikTokAdsConnectionsPage />} />

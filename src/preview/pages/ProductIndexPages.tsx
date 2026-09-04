@@ -197,7 +197,7 @@ export function CompositeLibraryPage() {
             },
             {
               title: "复合表格",
-              description: "筛选区与录入型表格已完成首轮样张；树表格、嵌套 / 交叉表格继续按复合模式收录。",
+              description: "筛选、搜索、录入型三类组合；树表格、嵌套 / 交叉表格继续按复合模式收录。",
               status: "首轮已收录",
               href: "/composite/table",
             },
@@ -211,6 +211,11 @@ export function CompositeLibraryPage() {
               title: "筛选表格",
               description: "筛选区、表格信息区、表格、分页器、批量操作和列设置入口的标准组合。",
               status: "首轮已验",
+            },
+            {
+              title: "搜索场景",
+              description: "筛选表格上的实时搜索与静态搜索：输入即搜 / 点按钮再搜，命中列高亮。",
+              status: "首轮已收录",
             },
             {
               title: "录入型表格",
@@ -253,10 +258,16 @@ export function TemplateLibraryPage() {
               href: "/templates/card/entry-settings",
             },
             {
-              title: "产品壳 / 顶导滚动收起",
-              description: "固定高度产品壳：智能运营 + 列表资源位；内容区滚动超过 300px 后顶导（含氛围）收起。",
+              title: "产品壳 / T型结构",
+              description: "固定高度 T 型产品壳：顶导 + 侧导 + 列表资源位；内容区滚动超过 300px 后顶导（含氛围）收起。",
               status: "首轮收录",
-              href: "/templates/product-shell",
+              href: "/templates/product-shell/t",
+            },
+            {
+              title: "产品壳 / 上下布局",
+              description: "固定高度上下布局下钻页：无侧导；创建分群长表单；滚动收起顶导、标题栏 D4、回到顶部。",
+              status: "首轮收录",
+              href: "/templates/product-shell/vertical",
             },
           ],
         },

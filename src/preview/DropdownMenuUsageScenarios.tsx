@@ -11,7 +11,7 @@ import {
 const { Text } = Typography;
 const I18N_NS = "组件库";
 
-/** 场景① · 链接更多菜单（Figma 17767:72631） */
+/** 场景① · 链接更多（Figma 17767:72631）：触发器用链接「更多」，菜单项走 link 蓝字行 */
 export const MORE_LINK_MENU_DEMO_ITEMS: SensDropdownMenuItemConfig[] = [
   { key: "edit", label: "编辑", variant: "link" },
   { key: "copy", label: "复制", variant: "link" },
@@ -74,7 +74,7 @@ function MoreEllipsisHoverScenarioDemo() {
 export const DROPDOWN_MENU_USAGE_SCENARIOS: DropdownMenuUsageScenario[] = [
   {
     id: "more-link-click",
-    title: "更多 ▼ · 链接菜单",
+    title: "更多 ▼ · 表格/工具栏溢出",
     whenToUse: "表格/工具栏溢出操作用链接「更多」，点击展开。",
     status: "ready",
     Demo: MoreLinkClickScenarioDemo,

@@ -58,7 +58,7 @@
 
 - `docs/foundations/`：跨组件通用规则
 - `src/design-system/components/`：基础组件、复合组件、样板间规则
-- `docs/agent-rules/`：流程、价值体验和验收规则
+- `docs/agent-rules/`：流程、价值体验、文案规范和验收规则
 - `src/design-system/README.md`：设计系统知识库索引
 
 ### 3.4 实现历史
@@ -104,6 +104,7 @@ Token Source
 | 跨组件视觉与交互规则 | 对应 `docs/foundations/*.md` | Foundation 索引、组件文档、样板间 |
 | 基础 / 复合组件 API、状态与边界 | 对应 `src/design-system/components/**/*.md` | Preview、团队手册、AI Context |
 | 样板间的组合方式和场景约束 | 对应 `src/design-system/templates/**/*.md` | Preview、案例文档 |
+| 页面文案书写与提示公式 | `docs/agent-rules/copywriting.md` | 清单 §4、组件文档例外 |
 | 项目定位、阅读路径和来源层级 | `DESIGN.md` | `AGENTS.md`、README、交接文件 |
 | 验收证据、推进摘要和历史 | Preview、状态看板、changelog | 不反向定义上述规则 |
 
@@ -134,6 +135,7 @@ Token Source
 - `docs/agent-rules/README.md`
 - `docs/agent-rules/value-experience-principles.md`
 - `docs/agent-rules/consistency-flow-rules.md`
+- `docs/agent-rules/copywriting.md`
 - `docs/agent-rules/page-evaluation-checklist.md`
 
 ### 4.2 改 foundation
@@ -159,6 +161,7 @@ Token Source
 - 对应 `src/design-system/templates/` 文档
 - 对应案例 / 预览页已有实现
 - 相关 `changelog` 与 `Handoff`
+- 收尾必须过 `page-evaluation-checklist.md`（含 §4 文案，对照 `copywriting.md`）
 
 ## 5. 现行产品结构
 
@@ -184,7 +187,7 @@ Token Source
 - 尊重现有 Vite + React + antd 架构
 - 优先复用 token、foundation、helper、组件规则
 - 不手改生成产物，如 `theme.ts`、`tokens.resolved.json`
-- UI 工作完成后，用 `docs/agent-rules/page-evaluation-checklist.md` 做评审
+- UI 工作完成后，用 `docs/agent-rules/page-evaluation-checklist.md` 做评审；§4 文案项对照 `copywriting.md`，不得因任务被分类为视觉还原而跳过
 - 设计系统规则优先沉淀到对应层，不把所有信息都塞进 `Context.md`
 
 ### 6.1 组件承载策略

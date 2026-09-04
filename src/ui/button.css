@@ -49,6 +49,15 @@
   line-height: 0;
 }
 
+/* 链接按钮：图标与文字视觉中线对齐（antd .ant-btn-icon 默认 22 高、16 图标顶对齐会偏上） */
+.sens-btn-link.ant-btn .ant-btn-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 0;
+  height: auto;
+}
+
 .sens-btn-dropdown-row {
   margin-top: var(--sens-btn-space-5x);
 }

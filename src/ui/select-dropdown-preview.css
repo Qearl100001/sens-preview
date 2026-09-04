@@ -111,3 +111,98 @@
   width: var(--sens-select-content-matrix-cell-width, 200px);
   flex: 0 0 auto;
 }
+
+/* 空状态组合：四种 Figma 下拉浮层结构对照 */
+.sens-select-empty-preview {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sens-select-matrix-space-2x, 8px);
+}
+
+.sens-select-empty-preview-title {
+  margin: 0;
+  color: var(--ant-color-text);
+  font-size: var(--sens-select-matrix-font-size);
+  line-height: var(--sens-select-matrix-line-height);
+  font-weight: var(--sens-select-matrix-title-weight);
+}
+
+.sens-select-empty-preview-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+}
+
+.sens-select-empty-preview-item {
+  min-width: 0;
+}
+
+.sens-select-empty-preview-label {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--ant-color-text-secondary);
+  font-size: var(--sens-select-matrix-font-size);
+  line-height: var(--sens-select-matrix-line-height);
+}
+
+.sens-select-empty-preview-panel {
+  width: 360px;
+  max-width: 100%;
+  overflow: hidden;
+  border-radius: var(--sens-select-popup-radius, 4px);
+  background: var(--sens-select-actionbar-bg, #fff);
+  box-shadow: var(--sens-select-popup-shadow);
+}
+
+.sens-select-empty-preview-search {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  height: 32px;
+  padding-inline: 12px;
+  border-bottom: 1px solid var(--sens-search-minimal-line, rgba(0, 21, 64, 0.12));
+  color: var(--sens-search-placeholder-color, rgba(0, 13, 38, 0.3));
+  font-size: 14px;
+  line-height: 22px;
+}
+
+.sens-select-empty-preview-search .sens-search-prefix-icon {
+  flex: none;
+}
+
+.sens-select-empty-preview-count {
+  box-sizing: border-box;
+  padding: 6px 12px;
+  color: var(--sens-select-dropdown-stats-color);
+  font-size: var(--sens-select-dropdown-font-size-s);
+  line-height: var(--sens-select-dropdown-line-height-s);
+}
+
+.sens-select-empty-preview-content {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.sens-select-empty-preview-toolbar {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  height: 40px;
+  padding-inline: 12px;
+  border-top: 1px solid var(--sens-select-actionbar-border-color);
+  background: var(--sens-select-actionbar-bg, #fff);
+}
+
+.sens-select-empty-preview-toolbar-buttons {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+@media (max-width: 900px) {
+  .sens-select-empty-preview-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

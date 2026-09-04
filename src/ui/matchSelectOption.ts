@@ -98,8 +98,35 @@ export interface OptionSearchIndexEntry {
   keys: OptionSearchKeys;
 }
 
+export function isSelectOptionGroup(option: DefaultOptionType): boolean {
+  return Array.isArray(option.options);
+}
+
+export function flattenSelectOptions(options: DefaultOptionType[]): DefaultOptionType[] {
+  const leaves: DefaultOptionType[] = [];
+  const walk = (list: DefaultOptionType[]) => {
+    for (const option of list) {
+      if (isSelectOptionGroup(option)) {
+        walk(option.options as DefaultOptionType[]);
+        continue;
+      }
+      leaves.push(option);
+    }
+  };
+  walk(options);
+  return leaves;
+}
+
+export function countSelectOptions(options: DefaultOptionType[] | undefined): number {
+  return flattenSelectOptions(options ?? []).length;
+}
+
+export function hasSelectOptionGroups(options: DefaultOptionType[] | undefined): boolean {
+  return (options ?? []).some(isSelectOptionGroup);
+}
+
 export function buildOptionSearchIndex(options: DefaultOptionType[]): OptionSearchIndexEntry[] {
-  return options.map((option) => {
+  return flattenSelectOptions(options).map((option) => {
     const label = getOptionLabel(option);
     const searchText = getOptionSearchText(option);
     return {

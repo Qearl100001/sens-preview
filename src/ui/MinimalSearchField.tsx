@@ -13,6 +13,7 @@ import { useSensAllowClear, useSensSearchPrefix } from "./fieldIconProps";
 import { SearchPlaceholderTip } from "./SearchPlaceholderTip";
 import { useSearchRootStyle } from "./searchTokens";
 import { useMinimalSearchValue } from "./useMinimalSearchValue";
+import "./search.css";
 
 const I18N_NS = "组件库";
 
@@ -29,6 +30,8 @@ export interface MinimalSearchFieldProps
   createDisabled?: boolean;
   onBack?: () => void;
   showBackWhenFilled?: boolean;
+  /** 禁止占位符截断时的 Tips；下拉浮层搜索通常不需要重复提示 */
+  disablePlaceholderTip?: boolean;
   className?: string;
   style?: CSSProperties;
 }
@@ -74,6 +77,7 @@ export function MinimalSearchField({
   createDisabled,
   onBack,
   showBackWhenFilled = true,
+  disablePlaceholderTip = false,
   className,
   style,
   placeholder,
@@ -203,7 +207,11 @@ export function MinimalSearchField({
         ) : null}
 
         <div className="sens-search-minimal-input-wrap">
-          <SearchPlaceholderTip placeholder={resolvedPlaceholder} hasValue={hasValue}>
+          <SearchPlaceholderTip
+            placeholder={resolvedPlaceholder}
+            hasValue={hasValue}
+            disabled={disablePlaceholderTip}
+          >
             <Input
               allowClear={allowClear}
               variant="borderless"

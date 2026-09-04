@@ -2,7 +2,9 @@ import type { DefaultOptionType } from "antd/es/select";
 import { useEffect, useMemo, useState } from "react";
 import {
   buildOptionSearchIndex,
+  countSelectOptions,
   defaultSelectOptionMatcher,
+  flattenSelectOptions,
   getOptionLabel,
   getOptionSearchText,
   matchSelectOptionByKeys,
@@ -106,7 +108,7 @@ export function useSelectDropdownSearch({
   const [searchStatus, setSearchStatus] = useState<SelectDropdownSearchStatus>("idle");
 
   const sourceOptions = options ?? [];
-  const sourceCount = sourceOptions.length;
+  const sourceCount = countSelectOptions(sourceOptions);
   const sourceEmpty = sourceCount === 0;
 
   const searchIndex = useMemo(
@@ -165,11 +167,11 @@ export function useSelectDropdownSearch({
     if (!trimmed) return sourceOptions;
     if (searchStatus !== "done") return [];
 
-    if (searchMode === "remote") return sourceOptions;
+    if (searchMode === "remote") return flattenSelectOptions(sourceOptions);
     return filterOptionsLocal(searchIndex, trimmed, filterMatcher);
   }, [searchable, sourceOptions, query, searchStatus, searchMode, searchIndex, filterMatcher]);
 
-  const resultCount = displayOptions.length;
+  const resultCount = countSelectOptions(displayOptions);
 
   const contentPhase = resolveSelectDropdownContentPhase({
     dataStatus,

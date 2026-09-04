@@ -60,6 +60,8 @@ export type SensTagProps = {
   clickable?: boolean;
   /** status / overlay 下忽略 */
   closable?: boolean;
+  /** status / overlay 下忽略；仅禁用关闭图标，不改变标签本体禁用态 */
+  closeDisabled?: boolean;
   /** status / overlay 下忽略 */
   icon?: ReactNode;
   /** status / overlay 下忽略 */
@@ -72,6 +74,8 @@ export type SensTagProps = {
   onClose?: () => void;
   /** status / overlay 下忽略 */
   disabled?: boolean;
+  /** 禁止标签文字自身的悬停便签；帮助 / 错误图标便签不受影响 */
+  labelTipsDisabled?: boolean;
   /**
    * 仅预览板静态样张：强制套某交互态 token，不响应真实悬停。
    * 真实业务勿传。
@@ -155,25 +159,16 @@ export function resolveTagInteractiveSurface(
   const disabledLabel = state === "disabledHover" ? DISABLED_HOVER_LABEL() : DISABLED_LABEL();
 
   if (color === "neutral") {
-    if (state === "default") {
+    if (state === "default" || state === "disabled" || state === "disabledHover") {
       return {
         background: tokenRgba("background-01-transparent", 0.08),
-        color: defaultLabel,
+        color: state === "default" ? defaultLabel : disabledLabel,
       };
     }
-    if (state === "hover" || state === "disabledHover") {
+    if (state === "hover") {
       return {
         background: coloredPath(NEUTRAL_INTERACTIVE_FIGMA, "背景/02_悬停"),
-        color:
-          state === "disabledHover"
-            ? disabledLabel
-            : coloredPath(NEUTRAL_INTERACTIVE_FIGMA, "文字&图标/01_悬停"),
-      };
-    }
-    if (state === "disabled") {
-      return {
-        background: tokenRgba("background-01-transparent", 0.08),
-        color: disabledLabel,
+        color: coloredPath(NEUTRAL_INTERACTIVE_FIGMA, "文字&图标/01_悬停"),
       };
     }
     return {
@@ -189,16 +184,13 @@ export function resolveTagInteractiveSurface(
       color: defaultLabel,
     };
   }
-  if (state === "hover" || state === "disabledHover") {
+  if (state === "hover") {
     return {
       background: coloredPath(figma, "背景/02_悬停"),
-      color:
-        state === "disabledHover"
-          ? disabledLabel
-          : coloredPath(figma, "文字&图标/01_悬停"),
+      color: coloredPath(figma, "文字&图标/01_悬停"),
     };
   }
-  if (state === "disabled") {
+  if (state === "disabled" || state === "disabledHover") {
     return {
       background: coloredPath(figma, "背景/01_默认"),
       color: disabledLabel,
@@ -254,6 +246,7 @@ export function SensTag({
   size = "large",
   clickable = false,
   closable = false,
+  closeDisabled = false,
   icon,
   extra,
   helpMessage,
@@ -261,6 +254,7 @@ export function SensTag({
   onClick,
   onClose,
   disabled = false,
+  labelTipsDisabled = false,
   previewState,
   previewCloseState,
   children,
@@ -274,6 +268,7 @@ export function SensTag({
   const effectiveClickable = supportsOperation ? clickable : false;
   const effectiveClosable = supportsOperation ? closable : false;
   const effectiveDisabled = supportsOperation ? disabled : false;
+  const effectiveCloseDisabled = effectiveClosable ? Boolean(closeDisabled || effectiveDisabled) : false;
   const actionBlocked = effectiveDisabled;
   const effectiveHelpMessage = supportsOperation ? helpMessage : undefined;
   const effectiveErrorMessage = supportsOperation ? errorMessage : undefined;
@@ -289,7 +284,7 @@ export function SensTag({
     previewState ??
     (effectiveDisabled ? (hovered ? "disabledHover" : "disabled") : interactive ? liveState : "default");
 
-  const liveCloseState: TagCloseState = effectiveDisabled
+  const liveCloseState: TagCloseState = effectiveCloseDisabled
     ? closeHovered
       ? "disabledHover"
       : "disabled"
@@ -370,7 +365,7 @@ export function SensTag({
 
   const handleClose = (event?: MouseEvent) => {
     event?.stopPropagation();
-    if (effectiveDisabled) return;
+    if (effectiveCloseDisabled) return;
     onClose?.();
   };
 
@@ -414,7 +409,7 @@ export function SensTag({
       <span
         role="button"
         aria-label="移除"
-        tabIndex={actionBlocked ? -1 : 0}
+        tabIndex={effectiveCloseDisabled ? -1 : 0}
         onClick={(event) => handleClose(event)}
         onKeyDown={(event) => {
           if (event.key === "Enter" || event.key === " ") {
@@ -431,7 +426,7 @@ export function SensTag({
           margin: 0,
           border: "none",
           background: "transparent",
-          cursor: actionBlocked
+          cursor: effectiveCloseDisabled
             ? sensCursorValue("not-allowed")
             : sensCursorValue("pointer"),
           lineHeight: 0,
@@ -444,7 +439,7 @@ export function SensTag({
       <button
         type="button"
         aria-label="移除"
-        disabled={actionBlocked}
+        disabled={effectiveCloseDisabled}
         onClick={handleClose}
         {...closeMouseHandlers}
         style={{
@@ -455,7 +450,7 @@ export function SensTag({
           margin: 0,
           border: "none",
           background: "transparent",
-          cursor: actionBlocked
+          cursor: effectiveCloseDisabled
             ? sensCursorValue("not-allowed")
             : sensCursorValue("pointer"),
           lineHeight: 0,
@@ -520,7 +515,7 @@ export function SensTag({
     </SensTips>
   ) : null;
 
-  const labelNode = labelText ? (
+  const labelNode = labelText && !labelTipsDisabled ? (
     <SensTips title={labelText} placement="top">
       <span style={labelStyle}>
         {label}

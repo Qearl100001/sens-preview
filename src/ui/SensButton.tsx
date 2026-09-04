@@ -66,6 +66,23 @@ function isLinkTone(tone: SensButtonVariant): boolean {
   return LINK_TONES.has(tone);
 }
 
+/**
+ * 链接按钮是文本操作，不复用常规控件 32 / 24 的点击框。
+ * 大 / 小尺寸分别与正文 / 辅助文案的行高一致：14 / 22、12 / 18。
+ */
+function getLinkButtonSizeStyle(size?: ButtonProps["size"]): CSSProperties {
+  const isSmall = size === "small";
+  const lineHeight = getTypographyToken(isSmall ? "line-height/s" : "line-height/m");
+
+  return {
+    minWidth: 0,
+    height: lineHeight,
+    paddingInline: 0,
+    fontSize: getTypographyToken(isSmall ? "font-size/s" : "font-size/m"),
+    lineHeight: `${lineHeight}px`,
+  };
+}
+
 function shouldInsertCnCharSpace(tone: SensButtonVariant, hasIcon: boolean): boolean {
   return !isLinkTone(tone) && !hasIcon;
 }
@@ -967,6 +984,7 @@ export const SensButton = forwardRef<SensButtonRef, SensButtonProps>(function Se
   const liveStateStyle = isDisabled ? {} : getLiveStateStyle(tone, iconState, isFab);
   const primaryBorderStyle: CSSProperties =
     tone === "primary" && !isFab ? { borderColor: getButtonPrimaryBorderColor() } : {};
+  const linkSizeStyle: CSSProperties = !isFab && isLinkTone(tone) ? getLinkButtonSizeStyle(sizeProp) : {};
   const textVariantTransparentStyle: CSSProperties =
     !isFab && (tone === "tertiary" || tone === "dangerTertiary" || tone === "dangerTertiaryWeak")
       ? { backgroundColor: "transparent", borderColor: "transparent" }
@@ -1018,6 +1036,7 @@ export const SensButton = forwardRef<SensButtonRef, SensButtonProps>(function Se
         ...baseToneStyle,
         ...primaryBorderStyle,
         ...textVariantTransparentStyle,
+        ...linkSizeStyle,
         ...fabStyle,
         ...liveStateStyle,
         boxShadow,
@@ -1369,7 +1388,7 @@ function PreviewRow({ entry, size, styleToken, shadowToken, label, stateLabel, s
                       .join(" ") || undefined
                   }
                   style={{
-                    ...(isLinkTone(entry.tone) ? { minWidth: 0, paddingInline: 0 } : {}),
+                    ...(isLinkTone(entry.tone) ? getLinkButtonSizeStyle(sizeProps.size) : {}),
                     ...previewStyle,
                   }}
                 >

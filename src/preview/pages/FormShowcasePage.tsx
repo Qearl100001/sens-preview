@@ -1,5 +1,5 @@
-import { useState, type CSSProperties } from "react";
-import { Segmented, Space, Switch, Typography } from "antd";
+import { useRef, useState, type CSSProperties } from "react";
+import { Segmented, Space, Typography } from "antd";
 import { tokenRgba } from "../../design-system/color-utils";
 import formDesignDoc from "../../design-system/components/base/form.design.md?raw";
 import formDevDoc from "../../design-system/components/base/form.md?raw";
@@ -15,10 +15,12 @@ import {
   SensInputNumber,
   SensRadioGroup,
   SensSectionTitle,
+  SensSelectDropdown,
   SensTextArea,
   type SensFormLayout,
 } from "../../ui";
 import { ComponentShowcaseLayout } from "../ComponentShowcaseLayout";
+import { useRequiredField, useScrollToFirstFormError } from "./formValidationDemo";
 
 const { Text } = Typography;
 
@@ -156,11 +158,26 @@ function FormGroupingPreview() {
   );
 }
 
+const STRATEGY_OPTIONS = [
+  { value: "recommend", label: "推荐策略" },
+  { value: "experiment", label: "实验策略" },
+];
+
 function FormDemo() {
   const [layout, setLayout] = useState<SensFormLayout>("vertical");
-  const [showError, setShowError] = useState(true);
   const [radioValue, setRadioValue] = useState("all");
   const [checkboxValue, setCheckboxValue] = useState(["overview", "report"]);
+  const [scrollRequest, setScrollRequest] = useState(0);
+  const formRootRef = useRef<HTMLDivElement>(null);
+  const ruleName = useRequiredField("input");
+  const strategy = useRequiredField("select");
+  useScrollToFirstFormError(scrollRequest, formRootRef);
+
+  const submitForm = () => {
+    ruleName.validateNow();
+    strategy.validateNow();
+    setScrollRequest((count) => count + 1);
+  };
 
   return (
     <Space direction="vertical" size="large" style={{ width: "100%" }}>
@@ -178,73 +195,93 @@ function FormDemo() {
             ]}
           />
         </Space>
-        <Space direction="vertical" size={4}>
-          <Text type="secondary">报错</Text>
-          <Switch checked={showError} onChange={setShowError} />
-        </Space>
       </Space>
 
-      <SensForm layout={layout}>
-        <SensFormItem
-          label="规则名称"
-          controlId="rule-name"
-          name="ruleName"
-          required
-          description="名称用于识别当前规则，建议保持业务语义清晰。"
-          error={showError ? "请输入规则名称" : undefined}
-          counter="8/60"
-        >
-          <SensInput
-            defaultValue={showError ? "" : "智能运营计划"}
-            placeholder="请输入"
-            status={showError ? "error" : undefined}
-            style={{ width: "100%" }}
-          />
-        </SensFormItem>
-        <SensFormItem label="执行次数" controlId="execution-count" name="executionCount" controlExtra="次">
-          <SensInputNumber defaultValue={10} style={{ width: "100%" }} />
-        </SensFormItem>
-        <SensFormItem
-          label="推送范围"
-          controlId="push-scope"
-          name="pushScope"
-          labelHelp="选择用户生效范围"
-          optional="(选填)"
-          description="表单内的单选组直接复用基础单选组件。"
-        >
-          <SensRadioGroup
-            value={radioValue}
-            onChange={setRadioValue}
-            options={[
-              { value: "all", label: "全部用户" },
-              { value: "target", label: "指定用户" },
-              { value: "rule", label: "规则圈选" },
-            ]}
-          />
-        </SensFormItem>
-        <SensFormItem
-          label="可见模块"
-          controlId="visible-modules"
-          name="visibleModules"
-          description="表单内的复选组直接复用基础复选框组件。"
-        >
-          <SensCheckboxGroup
-            value={checkboxValue}
-            onChange={setCheckboxValue}
-            options={[
-              { value: "overview", label: "概览" },
-              { value: "report", label: "报表" },
-              { value: "analysis", label: "分析" },
-            ]}
-          />
-        </SensFormItem>
-        <SensFormActions>
-          <SensButton tone="primary">提交</SensButton>
-          <SensButton>取消</SensButton>
-        </SensFormActions>
-      </SensForm>
+      <div ref={formRootRef}>
+        <SensForm layout={layout}>
+          <SensFormItem
+            label="规则名称"
+            controlId="rule-name"
+            name="ruleName"
+            required
+            description="名称用于识别当前规则，建议保持业务语义清晰"
+            error={ruleName.error}
+            counter={`${Array.from(ruleName.value).length}/60`}
+          >
+            <SensInput
+              value={ruleName.value}
+              onChange={(event) => ruleName.onChange(event.target.value)}
+              onBlur={ruleName.onBlur}
+              placeholder="请输入"
+              status={ruleName.status}
+              style={{ width: "100%" }}
+            />
+          </SensFormItem>
+          <SensFormItem
+            label="策略类型"
+            controlId="strategy-type"
+            name="strategyType"
+            required
+            error={strategy.error}
+          >
+            <SensSelectDropdown
+              value={strategy.value || undefined}
+              onChange={(next) => strategy.onChange(String(next ?? ""))}
+              onBlur={strategy.onBlur}
+              onOpenChange={(open) => {
+                if (!open) strategy.onBlur();
+              }}
+              placeholder="请选择"
+              status={strategy.status}
+              options={STRATEGY_OPTIONS}
+              style={{ width: "100%" }}
+            />
+          </SensFormItem>
+          <SensFormItem label="执行次数" controlId="execution-count" name="executionCount" controlExtra="次">
+            <SensInputNumber defaultValue={10} style={{ width: "100%" }} />
+          </SensFormItem>
+          <SensFormItem
+            label="推送范围"
+            controlId="push-scope"
+            name="pushScope"
+            labelHelp="选择用户生效范围"
+            optional="(选填)"
+            description="表单内的单选组直接复用基础单选组件"
+          >
+            <SensRadioGroup
+              value={radioValue}
+              onChange={setRadioValue}
+              options={[
+                { value: "all", label: "全部用户" },
+                { value: "target", label: "指定用户" },
+                { value: "rule", label: "规则圈选" },
+              ]}
+            />
+          </SensFormItem>
+          <SensFormItem
+            label="可见模块"
+            controlId="visible-modules"
+            name="visibleModules"
+            description="表单内的复选组直接复用基础复选框组件"
+          >
+            <SensCheckboxGroup
+              value={checkboxValue}
+              onChange={setCheckboxValue}
+              options={[
+                { value: "overview", label: "概览" },
+                { value: "report", label: "报表" },
+                { value: "analysis", label: "分析" },
+              ]}
+            />
+          </SensFormItem>
+          <SensFormActions>
+            <SensButton tone="primary" onClick={submitForm}>提交</SensButton>
+            <SensButton>取消</SensButton>
+          </SensFormActions>
+        </SensForm>
+      </div>
 
-      <Text type="secondary">表单页只沉淀布局、间距、标题和校验骨架；具体录入控件仍回到各基础组件规则。</Text>
+      <Text type="secondary">真实 Demo：失焦才报、改字即清、提交标出全部失败项并滚到第一项。矩阵里的静帧报错只证明红框长什么样。</Text>
     </Space>
   );
 }
@@ -295,7 +332,7 @@ function FormRulesPreview() {
         <div className="sens-form-rule-card-title">上下布局</div>
         <div className="sens-form-rule-card-text">标题在上，控件在下；标题到控件使用 `spacing/vertical/2x`。</div>
         <SensForm layout="vertical">
-          <SensFormItem label="表单项标题" labelHelp="标题帮助说明" optional="(选填)" required description="辅助说明跟随表单项，不改变控件本体。">
+          <SensFormItem label="表单项标题" labelHelp="标题帮助说明" optional="(选填)" required description="辅助说明跟随表单项，不改变控件本体">
             <SensInput placeholder="请输入" style={{ width: "100%" }} />
           </SensFormItem>
         </SensForm>
@@ -306,7 +343,7 @@ function FormRulesPreview() {
           标题在左，控件在右；常规控件按 32px 高度居中对齐。联动单选 / 复选、文本域等复杂内容使用顶部对齐，不额外补 32px。
         </div>
         <SensForm layout="horizontal">
-          <SensFormItem label="常规输入" labelHelp="常规控件按 32px 对齐" required description="左右布局用于字段密度更高、标题较短的表单。">
+          <SensFormItem label="常规输入" labelHelp="常规控件按 32px 对齐" required description="左右布局用于字段密度更高、标题较短的表单">
             <SensInput placeholder="请输入" style={{ width: "100%" }} />
           </SensFormItem>
           <SensFormItem label="表单项标题过长需要省略" labelHelp="表单项标题全称" optional="(选填)">
@@ -354,6 +391,7 @@ function FormRulesPreview() {
             <div className="sens-form-linked-field">
               <SensRadioGroup
                 defaultValue="a"
+                itemHeight="content"
                 options={[
                   { value: "a", label: "单项选择 1" },
                   { value: "b", label: "单项选择 2" },
@@ -382,12 +420,12 @@ function FormRulesPreview() {
             <SensForm layout="vertical">
               <SensFormItem
                 label="规则名称"
-                description="名称用于识别当前规则，建议保持业务语义清晰。"
-                error="请输入规则名称"
+                description="名称用于识别当前规则，建议保持业务语义清晰"
+                error="不能为空，请输入"
               >
                 <SensInput placeholder="请输入" status="error" style={{ width: "100%" }} />
               </SensFormItem>
-              <SensFormItem label="执行次数" description="上一项报错后，本项会随表单高度自然下移。" controlExtra="次">
+              <SensFormItem label="执行次数" description="上一项报错后，本项会随表单高度自然下移" controlExtra="次">
                 <SensInputNumber defaultValue={10} style={{ width: "100%" }} />
               </SensFormItem>
             </SensForm>
@@ -399,12 +437,20 @@ function FormRulesPreview() {
                 label="任务名称"
                 labelHelp="用于识别当前任务"
                 optional="(选填)"
-                description="辅助信息在正常状态下展示。"
-                error="请输入任务名称"
+                description="辅助信息在正常状态下展示"
+                error="不能为空，请输入"
               >
                 <SensInput placeholder="请输入" status="error" style={{ width: "100%" }} />
               </SensFormItem>
-              <SensFormItem label="通知范围" description="错误信息消失后才显示字段辅助信息。">
+              <SensFormItem label="策略类型" error="不能为空，请选择">
+                <SensSelectDropdown
+                  placeholder="请选择"
+                  status="error"
+                  options={STRATEGY_OPTIONS}
+                  style={{ width: "100%" }}
+                />
+              </SensFormItem>
+              <SensFormItem label="通知范围" description="错误信息消失后才显示字段辅助信息">
                 <SensRadioGroup
                   defaultValue="all"
                   options={[

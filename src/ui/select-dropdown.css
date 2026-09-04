@@ -15,6 +15,92 @@
   padding-block-start: 0 !important;
 }
 
+/* 简约型：浮层不跟触发框变窄，最小 128 */
+.sens-select-dropdown--simple.ant-select-dropdown {
+  min-width: var(--sens-select-simple-popup-min-width, 128px);
+}
+
+.sens-select-dropdown--multiple.ant-select-dropdown:not(.sens-select-dropdown-matrix-shell) {
+  min-width: var(--sens-select-multiple-popup-min-width, 320px) !important;
+  padding-block-end: 0 !important;
+}
+
+.sens-select-dropdown--multiple .ant-select-item-option-state {
+  display: none;
+}
+
+.sens-select-dropdown--multiple .ant-select-item-option-content {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+}
+
+.sens-select-dropdown--multiple .sens-select-option-checkbox {
+  width: 100%;
+  min-width: 0;
+  pointer-events: none;
+  align-items: flex-start;
+}
+
+.sens-select-dropdown--multiple .sens-select-option-checkbox .sens-checkbox-control {
+  margin-top: calc((var(--sens-checkbox-line-height) - var(--sens-checkbox-control-size)) / 2);
+}
+
+.sens-select-dropdown-actionbar {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sens-select-actionbar-gap, 12px);
+  height: var(--sens-select-actionbar-height, 40px);
+  padding-inline: var(--sens-select-actionbar-padding-inline, 12px);
+  background: var(--sens-select-actionbar-bg);
+  border-top: var(--sens-select-actionbar-border-width, 1px) solid
+    var(--sens-select-actionbar-border-color);
+}
+
+.sens-select-dropdown-actionbar-select-hit {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+  flex: 0 1 auto;
+  cursor: pointer;
+}
+
+.sens-select-dropdown-actionbar-select-hit[aria-disabled="true"] {
+  cursor: not-allowed;
+}
+
+.sens-select-dropdown-actionbar-select {
+  min-width: 0;
+  pointer-events: none;
+  align-items: center;
+  line-height: var(--sens-checkbox-control-size);
+}
+
+.sens-select-dropdown-actionbar-select .sens-checkbox-control {
+  margin-top: 0;
+}
+
+.sens-select-dropdown-actionbar-select .sens-checkbox-body,
+.sens-select-dropdown-actionbar-select .sens-checkbox-main,
+.sens-select-dropdown-actionbar-select .sens-checkbox-label {
+  line-height: var(--sens-checkbox-control-size);
+}
+
+.sens-select-dropdown-actionbar-select .sens-checkbox-label {
+  display: flex;
+  align-items: center;
+}
+
+.sens-select-dropdown-actionbar-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex: none;
+  gap: var(--sens-select-actionbar-gap, 12px);
+}
+
 .sens-select-dropdown .ant-select-item-option {
   display: flex;
   align-items: center;
@@ -24,9 +110,54 @@
   border-radius: 0;
 }
 
+/* 选项列表最多 9.5 行；搜索 / 统计 / 操作条在列表外，不计入 */
+.sens-select-dropdown .rc-virtual-list-holder {
+  max-height: var(--sens-select-list-max-height, 323px) !important;
+}
+
 .sens-select-dropdown .ant-select-item-option-content {
   flex: auto;
   min-width: 0;
+}
+
+/* 双行选项：主文案 14/22，辅助文案 12/18；两者共用同一行容器。 */
+.sens-select-option-copy {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: var(--sens-select-option-description-gap, 2px);
+}
+
+.sens-select-option-with-icon {
+  display: flex;
+  min-width: 0;
+  align-items: flex-start;
+  gap: var(--sens-select-tags-gap, 4px);
+}
+
+.sens-select-option-icon {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: var(--sens-select-arrow-size, 16px);
+  height: var(--sens-select-arrow-size, 16px);
+  margin-top: 3px;
+  color: var(--sens-select-option-description-color, rgba(8, 18, 38, 0.58));
+}
+
+.sens-select-option-primary {
+  min-width: 0;
+  font-size: var(--sens-select-dropdown-font-size-m);
+  line-height: var(--sens-select-dropdown-line-height-m);
+}
+
+.sens-select-option-description {
+  min-width: 0;
+  color: var(--sens-select-option-description-color);
+  font-size: var(--sens-select-option-description-font-size);
+  font-weight: var(--sens-select-option-regular-weight);
+  line-height: var(--sens-select-option-description-line-height);
 }
 
 /* 对勾永远在最右；行 padding-inline 12px 即距浮层右缘 12px */
@@ -193,6 +324,57 @@
   line-height: var(--sens-select-dropdown-line-height-s);
 }
 
+.sens-select-dropdown-load-more {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 22px;
+  padding-inline: 0;
+  background: transparent;
+}
+
+.sens-select-dropdown-load-more-content {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sens-select-tags-gap, 4px);
+  min-width: 0;
+  color: var(--sens-select-dropdown-font-color, rgba(23, 28, 38, 0.9));
+  font-size: var(--sens-select-dropdown-font-size-m);
+  line-height: var(--sens-select-dropdown-line-height-m);
+}
+
+.sens-select-dropdown-load-more-content--error {
+  color: var(--sens-select-error-color, #e54545);
+}
+
+.sens-select-dropdown-load-more-spinner {
+  animation: sens-select-dropdown-load-more-spin 1s linear infinite;
+}
+
+@keyframes sens-select-dropdown-load-more-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.sens-select-dropdown-load-more-action.ant-btn {
+  height: 22px;
+  padding-block: 0;
+  padding-inline: 0;
+  color: var(--sens-select-load-more-link-color, #3170eb) !important;
+  font-size: var(--sens-select-dropdown-font-size-m);
+  line-height: var(--sens-select-dropdown-line-height-m);
+}
+
+.sens-select-dropdown-load-more-action:not(.ant-btn) {
+  color: var(--sens-select-load-more-link-color, #3170eb);
+  font-size: var(--sens-select-dropdown-font-size-m);
+  line-height: var(--sens-select-dropdown-line-height-m);
+}
+
 /* R2 · 空态（Figma 非页面级 · 特殊尺寸） */
 .sens-select-dropdown-empty {
   display: flex;
@@ -251,4 +433,52 @@
 
 .sens-select-dropdown--searchable .ant-select-item-empty {
   display: none;
+}
+
+/* 面性分割：灰底分组标题，通栏、不可点、单行省略 · Figma 17691:63738 */
+.sens-select-dropdown.ant-select-dropdown.sens-select-dropdown--group-title .ant-select-item-group {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  min-height: var(--sens-select-group-title-min-height, 30px);
+  height: auto;
+  margin: 0;
+  padding-block: var(--sens-select-option-padding-block, 6px);
+  padding-inline: var(--sens-select-option-padding-inline, 12px);
+  background: var(--sens-select-group-title-bg);
+  color: var(--sens-select-group-title-color);
+  font-size: var(--sens-select-dropdown-font-size-s);
+  line-height: var(--sens-select-dropdown-line-height-s);
+  font-weight: var(--sens-select-option-regular-weight);
+  cursor: var(--sens-cursor-default);
+  pointer-events: none;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+/* 线性分割：组间通栏 1px 线；第一组上方无线 · Figma 17691:63738 */
+.sens-select-dropdown.ant-select-dropdown.sens-select-dropdown--group-divider .ant-select-item-group {
+  box-sizing: border-box;
+  height: 0;
+  min-height: 0;
+  max-height: none;
+  margin: 0;
+  margin-inline: var(--sens-select-option-padding-inline, 12px);
+  padding: 0;
+  overflow: hidden;
+  font-size: 0;
+  line-height: 0;
+  color: transparent;
+  background: transparent;
+  border-top: var(--sens-select-group-divider-width, 1px) solid var(--sens-select-group-divider-color);
+  cursor: var(--sens-cursor-default);
+  pointer-events: none;
+}
+
+.sens-select-dropdown.ant-select-dropdown.sens-select-dropdown--group-divider
+  .rc-virtual-list-holder-inner
+  > .ant-select-item-group:first-child {
+  display: none;
+  border-top: none;
 }

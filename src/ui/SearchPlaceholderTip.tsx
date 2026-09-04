@@ -25,10 +25,12 @@ function measureTextWidth(text: string, font: string): number {
 export function SearchPlaceholderTip({
   placeholder,
   hasValue,
+  disabled = false,
   children,
 }: {
   placeholder: string;
   hasValue: boolean;
+  disabled?: boolean;
   children: ReactElement;
 }): ReactNode {
   const hostRef = useRef<HTMLSpanElement | null>(null);
@@ -65,7 +67,7 @@ export function SearchPlaceholderTip({
 
   if (!isValidElement(children)) return children;
 
-  const showTip = truncated && !hasValue;
+  const showTip = !disabled && truncated && !hasValue;
 
   const body = (
     <span

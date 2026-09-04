@@ -143,6 +143,7 @@
 
 .sens-tips-content {
   box-sizing: border-box;
+  color: var(--sens-tips-color);
   width: max-content;
   max-width: var(--sens-tips-max-width);
   max-height: calc(

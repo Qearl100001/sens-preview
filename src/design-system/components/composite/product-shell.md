@@ -3,7 +3,10 @@
 > Product Shell 是产品级页面的外层组织规则，用于把顶部导航、侧边导航、标题栏、内容区、全局浮层和回到顶部能力组织成一个稳定页面壳。<br>
 > 当前先作为组合规则文档，不新增独立 React 组件，也不新增 `/components/product-shell` 展示页。<br>
 > 规则预览：`/composite/product-shell`。<br>
-> 固定高度滚动样板间：`/templates/product-shell`。<br>
+> 固定高度样板间（虚拟分组「产品壳」）：<br>
+> - T 型结构：`/templates/product-shell/t`<br>
+> - 上下布局：`/templates/product-shell/vertical`<br>
+> 父路径 `/templates/product-shell` 重定向到 T 型。<br>
 > 具体组件规则分别见：`../base/top-navigation.md`、`side-navigation.md`、`../base/title-bar.md`。
 
 ## 1. 组件边界
@@ -54,17 +57,23 @@ Product Shell 管的是“页面壳的组织关系”，不是把基础组件重
 
 ## 5. 页面滚动、顶导收起与回到顶部
 
-- Product Shell 页面默认把右侧内容区域作为页面主体滚动区域；壳层应固定占满可用视口高度，**不以浏览器窗口 / 预览外层整页滚动替代内容区滚动**。
+- Product Shell 页面默认把右侧内容区域作为页面主体滚动区域；壳层应固定占满可用视口高度，**不以浏览器窗口 / 预览外层整页滚动替代内容区滚动**。固定高度样板间（`/templates/product-shell/*`、`/templates/sdh-editable-table/*`）预览宿主只允许内容区 `__scroll` 竖滚；外层 Layout 不得再出一条竖向滚动条。窗宽小于 1280 时预览宿主可以横向滚动。
 - 视觉层级（从低到高）见 §2 与 `docs/foundations/layout.md` §2.2：顶导氛围为底板；侧导与内容叠其上；**顶导浮层**最高。样板间不得把整层顶导 `z-index` 抬到内容之上，也不得在导航层常驻 `transform` 困住浮层。
 - 侧边导航过长时，侧导自身作为一个整体滚动；滚动条默认不可见，但滚轮 / 触控板滚动能力必须保留。
 - 内容区 `scrollTop > 300` 时，顶部导航（含氛围层）整体向上收起：正文起点从 `82px` 变为 `0`，侧导与内容面板顶缘贴齐可用视口顶；`scrollTop ≤ 300` 时恢复顶导。阈值 `300` 为当前临时口径，待设计标注确认后可调整。
 - 收起优先用收起态 `transform: translateY(-82px)` 配合正文 `padding-top` / 流高度同步；展开态导航层不保留 transform，避免挡住顶导浮层。
-- 收起过程中，标题栏留在内容列顶部（内容区滚动时标题栏不随卡片滚走）；卡片 / 列表在标题栏下方滚动。
+- 收起过程中，标题栏留在内容列顶部（内容区滚动时标题栏不随卡片 / 表单滚走）；主体内容在标题栏下方滚动。
 - 内容区 `scrollTop > 0` 时，固定标题栏底边出现向下 D4 投影（`buildShadowD4()`）；回到顶部后投影消失。
-- T 型布局内容模块左右 padding 为 `spacing/horizontal/6x`（24px），与标题栏 landing 内距对齐；见 `docs/foundations/layout.md`。
-- 标题栏与首个工具区（如搜索）间距为 `0px`；工具区之后到卡片 / 表格等模块间距按模块规则（常见 `spacing/vertical/4x` = 16）。
-- 内容区 `scrollTop > 300` 后显示「回到顶部」悬浮按钮（Figma `1226:51483`）：`SensButton fab tone="secondary"` + `to-top` 图标 + `SensTips`「回到顶部」；相对**内容面板**右下角 `spacing/6x`（24px）。点击后滚动内容滚动容器到顶部，不滚浏览器窗口。
-- 回到顶部是内容区辅助能力，不改变顶部导航、侧边导航或标题栏的选中状态。
+- **T 型结构**：顶导 + 侧导 + 右侧内容；内容模块左右 padding 为 `spacing/horizontal/6x`（24px）；标题栏与首个工具区间距 `0px`。见 `docs/foundations/layout.md`。
+- **上下布局**：无侧导的下钻页；全宽内容面板；标题栏使用 `SensPageTitleBar variant="drilldown"`（面包屑 / 返回 / 页面操作）；白色正文区 padding 为上下 `spacing/vertical/4x`（16）、左右 `spacing/horizontal/6x`（24）。验收入口 `/templates/product-shell/vertical`（Figma `3717:10238` / `3717:11503`）。
+- 内容区 `scrollTop > 300` 后显示「回到顶部」悬浮按钮（Figma `64:53729` / `1226:51483`）：`SensButton fab tone="secondary"` + `to-top` 图标 + `SensTips`「回到顶部」。按钮视觉（36 圆钮、二级、D4）见 `button.md` FAB，不在本条重复。
+- **展开位（默认）**：相对**可视**内容面板右边、下边各 `spacing/6x`（24px）。对齐 Figma `64:53729`（1440 画板 `left: 1380`、距底 24）。滚动中、刚出现、以及悬停收起态后都回到此位。不要贴 1280 min-width 溢出后的不可见右缘。
+- **滚动中常显**：主内容滚动容器只要还在滚动，按钮保持展开，不进入半圆；每一次滚动都取消闲置收起计时。
+- **闲置收半圆**：滚动停止，且未点击、未悬停该按钮，再停留 **3000ms** 后横向收入**可视**内容右缘——圆心贴可视右缘、约露出左半圆，底边仍 24px。不是 Button 新变体。
+- **悬停展开**：指针悬到收起后的半圆上，按钮横向向左平移回展开位；离开后若仍静止且未点击，再等 3000ms 收起。
+- **平移动效**：收起 / 滑回共用 `240ms` + `cubic-bezier(0.42, 0, 0.58, 1)`（与抽屉缓入缓出同口径，不升 motion token）。`prefers-reduced-motion: reduce` 时时长为 0。
+- 点击后滚动内容滚动容器到顶部，不滚浏览器窗口；`scrollTop ≤ 300` 后整颗隐藏，不必再走半圆。
+- 回到顶部是内容区辅助能力，不改变顶部导航、侧边导航或标题栏的选中状态。T 型与上下布局共用同一套滚动 / 回到顶部行为；Form / Table 不定义该规则，见 `docs/foundations/layout.md` §5。
 
 ## 6. 样板间接入规则
 
@@ -73,14 +82,13 @@ Product Shell 管的是“页面壳的组织关系”，不是把基础组件重
 - 不得在样板间复制一套局部顶部导航壳、局部侧导壳、局部按钮或局部卡片实现。
 - 样板间中如果出现“当前页面暂不建设”的入口，可以保留路由站位或 toast 反馈；不能因此移除当前样板间原本要验证的主体内容。
 - 样板间专属内容、业务数据和页面布局留在样板间；可复用的导航、标题栏、侧导、间距、层级和滚动关系应回写到 Product Shell、组件文档或 Layout Foundation。
-- 固定高度 + 顶导滚动收起的验收入口为 `/templates/product-shell`；`/composite/product-shell` 继续只承载组合规则说明。
+- 样板间侧栏虚拟分组为「产品壳」，子场景「T型结构」「上下布局」；父路径 `/templates/product-shell` 重定向到 T 型。`/composite/product-shell` 继续只承载组合规则说明。
 
 ## 7. 验收
 
 - 在 `/components/top-navigation` 验证顶导下拉、项目切换、账号菜单、九宫格、更多、顶导浮层层级和响应式收纳。
 - 在 `/components/side-navigation` 验证侧导标题区、收起 / 展开、Overlay / Docked、长菜单滚动、单层带图标、二级带图标、分析专属三类结构。
 - 在包含产品壳的样板间验证：顶导氛围层、内容从 `82px` 起叠放、标题栏上方 `radius/xl`、侧导 / 内容投影关系、顶导浮层不被标题栏或内容面板遮盖。
-- 在 `/templates/product-shell` 验证：壳高固定为预览区 100%；仅内容面板滚动；`scrollTop > 300` 顶导收起、`≤ 300` 恢复；标题栏留在内容列顶部。
-- 在 `/templates/product-shell` 验证：顶导「智能运营」下拉为两层且 sections 与侧导 groups 一致；侧导选中叶子与顶导下拉选中叶子同步（含从顶导点叶子回写侧导）。
-- 在 `/templates/product-shell` 验证：九宫格选「事件分析」等叶子后同步到「分析」域与侧导；第二行业务浮层（九宫格 / 主导航 / 更多）同时只开一个。
+- 在 `/templates/product-shell/t` 验证：壳高固定；预览宿主无外层竖向滚动条，仅内容区 `__scroll` 可滚；`scrollTop > 300` 顶导收起；标题栏留在内容列顶部；顶导域导航与侧导同源。回到顶部默认对齐 Figma `64:53729`（可视右下 24、整圆）；停滚 3000ms 后半圆贴可视右缘（露出约 18px）；悬停滑回；平移 240ms 缓入缓出。
+- 在 `/templates/product-shell/vertical` 验证：无侧导；全宽内容；下钻标题栏（分群 / 创建分群、返回、放弃 / 提交）；正文 padding 16/24；`scrollTop > 300` 顶导收起（paddingTop 0、translateY(-82)）；标题栏 D4；无外层竖滚；回到顶部与 T 型同一套默认 / 闲置收起。
 - 在 1280 / 1440 / 1920 三个宽度验证顶导收纳、侧导与内容面板自适应、内容区是否出现预期滚动。

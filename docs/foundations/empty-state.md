@@ -74,7 +74,7 @@ Illustration PNG
 ```
 
 - `SelectDropdownEmpty` 内部已改为消费 `scope="non-page" size="special"`。
-- `TableShell` 空态已改为消费 `scope="non-page" size="base"`（壳层保留 padding / min-height）。
+- `TableShell` 空态已改为消费 `scope="non-page" size="base"`；默认展示标题 + 说明；空态区 316 高居中，padding 走本组件 `spacing/5x`。
 - `DataSourceEmptyState`（TikTok 样板）已改为消费 `scope="non-page" size="base"`，主按钮走 `actions`。
 
 ## 5. 资产路径

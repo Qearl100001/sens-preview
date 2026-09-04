@@ -1,4 +1,4 @@
-import { useMemo, useRef, useState, type CSSProperties, type UIEvent } from "react";
+import { useMemo, useState, type CSSProperties } from "react";
 import { buildShadow, buildShadowD4, getColorToken, tokenRgba } from "../../design-system/color-utils";
 import { getDividerHairlineWidth } from "../../design-system/divider";
 import { SensIcon, type IconName } from "../../design-system/icons";
@@ -37,14 +37,12 @@ import {
   PRODUCT_SHELL_SIDE_NAV_EXPANDED_WIDTH,
   PRODUCT_SHELL_SIDE_NAV_ICON_COLLAPSED_WIDTH,
 } from "../../ui/ProductShellSideNavigation";
+import { ProductShellBackTop } from "./ProductShellBackTop";
+import { useProductShellContentScroll } from "./useProductShellContentScroll";
 import "./product-shell-template.css";
 
 /** 顶导结构高度；收起时 translateY 与正文起点同步扣减。 */
 const TOP_NAV_STRUCTURAL_HEIGHT = 82;
-/** 内容区 scrollTop 超过该值后收起顶导（含氛围）；回到阈值及以下恢复。临时口径，待 Figma 精准确认。 */
-const TOP_NAV_COLLAPSE_SCROLL_THRESHOLD = 300;
-/** 超过该滚动距离后显示「回到顶部」；与顶导收起阈值对齐，便于同屏验收。 */
-const BACK_TOP_VISIBLE_SCROLL_THRESHOLD = TOP_NAV_COLLAPSE_SCROLL_THRESHOLD;
 
 /** 与 SensTopNavigation 默认同源；样板间额外带「更多」供窄屏收纳 */
 const PRODUCT_NAV_ITEMS: SensTopNavigationItem[] = [
@@ -82,12 +80,12 @@ const DEMO_CARDS: PlacementCardData[] = Array.from({ length: 8 }, (_, index) => 
   pendingItems: 3,
   sceneType: "规则推荐",
   relatedStrategyCount: 6,
-  onlineHint: "n 条已上线",
+  onlineHint: "6 条已上线",
   itemRuleType: "资讯",
   pinnedCount: 3,
   lastOperatedAt: "2020-06-01 00:00:00",
-  exposure: "0,000",
-  clicks: "0,000",
+  exposure: "-",
+  clicks: "-",
   ctr: "45.02%",
 }));
 
@@ -115,6 +113,8 @@ function buildTemplateStyle(): CSSProperties {
     "--shell-card-inner-gap": `${getUnitToken("spacing/4x")}px`,
     "--shell-card-padding": `${getUnitToken("spacing/4x")}px`,
     "--shell-field-gap": `${getUnitToken("spacing/2x")}px`,
+    /* 图标与文字：icons.md / spacing 默认 spacing/horizontal/1x = 4 */
+    "--shell-icon-text-gap": `${getUnitToken("spacing/horizontal/1x")}px`,
     "--shell-tag-gap": `${getUnitToken("spacing/2x")}px`,
     "--shell-action-gap": `${getUnitToken("spacing/3x")}px`,
     "--shell-metrics-width": "329px",
@@ -126,6 +126,7 @@ function buildTemplateStyle(): CSSProperties {
     "--shell-card-body-weight": getTypographyToken("font-weight/regular"),
     "--shell-nav-structural-height": `${TOP_NAV_STRUCTURAL_HEIGHT}px`,
     "--shell-back-top-inset": `${getUnitToken("spacing/6x")}px`,
+    "--shell-back-top-size": `${getUnitToken("size/component-height/l")}px`,
     "--shell-title-bar-shadow": buildShadowD4(),
   } as CSSProperties;
 }
@@ -222,7 +223,18 @@ function PlacementCard({ card }: { card: PlacementCardData }) {
 }
 
 export default function ProductShellTemplatePage() {
-  const scrollRef = useRef<HTMLDivElement>(null);
+  const {
+    scrollRef,
+    contentRef,
+    topNavCollapsed,
+    titleBarElevated,
+    showBackTop,
+    backTopDocked,
+    handleContentScroll,
+    handleBackToTop,
+    handleBackTopPointerEnter,
+    handleBackTopPointerLeave,
+  } = useProductShellContentScroll();
   const [activeDomain, setActiveDomain] = useState<ProductShellDomainNav>(DEFAULT_DOMAIN);
   const [activeSideItem, setActiveSideItem] = useState(DEFAULT_ACTIVE_LEAF);
   /** 各一级功能域上次选中的落地页；点击一级触发器不得刷回第一项 */
@@ -233,9 +245,6 @@ export default function ProductShellTemplatePage() {
   });
   const [activeUtilityIcon, setActiveUtilityIcon] = useState<IconName | null>(null);
   const [sideNavigationMode, setSideNavigationMode] = useState<ProductShellSideNavigationMode>("docked");
-  const [topNavCollapsed, setTopNavCollapsed] = useState(false);
-  const [titleBarElevated, setTitleBarElevated] = useState(false);
-  const [showBackTop, setShowBackTop] = useState(false);
   const [page, setPage] = useState(4);
   const [keyword, setKeyword] = useState("");
 
@@ -302,22 +311,6 @@ export default function ProductShellTemplatePage() {
     "--shell-content-shadow": sideNavigationMode === "overlay" ? "none" : buildShadow("D2", "left"),
   } as CSSProperties;
 
-  function handleContentScroll(event: UIEvent<HTMLDivElement>) {
-    const scrollTop = event.currentTarget.scrollTop;
-    const nextCollapsed = scrollTop > TOP_NAV_COLLAPSE_SCROLL_THRESHOLD;
-    const nextShowBackTop = scrollTop > BACK_TOP_VISIBLE_SCROLL_THRESHOLD;
-    const nextElevated = scrollTop > 0;
-    setTopNavCollapsed((prev) => (prev === nextCollapsed ? prev : nextCollapsed));
-    setShowBackTop((prev) => (prev === nextShowBackTop ? prev : nextShowBackTop));
-    setTitleBarElevated((prev) => (prev === nextElevated ? prev : nextElevated));
-  }
-
-  function handleBackToTop() {
-    const node = scrollRef.current;
-    if (!node) return;
-    node.scrollTo({ top: 0, behavior: "smooth" });
-  }
-
   return (
     <main
       className={["product-shell-template", topNavCollapsed ? "product-shell-template--collapsed" : ""]
@@ -359,7 +352,7 @@ export default function ProductShellTemplatePage() {
           onActiveItemChange={handleSideActiveItemChange}
         />
 
-        <section className="product-shell-template__content" aria-label={activeSideItem}>
+        <section ref={contentRef} className="product-shell-template__content" aria-label={activeSideItem}>
           <div
             className={[
               "product-shell-template__title-bar",
@@ -415,21 +408,14 @@ export default function ProductShellTemplatePage() {
             </div>
           </div>
 
-          {showBackTop ? (
-            <div className="product-shell-template__back-top" data-product-shell-back-top>
-              <SensTips title="回到顶部" placement="left">
-                <span>
-                  <SensButton
-                    fab
-                    tone="secondary"
-                    aria-label="回到顶部"
-                    icon={<SensIcon name="to-top" sizeToken="size/icon/m" color="currentColor" />}
-                    onClick={handleBackToTop}
-                  />
-                </span>
-              </SensTips>
-            </div>
-          ) : null}
+          <ProductShellBackTop
+            visible={showBackTop}
+            docked={backTopDocked}
+            anchorRef={contentRef}
+            onBackToTop={handleBackToTop}
+            onPointerEnter={handleBackTopPointerEnter}
+            onPointerLeave={handleBackTopPointerLeave}
+          />
         </section>
       </div>
     </main>

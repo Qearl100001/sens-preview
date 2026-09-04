@@ -64,7 +64,7 @@ const FAB_CONTENT_OPTIONS: { value: FabContentType; label: string }[] = [
   { value: "icon", label: "纯图标" },
 ];
 
-/** 更多菜单 demo：link 行 + 真禁用 + 真加载（与下拉浮层页一致） */
+/** 更多 ▼ demo：触发器是链接「更多」；菜单项 link 蓝字行 + 真禁用 + 真加载 */
 const MORE_MENU_DEMO_ITEMS = [
   { key: "edit", label: "编辑", variant: "link" as const },
   { key: "copy", label: "复制", variant: "link" as const },
@@ -79,8 +79,8 @@ const MORE_AGGREGATION_ITEMS = [
 ];
 
 const TABLE_DROPDOWN_ITEMS = [
-  { key: "download", label: "下载", variant: "link" as const },
-  { key: "copy", label: "复制", variant: "link" as const },
+  { key: "download", label: "下载", variant: "default" as const },
+  { key: "copy", label: "复制", variant: "default" as const },
   { key: "delete", label: "删除", variant: "danger" as const },
 ];
 
@@ -545,7 +545,7 @@ function ButtonDemo() {
           {moreLabel}
         </SensDropdownButton>
         <Text type="secondary">
-          更多菜单：编辑/复制/删除 + 归档(disabled) + 加载中；点击展开（▲），非悬停
+          更多菜单：编辑/复制/删除为链接蓝字行 + 归档(disabled) + 加载中；点击展开（▲），非悬停
         </Text>
       </Space>
     </Space>

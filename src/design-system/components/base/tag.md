@@ -75,7 +75,7 @@
 | `color` | 默认 | 悬停 | 点击 | 禁用 | 禁用悬停 |
 |---|---|---|---|---|---|
 | 六色 | `定制色/标签/{色}/背景/01_默认` + 主文字 | `…/02_悬停` + `…/文字&图标/01_悬停` | `…/03_点击` + `…/文字&图标/02_点击` | `…/背景/01_默认` + `text-color-transparent-disable` | `…/背景/02_悬停` + `text-color-transparent-disable-hover` |
-| `neutral` | `background-01-transparent` @0.08 + 主文字 | **冰绽蓝** `02` + `01_悬停` | **冰绽蓝** `03` + `02_点击` | `background-01-transparent` @0.08 + `text-color-transparent-disable` | **冰绽蓝** `02` + `text-color-transparent-disable-hover` |
+| `neutral` | `background-01-transparent` @0.08 + 主文字 | **冰绽蓝** `02` + `01_悬停` | **冰绽蓝** `03` + `02_点击` | `background-01-transparent` @0.08 + `text-color-transparent-disable` | `background-01-transparent` @0.08 + `text-color-transparent-disable-hover`（底不换冰绽蓝） |
 
 预览板用 `previewState="default"|"hover"|"active"|"disabled"|"disabledHover"` 静态套色，不伪造真实伪类。
 

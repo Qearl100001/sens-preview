@@ -48,7 +48,7 @@ const responsibilityRows = [
     key: "templates",
     asset: "样板间页面",
     responsibility: "真实业务页面验证产品壳组合关系，禁止复制局部导航壳。",
-    entry: "/templates/product-shell · /templates/card/entry-settings",
+    entry: "/templates/product-shell/t · /templates/product-shell/vertical · /templates/card/entry-settings",
   },
 ];
 
@@ -61,7 +61,7 @@ function ShellRelationshipDemo() {
         type="info"
         showIcon
         message="当前是产品壳组合规则页"
-        description="Product Shell 先作为复合规则收录：它组织顶部导航、侧边导航、标题栏、内容区、全局浮层和回到顶部能力；当前不新增独立 React 组件。固定高度 + 顶导滚动收起请到 /templates/product-shell 验收。"
+        description="Product Shell 先作为复合规则收录：它组织顶部导航、侧边导航、标题栏、内容区、全局浮层和回到顶部能力；当前不新增独立 React 组件。固定高度样板间见 /templates/product-shell/t（T型）与 /templates/product-shell/vertical（上下布局）。"
       />
       <Row gutter={[token.marginMD, token.marginMD]}>
         {[
