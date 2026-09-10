@@ -81,6 +81,127 @@
   overflow: auto;
 }
 
+/* 长表格样板：只保留产品壳这一层内容滚动，TableShell 不再创建纵向滚动框。 */
+.product-shell-table-template__scroll {
+  background: var(--shell-page-background);
+}
+
+/* 该样板选择“表头”作为唯一吸顶对象；标题栏属于同一内容滚动流，不能再吸顶。 */
+.product-shell-table-template__scroll > .product-shell-template__title-bar {
+  position: static;
+  top: auto;
+  z-index: auto;
+}
+
+/* 仅长表格产品壳：Figma 799:57658 的实体目录标题栏，不改变全局 PageTitleBar。 */
+.product-shell-table-template__title-bar {
+  box-sizing: border-box;
+  height: 72px;
+  min-height: 72px;
+  padding-inline: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.product-shell-table-template__title {
+  min-width: 0;
+  margin: 0;
+  overflow: hidden;
+  color: var(--shell-text);
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 30px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.product-shell-table-template__title-actions,
+.product-shell-table-template__entity-field {
+  display: inline-flex;
+  align-items: center;
+}
+
+.product-shell-table-template__title-actions {
+  flex-shrink: 0;
+  gap: 24px;
+}
+
+.product-shell-table-template__entity-field {
+  gap: 8px;
+  color: var(--shell-text);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 22px;
+  white-space: nowrap;
+}
+
+.product-shell-table-template__filter-section {
+  box-sizing: border-box;
+  width: 100%;
+  padding-inline: var(--shell-content-padding);
+}
+
+.product-shell-table-template__filter-bar .sens-table-filter-bar__row {
+  gap: 16px;
+}
+
+.product-shell-table-template__filter-bar .sens-table-filter-field {
+  gap: 8px;
+}
+
+.product-shell-table-template__filter-label-with-help,
+.product-shell-table-template__filter-help {
+  display: inline-flex;
+  align-items: center;
+}
+
+.product-shell-table-template__filter-label-with-help {
+  gap: 4px;
+}
+
+.product-shell-table-template__filter-help {
+  color: var(--shell-sub-text);
+}
+
+.product-shell-table-template__table-section {
+  box-sizing: border-box;
+  width: 100%;
+  padding-inline: var(--shell-content-padding);
+}
+
+.product-shell-table-template__table-section {
+  padding-top: 16px;
+  padding-bottom: var(--shell-section-gap);
+}
+
+/* 留出表格后的真实页面内容，便于验证吸顶表头会在表格结束后离场。 */
+.product-shell-table-template__outro {
+  box-sizing: border-box;
+  min-height: 680px;
+  padding: var(--shell-section-gap) var(--shell-content-padding);
+  color: var(--shell-sub-text);
+  background: var(--shell-surface);
+}
+
+.product-shell-table-template__outro h2,
+.product-shell-table-template__outro p {
+  margin: 0;
+}
+
+.product-shell-table-template__outro h2 {
+  color: var(--shell-text);
+  font-size: 20px;
+  line-height: 28px;
+}
+
+.product-shell-table-template__outro p {
+  margin-top: 4px;
+  font-size: 14px;
+  line-height: 22px;
+}
+
 .product-shell-template__toolbar {
   display: flex;
   align-items: center;
@@ -294,6 +415,13 @@
   border-top-left-radius: var(--shell-content-radius);
   border-top-right-radius: var(--shell-content-radius);
   box-shadow: none;
+}
+
+/* 独立落地页（无侧导）：内容区域不透出产品壳的灰色页面底板。 */
+.product-shell-template--standalone,
+.product-shell-template--standalone .product-shell-template__workspace,
+.product-shell-template--standalone .product-shell-template__scroll {
+  background: var(--shell-surface);
 }
 
 .product-shell-template__form {

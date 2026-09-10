@@ -40,7 +40,7 @@
 | 框内警告（可编辑） | `warningPlacement="inside"` | `status="error"` + `suffix` 菱形；悬停 Tooltip |
 | 框外警告（可编辑） | `warningPlacement="outside"` + `help` | `status="error"` + 框下 help 行 |
 
-当输入框右侧同时出现数字限制等自定义 `suffix` 与框内报错时，组件内顺序固定为：**报错菱形 → 数字**。数字限制只作为 `suffix` 内容传入，不由基础 Input 自动计算。
+当输入框需要字数限制时，使用 `SensInput maxLength={n} showCount`。计数由基础 Input 内部计算和渲染，默认展示为 `当前字数/最大字数`，并由输入框自身处理右侧内边距与输入内容避让；业务 / 复合组件不得再用绝对定位或手写 `suffix` 叠加计数文案。输入框右侧同时出现框内报错与计数时，组件内顺序固定为：**报错菱形 → 数字**。
 
 错误文案的长度与展示方式由表单层决定：空间受限时可只保留框内图标并通过 Tooltip 查看；空间足够时由 `SensFormItem` 在框外完整展示或按表单列宽换行。基础 Input 不测量文案长度，也不自动切换 `warningPlacement`。
 

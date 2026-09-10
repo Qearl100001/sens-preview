@@ -94,6 +94,7 @@ const ProductShellCompositePage = lazy(() => import("./preview/pages/ProductShel
 const SdhEditableTableTemplatePage = lazy(() => import("./preview/pages/SdhEditableTableTemplatePage"));
 const CardEntryTemplatesPage = lazy(() => import("./preview/pages/CardEntryTemplatesPage"));
 const ProductShellTemplatePage = lazy(() => import("./preview/pages/ProductShellTemplatePage"));
+const ProductShellTableTemplatePage = lazy(() => import("./preview/pages/ProductShellTableTemplatePage"));
 const ProductShellVerticalTemplatePage = lazy(
   () => import("./preview/pages/ProductShellVerticalTemplatePage"),
 );
@@ -209,6 +210,7 @@ export default function App() {
                   element={<Navigate to="/templates/product-shell/t" replace />}
                 />
                 <Route path="templates/product-shell/t" element={<ProductShellTemplatePage />} />
+                <Route path="templates/product-shell/table" element={<ProductShellTableTemplatePage />} />
                 <Route
                   path="templates/product-shell/vertical"
                   element={<ProductShellVerticalTemplatePage />}

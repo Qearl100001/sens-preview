@@ -197,7 +197,7 @@ export function CompositeLibraryPage() {
             },
             {
               title: "复合表格",
-              description: "筛选、搜索、录入型三类组合；树表格、嵌套 / 交叉表格继续按复合模式收录。",
+              description: "筛选、搜索、页面组合、录入型、交叉表格；树表格与嵌套表格继续按复合模式收录。",
               status: "首轮已收录",
               href: "/composite/table",
             },
@@ -268,6 +268,12 @@ export function TemplateLibraryPage() {
               description: "固定高度上下布局下钻页：无侧导；创建分群长表单；滚动收起顶导、标题栏 D4、回到顶部。",
               status: "首轮收录",
               href: "/templates/product-shell/vertical",
+            },
+            {
+              title: "产品壳 / 长表格吸顶",
+              description: "以完整产品壳验证页面内容滚动：顶导收起后，长表格表头进入内容区顶部吸顶并在表格底部自然离场。",
+              status: "新增演示",
+              href: "/templates/product-shell/table",
             },
           ],
         },

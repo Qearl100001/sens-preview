@@ -40,6 +40,13 @@
   margin-left: auto;
   display: inline-flex;
   align-items: center;
+  gap: var(--sens-table-info-gap);
+}
+
+.sens-table-info-extra-links {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sens-table-info-action-gap);
 }
 
 .sens-table-shell {
@@ -52,6 +59,18 @@
 .sens-table-shell-borderless {
   border: 0;
   border-radius: 0;
+}
+
+/* 页面内容区滚动的长表格：表头进入内容区顶端后吸顶，表格离开后自然结束。
+ * 外壳不得裁切 sticky；该模式不承接表体自身的纵向滚动。 */
+.sens-table-shell-page-sticky-header {
+  overflow: visible;
+}
+
+.sens-table-shell-page-sticky-header .sens-table .ant-table-thead > tr > th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
 }
 
 .sens-table .ant-table,
@@ -74,6 +93,7 @@
   color: var(--sens-table-header-color);
   background: var(--sens-table-header-bg);
   border-bottom-color: var(--sens-table-row-border);
+  white-space: nowrap;
 }
 
 /* 去掉表头列间弱分割线 */
@@ -81,33 +101,179 @@
   display: none;
 }
 
-/* 表头标题与排序图标间距来自 spacing/1x */
-.sens-table .ant-table-column-sorters {
+/* 选择列：批量操作独立列固定 32px，复选框从左侧 16px 起排并贴右边。 */
+.sens-table .ant-table-thead > tr > th.ant-table-selection-column,
+.sens-table .ant-table-tbody > tr > td.ant-table-selection-column {
+  width: var(--sens-table-selection-column-width);
+  min-width: var(--sens-table-selection-column-width);
+  max-width: var(--sens-table-selection-column-width);
+  padding: 0 0 0 var(--sens-table-selection-checkbox-offset);
+}
+
+/* 选择列：用 SensCheckbox 替换 antd 视觉；control-only 不要按 22 行高抬高。 */
+.sens-table .sens-table-checkbox.sens-checkbox--control-only {
+  display: inline-flex;
+  align-items: center;
+  vertical-align: middle;
+}
+
+.sens-table .sens-table-checkbox.sens-checkbox--control-only .sens-checkbox-control {
+  margin-top: 0;
+}
+
+/* 排序视觉与交互由 Sens 语义结构承载。 */
+.sens-table .sens-table-sorter-icon {
+  width: 16px;
+  height: 16px;
+  box-sizing: border-box;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0 4px;
+  border: 0;
+  background: transparent;
+  color: var(--sens-table-sorter-default-color, var(--sens-table-sorter-color));
+  cursor: pointer;
+  line-height: 0;
+  flex: 0 0 16px;
+  align-self: center;
+  vertical-align: middle;
+}
+
+.sens-table .sens-table-sorter-heading {
+  display: inline-flex;
+  align-items: center;
   gap: var(--sens-table-column-sorter-gap);
-  justify-content: flex-start;
+  width: fit-content;
+  max-width: 100%;
+  line-height: inherit;
+  white-space: nowrap;
 }
 
-.sens-table .ant-table-column-title {
-  flex: 0 0 auto;
+/* 数值列表头以 th 的文字右对齐为锚点；标题和排序图标保持收缩宽度，作为一组贴齐右侧。 */
+.sens-table .sens-table-number-sorter-heading {
+  display: inline-flex;
+  width: fit-content;
 }
 
-.sens-table .ant-table-column-sorter {
-  margin-inline-start: 0;
-  color: var(--sens-table-sorter-color);
+.sens-table .ant-table-tbody > tr > td.sens-table-number-cell {
+  padding-right: calc(var(--sens-table-cell-padding-inline) + var(--sens-table-column-sorter-reserve));
 }
 
-.sens-table .ant-table-column-sorter-up.active,
-.sens-table .ant-table-column-sorter-down.active {
-  color: var(--sens-table-sorter-active-color);
+/* 排序图标的 Tips 触发层必须参与标题组合的 flex 居中，不能保留默认 block 行框。 */
+.sens-table .sens-table-sorter-heading > .sens-tips-trigger {
+  display: inline-flex;
+  align-items: center;
+  height: 16px;
+  line-height: 0;
+  vertical-align: middle;
 }
 
-/* 超长文案：基础表格默认单行省略；业务需要两行时由列渲染器另行定义。 */
+.sens-table .sens-table-sorter-arrow {
+  width: 8px;
+  height: 8px;
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 0;
+}
+
+/* SVG 参与 flex 居中，不保留 inline SVG 的文字基线空隙。 */
+.sens-table .sens-table-sorter-arrow svg {
+  display: block;
+}
+
+/* 排序标题和表头自身均不响应 hover；只有 Sens 图标改变颜色。 */
+.sens-table .sens-table-sortable-header,
+.sens-table .sens-table-sorter-heading {
+  cursor: default;
+}
+
+.sens-table .sens-table-sorter-icon.is-default:hover .sens-table-sorter-arrow--up {
+  color: var(--sens-table-sorter-hover-color);
+}
+
+.sens-table .sens-table-sorter-icon.is-default:active .sens-table-sorter-arrow--up,
+.sens-table .sens-table-sorter-icon.is-ascend .sens-table-sorter-arrow--up,
+.sens-table .sens-table-sorter-icon.is-descend .sens-table-sorter-arrow--down {
+  color: var(--sens-table-sorter-hover-color);
+}
+
+/* 排序生效时：表头与数据单元格使用 Figma 指定的不同中性色背景。 */
+.sens-table .sens-table-sortable-header.sens-table-sort-column-active {
+  background: var(--sens-table-sort-column-bg);
+}
+
+.sens-table .sens-table-sortable-cell {
+  background: var(--sens-table-sort-cell-bg);
+}
+
+/* 数据表格样张：三行 / 复杂信息使用 Padding 单元格，从顶部开始排布。 */
+.sens-table.sens-table-data-grid .ant-table-tbody > tr > td {
+  height: 88px;
+  padding-block: var(--sens-table-data-cell-padding-block);
+  vertical-align: top;
+}
+
+.sens-table.sens-table-data-grid .ant-table-tbody > tr.sens-table-data-grid-summary > td {
+  height: var(--sens-table-row-height);
+  padding-block: var(--sens-table-cell-padding-block);
+  vertical-align: middle;
+}
+
+.sens-table-data-grid-channel {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+  line-height: var(--sens-table-link-line-height);
+}
+
+.sens-table-data-grid-channel .sens-table-link-button {
+  width: 100%;
+  text-align: left;
+}
+
+.sens-table-data-grid-channel-id {
+  color: var(--sens-table-info-color);
+  font-size: var(--sens-table-info-font-size);
+  line-height: var(--sens-table-info-line-height);
+}
+
+.sens-table .sens-table-sortable-header.sens-table-sort-column-active:hover {
+  background: var(--sens-table-sort-column-bg);
+}
+
+/* 超长文案：省略号画在本层；Tips 触发源是 inline-flex，单元格里必须能被列宽卡住。 */
+.sens-table .sens-tips-trigger {
+  display: block;
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+}
+
 .sens-table-ellipsis {
   display: block;
+  min-width: 0;
+  max-width: 100%;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
   line-height: var(--sens-table-link-line-height);
+}
+
+/* 可下钻主属性是 button，text-overflow 不会作用到父级文本节点。 */
+.sens-table-ellipsis .sens-table-link-button {
+  display: block;
+  width: 100%;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  text-align: left;
 }
 
 .sens-table .ant-table-tbody > tr.ant-table-row-selected > td,
@@ -116,7 +282,8 @@
 }
 
 /* antd 的 hover 选择器优先级更高，适配层必须显式覆盖为 SensD 悬停色。 */
-.sens-table .ant-table-tbody > tr:not(.ant-table-row-selected):hover > td {
+/* 三态空态走 tr.ant-table-placeholder，不是数据行，不吃行 hover。 */
+.sens-table .ant-table-tbody > tr:not(.ant-table-row-selected):not(.ant-table-placeholder):hover > td {
   background: var(--sens-table-row-hover-bg) !important;
 }
 
@@ -130,6 +297,8 @@
   background: transparent;
   padding: 0;
   margin: 0;
+  height: var(--sens-table-link-height);
+  box-sizing: border-box;
   color: var(--sens-table-link-color);
   cursor: var(--sens-cursor-pointer);
   font: inherit;
@@ -150,6 +319,40 @@
   cursor: var(--sens-cursor-not-allowed);
 }
 
+/* 单元格异步状态由 TableShell 自有结构承载，不依赖 antd 的 loading / error 容器。 */
+.sens-table-cell-async {
+  min-width: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sens-table-column-sorter-gap);
+  font-size: var(--sens-table-link-font-size);
+  line-height: var(--sens-table-link-line-height);
+  white-space: nowrap;
+}
+
+.sens-table-cell-async--loading {
+  gap: 0;
+}
+
+.sens-table-cell-async--loading .sens-table-cell-async__loading-icon {
+  color: var(--sens-table-cell-loading-icon-color);
+  animation: sens-table-cell-async-spin 0.8s linear infinite;
+}
+
+.sens-table-cell-async--failed {
+  color: var(--sens-table-cell-error-color);
+}
+
+.sens-table-cell-async--failed .sens-table-link-button {
+  flex: 0 0 auto;
+}
+
+@keyframes sens-table-cell-async-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 .sens-table-actions {
   display: inline-flex;
   align-items: center;
@@ -158,17 +361,24 @@
 }
 
 .sens-table-empty {
+  box-sizing: border-box;
   min-height: var(--sens-table-empty-min-height);
-  padding: var(--sens-table-empty-padding-block) var(--sens-table-empty-padding-inline);
+  padding: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 }
 
-/* 空态视觉由 SensEmptyState 承接；表格壳只负责区域 padding / min-height */
-.sens-table-empty-state.sens-empty-state {
+/* 空态视觉由 SensEmptyState 承接（含 spacing/5x padding）；表格壳只负责 316 高居中 */
+.sens-table .ant-table-placeholder > .ant-table-cell,
+.sens-table .ant-table-placeholder:hover > .ant-table-cell {
   padding: 0;
+  background: var(--sens-table-shell-bg) !important;
+}
+
+.sens-table .ant-empty {
+  margin: 0;
 }
 
 .sens-table-footer {

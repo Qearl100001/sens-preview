@@ -7,19 +7,51 @@
 
 .sens-table-filter-bar__flow {
   display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: var(--sens-table-filter-item-gap);
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--sens-table-filter-row-gap);
   min-width: 0;
 }
 
-.sens-table-filter-bar__flow--expanded {
-  max-height: calc(
-    var(--sens-table-filter-control-height) + var(--sens-table-filter-row-gap) +
-      var(--sens-table-filter-expanded-max-height)
-  );
+.sens-table-filter-bar__row {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: var(--sens-table-filter-item-gap);
+  min-width: 0;
+  width: 100%;
+}
+
+.sens-table-filter-bar__more {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--sens-table-filter-item-gap);
+  max-height: var(--sens-table-filter-expanded-max-height);
   overflow-x: hidden;
   overflow-y: auto;
+  min-width: 0;
+  scrollbar-width: thin;
+  scrollbar-color: var(--sens-table-filter-scrollbar-thumb) transparent;
+}
+
+.sens-table-filter-bar__more::-webkit-scrollbar {
+  width: var(--sens-table-filter-scrollbar-size);
+}
+
+.sens-table-filter-bar__more::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.sens-table-filter-bar__more::-webkit-scrollbar-thumb {
+  background: var(--sens-table-filter-scrollbar-thumb);
+  border-radius: var(--sens-table-filter-scrollbar-radius);
+}
+
+.sens-table-filter-bar__more::-webkit-scrollbar-button {
+  display: none;
+  width: 0;
+  height: 0;
 }
 
 .sens-table-filter-bar__actions {

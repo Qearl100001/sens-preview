@@ -31,8 +31,7 @@
 .sdh-template-product-page,
 .sdh-template-product-title,
 .sdh-template-product-body,
-.sdh-template-product-content,
-.sdh-template-anchor-missing {
+.sdh-template-product-content {
   display: grid;
   min-width: 0;
 }
@@ -90,6 +89,350 @@
   padding-bottom: var(--form-templates-tight-gap);
 }
 
+.form-templates-drawer-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--form-templates-inline-gap);
+}
+
+.form-templates-drawer-form {
+  width: min(100%, 816px);
+}
+
+.form-templates-drawer-form--horizontal .sens-input,
+.form-templates-drawer-form--horizontal .sens-textarea {
+  width: min(100%, var(--form-templates-drawer-input-width));
+}
+
+.form-templates-drawer-form--horizontal {
+  width: 100%;
+}
+
+.form-templates-drawer-production,
+.form-templates-drawer-upload {
+  color: var(--form-templates-sub-text);
+  font-size: var(--form-templates-help-size);
+  line-height: var(--form-templates-help-line);
+}
+
+.form-templates-drawer-vertical-groups {
+  display: flex;
+  width: 100%;
+  min-width: 0;
+  flex-direction: column;
+  gap: var(--form-templates-section-gap);
+}
+
+.form-templates-drawer-vertical-group {
+  display: flex;
+  width: 100%;
+  min-width: 0;
+  flex-direction: column;
+  gap: var(--form-templates-content-gap);
+}
+
+.form-templates-drawer-vertical-group-content {
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+  padding-inline: var(--form-templates-content-gap);
+}
+
+.form-templates-drawer-vertical-fields {
+  display: flex;
+  flex-direction: column;
+  gap: var(--form-templates-field-gap);
+}
+
+.form-templates-drawer-create-method,
+.form-templates-drawer-syntax-content,
+.form-templates-drawer-upload {
+  display: flex;
+  width: 100%;
+  min-width: 0;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--form-templates-tight-gap);
+}
+
+.form-templates-drawer-inline-help {
+  display: inline-flex;
+  min-width: 0;
+  align-items: center;
+  gap: var(--form-templates-tight-gap);
+  color: var(--form-templates-text);
+  font-size: var(--form-templates-body-size);
+  line-height: var(--form-templates-body-line);
+}
+
+.form-templates-drawer-sql-textarea.sens-textarea.ant-input {
+  width: min(100%, var(--form-templates-control-max-width));
+  height: var(--form-templates-sql-height);
+  min-height: var(--form-templates-sql-height);
+  resize: none;
+}
+
+.form-templates-drawer-production {
+  display: flex;
+  flex-direction: column;
+  gap: var(--form-templates-tight-gap);
+  color: var(--form-templates-text);
+  font-size: var(--form-templates-body-size);
+  line-height: var(--form-templates-body-line);
+  white-space: nowrap;
+}
+
+.form-templates-drawer-production .sens-radio-group-options {
+  flex-wrap: nowrap;
+  white-space: nowrap;
+}
+
+.form-templates-drawer-production-data-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--form-templates-help-gap);
+}
+
+.form-templates-drawer-production-help {
+  margin: 0;
+  color: var(--form-templates-sub-text);
+  font-size: var(--form-templates-help-size);
+  line-height: var(--form-templates-help-line);
+  white-space: nowrap;
+}
+
+.form-templates-drawer-event-control {
+  display: flex;
+  align-items: center;
+  gap: var(--form-templates-tight-gap);
+  min-width: 0;
+}
+
+.form-templates-drawer-list {
+  margin: 0;
+  padding-left: var(--form-templates-field-gap);
+  color: var(--form-templates-sub-text);
+}
+
+.form-templates-drawer-dictionary-item {
+  gap: var(--form-templates-help-gap);
+}
+
+.form-templates-drawer-dictionary-item .form-templates-drawer-upload {
+  gap: var(--form-templates-help-gap);
+}
+
+.form-templates-drawer-upload-copy {
+  display: inline-flex;
+  min-width: 0;
+  align-items: center;
+  gap: var(--form-templates-help-gap);
+  color: var(--form-templates-sub-text);
+  font-size: var(--form-templates-help-size);
+  line-height: var(--form-templates-help-line);
+  white-space: nowrap;
+}
+
+.form-templates-drawer-data-panel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--form-templates-tight-gap);
+  width: 100%;
+  box-sizing: border-box;
+  padding: 16px;
+  border: var(--form-templates-divider-width) solid var(--form-templates-divider);
+  border-radius: var(--form-templates-radius);
+  overflow: hidden;
+}
+
+.form-templates-drawer-data-panel-item > .sens-form-item-control {
+  max-width: none;
+}
+
+.form-templates-drawer-data-panel-item .sens-form-item-field {
+  display: block;
+}
+
+.form-templates-drawer-subheading {
+  display: flex;
+  align-items: center;
+  gap: var(--form-templates-help-gap);
+  padding-inline: 0;
+  color: var(--form-templates-text);
+  font-size: var(--form-templates-body-size);
+  font-weight: var(--form-templates-body-weight);
+  line-height: var(--form-templates-body-line);
+}
+
+.form-templates-drawer-filter-lines {
+  display: flex;
+  flex-direction: column;
+  gap: var(--form-templates-tight-gap);
+  margin-top: var(--form-templates-tight-gap);
+  padding-top: var(--form-templates-content-gap);
+  padding-bottom: var(--form-templates-content-gap);
+  border-top: var(--form-templates-divider-width) solid var(--form-templates-divider);
+}
+
+.form-templates-drawer-filter-expression {
+  display: flex;
+  align-items: stretch;
+  gap: var(--form-templates-tight-gap);
+}
+
+.form-templates-and-or-connector {
+  display: flex;
+  width: 18px;
+  flex: 0 0 18px;
+  align-self: stretch;
+  flex-direction: column;
+  align-items: center;
+}
+
+.form-templates-and-or-connector-segment {
+  display: flex;
+  min-height: 1px;
+  flex: 1 0 0;
+  align-items: flex-start;
+}
+
+.form-templates-and-or-connector-segment--top {
+  padding-left: 8.5px;
+  padding-right: 4px;
+}
+
+.form-templates-and-or-connector-segment--bottom {
+  padding-left: 8.5px;
+}
+
+.form-templates-and-or-connector-line {
+  display: flex;
+  width: 5px;
+  height: 100%;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.form-templates-and-or-connector-line img {
+  display: block;
+  max-width: none;
+}
+
+.form-templates-and-or-connector-segment--top .form-templates-and-or-connector-line img:first-child,
+.form-templates-and-or-connector-segment--bottom .form-templates-and-or-connector-line img:last-child {
+  width: 5px;
+  height: 2px;
+}
+
+.form-templates-and-or-connector-segment--top .form-templates-and-or-connector-line img:last-child,
+.form-templates-and-or-connector-segment--bottom .form-templates-and-or-connector-line img:first-child {
+  width: 2px;
+  flex: 1 0 0;
+  min-height: 1px;
+}
+
+.form-templates-and-or-connector-segment--bottom .form-templates-and-or-connector-line img {
+  transform: scaleY(-1);
+}
+
+.form-templates-and-or-connector-label {
+  display: block;
+  width: 18px;
+  height: 36px;
+  flex: 0 0 36px;
+  overflow: visible;
+}
+
+.form-templates-drawer-filter-content {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--form-templates-tight-gap);
+  min-width: 0;
+}
+
+.form-templates-drawer-filter-stack {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: var(--form-templates-tight-gap);
+}
+
+.form-templates-drawer-filter-row {
+  display: grid;
+  min-width: 0;
+  grid-template-columns: max-content max-content minmax(0, 1fr);
+  gap: var(--form-templates-tight-gap);
+}
+
+.form-templates-drawer-retrace-form .sens-form-item {
+  --sens-form-label-width: 256px;
+}
+
+.form-templates-filter-key,
+.form-templates-filter-operator {
+  min-width: 0;
+}
+
+.form-templates-filter-key {
+  grid-column: 1;
+}
+
+.form-templates-filter-operator {
+  grid-column: 2;
+}
+
+.form-templates-filter-values {
+  grid-column: 3;
+  min-width: 0;
+  width: auto;
+  max-width: 100%;
+}
+
+.form-templates-drawer-filter-row > * {
+  min-width: 0;
+}
+
+.form-templates-drawer-filter-global-action {
+  display: flex;
+  align-items: center;
+  margin: 0;
+}
+
+.form-templates-drawer-important-metric {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--form-templates-tight-gap);
+}
+
+.form-templates-drawer-important-metric-checkbox {
+  display: flex;
+}
+
+.form-templates-drawer-important-metric-copy {
+  display: flex;
+  flex-direction: column;
+  gap: var(--form-templates-help-gap);
+}
+
+.form-templates-drawer-important-metric-heading {
+  display: flex;
+  align-items: center;
+  gap: var(--form-templates-tight-gap);
+  color: var(--form-templates-text);
+  font-size: var(--form-templates-body-size);
+  line-height: var(--form-templates-body-line);
+}
+
+.form-templates-drawer-important-metric-copy p {
+  margin: 0;
+  color: var(--form-templates-sub-text);
+  font-size: var(--form-templates-help-size);
+  line-height: var(--form-templates-help-line);
+  white-space: nowrap;
+}
+
 .form-templates-board {
   gap: var(--form-templates-block-gap);
   padding: var(--form-templates-block-gap);
@@ -98,15 +441,337 @@
   background: var(--form-templates-surface);
 }
 
+/* 底栏是强分组 40，不能吃 board 的弱分组 28 */
+.form-templates-board > .form-templates-actions {
+  margin-top: calc(var(--form-templates-section-gap) - var(--form-templates-block-gap));
+}
+
 /* 外层板块左右 16px；灰底标题通栏拉满内容区，仅表格外框再内缩 16px。 */
 .form-templates-board--table {
   padding-inline: var(--form-templates-table-form-padding-inline);
+}
+
+.form-templates-board--popover {
+  min-width: 0;
+}
+
+/* 带锚点表单：左主内容 + 右锚点；不覆盖 .sens-anchor 的 margin-left: auto */
+.form-templates-board--anchor {
+  gap: var(--form-templates-block-gap);
+  min-width: 0;
+  /* 勿 overflow:auto，否则成为滚动包含块，打断点击悬浮 sticky */
+  overflow: visible;
+}
+
+.form-templates-anchor-layout {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--form-templates-inline-gap);
+  min-width: 0;
+  width: 100%;
+}
+
+.form-templates-anchor-main {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  gap: var(--form-templates-content-gap);
+  min-width: 0;
+}
+
+/* 表单主体 → 底栏按钮：强分组 40（section-gap），不沿用 main 的 16 */
+.form-templates-anchor-main > .form-templates-actions {
+  margin-top: calc(var(--form-templates-section-gap) - var(--form-templates-content-gap));
+}
+
+.form-templates-anchor-form.sens-form {
+  display: flex;
+  flex-direction: column;
+  /* 强分组：灰标题模块之间 40px（盖过 sens-form 默认 row-gap 20） */
+  gap: var(--form-templates-section-gap);
+}
+
+/* 条件配置描边卡 / 疲劳度灰底卡：与灰条同一通栏，不受 form/control/max-width */
+.form-templates-board--anchor .sens-form-group-content {
+  overflow: visible;
+}
+
+.form-templates-board--anchor .form-templates-full-bleed-item > .sens-form-item-control {
+  max-width: none;
+  /* 左对齐字段标题；只消掉右边 group-content 的 16，与灰条同一右缘。> 避免拉到卡内嵌套字段 */
+  width: calc(100% + var(--sens-form-group-content-padding-inline));
+  margin-left: 0;
+  margin-right: calc(-1 * var(--sens-form-group-content-padding-inline));
+}
+
+.form-templates-board--anchor .form-templates-outline-card,
+.form-templates-board--anchor .form-templates-muted-card {
+  width: 100%;
+  max-width: none;
+}
+
+.form-templates-anchor-side {
+  flex: 0 0 auto;
+  box-sizing: border-box;
+  min-width: 180px;
+  max-width: 240px;
+  padding-top: var(--form-templates-tight-gap);
+}
+
+/* 三种模式共用：portal + fixed 钉边；真实锚点在 body，布局内仅占位 */
+.form-templates-anchor-side--portal,
+.sdh-template-anchor-side--portal {
+  box-sizing: border-box;
+  width: max-content;
+  min-width: 0;
+  max-width: none;
+  padding-top: 0;
+  pointer-events: none;
+}
+
+.form-templates-anchor-side--portal .sens-anchor,
+.sdh-template-anchor-side--portal .sens-anchor {
+  position: relative;
+  width: max-content;
+  margin-left: 0;
+  pointer-events: auto;
+}
+
+.form-templates-anchor-side--spacer {
+  display: none;
+}
+
+/* 常驻 / 挤压：主列让位；点击悬浮展开叠层遮盖（reserve=0），仅收起条让位 */
+.form-templates-board--anchor .form-templates-anchor-layout {
+  box-sizing: border-box;
+  width: 100%;
+  padding-right: var(--form-templates-anchor-reserve, 0px);
+}
+
+.form-templates-anchor-layout--float {
+  display: block;
+  position: relative;
+  gap: 0;
+}
+
+.form-templates-anchor-layout--float .form-templates-anchor-main {
+  width: 100%;
+  min-width: 0;
+  padding-right: 0;
+}
+
+.form-templates-anchor-layout--fixed,
+.form-templates-anchor-layout--push {
+  gap: 0;
+}
+
+.form-templates-anchor-tags,
+.form-templates-anchor-inline-check {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--form-templates-tight-gap);
+}
+
+.form-templates-anchor-card-title {
+  margin: 0;
+  color: var(--form-templates-text);
+  font-size: var(--form-templates-body-size);
+  font-weight: var(--form-templates-body-weight);
+  line-height: var(--form-templates-body-line);
+}
+
+.form-templates-anchor-card-help {
+  margin: 0;
+  color: var(--form-templates-sub-text);
+  font-size: var(--form-templates-help-size);
+  line-height: var(--form-templates-help-line);
+}
+
+.form-templates-outline-card .form-templates-anchor-card-heading {
+  display: grid;
+  gap: var(--form-templates-help-gap);
+  min-width: 0;
+}
+
+.form-templates-anchor-divider {
+  width: 100%;
+  height: var(--form-templates-divider-width);
+  /* 上下距由父级 outline-card gap（spacing/vertical/4x = 16）承担，勿再叠加 margin */
+  margin-block: 0;
+  background: var(--form-templates-divider);
+}
+
+.form-templates-anchor-inline-check {
+  color: var(--form-templates-text);
+  font-size: var(--form-templates-body-size);
+  line-height: var(--form-templates-body-line);
+}
+
+.form-templates-popover-form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--form-templates-inline-gap);
+}
+
+.form-templates-popover-form-case {
+  display: grid;
+  align-content: start;
+  gap: var(--form-templates-tight-gap);
+  min-width: 0;
+  min-height: 176px;
+  padding: var(--form-templates-content-gap);
+  border: var(--form-templates-divider-width) solid var(--form-templates-divider);
+  border-radius: var(--form-templates-radius);
+}
+
+.form-templates-popover-form-case h3,
+.form-templates-popover-form-case p,
+.form-templates-popover-web-field p {
+  margin: 0;
+}
+
+.form-templates-popover-form-case h3 {
+  color: var(--form-templates-text);
+  font-size: var(--form-templates-body-size);
+  font-weight: var(--form-templates-body-weight);
+  line-height: var(--form-templates-body-line);
+}
+
+.form-templates-popover-form-case > p,
+.form-templates-popover-web-field p {
+  color: var(--form-templates-sub-text);
+  font-size: var(--form-templates-help-size);
+  line-height: var(--form-templates-help-line);
+}
+
+.form-templates-popover-form-case .sens-popover-trigger {
+  margin-top: var(--form-templates-content-gap);
+}
+
+.form-templates-popover-path-form {
+  display: grid;
+  gap: var(--form-templates-content-gap);
+}
+
+.form-templates-popover-web-field {
+  display: grid;
+  gap: var(--sens-form-label-stack-gap);
+}
+
+.form-templates-popover-web-item {
+  gap: var(--sens-form-message-gap);
+}
+
+.form-templates-popover-helper-link {
+  vertical-align: baseline;
+}
+
+.sens-popover__card .form-templates-popover-web-field p {
+  color: var(--sens-form-sub-text);
+  font-size: var(--sens-form-help-font-size);
+  line-height: var(--sens-form-help-line-height);
+}
+
+.form-templates-popover-web-inputs {
+  display: grid;
+  grid-template-columns: 128px minmax(0, 1fr);
+  gap: var(--sens-form-label-stack-gap);
+}
+
+.form-templates-popover-parameter-content {
+  box-sizing: border-box;
+  height: 503px;
+  min-height: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: var(--form-templates-tight-gap);
+}
+
+.sens-popover__card .form-templates-popover-parameter-content {
+  overflow-y: hidden;
+}
+
+.form-templates-popover-parameter-heading {
+  display: flex;
+  flex-direction: column;
+  gap: var(--form-templates-help-gap);
+  flex: 0 0 auto;
+}
+
+.form-templates-popover-parameter-title {
+  color: var(--form-templates-text);
+  font-size: var(--form-templates-body-size);
+  font-weight: var(--form-templates-body-weight);
+  line-height: var(--form-templates-body-line);
+}
+
+.form-templates-popover-parameter-help {
+  margin: 0;
+  color: var(--form-templates-sub-text);
+  font-size: var(--form-templates-help-size);
+  line-height: var(--form-templates-help-line);
+}
+
+.form-templates-popover-parameter-content .sens-table-shell {
+  box-sizing: border-box;
+  width: 100%;
+  height: 447px;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-templates-popover-parameter-table .ant-table-container,
+.form-templates-popover-parameter-table .ant-table-content,
+.form-templates-popover-parameter-table .ant-table-body {
+  min-width: 0;
+  overflow-x: hidden;
+}
+
+.form-templates-popover-parameter-table .ant-table-cell {
+  overflow-wrap: anywhere;
+}
+
+.form-templates-popover-parameter-content .sens-table-shell > .sens-table {
+  min-height: 0;
+  flex: 1 1 auto;
+  overflow: hidden;
 }
 
 .form-templates-stack {
   display: grid;
   min-width: 0;
   gap: var(--form-templates-content-gap);
+}
+
+/* 复合表格 · 标签页与页面操作同一工具栏：左标签右大号按钮；底线通栏（含按钮下方）。 */
+.composite-table-tabs-toolbar {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--form-templates-inline-gap);
+  border-bottom: var(--form-templates-divider-width) solid var(--form-templates-divider);
+}
+
+.composite-table-tabs-toolbar > .sens-basic-tabs {
+  min-width: 0;
+  flex: 1 1 auto;
+}
+
+/* 通栏线改由工具栏承接，去掉标签 nav 局部底线，避免双线。 */
+.composite-table-tabs-toolbar > .sens-basic-tabs.sens-line-tabs-bar-only > .ant-tabs-nav::before {
+  border-bottom-color: transparent !important;
+}
+
+.composite-table-tabs-toolbar__actions {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: var(--form-templates-inline-gap);
+  white-space: nowrap;
 }
 
 .form-templates-intro {
@@ -168,7 +833,8 @@
 }
 
 /* 灰底标题宽度不动；表格相对标题容器内缩，与标题文案左边对齐。 */
-.form-templates-table-block > .sens-table-shell {
+.form-templates-table-block > .sens-table-shell,
+.form-templates-table-block > .editable-table-shell {
   margin-inline: var(--form-templates-table-form-padding-inline);
 }
 
@@ -185,9 +851,20 @@
   gap: var(--form-templates-tight-gap);
 }
 
-/* Associated cards fill the available Form control area rather than the regular 600px field limit. */
-.form-templates-linked-item .sens-form-item-control {
+/* 通栏的是关联卡本身；> 避免把卡内 Input / Select 的 600 上限一起取消 */
+.form-templates-linked-item > .sens-form-item-control {
   max-width: none;
+}
+
+/* 灰条下的 group-content 才缩进 16；卡内标题与字段共用卡片 padding，不再叠一层 */
+.form-templates-outline-card > .sens-form-group-content,
+.form-templates-muted-card > .sens-form-group-content {
+  padding-inline: 0;
+}
+
+.form-templates-outline-card .sens-form-item-control,
+.form-templates-muted-card .sens-form-item-control {
+  max-width: min(100%, var(--sens-form-control-max-width));
 }
 
 .form-templates-linked-layout-list,
@@ -236,8 +913,11 @@
   line-height: var(--form-templates-body-line);
 }
 
+/* 通栏卡内字段仍遵守 form/control/max-width；覆盖 .sens-select-trigger { width:100% } */
+.form-templates-select.sens-select-trigger.ant-select,
 .form-templates-select {
-  width: 100%;
+  width: min(100%, var(--form-templates-control-max-width));
+  max-width: var(--form-templates-control-max-width);
 }
 
 .form-templates-linked-result {
@@ -258,13 +938,21 @@
 }
 
 .form-templates-muted-card--stack {
+  /* 组标题↔首字段仍紧：tight；字段模块之间用 field-gap 20 */
   gap: var(--form-templates-tight-gap);
 }
 
+.form-templates-muted-card--stack > .sens-form-item + .sens-form-item {
+  margin-top: calc(var(--form-templates-field-gap) - var(--form-templates-tight-gap));
+}
+
+.form-templates-card-group-title,
 .form-templates-muted-card h3,
 .form-templates-muted-card h4 {
+  margin: 0;
+  color: var(--form-templates-text);
   font-size: var(--form-templates-body-size);
-  font-weight: var(--form-templates-title-weight);
+  font-weight: var(--form-templates-body-weight);
   line-height: var(--form-templates-body-line);
 }
 
@@ -286,7 +974,9 @@
   box-sizing: border-box;
   display: flex;
   min-width: 1280px;
-  min-height: 100%;
+  height: 100%;
+  min-height: 0;
+  overflow: hidden;
   padding-top: var(--sdh-template-top-navigation-height);
   flex-direction: column;
   align-items: stretch;
@@ -304,11 +994,15 @@
   position: relative;
   z-index: 1;
   display: flex;
-  min-height: calc(100vh - var(--sdh-template-top-navigation-height));
+  min-height: 0;
   flex: 1;
   flex-direction: column;
   overflow: hidden;
   border-radius: var(--sdh-template-content-radius) var(--sdh-template-content-radius) 0 0;
+}
+
+.sdh-template-page__workspace > :first-child {
+  flex-shrink: 0;
 }
 
 .sdh-template-product-actions {
@@ -317,64 +1011,28 @@
 }
 
 .sdh-template-product-body {
-  grid-template-columns: minmax(0, 1fr) 168px;
-  gap: var(--form-templates-block-gap);
-  align-items: start;
+  display: flex;
+  flex: 1;
+  min-height: 0;
+  flex-direction: column;
+  align-items: stretch;
+  overflow-x: hidden;
+  overflow-y: auto;
   padding: var(--form-templates-page-padding);
   background: var(--form-templates-surface);
 }
 
-.sdh-template-product-content {
-  gap: var(--form-templates-content-gap);
-}
-
-.sdh-template-base-info {
-  display: grid;
-  gap: var(--form-templates-content-gap);
-  padding: var(--form-templates-block-gap);
-  border: var(--form-templates-divider-width) solid var(--form-templates-divider);
-  border-radius: var(--form-templates-radius);
-  background: var(--form-templates-surface);
-}
-
-.sdh-template-field-list {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: var(--form-templates-inline-gap);
-}
-
-.sdh-template-field {
-  display: grid;
+.sdh-template-anchor-layout {
+  box-sizing: border-box;
+  display: flex;
+  width: 100%;
   min-width: 0;
-  gap: var(--form-templates-tight-gap);
-  color: var(--form-templates-text);
-  font-size: var(--form-templates-body-size);
-  font-weight: var(--form-templates-title-weight);
-  line-height: var(--form-templates-body-line);
+  flex-direction: column;
+  padding-right: var(--sdh-template-anchor-reserve, 0px);
 }
 
-.sdh-template-field small,
-.sdh-template-anchor-missing p,
-.sdh-template-anchor-missing span {
-  margin: 0;
-  color: var(--form-templates-sub-text);
-  font-size: var(--form-templates-help-size);
-  font-weight: var(--form-templates-title-weight);
-  line-height: var(--form-templates-help-line);
-}
-
-.sdh-template-anchor-missing {
-  gap: var(--form-templates-tight-gap);
-  padding: var(--form-templates-content-gap);
-  border: var(--form-templates-divider-width) dashed var(--form-templates-divider);
-  border-radius: var(--form-templates-radius);
-  background: var(--form-templates-surface);
-}
-
-.sdh-template-anchor-missing strong {
-  color: var(--form-templates-text);
-  font-size: var(--form-templates-body-size);
-  line-height: var(--form-templates-body-line);
+.sdh-template-product-content {
+  gap: var(--form-templates-section-gap);
 }
 
 .editable-table-shell {
@@ -439,27 +1097,8 @@
 
 .editable-table__cell--control .ant-input,
 .editable-table__cell--control .ant-select,
-.editable-table__cell--with-count .ant-input {
+.editable-table__cell--with-count .sens-input {
   width: 100%;
-}
-
-.editable-table__cell--with-count {
-  position: relative;
-}
-
-.editable-table__cell--with-count .ant-input {
-  padding-inline-end: calc(var(--form-templates-inline-gap) + var(--editable-table-cell-padding-inline));
-}
-
-.editable-table__count {
-  position: absolute;
-  top: 50%;
-  right: calc(var(--editable-table-cell-padding-inline) + var(--form-templates-tight-gap));
-  transform: translateY(-50%);
-  color: var(--editable-table-muted-text);
-  font-size: var(--form-templates-help-size);
-  line-height: var(--form-templates-help-line);
-  pointer-events: none;
 }
 
 .editable-table__plain-text {
@@ -481,6 +1120,146 @@
   height: var(--editable-table-row-height);
   padding-inline: var(--editable-table-header-padding-inline);
   background: var(--form-templates-surface);
+}
+
+.cross-table-shell {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.cross-table {
+  width: 100%;
+  min-width: 1346px;
+  table-layout: fixed;
+  border-spacing: 0;
+  border-collapse: separate;
+  overflow: hidden;
+  border: var(--form-templates-divider-width) solid var(--cross-table-border);
+  border-radius: var(--form-templates-radius);
+  background: var(--form-templates-surface);
+}
+
+.cross-table th,
+.cross-table td {
+  box-sizing: border-box;
+  color: var(--form-templates-text);
+  border-right: var(--form-templates-divider-width) solid var(--cross-table-divider);
+  border-bottom: var(--form-templates-divider-width) solid var(--cross-table-divider);
+}
+
+.cross-table th.cross-table__cell--trail,
+.cross-table td.cross-table__cell--trail {
+  border-right: 0;
+}
+
+.cross-table__th {
+  height: var(--cross-table-header-height);
+  padding: 0 var(--cross-table-header-padding-inline);
+  background: var(--cross-table-header-bg);
+  font-size: var(--form-templates-body-size);
+  font-weight: var(--cross-table-header-weight);
+  line-height: var(--form-templates-body-line);
+  text-align: left;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+.cross-table__th--span {
+  height: var(--cross-table-header-span-height);
+}
+
+/* 数值列：组合靠右；锚点=标题文字右缘（单位/排序不参与，基础 table.md） */
+.cross-table__th--numeric {
+  text-align: right;
+}
+
+.cross-table__numeric-heading,
+.cross-table__numeric-cell {
+  display: inline-flex;
+  align-items: baseline;
+  width: fit-content;
+  max-width: 100%;
+  line-height: inherit;
+  white-space: nowrap;
+}
+
+.cross-table__numeric-trailing {
+  display: inline-flex;
+  align-items: baseline;
+  flex: 0 0 auto;
+}
+
+/* 表体预留与表头相同的单位占位，数值右缘对齐「指标」右缘 */
+.cross-table__td--numeric .cross-table__numeric-trailing {
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.cross-table__unit {
+  margin-left: var(--form-templates-tight-gap);
+  color: var(--form-templates-sub-text);
+  font-size: var(--form-templates-help-size);
+  font-weight: normal;
+  line-height: var(--form-templates-help-line);
+}
+
+.cross-table__td {
+  padding: var(--cross-table-cell-padding-block) var(--cross-table-cell-padding-inline);
+  background: var(--form-templates-surface);
+  font-size: var(--form-templates-body-size);
+  line-height: var(--form-templates-body-line);
+  text-align: left;
+  vertical-align: top;
+}
+
+.cross-table__td--merged {
+  height: var(--cross-table-merged-row-height);
+}
+
+.cross-table__td--detail {
+  height: var(--cross-table-detail-row-height);
+}
+
+.cross-table__td--numeric {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  /* 与表头同右内边距，标题右缘与数值右缘才能共线 */
+  padding-right: var(--cross-table-header-padding-inline);
+}
+
+/* 表头可单独悬停；表体：组悬停 + 明细加重，不用 tr:hover / 裸 td:hover */
+.cross-table__th:hover,
+.cross-table__td--shared-hover {
+  background: var(--cross-table-hover-bg);
+}
+
+.cross-table__td--intensify-hover {
+  /* Figma 加重：组悬停底上再叠 6%，不能单独铺白底（否则与 grey-hover 同色） */
+  background-color: var(--cross-table-hover-bg);
+  background-image: linear-gradient(
+    var(--cross-table-hover-intensify-bg),
+    var(--cross-table-hover-intensify-bg)
+  );
+}
+
+.cross-table__text-stack {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--cross-table-text-stack-gap);
+  min-width: 0;
+}
+
+.cross-table__primary {
+  color: var(--form-templates-text);
+  font-size: var(--form-templates-body-size);
+  line-height: var(--form-templates-body-line);
+}
+
+.cross-table__secondary {
+  color: var(--form-templates-sub-text);
+  font-size: var(--form-templates-help-size);
+  line-height: var(--form-templates-help-line);
 }
 
 .sdh-template-product-body--single {
@@ -532,6 +1311,172 @@
   overflow: hidden;
   color: var(--form-templates-text);
   text-overflow: ellipsis;
+}
+
+.form-templates-board--steps {
+  /* The step-form Figma frame is a layout canvas, not an extra card. */
+  gap: 0;
+  padding-block: var(--form-templates-block-gap);
+  /* 标题左右 24：spacing/horizontal/6x = 4x+2x */
+  padding-inline: calc(var(--form-templates-content-gap) + var(--form-templates-tight-gap));
+  border: 0;
+  border-radius: 0;
+  background: var(--form-templates-surface);
+  box-shadow: none;
+}
+
+.form-templates-board--steps .form-templates-intro {
+  margin-bottom: var(--form-templates-block-gap);
+}
+
+.form-templates-board--steps .form-templates-steps-preview {
+  display: flex;
+  justify-content: center;
+  margin: 0 0 40px;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+}
+
+.form-templates-board--steps .form-templates-steps-preview .sens-steps {
+  width: min(100%, 812px);
+}
+
+.form-templates-steps-panel {
+  min-width: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+}
+
+.form-templates-steps-panel .sens-form { width: min(100%, 400px); }
+.form-templates-steps-panel--recall > .form-templates-steps-condition-card,
+.form-templates-steps-panel--recall > .form-templates-steps-backfill-body {
+  /* 卡片左右 36：相对标题 24 再内缩 12（4x − 1x） */
+  width: auto;
+  margin-inline: calc(var(--form-templates-content-gap) - var(--form-templates-help-gap));
+}
+.form-templates-steps-condition-card {
+  width: 100%;
+  box-sizing: border-box;
+  padding: var(--form-templates-content-gap);
+  border: 1px solid var(--form-templates-outline);
+  border-radius: var(--form-templates-radius);
+  background: var(--form-templates-surface);
+}
+.form-templates-steps-condition-title { color: var(--form-templates-text); font-size: var(--form-templates-body-size); font-weight: var(--form-templates-body-weight); line-height: var(--form-templates-body-line); }
+.form-templates-steps-condition-title-row {
+  display: flex;
+  align-items: center;
+  gap: var(--form-templates-help-gap);
+}
+.form-templates-field-help {
+  display: inline-flex;
+  line-height: 0;
+  color: var(--form-templates-icon);
+}
+.form-templates-steps-condition-card .sens-radio-group {
+  margin-top: var(--form-templates-tight-gap);
+  margin-bottom: 0;
+}
+.form-templates-steps-condition-list {
+  display: grid;
+  grid-template-columns: 18px minmax(0, 1fr);
+  column-gap: var(--form-templates-tight-gap);
+  row-gap: var(--form-templates-tight-gap);
+  margin: var(--form-templates-tight-gap) 0 var(--form-templates-content-gap);
+}
+.form-templates-steps-condition-list .form-templates-and-or-connector {
+  grid-column: 1;
+  grid-row: 1 / span 2;
+  height: auto;
+  align-self: stretch;
+}
+.form-templates-steps-condition-row {
+  grid-column: 2;
+  display: grid;
+  grid-template-columns: minmax(180px, 1fr) minmax(180px, 1fr) minmax(280px, 2fr);
+  gap: var(--form-templates-tight-gap);
+  align-items: center;
+}
+.form-templates-steps-condition-row:not(.form-templates-steps-condition-row--backfill) .sens-select-trigger { width: 100% !important; min-width: 0; }
+.form-templates-steps-heading { margin-bottom: var(--form-templates-content-gap); }
+.form-templates-steps-heading--backfill { margin-top: var(--form-templates-section-gap); }
+.form-templates-steps-backfill-body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--form-templates-content-gap);
+}
+.form-templates-steps-backfill-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--form-templates-field-gap);
+}
+.form-templates-steps-control-sm {
+  flex: 0 0 auto;
+  width: var(--form-templates-control-sm);
+  min-width: 0;
+}
+.form-templates-steps-control-sm .sens-select-trigger,
+.form-templates-steps-control-sm .sens-input {
+  width: 100% !important;
+}
+.form-templates-steps-condition-row--backfill {
+  grid-template-columns: var(--form-templates-control-sm) max-content minmax(0, 1fr);
+}
+.form-templates-combo-field {
+  display: flex;
+  align-items: stretch;
+  min-width: 0;
+}
+.form-templates-combo-field .sens-select-trigger,
+.form-templates-combo-field .sens-input {
+  position: relative;
+}
+.form-templates-combo-field .sens-select-trigger {
+  flex: 1 1 auto;
+  width: auto !important;
+  min-width: 0;
+  margin-inline-end: calc(var(--form-templates-divider-width) * -1);
+}
+.form-templates-combo-field .sens-select-trigger .ant-select-selector {
+  border-start-end-radius: 0;
+  border-end-end-radius: 0;
+}
+.form-templates-combo-field .sens-input {
+  flex: 0 0 var(--form-templates-combo-value-width);
+  width: var(--form-templates-combo-value-width) !important;
+  border-start-start-radius: 0;
+  border-end-start-radius: 0;
+}
+.form-templates-combo-field .sens-select-trigger:hover,
+.form-templates-combo-field .sens-select-trigger.ant-select-focused,
+.form-templates-combo-field .sens-select-trigger.ant-select-open,
+.form-templates-combo-field .sens-input:hover,
+.form-templates-combo-field .sens-input:focus,
+.form-templates-combo-field .sens-input:focus-within {
+  z-index: 1;
+}
+.form-templates-steps-sort-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--form-templates-tight-gap);
+  margin-top: var(--form-templates-tight-gap);
+}
+.form-templates-steps-sort-row > span {
+  color: var(--form-templates-text);
+  font-size: var(--form-templates-body-size);
+  line-height: var(--form-templates-body-line);
+}
+.form-templates-steps-actions { margin-top: var(--form-templates-section-gap); }
+@media (max-width: 768px) {
+  .form-templates-steps-condition-row,
+  .form-templates-steps-condition-row--backfill { grid-template-columns: minmax(0, 1fr); }
+  .form-templates-combo-field { flex-wrap: wrap; }
+  .form-templates-combo-field .sens-input { flex-basis: 100%; width: 100% !important; }
 }
 
 @media (max-width: 1280px) {

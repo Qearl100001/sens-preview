@@ -1,10 +1,10 @@
-import { useState, type CSSProperties, type ReactNode } from "react";
+import { useState, type CSSProperties, type CompositionEvent, type ReactNode } from "react";
 import { SensIcon } from "../design-system/icons";
 import { tokenRgba } from "../design-system/color-utils";
 import { getDividerColor, getDividerHairlineWidth } from "../design-system/divider";
 import { getTypographyToken } from "../design-system/typography";
 import { getUnitToken } from "../design-system/unit";
-import { SearchInput, SEARCH_INPUT_DEFAULT_WIDTH } from "./SearchInput";
+import { SearchInput, SearchTriggerInput, SEARCH_INPUT_DEFAULT_WIDTH } from "./SearchInput";
 import { SensButton } from "./SensButton";
 import { SensSelectDropdown } from "./SensSelectDropdown";
 import "./table-filter.css";
@@ -12,10 +12,12 @@ import "./table-filter.css";
 /** 表格筛选触发框空态宽（Figma 698:22737；仅表格筛选上下文） */
 export const TABLE_FILTER_TRIGGER_WIDTH = 148;
 /**
- * 展开区可视高度：首行之外再露 2.5 行
- * = 2 × 32 + spacing/4x + 半行 16 → 112（Figma 761:69440）
+ * 展开区可视高度：首行之外再露 2.5 行（整区三行半）
+ * = 行1 32 + 行距 16 + 行2 32 + 行距 16 + 半行 16 → 112（Figma 761:69440 / 761:67515）
  */
 export const TABLE_FILTER_EXPANDED_MAX_HEIGHT = 112;
+/** 展开区细滚条宽；与 Select 展示型多行同一 6px 手法，非 unit token */
+const TABLE_FILTER_SCROLLBAR_SIZE = 6;
 
 function px(value: number): string {
   return `${value}px`;
@@ -41,6 +43,9 @@ function buildTableFilterTokenVars(): CSSProperties {
     "--sens-table-filter-label-font-size": px(getTypographyToken("font-size/m")),
     "--sens-table-filter-label-line-height": px(getTypographyToken("line-height/m")),
     "--sens-table-filter-label-weight": getTypographyToken("font-weight/medium"),
+    "--sens-table-filter-scrollbar-size": px(TABLE_FILTER_SCROLLBAR_SIZE),
+    "--sens-table-filter-scrollbar-radius": px(getUnitToken("radius/s")),
+    "--sens-table-filter-scrollbar-thumb": tokenRgba("outline-color-transparent", 0.35),
   } as CSSProperties;
 }
 
@@ -54,21 +59,37 @@ export interface SensTableFilterField {
   label: ReactNode;
   /** 默认渲染 SensSelectDropdown；与 control 二选一 */
   options?: SensTableFilterSelectOption[];
-  value?: string;
-  defaultValue?: string;
-  onChange?: (value: string | undefined) => void;
+  /**
+   * 传入即受控。单选空值用 `null`；多选空值用 `[]`。
+   * 不要用 `undefined`（会变成非受控）。
+   */
+  value?: string | string[] | null;
+  defaultValue?: string | string[];
+  onChange?: (value: string | string[] | null) => void;
   placeholder?: string;
+  /**
+   * 表格筛选行多选走个数型（`multiDisplay="count"`），不要裸 `mode="multiple"`。
+   * 搜索场景等单选筛选项不要开。
+   */
+  multiple?: boolean;
   /** 自定义控件（已自带宽度时，外层不再套表格筛选定宽） */
   control?: ReactNode;
 }
 
+export type SensTableFilterSearchMode = "realtime" | "trigger";
+
 export interface SensTableFilterBarProps {
   /** 首行左侧搜索；传入 false 隐藏；默认展示 200px 实时搜索 */
   search?: ReactNode | false;
+  /** 默认 realtime；trigger 为静态搜索（点按钮 / 回车才提交） */
+  searchMode?: SensTableFilterSearchMode;
   searchValue?: string;
   defaultSearchValue?: string;
   searchPlaceholder?: string;
+  /** 框内值变化（实时含输入法组字；触发型只改草稿） */
   onSearchChange?: (value: string) => void;
+  /** 触发型：点搜索按钮或回车。清空按钮不提交 */
+  onSearch?: (value: string) => void;
   /** 首行筛选项（始终可见） */
   primaryFields: SensTableFilterField[];
   /** 展开后出现的更多筛选项；有内容时显示展开/收起 */
@@ -86,10 +107,30 @@ export interface SensTableFilterBarProps {
   style?: CSSProperties;
 }
 
+function isFieldControlled(field: SensTableFilterField): boolean {
+  return Object.prototype.hasOwnProperty.call(field, "value");
+}
+
+function toMultipleValues(raw: SensTableFilterField["value"] | SensTableFilterField["defaultValue"]): string[] {
+  if (Array.isArray(raw)) return raw.map(String);
+  if (typeof raw === "string" && raw !== "") return [raw];
+  return [];
+}
+
 function TableFilterSelectField({ field }: { field: SensTableFilterField }) {
-  const [innerValue, setInnerValue] = useState(field.defaultValue);
-  const isControlled = field.value !== undefined;
+  const isMultiple = Boolean(field.multiple);
+  const [innerValue, setInnerValue] = useState<string | string[] | null>(
+    field.defaultValue ?? (isMultiple ? [] : null),
+  );
+  const isControlled = isFieldControlled(field);
   const value = isControlled ? field.value : innerValue;
+
+  const emitValue = (next: string | string[] | null) => {
+    if (!isControlled) setInnerValue(next);
+    field.onChange?.(next);
+  };
+
+  const selectValue = isMultiple ? toMultipleValues(value) : typeof value === "string" ? value : null;
 
   return (
     <div className="sens-table-filter-field">
@@ -97,20 +138,24 @@ function TableFilterSelectField({ field }: { field: SensTableFilterField }) {
       <div className="sens-table-filter-field__control">
         <SensSelectDropdown
           options={field.options}
-          value={value ?? null}
+          value={selectValue}
           placeholder={field.placeholder ?? "请选择"}
           clearable
           widthPreset="148"
           popupMatchSelectWidth={false}
-          onClear={() => {
-            if (!isControlled) setInnerValue(undefined);
-            field.onChange?.(undefined);
-          }}
-          onChange={(next) => {
-            const nextValue = typeof next === "string" ? next : undefined;
-            if (!isControlled) setInnerValue(nextValue);
-            field.onChange?.(nextValue);
-          }}
+          {...(isMultiple
+            ? {
+                multiDisplay: "count" as const,
+                confirmMultiple: true,
+                onClear: () => emitValue([]),
+                onChange: (next: string | number | Array<string | number> | null) =>
+                  emitValue(Array.isArray(next) ? next.map(String) : []),
+              }
+            : {
+                onClear: () => emitValue(null),
+                onChange: (next: string | number | Array<string | number> | null) =>
+                  emitValue(typeof next === "string" ? next : null),
+              })}
         />
       </div>
     </div>
@@ -131,7 +176,9 @@ function TableFilterFieldSlot({ field }: { field: SensTableFilterField }) {
 }
 
 function hasFieldValue(field: SensTableFilterField): boolean {
-  return Boolean(field.value ?? field.defaultValue);
+  const current = isFieldControlled(field) ? field.value : field.defaultValue;
+  if (Array.isArray(current)) return current.length > 0;
+  return current != null && current !== "";
 }
 
 /**
@@ -139,14 +186,16 @@ function hasFieldValue(field: SensTableFilterField): boolean {
  * - 左标题右控件，间距 spacing/horizontal/2x
  * - 项间距 / 行距 spacing/horizontal/4x · spacing/vertical/4x
  * - 触发定宽 128 / 148 仅本组件上下文
- * - 展开/收起是筛选流里的最后一个 inline item，不独占一行
+ * - 展开/收起固定在首行筛选右侧；更多筛选项在第二行，点展开才出现
  */
 export function SensTableFilterBar({
   search,
+  searchMode = "realtime",
   searchValue,
   defaultSearchValue,
   searchPlaceholder,
   onSearchChange,
+  onSearch,
   primaryFields,
   moreFields = [],
   expanded,
@@ -177,21 +226,41 @@ export function SensTableFilterBar({
     onExpandedChange?.(next);
   };
 
+  const emitSearchValue = (next: string) => {
+    if (!searchControlled) setInnerSearch(next);
+    onSearchChange?.(next);
+  };
+
+  const onCompositionValue = (event: CompositionEvent<HTMLInputElement>) => {
+    emitSearchValue(event.currentTarget.value);
+  };
+
   const searchNode =
     search === false
       ? null
       : (search ?? (
           <div className="sens-table-filter-bar__search">
-            <SearchInput
-              width={SEARCH_INPUT_DEFAULT_WIDTH}
-              value={resolvedSearchValue}
-              placeholder={searchPlaceholder}
-              onChange={(event) => {
-                const next = event.target.value;
-                if (!searchControlled) setInnerSearch(next);
-                onSearchChange?.(next);
-              }}
-            />
+            {searchMode === "trigger" ? (
+              <SearchTriggerInput
+                width={SEARCH_INPUT_DEFAULT_WIDTH}
+                value={resolvedSearchValue}
+                placeholder={searchPlaceholder}
+                onChange={(event) => emitSearchValue(event.target.value)}
+                onSearch={(value, _event, info) => {
+                  if (info?.source === "clear") return;
+                  onSearch?.(value);
+                }}
+              />
+            ) : (
+              <SearchInput
+                width={SEARCH_INPUT_DEFAULT_WIDTH}
+                value={resolvedSearchValue}
+                placeholder={searchPlaceholder}
+                onChange={(event) => emitSearchValue(event.target.value)}
+                onCompositionUpdate={onCompositionValue}
+                onCompositionEnd={onCompositionValue}
+              />
+            )}
           </div>
         ));
 
@@ -200,47 +269,44 @@ export function SensTableFilterBar({
       className={["sens-table-filter-bar", className].filter(Boolean).join(" ")}
       style={{ ...buildTableFilterTokenVars(), ...style }}
     >
-      <div
-        className={[
-          "sens-table-filter-bar__flow",
-          showToggle && isOpen ? "sens-table-filter-bar__flow--expanded" : "",
-        ]
-          .filter(Boolean)
-          .join(" ")}
-      >
-        {searchNode}
-        {primaryFields.map((field) => (
-          <TableFilterFieldSlot key={field.key} field={field} />
-        ))}
-        {showToggle && isOpen
-          ? moreFields.map((field) => (
+      <div className="sens-table-filter-bar__flow">
+        <div className="sens-table-filter-bar__row">
+          {searchNode}
+          {primaryFields.map((field) => (
+            <TableFilterFieldSlot key={field.key} field={field} />
+          ))}
+          {showActions ? (
+            <div className="sens-table-filter-bar__actions">
+              {shouldShowReset ? (
+                <SensButton tone="link" onClick={onReset}>
+                  {resetLabel}
+                </SensButton>
+              ) : null}
+              {shouldShowReset && showToggle ? <span className="sens-table-filter-bar__action-divider" /> : null}
+              {showToggle ? (
+                <SensButton
+                  tone="link"
+                  icon={
+                    <SensIcon
+                      name={isOpen ? "filter-chevron-up" : "filter-chevron-down"}
+                      sizeToken="size/icon/m"
+                      color="currentColor"
+                    />
+                  }
+                  iconPosition="end"
+                  onClick={() => setOpen(!isOpen)}
+                >
+                  {isOpen ? collapseLabel : expandLabel}
+                </SensButton>
+              ) : null}
+            </div>
+          ) : null}
+        </div>
+        {showToggle && isOpen ? (
+          <div className="sens-table-filter-bar__more">
+            {moreFields.map((field) => (
               <TableFilterFieldSlot key={field.key} field={field} />
-            ))
-          : null}
-        {showActions ? (
-          <div className="sens-table-filter-bar__actions">
-            {shouldShowReset ? (
-              <SensButton tone="link" onClick={onReset}>
-                {resetLabel}
-              </SensButton>
-            ) : null}
-            {shouldShowReset && showToggle ? <span className="sens-table-filter-bar__action-divider" /> : null}
-            {showToggle ? (
-              <SensButton
-                tone="link"
-                icon={
-                  <SensIcon
-                    name={isOpen ? "filter-chevron-up" : "filter-chevron-down"}
-                    sizeToken="size/icon/m"
-                    color="currentColor"
-                  />
-                }
-                iconPosition="end"
-                onClick={() => setOpen(!isOpen)}
-              >
-                {isOpen ? collapseLabel : expandLabel}
-              </SensButton>
-            ) : null}
+            ))}
           </div>
         ) : null}
       </div>

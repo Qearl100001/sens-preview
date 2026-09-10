@@ -1,4 +1,5 @@
-import { useState, type CSSProperties, type ReactNode } from "react";
+import { useLayoutEffect, useState, type CSSProperties, type ReactNode } from "react";
+import { createPortal } from "react-dom";
 import { useParams } from "react-router-dom";
 import { getColorToken, tokenRgba } from "../../design-system/color-utils";
 import { getDividerColor, getDividerHairlineWidth } from "../../design-system/divider";
@@ -6,11 +7,15 @@ import { SensIcon } from "../../design-system/icons";
 import { getTypographyToken } from "../../design-system/typography";
 import { getUnitToken } from "../../design-system/unit";
 import {
+  SensAnchor,
   SensButton,
+  SensForm,
+  SensFormItem,
   SensInput,
   SensPageTitleBar,
   SensSectionTitle,
   SensSelectDropdown,
+  type SensAnchorItem,
 } from "../../ui";
 import { SensTopNavigation } from "../../ui";
 import "./form-templates.css";
@@ -37,8 +42,15 @@ interface EditableScenario {
   pageMeta: string;
   sectionTitle: string;
   sectionDescription: string;
+  baseDescription?: string;
   addLabel: string;
-  baseFields: Array<{ label: string; placeholder: string; value?: string; help?: string }>;
+  baseFields: Array<{
+    label: string;
+    name: string;
+    placeholder: string;
+    value?: string;
+    description?: string;
+  }>;
   rows: EditableScenarioRow[];
 }
 
@@ -78,12 +90,19 @@ const scenarios: EditableScenario[] = [
     pageTitle: "新增元事件",
     pageMeta: "事件模型 / 新增元事件",
     sectionTitle: "属性配置",
-    sectionDescription: "在事件模型中维护属性字段。",
+    sectionDescription: "在事件模型中维护属性字段",
+    baseDescription: "用于新增元事件时配置属性字段",
     addLabel: "添加属性",
     baseFields: [
-      { label: "事件名称", value: "scroll", placeholder: "请输入事件名称", help: "以英文开头，仅支持字母、数字和下划线。" },
-      { label: "事件显示名", value: "滚动", placeholder: "请输入事件显示名" },
-      { label: "事件描述", placeholder: "请输入事件描述", help: "最多输入 200 个字符。" },
+      {
+        label: "事件名称",
+        name: "event_name",
+        value: "scroll",
+        placeholder: "请输入事件名称",
+        description: "以英文开头，仅支持字母、数字和下划线",
+      },
+      { label: "事件显示名", name: "event_display_name", value: "滚动", placeholder: "请输入事件显示名" },
+      { label: "事件描述", name: "event_description", placeholder: "请输入事件描述", description: "最多输入 200 个字符" },
     ],
     rows: [
       { key: "time", name: "time", id: "event_time", type: "number", required: "yes", rule: "-", hint: "系统生成时间" },
@@ -110,17 +129,24 @@ const scenarios: EditableScenario[] = [
     key: "material-element",
     title: "物料元素录入",
     description: "用于在物料或资源配置中连续新增元素；最后一行提供新增入口。",
-    rule: "最后一行是链接按钮入口；真实新增行、删除行和校验状态不在首轮样板间里模拟。",
+    rule: "最后一行是链接按钮入口；支持连续新增与删除当前行，字段校验状态作为样例展示。",
     navActive: "内容管理",
     pageTitle: "物料元素录入",
     pageMeta: "资源配置 / 物料元素",
     sectionTitle: "物料元素",
-    sectionDescription: "维护物料名称、ID、类型和提示文案。",
+    sectionDescription: "维护物料名称、ID、类型和提示文案",
+    baseDescription: "用于在物料或资源配置中连续新增元素",
     addLabel: "添加物料元素",
     baseFields: [
-      { label: "物料名称", value: "首页活动物料", placeholder: "请输入物料名称" },
-      { label: "物料 ID", value: "homepage_material", placeholder: "请输入物料 ID", help: "用于资源配置和查询。" },
-      { label: "使用说明", placeholder: "请输入使用说明" },
+      { label: "物料名称", name: "material_name", value: "首页活动物料", placeholder: "请输入物料名称" },
+      {
+        label: "物料 ID",
+        name: "material_id",
+        value: "homepage_material",
+        placeholder: "请输入物料 ID",
+        description: "用于资源配置和查询",
+      },
+      { label: "使用说明", name: "material_usage", placeholder: "请输入使用说明" },
     ],
     rows: [
       { key: "cover", name: "封面图", id: "cover_image", type: "image", required: "yes", rule: "设置尺寸", hint: "建议 750x420" },
@@ -218,6 +244,7 @@ function buildTemplateVars(): CSSProperties {
     "--form-templates-help-size": px(getTypographyToken("font-size/s")),
     "--form-templates-help-line": px(getTypographyToken("line-height/s")),
     "--form-templates-control-max-width": px(getUnitToken("form/control/max-width")),
+    "--form-templates-table-form-padding-inline": px(getUnitToken("spacing/horizontal/4x")),
     "--editable-table-width": "1248px",
     "--editable-table-header-height": px(getUnitToken("size/component-height/l") + getUnitToken("spacing/vertical/3x")),
     "--editable-table-row-height": px(getUnitToken("size/component-height/m") + getUnitToken("spacing/vertical/6x")),
@@ -284,6 +311,10 @@ function EditableScenarioTable({ scenario }: { scenario: EditableScenario }) {
     ]);
   }
 
+  function removeRow(rowKey: string) {
+    setRows((currentRows) => currentRows.filter((row) => row.key !== rowKey));
+  }
+
   return (
     <div className="editable-table-shell" role="region" aria-label={scenario.title}>
       <table className="editable-table">
@@ -332,6 +363,7 @@ function EditableScenarioTable({ scenario }: { scenario: EditableScenario }) {
                 <SensSelectDropdown
                   options={typeOptions}
                   value={row.type || undefined}
+                  placeholder="请选择"
                   popupMatchSelectWidth={false}
                   warningPlacement={row.errors?.type ? "inside" : undefined}
                   warningMessage={row.errors?.type}
@@ -342,6 +374,7 @@ function EditableScenarioTable({ scenario }: { scenario: EditableScenario }) {
                 <SensSelectDropdown
                   options={requiredOptions}
                   value={row.required || undefined}
+                  placeholder="请选择"
                   popupMatchSelectWidth={false}
                   warningPlacement={row.errors?.required ? "inside" : undefined}
                   warningMessage={row.errors?.required}
@@ -352,7 +385,7 @@ function EditableScenarioTable({ scenario }: { scenario: EditableScenario }) {
                 {row.rule === "-" ? (
                   <span className="editable-table__plain-text">-</span>
                 ) : (
-                  <SensButton tone="link" size="small">
+                  <SensButton tone="link">
                     {row.rule}
                   </SensButton>
                 )}
@@ -368,7 +401,7 @@ function EditableScenarioTable({ scenario }: { scenario: EditableScenario }) {
                 <span className="editable-table__count">{row.hint.length}/20</span>
               </td>
               <td className="editable-table__cell editable-table__cell--plain">
-                <SensButton tone="link" size="small">
+                <SensButton tone="link" onClick={() => removeRow(row.key)}>
                   删除
                 </SensButton>
               </td>
@@ -378,7 +411,6 @@ function EditableScenarioTable({ scenario }: { scenario: EditableScenario }) {
             <td colSpan={7}>
               <SensButton
                 tone="link"
-                size="small"
                 icon={<SensIcon name="editor-add" sizeToken="size/icon/m" color="currentColor" />}
                 onClick={addRow}
               >
@@ -410,18 +442,18 @@ const PRODUCT_NAV_ITEMS = [
 
 function ScenarioBaseInfo({ scenario }: { scenario: EditableScenario }) {
   return (
-    <section className="sdh-template-base-info" aria-label={`${scenario.pageTitle}基础信息`}>
-      <SensSectionTitle title="基础信息" description={scenario.description} />
-      <div className="sdh-template-field-list">
-        {scenario.baseFields.map((field) => (
-          <label key={field.label} className="sdh-template-field">
-            <span>{field.label}</span>
-            <SensInput defaultValue={field.value} placeholder={field.placeholder} />
-            {field.help ? <small>{field.help}</small> : null}
-          </label>
-        ))}
+    <SensForm layout="horizontal" className="form-templates-form" aria-label={`${scenario.pageTitle}基础信息`}>
+      <div className="form-templates-section-block" id="sdh-anchor-basic">
+        <SensSectionTitle title="基础信息" description={scenario.baseDescription} />
+        <div className="sens-form-group-content">
+          {scenario.baseFields.map((field) => (
+            <SensFormItem key={field.name} label={field.label} name={field.name} description={field.description}>
+              <SensInput defaultValue={field.value} placeholder={field.placeholder} />
+            </SensFormItem>
+          ))}
+        </div>
       </div>
-    </section>
+    </SensForm>
   );
 }
 
@@ -456,6 +488,10 @@ function DimensionValuePreview({ state, onRefresh }: { state: DimensionPreviewSt
 
 function DimensionEventPropertyTable() {
   const [rows, setRows] = useState(dimensionRows);
+
+  function removeDimension(rowKey: string) {
+    setRows((currentRows) => currentRows.filter((row) => row.key !== rowKey));
+  }
 
   function refreshPreview(rowKey: string) {
     setRows((current) =>
@@ -539,7 +575,7 @@ function DimensionEventPropertyTable() {
                 </span>
               </td>
               <td className="editable-table__cell editable-table__cell--plain">
-                <SensButton tone="link" size="small">
+                <SensButton tone="link" onClick={() => removeDimension(row.key)}>
                   删除
                 </SensButton>
               </td>
@@ -549,7 +585,6 @@ function DimensionEventPropertyTable() {
             <td colSpan={7}>
               <SensButton
                 tone="link"
-                size="small"
                 icon={<SensIcon name="editor-add" sizeToken="size/icon/m" color="currentColor" />}
                 onClick={addDimension}
               >
@@ -563,10 +598,139 @@ function DimensionEventPropertyTable() {
   );
 }
 
+function findScrollParents(start: HTMLElement | null): Array<HTMLElement | Window> {
+  const parents: Array<HTMLElement | Window> = [window];
+  let node: HTMLElement | null = start;
+  while (node && node !== document.body) {
+    const style = getComputedStyle(node);
+    const overflowY = style.overflowY;
+    if (overflowY === "auto" || overflowY === "scroll" || overflowY === "overlay") {
+      parents.push(node);
+    }
+    node = node.parentElement;
+  }
+  return parents;
+}
+
+/** 灰条右缘 → 锚点视觉左缘 16；扣白板右内边距和描边。 */
+function syncSdhAnchorReserve(board: HTMLElement) {
+  const side = document.querySelector(".sdh-template-anchor-side--portal");
+  if (!(side instanceof HTMLElement)) return;
+  const inlineGap = getUnitToken("spacing/horizontal/4x");
+  const sideRect = side.getBoundingClientRect();
+  const sideW = sideRect.width || 24;
+  const visual =
+    side.querySelector(".sens-anchor-rail") ||
+    side.querySelector(".sens-anchor-active-mark") ||
+    side.querySelector(".sens-anchor-collapse-button") ||
+    side;
+  const visualInset = Math.max(0, visual.getBoundingClientRect().left - sideRect.left);
+  const boardStyle = getComputedStyle(board);
+  const boardPadRight = Number.parseFloat(boardStyle.paddingRight) || 0;
+  const boardBorderRight = Number.parseFloat(boardStyle.borderRightWidth) || 0;
+  const scrollbarW = Math.max(0, board.offsetWidth - board.clientWidth);
+  board.style.setProperty(
+    "--sdh-template-anchor-reserve",
+    `${Math.max(0, sideW - visualInset + inlineGap - boardPadRight - boardBorderRight - scrollbarW)}px`,
+  );
+}
+
 function SdhEditableTableTemplateContent() {
   const { scenarioKey } = useParams<{ scenarioKey: string }>();
   const scenario = scenarios.find((item) => item.key === scenarioKey) ?? scenarios[0];
   const isDimensionScenario = scenario.variant === "dimension";
+  const [activeKey, setActiveKey] = useState("basic");
+  const [anchorPinStyle, setAnchorPinStyle] = useState<CSSProperties | undefined>();
+
+  const anchorItems: SensAnchorItem[] = [
+    { key: "basic", label: "基础信息" },
+    { key: "fields", label: scenario.sectionTitle },
+  ];
+
+  useLayoutEffect(() => {
+    setActiveKey("basic");
+  }, [scenario.key]);
+
+  useLayoutEffect(() => {
+    if (isDimensionScenario) return undefined;
+
+    const board = document.querySelector(".sdh-template-product-body");
+    if (!(board instanceof HTMLElement)) return undefined;
+
+    const pinGap = getUnitToken("spacing/vertical/4x");
+
+    const sync = () => {
+      const boardRect = board.getBoundingClientRect();
+      const grayTitle = document.querySelector("#sdh-anchor-basic .sens-section-title");
+      const grayRect = grayTitle?.getBoundingClientRect();
+      const alignedTop = grayRect?.top ?? boardRect.top + pinGap;
+      const top = Math.max(boardRect.top + pinGap, alignedTop);
+      const viewportWidth = document.documentElement.clientWidth;
+      setAnchorPinStyle({
+        position: "fixed",
+        top,
+        right: viewportWidth - boardRect.right,
+        left: "auto",
+        zIndex: 900,
+        width: "max-content",
+        pointerEvents: "none",
+      });
+      syncSdhAnchorReserve(board);
+    };
+
+    sync();
+    const raf = window.requestAnimationFrame(sync);
+    const scrollParents = findScrollParents(board);
+    for (const parent of scrollParents) {
+      parent.addEventListener("scroll", sync, { passive: true });
+    }
+    window.addEventListener("resize", sync);
+    const observer = new ResizeObserver(sync);
+    observer.observe(board);
+    const grayTitle = document.querySelector("#sdh-anchor-basic .sens-section-title");
+    if (grayTitle instanceof HTMLElement) observer.observe(grayTitle);
+
+    return () => {
+      window.cancelAnimationFrame(raf);
+      for (const parent of scrollParents) {
+        parent.removeEventListener("scroll", sync);
+      }
+      window.removeEventListener("resize", sync);
+      observer.disconnect();
+      board.style.removeProperty("--sdh-template-anchor-reserve");
+    };
+  }, [isDimensionScenario, scenario.key]);
+
+  useLayoutEffect(() => {
+    if (isDimensionScenario) return undefined;
+    const board = document.querySelector(".sdh-template-product-body");
+    const side = document.querySelector(".sdh-template-anchor-side--portal");
+    if (!(board instanceof HTMLElement) || !(side instanceof HTMLElement)) return undefined;
+    const syncReserve = () => syncSdhAnchorReserve(board);
+    syncReserve();
+    const observer = new ResizeObserver(syncReserve);
+    observer.observe(side);
+    return () => observer.disconnect();
+  }, [isDimensionScenario, scenario.key, anchorPinStyle]);
+
+  function handleAnchorChange(key: string) {
+    setActiveKey(key);
+    document.getElementById(`sdh-anchor-${key}`)?.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
+  const portalAnchor =
+    !isDimensionScenario && anchorPinStyle && typeof document !== "undefined"
+      ? createPortal(
+          <aside
+            className="sdh-template-anchor-side sdh-template-anchor-side--portal"
+            aria-label="表单分组锚点"
+            style={anchorPinStyle}
+          >
+            <SensAnchor items={anchorItems} mode="fixed" activeKey={activeKey} onChange={handleAnchorChange} />
+          </aside>,
+          document.body,
+        )
+      : null;
 
   return (
     <main className="sdh-template-page" style={buildTemplateVars()}>
@@ -589,29 +753,25 @@ function SdhEditableTableTemplateContent() {
         />
 
         <div className={`sdh-template-product-body${isDimensionScenario ? " sdh-template-product-body--single" : ""}`}>
-          <main className="sdh-template-product-content">
-            {isDimensionScenario ? (
+          {isDimensionScenario ? (
+            <main className="sdh-template-product-content">
               <DimensionEventPropertyTable />
-            ) : (
-              <>
+            </main>
+          ) : (
+            <div className="sdh-template-anchor-layout">
+              <main className="sdh-template-product-content">
                 <ScenarioBaseInfo scenario={scenario} />
-                <section className="form-templates-table-block">
+                <section className="form-templates-table-block" id="sdh-anchor-fields">
                   <SensSectionTitle title={scenario.sectionTitle} description={scenario.sectionDescription} />
                   <EditableScenarioTable key={scenario.key} scenario={scenario} />
                 </section>
                 <div className="form-templates-rule">{scenario.rule}</div>
-              </>
-            )}
-          </main>
-          {isDimensionScenario ? null : (
-            <aside className="sdh-template-anchor-missing" aria-label="锚点组件缺口">
-              <span>Anchor / Missing</span>
-              <strong>锚点导航待补</strong>
-              <p>锚点组件完成后，这里接入真实页面滚动定位；本轮不伪造锚点交互。</p>
-            </aside>
+              </main>
+            </div>
           )}
         </div>
       </div>
+      {portalAnchor}
     </main>
   );
 }

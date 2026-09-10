@@ -1,6 +1,6 @@
 import { Input, type InputProps } from "antd";
 import type { CSSProperties, ReactNode } from "react";
-import { useId } from "react";
+import { useId, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { getColorToken, tokenRgba } from "../design-system/color-utils";
 import tokens from "../design-system/tokens.resolved.json";
@@ -33,6 +33,10 @@ export type SensInputReadOnlyVariant = "filled" | "plain";
 function isInputEmpty(value: InputProps["value"], defaultValue: InputProps["defaultValue"]): boolean {
   const current = value ?? defaultValue;
   return current === undefined || current === null || current === "";
+}
+
+function toInputText(value: InputProps["value"] | InputProps["defaultValue"]): string {
+  return value == null ? "" : String(value);
 }
 
 /** 锁高 + 警告/只读 CSS 变量（paddingBlock=0 时由组件层补足 controlHeight） */
@@ -139,10 +143,15 @@ export function SensInput({
   value,
   defaultValue,
   placeholder,
+  showCount: showCountProp,
+  count: countProp,
+  maxLength,
+  onChange,
   ...props
 }: SensInputProps) {
   const { t } = useTranslation();
   const generatedId = useId();
+  const [uncontrolledCountValue, setUncontrolledCountValue] = useState(() => toInputText(defaultValue));
   const heightStyle = useSensInputHeightStyle();
   const readOnly = readOnlyProp ?? Boolean(readOnlyVariant);
   const unsetLabel = t(`${I18N_NS}.sensd-input-unset`, { defaultValue: "未设置" });
@@ -180,6 +189,28 @@ export function SensInput({
   const plainTextClass =
     size === "small" ? "sens-input-readonly-plain-text sens-input-readonly-plain-text-sm" : "sens-input-readonly-plain-text";
 
+  const countShow = countProp?.show ?? showCountProp;
+  const shouldShowCount = Boolean(countShow);
+  const countValue = value === undefined ? uncontrolledCountValue : toInputText(value);
+  const countStrategy = countProp?.strategy ?? ((nextValue: string) => nextValue.length);
+  const currentCount = countStrategy(countValue);
+  const countMax = countProp?.max ?? maxLength;
+  const countFormatter =
+    typeof countShow === "function"
+      ? countShow
+      : typeof showCountProp === "object"
+        ? showCountProp.formatter
+        : undefined;
+  const countContent = countFormatter
+    ? countFormatter({ value: countValue, count: currentCount, maxLength: countMax })
+    : `${currentCount}${countMax ? `/${countMax}` : ""}`;
+  const countSuffix = shouldShowCount ? <span className="sens-input-suffix-count">{countContent}</span> : undefined;
+
+  const handleCountChange: NonNullable<InputProps["onChange"]> = (event) => {
+    if (value === undefined) setUncontrolledCountValue(event.target.value);
+    onChange?.(event);
+  };
+
   /* 只读_字段 + 警告：不走 Input 红框（Figma 49284 / 49317 / 49274 / 49307） */
   if (readOnlyVariant === "plain" && isWarning) {
     const fieldClassName = ["sens-input-field", className].filter(Boolean).join(" ");
@@ -213,15 +244,9 @@ export function SensInput({
       <InsideErrorSuffix size={size} message={tooltipMessage} />
     ) : undefined;
 
+  const suffixItems = [insideSuffix, countSuffix, suffix].filter(Boolean);
   const mergedSuffix =
-    insideSuffix && suffix ? (
-      <span className="sens-input-suffix-group">
-        {insideSuffix}
-        {suffix}
-      </span>
-    ) : (
-      insideSuffix ?? suffix
-    );
+    suffixItems.length > 1 ? <span className="sens-input-suffix-group">{suffixItems}</span> : suffixItems[0];
 
   const input = (
     <Input
@@ -238,6 +263,9 @@ export function SensInput({
       value={resolvedValue}
       defaultValue={resolvedDefaultValue}
       placeholder={resolvedPlaceholder}
+      maxLength={maxLength}
+      count={countProp ? { ...countProp, show: false } : undefined}
+      onChange={handleCountChange}
       {...props}
     />
   );
