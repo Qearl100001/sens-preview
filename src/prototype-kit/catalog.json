@@ -1,0 +1,308 @@
+{
+  "schemaVersion": "0.2.0",
+  "packageName": "@sens/prototype-kit",
+  "version": "0.1.0-p0.8",
+  "status": "experimental",
+  "scope": "Prototype component kit with standard Product Shell; no prototype generator.",
+  "bootstrap": "SensPrototypeProvider",
+  "capabilities": [
+    {
+      "exportName": "SensAlert",
+      "rule": "src/design-system/components/base/alert.md",
+      "verification": {
+        "packaging": "pending",
+        "browser": "not_run"
+      }
+    },
+    {
+      "exportName": "SensTitleBar",
+      "rule": "src/design-system/components/base/title-bar.md",
+      "verification": { "packaging": "pending", "browser": "not_run" }
+    },
+    {
+      "exportName": "SensProductShell",
+      "rule": "src/design-system/components/composite/product-shell.md",
+      "verification": { "packaging": "pending", "browser": "playwright_pass" }
+    },
+    {
+      "exportName": "SensTopNavigation",
+      "rule": "src/design-system/components/base/top-navigation.md",
+      "verification": { "packaging": "pending", "browser": "playwright_pass" }
+    },
+    {
+      "exportName": "ProductShellSideNavigation",
+      "rule": "src/design-system/components/composite/side-navigation.md",
+      "verification": { "packaging": "pending", "browser": "playwright_pass" }
+    },
+    {
+      "exportName": "SensPageTitleBar",
+      "rule": "src/design-system/components/base/title-bar.md",
+      "verification": { "packaging": "pending", "browser": "playwright_pass" }
+    },
+    {
+      "exportName": "SensButton",
+      "rule": "src/design-system/components/base/button.md",
+      "verification": {
+        "packaging": "pending",
+        "browser": "not_run"
+      }
+    },
+    {
+      "exportName": "SensForm",
+      "rule": "src/design-system/components/base/form.md",
+      "verification": {
+        "packaging": "pending",
+        "browser": "not_run"
+      }
+    },
+    {
+      "exportName": "SensFormItem",
+      "rule": "src/design-system/components/base/form.md",
+      "verification": {
+        "packaging": "pending",
+        "browser": "not_run"
+      }
+    },
+    {
+      "exportName": "SensFormActions",
+      "rule": "src/design-system/components/base/form.md",
+      "verification": {
+        "packaging": "pending",
+        "browser": "not_run"
+      }
+    },
+    {
+      "exportName": "SensInput",
+      "rule": "src/design-system/components/base/input.md",
+      "verification": {
+        "packaging": "pass",
+        "browser": "playwright_pass"
+      }
+    },
+    {
+      "exportName": "SensInputNumber",
+      "rule": "src/design-system/components/base/input.md",
+      "verification": {
+        "packaging": "pending",
+        "browser": "not_run"
+      }
+    },
+    {
+      "exportName": "SensTextArea",
+      "rule": "src/design-system/components/base/input.md",
+      "verification": {
+        "packaging": "pending",
+        "browser": "not_run"
+      }
+    },
+    {
+      "exportName": "SensSelectDropdown",
+      "rule": "src/design-system/components/base/select.md",
+      "verification": {
+        "packaging": "pass",
+        "browser": "playwright_pass"
+      }
+    },
+    {
+      "exportName": "SearchInput",
+      "rule": "src/design-system/components/base/search.md",
+      "verification": {
+        "packaging": "pass",
+        "browser": "playwright_pass"
+      }
+    },
+    {
+      "exportName": "SensSectionTitle",
+      "rule": "src/design-system/components/base/title.md",
+      "verification": {
+        "packaging": "pass",
+        "browser": "playwright_pass"
+      }
+    },
+    {
+      "exportName": "SensEntryCard",
+      "rule": "src/design-system/components/base/entry-card.md",
+      "verification": {
+        "packaging": "pending",
+        "browser": "playwright_pass"
+      }
+    },
+    {
+      "exportName": "SensEmptyState",
+      "rule": "docs/foundations/empty-state.md",
+      "verification": {
+        "packaging": "pass",
+        "browser": "playwright_pass"
+      }
+    },
+    {
+      "exportName": "SensRadio",
+      "rule": "src/design-system/components/base/radio.md",
+      "verification": {
+        "packaging": "pending",
+        "browser": "not_run"
+      }
+    },
+    {
+      "exportName": "SensRadioGroup",
+      "rule": "src/design-system/components/base/radio.md",
+      "verification": {
+        "packaging": "pending",
+        "browser": "not_run"
+      }
+    },
+    {
+      "exportName": "SensCheckbox",
+      "rule": "src/design-system/components/base/checkbox.md",
+      "verification": {
+        "packaging": "pending",
+        "browser": "not_run"
+      }
+    },
+    {
+      "exportName": "SensCheckboxGroup",
+      "rule": "src/design-system/components/base/checkbox.md",
+      "verification": {
+        "packaging": "pending",
+        "browser": "not_run"
+      }
+    },
+    {
+      "exportName": "SensPopover",
+      "rule": "src/design-system/components/base/popover.md",
+      "verification": {
+        "packaging": "pending",
+        "browser": "not_run"
+      }
+    },
+    {
+      "exportName": "SensDrawer",
+      "rule": "src/design-system/components/base/drawer.md",
+      "verification": {
+        "packaging": "pending",
+        "browser": "not_run"
+      }
+    },
+    {
+      "exportName": "TableShell",
+      "rule": "src/design-system/components/base/table.md",
+      "verification": {
+        "packaging": "pending",
+        "browser": "not_run"
+      }
+    },
+    {
+      "exportName": "TableInfoBar",
+      "rule": "src/design-system/components/base/table.md",
+      "verification": {
+        "packaging": "pending",
+        "browser": "not_run"
+      }
+    },
+    {
+      "exportName": "TableActions",
+      "rule": "src/design-system/components/base/table.md",
+      "verification": {
+        "packaging": "pending",
+        "browser": "not_run"
+      }
+    },
+    {
+      "exportName": "TableEllipsis",
+      "rule": "src/design-system/components/base/table.md",
+      "verification": {
+        "packaging": "pending",
+        "browser": "not_run"
+      }
+    },
+    {
+      "exportName": "useSensMessage",
+      "rule": "src/design-system/components/base/message.md",
+      "verification": {
+        "packaging": "pending",
+        "browser": "not_run"
+      }
+    },
+    {
+      "exportName": "SensIcon",
+      "rule": "docs/foundations/icon.md",
+      "verification": {
+        "packaging": "pending",
+        "browser": "not_run"
+      }
+    }
+  ],
+  "composites": [
+    {
+      "id": "product-shell",
+      "exportNames": ["SensProductShell", "SensTopNavigation", "SensPageTitleBar"],
+      "rule": "src/design-system/components/composite/product-shell.md",
+      "useWhen": "标准产品页面需要统一的顶部导航、标题栏、滚动容器和回到顶部行为。",
+      "avoidWhen": "长表格需要标题栏随流且表头唯一吸顶；该专项模式尚未正式导出。",
+      "verification": { "packaging": "pending", "browser": "playwright_pass" }
+    },
+    {
+      "id": "product-shell-side-navigation",
+      "exportNames": ["ProductShellSideNavigation"],
+      "rule": "src/design-system/components/composite/side-navigation.md",
+      "useWhen": "T 型产品页面需要分组侧导航、组级展开收起和导航模式切换。",
+      "avoidWhen": "下钻页或上下布局不显示侧导航。",
+      "verification": { "packaging": "pending", "browser": "playwright_pass" }
+    },
+    {
+      "id": "table-shell",
+      "exportNames": ["TableShell", "TableInfoBar", "TableActions", "TableEllipsis"],
+      "rule": "src/design-system/components/base/table.md",
+      "useWhen": "页面需要标准表格信息栏、批量操作区和溢出处理。",
+      "avoidWhen": "非表格信息结构或业务需要尚未登记的专项表格模式。",
+      "verification": { "packaging": "pending", "browser": "not_run" }
+    }
+  ],
+  "templates": [
+    {
+      "id": "product-shell.t-landing",
+      "pageLevel": "landing",
+      "layout": "t",
+      "rule": "src/design-system/components/composite/product-shell.md",
+      "preview": "/templates/product-shell/t",
+      "requiredExports": ["SensProductShell", "SensTopNavigation", "ProductShellSideNavigation", "SensPageTitleBar"],
+      "useWhen": "产品落地页需要顶部导航、分组侧导航和白色 landing 标题栏。",
+      "avoidWhen": "页面由卡片、表格或操作入口下钻，且不应继续展示侧导航。",
+      "verification": { "browser": "playwright_pass" }
+    },
+    {
+      "id": "product-shell.vertical-drilldown",
+      "pageLevel": "drilldown",
+      "layout": "vertical",
+      "rule": "src/design-system/components/composite/product-shell.md",
+      "preview": "/templates/product-shell/vertical",
+      "requiredExports": ["SensProductShell", "SensTopNavigation", "SensPageTitleBar"],
+      "useWhen": "由上级页面下钻的全宽页面需要返回、面包屑、页面操作和 16px 正文起始间距。",
+      "avoidWhen": "页面自身是侧导航中的落地入口。",
+      "verification": { "browser": "playwright_pass" }
+    },
+    {
+      "id": "card.entry-settings",
+      "pageLevel": "landing",
+      "layout": "entry-grid",
+      "rule": "src/design-system/templates/card/README.md",
+      "preview": "/templates/card/entry-settings",
+      "requiredExports": ["SensSectionTitle", "SensEntryCard", "SensIcon"],
+      "useWhen": "设置落地页按分组展示可下钻的功能入口。",
+      "avoidWhen": "卡片承载数据详情、操作面板或没有页面跳转语义。",
+      "layoutRules": {
+        "columns": { "1280": 3, "1440": 4, "1920": 4 },
+        "cardHeight": "intrinsic",
+        "pageBackground": "full-width-white"
+      },
+      "verification": { "browser": "playwright_pass" }
+    }
+  ],
+  "limitations": [
+    "Client-side prototypes only",
+    "System font stack; no licensed font files bundled",
+    "SVG data URLs require img-src data: in deployment CSP",
+    "Long-table page-sticky Product Shell mode is not exported yet",
+    "Design review and independent application interaction verification pending"
+  ]
+}
