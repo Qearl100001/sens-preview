@@ -94,7 +94,8 @@ function InputDemo() {
           defaultValue="已录入内容"
           warningPlacement="inside"
           warningMessage="出错提示信息"
-          suffix={<span className="sens-input-suffix-count">0/100</span>}
+          maxLength={100}
+          showCount
           style={{ width: 240, minWidth: 128, maxWidth: 600 }}
         />
         <Text type="secondary">右侧顺序：报错菱形 → 数字限制</Text>
