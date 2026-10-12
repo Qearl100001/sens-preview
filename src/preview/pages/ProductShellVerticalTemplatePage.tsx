@@ -1,8 +1,7 @@
 import { useState, type CSSProperties } from "react";
-import { buildShadowD4, getColorToken, tokenRgba } from "../../design-system/color-utils";
+import { getColorToken, tokenRgba } from "../../design-system/color-utils";
 import { getDividerHairlineWidth } from "../../design-system/divider";
 import { SensIcon } from "../../design-system/icons";
-import { navigationCssVar } from "../../design-system/navigation-color";
 import {
   getProductShellNavDropdownByLabel,
   getProductShellPrimaryNavItems,
@@ -19,6 +18,7 @@ import {
   SensInputNumber,
   SensMessageProvider,
   SensPageTitleBar,
+  SensProductShell,
   SensRadioGroup,
   SensSectionTitle,
   SensSelectDropdown,
@@ -28,12 +28,8 @@ import {
   type SensTopNavigationItem,
   useSensMessage,
 } from "../../ui";
-import { ProductShellBackTop } from "./ProductShellBackTop";
-import { useProductShellContentScroll } from "./useProductShellContentScroll";
 import "./product-shell-template.css";
 
-/** 顶导结构高度；收起时 translateY 与正文起点同步扣减。 */
-const TOP_NAV_STRUCTURAL_HEIGHT = 82;
 const CONTROL_MAX_WIDTH = getUnitToken("form/control/max-width");
 
 const PRODUCT_NAV_ITEMS: SensTopNavigationItem[] = [
@@ -79,7 +75,6 @@ const UPDATE_MODE_OPTIONS = [
 
 function buildTemplateStyle(): CSSProperties {
   return {
-    "--shell-page-background": navigationCssVar("--sens-nav-page-bg", "body-background"),
     "--shell-surface": getColorToken("white"),
     "--shell-muted-surface": tokenRgba("background-transparent-grey", 0.04),
     "--shell-text": tokenRgba("text-color-transparent", 0.9),
@@ -111,27 +106,11 @@ function buildTemplateStyle(): CSSProperties {
     "--shell-control-max-width": `${CONTROL_MAX_WIDTH}px`,
     "--shell-card-body-size": `${getTypographyToken("font-size/m")}px`,
     "--shell-card-body-line": `${getTypographyToken("line-height/m")}px`,
-    "--shell-nav-structural-height": `${TOP_NAV_STRUCTURAL_HEIGHT}px`,
-    "--shell-back-top-inset": `${getUnitToken("spacing/6x")}px`,
-    "--shell-back-top-size": `${getUnitToken("size/component-height/l")}px`,
-    "--shell-title-bar-shadow": buildShadowD4(),
   } as CSSProperties;
 }
 
 function ProductShellVerticalTemplateInner() {
   const message = useSensMessage();
-  const {
-    scrollRef,
-    contentRef,
-    topNavCollapsed,
-    titleBarElevated,
-    showBackTop,
-    backTopDocked,
-    handleContentScroll,
-    handleBackToTop,
-    handleBackTopPointerEnter,
-    handleBackTopPointerLeave,
-  } = useProductShellContentScroll();
   const [displayName, setDisplayName] = useState("");
   const [segmentName, setSegmentName] = useState("");
   const [remark, setRemark] = useState("");
@@ -144,24 +123,13 @@ function ProductShellVerticalTemplateInner() {
   const [retainCount, setRetainCount] = useState<number | null>(10);
 
   return (
-    <main
-      className={[
-        "product-shell-template",
-        "product-shell-template--vertical",
-        topNavCollapsed ? "product-shell-template--collapsed" : "",
-      ]
-        .filter(Boolean)
-        .join(" ")}
+    <SensProductShell
+      layout="vertical"
+      className="product-shell-template"
       style={buildTemplateStyle()}
+      contentLabel="创建分群"
       data-product-shell-template
-      data-product-shell-layout="vertical"
-      data-top-nav-collapsed={topNavCollapsed ? "true" : "false"}
-    >
-      <div
-        className="product-shell-template__navigation-layer"
-        aria-hidden={topNavCollapsed || undefined}
-        data-product-shell-top-nav
-      >
+      topNavigation={
         <SensTopNavigation
           embedded
           atmosphere
@@ -170,56 +138,39 @@ function ProductShellVerticalTemplateInner() {
           navDropdownByLabel={PRODUCT_SHELL_NAV_DROPDOWN_BY_LABEL}
           activeNavMenuByLabel={{ 数据加工: "分群管理" }}
         />
-      </div>
-
-      <div className="product-shell-template__workspace">
-        <section ref={contentRef} className="product-shell-template__content" aria-label="创建分群">
-          <div
-            className={[
-              "product-shell-template__title-bar",
-              titleBarElevated ? "product-shell-template__title-bar--elevated" : "",
-            ]
-              .filter(Boolean)
-              .join(" ")}
-            data-product-shell-title-elevated={titleBarElevated ? "true" : "false"}
-          >
-            <SensPageTitleBar
-              variant="drilldown"
-              title="创建分群"
-              titleId="product-shell-vertical-heading"
-              breadcrumbItems={[
-                { key: "cohort", label: "分群" },
-                { key: "create", label: "创建分群" },
-              ]}
-              description={
-                <span className="product-shell-template__title-meta">
-                  创建方式：规则创建
-                  <SensButton tone="link" size="small" onClick={() => message.info("切换创建方式（预览）")}>
-                    切换
-                  </SensButton>
-                </span>
-              }
-              onBack={() => message.info("返回上一页（预览）")}
-              actions={
-                <div className="product-shell-template__form-actions">
-                  <SensButton tone="secondary" onClick={() => message.info("已放弃（预览）")}>
-                    放 弃
-                  </SensButton>
-                  <SensButton tone="primary" onClick={() => message.success("创建成功")}>
-                    提 交
-                  </SensButton>
-                </div>
-              }
-            />
-          </div>
-
-          <div
-            ref={scrollRef}
-            className="product-shell-template__scroll"
-            data-product-shell-content-scroll
-            onScroll={handleContentScroll}
-          >
-            <div className="product-shell-template__form">
+      }
+      titleBar={
+        <SensPageTitleBar
+          variant="drilldown"
+          title="创建分群"
+          titleId="product-shell-vertical-heading"
+          breadcrumbItems={[
+            { key: "cohort", label: "分群" },
+            { key: "create", label: "创建分群" },
+          ]}
+          description={
+            <span className="product-shell-template__title-meta">
+              创建方式：规则创建
+              <SensButton tone="link" size="small" onClick={() => message.info("切换创建方式（预览）")}>
+                切换
+              </SensButton>
+            </span>
+          }
+          onBack={() => message.info("返回上一页（预览）")}
+          actions={
+            <div className="product-shell-template__form-actions">
+              <SensButton tone="secondary" onClick={() => message.info("已放弃（预览）")}>
+                放 弃
+              </SensButton>
+              <SensButton tone="primary" onClick={() => message.success("创建成功")}>
+                提 交
+              </SensButton>
+            </div>
+          }
+        />
+      }
+    >
+      <div className="product-shell-template__form">
               <section className="product-shell-template__form-section" aria-label="基础信息">
                 <SensSectionTitle title="基础信息" />
                 <div className="product-shell-template__form-body">
@@ -361,20 +312,8 @@ function ProductShellVerticalTemplateInner() {
                   </div>
                 </div>
               </section>
-            </div>
-          </div>
-
-          <ProductShellBackTop
-            visible={showBackTop}
-            docked={backTopDocked}
-            anchorRef={contentRef}
-            onBackToTop={handleBackToTop}
-            onPointerEnter={handleBackTopPointerEnter}
-            onPointerLeave={handleBackTopPointerLeave}
-          />
-        </section>
       </div>
-    </main>
+    </SensProductShell>
   );
 }
 

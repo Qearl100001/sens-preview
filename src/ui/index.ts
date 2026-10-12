@@ -240,6 +240,8 @@ export type {
   ProductShellSideNavigationMode,
   ProductShellSideNavigationProps,
 } from "./ProductShellSideNavigation";
+export { SensProductShell } from "./SensProductShell";
+export type { SensProductShellLayout, SensProductShellProps } from "./SensProductShell";
 export {
   SensDrawer,
   SENS_DRAWER_WIDTH,

@@ -1,4 +1,4 @@
-.product-shell-template {
+.product-shell-template.product-shell-table-template {
   /* 产品壳固定规格：结构高 82px；氛围延展 180px，不占正文流。 */
   --shell-nav-structural-height: 82px;
   --shell-nav-atmosphere-height: 180px;
@@ -19,11 +19,11 @@
   transition: padding-top 0.2s ease;
 }
 
-.product-shell-template--collapsed {
+.product-shell-table-template.product-shell-template--collapsed {
   --shell-nav-flow-height: 0px;
 }
 
-.product-shell-template__navigation-layer {
+.product-shell-table-template .product-shell-template__navigation-layer {
   position: absolute;
   inset: 0 0 auto;
   height: var(--shell-nav-atmosphere-height);
@@ -31,12 +31,12 @@
   transition: transform 0.2s ease;
 }
 
-.product-shell-template--collapsed .product-shell-template__navigation-layer {
+.product-shell-table-template.product-shell-template--collapsed .product-shell-template__navigation-layer {
   transform: translateY(calc(-1 * var(--shell-nav-structural-height)));
   pointer-events: none;
 }
 
-.product-shell-template__workspace {
+.product-shell-table-template .product-shell-template__workspace {
   /* 层级 1+：侧导与内容叠在氛围层之上 */
   position: relative;
   z-index: 1;
@@ -47,7 +47,7 @@
   background: transparent;
 }
 
-.product-shell-template__content {
+.product-shell-table-template .product-shell-template__content {
   /* 层级 2：右侧内容面板在 Normal/Docked 侧导之上（左向 D2） */
   grid-column: 2;
   position: relative;
@@ -63,7 +63,7 @@
   box-shadow: var(--shell-content-shadow);
 }
 
-.product-shell-template__title-bar {
+.product-shell-table-template .product-shell-template__title-bar {
   flex-shrink: 0;
   z-index: 1;
   background: var(--shell-surface);
@@ -71,11 +71,11 @@
   transition: box-shadow 0.15s ease;
 }
 
-.product-shell-template__title-bar--elevated {
+.product-shell-table-template .product-shell-template__title-bar--elevated {
   box-shadow: var(--shell-title-bar-shadow);
 }
 
-.product-shell-template__scroll {
+.product-shell-table-template .product-shell-template__scroll {
   flex: 1;
   min-height: 0;
   overflow: auto;
@@ -402,13 +402,13 @@
 }
 
 /* —— 上下布局（无侧导下钻）：全宽内容列 —— */
-.product-shell-template--vertical .product-shell-template__workspace {
+.product-shell-table-template.product-shell-template--vertical .product-shell-template__workspace {
   display: flex;
   flex-direction: column;
   grid-template-columns: none;
 }
 
-.product-shell-template--vertical .product-shell-template__content {
+.product-shell-table-template.product-shell-template--vertical .product-shell-template__content {
   grid-column: auto;
   flex: 1;
   min-height: 0;
@@ -418,9 +418,9 @@
 }
 
 /* 独立落地页（无侧导）：内容区域不透出产品壳的灰色页面底板。 */
-.product-shell-template--standalone,
-.product-shell-template--standalone .product-shell-template__workspace,
-.product-shell-template--standalone .product-shell-template__scroll {
+.product-shell-table-template.product-shell-template--standalone,
+.product-shell-table-template.product-shell-template--standalone .product-shell-template__workspace,
+.product-shell-table-template.product-shell-template--standalone .product-shell-template__scroll {
   background: var(--shell-surface);
 }
 

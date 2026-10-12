@@ -1,7 +1,9 @@
 # 产品壳 Product Shell
 
 > Product Shell 是产品级页面的外层组织规则，用于把顶部导航、侧边导航、标题栏、内容区、全局浮层和回到顶部能力组织成一个稳定页面壳。<br>
-> 当前先作为组合规则文档，不新增独立 React 组件，也不新增 `/components/product-shell` 展示页。<br>
+> 正式组件：`SensProductShell`，由 `@sens/prototype-kit` 导出；负责标准 T 型与上下布局的结构、滚动、顶导收起、标题栏投影和回到顶部行为。<br>
+> 长表格的「标题栏随流 + 表头唯一吸顶」仍保留在专项样板，尚未并入正式组件。<br>
+> 不新增 `/components/product-shell` 展示页，组合规则预览继续使用 `/composite/product-shell`。<br>
 > 规则预览：`/composite/product-shell`。<br>
 > 固定高度样板间（虚拟分组「产品壳」）：<br>
 > - T 型结构：`/templates/product-shell/t`<br>
@@ -11,7 +13,7 @@
 
 ## 1. 组件边界
 
-Product Shell 管的是“页面壳的组织关系”，不是把基础组件重新实现一遍。
+Product Shell 管的是“页面壳的组织关系”，不是把基础组件重新实现一遍。调用方通过插槽传入正式导航与标题栏组件，业务内容作为 `children` 放入壳的唯一滚动容器。
 
 | 区域 | Product Shell 中的职责 | 不负责 |
 | --- | --- | --- |
@@ -21,6 +23,15 @@ Product Shell 管的是“页面壳的组织关系”，不是把基础组件重
 | 内容面板 | 页面主体内容、表格、卡片、表单、空态等 | 导航关系与全局浮层层级 |
 | 内容浮层 | 页面内 Drawer / Modal / Popover / Dropdown 等 | 顶导与侧导本体结构 |
 | 回到顶部 | 内容区滚动辅助 | 页面路由或导航选中 |
+
+正式组件当前提供两种布局：
+
+| `layout` | 结构 | 必要输入 |
+| --- | --- | --- |
+| `t` | 顶导 + 侧导 + 右侧内容 | `topNavigation`、`sideNavigation`、`titleBar`、`contentLabel` |
+| `vertical` | 顶导 + 全宽内容 | `topNavigation`、`titleBar`、`contentLabel` |
+
+调用方继续负责导航的业务状态与页面内容；`SensProductShell` 负责统一结构和滚动行为。T 型侧导使用 Overlay 时需传入 `sideNavigationMode`，使内容投影关系与侧导模式同步；图标收起型侧导可通过 `collapsedSideWidth` 传入其正式收起宽度。
 
 ## 2. 页面层级
 
@@ -80,7 +91,8 @@ Product Shell 管的是“页面壳的组织关系”，不是把基础组件重
 
 - 用户提供完整产品页面时，样板间应还原页面，而不是只抽出局部组件做静态样张。
 - 样板间里的顶部导航、侧边导航、标题栏、卡片、按钮、标签、图标和浮层必须优先调用正式 Sens 组件或注册资产。
-- 不得在样板间复制一套局部顶部导航壳、局部侧导壳、局部按钮或局部卡片实现。
+- 标准 T 型与上下布局必须调用 `SensProductShell`，不得复制导航层、工作区、内容列、滚动容器、标题栏吸顶和回到顶部实现。
+- 长表格「表头唯一吸顶」在正式组件支持前继续使用专项壳，不得反向改变标准壳的标题栏吸顶规则。
 - 样板间中如果出现“当前页面暂不建设”的入口，可以保留路由站位或 toast 反馈；不能因此移除当前样板间原本要验证的主体内容。
 - 样板间专属内容、业务数据和页面布局留在样板间；可复用的导航、标题栏、侧导、间距、层级和滚动关系应回写到 Product Shell、组件文档或 Layout Foundation。
 - 样板间侧栏虚拟分组为「产品壳」，子场景「T型结构」「上下布局」；父路径 `/templates/product-shell` 重定向到 T 型。`/composite/product-shell` 继续只承载组合规则说明。
