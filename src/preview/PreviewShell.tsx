@@ -67,7 +67,7 @@ export const COMPONENT_NAV = [
 const CASE_NAV = [
   { key: "/cases", label: "案例总览" },
   { key: "/cases/data-source-connection", label: "数据源接入" },
-  { key: "/cases/tiktok-ads-connections", label: "TikTok Ads 连接列表" },
+  { key: "/cases/tiktok-ads-connections", label: "TikTok Ads 数据源（历史草稿）" },
   { key: "/cases/agent-eval-dashboard", label: "AgentEval 评测报告" },
   { key: "/cases/ai-design-stage-ppt", label: "AI 设计环节 PPT" },
   { key: "/cases/sdh-feature-segment-create", label: "SDH 特征分群创建" },
