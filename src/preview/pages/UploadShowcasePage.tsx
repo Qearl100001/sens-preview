@@ -9,9 +9,19 @@ const { Text } = Typography;
 
 const initialFiles: SensUploadFile[] = [
   { uid: "upload-demo-1", name: "交易日历导入模板_2026.xlsx", size: 24800, status: "done" },
-  { uid: "upload-demo-2", name: "字段映射与配置说明.pdf", size: 143800, status: "uploading", percent: 56 },
-  { uid: "upload-demo-3", name: "历史记录导入.csv", size: 4800, status: "error", errorMessage: "格式错误" },
+  { uid: "upload-demo-2", name: "字段映射与配置说明.pdf", size: 143800, status: "uploading", percent: 56, uploadedSize: 80400 },
+  { uid: "upload-demo-3", name: "历史记录导入.csv", size: 4800, status: "error", percent: 100, errorMessage: "文件格式错误" },
   { uid: "upload-demo-4", name: "2026-10-13 日历截图.png", size: 68000, status: "done" },
+];
+
+const figmaFileStates: Array<{ label: string; file: SensUploadFile; readOnly?: boolean }> = [
+  { label: "完成", file: { uid: "upload-figma-done", name: "文件名称.docx", size: Math.round(4.86 * 1024 * 1024), status: "done" } },
+  { label: "上传中", file: { uid: "upload-figma-progress", name: "文件名称.docx", size: Math.round(4.86 * 1024 * 1024), uploadedSize: Math.round(3.35 * 1024 * 1024), percent: 69, status: "uploading" } },
+  { label: "只读 / 下载", readOnly: true, file: { uid: "upload-figma-readonly", name: "文件名称.docx", size: Math.round(4.86 * 1024 * 1024), status: "done" } },
+  { label: "失败 / 续传", file: { uid: "upload-figma-resume", name: "文件名称.docx", size: Math.round(4.86 * 1024 * 1024), percent: 69, status: "error", errorMessage: "上传失败", retryLabel: "续传" } },
+  { label: "失败 / 重试", file: { uid: "upload-figma-retry", name: "文件名称.docx", size: Math.round(4.86 * 1024 * 1024), percent: 100, status: "error", errorMessage: "上传失败", retryLabel: "重试" } },
+  { label: "文件过大", file: { uid: "upload-figma-size-error", name: "文件名称.docx", size: Math.round(4.86 * 1024 * 1024), percent: 100, status: "error", errorMessage: "文件大小超过限制" } },
+  { label: "格式错误", file: { uid: "upload-figma-format-error", name: "文件名称.docx", size: Math.round(4.86 * 1024 * 1024), percent: 100, status: "error", errorMessage: "文件格式错误" } },
 ];
 
 function UploadDemo() {
@@ -32,11 +42,13 @@ function UploadDemo() {
         dragEnabled={dragEnabled}
         files={files}
         onChange={setFiles}
+        onCancel={(file) => setFiles((current) => current.filter((entry) => entry.uid !== file.uid))}
+        onDownload={() => undefined}
         maxCount={mode === "image" ? 6 : 5}
         accept={mode === "image" ? "image/png,image/jpeg,image/gif" : undefined}
         help={mode === "file" ? "支持 xlsx、csv、pdf，单个文件不超过 20 MB" : undefined}
         requiredError={showRequiredError && files.length === 0 ? "请上传文件" : undefined}
-        onRetry={(file) => setFiles((current) => current.map((entry) => entry.uid === file.uid ? { ...entry, status: "uploading", percent: 0 } : entry))}
+        onRetry={(file) => setFiles((current) => current.map((entry) => entry.uid === file.uid ? { ...entry, status: "uploading", percent: 0, uploadedSize: 0 } : entry))}
         onPreview={() => undefined}
       />
       <Text type="secondary">文件选择与拖入支持本地交互；上传传输、模板下载和内容校验由调用方接入。</Text>
@@ -47,7 +59,19 @@ function UploadDemo() {
 function UploadMatrix() {
   return (
     <Space direction="vertical" size="large" style={{ width: "100%" }}>
-      <div><Text strong>文件样式 · 默认 / 上传中 / 失败 / 只读</Text><div style={{ display: "grid", gap: 12, marginTop: 12 }}><SensUpload files={initialFiles.slice(0, 3)} onRetry={() => undefined} /><SensUpload files={initialFiles.slice(0, 1)} readOnly /></div></div>
+      <div>
+        <Text strong>文件样式 · Figma 状态（7）</Text>
+        <div style={{ display: "grid", gap: 16, gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 432px), 1fr))", marginTop: 12 }}>
+          {figmaFileStates.map(({ label, file, readOnly }) => (
+            <div key={file.uid}>
+              <Text type="secondary">{label}</Text>
+              <div style={{ marginTop: 8 }}>
+                <SensUpload files={[file]} readOnly={readOnly} showFileControls={false} onCancel={() => undefined} onDownload={() => undefined} onRetry={() => undefined} />
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
       <div><Text strong>文件样式 · 必填错误 / 禁用 / 拖拽</Text><div style={{ display: "grid", gap: 16, gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", marginTop: 12 }}><SensUpload requiredError="请上传文件" /><SensUpload files={initialFiles.slice(0, 1)} disabled /><SensUpload dragEnabled help="支持单张和批量上传" /></div></div>
       <div><Text strong>图片样式 · 默认 / 上传中 / 完成 / 失败 / 只读</Text><div style={{ display: "grid", gap: 16, marginTop: 12 }}><SensUpload mode="image" files={[{ uid: "image-loading", name: "loading.png", status: "uploading", percent: 62 }, { ...initialFiles[3], status: "done" }, { uid: "image-error", name: "invalid-image.gif", status: "error", errorMessage: "格式错误" }]} onRetry={() => undefined} maxCount={4} /><SensUpload mode="image" files={[{ ...initialFiles[3], status: "done" }]} readOnly /></div></div>
       <div><Text strong>图片样式 · 禁用</Text><div style={{ marginTop: 12 }}><SensUpload mode="image" files={[{ ...initialFiles[3], status: "done" }]} disabled /></div></div>

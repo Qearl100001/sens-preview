@@ -9,6 +9,7 @@ import "./upload.css";
 
 export type SensUploadMode = "file" | "image";
 export type SensUploadStatus = "uploading" | "done" | "error";
+export type SensUploadRetryLabel = "续传" | "重试";
 
 export interface SensUploadFile {
   uid: string;
@@ -17,8 +18,10 @@ export interface SensUploadFile {
   type?: string;
   status?: SensUploadStatus;
   percent?: number;
+  uploadedSize?: number;
   url?: string;
   errorMessage?: string;
+  retryLabel?: SensUploadRetryLabel;
 }
 
 export interface SensUploadProps {
@@ -26,6 +29,8 @@ export interface SensUploadProps {
   files?: SensUploadFile[];
   defaultFiles?: SensUploadFile[];
   onChange?: (files: SensUploadFile[]) => void;
+  onCancel?: (file: SensUploadFile) => void;
+  onDownload?: (file: SensUploadFile) => void;
   onRetry?: (file: SensUploadFile) => void;
   onPreview?: (file: SensUploadFile) => void;
   accept?: string;
@@ -34,6 +39,7 @@ export interface SensUploadProps {
   disabled?: boolean;
   readOnly?: boolean;
   dragEnabled?: boolean;
+  showFileControls?: boolean;
   requiredError?: string;
   help?: ReactNode;
   action?: ReactNode;
@@ -56,6 +62,8 @@ export function buildSensUploadTokenVars() {
     "--sens-upload-link": getColorToken("link-color"),
     "--sens-upload-warning": getColorToken("warning-color"),
     "--sens-upload-warning-bg": getColorToken("warning-light-background"),
+    "--sens-upload-readonly": getColorToken("background-transparent-grey-hover"),
+    "--sens-upload-track": getColorToken("divideline-color-transparent-light"),
     "--sens-upload-radius": `${getUnitToken("radius/m")}px`,
     "--sens-upload-space-1": `${getUnitToken("spacing/1x")}px`,
     "--sens-upload-space-2": `${getUnitToken("spacing/2x")}px`,
@@ -70,8 +78,8 @@ export function buildSensUploadTokenVars() {
 
 function formatFileSize(bytes = 0) {
   if (bytes < 1024) return `${bytes} B`;
-  if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`;
-  return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
+  if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)}KB`;
+  return `${(bytes / (1024 * 1024)).toFixed(2)}MB`;
 }
 
 function makeUploadFile(file: File): SensUploadFile {
@@ -90,6 +98,8 @@ export function SensUpload({
   files: filesProp,
   defaultFiles = [],
   onChange,
+  onCancel,
+  onDownload,
   onRetry,
   onPreview,
   accept,
@@ -98,6 +108,7 @@ export function SensUpload({
   disabled = false,
   readOnly = false,
   dragEnabled = false,
+  showFileControls = true,
   requiredError,
   help,
   action,
@@ -177,8 +188,8 @@ export function SensUpload({
   return (
     <div className={`sens-upload sens-upload--${mode}${dragEnabled ? " sens-upload--drag" : ""}${disabled ? " is-disabled" : ""}${readOnly ? " is-readonly" : ""}${className ? ` ${className}` : ""}`} style={tokenVars}>
       <input ref={inputRef} id={inputId} className="sens-upload__input" type="file" accept={accept} multiple={multiple} disabled={!canAdd} onChange={handleInput} aria-label={ariaLabel ?? "选择上传文件"} />
-      {mode === "file" && dragEnabled ? <div className="sens-upload__file-drop">{renderAddControl(true)}</div> : null}
-      {mode === "file" && !dragEnabled ? (
+      {mode === "file" && showFileControls && dragEnabled ? <div className="sens-upload__file-drop">{renderAddControl(true)}</div> : null}
+      {mode === "file" && showFileControls && !dragEnabled ? (
         <div className="sens-upload__toolbar">
           {canAdd ? <SensButton tone="secondary" onClick={openPicker}>上传文件</SensButton> : null}
           <div className="sens-upload__toolbar-meta">{help ? <span>{help}</span> : null}{action}</div>
@@ -195,18 +206,45 @@ export function SensUpload({
           </div> : null}
         </div>
       ))}{canAdd && !atLimit ? renderAddControl() : null}</div> : null}
-      {mode === "file" && files.length ? <ul className="sens-upload__file-list">{files.map((file) => (
-        <li key={file.uid} className={`sens-upload__file${file.status === "error" ? " is-error" : ""}${locked ? " is-readonly" : ""}`}>
-          <SensIcon name="attachment" sizeToken="size/icon/m" colorRole={file.status === "error" ? "warning" : "subtle"} />
-          <span className="sens-upload__file-name" title={file.name}>{file.name}</span>
-          <span className="sens-upload__file-size">{file.status === "uploading" ? `${file.percent ?? 0}%` : file.status === "error" ? file.errorMessage ?? "上传失败" : formatFileSize(file.size)}</span>
-          {file.status === "uploading" ? <div className="sens-upload__progress" style={{ "--sens-upload-progress": `${file.percent ?? 0}%` } as CSSProperties} role="progressbar" aria-valuenow={file.percent ?? 0} /> : null}
-          {file.status === "error" && !locked ? <SensButton tone="link" size="small" onClick={() => onRetry?.(file)}>重试</SensButton> : null}
-          {!locked ? <button type="button" className="sens-upload__remove" onClick={() => removeFile(file)} aria-label={`删除${file.name}`}><SensIcon name="delete" sizeToken="size/icon/s" colorRole="subtle" /></button> : null}
-        </li>
-      ))}</ul> : null}
+      {mode === "file" && files.length ? <ul className="sens-upload__file-list">{files.map((file) => {
+        const status = file.status ?? "done";
+        const progress = Math.max(0, Math.min(100, file.percent ?? (status === "error" ? 100 : 0)));
+        const uploadedSize = file.uploadedSize ?? Math.round((file.size ?? 0) * progress / 100);
+        return (
+          <li key={file.uid} className={`sens-upload__file${status === "error" ? " is-error" : ""}${readOnly ? " is-readonly" : ""}`}>
+            <div className="sens-upload__file-main">
+              <div className="sens-upload__file-heading">
+                <SensIcon name="attachment" sizeToken="size/icon/m" colorRole="subtle" />
+                <span className="sens-upload__file-name" title={file.name}>{file.name}</span>
+                {status === "done" || readOnly ? <span className="sens-upload__file-size">{formatFileSize(file.size)}</span> : null}
+                {readOnly && onDownload ? <button type="button" className="sens-upload__action-link" onClick={() => onDownload(file)}>下载</button> : null}
+                {status === "done" && !locked ? <button type="button" className="sens-upload__action-link" onClick={() => removeFile(file)}>删除</button> : null}
+              </div>
+              {status === "uploading" || status === "error" ? (
+                <div className="sens-upload__file-detail">
+                  <div className="sens-upload__file-detail-row">
+                    {status === "uploading" ? (
+                      <div className="sens-upload__upload-meta"><span>上传中</span><span>{formatFileSize(uploadedSize)} / {formatFileSize(file.size)}</span></div>
+                    ) : (
+                      <div className="sens-upload__error-meta"><SensIcon name="error" variant="filled" colorRole="warning" /><span>{file.errorMessage ?? "上传失败"}</span></div>
+                    )}
+                    <div className="sens-upload__file-actions">
+                      {status === "uploading" && onCancel ? <button type="button" className="sens-upload__action-link" onClick={() => onCancel(file)}>取消</button> : null}
+                      {status === "error" && file.retryLabel && !locked ? <button type="button" className="sens-upload__action-link" onClick={() => onRetry?.(file)}>{file.retryLabel}</button> : null}
+                      {status === "error" && !locked ? <button type="button" className="sens-upload__action-link" onClick={() => removeFile(file)}>删除</button> : null}
+                    </div>
+                  </div>
+                  <div className="sens-upload__progress-track" role="progressbar" aria-valuenow={progress} aria-valuemin={0} aria-valuemax={100} aria-label={status === "uploading" ? "上传进度" : "失败时已完成的进度"}>
+                    <div className={`sens-upload__progress${status === "error" ? " is-error" : ""}`} style={{ "--sens-upload-progress": `${progress}%` } as CSSProperties} />
+                  </div>
+                </div>
+              ) : null}
+            </div>
+          </li>
+        );
+      })}</ul> : null}
       {requiredError ? <div className="sens-upload__required-error"><SensIcon name="error" variant="filled" colorRole="warning" />{requiredError}</div> : null}
-      {mode === "file" && !dragEnabled && files.length ? <div className="sens-upload__after-list">{canAdd ? <SensButton tone="link" size="small" onClick={openPicker}>继续上传</SensButton> : null}{maxCount ? <span>{files.length}/{maxCount}</span> : null}</div> : null}
+      {mode === "file" && showFileControls && !dragEnabled && files.length ? <div className="sens-upload__after-list">{canAdd ? <SensButton tone="link" size="small" onClick={openPicker}>继续上传</SensButton> : null}{maxCount ? <span>{files.length}/{maxCount}</span> : null}</div> : null}
       {mode === "image" && maxCount ? <div className="sens-upload__count">{files.length}/{maxCount}</div> : null}
     </div>
   );
