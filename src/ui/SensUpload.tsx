@@ -1,6 +1,7 @@
 import { useEffect, useId, useRef, useState, type ChangeEvent, type CSSProperties, type DragEvent, type ReactNode } from "react";
 import { getColorToken, tokenRgba } from "../design-system/color-utils";
 import { SensIcon } from "../design-system/icons";
+import { functionalCssVar } from "../design-system/functional-skin";
 import { getTypographyToken } from "../design-system/typography";
 import { getUnitToken } from "../design-system/unit";
 import { SensButton } from "./SensButton";
@@ -51,7 +52,7 @@ export function buildSensUploadTokenVars() {
     "--sens-upload-surface": getColorToken("white"),
     "--sens-upload-hover": tokenRgba("background-transparent-grey", 0.04),
     "--sens-upload-drop": tokenRgba("background-transparent-grey", 0.04),
-    "--sens-upload-primary": getColorToken("component-primary"),
+    "--sens-upload-primary": functionalCssVar("--sens-skin-primary", "component-primary"),
     "--sens-upload-link": getColorToken("link-color"),
     "--sens-upload-warning": getColorToken("warning-color"),
     "--sens-upload-warning-bg": getColorToken("warning-light-background"),
