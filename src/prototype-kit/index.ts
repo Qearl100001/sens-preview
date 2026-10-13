@@ -3,6 +3,8 @@ export { SensPrototypeProvider } from './SensPrototypeProvider';
 export type { SensPrototypeProviderProps } from './SensPrototypeProvider';
 export { SensButton } from '../ui/SensButton';
 export type { SensButtonProps } from '../ui/SensButton';
+export { SensUpload } from '../ui/SensUpload';
+export type { SensUploadProps, SensUploadFile, SensUploadMode, SensUploadStatus } from '../ui/SensUpload';
 export { SensAlert } from '../ui/SensAlert';
 export type { SensAlertProps, AlertType } from '../ui/SensAlert';
 export { SensForm, SensFormItem, SensFormActions } from '../ui/SensForm';

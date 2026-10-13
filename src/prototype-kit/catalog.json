@@ -48,6 +48,11 @@
       }
     },
     {
+      "exportName": "SensUpload",
+      "rule": "src/design-system/components/base/upload.md",
+      "verification": { "packaging": "pending", "browser": "not_run" }
+    },
+    {
       "exportName": "SensForm",
       "rule": "src/design-system/components/base/form.md",
       "verification": {

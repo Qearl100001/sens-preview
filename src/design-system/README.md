@@ -54,6 +54,7 @@
 | `components/base/checkbox.md` · `radio.md` | 选择控件 | 控件尺寸、组选项、辅助说明与联动边界 |
 | `components/base/form.md` · `title.md` | 表单与区块标题 | 表单布局、分组树、灰底标题和内容对齐 |
 | `components/base/card.md` · `entry-card.md` | 卡片与入口卡片 | 自由容器、业务卡片与导航型入口卡片的边界 |
+| `components/base/upload.md` | 文件上传 | 单一组件支持文件列表 / 图片缩略格两种样式及可选拖拽接收 |
 | `components/base/table.md` · `pagination.md` | 基础表格与分页 | 单元格、信息区、分页器和基础 Table 边界 |
 | `components/base/tabs.md` · `badge.md` · `tag.md` | 导航与信息标记 | Tabs、徽标、标签的状态和规格 |
 | `components/base/message.md` · `alert.md` · `tips.md` | 反馈与说明 | 轻提示、警告、便签（常规 Tips 为 Sens 自持浮层） |

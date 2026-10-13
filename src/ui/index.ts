@@ -82,6 +82,8 @@ export type { IconProps as FieldIconProps } from "./FieldIcons";
 export { useSensAllowClear, useSensSearchFieldProps, useSensSearchPrefix, useSensSelectProps, useSensSelectSuffixProps, useSensSelectTriggerProps, useSensSelectTriggerSuffixProps, SensSelectSuffix, SensSelectTriggerArrow } from "./fieldIconProps";
 export { useSensIconTokens } from "./useSensIconTokens";
 export { SensButton, SensDropdownButton, SensMoreButton, ButtonStatesPreview } from "./SensButton";
+export { SensUpload, buildSensUploadTokenVars } from "./SensUpload";
+export type { SensUploadProps, SensUploadFile, SensUploadMode, SensUploadStatus } from "./SensUpload";
 export type { SensButtonRef } from "./SensButton";
 export { SensButtonActionMenu } from "./SensButtonActionMenu";
 export type { SensButtonActionMenuProps } from "./SensButtonActionMenu";

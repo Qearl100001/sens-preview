@@ -137,6 +137,12 @@ export function SystemOverviewPage() {
               href: "/components/button",
             },
             {
+              title: "文件上传 Upload",
+              description: "统一的文件选择与状态呈现，包含文件列表和图片缩略格两种样式。",
+              status: "首轮实现 · 待验收",
+              href: "/components/upload",
+            },
+            {
               title: "复合组件",
               description: "沉淀跨基础组件复用的表单、表格等稳定组合模式。",
               status: "新增入口",

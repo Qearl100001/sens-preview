@@ -62,6 +62,7 @@ const CardBasicStylePage = lazy(() => import("./preview/pages/basic-styles/CardB
 const CardShowcasePage = lazy(() => import("./preview/pages/CardShowcasePage"));
 const ButtonShowcasePage = lazy(() => import("./preview/pages/ButtonShowcasePage"));
 const InputShowcasePage = lazy(() => import("./preview/pages/InputShowcasePage"));
+const UploadShowcasePage = lazy(() => import("./preview/pages/UploadShowcasePage"));
 const TextAreaShowcasePage = lazy(() => import("./preview/pages/TextAreaShowcasePage"));
 const InputNumberShowcasePage = lazy(() => import("./preview/pages/InputNumberShowcasePage"));
 const SelectDropdownShowcasePage = lazy(() => import("./preview/pages/SelectDropdownShowcasePage"));
@@ -168,6 +169,7 @@ export default function App() {
                 <Route path="components/button" element={<ButtonShowcasePage />} />
                 <Route path="components/card" element={<CardShowcasePage />} />
                 <Route path="components/input" element={<InputShowcasePage />} />
+                <Route path="components/upload" element={<UploadShowcasePage />} />
                 <Route path="components/textarea" element={<TextAreaShowcasePage />} />
                 <Route path="components/inputnumber" element={<InputNumberShowcasePage />} />
                 <Route path="components/select-dropdown" element={<SelectDropdownShowcasePage />} />

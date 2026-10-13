@@ -35,6 +35,7 @@ export const BASIC_STYLE_NAV = [
 export const COMPONENT_NAV = [
   { key: "/components/button", label: "按钮" },
   { key: "/components/input", label: "输入框" },
+  { key: "/components/upload", label: "文件上传" },
   { key: "/components/textarea", label: "文本域" },
   { key: "/components/inputnumber", label: "数字输入框" },
   { key: "/components/select-dropdown", label: "下拉浮层" },
@@ -133,6 +134,7 @@ function getSectionMenuItems(section: ProductSection) {
         children: COMPONENT_NAV.filter((item) =>
           [
             "/components/input",
+            "/components/upload",
             "/components/textarea",
             "/components/inputnumber",
             "/components/select-dropdown",
