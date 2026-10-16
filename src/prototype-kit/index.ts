@@ -15,6 +15,21 @@ export { SensViewSwitch } from '../ui/SensViewSwitch';
 export type { SensViewSwitchOption, SensViewSwitchProps } from '../ui/SensViewSwitch';
 export { SensSwitch } from '../ui/SensSwitch';
 export type { SensSwitchProps } from '../ui/SensSwitch';
+export {
+  SensTimeSelection,
+  SENS_TIME_SELECTION_DYNAMIC_PRESETS,
+  SENS_TIME_SELECTION_STATIC_PRESETS,
+} from '../ui/SensTimeSelection';
+export type {
+  SensTimeSelectionCalendarMonth,
+  SensTimeSelectionGranularity,
+  SensTimeSelectionMode,
+  SensTimeSelectionPreset,
+  SensTimeSelectionPresetRow,
+  SensTimeSelectionProps,
+  SensTimeSelectionRange,
+  SensTimeSelectionValue,
+} from '../ui/SensTimeSelection';
 export { SensNotificationSettings } from '../ui/SensNotificationSettings';
 export type {
   SensNotificationChannel,

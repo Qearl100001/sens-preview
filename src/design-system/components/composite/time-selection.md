@@ -2,17 +2,28 @@
 
 > 为产品和设计提供时间筛选的选型与展示规范，帮助页面表达固定时间、动态时间和单日选择。<br>
 > 成熟度：Pilot<br>
-> 使用规范与交互示意：Implemented<br>
-> 完整可复用组件：Deferred（长期延后，不在当前路线图内）<br>
-> 验证：Verified（当前“使用规范 + 代表性交互示意”范围）<br>
+> 原型级运行时：Implemented（`SensTimeSelection`，Prototype Kit `0.9.1`）<br>
+> 生产级完整组件：Deferred（1.0 前不建设）<br>
+> 验证：Verified（当前原型运行时范围）<br>
 > 来源：[时间组件 Figma 规则](https://www.figma.com/design/0sW8EB0cmrAMMeeVRry706/%E6%97%B6%E9%97%B4%E7%BB%84%E4%BB%B6?node-id=2108-66567&m=dev)，[静态时间范围](https://www.figma.com/design/0sW8EB0cmrAMMeeVRry706/%E6%97%B6%E9%97%B4%E7%BB%84%E4%BB%B6?node-id=2361-52607&m=dev)，[动态时间范围](https://www.figma.com/design/0sW8EB0cmrAMMeeVRry706/%E6%97%B6%E9%97%B4%E7%BB%84%E4%BB%B6?node-id=2361-52744&m=dev)，[业务组件规则](https://www.figma.com/design/sFKCni60z2iXkP1cAOdsJ3/%F0%9F%90%9D-%E8%AE%BE%E8%AE%A1%E7%B3%BB%E7%BB%9F_%E4%B8%9A%E5%8A%A1%E7%BB%84%E4%BB%B6?node-id=990-23892&m=dev)，日期时间展示状态：[未选择](https://www.figma.com/design/sFKCni60z2iXkP1cAOdsJ3/%F0%9F%90%9D-%E8%AE%BE%E8%AE%A1%E7%B3%BB%E7%BB%9F_%E4%B8%9A%E5%8A%A1%E7%BB%84%E4%BB%B6?node-id=1629-47587&m=dev)、[单日期](https://www.figma.com/design/sFKCni60z2iXkP1cAOdsJ3/%F0%9F%90%9D-%E8%AE%BE%E8%AE%A1%E7%B3%BB%E7%BB%9F_%E4%B8%9A%E5%8A%A1%E7%BB%84%E4%BB%B6?node-id=1629-47584&m=dev)、[日期区间](https://www.figma.com/design/sFKCni60z2iXkP1cAOdsJ3/%F0%9F%90%9D-%E8%AE%BE%E8%AE%A1%E7%B3%BB%E7%BB%9F_%E4%B8%9A%E5%8A%A1%E7%BB%84%E4%BB%B6?node-id=1629-47374&m=dev)、[日期时间区间](https://www.figma.com/design/sFKCni60z2iXkP1cAOdsJ3/%F0%9F%90%9D-%E8%AE%BE%E8%AE%A1%E7%B3%BB%E7%BB%9F_%E4%B8%9A%E5%8A%A1%E7%BB%84%E4%BB%B6?node-id=2907-39951&m=dev)、[动态单日](https://www.figma.com/design/sFKCni60z2iXkP1cAOdsJ3/%F0%9F%90%9D-%E8%AE%BE%E8%AE%A1%E7%B3%BB%E7%BB%9F_%E4%B8%9A%E5%8A%A1%E7%BB%84%E4%BB%B6?node-id=1629-47432&m=dev)、[动态区间](https://www.figma.com/design/sFKCni60z2iXkP1cAOdsJ3/%F0%9F%90%9D-%E8%AE%BE%E8%AE%A1%E7%B3%BB%E7%BB%9F_%E4%B8%9A%E5%8A%A1%E7%BB%84%E4%BB%B6?node-id=1629-47472&m=dev)；[时分秒选择器](https://www.figma.com/design/sFKCni60z2iXkP1cAOdsJ3/%F0%9F%90%9D-%E8%AE%BE%E8%AE%A1%E7%B3%BB%E7%BB%9F_%E4%B8%9A%E5%8A%A1%E7%BB%84%E4%BB%B6?node-id=983-29468&m=dev)，[年月选择箭头](https://www.figma.com/design/sFKCni60z2iXkP1cAOdsJ3/%F0%9F%90%9D-%E8%AE%BE%E8%AE%A1%E7%B3%BB%E7%BB%9F_%E4%B8%9A%E5%8A%A1%E7%BB%84%E4%BB%B6?node-id=984-89564&m=dev)，[区间单元格状态](https://www.figma.com/design/sFKCni60z2iXkP1cAOdsJ3/%F0%9F%90%9D-%E8%AE%BE%E8%AE%A1%E7%B3%BB%E7%BB%9F_%E4%B8%9A%E5%8A%A1%E7%BB%84%E4%BB%B6?node-id=952-94881&m=dev)，[时间模式切换](https://www.figma.com/design/sFKCni60z2iXkP1cAOdsJ3/%F0%9F%90%9D-%E8%AE%BE%E8%AE%A1%E7%B3%BB%E7%BB%9F_%E4%B8%9A%E5%8A%A1%E7%BB%84%E4%BB%B6?node-id=1105-51394&m=dev)，[24px 按钮状态](https://www.figma.com/design/sFKCni60z2iXkP1cAOdsJ3/%F0%9F%90%9D-%E8%AE%BE%E8%AE%A1%E7%B3%BB%E7%BB%9F_%E4%B8%9A%E5%8A%A1%E7%BB%84%E4%BB%B6?node-id=1105-56036&m=dev)，[选择方式快捷选项](https://www.figma.com/design/sFKCni60z2iXkP1cAOdsJ3/%F0%9F%90%9D-%E8%AE%BE%E8%AE%A1%E7%B3%BB%E7%BB%9F_%E4%B8%9A%E5%8A%A1%E7%BB%84%E4%BB%B6?node-id=952-94765&m=dev)，[快捷选项布局](https://www.figma.com/design/sFKCni60z2iXkP1cAOdsJ3/%F0%9F%90%9D-%E8%AE%BE%E8%AE%A1%E7%B3%BB%E7%BB%9F_%E4%B8%9A%E5%8A%A1%E7%BB%84%E4%BB%B6?node-id=1127-33337&m=dev)，[动态自定义数字输入](https://www.figma.com/design/sFKCni60z2iXkP1cAOdsJ3/%F0%9F%90%9D-%E8%AE%BE%E8%AE%A1%E7%B3%BB%E7%BB%9F_%E4%B8%9A%E5%8A%A1%E7%BB%84%E4%BB%B6?node-id=984-24096&m=dev)<br>
-> 预览：`/composite/time-selection`（结构示意，不提供完整日历交互）
+> 预览：`/composite/time-selection`
 
 ## 定位与边界
 
-本规范用于项目中的时间筛选选型和结果表达。当前交付形态是使用说明与静态 / 动态选择器的代表性结构示意；该范围已完成，不应再被视为“尚未做完的完整组件”。本项目长期不建设可复用日期时间选择器，也不定义日期计算逻辑，不将本页示意导出到 Prototype Kit。
+本规范用于项目中的时间筛选选型、结果表达和高保真原型运行时。`SensTimeSelection` 从 `0.9.1` 起由 Prototype Kit 导出，让 `sens-prototype` 等下游可以直接调用当前已验证的静态范围、动态周期、单日、草稿提交、放弃和禁用状态。
 
-完整日历交互、时间粒度、快捷项、预览便签和交易日等细节以来源 Figma 为准；本项目只收录常见使用决策，不逐项复刻状态矩阵。
+它不是研发侧生产日期组件。完整日期计算、年月选择菜单、完整时分秒菜单、交易日、时区、国际化和极端日期边界继续延后；1.0 前不让这些能力阻塞原型验证。
+
+## 公共 API
+
+- `value` / `defaultValue`：受控或非受控的已提交值；`null` 展示「请选择」。
+- `onChange`：只在点击「完成」后回传新值；关闭浮层或点击「放弃」不提交草稿。
+- `open` / `defaultOpen` / `onOpenChange`：用于页面控制多个选择器浮层互斥。
+- `defaultMode`：默认进入静态或动态模式。
+- `granularity`：`range` 或 `single`；单日不重复展示起止日期。
+- `disabled`：禁用入口不打开浮层。
+- `staticPresets` / `dynamicPresets`：允许原型按业务传入快捷项、结果区间和动态标签表达。
+- `calendarMonths`：允许替换原型双月历的代表性五周月份数据；不提供六周月历适配和完整年月导航算法。
 
 ## 选型规则
 
@@ -61,10 +72,12 @@
 - 静态 / 动态快捷项的选中反馈、右侧示意和底部结果相互对应；动态自定义项可编辑对应数字。
 - 禁用状态覆盖未选择、静态日期时间区间和动态日期区间；禁用与禁用悬停均不打开面板，禁用悬停保持中性反馈。
 - 日历区间草稿仅在点击「完成」后应用；「放弃」与浮层外关闭不更改入口。范围中间和左右半包端点状态正确，端点悬停 / 按下保持实色功能底与白字，中间日期保持浅色区间反馈；横向溢出不产生滚动条，摘要灰条总高 28px。
-- 预览页清楚标明结构示意，不误导为可操作的完整日期组件。
+- 预览页直接消费公共 `SensTimeSelection`，不维护第二套组件实现。
+- 独立消费者只安装固定包后可以完成类型检查、构建和核心交互。
 
 ## 长期边界
 
-- 完整日期时间选择器长期延后，不进入 v0.9 或当前后续排期；只有出现明确、持续的多页面复用需求，并能提供完整产品交互规则时才重新立项。
+- `SensTimeSelection` 在 1.0 前维持原型级运行时定位，可用于高保真页面和业务流程验证。
+- 生产级完整日期时间选择器继续延后；只有未来出现明确研发接入需求，并能提供完整产品交互规则时才重新立项。
 - 交易日、对比时间、真实日期计算和年月导航不属于当前资产；具体业务确有需要时另行评估，不作为本页待办。
 - 日内时刻仅展示 Figma 的结果格式和代表性交互反馈，不实现小时、分钟、秒的完整选择菜单。

@@ -3,7 +3,7 @@
 这套目录是「设计还原」产线的知识库：给 Cursor / Claude Code 读的规则 + 喂给 antd 的主题。
 目标——让 AI 按这套规则把 Figma 稿还原成贴合生产的前端代码，而不是露出 antd 默认。
 
-当前固定包：Prototype Kit `0.1.0-p0.9`。本版新增 Upload、View Switch、Switch、通知配置与对象选择器公共出口；时间选择仍为规范与交互示意，不进入固定包。
+当前固定包：Prototype Kit `0.9.1`。p0.9 新增 Upload、View Switch、Switch、通知配置与对象选择器公共出口；p0.9.1 新增原型级 `SensTimeSelection` 公共出口。下一个里程碑版本为 `1.0.0`。
 
 ## 怎么用（一句话）
 还原/优化任何组件前，让 AI 先读 `how-cursor-works.md` + `conventions.md` + 该组件的 `.md`，
@@ -71,7 +71,7 @@
 | `components/composite/notification-system.md` | 通知系统 | 通知类复合模式的组织入口、组件关系与后续扩展边界 |
 | `components/composite/notification-settings.md` | 通知配置（通知系统） | 通知渠道、接收范围、对象摘要与通知方式组合 |
 | `components/composite/recipient-selector.md` | 对象选择器（共享子组件） | 成员 / 角色 / 职务的分组搜索选择、草稿与确认边界 |
-| `components/composite/time-selection.md` | 时间筛选 | 固定时间、动态周期和单日的选型与结果表达；使用规范与交互示意已完成，完整可复用组件长期延后且不进入 Prototype Kit |
+| `components/composite/time-selection.md` | 时间筛选 | 固定时间、动态周期和单日的选型、结果表达与原型级运行时；生产级完整组件延后至 1.0 之后再评估 |
 
 ### 样板间规则
 

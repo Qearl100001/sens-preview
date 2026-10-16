@@ -88,6 +88,21 @@ export { SensViewSwitch, SensViewSwitchStatesPreview } from "./SensViewSwitch";
 export type { SensViewSwitchOption, SensViewSwitchProps, SensViewSwitchPreviewState } from "./SensViewSwitch";
 export { SensSwitch, SensSwitchStatesPreview } from "./SensSwitch";
 export type { SensSwitchProps, SensSwitchPreviewState } from "./SensSwitch";
+export {
+  SensTimeSelection,
+  SENS_TIME_SELECTION_DYNAMIC_PRESETS,
+  SENS_TIME_SELECTION_STATIC_PRESETS,
+} from "./SensTimeSelection";
+export type {
+  SensTimeSelectionCalendarMonth,
+  SensTimeSelectionGranularity,
+  SensTimeSelectionMode,
+  SensTimeSelectionPreset,
+  SensTimeSelectionPresetRow,
+  SensTimeSelectionProps,
+  SensTimeSelectionRange,
+  SensTimeSelectionValue,
+} from "./SensTimeSelection";
 export type { SensButtonRef } from "./SensButton";
 export { SensButtonActionMenu } from "./SensButtonActionMenu";
 export type { SensButtonActionMenuProps } from "./SensButtonActionMenu";

@@ -1,7 +1,7 @@
 {
   "schemaVersion": "0.2.0",
   "packageName": "@sens/prototype-kit",
-  "version": "0.1.0-p0.9",
+  "version": "0.9.1",
   "status": "experimental",
   "scope": "Prototype component kit with standard Product Shell; no prototype generator.",
   "bootstrap": "SensPrototypeProvider",
@@ -245,6 +245,14 @@
         "packaging": "pending",
         "browser": "not_run"
       }
+    },
+    {
+      "exportName": "SensTimeSelection",
+      "rule": "src/design-system/components/composite/time-selection.md",
+      "verification": {
+        "packaging": "pending",
+        "browser": "not_run"
+      }
     }
   ],
   "composites": [
@@ -286,6 +294,14 @@
       "rule": "src/design-system/components/composite/recipient-selector.md",
       "useWhen": "通知或权限场景需要按成员、角色、职务搜索、暂存和确认接收对象。",
       "avoidWhen": "对象数据必须由组件自行远程分页、鉴权或持久化。",
+      "verification": { "packaging": "pending", "browser": "not_run" }
+    },
+    {
+      "id": "time-selection",
+      "exportNames": ["SensTimeSelection"],
+      "rule": "src/design-system/components/composite/time-selection.md",
+      "useWhen": "高保真原型需要可操作的静态区间、动态周期或单日时间选择，并在完成后提交结果。",
+      "avoidWhen": "业务需要生产级日期算法、完整年月或时分秒菜单、交易日历、时区和国际化能力。",
       "verification": { "packaging": "pending", "browser": "not_run" }
     }
   ],
@@ -346,7 +362,7 @@
     "SVG data URLs require img-src data: in deployment CSP",
     "Long-table page-sticky Product Shell mode is not exported yet",
     "Upload network transfer and notification backends are consumer-owned",
-    "Time selection is guidance-only and is not exported by Prototype Kit",
+    "Time selection is prototype-grade; production date algorithms, full time menus, trading calendars, timezone and i18n are not included",
     "Design review and independent application interaction verification pending"
   ]
 }
