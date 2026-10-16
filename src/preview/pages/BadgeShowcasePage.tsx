@@ -1,11 +1,12 @@
 import { useState } from "react";
-import { InputNumber, Space, Switch, Typography } from "antd";
+import { InputNumber, Space, Typography } from "antd";
 import badgeDesignDoc from "../../design-system/components/base/badge.design.md?raw";
 import badgeDevDoc from "../../design-system/components/base/badge.md?raw";
 import {
   BadgeStatesPreview,
   SensBadge,
   SensButton,
+  SensSwitch,
   type SensBadgeVariant,
   type SensStatusTone,
   type SensWeakBadgeState,
@@ -71,7 +72,7 @@ function BadgeDemo() {
             <Space direction="vertical" size={4}>
               <Text type="secondary">状态</Text>
               <Space>
-                <Switch checked={showZero} onChange={setShowZero} />
+                <SensSwitch aria-label="showZero" checked={showZero} onChange={setShowZero} />
                 <Text>showZero</Text>
               </Space>
             </Space>
@@ -93,7 +94,7 @@ function BadgeDemo() {
         <Space direction="vertical" size={4}>
           <Text type="secondary">挂载对象</Text>
           <Space>
-            <Switch checked={showAnchor} onChange={setShowAnchor} />
+            <SensSwitch aria-label="附着到按钮" checked={showAnchor} onChange={setShowAnchor} />
             <Text>附着到按钮（业务推荐）</Text>
           </Space>
         </Space>

@@ -1,0 +1,33 @@
+.sens-notification-settings { display: flex; min-width: 0; flex-direction: column; gap: var(--sens-notification-gap-2xl); color: var(--sens-notification-text); }
+.sens-notification-section { display: flex; min-width: 0; flex-direction: column; gap: var(--sens-notification-gap-l); }
+.sens-notification-section__title { display: flex; min-height: var(--sens-notification-size-title); align-items: center; gap: var(--sens-notification-gap-s); border-radius: var(--sens-notification-radius-small); padding: 0 var(--sens-notification-gap-l); background: var(--sens-notification-muted); font-size: var(--sens-notification-font-title); line-height: var(--sens-notification-line-title); }
+.sens-notification-section__title strong { font-weight: var(--sens-notification-weight-semibold); }
+.sens-notification-section__title > span { color: var(--sens-notification-subtext); font-weight: var(--sens-notification-weight-regular); }
+.sens-notification-section__description { margin: calc(-1 * var(--sens-notification-gap-s)) 0 0; color: var(--sens-notification-subtext); }
+.sens-notification-section__channels-title { padding: 0 var(--sens-notification-gap-xl); font-weight: var(--sens-notification-weight-semibold); }
+.sens-notification-section__content { display: flex; min-width: 0; flex-direction: column; gap: var(--sens-notification-gap-s); padding: 0 var(--sens-notification-gap-xl); }
+.sens-notification-channel { display: flex; min-width: 0; flex-direction: column; gap: var(--sens-notification-gap-s); }
+.sens-notification-panel { min-width: 0; border: 1px solid var(--sens-notification-border); border-radius: var(--sens-notification-radius); padding: var(--sens-notification-gap-l); }
+.sens-notification-panel--recipient { display: flex; flex-direction: column; gap: var(--sens-notification-gap-m); }
+.sens-notification-recipient-mode { display: flex; min-width: 0; align-items: center; gap: var(--sens-notification-gap-l); }
+.sens-notification-recipient-mode > strong, .sens-notification-field-row > strong { flex: 0 0 auto; font-weight: var(--sens-notification-weight-medium); }
+.sens-notification-recipient-mode .sens-radio-group { min-width: 0; }
+.sens-notification-recipient-picker { display: flex; min-width: 0; flex-direction: column; gap: var(--sens-notification-gap-s); border: 1px solid var(--sens-notification-border); border-radius: var(--sens-notification-radius); padding: var(--sens-notification-gap-m); }
+.sens-notification-recipient-picker__header { display: flex; min-height: var(--sens-notification-size-control); align-items: center; justify-content: space-between; gap: var(--sens-notification-gap-m); border-radius: var(--sens-notification-radius-small); padding: 0 var(--sens-notification-gap-s); background: var(--sens-notification-muted); }
+.sens-notification-recipient-picker__header > strong { font-weight: var(--sens-notification-weight-medium); }
+.sens-notification-summary { display: flex; min-width: 0; flex-direction: column; }
+.sens-notification-summary__body { display: flex; flex-direction: column; gap: var(--sens-notification-gap-s); padding: 0 var(--sens-notification-gap-s); }
+.sens-notification-summary__row { display: flex; min-width: 0; gap: var(--sens-notification-gap-s); color: var(--sens-notification-article); }
+.sens-notification-summary__row strong { flex: 0 0 auto; font-weight: var(--sens-notification-weight-medium); }
+.sens-notification-summary__row span { min-width: 0; overflow-wrap: anywhere; }
+.sens-notification-panel--email { display: flex; flex-direction: column; gap: var(--sens-notification-gap-xl); }
+.sens-notification-field-row { display: flex; min-width: 0; align-items: center; gap: var(--sens-notification-gap-s); }
+.sens-notification-field-row > .sens-select-dropdown { min-width: 0; flex: 1 1 auto; }
+.sens-notification-field-row > .sens-btn { flex: 0 0 auto; }
+.sens-notification-settings__status { color: var(--sens-notification-subtext); }
+@media (max-width: 720px) {
+  .sens-notification-settings { gap: var(--sens-notification-gap-3xl); }
+  .sens-notification-section__content { padding-inline: var(--sens-notification-gap-s); }
+  .sens-notification-recipient-mode, .sens-notification-field-row { align-items: flex-start; flex-wrap: wrap; }
+  .sens-notification-field-row > .sens-select-dropdown { flex-basis: 100%; }
+}

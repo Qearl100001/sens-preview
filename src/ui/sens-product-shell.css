@@ -1,0 +1,109 @@
+.sens-product-shell {
+  --sens-product-shell-nav-structural-height: 82px;
+  --sens-product-shell-nav-atmosphere-height: 180px;
+  --sens-product-shell-nav-flow-height: var(--sens-product-shell-nav-structural-height);
+
+  position: relative;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0;
+  min-width: 1280px;
+  overflow: visible;
+  padding-top: var(--sens-product-shell-nav-flow-height);
+  background: var(--sens-product-shell-page-background);
+  color: var(--sens-product-shell-text);
+  transition: padding-top 0.2s ease;
+}
+
+.sens-product-shell--top-nav-collapsed {
+  --sens-product-shell-nav-flow-height: 0px;
+}
+
+.sens-product-shell__navigation-layer {
+  position: absolute;
+  inset: 0 0 auto;
+  height: var(--sens-product-shell-nav-atmosphere-height);
+  transition: transform 0.2s ease;
+}
+
+.sens-product-shell--top-nav-collapsed .sens-product-shell__navigation-layer {
+  transform: translateY(calc(-1 * var(--sens-product-shell-nav-structural-height)));
+  pointer-events: none;
+}
+
+.sens-product-shell__workspace {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: var(--sens-product-shell-side-width, 220px) minmax(0, 1fr);
+  flex: 1;
+  min-height: 0;
+  background: transparent;
+}
+
+.sens-product-shell__content {
+  grid-column: 2;
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+  background: var(--sens-product-shell-surface);
+  border-top-right-radius: var(--sens-product-shell-content-radius);
+  box-shadow: var(--sens-product-shell-content-shadow);
+}
+
+.sens-product-shell__title-bar {
+  flex-shrink: 0;
+  z-index: 1;
+  background: var(--sens-product-shell-surface);
+  box-shadow: none;
+  transition: box-shadow 0.15s ease;
+}
+
+.sens-product-shell__title-bar--elevated {
+  box-shadow: var(--sens-product-shell-title-shadow);
+}
+
+.sens-product-shell__scroll {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+}
+
+.sens-product-shell__back-top {
+  position: absolute;
+  z-index: 2;
+  display: inline-flex;
+  transition:
+    right 240ms cubic-bezier(0.42, 0, 0.58, 1),
+    bottom 240ms cubic-bezier(0.42, 0, 0.58, 1);
+}
+
+.sens-product-shell--vertical .sens-product-shell__workspace {
+  display: flex;
+  flex-direction: column;
+  grid-template-columns: none;
+}
+
+.sens-product-shell--vertical .sens-product-shell__content {
+  grid-column: auto;
+  flex: 1;
+  min-height: 0;
+  border-top-left-radius: var(--sens-product-shell-content-radius);
+  border-top-right-radius: var(--sens-product-shell-content-radius);
+  box-shadow: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sens-product-shell,
+  .sens-product-shell__navigation-layer,
+  .sens-product-shell__title-bar,
+  .sens-product-shell__back-top {
+    transition: none;
+  }
+}

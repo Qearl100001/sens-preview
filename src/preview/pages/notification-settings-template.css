@@ -1,0 +1,5 @@
+.notification-settings-template { position: relative; min-height: 100%; background: var(--notification-template-page-bg); }
+.notification-settings-template__underlay { display: grid; min-height: 100%; align-content: start; justify-items: start; gap: 12px; padding: 32px; color: var(--notification-template-text); }
+.notification-settings-template__underlay h1, .notification-settings-template__underlay p { margin: 0; }
+.notification-settings-template__content { width: 100%; max-width: 1200px; margin: 0 auto; }
+@media (max-width: 960px) { .notification-settings-template__content { max-width: none; } }

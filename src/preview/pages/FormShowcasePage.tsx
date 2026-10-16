@@ -1,5 +1,5 @@
 import { useRef, useState, type CSSProperties } from "react";
-import { Segmented, Space, Typography } from "antd";
+import { Space, Typography } from "antd";
 import { tokenRgba } from "../../design-system/color-utils";
 import formDesignDoc from "../../design-system/components/base/form.design.md?raw";
 import formDevDoc from "../../design-system/components/base/form.md?raw";
@@ -17,6 +17,7 @@ import {
   SensSectionTitle,
   SensSelectDropdown,
   SensTextArea,
+  SensViewSwitch,
   type SensFormLayout,
 } from "../../ui";
 import { ComponentShowcaseLayout } from "../ComponentShowcaseLayout";
@@ -186,7 +187,8 @@ function FormDemo() {
       <Space wrap align="end" size="middle">
         <Space direction="vertical" size={4}>
           <Text type="secondary">布局</Text>
-          <Segmented
+          <SensViewSwitch
+            aria-label="表单布局"
             value={layout}
             onChange={(value) => setLayout(value as SensFormLayout)}
             options={[

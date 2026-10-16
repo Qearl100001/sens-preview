@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { Space, Switch, Table, Typography } from "antd";
+import { Space, Table, Typography } from "antd";
 import drawerDesignDoc from "../../design-system/components/base/drawer.design.md?raw";
 import drawerDevDoc from "../../design-system/components/base/drawer.md?raw";
-import { SensButton, SensDrawer, SensTitleBar, type SensDrawerSize } from "../../ui";
+import { SensButton, SensDrawer, SensSwitch, SensTitleBar, type SensDrawerSize } from "../../ui";
 import { SENS_DRAWER_WIDTH, SENS_DRAWER_WIDTH_RATIO } from "../../ui/SensDrawer";
 import { ComponentShowcaseLayout } from "../ComponentShowcaseLayout";
 import { getColorToken, tokenRgba } from "../../design-system/color-utils";
@@ -98,7 +98,7 @@ function DrawerDemo() {
           </SensButton>
         </Space>
         <Space align="center">
-          <Switch checked={withMask} onChange={setWithMask} />
+          <SensSwitch aria-label="蒙层" checked={withMask} onChange={setWithMask} />
           <Text>{withMask ? "有蒙层（点蒙层不关，须返回/按钮）" : "无蒙层（点面板外关闭）"}</Text>
         </Space>
         <Text type="secondary">

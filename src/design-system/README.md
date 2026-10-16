@@ -3,6 +3,8 @@
 这套目录是「设计还原」产线的知识库：给 Cursor / Claude Code 读的规则 + 喂给 antd 的主题。
 目标——让 AI 按这套规则把 Figma 稿还原成贴合生产的前端代码，而不是露出 antd 默认。
 
+当前固定包：Prototype Kit `0.1.0-p0.9`。本版新增 Upload、View Switch、Switch、通知配置与对象选择器公共出口；时间选择仍为规范与交互示意，不进入固定包。
+
 ## 怎么用（一句话）
 还原/优化任何组件前，让 AI 先读 `how-cursor-works.md` + `conventions.md` + 该组件的 `.md`，
 样式只走 `theme.ts` 的 token，不允许手写 CSS 盖 antd。
@@ -54,6 +56,9 @@
 | `components/base/checkbox.md` · `radio.md` | 选择控件 | 控件尺寸、组选项、辅助说明与联动边界 |
 | `components/base/form.md` · `title.md` | 表单与区块标题 | 表单布局、分组树、灰底标题和内容对齐 |
 | `components/base/card.md` · `entry-card.md` | 卡片与入口卡片 | 自由容器、业务卡片与导航型入口卡片的边界 |
+| `components/base/upload.md` | 文件上传 | 单一组件支持文件列表 / 图片缩略格两种样式及可选拖拽接收 |
+| `components/base/view-switch.md` · `view-switch.design.md` | 视图切换 | 同一数据 / 模块内的互斥视角切换，不作为页面主导航 |
+| `components/base/switch.md` · `switch.design.md` | 开关 | 立即生效的二元状态切换；区别于表单复选框和视图切换 |
 | `components/base/table.md` · `pagination.md` | 基础表格与分页 | 单元格、信息区、分页器和基础 Table 边界 |
 | `components/base/tabs.md` · `badge.md` · `tag.md` | 导航与信息标记 | Tabs、徽标、标签的状态和规格 |
 | `components/base/message.md` · `alert.md` · `tips.md` | 反馈与说明 | 轻提示、警告、便签（常规 Tips 为 Sens 自持浮层） |
@@ -63,6 +68,10 @@
 | `components/composite/form.md` | 复合表单 | 带表格、联动、卡片三类跨组件表单模式 |
 | `components/composite/table.md` | 复合表格 | 筛选区、录入型表格、树表和嵌套 / 交叉表的组合边界 |
 | `components/composite/side-navigation.md` | 侧边导航 | 产品壳侧导结构、状态和页面关系 |
+| `components/composite/notification-system.md` | 通知系统 | 通知类复合模式的组织入口、组件关系与后续扩展边界 |
+| `components/composite/notification-settings.md` | 通知配置（通知系统） | 通知渠道、接收范围、对象摘要与通知方式组合 |
+| `components/composite/recipient-selector.md` | 对象选择器（共享子组件） | 成员 / 角色 / 职务的分组搜索选择、草稿与确认边界 |
+| `components/composite/time-selection.md` | 时间筛选 | 固定时间、动态周期和单日的选型与结果表达；使用规范与交互示意已完成，完整可复用组件长期延后且不进入 Prototype Kit |
 
 ### 样板间规则
 
@@ -70,6 +79,7 @@
 |---|---|---|
 | `templates/card/README.md` | 卡片样板间 | 以完整页面为还原单位，使用真实组件、Token 和页面交互验收 |
 | `templates/sdh/editable-table.md` | SDH 录入型表格 | 真实业务页面、页面骨架与录入流程的组合边界 |
+| `templates/notification-config/README.md` | 交易日历通知配置 | 交易日提醒场景如何组合通知配置复合组件 |
 
 ### 文档策略
 

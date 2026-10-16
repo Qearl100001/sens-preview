@@ -1,8 +1,7 @@
 import { useMemo, useState, type CSSProperties } from "react";
-import { buildShadow, buildShadowD4, getColorToken, tokenRgba } from "../../design-system/color-utils";
+import { getColorToken, tokenRgba } from "../../design-system/color-utils";
 import { getDividerHairlineWidth } from "../../design-system/divider";
 import { SensIcon, type IconName } from "../../design-system/icons";
-import { navigationCssVar } from "../../design-system/navigation-color";
 import {
   findDomainByPrimaryLabel,
   findDomainByUtilityIcon,
@@ -25,6 +24,7 @@ import {
   SensMoreButton,
   SensPageTitleBar,
   SensPagination,
+  SensProductShell,
   SensTag,
   SensTips,
   SensTopNavigation,
@@ -33,16 +33,8 @@ import {
   type SensTopNavigationItem,
   type SensTopNavigationUtilityItem,
 } from "../../ui";
-import {
-  PRODUCT_SHELL_SIDE_NAV_EXPANDED_WIDTH,
-  PRODUCT_SHELL_SIDE_NAV_ICON_COLLAPSED_WIDTH,
-} from "../../ui/ProductShellSideNavigation";
-import { ProductShellBackTop } from "./ProductShellBackTop";
-import { useProductShellContentScroll } from "./useProductShellContentScroll";
+import { PRODUCT_SHELL_SIDE_NAV_ICON_COLLAPSED_WIDTH } from "../../ui/ProductShellSideNavigation";
 import "./product-shell-template.css";
-
-/** 顶导结构高度；收起时 translateY 与正文起点同步扣减。 */
-const TOP_NAV_STRUCTURAL_HEIGHT = 82;
 
 /** 与 SensTopNavigation 默认同源；样板间额外带「更多」供窄屏收纳 */
 const PRODUCT_NAV_ITEMS: SensTopNavigationItem[] = [
@@ -91,7 +83,6 @@ const DEMO_CARDS: PlacementCardData[] = Array.from({ length: 8 }, (_, index) => 
 
 function buildTemplateStyle(): CSSProperties {
   return {
-    "--shell-page-background": navigationCssVar("--sens-nav-page-bg", "body-background"),
     "--shell-surface": getColorToken("white"),
     "--shell-muted-surface": tokenRgba("background-transparent-grey", 0.04),
     "--shell-text": tokenRgba("text-color-transparent", 0.9),
@@ -124,10 +115,6 @@ function buildTemplateStyle(): CSSProperties {
     "--shell-card-body-size": `${getTypographyToken("font-size/m")}px`,
     "--shell-card-body-line": `${getTypographyToken("line-height/m")}px`,
     "--shell-card-body-weight": getTypographyToken("font-weight/regular"),
-    "--shell-nav-structural-height": `${TOP_NAV_STRUCTURAL_HEIGHT}px`,
-    "--shell-back-top-inset": `${getUnitToken("spacing/6x")}px`,
-    "--shell-back-top-size": `${getUnitToken("size/component-height/l")}px`,
-    "--shell-title-bar-shadow": buildShadowD4(),
   } as CSSProperties;
 }
 
@@ -223,18 +210,6 @@ function PlacementCard({ card }: { card: PlacementCardData }) {
 }
 
 export default function ProductShellTemplatePage() {
-  const {
-    scrollRef,
-    contentRef,
-    topNavCollapsed,
-    titleBarElevated,
-    showBackTop,
-    backTopDocked,
-    handleContentScroll,
-    handleBackToTop,
-    handleBackTopPointerEnter,
-    handleBackTopPointerLeave,
-  } = useProductShellContentScroll();
   const [activeDomain, setActiveDomain] = useState<ProductShellDomainNav>(DEFAULT_DOMAIN);
   const [activeSideItem, setActiveSideItem] = useState(DEFAULT_ACTIVE_LEAF);
   /** 各一级功能域上次选中的落地页；点击一级触发器不得刷回第一项 */
@@ -303,29 +278,17 @@ export default function ProductShellTemplatePage() {
     applyDomain(domain);
   }
 
-  const templateStyle = {
-    ...buildTemplateStyle(),
-    "--shell-side-width": `${
-      sideNavigationMode === "docked" ? PRODUCT_SHELL_SIDE_NAV_EXPANDED_WIDTH : PRODUCT_SHELL_SIDE_NAV_ICON_COLLAPSED_WIDTH
-    }px`,
-    "--shell-content-shadow": sideNavigationMode === "overlay" ? "none" : buildShadow("D2", "left"),
-  } as CSSProperties;
-
   return (
-    <main
-      className={["product-shell-template", topNavCollapsed ? "product-shell-template--collapsed" : ""]
-        .filter(Boolean)
-        .join(" ")}
-      style={templateStyle}
+    <SensProductShell
+      layout="t"
+      className="product-shell-template"
+      style={buildTemplateStyle()}
+      sideNavigationMode={sideNavigationMode}
+      collapsedSideWidth={PRODUCT_SHELL_SIDE_NAV_ICON_COLLAPSED_WIDTH}
+      contentLabel={activeSideItem}
       data-product-shell-template
-      data-top-nav-collapsed={topNavCollapsed ? "true" : "false"}
       data-active-domain={activeDomain.domainLabel}
-    >
-      <div
-        className="product-shell-template__navigation-layer"
-        aria-hidden={topNavCollapsed || undefined}
-        data-product-shell-top-nav
-      >
+      topNavigation={
         <SensTopNavigation
           embedded
           atmosphere
@@ -338,9 +301,8 @@ export default function ProductShellTemplatePage() {
           activeUtilityIcon={activeUtilityIcon}
           onUtilityNavigate={handleUtilityNavigate}
         />
-      </div>
-
-      <div className="product-shell-template__workspace">
+      }
+      sideNavigation={
         <ProductShellSideNavigation
           mode={sideNavigationMode}
           onModeChange={setSideNavigationMode}
@@ -351,73 +313,46 @@ export default function ProductShellTemplatePage() {
           activeItem={activeSideItem}
           onActiveItemChange={handleSideActiveItemChange}
         />
-
-        <section ref={contentRef} className="product-shell-template__content" aria-label={activeSideItem}>
-          <div
-            className={[
-              "product-shell-template__title-bar",
-              titleBarElevated ? "product-shell-template__title-bar--elevated" : "",
-            ]
-              .filter(Boolean)
-              .join(" ")}
-            data-product-shell-title-elevated={titleBarElevated ? "true" : "false"}
-          >
-            <SensPageTitleBar
-              variant="landing"
-              title={activeSideItem}
-              titleId="product-shell-template-heading"
-              actions={
-                <SensButton tone="primary" onClick={() => undefined}>
-                  新建资源位
-                </SensButton>
-              }
-            />
-          </div>
-
-          <div
-            ref={scrollRef}
-            className="product-shell-template__scroll"
-            data-product-shell-content-scroll
-            onScroll={handleContentScroll}
-          >
-            <div className="product-shell-template__toolbar">
+      }
+      titleBar={
+        <SensPageTitleBar
+          variant="landing"
+          title={activeSideItem}
+          titleId="product-shell-template-heading"
+          actions={
+            <SensButton tone="primary" onClick={() => undefined}>
+              新建资源位
+            </SensButton>
+          }
+        />
+      }
+    >
+      <div className="product-shell-template__toolbar">
               <SearchInput
                 value={keyword}
                 onChange={(event) => setKeyword(event.target.value)}
                 placeholder="搜索资源位"
               />
-            </div>
-
-            <div className="product-shell-template__card-list" role="list">
-              {DEMO_CARDS.map((card) => (
-                <div key={card.key} role="listitem">
-                  <PlacementCard card={card} />
-                </div>
-              ))}
-            </div>
-
-            <div className="product-shell-template__pagination">
-              <SensPagination
-                current={page}
-                pageSize={20}
-                total={240}
-                showSizeChanger={false}
-                showQuickJumper
-                onChange={(next) => setPage(next)}
-              />
-            </div>
-          </div>
-
-          <ProductShellBackTop
-            visible={showBackTop}
-            docked={backTopDocked}
-            anchorRef={contentRef}
-            onBackToTop={handleBackToTop}
-            onPointerEnter={handleBackTopPointerEnter}
-            onPointerLeave={handleBackTopPointerLeave}
-          />
-        </section>
       </div>
-    </main>
+
+      <div className="product-shell-template__card-list" role="list">
+        {DEMO_CARDS.map((card) => (
+          <div key={card.key} role="listitem">
+            <PlacementCard card={card} />
+          </div>
+        ))}
+      </div>
+
+      <div className="product-shell-template__pagination">
+        <SensPagination
+          current={page}
+          pageSize={20}
+          total={240}
+          showSizeChanger={false}
+          showQuickJumper
+          onChange={(next) => setPage(next)}
+        />
+      </div>
+    </SensProductShell>
   );
 }

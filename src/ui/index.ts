@@ -82,6 +82,12 @@ export type { IconProps as FieldIconProps } from "./FieldIcons";
 export { useSensAllowClear, useSensSearchFieldProps, useSensSearchPrefix, useSensSelectProps, useSensSelectSuffixProps, useSensSelectTriggerProps, useSensSelectTriggerSuffixProps, SensSelectSuffix, SensSelectTriggerArrow } from "./fieldIconProps";
 export { useSensIconTokens } from "./useSensIconTokens";
 export { SensButton, SensDropdownButton, SensMoreButton, ButtonStatesPreview } from "./SensButton";
+export { SensUpload, buildSensUploadTokenVars } from "./SensUpload";
+export type { SensUploadProps, SensUploadFile, SensUploadMode, SensUploadStatus } from "./SensUpload";
+export { SensViewSwitch, SensViewSwitchStatesPreview } from "./SensViewSwitch";
+export type { SensViewSwitchOption, SensViewSwitchProps, SensViewSwitchPreviewState } from "./SensViewSwitch";
+export { SensSwitch, SensSwitchStatesPreview } from "./SensSwitch";
+export type { SensSwitchProps, SensSwitchPreviewState } from "./SensSwitch";
 export type { SensButtonRef } from "./SensButton";
 export { SensButtonActionMenu } from "./SensButtonActionMenu";
 export type { SensButtonActionMenuProps } from "./SensButtonActionMenu";
@@ -220,6 +226,15 @@ export type {
   SensPopoverStrategy,
   SensPopoverVariant,
 } from "./SensPopover";
+export { SensRecipientSelector } from "./SensRecipientSelector";
+export type { SensRecipientSelectorProps, SensRecipientOption, SensRecipientKind } from "./SensRecipientSelector";
+export { SensNotificationSettings } from "./SensNotificationSettings";
+export type {
+  SensNotificationSettingsProps,
+  SensNotificationSection,
+  SensNotificationChannel,
+  SensNotificationRecipientMode,
+} from "./SensNotificationSettings";
 export type { SensAlertProps, AlertType } from "./SensAlert";
 export { SensTitleBar, SENS_TITLE_BAR_BACK_HIT_SIZE, SENS_TITLE_BAR_HEIGHT } from "./SensTitleBar";
 export type { SensTitleBarProps } from "./SensTitleBar";
@@ -240,6 +255,8 @@ export type {
   ProductShellSideNavigationMode,
   ProductShellSideNavigationProps,
 } from "./ProductShellSideNavigation";
+export { SensProductShell } from "./SensProductShell";
+export type { SensProductShellLayout, SensProductShellProps } from "./SensProductShell";
 export {
   SensDrawer,
   SENS_DRAWER_WIDTH,

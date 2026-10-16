@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react";
 import type { TableColumnsType } from "antd";
-import { Segmented, Space, Switch } from "antd";
+import { Space } from "antd";
 import tableDesignDoc from "../../design-system/components/base/table.design.md?raw";
 import tableDevDoc from "../../design-system/components/base/table.md?raw";
 import { getColorToken } from "../../design-system/color-utils";
@@ -12,7 +12,9 @@ import {
   LinkButton,
   SensCheckbox,
   SensPagination,
+  SensSwitch,
   SensTag,
+  SensViewSwitch,
   StatusBadge,
   TableActions,
   TableEllipsis,
@@ -249,7 +251,8 @@ function TableDemo() {
       <Space wrap align="end" size={previewControlGap}>
         <Space direction="vertical" size={previewItemGap}>
           <span style={previewSubtextStyle}>基础表格状态</span>
-          <Segmented
+          <SensViewSwitch
+            aria-label="表格演示状态"
             value={state}
             onChange={(v) => setState(v as TableDemoState)}
             options={[
@@ -355,7 +358,8 @@ function TableCellAsyncAuditBoard() {
         单元格状态由业务控制：失败时可刷新，刷新后先展示加载，再回到内容；不替换整张表的状态。
       </p>
       <div style={{ marginTop: `${getUnitToken("spacing/2x")}px` }}>
-        <Segmented
+        <SensViewSwitch
+          aria-label="表格单元格异步状态"
           value={state}
           onChange={(value) => setState(value as TableCellAsyncState)}
           options={[
@@ -768,7 +772,7 @@ function TableCellCarrierAuditBoard() {
             </div>
             <div style={fixedCellStyle}>
               <div style={{ display: "flex", alignItems: "center", gap: `${getUnitToken("spacing/2x")}px` }}>
-                <Switch size="small" checked aria-label="已开启" />
+                <SensSwitch checked aria-label="已开启" />
                 <span style={previewSubtextStyle}>已开启</span>
               </div>
             </div>

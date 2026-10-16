@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { Segmented, Space, Typography } from "antd";
+import { Space, Typography } from "antd";
 import anchorDevDoc from "../../design-system/components/base/anchor.md?raw";
-import { SensAnchor, type SensAnchorItem } from "../../ui";
+import { SensAnchor, SensViewSwitch, type SensAnchorItem } from "../../ui";
 import { ComponentShowcaseLayout } from "../ComponentShowcaseLayout";
 
 const { Text } = Typography;
@@ -21,10 +21,11 @@ function AnchorDemo() {
     <Space direction="vertical" size="large" style={{ width: "100%" }}>
       <Space align="center">
         <Text type="secondary">状态</Text>
-        <Segmented
-          value={expanded ? "展开" : "收起"}
-          options={["展开", "收起"]}
-          onChange={(value) => setExpanded(value === "展开")}
+        <SensViewSwitch
+          aria-label="锚点展开状态"
+          value={expanded ? "expanded" : "collapsed"}
+          options={[{ label: "展开", value: "expanded" }, { label: "收起", value: "collapsed" }]}
+          onChange={(value) => setExpanded(value === "expanded")}
         />
         <Text type="secondary">当前项：{activeKey}</Text>
       </Space>

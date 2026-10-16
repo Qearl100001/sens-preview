@@ -1,0 +1,120 @@
+.tg-page { display: grid; min-width: 0; min-height: 100%; align-content: start; gap: var(--tg-padding); padding: var(--tg-padding); background: var(--tg-bg); color: var(--tg-text); font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif; }
+.tg-page button, .tg-page input { font-family: inherit; }
+.tg-header, .tg-section, .tg-section-heading, .tg-example, .tg-example-heading, .tg-rules article { display: grid; min-width: 0; }
+.tg-header { max-width: 880px; gap: var(--tg-gap); }
+.tg-header > span, .tg-footer { color: var(--tg-sub); font-size: var(--tg-small-size); line-height: var(--tg-small-line); }
+.tg-header h1, .tg-section-heading h2, .tg-example h3, .tg-rules h2 { margin: 0; color: var(--tg-text); }
+.tg-header h1 { font-size: var(--tg-title-size); font-weight: var(--tg-weight); line-height: var(--tg-title-line); }
+.tg-header p, .tg-section-heading p, .tg-example > p, .tg-rules p { margin: 0; color: var(--tg-sub); font-size: var(--tg-body-size); line-height: var(--tg-body-line); }
+.tg-status { justify-self: start; border: var(--tg-line-width) solid var(--tg-line); border-radius: var(--tg-radius); padding: 8px 12px; color: var(--tg-sub); font-size: var(--tg-small-size); line-height: var(--tg-small-line); }
+.tg-section, .tg-section-heading { gap: var(--tg-gap); }
+.tg-section-heading h2, .tg-rules h2 { font-size: var(--tg-heading-size); font-weight: var(--tg-weight); line-height: var(--tg-heading-line); }
+.tg-examples { display: grid; grid-template-columns: 1fr; gap: var(--tg-gap); }
+.tg-display-states { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--tg-gap); }
+.tg-display-states article { display: grid; min-width: 0; align-content: start; gap: 8px; border: var(--tg-line-width) solid var(--tg-line); border-radius: var(--tg-radius); padding: 12px; background: var(--tg-white); }
+.tg-display-states h3 { margin: 0; color: var(--tg-sub); font-size: var(--tg-small-size); font-weight: var(--tg-medium-weight); line-height: var(--tg-small-line); }
+.tg-display-sample { box-sizing: border-box; display: flex; align-items: center; gap: 4px; min-width: 0; height: 28px; padding: 0 12px; overflow: hidden; border-radius: var(--tg-small-radius); background: var(--tg-bg); color: var(--tg-text); font-size: var(--tg-small-size); font-weight: var(--tg-medium-weight); line-height: var(--tg-small-line); white-space: nowrap; }
+.tg-display-sample > span:not(.tg-relative-tag) { flex: 0 0 auto; }
+.tg-display-placeholder { color: var(--tg-disabled); }
+.tg-example { grid-template-columns: minmax(220px, 1fr) 604px; grid-template-rows: auto 1fr; align-content: start; column-gap: var(--tg-padding); row-gap: var(--tg-gap); border: var(--tg-line-width) solid var(--tg-line); border-radius: var(--tg-radius); padding: var(--tg-padding); background: var(--tg-white); }
+.tg-example-heading { grid-template-columns: auto minmax(0, 1fr); align-items: center; gap: 16px; }
+.tg-example-heading > span { color: var(--tg-sub); font-size: var(--tg-small-size); line-height: var(--tg-small-line); }
+.tg-example h3, .tg-rules h2 { font-size: var(--tg-body-size); font-weight: var(--tg-weight); line-height: var(--tg-body-line); }
+.tg-demo-scroll { grid-column: 2; grid-row: 1 / span 2; min-width: 0; overflow: visible; padding: 3px 3px 16px; }
+
+/* Figma 2361:52618 and 2361:52745: shared 598px panel, distinct static/dynamic bodies. */
+.tg-picker-demo { display: flex; flex-direction: column; align-items: flex-start; gap: 4px; width: 598px; }
+.tg-trigger { display: inline-flex; align-items: center; gap: 4px; height: var(--tg-control-height); max-width: 100%; padding: 0 12px; border: var(--tg-line-width) solid var(--tg-deep-line); border-radius: var(--tg-control-radius); background: var(--tg-white); color: var(--tg-text); font-size: var(--tg-body-size); line-height: var(--tg-body-line); white-space: nowrap; cursor: pointer; }
+.tg-trigger-placeholder { color: var(--tg-disabled); }
+.tg-time-selector { display: inline-flex; align-items: center; color: var(--tg-text); font-size: var(--tg-body-size); font-weight: var(--tg-regular-weight); line-height: var(--tg-body-line); white-space: nowrap; cursor: default; }
+.tg-trigger--interactive:hover:not(.tg-trigger--open) { border-color: var(--tg-active); }
+.tg-trigger--interactive:active { border-color: var(--tg-active); box-shadow: var(--tg-active-ring); }
+.tg-trigger--open { border-color: var(--tg-active); box-shadow: var(--tg-active-ring); }
+.tg-trigger:focus-visible { outline: 2px solid var(--tg-active); outline-offset: 2px; }
+.tg-trigger--disabled { border-color: var(--tg-line); background: var(--tg-disabled-bg); color: var(--tg-disabled); cursor: not-allowed; }
+.tg-trigger--disabled:hover, .tg-trigger--disabled-hover { border-color: var(--tg-weak-line); background: var(--tg-disabled-hover-bg); color: var(--tg-disabled-hover-text); box-shadow: none; }
+.tg-trigger--disabled .tg-relative-tag { background: var(--tg-tag-bg); }
+.tg-trigger--disabled:hover .tg-relative-tag, .tg-trigger--disabled-hover .tg-relative-tag { background: var(--tg-input-bg); }
+.tg-disabled-examples { display: grid; gap: var(--tg-gap); }
+.tg-disabled-example { display: grid; grid-template-columns: 160px minmax(0, 1fr) minmax(0, 1fr); align-items: center; gap: var(--tg-gap); border: var(--tg-line-width) solid var(--tg-line); border-radius: var(--tg-radius); padding: 12px; background: var(--tg-white); }
+.tg-disabled-example h3 { margin: 0; color: var(--tg-sub); font-size: var(--tg-small-size); font-weight: var(--tg-medium-weight); line-height: var(--tg-small-line); }
+.tg-disabled-state { display: grid; justify-items: start; gap: 8px; min-width: 0; }
+.tg-disabled-state > span { color: var(--tg-sub); font-size: var(--tg-small-size); line-height: var(--tg-small-line); }
+.tg-disabled-state .tg-trigger { max-width: 100%; }
+.tg-relative-tag { display: inline-flex; align-items: center; height: var(--tg-small-height); padding: 0 8px; border-radius: var(--tg-small-radius); background: var(--tg-tag-bg); }
+.tg-picker { width: min(598px, calc(100vw - var(--tg-viewport-gutter))); max-height: calc(100vh - var(--tg-viewport-gutter)); overflow-x: hidden; overflow-y: auto; border-radius: var(--tg-radius); background: var(--tg-white); color: var(--tg-text); box-shadow: var(--tg-shadow); font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif; }
+.tg-picker button, .tg-picker input { font-family: inherit; }
+.tg-picker--floating { position: fixed; z-index: 1060; }
+.tg-picker-head { box-sizing: border-box; display: flex; justify-content: space-between; align-items: center; height: 40px; padding: 8px 12px; background: var(--tg-bg); color: var(--tg-icon); }
+.tg-mode-switch { display: inline-flex; align-items: center; }
+.tg-mode-option { position: relative; display: inline-flex; align-items: center; justify-content: center; height: 24px; margin-inline-end: -1px; padding: 3px 10px; border: var(--tg-line-width) solid var(--tg-deep-line); border-radius: 0; background: var(--tg-white); color: var(--tg-sub); font-size: 12px; font-weight: var(--tg-regular-weight); line-height: 18px; white-space: nowrap; cursor: pointer; }
+.tg-mode-option:first-child { border-radius: 3px 0 0 3px; }
+.tg-mode-option:last-child { margin-inline-end: 0; border-radius: 0 3px 3px 0; }
+.tg-mode-option--selected { z-index: 1; border-color: var(--tg-primary); background: var(--tg-active-bg); color: var(--tg-primary); font-weight: var(--tg-medium-weight); }
+.tg-mode-option:not(.tg-mode-option--selected):hover { z-index: 2; border-color: var(--tg-primary); color: var(--tg-primary); }
+.tg-mode-option--selected:hover { z-index: 2; border-color: var(--tg-hover); background: var(--tg-active-hover-bg); color: var(--tg-hover); }
+.tg-mode-option:focus-visible { z-index: 3; outline: 2px solid var(--tg-active); outline-offset: 1px; }
+.tg-picker-body { display: flex; height: 264px; }
+.tg-presets { box-sizing: border-box; display: flex; flex: 0 0 214px; flex-direction: column; gap: var(--tg-shortcut-gap); overflow: auto; padding: var(--tg-shortcut-padding-block) var(--tg-shortcut-padding-inline); border-right: var(--tg-line-width) solid var(--tg-line); }
+.tg-preset-row { display: flex; width: 100%; }
+.tg-preset { box-sizing: border-box; display: block; flex: 1 1 0; min-width: 0; height: 24px; padding: 3px var(--tg-shortcut-item-padding-inline); overflow: hidden; border: 0; border-radius: var(--tg-small-radius); background: transparent; color: var(--tg-text); font: inherit; font-size: var(--tg-small-size); line-height: var(--tg-small-line); text-align: left; text-overflow: ellipsis; white-space: nowrap; cursor: var(--sens-cursor-pointer); }
+.tg-preset--selected { background: var(--tg-active-bg); color: var(--tg-primary); }
+.tg-preset--selected { font-weight: var(--tg-medium-weight); }
+.tg-preset:focus-visible { outline: 2px solid var(--tg-active); outline-offset: -2px; }
+.tg-calendar-pair { display: flex; flex: 1 1 0; }
+.tg-month { flex: 1 1 0; min-width: 0; padding: 8px 12px; }
+.tg-month-head { display: flex; align-items: center; justify-content: space-between; height: 20px; color: var(--tg-text); font-size: var(--tg-small-size); line-height: var(--tg-small-line); }
+.tg-month-nav { display: flex; flex: 0 0 32px; gap: 4px; color: var(--tg-icon); }
+.tg-month-title { display: inline-flex; align-items: center; gap: 12px; font-weight: var(--tg-medium-weight); white-space: nowrap; }
+.tg-month-selector { display: inline-flex; align-items: center; gap: 0; padding: 1px 4px; color: var(--tg-text); font-size: var(--tg-small-size); line-height: var(--tg-small-line); font-weight: var(--tg-medium-weight); }
+.tg-calendar-grid { display: grid; grid-template-columns: repeat(7, 24px); grid-template-rows: 18px repeat(5, 24px); row-gap: 8px; justify-content: center; margin-top: 12px; }
+.tg-weekday { color: var(--tg-sub); font-size: var(--tg-small-size); font-weight: var(--tg-regular-weight); line-height: var(--tg-small-line); text-align: center; }
+.tg-day { box-sizing: border-box; display: inline-flex; align-items: center; justify-content: center; width: 24px; height: 24px; padding: 0; border: 0; border-radius: 0; background: transparent; color: var(--tg-text); font: inherit; font-size: var(--tg-small-size); line-height: var(--tg-small-line); cursor: var(--sens-cursor-pointer); }
+.tg-day--placeholder { pointer-events: none; }
+.tg-day--in-range { border-top: var(--tg-line-width) solid var(--tg-primary); border-bottom: var(--tg-line-width) solid var(--tg-primary); background: var(--tg-active-bg); color: var(--tg-text); }
+.tg-day--range-start { border-start-start-radius: var(--tg-small-radius); border-end-start-radius: var(--tg-small-radius); }
+.tg-day--range-end { border-start-end-radius: var(--tg-small-radius); border-end-end-radius: var(--tg-small-radius); }
+.tg-day--range-start:not(.tg-day--range-end), .tg-day--range-end:not(.tg-day--range-start) { background: var(--tg-primary); color: var(--tg-white); }
+.tg-day--selected { border-radius: var(--tg-small-radius); background: var(--tg-primary); color: var(--tg-white); }
+.tg-day--preview-edge { border-top: var(--tg-line-width) solid var(--tg-primary); border-bottom: var(--tg-line-width) solid var(--tg-primary); background: var(--tg-active-bg); color: var(--tg-text); }
+.tg-day--preview-edge-right { border-right: var(--tg-line-width) solid var(--tg-primary); border-start-end-radius: var(--tg-small-radius); border-end-end-radius: var(--tg-small-radius); }
+.tg-day--preview-edge-left { border-left: var(--tg-line-width) solid var(--tg-primary); border-start-start-radius: var(--tg-small-radius); border-end-start-radius: var(--tg-small-radius); }
+.tg-day--selected:hover { background: var(--tg-hover); color: var(--tg-white); }
+.tg-day:not(.tg-day--in-range):hover { border-radius: var(--tg-small-radius); background: var(--tg-input-bg); }
+.tg-day--in-range:not(.tg-day--selected):not(.tg-day--range-start):not(.tg-day--range-end):hover { border-top-color: var(--tg-hover); border-bottom-color: var(--tg-hover); background: var(--tg-active-hover-bg); }
+.tg-day--range-start:hover, .tg-day--range-end:hover { background: var(--tg-hover); color: var(--tg-white); }
+.tg-day--preview-edge:hover { border-top-color: var(--tg-hover); border-bottom-color: var(--tg-hover); background: var(--tg-active-hover-bg); }
+.tg-day--preview-edge-right:hover { border-right-color: var(--tg-hover); }
+.tg-day--preview-edge-left:hover { border-left-color: var(--tg-hover); }
+.tg-day:not(.tg-day--in-range):active { border-radius: var(--tg-small-radius); background: var(--tg-tag-bg); }
+.tg-day--range-start:active, .tg-day--range-end:active, .tg-day--selected:active { background: var(--tg-active); color: var(--tg-white); }
+.tg-day--in-range:not(.tg-day--selected):not(.tg-day--range-start):not(.tg-day--range-end):active { border-top-color: var(--tg-active); border-bottom-color: var(--tg-active); background: var(--tg-active-click-bg); }
+.tg-day--preview-edge:active { border-top-color: var(--tg-active); border-bottom-color: var(--tg-active); background: var(--tg-active-click-bg); }
+.tg-day--preview-edge-right:active { border-right-color: var(--tg-active); }
+.tg-day--preview-edge-left:active { border-left-color: var(--tg-active); }
+.tg-day:focus-visible { position: relative; z-index: 1; outline: 2px solid var(--tg-active); outline-offset: -2px; }
+.tg-relative-fields { display: flex; flex: 1 1 0; }
+.tg-relative-fields > div { display: flex; flex: 1 1 0; flex-direction: column; gap: 8px; padding: 8px 12px; color: var(--tg-sub); font-size: var(--tg-small-size); line-height: var(--tg-small-line); }
+.tg-relative-field { display: flex; align-items: center; height: var(--tg-small-height); padding: 0 10px; border: var(--tg-line-width) solid var(--tg-line); border-radius: var(--tg-small-radius); background: var(--tg-input-bg); color: var(--tg-disabled); }
+.tg-relative-field--editable { height: auto; min-height: var(--tg-small-height); padding: 0; border: 0; background: transparent; color: var(--tg-text); }
+.tg-relative-expression { display: inline-flex; align-items: center; gap: 4px; color: var(--tg-text); white-space: nowrap; }
+.tg-relative-number.sens-inputnumber.ant-input-number { box-sizing: border-box; width: 96px; min-width: 96px; max-width: 96px; height: var(--tg-small-height); }
+.tg-relative-number .ant-input-number-handler-wrap { display: flex; width: 15px; opacity: 1; }
+.tg-relative-number .sens-inputnumber-stepper-icon svg { width: 8px; height: 8px; }
+.tg-picker-bottom { display: flex; flex-direction: column; gap: 8px; padding-bottom: 8px; }
+.tg-selection { box-sizing: border-box; display: flex; align-items: center; gap: 4px; height: 28px; padding: 4px 12px; background: var(--tg-bg); color: var(--tg-text); font-size: var(--tg-small-size); font-weight: var(--tg-medium-weight); line-height: var(--tg-small-line); }
+.tg-time-control { display: inline-flex; align-items: center; gap: 2px; padding: 1px 4px; border: 0; border-radius: var(--tg-small-radius); background: transparent; color: var(--tg-text); font: inherit; font-size: var(--tg-small-size); font-weight: var(--tg-medium-weight); line-height: var(--tg-small-line); white-space: nowrap; cursor: var(--sens-cursor-pointer); }
+.tg-time-control:hover { background: var(--tg-active-click-bg); color: var(--tg-primary); }
+.tg-time-control:active, .tg-time-control--active { background: transparent; color: var(--tg-active); }
+.tg-time-control:focus-visible { outline: 2px solid var(--tg-active); outline-offset: 1px; }
+.tg-time-control svg { flex: 0 0 auto; }
+.tg-selection-tag { display: inline-flex; align-items: center; height: 20px; padding: 0 6px; border-radius: var(--tg-small-radius); background: var(--tg-tag-bg); }
+.tg-time-examples { display: flex; align-items: center; gap: 8px; }
+.tg-actions { display: flex; justify-content: flex-end; gap: 12px; padding: 0 12px; }
+.tg-rules { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--tg-gap); border-radius: var(--tg-radius); padding: var(--tg-padding); background: var(--tg-white); }
+.tg-rules article { align-content: start; gap: var(--tg-gap); }
+.tg-single-day-trigger { justify-self: start; border-color: var(--tg-active); box-shadow: var(--tg-active-ring); cursor: default; }
+.tg-footer { justify-self: end; }
+.tg-footer a { margin-inline-start: 16px; color: var(--tg-link); }
+@media (max-width: 1180px) { .tg-example { grid-template-columns: minmax(0, 1fr); } .tg-demo-scroll { grid-column: 1; grid-row: auto; } }
+@media (max-width: 800px) { .tg-rules, .tg-display-states { grid-template-columns: 1fr; } .tg-disabled-example { grid-template-columns: 1fr; } }

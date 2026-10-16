@@ -1,8 +1,9 @@
 import { useState } from "react";
-import { Space, Switch, Typography } from "antd";
+import { Space, Typography } from "antd";
 import tagDevDoc from "../../design-system/components/base/tag.md?raw";
 import {
   IconDefaultIcon,
+  SensSwitch,
   SensTag,
   TAG_STATUS_LABEL,
   TagTypesPreview,
@@ -105,27 +106,27 @@ function TagDemo() {
           <>
             <Space direction="vertical" size={4}>
               <Text type="secondary">可点击</Text>
-              <Switch checked={clickable} onChange={setClickable} />
+              <SensSwitch aria-label="可点击" checked={clickable} onChange={setClickable} />
             </Space>
             <Space direction="vertical" size={4}>
               <Text type="secondary">可移除</Text>
-              <Switch checked={closable} onChange={setClosable} />
+              <SensSwitch aria-label="可移除" checked={closable} onChange={setClosable} />
             </Space>
             <Space direction="vertical" size={4}>
               <Text type="secondary">前导图标</Text>
-              <Switch checked={withIcon} onChange={setWithIcon} />
+              <SensSwitch aria-label="前导图标" checked={withIcon} onChange={setWithIcon} />
             </Space>
             <Space direction="vertical" size={4}>
               <Text type="secondary">帮助</Text>
-              <Switch checked={withHelp} onChange={setWithHelp} />
+              <SensSwitch aria-label="帮助" checked={withHelp} onChange={setWithHelp} />
             </Space>
             <Space direction="vertical" size={4}>
               <Text type="secondary">警告</Text>
-              <Switch checked={withError} onChange={setWithError} />
+              <SensSwitch aria-label="警告" checked={withError} onChange={setWithError} />
             </Space>
             <Space direction="vertical" size={4}>
               <Text type="secondary">禁用</Text>
-              <Switch checked={disabled} onChange={setDisabled} />
+              <SensSwitch aria-label="禁用" checked={disabled} onChange={setDisabled} />
             </Space>
           </>
         ) : null}

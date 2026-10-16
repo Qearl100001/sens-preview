@@ -1,9 +1,9 @@
 import { useState } from "react";
-import { Segmented, Space, Switch, Typography } from "antd";
+import { Space, Typography } from "antd";
 import paginationDesignDoc from "../../design-system/components/base/pagination.design.md?raw";
 import paginationDevDoc from "../../design-system/components/base/pagination.md?raw";
 import { tokenRgba } from "../../design-system/color-utils";
-import { SensPagination } from "../../ui";
+import { SensPagination, SensSwitch, SensViewSwitch } from "../../ui";
 import { ComponentShowcaseLayout } from "../ComponentShowcaseLayout";
 
 const { Text } = Typography;
@@ -33,7 +33,8 @@ function PaginationDemo() {
       <Space wrap align="end" size="middle">
         <Space direction="vertical" size={4}>
           <Text type="secondary">总数</Text>
-          <Segmented
+          <SensViewSwitch
+            aria-label="分页数据总数预设"
             value={totalPreset}
             onChange={(value) => {
               setTotalPreset(value as PaginationTotalPreset);
@@ -48,9 +49,9 @@ function PaginationDemo() {
         <Space direction="vertical" size={4}>
           <Text type="secondary">模式</Text>
           <Space>
-            <Switch checked={simple} onChange={setSimple} />
+            <SensSwitch aria-label="简版" checked={simple} onChange={setSimple} />
             <Text>简版</Text>
-            <Switch checked={disabled} onChange={setDisabled} />
+            <SensSwitch aria-label="禁用" checked={disabled} onChange={setDisabled} />
             <Text>禁用</Text>
           </Space>
         </Space>

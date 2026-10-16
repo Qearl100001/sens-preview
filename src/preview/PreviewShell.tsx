@@ -35,6 +35,9 @@ export const BASIC_STYLE_NAV = [
 export const COMPONENT_NAV = [
   { key: "/components/button", label: "按钮" },
   { key: "/components/input", label: "输入框" },
+  { key: "/components/upload", label: "文件上传" },
+  { key: "/components/view-switch", label: "视图切换" },
+  { key: "/components/switch", label: "开关" },
   { key: "/components/textarea", label: "文本域" },
   { key: "/components/inputnumber", label: "数字输入框" },
   { key: "/components/select-dropdown", label: "下拉浮层" },
@@ -67,7 +70,7 @@ export const COMPONENT_NAV = [
 const CASE_NAV = [
   { key: "/cases", label: "案例总览" },
   { key: "/cases/data-source-connection", label: "数据源接入" },
-  { key: "/cases/tiktok-ads-connections", label: "TikTok Ads 连接列表" },
+  { key: "/cases/tiktok-ads-connections", label: "TikTok Ads 数据源（历史草稿）" },
   { key: "/cases/agent-eval-dashboard", label: "AgentEval 评测报告" },
   { key: "/cases/ai-design-stage-ppt", label: "AI 设计环节 PPT" },
   { key: "/cases/sdh-feature-segment-create", label: "SDH 特征分群创建" },
@@ -133,6 +136,7 @@ function getSectionMenuItems(section: ProductSection) {
         children: COMPONENT_NAV.filter((item) =>
           [
             "/components/input",
+            "/components/upload",
             "/components/textarea",
             "/components/inputnumber",
             "/components/select-dropdown",
@@ -140,6 +144,7 @@ function getSectionMenuItems(section: ProductSection) {
             "/components/search",
             "/components/checkbox",
             "/components/radio",
+            "/components/switch",
             "/components/form",
           ].includes(item.key),
         ).map((item) => ({ key: item.key, label: item.label })),
@@ -154,7 +159,7 @@ function getSectionMenuItems(section: ProductSection) {
       {
         type: "group" as const,
         label: "内容与数据展示",
-          children: COMPONENT_NAV.filter((item) => ["/components/card", "/components/title", "/components/badge", "/components/tag", "/components/table", "/components/pagination", "/components/anchor", "/components/steps", "/components/divider"].includes(item.key)).map(
+          children: COMPONENT_NAV.filter((item) => ["/components/card", "/components/title", "/components/badge", "/components/tag", "/components/table", "/components/pagination", "/components/anchor", "/components/steps", "/components/divider", "/components/view-switch"].includes(item.key)).map(
           (item) => ({ key: item.key, label: item.label }),
         ),
       },
@@ -167,6 +172,8 @@ function getSectionMenuItems(section: ProductSection) {
       { key: "/composite/product-shell", label: "产品壳" },
       { key: "/composite/form", label: "复合表单" },
       { key: "/composite/table", label: "复合表格" },
+      { key: "/composite/notification", label: "通知系统" },
+      { key: "/composite/time-selection", label: "时间筛选" },
     ];
   }
 
@@ -183,6 +190,7 @@ function getSectionMenuItems(section: ProductSection) {
         ],
       },
       { key: "/templates/card/entry-settings", label: "入口卡片" },
+      { key: "/templates/notification-config", label: "交易日历 / 通知配置" },
       {
         key: "templates-product-shell",
         label: "产品壳",
@@ -219,7 +227,7 @@ function getSelectedMenuKey(section: ProductSection, pathname: string) {
   }
 
   if (section === "composite") {
-    return ["/composite", "/composite/product-shell", "/composite/form", "/composite/table"].includes(pathname)
+    return ["/composite", "/composite/product-shell", "/composite/form", "/composite/table", "/composite/notification", "/composite/time-selection"].includes(pathname)
       ? pathname
       : SECTION_META.composite.href;
   }
@@ -227,6 +235,7 @@ function getSelectedMenuKey(section: ProductSection, pathname: string) {
   if (section === "templates") {
     return pathname.startsWith("/templates/sdh-editable-table/") ||
       pathname.startsWith("/templates/product-shell/") ||
+      pathname === "/templates/notification-config" ||
       pathname === "/templates/card/entry-settings"
       ? pathname
       : pathname === "/templates"

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import popoverDesignDoc from "../../design-system/components/base/popover.design.md?raw";
 import popoverDevDoc from "../../design-system/components/base/popover.md?raw";
-import { SensButton, SensPopover, type SensPopoverAlign, type SensPopoverPlacement, type SensPopoverSize } from "../../ui";
+import { SensButton, SensPopover, SensViewSwitch, type SensPopoverAlign, type SensPopoverPlacement, type SensPopoverSize } from "../../ui";
 import { ComponentShowcaseLayout } from "../ComponentShowcaseLayout";
 
 /** Figma 超长正文样张（孔雀东南飞节选），用于验证内容区滚动、标题/操作区钉住。 */
@@ -58,30 +58,46 @@ function PopoverDemo() {
 
   return (
     <div className="sens-popover-demo">
-      <div className="sens-popover-demo__controls" aria-label="气泡卡片尺寸">
+      <div className="sens-popover-demo__controls" aria-label="气泡卡片筛选">
         <div className="sens-popover-demo__control-group">
           <span className="sens-popover-demo__control-label">尺寸</span>
-          {(["small", "medium", "large"] as const).map((option) => (
-            <SensButton key={option} tone={size === option ? "primary" : "secondary"} size="small" onClick={() => setSize(option)}>
-              {{ small: "小", medium: "中", large: "大" }[option]}
-            </SensButton>
-          ))}
+          <SensViewSwitch
+            aria-label="气泡卡片尺寸"
+            value={size}
+            onChange={(value) => setSize(value as SensPopoverSize)}
+            options={[
+              { label: "小", value: "small" },
+              { label: "中", value: "medium" },
+              { label: "大", value: "large" },
+            ]}
+          />
         </div>
         <div className="sens-popover-demo__control-group">
           <span className="sens-popover-demo__control-label">方位</span>
-          {(["top", "bottom", "left", "right"] as const).map((option) => (
-            <SensButton key={option} tone={placement === option ? "primary" : "secondary"} size="small" onClick={() => setPlacement(option)}>
-              {{ top: "上", bottom: "下", left: "左", right: "右" }[option]}
-            </SensButton>
-          ))}
+          <SensViewSwitch
+            aria-label="气泡卡片方位"
+            value={placement}
+            onChange={(value) => setPlacement(value as SensPopoverPlacement)}
+            options={[
+              { label: "上", value: "top" },
+              { label: "下", value: "bottom" },
+              { label: "左", value: "left" },
+              { label: "右", value: "right" },
+            ]}
+          />
         </div>
         <div className="sens-popover-demo__control-group">
           <span className="sens-popover-demo__control-label">箭头</span>
-          {(["start", "center", "end"] as const).map((option) => (
-            <SensButton key={option} tone={align === option ? "primary" : "secondary"} size="small" onClick={() => setAlign(option)}>
-              {{ start: "起始", center: "居中", end: "末端" }[option]}
-            </SensButton>
-          ))}
+          <SensViewSwitch
+            aria-label="气泡卡片箭头"
+            value={align}
+            onChange={(value) => setAlign(value as SensPopoverAlign)}
+            options={[
+              { label: "起始", value: "start" },
+              { label: "居中", value: "center" },
+              { label: "末端", value: "end" },
+            ]}
+          />
         </div>
       </div>
 
@@ -165,27 +181,42 @@ function ConfirmPopoverDemo() {
       <div className="sens-popover-demo__controls" aria-label="二次确认尺寸与方位">
         <div className="sens-popover-demo__control-group">
           <span className="sens-popover-demo__control-label">尺寸</span>
-          {(["small", "medium"] as const).map((option) => (
-            <SensButton key={option} tone={size === option ? "primary" : "secondary"} size="small" onClick={() => setSize(option)}>
-              {{ small: "小", medium: "中" }[option]}
-            </SensButton>
-          ))}
+          <SensViewSwitch
+            aria-label="二次确认尺寸"
+            value={size}
+            onChange={(value) => setSize(value as "small" | "medium")}
+            options={[
+              { label: "小", value: "small" },
+              { label: "中", value: "medium" },
+            ]}
+          />
         </div>
         <div className="sens-popover-demo__control-group">
           <span className="sens-popover-demo__control-label">方位</span>
-          {(["top", "bottom", "left", "right"] as const).map((option) => (
-            <SensButton key={option} tone={placement === option ? "primary" : "secondary"} size="small" onClick={() => setPlacement(option)}>
-              {{ top: "上", bottom: "下", left: "左", right: "右" }[option]}
-            </SensButton>
-          ))}
+          <SensViewSwitch
+            aria-label="二次确认方位"
+            value={placement}
+            onChange={(value) => setPlacement(value as SensPopoverPlacement)}
+            options={[
+              { label: "上", value: "top" },
+              { label: "下", value: "bottom" },
+              { label: "左", value: "left" },
+              { label: "右", value: "right" },
+            ]}
+          />
         </div>
         <div className="sens-popover-demo__control-group">
           <span className="sens-popover-demo__control-label">箭头</span>
-          {(["start", "center", "end"] as const).map((option) => (
-            <SensButton key={option} tone={align === option ? "primary" : "secondary"} size="small" onClick={() => setAlign(option)}>
-              {{ start: "起始", center: "居中", end: "末端" }[option]}
-            </SensButton>
-          ))}
+          <SensViewSwitch
+            aria-label="二次确认箭头"
+            value={align}
+            onChange={(value) => setAlign(value as SensPopoverAlign)}
+            options={[
+              { label: "起始", value: "start" },
+              { label: "居中", value: "center" },
+              { label: "末端", value: "end" },
+            ]}
+          />
         </div>
       </div>
       <div className="sens-popover-demo__stage">
