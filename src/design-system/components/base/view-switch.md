@@ -3,7 +3,7 @@
 > 基础组件；在同一组数据或模块内切换视角。
 > 成熟度：Pilot<br>
 > 实现：Implemented<br>
-> 验证：Pending<br>
+> 验证：Verified（当前范围浏览器交互验收通过）<br>
 > 来源：Sens.Design 视图切换 v2.1（2023-04-20）及 Figma 组件变体。<br>
 > 预览：`/components/view-switch`
 
@@ -37,8 +37,8 @@
 - 样式：`src/ui/view-switch.css`
 - 状态预览：`SensViewSwitchStatesPreview`，仅预览矩阵使用静态 hover / active / disabled-hover 样式；真实组件不伪造伪类状态。
 
-## 缺口与验收
+## 验收结论
 
-- 已有真实 Demo 与 10 态 × 3 种内容组合状态矩阵；需浏览器核对视觉及绿 / 蓝换肤。
+- 已有真实 Demo 与 10 态 × 3 种内容组合状态矩阵；选择切换、重复点击与禁用行为已通过浏览器验收。
 - Demo 展示 2、3、4、5、6 项五种分段布局；对应 Figma 示例节点 `15323:45260`、`15323:45220`、`15323:45160`、`15323:45022`、`15316:44004`。
 - 图标由调用方传入；当前 Demo 使用 SensIcon 样例，不把图表图标限定为组件内置资产。

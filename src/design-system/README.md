@@ -3,6 +3,8 @@
 这套目录是「设计还原」产线的知识库：给 Cursor / Claude Code 读的规则 + 喂给 antd 的主题。
 目标——让 AI 按这套规则把 Figma 稿还原成贴合生产的前端代码，而不是露出 antd 默认。
 
+当前固定包：Prototype Kit `0.1.0-p0.9`。本版新增 Upload、View Switch、Switch、通知配置与对象选择器公共出口；时间选择仍为规范与交互示意，不进入固定包。
+
 ## 怎么用（一句话）
 还原/优化任何组件前，让 AI 先读 `how-cursor-works.md` + `conventions.md` + 该组件的 `.md`，
 样式只走 `theme.ts` 的 token，不允许手写 CSS 盖 antd。

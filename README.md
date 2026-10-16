@@ -47,9 +47,11 @@ node build-tokens.mjs <导出文件目录> ./src/design-system
 ## v0.9 当前边界
 
 - Color、Typography、Spacing 已形成稳定规则和验证证据。
-- Product Shell 已具备正式运行时出口，Prototype Kit p0.8 构建链路已经恢复。
+- Product Shell 已具备正式运行时出口，Prototype Kit `0.1.0-p0.9` 已生成可固定消费的本地包。
+- p0.9 新增公开出口：Upload、View Switch、Switch、通知配置与对象选择器；通知配置样板间已登记到 catalog。
 - Button、Form、Table 等部分能力仍需继续补齐状态矩阵或验收证据，但不阻止当前覆盖基线成立。
 - TikTok 页面属于早期方法验证草稿，视觉还原与设计审核未完成，不属于 v0.9 正式案例或作品集成果。
-- 下一项正式建设目标是 `Upload / 文件上传`；“批量上传”作为业务使用场景在其上层组合，不直接作为基础组件名称。
+- 时间选择当前只发布使用规范与交互示意，完整可复用组件长期延后且不进入 Prototype Kit。
+- 上传网络传输、通知后端、权限和持久化仍由下游业务负责。
 
 资产状态同时记录成熟度、实现状态与验证状态。具体口径和冲突裁决以 [`DESIGN.md`](./DESIGN.md) 为准。

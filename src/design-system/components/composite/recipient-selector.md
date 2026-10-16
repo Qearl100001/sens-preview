@@ -2,6 +2,7 @@
 
 > 状态：Pilot<br>
 > 实现：Implemented<br>
+> 验证：Verified（当前范围浏览器交互验收通过）<br>
 > 设计来源：通知样板间 Figma，节点 `512:26823`<br>
 > 预览：`/composite/notification`
 
@@ -23,4 +24,4 @@
 ## 依赖与验证
 
 - 复用 Sens Popover、Tabs、Input、Checkbox、Button、Icon 与设计 token，不使用 antd 组件作为视觉承载。为避免 Tabs 默认底线与全宽分割线重叠，仅在选择器 Tabs 容器内透明化 `.ant-tabs-nav::before`，并由组件自己的伪元素绘制分割线；该局部规则不扩展为全局 antd 覆盖。
-- 运行 `npm run build` 和项目页面评审清单；浏览器交互由预览页核验。
+- 已运行构建与类型检查；浏览器验收覆盖打开、搜索候选、暂存选择、放弃不提交、完成后回显与关闭。

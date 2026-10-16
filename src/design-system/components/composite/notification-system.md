@@ -2,7 +2,7 @@
 
 > 成熟度：Pilot<br>
 > 实现：Implemented<br>
-> 验证：Pending<br>
+> 验证：Verified（当前收录项浏览器验收通过）<br>
 > 预览：`/composite/notification`
 
 ## 定位
@@ -30,3 +30,4 @@
 - 顶部当前只有「通知配置与对象选择」一项；对象选择在该项内打开，不再单独占一个选项。
 - 该项调用 `SensNotificationSettings`，对象选择复用 `SensRecipientSelector`；总览文档、子组件规则、Preview 与样板间职责一致。
 - 当前内容的交互与视觉验证仍以各子组件和通知配置样板间的验收规则为准。
+- “通知系统”只作为 Preview 中的组织分类，不作为单一运行时组件导出；p0.9 导出其下的通知配置与对象选择器。

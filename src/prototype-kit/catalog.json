@@ -1,7 +1,7 @@
 {
   "schemaVersion": "0.2.0",
   "packageName": "@sens/prototype-kit",
-  "version": "0.1.0-p0.8",
+  "version": "0.1.0-p0.9",
   "status": "experimental",
   "scope": "Prototype component kit with standard Product Shell; no prototype generator.",
   "bootstrap": "SensPrototypeProvider",
@@ -50,6 +50,16 @@
     {
       "exportName": "SensUpload",
       "rule": "src/design-system/components/base/upload.md",
+      "verification": { "packaging": "pending", "browser": "not_run" }
+    },
+    {
+      "exportName": "SensViewSwitch",
+      "rule": "src/design-system/components/base/view-switch.md",
+      "verification": { "packaging": "pending", "browser": "not_run" }
+    },
+    {
+      "exportName": "SensSwitch",
+      "rule": "src/design-system/components/base/switch.md",
       "verification": { "packaging": "pending", "browser": "not_run" }
     },
     {
@@ -261,6 +271,22 @@
       "useWhen": "页面需要标准表格信息栏、批量操作区和溢出处理。",
       "avoidWhen": "非表格信息结构或业务需要尚未登记的专项表格模式。",
       "verification": { "packaging": "pending", "browser": "not_run" }
+    },
+    {
+      "id": "notification-settings",
+      "exportNames": ["SensNotificationSettings"],
+      "rule": "src/design-system/components/composite/notification-settings.md",
+      "useWhen": "业务需要组合站内、邮件与 Webhook 通知渠道，并配置通知范围和接收对象。",
+      "avoidWhen": "只需要单个基础选择控件，或需要直接承接后端发送、权限与持久化。",
+      "verification": { "packaging": "pending", "browser": "not_run" }
+    },
+    {
+      "id": "recipient-selector",
+      "exportNames": ["SensRecipientSelector"],
+      "rule": "src/design-system/components/composite/recipient-selector.md",
+      "useWhen": "通知或权限场景需要按成员、角色、职务搜索、暂存和确认接收对象。",
+      "avoidWhen": "对象数据必须由组件自行远程分页、鉴权或持久化。",
+      "verification": { "packaging": "pending", "browser": "not_run" }
     }
   ],
   "templates": [
@@ -301,6 +327,17 @@
         "pageBackground": "full-width-white"
       },
       "verification": { "browser": "playwright_pass" }
+    },
+    {
+      "id": "notification-config.trading-calendar",
+      "pageLevel": "configuration",
+      "layout": "drawer",
+      "rule": "src/design-system/templates/notification-config/README.md",
+      "preview": "/templates/notification-config",
+      "requiredExports": ["SensDrawer", "SensTitleBar", "SensNotificationSettings", "SensRecipientSelector"],
+      "useWhen": "需要在抽屉中配置业务事件的通知渠道、接收范围和接收对象。",
+      "avoidWhen": "业务要求组件直接保存数据，或需要完整邮件地址、Webhook、权限与远程检索服务。",
+      "verification": { "browser": "not_run" }
     }
   ],
   "limitations": [
@@ -308,6 +345,8 @@
     "System font stack; no licensed font files bundled",
     "SVG data URLs require img-src data: in deployment CSP",
     "Long-table page-sticky Product Shell mode is not exported yet",
+    "Upload network transfer and notification backends are consumer-owned",
+    "Time selection is guidance-only and is not exported by Prototype Kit",
     "Design review and independent application interaction verification pending"
   ]
 }

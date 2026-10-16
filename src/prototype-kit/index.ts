@@ -4,7 +4,30 @@ export type { SensPrototypeProviderProps } from './SensPrototypeProvider';
 export { SensButton } from '../ui/SensButton';
 export type { SensButtonProps } from '../ui/SensButton';
 export { SensUpload } from '../ui/SensUpload';
-export type { SensUploadProps, SensUploadFile, SensUploadMode, SensUploadStatus } from '../ui/SensUpload';
+export type {
+  SensUploadProps,
+  SensUploadFile,
+  SensUploadMode,
+  SensUploadRetryLabel,
+  SensUploadStatus,
+} from '../ui/SensUpload';
+export { SensViewSwitch } from '../ui/SensViewSwitch';
+export type { SensViewSwitchOption, SensViewSwitchProps } from '../ui/SensViewSwitch';
+export { SensSwitch } from '../ui/SensSwitch';
+export type { SensSwitchProps } from '../ui/SensSwitch';
+export { SensNotificationSettings } from '../ui/SensNotificationSettings';
+export type {
+  SensNotificationChannel,
+  SensNotificationRecipientMode,
+  SensNotificationSection,
+  SensNotificationSettingsProps,
+} from '../ui/SensNotificationSettings';
+export { SensRecipientSelector } from '../ui/SensRecipientSelector';
+export type {
+  SensRecipientKind,
+  SensRecipientOption,
+  SensRecipientSelectorProps,
+} from '../ui/SensRecipientSelector';
 export { SensAlert } from '../ui/SensAlert';
 export type { SensAlertProps, AlertType } from '../ui/SensAlert';
 export { SensForm, SensFormItem, SensFormActions } from '../ui/SensForm';

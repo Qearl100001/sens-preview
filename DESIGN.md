@@ -269,16 +269,18 @@ v0.9 的目标不是等到所有组件都完成，而是建立一条状态一致
 - 在 `codex/v0.9-baseline-recovery` 上恢复并拆分历史工作区变更
 - 建立 Product Shell 正式运行时出口
 - 恢复 Prototype Kit p0.8 构建与固定包链路
+- 发布 Prototype Kit `0.1.0-p0.9` 固定包，新增 Upload、View Switch、Switch、通知配置与对象选择器公共出口
+- 完成通知配置样板间登记，并明确时间选择长期保持“使用指引、非完整运行时组件”边界
 - 将未完成的 TikTok 还原隔离到 `codex/tiktok-ads-restoration-wip`
 - 在现行 TikTok 页面标明“历史验证草稿 · 未完成”
 - 将过时团队手册草稿移入 `.tmp/handbook-draft/`，不作为现行规则源或发布物
 
-当前优先顺序：
+发布后的优先顺序：
 
-1. 固化 v0.9 基线文档和可追溯提交
-2. 定义 `Upload / 文件上传` 的规则边界、状态矩阵与 Token 映射
-3. 再进入实现、Preview、浏览器验收和 Prototype Kit 公共出口
-4. 按真实需求继续补齐既有组件的 Pending 验收证据
+1. 在 `sens-prototype` 中按需升级具体示例到 p0.9，并做独立消费验收
+2. 按真实需求继续补齐既有组件的 Pending 验收证据
+3. 仅在出现明确业务需求时扩展通知系统；不预建空白能力
+4. 时间选择继续维持指引范围，长期不建设完整运行时版本
 
 v0.9 的完成标准：
 
