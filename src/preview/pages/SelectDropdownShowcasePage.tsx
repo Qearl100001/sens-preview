@@ -1,5 +1,5 @@
 import { useState, type ReactNode } from "react";
-import { Divider, Segmented, Space, Typography } from "antd";
+import { Divider, Space, Typography } from "antd";
 import { useOutletContext } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import dropdownMenuDesignDoc from "../../design-system/components/base/dropdown-menu.design.md?raw";
@@ -10,6 +10,7 @@ import {
   DropdownMenuStatesPreview,
   SensButton,
   SensRadioGroup,
+  SensViewSwitch,
   type SelectDropdownLoadMoreState,
 } from "../../ui";
 import {
@@ -162,7 +163,8 @@ function SelectDropdownLoadMoreDemo({
     <div style={{ minWidth: 320 }}>
       <Text strong>{isMultiple ? "多选" : "单选"} · 每次加载 50 条</Text>
       <div style={{ marginTop: 4 }}>
-        <Segmented
+        <SensViewSwitch
+          aria-label={`${isMultiple ? "多选" : "单选"}下拉加载状态`}
           value={loadMoreState}
           onChange={(value) => setLoadMoreState(value as SelectDropdownLoadMoreState)}
           options={[
@@ -281,7 +283,8 @@ function SelectDropdownDemo() {
       </DropdownDemoControl>
       <Space wrap align="end" size="middle">
         <DropdownDemoControl label="内容">
-          <Segmented
+          <SensViewSwitch
+            aria-label="下拉选择器内容样式"
             value={content}
             onChange={(value) => setContent(value as DropdownContent)}
             options={[
@@ -291,7 +294,8 @@ function SelectDropdownDemo() {
           />
         </DropdownDemoControl>
         <DropdownDemoControl label="图标">
-          <Segmented
+          <SensViewSwitch
+            aria-label="下拉选择器图标样式"
             value={icons}
             onChange={(value) => setIcons(value as DropdownIcons)}
             options={[
@@ -301,7 +305,8 @@ function SelectDropdownDemo() {
           />
         </DropdownDemoControl>
         <DropdownDemoControl label="搜索">
-          <Segmented
+          <SensViewSwitch
+            aria-label="下拉选择器搜索模式"
             value={search}
             onChange={(value) => setSearch(value as DropdownSearch)}
             options={[
@@ -311,7 +316,8 @@ function SelectDropdownDemo() {
           />
         </DropdownDemoControl>
         <DropdownDemoControl label="分组">
-          <Segmented
+          <SensViewSwitch
+            aria-label="下拉选择器分组样式"
             value={groupStyle}
             onChange={(value) => setGroupStyle(value as DropdownGroupStyle)}
             options={[
@@ -322,7 +328,8 @@ function SelectDropdownDemo() {
           />
         </DropdownDemoControl>
         <DropdownDemoControl label="数据量">
-          <Segmented
+          <SensViewSwitch
+            aria-label="下拉选择器数据量"
             value={dataVolume}
             onChange={(value) => setDataVolume(value as DropdownDataVolume)}
             options={[
@@ -333,7 +340,8 @@ function SelectDropdownDemo() {
         </DropdownDemoControl>
         {isMultiple ? (
           <DropdownDemoControl label="操作区">
-            <Segmented
+            <SensViewSwitch
+              aria-label="多选下拉操作区"
               value={operation}
               onChange={(value) => setOperation(value as DropdownOperation)}
               options={[

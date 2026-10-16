@@ -927,6 +927,8 @@ export type SensButtonRef = HTMLButtonElement | HTMLAnchorElement;
 
 export interface SensButtonProps extends Omit<ButtonProps, "type" | "variant"> {
   tone?: SensButtonVariant;
+  /** 弱化链接的默认文字色例外；当前仅支持 `link-color`，hover / active 仍由 tone 状态决定。 */
+  restingColorToken?: "link-color";
   /** 横向单项 FAB：与 tone=primary|secondary 组合；圆角 999、恒 D4 投影、二级无描边白底 */
   fab?: boolean;
 }
@@ -939,6 +941,7 @@ export const SensButton = forwardRef<SensButtonRef, SensButtonProps>(function Se
   children,
   loading,
   disabled,
+  restingColorToken,
   style,
   shape: shapeProp,
   size: sizeProp,
@@ -980,7 +983,12 @@ export const SensButton = forwardRef<SensButtonRef, SensButtonProps>(function Se
     undefined;
   const { className: _toneClassName, icon: _toneIcon, ...restToneProps } = toneProps;
   const boxShadow = resolveLiveShadow(tone, { isHovered, isPressed, isDisabled }, shadows, isFab);
-  const baseToneStyle = getBaseToneStyle(tone, isFab);
+  const baseToneStyle = {
+    ...getBaseToneStyle(tone, isFab),
+    ...(restingColorToken === "link-color" && iconState === "default" && (tone === "linkWeak" || tone === "dangerLinkWeak")
+      ? { color: c[restingColorToken] }
+      : {}),
+  };
   const liveStateStyle = isDisabled ? {} : getLiveStateStyle(tone, iconState, isFab);
   const primaryBorderStyle: CSSProperties =
     tone === "primary" && !isFab ? { borderColor: getButtonPrimaryBorderColor() } : {};

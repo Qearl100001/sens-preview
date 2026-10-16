@@ -187,7 +187,7 @@ export function CompositeLibraryPage() {
       sections={[
         {
           title: "已收录",
-          description: "先承接已经完成基础组件验证、且能跨业务复用的组合模式。",
+          description: "收录可复用的组合模式，以及供设计和产品选型参考的使用规范。",
           items: [
             {
               title: "产品壳",
@@ -206,6 +206,18 @@ export function CompositeLibraryPage() {
               description: "筛选、搜索、页面组合、录入型、交叉表格；树表格与嵌套表格继续按复合模式收录。",
               status: "首轮已收录",
               href: "/composite/table",
+            },
+            {
+              title: "通知系统",
+              description: "当前只收录一项：通知配置与对象选择。对象选择留在该项内，后续通知能力再单独加入。",
+              status: "首轮演示",
+              href: "/composite/notification",
+            },
+            {
+              title: "时间筛选",
+              description: "固定时间范围、动态周期和单日的选型建议与结果表达示意。",
+              status: "使用规范与示意",
+              href: "/composite/time-selection",
             },
           ],
         },
@@ -262,6 +274,12 @@ export function TemplateLibraryPage() {
               description: "基于 SensEntryCard，承接项目设置中的安全、资源和模板入口。",
               status: "首轮收录",
               href: "/templates/card/entry-settings",
+            },
+            {
+              title: "交易日历 / 通知配置",
+              description: "将通知复合组件放入交易日历提醒业务页面，演示默认渠道、提示信息和保存流程。",
+              status: "首轮演示",
+              href: "/templates/notification-config",
             },
             {
               title: "产品壳 / T型结构",

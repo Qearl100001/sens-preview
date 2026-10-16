@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { Flex, Segmented, Space, Switch, Typography } from "antd";
+import { Flex, Space, Typography } from "antd";
 import { useTranslation } from "react-i18next";
 import tabsDesignDoc from "../../design-system/components/base/tabs.design.md?raw";
 import tabsDevDoc from "../../design-system/components/base/tabs.md?raw";
@@ -7,6 +7,8 @@ import {
   SensBasicTabs,
   SensEditableCardTabs,
   SensPillTabs,
+  SensSwitch,
+  SensViewSwitch,
   TabsStatesPreview,
   type SensTabSize,
 } from "../../ui";
@@ -84,8 +86,8 @@ function TabsDemo() {
         {showSize ? (
           <Space direction="vertical" size={4}>
             <Text type="secondary">尺寸</Text>
-            <Segmented
-              className="sens-tabs-demo-size-segmented"
+            <SensViewSwitch
+              aria-label="标签页尺寸"
               value={size}
               onChange={(v) => setSize(v as SensTabSize)}
               options={[
@@ -99,7 +101,7 @@ function TabsDemo() {
           <Space direction="vertical" size={4}>
             <Text type="secondary">徽标</Text>
             <Space>
-              <Switch checked={withBadge} onChange={setWithBadge} />
+              <SensSwitch aria-label="withBadge" checked={withBadge} onChange={setWithBadge} />
               <Text>withBadge</Text>
             </Space>
           </Space>

@@ -1,6 +1,6 @@
 import "../../ui/search-preview.css";
 import { useState } from "react";
-import { Flex, Segmented, Space, Switch, Typography } from "antd";
+import { Flex, Space, Typography } from "antd";
 import searchDesignDoc from "../../design-system/components/base/search.design.md?raw";
 import searchDevDoc from "../../design-system/components/base/search.md?raw";
 import {
@@ -10,9 +10,11 @@ import {
   SearchInput,
   SearchStatesPreview,
   SearchTriggerInput,
+  SensSwitch,
   type SearchVisualVariant,
 } from "../../ui";
 import { ComponentShowcaseLayout } from "../ComponentShowcaseLayout";
+import { SensViewSwitch } from "../../ui";
 import { ShowcaseSelect } from "../ShowcaseSelect";
 import { getPreviewTokens } from "../previewTokens";
 
@@ -91,7 +93,8 @@ function SearchDemo() {
         {showVisualControl ? (
           <Space direction="vertical" size={4}>
             <Text type="secondary">样式</Text>
-            <Segmented
+            <SensViewSwitch
+              aria-label="搜索框样式"
               value={visualVariant}
               onChange={(v) => setVisualVariant(v as SearchVisualVariant)}
               options={[
@@ -104,7 +107,7 @@ function SearchDemo() {
         {showCreateControl ? (
           <Space direction="vertical" size={4}>
             <Text type="secondary">创建按钮</Text>
-            <Switch checked={showCreate} onChange={setShowCreate} />
+            <SensSwitch aria-label="创建按钮" checked={showCreate} onChange={setShowCreate} />
           </Space>
         ) : null}
       </Flex>

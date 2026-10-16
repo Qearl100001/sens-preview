@@ -1,9 +1,9 @@
 import { useState, type MouseEvent, type ReactNode } from "react";
-import { Space, Switch, Typography } from "antd";
+import { Space, Typography } from "antd";
 import radioDesignDoc from "../../design-system/components/base/radio.design.md?raw";
 import radioDevDoc from "../../design-system/components/base/radio.md?raw";
 import { SensIcon } from "../../design-system/icons";
-import { RadioStatesPreview, SensRadio, SensRadioGroup, SensTips } from "../../ui";
+import { RadioStatesPreview, SensRadio, SensRadioGroup, SensSwitch, SensTips } from "../../ui";
 import { ComponentShowcaseLayout } from "../ComponentShowcaseLayout";
 
 const { Text } = Typography;
@@ -43,11 +43,11 @@ function RadioDemo() {
       <Space wrap align="end" size="middle">
         <Space direction="vertical" size={4}>
           <Text type="secondary">辅助文案</Text>
-          <Switch checked={withDescription} onChange={setWithDescription} />
+          <SensSwitch aria-label="辅助文案" checked={withDescription} onChange={setWithDescription} />
         </Space>
         <Space direction="vertical" size={4}>
           <Text type="secondary">禁用</Text>
-          <Switch checked={disabled} onChange={setDisabled} />
+          <SensSwitch aria-label="禁用" checked={disabled} onChange={setDisabled} />
         </Space>
       </Space>
 

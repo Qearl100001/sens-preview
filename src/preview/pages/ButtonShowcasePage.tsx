@@ -1,5 +1,5 @@
 import { useMemo, useState, type CSSProperties } from "react";
-import { Divider, Flex, Segmented, Space, Switch, Typography } from "antd";
+import { Divider, Flex, Space, Typography } from "antd";
 import { useTranslation } from "react-i18next";
 import buttonDesignDoc from "../../design-system/components/base/button.design.md?raw";
 import buttonDevDoc from "../../design-system/components/base/button.md?raw";
@@ -14,7 +14,9 @@ import {
   SensDropdownButton,
   SensFabGroup,
   SensMoreButton,
+  SensSwitch,
   SensTips,
+  SensViewSwitch,
   type SensButtonVariant,
   type SensFabGroupItem,
   type SensFabVerticalGroupItem,
@@ -315,7 +317,8 @@ function FabDemo() {
       <Flex wrap gap={token.marginMD} align="flex-end">
         <Space direction="vertical" size={4}>
           <Text type="secondary">类型</Text>
-          <Segmented
+          <SensViewSwitch
+            aria-label="组合按钮类型"
             value={kind}
             onChange={(value) => setKind(value as FabDemoKind)}
             options={FAB_KIND_OPTIONS}
@@ -324,7 +327,8 @@ function FabDemo() {
         {showTone ? (
           <Space direction="vertical" size={4}>
             <Text type="secondary">级别</Text>
-            <Segmented
+            <SensViewSwitch
+              aria-label="组合按钮级别"
               value={tone}
               onChange={(value) => setTone(value as FabTone)}
               options={FAB_TONE_OPTIONS}
@@ -334,7 +338,8 @@ function FabDemo() {
         {showContentType ? (
           <Space direction="vertical" size={4}>
             <Text type="secondary">形态</Text>
-            <Segmented
+            <SensViewSwitch
+              aria-label="组合按钮形态"
               value={contentType}
               onChange={(value) => setContentType(value as FabContentType)}
               options={FAB_CONTENT_OPTIONS}
@@ -344,12 +349,13 @@ function FabDemo() {
         {showSegmentCount ? (
           <Space direction="vertical" size={4}>
             <Text type="secondary">段数</Text>
-            <Segmented
-              value={segmentCount}
-              onChange={(value) => setSegmentCount(value as FabSegmentCount)}
+            <SensViewSwitch
+              aria-label="组合按钮段数"
+              value={String(segmentCount)}
+              onChange={(value) => setSegmentCount(Number(value) as FabSegmentCount)}
               options={[
-                { label: "2个", value: 2 },
-                { label: "3个", value: 3 },
+                { label: "2个", value: "2" },
+                { label: "3个", value: "3" },
               ]}
             />
           </Space>
@@ -358,7 +364,8 @@ function FabDemo() {
           <Space direction="vertical" size={4}>
             <Text type="secondary">状态</Text>
             <Space>
-              <Switch
+              <SensSwitch
+                aria-label="disabled"
                 checked={disabled}
                 onChange={(checked) => {
                   setDisabled(checked);
@@ -367,7 +374,8 @@ function FabDemo() {
                 disabled={loading}
               />
               <Text>disabled</Text>
-              <Switch
+              <SensSwitch
+                aria-label="loading"
                 checked={loading}
                 onChange={(checked) => {
                   setLoading(checked);
@@ -433,7 +441,8 @@ function ButtonDemo() {
         </Space>
         <Space direction="vertical" size={4}>
           <Text type="secondary">尺寸</Text>
-          <Segmented
+          <SensViewSwitch
+            aria-label="按钮尺寸"
             value={size}
             onChange={(v) => setSize(v as ButtonSize)}
             options={[
@@ -445,7 +454,8 @@ function ButtonDemo() {
         <Space direction="vertical" size={4}>
           <Text type="secondary">状态</Text>
           <Space>
-            <Switch
+            <SensSwitch
+              aria-label="disabled"
               checked={disabled}
               onChange={(checked) => {
                 setDisabled(checked);
@@ -454,7 +464,8 @@ function ButtonDemo() {
               disabled={loading}
             />
             <Text>disabled</Text>
-            <Switch
+            <SensSwitch
+              aria-label="loading"
               checked={loading}
               onChange={(checked) => {
                 setLoading(checked);
@@ -515,7 +526,8 @@ function ButtonDemo() {
           <Space direction="vertical" size={4}>
             <Text type="secondary">状态</Text>
             <Space>
-              <Switch
+              <SensSwitch
+                aria-label="disabled"
                 checked={dropdownDisabled}
                 onChange={(checked) => {
                   setDropdownDisabled(checked);
@@ -524,7 +536,8 @@ function ButtonDemo() {
                 disabled={dropdownLoading}
               />
               <Text>disabled</Text>
-              <Switch
+              <SensSwitch
+                aria-label="loading"
                 checked={dropdownLoading}
                 onChange={(checked) => {
                   setDropdownLoading(checked);

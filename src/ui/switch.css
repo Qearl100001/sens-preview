@@ -1,0 +1,261 @@
+.sens-switch-host {
+  display: inline-flex;
+  vertical-align: middle;
+}
+
+.sens-switch {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sens-switch-status-gap);
+  color: var(--sens-switch-status-color);
+  font-size: var(--sens-switch-status-font-size);
+  line-height: var(--sens-switch-status-line-height);
+  white-space: nowrap;
+}
+
+.sens-switch__control {
+  position: relative;
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  width: 32px;
+  height: 20px;
+  padding: 3px;
+  border: 0;
+  border-radius: 10px;
+  background: var(--sens-switch-off-bg);
+  box-shadow: none;
+  cursor: pointer;
+  appearance: none;
+  transition: background-color 120ms ease, box-shadow 120ms ease;
+}
+
+.sens-switch__control.is-checked {
+  background: var(--sens-switch-on-bg);
+}
+
+.sens-switch__control.is-loading:not(.is-checked),
+.sens-switch__control--preview-loading:not(.is-checked),
+.sens-switch__control--preview-loadingHover:not(.is-checked) {
+  background: var(--sens-switch-off-disabled-bg);
+}
+
+.sens-switch__control:not(:disabled):not(.is-checked):hover,
+.sens-switch__control--preview-hover:not(.is-checked) {
+  background: var(--sens-switch-off-hover-bg);
+}
+
+.sens-switch__control:not(:disabled).is-checked:hover,
+.sens-switch__control--preview-hover.is-checked {
+  background: var(--sens-switch-on-hover-bg);
+}
+
+.sens-switch__control:not(:disabled):active,
+.sens-switch__control--preview-click {
+  background: var(--sens-switch-off-active-bg);
+  box-shadow: var(--sens-switch-active-ring);
+}
+
+.sens-switch__control:not(:disabled).is-checked:active,
+.sens-switch__control--preview-click.is-checked {
+  background: var(--sens-switch-on-active-bg);
+}
+
+.sens-switch__control:focus-visible {
+  outline: none;
+  box-shadow: var(--sens-switch-active-ring);
+}
+
+.sens-switch__control:disabled,
+.sens-switch__control--preview-disabled,
+.sens-switch__control--preview-disabledHover {
+  background: var(--sens-switch-off-disabled-bg);
+  cursor: not-allowed;
+}
+
+.sens-switch__control:disabled.is-checked,
+.sens-switch__control--preview-disabled.is-checked,
+.sens-switch__control--preview-disabledHover.is-checked {
+  background: var(--sens-switch-on-disabled-bg);
+}
+
+.sens-switch__control:disabled.is-disabled:not(.is-loading):not(.is-checked):hover,
+.sens-switch__control--preview-disabledHover:not(.is-checked) {
+  background: var(--sens-switch-off-disabled-hover-bg);
+}
+
+.sens-switch__control:disabled.is-disabled:not(.is-loading).is-checked:hover {
+  background: var(--sens-switch-on-disabled-hover-bg);
+}
+
+.sens-switch__control--preview-disabledHover:not(.is-checked) {
+  background: var(--sens-switch-off-disabled-hover-bg);
+}
+
+.sens-switch__control--preview-disabledHover.is-checked {
+  background: var(--sens-switch-on-disabled-hover-bg);
+}
+
+.sens-switch__control--preview-hover,
+.sens-switch__control--preview-click,
+.sens-switch__control--preview-loading,
+.sens-switch__control--preview-loadingHover,
+.sens-switch__control--preview-disabled,
+.sens-switch__control--preview-disabledHover {
+  pointer-events: none;
+}
+
+.sens-switch__thumb {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--sens-switch-thumb-bg);
+  color: var(--sens-switch-on-bg);
+  transform: translateX(0);
+  transition: transform 120ms ease;
+}
+
+.sens-switch__control.is-checked .sens-switch__thumb {
+  transform: translateX(12px);
+}
+
+.sens-switch__loading-icon {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  width: var(--sens-switch-loading-size);
+  height: var(--sens-switch-loading-size);
+  animation: sens-switch-loading-rotate 900ms linear infinite;
+}
+
+.sens-switch__control:not(.is-checked) .sens-switch__loading-icon {
+  color: var(--sens-switch-loading-off-icon);
+}
+
+.sens-switch__loading-icon > * {
+  flex: 0 0 auto;
+}
+
+@keyframes sens-switch-loading-rotate {
+  to { transform: rotate(360deg); }
+}
+
+.sens-switch__status-text {
+  color: var(--sens-switch-status-color);
+}
+
+.sens-switch__status-text.is-disabled {
+  color: var(--sens-switch-status-disabled-color);
+}
+
+.sens-switch__read-only {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sens-switch-status-gap);
+  color: var(--sens-switch-status-color);
+}
+
+.sens-switch__status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--sens-switch-readonly-off-dot);
+}
+
+.sens-switch__status-dot.is-checked {
+  background: var(--sens-switch-readonly-on-dot);
+}
+
+.sens-switch__unsupported {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--sens-switch-warning);
+  font-size: var(--sens-switch-status-font-size);
+  line-height: var(--sens-switch-status-line-height);
+}
+
+.sens-switch-matrix-wrap {
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+.sens-switch-matrix {
+  display: grid;
+  min-width: 920px;
+  color: var(--sens-switch-status-color);
+  font-size: var(--sens-switch-status-font-size);
+  line-height: var(--sens-switch-status-line-height);
+}
+
+.sens-switch-matrix__header,
+.sens-switch-matrix__row {
+  display: grid;
+  grid-template-columns: 160px repeat(8, minmax(84px, 1fr));
+  align-items: center;
+  column-gap: 8px;
+  min-height: 48px;
+  border-bottom: 1px solid var(--sens-switch-matrix-divider);
+}
+
+.sens-switch-matrix__header {
+  color: var(--sens-switch-status-color);
+  font-weight: 500;
+}
+
+.sens-switch-matrix__row-label {
+  color: var(--sens-switch-status-color);
+}
+
+.sens-switch-matrix__cell {
+  display: inline-flex;
+  align-items: center;
+  min-height: 32px;
+}
+
+.sens-switch-matrix .sens-switch {
+  gap: 4px;
+}
+
+.sens-switch-demo {
+  display: grid;
+  gap: 20px;
+  padding: 20px 24px;
+}
+
+.sens-switch-demo__main {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px;
+}
+
+.sens-switch-demo__name {
+  font-weight: 500;
+}
+
+.sens-switch-demo__settings {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.sens-switch-demo__hint {
+  margin: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sens-switch__control,
+  .sens-switch__thumb {
+    transition: none;
+  }
+
+  .sens-switch__loading-icon {
+    animation-duration: 1800ms;
+  }
+}

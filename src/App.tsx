@@ -63,6 +63,8 @@ const CardShowcasePage = lazy(() => import("./preview/pages/CardShowcasePage"));
 const ButtonShowcasePage = lazy(() => import("./preview/pages/ButtonShowcasePage"));
 const InputShowcasePage = lazy(() => import("./preview/pages/InputShowcasePage"));
 const UploadShowcasePage = lazy(() => import("./preview/pages/UploadShowcasePage"));
+const ViewSwitchShowcasePage = lazy(() => import("./preview/pages/ViewSwitchShowcasePage"));
+const SwitchShowcasePage = lazy(() => import("./preview/pages/SwitchShowcasePage"));
 const TextAreaShowcasePage = lazy(() => import("./preview/pages/TextAreaShowcasePage"));
 const InputNumberShowcasePage = lazy(() => import("./preview/pages/InputNumberShowcasePage"));
 const SelectDropdownShowcasePage = lazy(() => import("./preview/pages/SelectDropdownShowcasePage"));
@@ -92,6 +94,8 @@ const StepsShowcasePage = lazy(() => import("./preview/pages/StepsShowcasePage")
 const FormTemplatesPage = lazy(() => import("./preview/pages/FormTemplatesPage"));
 const CompositeTablePage = lazy(() => import("./preview/pages/CompositeTablePage"));
 const ProductShellCompositePage = lazy(() => import("./preview/pages/ProductShellCompositePage"));
+const NotificationCompositePage = lazy(() => import("./preview/pages/NotificationCompositePage"));
+const TimeSelectionGuidePage = lazy(() => import("./preview/pages/TimeSelectionGuidePage"));
 const SdhEditableTableTemplatePage = lazy(() => import("./preview/pages/SdhEditableTableTemplatePage"));
 const CardEntryTemplatesPage = lazy(() => import("./preview/pages/CardEntryTemplatesPage"));
 const ProductShellTemplatePage = lazy(() => import("./preview/pages/ProductShellTemplatePage"));
@@ -99,6 +103,7 @@ const ProductShellTableTemplatePage = lazy(() => import("./preview/pages/Product
 const ProductShellVerticalTemplatePage = lazy(
   () => import("./preview/pages/ProductShellVerticalTemplatePage"),
 );
+const NotificationSettingsTemplatePage = lazy(() => import("./preview/pages/NotificationSettingsTemplatePage"));
 const ChangelogPage = lazy(() => import("./preview/pages/ChangelogPage"));
 const AiDesignStagePresentationPage = lazy(() => import("./preview/pages/AiDesignStagePresentationPage"));
 const SdhFeatureSegmentCreatePage = lazy(
@@ -170,6 +175,8 @@ export default function App() {
                 <Route path="components/card" element={<CardShowcasePage />} />
                 <Route path="components/input" element={<InputShowcasePage />} />
                 <Route path="components/upload" element={<UploadShowcasePage />} />
+                <Route path="components/view-switch" element={<ViewSwitchShowcasePage />} />
+                <Route path="components/switch" element={<SwitchShowcasePage />} />
                 <Route path="components/textarea" element={<TextAreaShowcasePage />} />
                 <Route path="components/inputnumber" element={<InputNumberShowcasePage />} />
                 <Route path="components/select-dropdown" element={<SelectDropdownShowcasePage />} />
@@ -200,6 +207,8 @@ export default function App() {
                 <Route path="composite/form" element={<FormTemplatesPage />} />
                 <Route path="composite/table" element={<CompositeTablePage />} />
                 <Route path="composite/product-shell" element={<ProductShellCompositePage />} />
+                <Route path="composite/notification" element={<NotificationCompositePage />} />
+                <Route path="composite/time-selection" element={<TimeSelectionGuidePage />} />
                 <Route path="templates" element={<TemplateLibraryPage />} />
                 <Route
                   path="templates/sdh-editable-table"
@@ -217,6 +226,7 @@ export default function App() {
                   path="templates/product-shell/vertical"
                   element={<ProductShellVerticalTemplatePage />}
                 />
+                <Route path="templates/notification-config" element={<NotificationSettingsTemplatePage />} />
                 <Route path="cases" element={<CaseLibraryPage />} />
                 <Route path="cases/data-source-connection" element={<DataSourceConnectionDemoPage />} />
                 <Route path="cases/tiktok-ads-connections" element={<TikTokAdsConnectionsPage />} />

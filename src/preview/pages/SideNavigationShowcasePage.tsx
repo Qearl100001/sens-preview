@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Alert, Segmented, Space, Table, Tag, Typography } from "antd";
+import { Alert, Space, Table, Tag, Typography } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import { buildShadow, getColorToken } from "../../design-system/color-utils";
 import { useNavigationTheme } from "../../design-system/appearance";
@@ -15,6 +15,7 @@ import {
   type ProductShellSideNavigationMode,
 } from "../../ui/ProductShellSideNavigation";
 import { ComponentShowcaseLayout } from "../ComponentShowcaseLayout";
+import { SensViewSwitch } from "../../ui";
 import sideNavigationDesignDoc from "../../design-system/components/composite/side-navigation.design.md?raw";
 import sideNavigationDevDoc from "../../design-system/components/composite/side-navigation.md?raw";
 import { getPreviewTokens } from "../previewTokens";
@@ -258,7 +259,8 @@ function SideNavigationDemo() {
         message="悬停展开，再试锁定"
         description="鼠标进入紧凑态整区会临时 Overlay 展开并带右侧 D4 投影；展开图标保留“展开”提示与键盘 / 点击入口。点右上锁定入口后进入 Docked。预览换肤会驱动顶/侧导背景。"
       />
-      <Segmented
+      <SensViewSwitch
+        aria-label="侧边导航演示模式"
         value={mode}
         onChange={(value) => setMode(value as ProductShellSideNavigationMode)}
         options={[
@@ -317,7 +319,8 @@ function SideNavigationDemo() {
         <Title level={5}>单层带图标 / 项目设置</Title>
         <Text type="secondary">只有一层功能项，没有虚拟展开层级；每项均带 20px 侧导图标。</Text>
       </section>
-      <Segmented
+      <SensViewSwitch
+        aria-label="单层侧边导航演示模式"
         value={singleLevelMode}
         onChange={(value) => setSingleLevelMode(value as ProductShellSideNavigationMode)}
         options={[
@@ -373,7 +376,8 @@ function SideNavigationDemo() {
         <Title level={5}>分析专属 / 虚拟层级 + 二级带图标</Title>
         <Text type="secondary">仅用于「分析」大功能：展开态虚拟层级和具体分析项均带图标；紧凑态只展示具体分析项图标。</Text>
       </section>
-      <Segmented
+      <SensViewSwitch
+        aria-label="分析侧边导航演示模式"
         value={analysisMode}
         onChange={(value) => setAnalysisMode(value as ProductShellSideNavigationMode)}
         options={[

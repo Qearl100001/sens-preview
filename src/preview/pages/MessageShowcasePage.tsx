@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
-import { Space, Switch, Typography } from "antd";
+import { Space, Typography } from "antd";
 import messageDevDoc from "../../design-system/components/base/message.md?raw";
 import { getUnitToken } from "../../design-system/unit";
 import {
@@ -9,6 +9,7 @@ import {
   SensMessage,
   SensMessageLink,
   SensMessageProvider,
+  SensSwitch,
   useSensMessage,
   type MessageType,
 } from "../../ui";
@@ -268,11 +269,11 @@ function MessageDemo() {
             </Space>
             <Space direction="vertical" size={4}>
               <Text type="secondary">可关闭</Text>
-              <Switch checked={closable} onChange={setClosable} />
+              <SensSwitch aria-label="可关闭" checked={closable} onChange={setClosable} />
             </Space>
             <Space direction="vertical" size={4}>
               <Text type="secondary">链接按钮（常规）</Text>
-              <Switch checked={withLink} onChange={setWithLink} />
+              <SensSwitch aria-label="链接按钮" checked={withLink} onChange={setWithLink} />
             </Space>
           </Space>
 

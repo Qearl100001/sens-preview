@@ -1,5 +1,5 @@
 import { useState, type ReactNode } from "react";
-import { Segmented, Space, Switch, Typography } from "antd";
+import { Space, Typography } from "antd";
 import { useOutletContext } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import selectDesignDoc from "../../design-system/components/base/select.design.md?raw";
@@ -14,7 +14,7 @@ import {
   SelectTriggerStatesPreview,
   SensSelectDropdown,
 } from "../../ui/SensSelectDropdown";
-import { SensRadioGroup } from "../../ui";
+import { SensRadioGroup, SensSwitch, SensViewSwitch } from "../../ui";
 import { SensInput } from "../../ui/SensInput";
 import type { SensInputReadOnlyVariant } from "../../ui/SensInput";
 import { SensLineTabs } from "../../ui/SensTabs";
@@ -242,7 +242,8 @@ function SelectDemo() {
             />
           </DemoControl>
           {isSingle ? (
-            <Segmented
+            <SensViewSwitch
+              aria-label="单选样式"
               value={singleStyle}
               onChange={(value) => handleSingleStyleChange(value as DemoSingleStyle)}
               options={[
@@ -251,7 +252,8 @@ function SelectDemo() {
               ]}
             />
           ) : (
-            <Segmented
+            <SensViewSwitch
+              aria-label="多选样式"
               value={multipleStyle}
               onChange={(value) => handleMultipleStyleChange(value as DemoMultipleStyle)}
               options={[
@@ -262,7 +264,8 @@ function SelectDemo() {
           )}
           <Space wrap align="end" size="middle">
             <DemoControl label="内容">
-              <Segmented
+              <SensViewSwitch
+                aria-label="选择器内容状态"
                 value={content === "overflow" && !isCount ? "filled" : content}
                 onChange={(value) => setContent(value as DemoContent)}
                 options={
@@ -281,7 +284,8 @@ function SelectDemo() {
             </DemoControl>
             {isSingle || isCount || isTags ? (
               <DemoControl label="警告">
-                <Segmented
+                <SensViewSwitch
+                  aria-label="选择器警告位置"
                   value={warning === "none" ? "none" : isSimple ? "outside" : warning}
                   disabled={disabled}
                   onChange={(value) =>
@@ -304,7 +308,8 @@ function SelectDemo() {
             ) : null}
             {isBasic ? (
               <DemoControl label="宽度">
-                <Segmented
+                <SensViewSwitch
+                  aria-label="单选选择器宽度"
                   value={singleWidth}
                   onChange={(value) => setSingleWidth(value as DemoSingleWidth)}
                   options={[
@@ -316,7 +321,8 @@ function SelectDemo() {
             ) : null}
             {isCount ? (
               <DemoControl label="宽度">
-                <Segmented
+                <SensViewSwitch
+                  aria-label="计数型选择器宽度"
                   value={countWidth}
                   onChange={(value) => setCountWidth(value as DemoCountWidth)}
                   options={[
@@ -328,7 +334,8 @@ function SelectDemo() {
             ) : null}
             {isTags ? (
               <DemoControl label="排法">
-                <Segmented
+                <SensViewSwitch
+                  aria-label="标签选择器排法"
                   value={tagsLayout}
                   onChange={(value) => setTagsLayout(value as DemoTagsLayout)}
                   options={[
@@ -340,7 +347,8 @@ function SelectDemo() {
             ) : null}
             {isTags && tagsLayout === "single" ? (
               <DemoControl label="宽度">
-                <Segmented
+                <SensViewSwitch
+                  aria-label="标签选择器宽度"
                   value={tagsWidth}
                   onChange={(value) => setTagsWidth(value as DemoTagsWidth)}
                   options={[
@@ -352,7 +360,8 @@ function SelectDemo() {
             ) : null}
             {isTags && !readOnlyVariant ? (
               <DemoControl label="上屏">
-                <Segmented
+                <SensViewSwitch
+                  aria-label="多选上屏方式"
                   value={confirmMultiple ? "confirm" : "live"}
                   onChange={(value) => setConfirmMultiple(value === "confirm")}
                   options={[
@@ -364,7 +373,8 @@ function SelectDemo() {
             ) : null}
             {isTags ? (
               <DemoControl label="只读">
-                <Segmented
+                <SensViewSwitch
+                  aria-label="标签选择器只读样式"
                   value={readOnly}
                   onChange={(value) => {
                     setReadOnly(value as DemoReadOnly);
@@ -383,11 +393,12 @@ function SelectDemo() {
             ) : null}
             {isBasic || isCount ? (
               <DemoControl label="清空">
-                <Switch checked={clearable} disabled={disabled} onChange={setClearable} />
+                <SensSwitch aria-label="清空" checked={clearable} disabled={disabled} onChange={setClearable} />
               </DemoControl>
             ) : null}
             <DemoControl label="禁用">
-              <Switch
+              <SensSwitch
+                aria-label="禁用"
                 checked={disabled}
                 disabled={Boolean(readOnlyVariant)}
                 onChange={(checked) => {
@@ -398,7 +409,8 @@ function SelectDemo() {
             </DemoControl>
             {isCount || isTags ? (
               <DemoControl label="加载">
-                <Switch
+                <SensSwitch
+                  aria-label="加载"
                   checked={loading}
                   disabled={disabled || Boolean(readOnlyVariant)}
                   onChange={(checked) => {

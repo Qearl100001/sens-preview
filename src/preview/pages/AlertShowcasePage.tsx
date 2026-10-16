@@ -1,11 +1,12 @@
 import { useState } from "react";
-import { Space, Switch, Typography } from "antd";
+import { Space, Typography } from "antd";
 import alertDevDoc from "../../design-system/components/base/alert.md?raw";
 import {
   ALERT_TYPE_LABEL,
   AlertTypesPreview,
   SensAlert,
   SensMessageLink,
+  SensSwitch,
   type AlertType,
 } from "../../ui";
 import { ComponentShowcaseLayout } from "../ComponentShowcaseLayout";
@@ -50,15 +51,15 @@ function AlertDemo() {
         </Space>
         <Space direction="vertical" size={4}>
           <Text type="secondary">辅助文案</Text>
-          <Switch checked={withDescription} onChange={setWithDescription} />
+          <SensSwitch aria-label="辅助文案" checked={withDescription} onChange={setWithDescription} />
         </Space>
         <Space direction="vertical" size={4}>
           <Text type="secondary">可关闭</Text>
-          <Switch checked={closable} onChange={setClosable} />
+          <SensSwitch aria-label="可关闭" checked={closable} onChange={setClosable} />
         </Space>
         <Space direction="vertical" size={4}>
           <Text type="secondary">链接按钮</Text>
-          <Switch checked={withLink} onChange={setWithLink} />
+          <SensSwitch aria-label="链接按钮" checked={withLink} onChange={setWithLink} />
         </Space>
       </Space>
 

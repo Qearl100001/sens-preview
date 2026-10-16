@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { Segmented, Space, Typography } from "antd";
+import { Space, Typography } from "antd";
 import stepsDoc from "../../design-system/components/base/steps.md?raw";
-import { SensSteps, type SensStepItem, type SensStepsSize } from "../../ui";
+import { SensSteps, SensViewSwitch, type SensStepItem, type SensStepsSize } from "../../ui";
 import { ComponentShowcaseLayout } from "../ComponentShowcaseLayout";
 
 const { Text } = Typography;
@@ -27,15 +27,17 @@ function StepsDemo() {
     <Space direction="vertical" size="middle" style={{ width: "100%" }}>
       <Space wrap align="center">
         <Text type="secondary">尺寸</Text>
-        <Segmented
+        <SensViewSwitch
+          aria-label="步骤条尺寸"
           value={size}
           options={[{ label: "大", value: "large" }, { label: "小", value: "small" }]}
           onChange={(value) => setSize(value as SensStepsSize)}
         />
         <Text type="secondary">辅助文案</Text>
-        <Segmented
+        <SensViewSwitch
+          aria-label="步骤条辅助文案"
           value={withHelper ? "有" : "无"}
-          options={["无", "有"]}
+          options={[{ label: "无", value: "无" }, { label: "有", value: "有" }]}
           onChange={(value) => setWithHelper(value === "有")}
         />
       </Space>

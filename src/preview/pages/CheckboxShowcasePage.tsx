@@ -1,9 +1,9 @@
 import { useState, type MouseEvent, type ReactNode } from "react";
-import { Segmented, Space, Switch, Typography } from "antd";
+import { Space, Typography } from "antd";
 import checkboxDesignDoc from "../../design-system/components/base/checkbox.design.md?raw";
 import checkboxDevDoc from "../../design-system/components/base/checkbox.md?raw";
 import { SensIcon } from "../../design-system/icons";
-import { CheckboxStatesPreview, SensCheckbox, SensCheckboxGroup, SensTips } from "../../ui";
+import { CheckboxStatesPreview, SensCheckbox, SensCheckboxGroup, SensSwitch, SensTips, SensViewSwitch } from "../../ui";
 import { ComponentShowcaseLayout } from "../ComponentShowcaseLayout";
 
 const { Text } = Typography;
@@ -49,7 +49,8 @@ function CheckboxDemo() {
       <Space wrap align="end" size="middle">
         <Space direction="vertical" size={4}>
           <Text type="secondary">取值</Text>
-          <Segmented
+          <SensViewSwitch
+            aria-label="复选框演示取值"
             value={indeterminate ? "indeterminate" : checked ? "checked" : "unchecked"}
             onChange={(value) => {
               setIndeterminate(value === "indeterminate");
@@ -64,11 +65,11 @@ function CheckboxDemo() {
         </Space>
         <Space direction="vertical" size={4}>
           <Text type="secondary">辅助文案</Text>
-          <Switch checked={withDescription} onChange={setWithDescription} />
+          <SensSwitch aria-label="辅助文案" checked={withDescription} onChange={setWithDescription} />
         </Space>
         <Space direction="vertical" size={4}>
           <Text type="secondary">禁用</Text>
-          <Switch checked={disabled} onChange={setDisabled} />
+          <SensSwitch aria-label="禁用" checked={disabled} onChange={setDisabled} />
         </Space>
       </Space>
 

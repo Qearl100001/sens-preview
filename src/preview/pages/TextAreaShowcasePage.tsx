@@ -1,8 +1,9 @@
 import { useState } from "react";
-import { Segmented, Space, Switch, Typography } from "antd";
+import { Space, Typography } from "antd";
 import { useTranslation } from "react-i18next";
 import textareaDevDoc from "../../design-system/components/base/textarea.md?raw";
 import inputDesignDoc from "../../design-system/components/base/input.design.md?raw";
+import { SensSwitch, SensViewSwitch } from "../../ui";
 import {
   formatSensTextAreaCount,
   SensTextArea,
@@ -33,7 +34,8 @@ function TextAreaDemo() {
       <Space wrap align="end" size="middle">
         <Space direction="vertical" size={4}>
           <Text type="secondary">尺寸</Text>
-          <Segmented
+          <SensViewSwitch
+            aria-label="多行输入框尺寸"
             value={size}
             onChange={(v) => setSize(v as "middle" | "small")}
             options={[
@@ -44,7 +46,8 @@ function TextAreaDemo() {
         </Space>
         <Space direction="vertical" size={4}>
           <Text type="secondary">只读</Text>
-          <Segmented
+          <SensViewSwitch
+            aria-label="多行输入框只读样式"
             value={readOnlyVariant || "none"}
             onChange={(v) => {
               const next = v === "none" ? "" : (v as "filled" | "plain");
@@ -60,7 +63,8 @@ function TextAreaDemo() {
         </Space>
         <Space direction="vertical" size={4}>
           <Text type="secondary">禁用</Text>
-          <Switch
+          <SensSwitch
+            aria-label="禁用"
             checked={disabled}
             disabled={isReadOnly}
             onChange={(checked) => {
@@ -71,11 +75,12 @@ function TextAreaDemo() {
         </Space>
         <Space direction="vertical" size={4}>
           <Text type="secondary">字数统计</Text>
-          <Switch checked={showCount} disabled={isReadOnly} onChange={setShowCount} />
+          <SensSwitch aria-label="字数统计" checked={showCount} disabled={isReadOnly} onChange={setShowCount} />
         </Space>
         <Space direction="vertical" size={4}>
           <Text type="secondary">警告</Text>
-          <Segmented
+          <SensViewSwitch
+            aria-label="多行输入框警告位置"
             value={warningPlacement || "none"}
             disabled={disabled}
             onChange={(v) => setWarningPlacement(v === "none" ? "" : (v as "inside" | "outside"))}
